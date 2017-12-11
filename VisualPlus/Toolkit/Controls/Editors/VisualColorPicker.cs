@@ -8,6 +8,10 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Imaging;
+<<<<<<< HEAD
+=======
+    using System.Runtime.InteropServices;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using System.Text;
     using System.Windows.Forms;
 
@@ -22,11 +26,21 @@
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ColorDialog))]
     [DefaultEvent("ColorChanged")]
     [DefaultProperty("Color")]
     [Description("The Visual ColorPicker")]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("ColorChanged")]
+    [DefaultProperty("Color")]
+    [Description("The Visual Color Picker")]
+    [ToolboxBitmap(typeof(VisualColorPicker), "Resources.ToolboxBitmaps.VisualColorPicker.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualColorPicker : VisualControlBase
     {
         #region Variables
@@ -397,7 +411,11 @@
             {
                 case PickerType.Rectangle:
                     {
+<<<<<<< HEAD
                         if ((e.Button == MouseButtons.Left) && GDI.IsMouseInBounds(e.Location, ClientRectangle))
+=======
+                        if ((e.Button == MouseButtons.Left) && GraphicsManager.IsMouseInBounds(e.Location, ClientRectangle))
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                         {
                             _drag = true;
                             SetColor(e.Location);
@@ -826,7 +844,11 @@
             if (_pickType == PickerType.Rectangle)
             {
                 LockUpdates = true;
+<<<<<<< HEAD
                 Color = ColorManager.CurrentPointerColor();
+=======
+                Color = ColorManager.CursorPointerColor();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 LockUpdates = false;
             }
             else

@@ -7,6 +7,7 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
@@ -15,11 +16,24 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ListBox))]
     [DefaultEvent("SelectedIndexChanged")]
@@ -27,6 +41,16 @@
     [DefaultBindingProperty("SelectedValue")]
     [Description("The Visual ListBox")]
     [Designer(typeof(VisualListBoxTasks))]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("SelectedIndexChanged")]
+    [DefaultProperty("Items")]
+    [Description("The Visual ListBox")]
+    [Designer(typeof(VisualListBoxDesigner))]
+    [ToolboxBitmap(typeof(ListBox), "Resources.ToolboxBitmaps.VisualListBox.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualListBox : ContainedControlBase
     {
         #region Variables
@@ -34,9 +58,16 @@
         private bool _alternateColors;
         private Border _border;
         private ColorState _colorState;
+<<<<<<< HEAD
 
         private FixedContentValue _contentValues = new FixedContentValue();
         private Color _itemAlternate;
+=======
+        private FixedContentValue _contentValues = new FixedContentValue();
+        private ImageList _imageList;
+        private Color _itemAlternate;
+        private StringAlignment _itemLineAlignment;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private Color _itemNormal;
         private Color _itemSelected;
         private ListBox _listBox;
@@ -54,11 +85,27 @@
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
+<<<<<<< HEAD
             _border = new Border();
             _colorState = new ColorState();
             _listBox = new ListBox
                 {
                     BackColor = BackColorState.Enabled,
+=======
+            _itemLineAlignment = StringAlignment.Center;
+
+            _border = new Border();
+
+            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3)
+                };
+
+            _listBox = new ListBox
+                {
+                    BackColor = _colorState.Enabled,
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                     Size = GetInternalControlSize(Size, _border),
                     BorderStyle = BorderStyle.None,
                     IntegralHeight = false,
@@ -137,7 +184,11 @@
 
         #region Properties
 
+<<<<<<< HEAD
         [DefaultValue(true)]
+=======
+        [Description(Property.Toggle)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Category(Propertys.Behavior)]
         public bool AlternateColors
         {
@@ -332,6 +383,25 @@
         }
 
         [Category(Propertys.Appearance)]
+<<<<<<< HEAD
+=======
+        [Description(Property.Image)]
+        public ImageList ImageList
+        {
+            get
+            {
+                return _imageList;
+            }
+
+            set
+            {
+                _imageList = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Description(Property.Color)]
         public Color ItemAlternate
         {
@@ -364,6 +434,25 @@
         }
 
         [Category(Propertys.Appearance)]
+<<<<<<< HEAD
+=======
+        [Description(Property.Alignment)]
+        public StringAlignment ItemLineAlignment
+        {
+            get
+            {
+                return _itemLineAlignment;
+            }
+
+            set
+            {
+                _itemLineAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Description(Property.Color)]
         public Color ItemNormal
         {
@@ -716,8 +805,16 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+<<<<<<< HEAD
             _colorState.Enabled = StyleManager.ControlStyle.Background(3);
             _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+=======
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _itemNormal = BackColorState.Enabled;
             _itemAlternate = StyleManager.ShapeStyle.Color;
@@ -781,7 +878,14 @@
                 _listBox.BackColor = _backColor;
             }
 
+<<<<<<< HEAD
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+=======
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -883,9 +987,31 @@
                 e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
 
                 // Draw the text
+<<<<<<< HEAD
                 e.Graphics.DrawString(_listBox.GetItemText(_listBox.Items[e.Index].ToString()), e.Font, new SolidBrush(ForeColor), new RectangleF(e.Bounds.Location, e.Bounds.Size), StringFormat.GenericDefault);
 
                 // Clean up
+=======
+                Point _location;
+
+                if (_imageList != null)
+                {
+                    e.Graphics.DrawImage(_imageList.Images[e.Index], e.Bounds.X, (e.Bounds.Y + (e.Bounds.Height / 2)) - (_imageList.ImageSize.Height / 2), _imageList.ImageSize.Width, _imageList.ImageSize.Height);
+
+                    _location = new Point(e.Bounds.X + _imageList.ImageSize.Width, e.Bounds.Y);
+                }
+                else
+                {
+                    _location = new Point(e.Bounds.X, e.Bounds.Y);
+                }
+
+                StringFormat _stringFormat = new StringFormat
+                    {
+                        LineAlignment = _itemLineAlignment
+                    };
+
+                e.Graphics.DrawString(GetItemText(Items[e.Index]), Font, new SolidBrush(ForeColor), new Rectangle(_location, e.Bounds.Size), _stringFormat);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 backgroundBrush.Dispose();
                 textBrush.Dispose();
             }
@@ -945,7 +1071,20 @@
             }
             else
             {
+<<<<<<< HEAD
                 e.ItemHeight = GDI.MeasureText(e.Graphics, Items[e.Index].ToString(), Font).Height;
+=======
+                int _textHeight = GraphicsManager.MeasureText(e.Graphics, Items[e.Index].ToString(), Font).Height;
+
+                if (_imageList != null)
+                {
+                    e.ItemHeight = _imageList.ImageSize.Height > _textHeight ? _imageList.ImageSize.Height : _textHeight;
+                }
+                else
+                {
+                    e.ItemHeight = _textHeight;
+                }
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             }
         }
 

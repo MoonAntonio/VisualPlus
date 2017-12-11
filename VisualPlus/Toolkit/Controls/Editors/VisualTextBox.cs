@@ -7,6 +7,7 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
@@ -15,11 +16,24 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
+<<<<<<< HEAD
     // TODO: Clear Button
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(TextBox))]
@@ -27,6 +41,16 @@
     [DefaultProperty("Text")]
     [Description("The Visual TextBox")]
     [Designer(typeof(VisualTextBoxTasks))]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("TextChanged")]
+    [DefaultProperty("Text")]
+    [Description("The Visual TextBox")]
+    [Designer(typeof(VisualTextBoxDesigner))]
+    [ToolboxBitmap(typeof(TextBox), "Resources.ToolboxBitmaps.VisualTextBox.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualTextBox : ContainedControlBase, IInputMethods
     {
         #region Variables
@@ -36,7 +60,10 @@
         private BorderEdge _borderButton;
         private BorderEdge _borderImage;
         private Border _buttonBorder;
+<<<<<<< HEAD
         private Color _buttonColor;
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private ControlColorState _buttonColorState;
         private Font _buttonFont;
         private int _buttonIndent;
@@ -45,6 +72,10 @@
         private bool _buttonVisible;
         private Image _image;
         private Rectangle _imageRectangle;
+<<<<<<< HEAD
+=======
+        private Size _imageSize;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private bool _imageVisible;
         private int _imageWidth;
         private TextBox _textBox;
@@ -73,11 +104,24 @@
 
             _borderImage = new BorderEdge { Visible = false };
 
+<<<<<<< HEAD
             _backColorState = new ColorState();
             _buttonColorState = new ControlColorState();
 
             _textWidth = 125;
             _border = new Border();
+=======
+            _textWidth = 125;
+            _border = new Border();
+
+            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+
+            _backColorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3)
+                };
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _textBox = new TextBox
                 {
                     Size = new Size(_textWidth, 25),
@@ -97,6 +141,10 @@
             _buttontext = "visualButton";
 
             _image = null;
+<<<<<<< HEAD
+=======
+            _imageSize = new Size(16, 16);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _watermark = new Watermark();
             _buttonBorder = new Border();
@@ -395,6 +443,25 @@
         }
 
         [Category(Propertys.Appearance)]
+<<<<<<< HEAD
+=======
+        [Description(Property.Size)]
+        public Size ImageSize
+        {
+            get
+            {
+                return _imageSize;
+            }
+
+            set
+            {
+                _imageSize = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Description(Property.Image)]
         public bool ImageVisible
         {
@@ -750,8 +817,18 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+<<<<<<< HEAD
             BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
             BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
+=======
+            _buttonColorState = new ControlColorState();
+
+            _backColorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
@@ -865,7 +942,11 @@
             base.OnMouseMove(e);
             _xValue = e.Location.X;
             _yValue = e.Location.Y;
+<<<<<<< HEAD
             MouseOnButton = GDI.IsMouseInBounds(e.Location, _buttonRectangle);
+=======
+            MouseOnButton = GraphicsManager.IsMouseInBounds(e.Location, _buttonRectangle);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             Invalidate();
 
@@ -891,7 +972,10 @@
         {
             base.OnPaint(e);
             Graphics graphics = e.Graphics;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
@@ -902,7 +986,13 @@
                 _textBox.BackColor = _backColor;
             }
 
+<<<<<<< HEAD
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+=======
+            graphics.SetClip(ControlGraphicsPath);
+
+            VisualBackgroundRenderer.DrawBackground(graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _buttonRectangle = new Rectangle(_textBox.Right, _border.Thickness, Width - _textBox.Right - _border.Thickness, Height);
             _imageRectangle = new Rectangle(0, 0, _imageWidth, Height);
@@ -937,12 +1027,21 @@
             {
                 DrawWaterMark();
             }
+<<<<<<< HEAD
+=======
+
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
+<<<<<<< HEAD
             e.Graphics.Clear(Parent.BackColor);
+=======
+            e.Graphics.Clear(BackColor);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnResize(EventArgs e)
@@ -984,7 +1083,11 @@
 
         private void DrawButton(Graphics graphics)
         {
+<<<<<<< HEAD
             _buttonColor = new Color();
+=======
+            Color _buttonColor;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             if (Enabled)
             {
@@ -1028,12 +1131,17 @@
             _borderButton.Location = new Point(_buttonRectangle.X, _border.Thickness);
             _borderButton.Size = new Size(1, Height - _border.Thickness - 1);
 
+<<<<<<< HEAD
             Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
+=======
+            Size textSize = GraphicsManager.MeasureText(graphics, _buttontext, _buttonFont);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             graphics.SetClip(buttonPath);
             graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + _buttonIndent, (Height / 2) - (textSize.Height / 2)));
             graphics.ResetClip();
         }
 
+<<<<<<< HEAD
         private void DrawImage(Graphics graphics)
         {
             if (_borderImage.Visible)
@@ -1052,6 +1160,35 @@
 
                 graphics.ResetClip();
             }
+=======
+        /// <summary>Draws the image.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        private void DrawImage(Graphics graphics)
+        {
+            if (!_borderImage.Visible)
+            {
+                return;
+            }
+
+            _borderImage.Location = new Point(_imageRectangle.Right, _border.Thickness);
+            _borderImage.Size = new Size(1, Height - _border.Thickness - 1);
+
+            GraphicsPath _imagePath = new GraphicsPath();
+            _imagePath.AddRectangle(_imageRectangle);
+            graphics.SetClip(_imagePath);
+
+            if (_image != null)
+            {
+                int _xLocation = (_imageRectangle.X + (_imageRectangle.Width / 2)) - (_imageSize.Width / 2);
+                int _yLocation = (_imageRectangle.Y + (_imageRectangle.Height / 2)) - (_imageSize.Height / 2);
+
+                Rectangle _imageFinalRectangle = new Rectangle(_xLocation, _yLocation, _imageSize.Width, _imageSize.Height);
+
+                graphics.DrawImage(_image, _imageFinalRectangle);
+            }
+
+            graphics.ResetClip();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         private void DrawWaterMark()
@@ -1071,11 +1208,19 @@
         {
             if (_textBox.TextLength > 0)
             {
+<<<<<<< HEAD
                 return GDI.MeasureText(Text, Font).Height;
             }
             else
             {
                 return GDI.MeasureText("Hello World.", Font).Height;
+=======
+                return GraphicsManager.MeasureText(Text, Font).Height;
+            }
+            else
+            {
+                return GraphicsManager.MeasureText("Hello World.", Font).Height;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             }
         }
 

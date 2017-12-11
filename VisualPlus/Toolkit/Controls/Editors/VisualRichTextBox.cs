@@ -7,25 +7,46 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.IO;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
+<<<<<<< HEAD
     using VisualPlus.Toolkit.ActionList;
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(RichTextBox))]
     [DefaultEvent("TextChanged")]
     [DefaultProperty("Text")]
     [Description("The Visual RichTextBox")]
     [Designer(typeof(VisualRichBoxTasks))]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("TextChanged")]
+    [DefaultProperty("Text")]
+    [Description("The Visual RichTextBox")]
+    [Designer(typeof(VisualRichTextBoxDesigner))]
+    [ToolboxBitmap(typeof(RichTextBox), "Resources.ToolboxBitmaps.VisualRichTextBox.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualRichTextBox : ContainedControlBase, IInputMethods
     {
         #region Variables
@@ -49,9 +70,20 @@
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
+<<<<<<< HEAD
             _colorState = new ColorState();
 
             _border = new Border();
+=======
+            _border = new Border();
+
+            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3)
+                };
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _richTextBox = new RichTextBox
                 {
                     Size = GetInternalControlSize(Size, _border),
@@ -551,8 +583,16 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+<<<<<<< HEAD
             _colorState.Enabled = StyleManager.ControlStyle.Background(3);
             _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+=======
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
@@ -572,7 +612,14 @@
                 _richTextBox.BackColor = _backColor;
             }
 
+<<<<<<< HEAD
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+=======
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

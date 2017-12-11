@@ -10,10 +10,17 @@
     using System.Text;
 
     using VisualPlus.Delegates;
+<<<<<<< HEAD
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Toolkit.Components;
+=======
+    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
     #endregion
 
@@ -23,6 +30,10 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The color states of a component.")]
+<<<<<<< HEAD
+=======
+    [Category(Propertys.Appearance)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class ColorState
     {
         #region Variables
@@ -46,9 +57,12 @@
         /// <summary>Initializes a new instance of the <see cref="ColorState" /> class.</summary>
         public ColorState()
         {
+<<<<<<< HEAD
             VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
             _disabled = Color.FromArgb(224, 224, 224);
             _enabled = _styleManager.ControlStyle.Background(0);
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         [Category(Events.PropertyChanged)]
@@ -111,6 +125,56 @@
 
         #region Events
 
+<<<<<<< HEAD
+=======
+        /// <summary>Get the control back color state.</summary>
+        /// <param name="colorState">The color State.</param>
+        /// <param name="enabled">The enabled toggle.</param>
+        /// <param name="mouseState">The mouse state.</param>
+        /// <returns>
+        ///     <see cref="Color" />
+        /// </returns>
+        public static Color BackColorState(ColorState colorState, bool enabled, MouseStates mouseState)
+        {
+            Color _color;
+
+            if (enabled)
+            {
+                switch (mouseState)
+                {
+                    case MouseStates.Normal:
+                        {
+                            _color = colorState.Enabled;
+                            break;
+                        }
+
+                    case MouseStates.Hover:
+                        {
+                            _color = colorState.Enabled;
+                            break;
+                        }
+
+                    case MouseStates.Down:
+                        {
+                            _color = colorState.Enabled;
+                            break;
+                        }
+
+                    default:
+                        {
+                            throw new ArgumentOutOfRangeException(nameof(mouseState), mouseState, null);
+                        }
+                }
+            }
+            else
+            {
+                _color = colorState.Disabled;
+            }
+
+            return _color;
+        }
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public override string ToString()
         {
             StringBuilder _stringBuilder = new StringBuilder();

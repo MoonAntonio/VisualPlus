@@ -6,20 +6,39 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+    using VisualPlus.Localization.Category;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Control))]
     [DefaultEvent("RatingChanged")]
     [DefaultProperty("Value")]
     [Description("The Visual Rating")]
     [Designer(ControlManager.FilterProperties.VisualRating)]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("RatingChanged")]
+    [DefaultProperty("Value")]
+    [Description("The Visual Rating")]
+    [Designer(typeof(VisualRatingDesigner))]
+    [ToolboxBitmap(typeof(VisualRating), "Resources.ToolboxBitmaps.VisualRating.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualRating : VisualControlBase
     {
         #region Variables

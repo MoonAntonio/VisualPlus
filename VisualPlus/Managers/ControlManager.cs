@@ -3,6 +3,10 @@
     #region Namespace
 
     using System;
+<<<<<<< HEAD
+=======
+    using System.ComponentModel;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using System.Linq;
     using System.Windows.Forms;
 
@@ -10,7 +14,12 @@
 
     #endregion
 
+<<<<<<< HEAD
     internal class ControlManager
+=======
+    [Description("The control manager.")]
+    public sealed class ControlManager
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     {
         #region Events
 
@@ -40,6 +49,7 @@
         }
 
         #endregion
+<<<<<<< HEAD
 
         #region Methods
 
@@ -81,5 +91,7 @@
         }
 
         #endregion
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     }
 }

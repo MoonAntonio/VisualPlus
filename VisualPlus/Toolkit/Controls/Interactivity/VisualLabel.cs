@@ -5,10 +5,20 @@
     using System;
     using System.ComponentModel;
     using System.Drawing;
+<<<<<<< HEAD
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
     using System.Windows.Forms;
 
+=======
+    using System.Drawing.Design;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Text;
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
@@ -18,12 +28,23 @@
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Label))]
     [DefaultEvent("Click")]
     [DefaultProperty("Text")]
     [Description("The Visual Label")]
     [Designer(ControlManager.FilterProperties.VisualLabel)]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("Click")]
+    [DefaultProperty("Text")]
+    [Description("The Visual Label")]
+    [Designer(typeof(VisualLabelDesigner))]
+    [ToolboxBitmap(typeof(VisualLabel), "Resources.ToolboxBitmaps.VisualLabel.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualLabel : VisualControlBase
     {
         #region Variables
@@ -88,7 +109,11 @@
             set
             {
                 _orientation = value;
+<<<<<<< HEAD
                 Size = GDI.FlipOrientationSize(_orientation, Size);
+=======
+                Size = GraphicsManager.FlipOrientationSize(_orientation, Size);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 Invalidate();
             }
         }
@@ -276,7 +301,11 @@
             }
         }
 
+<<<<<<< HEAD
         // [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+=======
+        [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public override string Text
         {
             get
@@ -318,7 +347,11 @@
 
             if (_reflection && (_orientation == Orientation.Vertical))
             {
+<<<<<<< HEAD
                 textBoxRectangle = new Rectangle(GDI.MeasureText(graphics, Text, Font).Height, 0, ClientRectangle.Width, ClientRectangle.Height);
+=======
+                textBoxRectangle = new Rectangle(GraphicsManager.MeasureText(graphics, Text, Font).Height, 0, ClientRectangle.Width, ClientRectangle.Height);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             }
             else
             {
@@ -396,17 +429,28 @@
             {
                 case Orientation.Horizontal:
                     {
+<<<<<<< HEAD
                         imageGraphics.TranslateTransform(0, GDI.MeasureText(graphics, Text, Font).Height);
                         imageGraphics.ScaleTransform(1, -1);
 
                         reflectionLocation = new Point(0, textBoxRectangle.Y - (GDI.MeasureText(graphics, Text, Font).Height / 2) - _reflectionSpacing);
+=======
+                        imageGraphics.TranslateTransform(0, GraphicsManager.MeasureText(graphics, Text, Font).Height);
+                        imageGraphics.ScaleTransform(1, -1);
+
+                        reflectionLocation = new Point(0, textBoxRectangle.Y - (GraphicsManager.MeasureText(graphics, Text, Font).Height / 2) - _reflectionSpacing);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
                         imageGraphics.ScaleTransform(-1, 1);
+<<<<<<< HEAD
                         reflectionLocation = new Point((textBoxRectangle.X - (GDI.MeasureText(graphics, Text, Font).Width / 2)) + _reflectionSpacing, 0);
+=======
+                        reflectionLocation = new Point((textBoxRectangle.X - (GraphicsManager.MeasureText(graphics, Text, Font).Width / 2)) + _reflectionSpacing, 0);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                         break;
                     }
             }

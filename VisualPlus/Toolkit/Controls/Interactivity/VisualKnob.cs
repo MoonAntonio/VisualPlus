@@ -721,7 +721,11 @@
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
+<<<<<<< HEAD
             if (GDI.IsMouseInBounds(e.Location, _knobRectangle))
+=======
+            if (GraphicsManager.IsMouseInBounds(e.Location, _knobRectangle))
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             {
                 if (_focused)
                 {
@@ -772,7 +776,11 @@
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
+<<<<<<< HEAD
             if (GDI.IsMouseInBounds(e.Location, _knobRectangle))
+=======
+            if (GraphicsManager.IsMouseInBounds(e.Location, _knobRectangle))
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             {
                 if (_focused && _rotating)
                 {
@@ -794,7 +802,11 @@
         {
             base.OnMouseWheel(e);
 
+<<<<<<< HEAD
             if (_focused && _rotating && GDI.IsMouseInBounds(e.Location, _knobRectangle))
+=======
+            if (_focused && _rotating && GraphicsManager.IsMouseInBounds(e.Location, _knobRectangle))
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             {
                 // the Delta value is always 120, as explained in MSDN
                 int v = ((e.Delta / 120) * (_maximum - _minimum)) / _mouseWheelBarPartitions;
@@ -829,7 +841,11 @@
             if (_valueVisible)
             {
                 string value = _value.ToString("0");
+<<<<<<< HEAD
                 Size textAreaSize = GDI.MeasureText(e.Graphics, value, Font);
+=======
+                Size textAreaSize = GraphicsManager.MeasureText(e.Graphics, value, Font);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 graphics.DrawString(value, Font, new SolidBrush(ForeColor), (Width / 2) - (textAreaSize.Width / 2), (Height / 2) - (textAreaSize.Height / 2));
             }
         }

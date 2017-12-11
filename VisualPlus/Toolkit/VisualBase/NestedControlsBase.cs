@@ -9,6 +9,10 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+<<<<<<< HEAD
+=======
+    using VisualPlus.Managers;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Structure;
 
     #endregion
@@ -32,7 +36,10 @@
         protected NestedControlsBase()
         {
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _colorState = new ColorState();
         }
 
@@ -68,17 +75,29 @@
         protected override void OnBackColorChanged(EventArgs e)
         {
             base.OnBackColorChanged(e);
+<<<<<<< HEAD
             GDI.ApplyContainerBackColorChange(this, BackColorState.Enabled);
+=======
+            GraphicsManager.ApplyContainerBackColorChange(this, BackColorState.Enabled);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnControlAdded(ControlEventArgs e)
         {
+<<<<<<< HEAD
             GDI.SetControlBackColor(e.Control, BackColorState.Enabled, false);
+=======
+            GraphicsManager.SetControlBackColor(e.Control, BackColorState.Enabled, false);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnControlRemoved(ControlEventArgs e)
         {
+<<<<<<< HEAD
             GDI.SetControlBackColor(e.Control, Parent.BackColor, true);
+=======
+            GraphicsManager.SetControlBackColor(e.Control, Parent.BackColor, true);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnMouseHover(EventArgs e)

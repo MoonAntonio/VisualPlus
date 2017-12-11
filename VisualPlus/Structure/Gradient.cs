@@ -64,6 +64,11 @@
             _locations = null;
             _rectangle = new Rectangle(0, 0, 1, 1);
             Brush = null;
+<<<<<<< HEAD
+=======
+            StartPoint = 0.0F;
+            EndPoint = 1.0F;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         [Category(Events.PropertyChanged)]
@@ -190,7 +195,11 @@
 
         /// <summary>Creates a gradient brush.</summary>
         /// <param name="gradient">The gradient.</param>
+<<<<<<< HEAD
         /// <returns>Returns a custom gradient brush.</returns>
+=======
+        /// <returns>The <see cref="LinearGradientBrush" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static LinearGradientBrush CreateBrush(Gradient gradient)
         {
             return CreateBrush(gradient.Angle, gradient.Colors, gradient.Locations, gradient.Rectangle);
@@ -201,7 +210,11 @@
         /// <param name="colors">The colors.</param>
         /// <param name="positions">The positions.</param>
         /// <param name="rectangle">The rectangle.</param>
+<<<<<<< HEAD
         /// <returns>Returns a custom gradient brush.</returns>
+=======
+        /// <returns>The <see cref="LinearGradientBrush" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static LinearGradientBrush CreateBrush(float angle, Color[] colors, float[] positions, Rectangle rectangle)
         {
             var _points = new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
@@ -228,9 +241,17 @@
             graphics.FillRectangle(_linearGradientBrush, gradient.Rectangle);
         }
 
+<<<<<<< HEAD
         /// <summary>Sorts the offsets to an entire <see cref="Array" />.</summary>
         /// <param name="customOffsets">The custom offsets for the colors to be positioned.</param>
         /// <returns>The sorted positions array.</returns>
+=======
+        public static float EndPoint;
+
+        /// <summary>Sorts the offsets to an entire <see cref="Array" />.</summary>
+        /// <param name="customOffsets">The custom offsets for the colors to be positioned.</param>
+        /// <returns>The <see cref="float" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static float[] SortPositions(float[] customOffsets)
         {
             if (!customOffsets.Contains(StartPoint))
@@ -259,6 +280,11 @@
             return customOffsets;
         }
 
+<<<<<<< HEAD
+=======
+        public static float StartPoint;
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         protected virtual void OnAngleChanged()
         {
             InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
@@ -283,10 +309,13 @@
             RectangleChanged?.Invoke();
         }
 
+<<<<<<< HEAD
         private const float EndPoint = 1.0F;
 
         private const float StartPoint = 0.0F;
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         /// <summary>Initializes a new instance of the <see cref="Gradient" /> component.</summary>
         /// <param name="angle">The angle.</param>
         /// <param name="colors">The colors.</param>

@@ -13,11 +13,20 @@
     using System.Windows.Forms;
 
     using VisualPlus.Delegates;
+<<<<<<< HEAD
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
+=======
+    using VisualPlus.Designer;
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.PInvoke;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Properties;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -25,10 +34,23 @@
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(false)]
     [ToolboxBitmap(typeof(Form))]
     [Description("The Visual Form")]
     [Designer(ControlManager.FilterProperties.VisualForm)]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("Load")]
+    [DefaultProperty("Text")]
+    [Description("The Visual Form")]
+    [Designer(typeof(VisualFormDesigner))]
+    [DesignerCategory("Form")]
+    [InitializationEvent("Load")]
+    [ToolboxBitmap(typeof(VisualForm), "Resources.ToolboxBitmaps.VisualForm.bmp")]
+    [ToolboxItem(false)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualForm : Form
     {
         #region Variables
@@ -37,6 +59,7 @@
         private readonly Dictionary<int, int> _resizedLocationsCommand;
         private Color _background;
         private Border _border;
+<<<<<<< HEAD
         private Color _buttonBackHoverColor;
         private Color _buttonBackPressedColor;
         private Size _buttonSize;
@@ -52,6 +75,13 @@
         private Color _minColor;
         private MouseStates _mouseState;
         private Point _previousLocation;
+=======
+        private bool _headerMouseDown;
+        private bool _magnetic;
+        private int _magneticRadius;
+        private bool _maximized;
+        private MouseStates _mouseState;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private Size _previousSize;
         private ResizeDirection _resizeDir;
         private Rectangle _statusBarBounds;
@@ -61,7 +91,10 @@
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
+<<<<<<< HEAD
         private Rectangle _xButtonBounds;
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
         #endregion
 
@@ -91,6 +124,7 @@
             _titleAlignment = Alignment.TextAlignment.Center;
             FormBorderStyle = FormBorderStyle.None;
             Sizable = true;
+<<<<<<< HEAD
             _closeColor = Color.IndianRed;
             _buttonBackHoverColor = _styleManager.ControlColorStateStyle.ControlHover;
             _buttonBackPressedColor = _styleManager.ControlColorStateStyle.ControlPressed;
@@ -98,6 +132,8 @@
             _maxColor = _styleManager.ControlStyle.FlatButtonEnabled;
             _minColor = _styleManager.ControlStyle.FlatButtonEnabled;
             _buttonSize = new Size(25, 25);
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _windowBarColor = _styleManager.ControlStyle.Background(0);
             _background = _styleManager.ControlStyle.Background(3);
             _magneticRadius = 100;
@@ -106,8 +142,12 @@
             TransparencyKey = Color.Fuchsia;
             DoubleBuffered = true;
 
+<<<<<<< HEAD
             // Padding-Left: 5 for icon
             Padding = new Padding(5, 0, 0, 0);
+=======
+            Padding = new Padding(0, 0, 0, 0);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _border = new Border
                 {
@@ -116,6 +156,10 @@
                 };
 
             _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
+<<<<<<< HEAD
+=======
+            _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
             Application.AddMessageFilter(new MouseMessageFilter());
@@ -150,6 +194,7 @@
             None
         }
 
+<<<<<<< HEAD
         #endregion
 
         #region Properties
@@ -259,15 +304,66 @@
             get
             {
                 return _minColor;
+=======
+        public enum ControlBoxAlignment
+        {
+            /// <summary>The bottom.</summary>
+            Bottom,
+
+            /// <summary>The center.</summary>
+            Center,
+
+            /// <summary>The top.</summary>
+            Top
+        }
+
+        public enum ResizeDirection
+        {
+            /// <summary>The bottom left.</summary>
+            BottomLeft,
+
+            /// <summary>The left.</summary>
+            Left,
+
+            /// <summary>The right.</summary>
+            Right,
+
+            /// <summary>The bottom right.</summary>
+            BottomRight,
+
+            /// <summary>The bottom.</summary>
+            Bottom,
+
+            /// <summary>The none.</summary>
+            None
+        }
+
+        #endregion
+
+        #region Properties
+
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
+        public Color Background
+        {
+            get
+            {
+                return _background;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             }
 
             set
             {
+<<<<<<< HEAD
                 _minColor = value;
+=======
+                _background = value;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 Invalidate();
             }
         }
 
+<<<<<<< HEAD
         [Category(Propertys.Layout)]
         [Description(Property.Size)]
         public Size ButtonSize
@@ -275,16 +371,34 @@
             get
             {
                 return _buttonSize;
+=======
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Propertys.Appearance)]
+        public Border Border
+        {
+            get
+            {
+                return _border;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             }
 
             set
             {
+<<<<<<< HEAD
                 _buttonSize = value;
+=======
+                _border = value;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 Invalidate();
             }
         }
 
+<<<<<<< HEAD
         [Browsable(false)]
+=======
+        [Browsable(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public new Icon Icon
         {
             get
@@ -446,6 +560,7 @@
 
         #region Events
 
+<<<<<<< HEAD
         public const int HT_CAPTION = 0x2;
         public const int WM_LBUTTONDBLCLK = 0x0203;
         public const int WM_LBUTTONDOWN = 0x0201;
@@ -470,6 +585,8 @@
             GDI.SetControlBackColor(e.Control, Background, true);
         }
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         protected override void OnEnter(EventArgs e)
         {
             base.OnEnter(e);
@@ -501,8 +618,11 @@
                 return;
             }
 
+<<<<<<< HEAD
             UpdateButtons(e);
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             if ((e.Button == MouseButtons.Left) && !_maximized)
             {
                 ResizeForm(_resizeDir);
@@ -511,6 +631,7 @@
             base.OnMouseDown(e);
         }
 
+<<<<<<< HEAD
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
@@ -527,6 +648,8 @@
             }
         }
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -577,8 +700,11 @@
                     }
                 }
             }
+<<<<<<< HEAD
 
             UpdateButtons(e);
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
@@ -588,10 +714,15 @@
                 return;
             }
 
+<<<<<<< HEAD
             UpdateButtons(e, true);
 
             base.OnMouseUp(e);
             Native.ReleaseCapture();
+=======
+            base.OnMouseUp(e);
+            User32.ReleaseCapture();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -633,8 +764,12 @@
             // Title box
             graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
 
+<<<<<<< HEAD
             DrawButtons(graphics);
             DrawIcon(graphics);
+=======
+            DrawImageIcon(graphics);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             graphics.SetClip(_clientPath);
 
@@ -648,9 +783,13 @@
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
+<<<<<<< HEAD
             _minButtonBounds = new Rectangle(Width - Padding.Right - (3 * _buttonSize.Width), (Padding.Top + (_windowBarHeight / 2)) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
             _maxButtonBounds = new Rectangle(Width - Padding.Right - (2 * _buttonSize.Width), (Padding.Top + (_windowBarHeight / 2)) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
             _xButtonBounds = new Rectangle(Width - Padding.Right - _buttonSize.Width, (Padding.Top + (_windowBarHeight / 2)) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
+=======
+            _vsImage.Point = new Point(_vsImage.Point.X, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
         }
 
@@ -691,11 +830,15 @@
                 return;
             }
 
+<<<<<<< HEAD
             if (m.Msg == WM_LBUTTONDBLCLK)
             {
                 MaximizeWindow(!_maximized);
             }
             else if ((m.Msg == WM_MOUSEMOVE) && _maximized && _statusBarBounds.Contains(PointToClient(Cursor.Position)) && !(_minButtonBounds.Contains(PointToClient(Cursor.Position)) || _maxButtonBounds.Contains(PointToClient(Cursor.Position)) || _xButtonBounds.Contains(PointToClient(Cursor.Position))))
+=======
+            if ((m.Msg == WM_MOUSEMOVE) && _maximized && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             {
                 if (_headerMouseDown)
                 {
@@ -713,6 +856,7 @@
                     }
 
                     Size = _previousSize;
+<<<<<<< HEAD
                     Native.ReleaseCapture();
                     Native.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
                 }
@@ -723,6 +867,18 @@
                 {
                     Native.ReleaseCapture();
                     Native.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+=======
+                    User32.ReleaseCapture();
+                    User32.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                }
+            }
+            else if ((m.Msg == WM_LBUTTONDOWN) && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
+            {
+                if (!_maximized)
+                {
+                    User32.ReleaseCapture();
+                    User32.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 }
                 else
                 {
@@ -733,6 +889,7 @@
             {
                 Point cursorPos = PointToClient(Cursor.Position);
 
+<<<<<<< HEAD
                 if (_statusBarBounds.Contains(cursorPos) && !_minButtonBounds.Contains(cursorPos) &&
                     !_maxButtonBounds.Contains(cursorPos) && !_xButtonBounds.Contains(cursorPos))
                 {
@@ -741,6 +898,15 @@
 
                     // Pass the command as a WM_SYSCOMMAND message
                     Native.SendMessage(Handle, WM_SYSCOMMAND, id, 0);
+=======
+                if (_statusBarBounds.Contains(cursorPos))
+                {
+                    // Show default system menu when right clicking titlebar
+                    int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), TPM_LEFTALIGN | TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
+
+                    // Pass the command as a WM_SYSCOMMAND message
+                    User32.SendMessage(Handle, WM_SYSCOMMAND, id, 0);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 }
             }
             else if (m.Msg == WM_NCLBUTTONDOWN)
@@ -762,7 +928,11 @@
 
                 if (bFlag != 0)
                 {
+<<<<<<< HEAD
                     Native.SendMessage(Handle, WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
+=======
+                    User32.SendMessage(Handle, WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 }
             }
             else if (m.Msg == WM_LBUTTONUP)
@@ -771,6 +941,10 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+        private const int HT_CAPTION = 0x2;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private const int HTBOTTOM = 15;
         private const int HTBOTTOMLEFT = 16;
         private const int HTBOTTOMRIGHT = 17;
@@ -779,19 +953,34 @@
         private const int HTTOP = 12;
         private const int HTTOPLEFT = 13;
         private const int HTTOPRIGHT = 14;
+<<<<<<< HEAD
 
         private const int MONITOR_DEFAULTTONEAREST = 2;
 
         private const uint TPM_LEFTALIGN = 0x0000;
         private const uint TPM_RETURNCMD = 0x0100;
 
+=======
+        private const int MONITOR_DEFAULTTONEAREST = 2;
+        private const uint TPM_LEFTALIGN = 0x0000;
+        private const uint TPM_RETURNCMD = 0x0100;
+        private const int WM_LBUTTONDBLCLK = 0x0203;
+        private const int WM_LBUTTONDOWN = 0x0201;
+        private const int WM_LBUTTONUP = 0x0202;
+        private const int WM_MOUSEMOVE = 0x0200;
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int WM_RBUTTONDOWN = 0x0204;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private const int WM_SYSCOMMAND = 0x0112;
         private const int WMSZ_BOTTOM = 6;
         private const int WMSZ_BOTTOMLEFT = 7;
         private const int WMSZ_BOTTOMRIGHT = 8;
         private const int WMSZ_LEFT = 1;
         private const int WMSZ_RIGHT = 2;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private const int WMSZ_TOP = 3;
         private const int WMSZ_TOPLEFT = 4;
         private const int WMSZ_TOPRIGHT = 5;
@@ -807,6 +996,7 @@
             return (position - edge > 0) && (position - edge <= _magneticRadius);
         }
 
+<<<<<<< HEAD
         private void DrawButtons(Graphics graphics)
         {
             // Determine whether or not we even should be drawing the buttons.
@@ -916,6 +1106,16 @@
         private void DrawTitle(Graphics graphics)
         {
             _titleTextSize = GDI.MeasureText(graphics, Text, Font);
+=======
+        private void DrawImageIcon(Graphics graphics)
+        {
+            VisualBitmap.DrawImage(graphics, _vsImage.Border, _vsImage.Point, _vsImage.Image, _vsImage.Size, _vsImage.Visible);
+        }
+
+        private void DrawTitle(Graphics graphics)
+        {
+            _titleTextSize = GraphicsManager.MeasureText(graphics, Text, Font);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             Point titlePoint;
 
             switch (_titleAlignment)
@@ -928,13 +1128,21 @@
 
                 case Alignment.TextAlignment.Left:
                     {
+<<<<<<< HEAD
                         titlePoint = new Point(5 + _vsImage.Size.Width + 5, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+=======
+                        titlePoint = new Point(_vsImage.Point.X + _vsImage.Size.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                         break;
                     }
 
                 case Alignment.TextAlignment.Right:
                     {
+<<<<<<< HEAD
                         titlePoint = new Point(_minButtonBounds.Left - 5 - _titleTextSize.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+=======
+                        titlePoint = new Point(Width - _border.Thickness - _titleTextSize.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                         break;
                     }
 
@@ -948,6 +1156,7 @@
             graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textRectangle);
         }
 
+<<<<<<< HEAD
         private void MaximizeWindow(bool maximize)
         {
             if (!MaximizeBox || !ControlBox)
@@ -974,6 +1183,8 @@
             }
         }
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)
         {
             if (IsDisposed)
@@ -994,35 +1205,56 @@
                 return;
             }
 
+<<<<<<< HEAD
             int dir = -1;
+=======
+            int _dir = -1;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             switch (direction)
             {
                 case ResizeDirection.BottomLeft:
                     {
+<<<<<<< HEAD
                         dir = HTBOTTOMLEFT;
+=======
+                        _dir = HTBOTTOMLEFT;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                         break;
                     }
 
                 case ResizeDirection.Left:
                     {
+<<<<<<< HEAD
                         dir = HTLEFT;
+=======
+                        _dir = HTLEFT;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                         break;
                     }
 
                 case ResizeDirection.Right:
                     {
+<<<<<<< HEAD
                         dir = HTRIGHT;
+=======
+                        _dir = HTRIGHT;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                         break;
                     }
 
                 case ResizeDirection.BottomRight:
                     {
+<<<<<<< HEAD
                         dir = HTBOTTOMRIGHT;
+=======
+                        _dir = HTBOTTOMRIGHT;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                         break;
                     }
 
                 case ResizeDirection.Bottom:
                     {
+<<<<<<< HEAD
                         dir = HTBOTTOM;
                         break;
                     }
@@ -1118,6 +1350,22 @@
                 Invalidate(_maxButtonBounds);
                 Invalidate(_minButtonBounds);
                 Invalidate(_xButtonBounds);
+=======
+                        _dir = HTBOTTOM;
+                        break;
+                    }
+
+                case ResizeDirection.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
+
+            User32.ReleaseCapture();
+            if (_dir != -1)
+            {
+                User32.SendMessage(Handle, WM_NCLBUTTONDOWN, _dir, 0);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             }
         }
 
@@ -1125,6 +1373,7 @@
 
         #region Methods
 
+<<<<<<< HEAD
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
         public class MonitorInfo
         {
@@ -1142,6 +1391,9 @@
         }
 
         public class MouseMessageFilter : IMessageFilter
+=======
+        private class MouseMessageFilter : IMessageFilter
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         {
             #region Constructors
 
@@ -1171,6 +1423,7 @@
             #endregion
         }
 
+<<<<<<< HEAD
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
@@ -1212,6 +1465,8 @@
             Top
         }
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         #endregion
     }
 }

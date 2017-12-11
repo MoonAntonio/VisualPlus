@@ -134,7 +134,11 @@
 
         /// <summary>Prevent ALT from closing it and allow ALT + MNEMONIC to work.</summary>
         /// <param name="keyData">The key data.</param>
+<<<<<<< HEAD
         /// <returns>Processed Dialog Key.</returns>
+=======
+        /// <returns>The <see cref="bool" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         protected override bool ProcessDialogKey(Keys keyData)
         {
             return ((keyData & Keys.Alt) != Keys.Alt) && base.ProcessDialogKey(keyData);

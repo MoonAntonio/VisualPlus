@@ -164,6 +164,10 @@
 
         #region Properties
 
+<<<<<<< HEAD
+=======
+        [Description(Property.Color)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Category(Propertys.Appearance)]
         public Color Background
         {
@@ -241,6 +245,10 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+        [Description(Property.Font)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Category(Propertys.Appearance)]
         public Font Font
         {
@@ -256,6 +264,10 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+        [Description(Property.Color)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Category(Propertys.Appearance)]
         public Color ForeColor
         {
@@ -273,6 +285,11 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
+<<<<<<< HEAD
+=======
+        [Description(Property.Color)]
+        [Category(Propertys.Appearance)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public Point Location
         {
             get
@@ -304,6 +321,11 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+        [Description(Property.Size)]
+        [Category(Propertys.Appearance)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public Size Size
         {
             get
@@ -318,6 +340,11 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+        [Description(Property.Text)]
+        [Category(Propertys.Appearance)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public string Text
         {
             get

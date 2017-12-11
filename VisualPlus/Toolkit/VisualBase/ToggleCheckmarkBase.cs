@@ -50,9 +50,14 @@ namespace VisualPlus.Toolkit.VisualBase
             _animation = Settings.DefaultValue.Animation;
             _checkStyle = new CheckStyle(ClientRectangle);
             _border = new Border();
+<<<<<<< HEAD
 
             _colorState = new ControlColorState();
             ConfigureAnimation();
+=======
+            _colorState = new ControlColorState();
+            ConfigureAnimation(new[] { 0.05, 0.10, 0.08 }, new[] { EffectType.EaseInOut, EffectType.Linear });
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         #endregion
@@ -232,6 +237,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Events
 
+<<<<<<< HEAD
         public void ConfigureAnimation()
         {
             VFXManager effectsManager = new VFXManager
@@ -244,6 +250,21 @@ namespace VisualPlus.Toolkit.VisualBase
                     Increment = 0.10,
                     SecondaryIncrement = 0.08,
                     EffectType = EffectType.Linear
+=======
+        public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
+        {
+            VFXManager effectsManager = new VFXManager
+                {
+                    Increment = effectIncrement[0],
+                    EffectType = effectType[0]
+                };
+
+            _rippleEffectsManager = new VFXManager(false)
+                {
+                    Increment = effectIncrement[1],
+                    SecondaryIncrement = effectIncrement[2],
+                    EffectType = effectType[1]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 };
 
             effectsManager.OnAnimationProgress += sender => Invalidate();
@@ -297,7 +318,11 @@ namespace VisualPlus.Toolkit.VisualBase
                 {
                     MouseState = MouseStates.Down;
 
+<<<<<<< HEAD
                     if (_animation && (args.Button == MouseButtons.Left) && GDI.IsMouseInBounds(_mouseLocation, _box))
+=======
+                    if (_animation && (args.Button == MouseButtons.Left) && GraphicsManager.IsMouseInBounds(_mouseLocation, _box))
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                     {
                         _rippleEffectsManager.SecondaryIncrement = 0;
                         _rippleEffectsManager.StartNewAnimation(AnimationDirection.InOutIn, new object[] { Toggle });
@@ -311,7 +336,11 @@ namespace VisualPlus.Toolkit.VisualBase
             MouseMove += (sender, args) =>
                 {
                     _mouseLocation = args.Location;
+<<<<<<< HEAD
                     Cursor = GDI.IsMouseInBounds(_mouseLocation, _box) ? Cursors.Hand : Cursors.Default;
+=======
+                    Cursor = GraphicsManager.IsMouseInBounds(_mouseLocation, _box) ? Cursors.Hand : Cursors.Default;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 };
         }
 
@@ -357,35 +386,65 @@ namespace VisualPlus.Toolkit.VisualBase
                 _box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (_box.Height / 2)), _box.Size);
             }
 
+<<<<<<< HEAD
             Color _backColor = GDI.GetBackColorState(Enabled, BoxColorState.Enabled, BoxColorState.Hover, BoxColorState.Pressed, BoxColorState.Disabled, MouseState);
+=======
+            Color _backColor = ControlColorState.BackColorState(BoxColorState, Enabled, MouseState);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = TextRenderingHint;
 
+<<<<<<< HEAD
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
             _textSize = GDI.MeasureText(_graphics, Text, Font);
+=======
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 2, ClientRectangle.Height + 2);
+            Shape _clientShape = new Shape(ShapeType.Rectangle, _backColor, 0);
+
+            GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _clientShape);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+
+            e.Graphics.SetClip(_clientPath);
+
+            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
+
+            _textSize = GraphicsManager.MeasureText(_graphics, Text, Font);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             Point _textLocation = new Point(_box.Right + _boxSpacing, (ClientRectangle.Height / 2) - (_textSize.Height / 2));
             Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
 
             VisualToggleRenderer.DrawCheckBox(_graphics, Border, _checkStyle, _box, Checked, Enabled, _backColor, BackgroundImage, MouseState, Text, Font, _textColor, _textLocation);
             DrawAnimation(_graphics);
+<<<<<<< HEAD
+=======
+            e.Graphics.ResetClip();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
+<<<<<<< HEAD
             e.Graphics.Clear(Parent.BackColor);
+=======
+            e.Graphics.Clear(BackColor);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         private void AutoFit(Size textSize)
         {
+<<<<<<< HEAD
             if (GDI.TextLargerThanRectangle(textSize, _box))
+=======
+            if (GraphicsManager.TextLargerThanRectangle(textSize, _box))
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             {
                 IsBoxLarger = false;
                 Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, textSize.Height);

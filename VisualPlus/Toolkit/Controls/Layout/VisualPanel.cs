@@ -96,6 +96,10 @@
 
             Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+<<<<<<< HEAD
+=======
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

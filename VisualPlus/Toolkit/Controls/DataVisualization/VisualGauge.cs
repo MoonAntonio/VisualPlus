@@ -48,8 +48,11 @@
             _thickness = 25;
             Maximum = 100;
 
+<<<<<<< HEAD
             _colorState = new ColorState();
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             ConstructDisplay();
             Controls.Add(_labelMaximum);
             Controls.Add(_labelMinimum);
@@ -142,8 +145,16 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+<<<<<<< HEAD
             BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
             BackColorState.Disabled = StyleManager.ColorStateStyle.ControlDisabled;
+=======
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ColorStateStyle.ControlDisabled
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _progress = StyleManager.ProgressStyle.Progress;
 
@@ -154,7 +165,11 @@
         {
             base.OnPaint(e);
 
+<<<<<<< HEAD
             _progressTextSize = GDI.MeasureText(e.Graphics, _labelProgress.Text + @"%", Font);
+=======
+            _progressTextSize = GraphicsManager.MeasureText(e.Graphics, _labelProgress.Text + @"%", Font);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _labelProgress.Location = new Point((Width / 2) - (_progressTextSize.Width / 2), Height - _progressTextSize.Height - 30);
 
             Graphics _graphics = e.Graphics;

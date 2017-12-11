@@ -6,9 +6,19 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Delegates;
+    using VisualPlus.Designer;
+    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
@@ -19,12 +29,23 @@
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(NumericUpDown))]
     [DefaultEvent("Click")]
     [DefaultProperty("Value")]
     [Description("The Visual NumericUpDown")]
     [Designer(ControlManager.FilterProperties.VisualNumericUpDown)]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("ValueChanged")]
+    [DefaultProperty("Value")]
+    [Description("The Visual NumericUpDown")]
+    [Designer(typeof(VisualNumericUpDownDesigner))]
+    [ToolboxBitmap(typeof(VisualNumericUpDown), "Resources.ToolboxBitmaps.VisualNumericUpDown.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualNumericUpDown : VisualControlBase
     {
         #region Variables
@@ -46,7 +67,11 @@
         private bool _keyboardNum;
         private long _maximumValue;
         private long _minimumValue;
+<<<<<<< HEAD
         private long _numericValue;
+=======
+        private long _value;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private int _xValue;
         private int _yValue;
 
@@ -72,7 +97,10 @@
             _maximumValue = 100;
             Size = new Size(125, 25);
             MinimumSize = new Size(0, 0);
+<<<<<<< HEAD
             _colorState = new ColorState();
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _buttonOrientation = Orientation.Horizontal;
 
             _border = new Border();
@@ -83,6 +111,13 @@
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
+<<<<<<< HEAD
+=======
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
+        public event ValueChangedEventHandler ValueChanged;
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         #endregion
 
         #region Properties
@@ -220,9 +255,16 @@
                     _maximumValue = value;
                 }
 
+<<<<<<< HEAD
                 if (_numericValue > _maximumValue)
                 {
                     _numericValue = _maximumValue;
+=======
+                if (_value > _maximumValue)
+                {
+                    _value = _maximumValue;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 }
 
                 Invalidate();
@@ -244,9 +286,16 @@
                     _minimumValue = value;
                 }
 
+<<<<<<< HEAD
                 if (_numericValue < _minimumValue)
                 {
                     _numericValue = MinimumValue;
+=======
+                if (_value < _minimumValue)
+                {
+                    _value = MinimumValue;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 }
 
                 Invalidate();
@@ -275,14 +324,23 @@
         {
             get
             {
+<<<<<<< HEAD
                 return _numericValue;
+=======
+                return _value;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             }
 
             set
             {
                 if ((value <= _maximumValue) & (value >= _minimumValue))
                 {
+<<<<<<< HEAD
                     _numericValue = value;
+=======
+                    _value = value;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 }
 
                 Invalidate();
@@ -295,13 +353,23 @@
 
         public void Decrement(int value)
         {
+<<<<<<< HEAD
             _numericValue -= value;
+=======
+            _value -= value;
+            OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             Invalidate();
         }
 
         public void Increment(int value)
         {
+<<<<<<< HEAD
             _numericValue += value;
+=======
+            _value += value;
+            OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             Invalidate();
         }
 
@@ -316,8 +384,16 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+<<<<<<< HEAD
             _colorState.Enabled = StyleManager.ControlStyle.Background(3);
             _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+=======
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _borderButtons.BackColor = StyleManager.ControlStyle.Line;
             _borderEdge.BackColor = StyleManager.ControlStyle.Line;
@@ -335,12 +411,23 @@
             {
                 if (_keyboardNum)
                 {
+<<<<<<< HEAD
                     _numericValue = long.Parse(_numericValue + e.KeyChar.ToString());
                 }
 
                 if (_numericValue > _maximumValue)
                 {
                     _numericValue = _maximumValue;
+=======
+                    _value = long.Parse(_value + e.KeyChar.ToString());
+                    OnValueChanged(new ValueChangedEventArgs(_value));
+                }
+
+                if (_value > _maximumValue)
+                {
+                    _value = _maximumValue;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 }
             }
             catch (Exception)
@@ -354,14 +441,23 @@
             base.OnKeyUp(e);
             if (e.KeyCode == Keys.Back)
             {
+<<<<<<< HEAD
                 string temporaryValue = _numericValue.ToString();
+=======
+                string temporaryValue = _value.ToString();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 temporaryValue = temporaryValue.Remove(Convert.ToInt32(temporaryValue.Length - 1));
                 if (temporaryValue.Length == 0)
                 {
                     temporaryValue = "0";
                 }
 
+<<<<<<< HEAD
                 _numericValue = Convert.ToInt32(temporaryValue);
+=======
+                _value = Convert.ToInt32(temporaryValue);
+                OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             }
 
             Invalidate();
@@ -383,14 +479,24 @@
                             {
                                 if (Value + 1 <= _maximumValue)
                                 {
+<<<<<<< HEAD
                                     _numericValue++;
+=======
+                                    _value++;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                                 }
                             }
                             else if ((_yValue > Height / 2) && (_yValue < Height))
                             {
                                 if (Value - 1 >= _minimumValue)
                                 {
+<<<<<<< HEAD
                                     _numericValue--;
+=======
+                                    _value--;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                                 }
                             }
                         }
@@ -413,14 +519,24 @@
                             {
                                 if (Value + 1 <= _maximumValue)
                                 {
+<<<<<<< HEAD
                                     _numericValue++;
+=======
+                                    _value++;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                                 }
                             }
                             else if ((_xValue > _buttonRectangle.X + (_buttonRectangle.Width / 2)) && (_xValue < Width))
                             {
                                 if (Value - 1 >= _minimumValue)
                                 {
+<<<<<<< HEAD
                                     _numericValue--;
+=======
+                                    _value--;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                                 }
                             }
                         }
@@ -481,7 +597,12 @@
             {
                 if (Value + 1 <= _maximumValue)
                 {
+<<<<<<< HEAD
                     _numericValue++;
+=======
+                    _value++;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 }
 
                 Invalidate();
@@ -490,7 +611,12 @@
             {
                 if (Value - 1 >= _minimumValue)
                 {
+<<<<<<< HEAD
                     _numericValue--;
+=======
+                    _value--;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 }
 
                 Invalidate();
@@ -509,12 +635,22 @@
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
+<<<<<<< HEAD
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
             _buttonRectangle = new Rectangle(Width - _buttonWidth, 1, _buttonWidth, Height);
 
             Size incrementSize = GDI.MeasureText(_graphics, "+", _buttonFont);
             Size decrementSize = GDI.MeasureText(_graphics, "-", _buttonFont);
+=======
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
+            _graphics.SetClip(ControlGraphicsPath);
+
+            _buttonRectangle = new Rectangle(Width - _buttonWidth, 1, _buttonWidth, Height);
+
+            Size incrementSize = GraphicsManager.MeasureText(_graphics, "+", _buttonFont);
+            Size decrementSize = GraphicsManager.MeasureText(_graphics, "-", _buttonFont);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _incrementButtonPoints[0] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (incrementSize.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2)) - (_buttonRectangle.Height / 4) - (incrementSize.Height / 2));
             _decrementButtonPoints[0] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (decrementSize.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2) + (_buttonRectangle.Height / 4)) - (decrementSize.Height / 2));
@@ -555,9 +691,13 @@
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
             _graphics.SetClip(ControlGraphicsPath);
+<<<<<<< HEAD
 
             VisualBackgroundRenderer.DrawBackground(_graphics, _buttonColor, _buttonRectangle);
 
+=======
+            _graphics.FillRectangle(new SolidBrush(_buttonColor), _buttonRectangle);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _graphics.ResetClip();
 
             _graphics.DrawString("+", _buttonFont, new SolidBrush(_buttonForeColor), _incrementButtonPoints[toggleInt]);
@@ -567,12 +707,26 @@
             _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
 
             DrawText(_graphics);
+<<<<<<< HEAD
+=======
+
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
+<<<<<<< HEAD
             e.Graphics.Clear(Parent.BackColor);
+=======
+            e.Graphics.Clear(BackColor);
+        }
+
+        protected virtual void OnValueChanged(ValueChangedEventArgs e)
+        {
+            ValueChanged?.Invoke(e);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         private void DrawText(Graphics _graphics)

@@ -8,6 +8,10 @@
 
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
+<<<<<<< HEAD
+=======
+    using VisualPlus.Managers;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -55,7 +59,11 @@
             set
             {
                 _orientation = value;
+<<<<<<< HEAD
                 Size = GDI.FlipOrientationSize(_orientation, Size);
+=======
+                Size = GraphicsManager.FlipOrientationSize(_orientation, Size);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 Invalidate();
             }
         }

@@ -6,8 +6,15 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
@@ -20,12 +27,23 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Control))]
     [DefaultEvent("ToggleChanged")]
     [DefaultProperty("Toggled")]
     [Description("The Visual Toggle")]
     [Designer(ControlManager.FilterProperties.VisualToggle)]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("ToggleChanged")]
+    [DefaultProperty("Toggled")]
+    [Description("The Visual Toggle")]
+    [Designer(typeof(VisualToggleDesigner))]
+    [ToolboxBitmap(typeof(VisualToggle), "Resources.ToolboxBitmaps.VisualToggle.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualToggle : ToggleBase
     {
         #region Variables
@@ -58,8 +76,11 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 };
 
             _animationTimer.Tick += AnimationTimerTick;
+<<<<<<< HEAD
             _controlColorState = new ColorState();
             _buttonColorState = new ControlColorState();
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _toggleType = ToggleTypes.YesNo;
             _buttonSize = new Size(20, 20);
 
@@ -247,6 +268,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+<<<<<<< HEAD
             _controlColorState.Enabled = StyleManager.ControlStyle.Background(3);
             _controlColorState.Disabled = StyleManager.ControlStyle.Background(0);
 
@@ -254,6 +276,21 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _buttonColorState.Disabled = Color.FromArgb(224, 224, 224);
             _buttonColorState.Hover = Color.FromArgb(224, 224, 224);
             _buttonColorState.Pressed = Color.Silver;
+=======
+            _controlColorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
+
+            _buttonColorState = new ControlColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(0),
+                    Disabled = Color.FromArgb(224, 224, 224),
+                    Hover = Color.FromArgb(224, 224, 224),
+                    Pressed = Color.Silver
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
@@ -305,9 +342,17 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _graphics.TextRenderingHint = TextRenderingHint;
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+<<<<<<< HEAD
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
             Color _backColor = Enabled ? _controlColorState.Enabled : _controlColorState.Disabled;
+=======
+            Color _backColor = Enabled ? _controlColorState.Enabled : _controlColorState.Disabled;
+
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
+            _graphics.SetClip(ControlGraphicsPath);
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
             // Determines button/toggle state
@@ -317,8 +362,16 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _buttonRectangle = new Rectangle(_buttonLocation, _buttonSize);
             DrawToggleText(_graphics);
 
+<<<<<<< HEAD
             Color _buttonColor = GDI.GetBackColorState(Enabled, ButtonColorState.Enabled, ButtonColorState.Hover, ButtonColorState.Pressed, ButtonColorState.Disabled, MouseState);
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _buttonColor, _buttonRectangle, _buttonBorder);
+=======
+            Color _buttonColor = ControlColorState.BackColorState(ButtonColorState, Enabled, MouseState);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _buttonColor, _buttonRectangle, _buttonBorder);
+
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            _graphics.ResetClip();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -388,7 +441,11 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
             else
             {
+<<<<<<< HEAD
                 Size textSize = GDI.MeasureText(graphics, _textProcessor, Font);
+=======
+                Size textSize = GraphicsManager.MeasureText(graphics, _textProcessor, Font);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 textBoxRectangle = new Rectangle(Width - (textSize.Width / 2) - (XOn * 2), 0, Width - 1, Height - 1);
             }
 

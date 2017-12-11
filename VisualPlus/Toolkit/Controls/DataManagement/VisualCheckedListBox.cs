@@ -7,6 +7,7 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
@@ -15,31 +16,62 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(CheckedListBox))]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [DefaultBindingProperty("Items")]
     [Description("The Visual CheckedListBox")]
+<<<<<<< HEAD
     [Designer(typeof(VisualCheckedListBoxTasks))]
+=======
+    [Designer(typeof(VisualCheckedListBoxDesigner))]
+    [ToolboxBitmap(typeof(CheckedListBox), "Resources.ToolboxBitmaps.CheckedListBox.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualCheckedListBox : ContainedControlBase
     {
         #region Variables
 
         private bool _alternateColors;
         private Border _border;
+<<<<<<< HEAD
+=======
+        private Size _box;
+        private int _boxSpacing;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private CheckedListBox _checkedListBox;
         private ColorState _colorState;
         private Color _itemAlternate;
         private Color _itemNormal;
         private Color _itemSelected;
+<<<<<<< HEAD
         private Size _box;
         private int _boxSpacing;
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
         #endregion
 
@@ -56,8 +88,11 @@
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
+<<<<<<< HEAD
             _colorState = new ColorState();
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _border = new Border();
 
             _alternateColors = true;
@@ -65,6 +100,12 @@
             _box = new Size(25, 25);
             _boxSpacing = 5;
 
+<<<<<<< HEAD
+=======
+            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _colorState = new ColorState { Enabled = StyleManager.ControlStyle.Background(3) };
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _checkedListBox = new CheckedListBox
                 {
                     Size = GetInternalControlSize(Size, _border),
@@ -79,7 +120,10 @@
 
             // _checkedListBox.DrawItem += CheckedListBox_DrawItem;
             // _checkedListBox.MeasureItem += CheckedListBox_MeasureItem;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             Controls.Add(_checkedListBox);
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
@@ -339,8 +383,16 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+<<<<<<< HEAD
             _colorState.Enabled = StyleManager.ControlStyle.Background(3);
             _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+=======
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
@@ -365,13 +417,24 @@
                 _checkedListBox.BackColor = _backColor;
             }
 
+<<<<<<< HEAD
            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+=======
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
+<<<<<<< HEAD
             e.Graphics.Clear(Parent.BackColor);
+=======
+            e.Graphics.Clear(BackColor);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnResize(EventArgs e)
@@ -381,11 +444,14 @@
             _checkedListBox.Size = GetInternalControlSize(Size, _border);
         }
 
+<<<<<<< HEAD
         private void CheckedListBox_MeasureItem(object sender, MeasureItemEventArgs e)
         {
             throw new NotImplementedException();
         }
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private void CheckedListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             // We cannot do anything with an invalid index
@@ -449,9 +515,13 @@
                 Rectangle _boxRect = new Rectangle(new Point(e.Bounds.X, e.Bounds.Y + 0), _box);
 
                 // CheckBoxRenderer.DrawCheckBox(g, new Point(b.X + checkPad, b.Y + checkPad), new Rectangle(new Point(b.X + b.Height, b.Y), new Size(b.Width - b.Height, b.Height)), text, this.Font, TextFormatFlags.Left, false, state);
+<<<<<<< HEAD
                 LinearGradientBrush _boxBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, new Rectangle(e.Bounds.Location, e.Bounds.Size));
 
                 Size textSize = GDI.MeasureText(graphics, Text, Font);
+=======
+                Size textSize = GraphicsManager.MeasureText(graphics, Text, Font);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                 Point textPoint = new Point(_boxRect.Right + _boxSpacing, (_boxRect.Y + (_boxRect.Height / 2)) - (textSize.Height / 2));
 
                 // VisualToggleRenderer.DrawCheckBox(graphics, _border, CheckMark, _boxRect, GetItemChecked(e.Index), Enabled, _boxBrush, MouseState, GetItemText(Items[e.Index].ToString()), e.Font, ForeColor, textPoint);
@@ -465,6 +535,14 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+        private void CheckedListBox_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         #endregion
     }
 }

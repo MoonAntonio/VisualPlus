@@ -9,6 +9,10 @@
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
+<<<<<<< HEAD
+=======
+    using VisualPlus.Managers;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -69,7 +73,11 @@
 
         protected override void OnPaint(PaintEventArgs e)
         {
+<<<<<<< HEAD
             Size _textSize = GDI.MeasureText(e.Graphics, Text, Font);
+=======
+            Size _textSize = GraphicsManager.MeasureText(e.Graphics, Text, Font);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             VisualBadgeRenderer.DrawBadge(e.Graphics, new Rectangle(new Point(0, 0), new Size(Width - 1, Height - 1)), Background, Text, Font, ForeColor, Shape, new Point((Width / 2) - (_textSize.Width / 2), (Height / 2) - (_textSize.Height / 2)));
         }
 

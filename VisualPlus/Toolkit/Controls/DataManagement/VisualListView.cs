@@ -8,25 +8,46 @@
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
     using System.Globalization;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
+<<<<<<< HEAD
     using VisualPlus.Toolkit.ActionList;
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ListView))]
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [Description("The Visual ListView")]
     [Designer(typeof(VisualListViewTasks))]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("SelectedIndexChanged")]
+    [DefaultProperty("Items")]
+    [Description("The Visual ListView")]
+    [Designer(typeof(VisualListViewDesigner))]
+    [ToolboxBitmap(typeof(ListView), "Resources.ToolboxBitmaps.VisualListView.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualListView : ContainedControlBase
     {
         #region Variables
@@ -58,11 +79,24 @@
 
             headerFont = StyleManager.Font;
             _border = new Border();
+<<<<<<< HEAD
             _colorState = new ColorState();
 
             _listView = new ListView
                 {
                     BackColor = BackColorState.Enabled,
+=======
+
+            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3)
+                };
+
+            _listView = new ListView
+                {
+                    BackColor = _colorState.Enabled,
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                     Size = GetInternalControlSize(Size, _border),
                     BorderStyle = BorderStyle.None,
                     View = View.Details,
@@ -450,6 +484,24 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+        [Category(Propertys.Appearance)]
+        [Description("Gets or sets the ImageList to use when displaying items as small icons in the control.")]
+        public virtual ImageList LargeImageList
+        {
+            get
+            {
+                return _listView.LargeImageList;
+            }
+
+            set
+            {
+                _listView.LargeImageList = value;
+            }
+        }
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Category("Behaviour")]
         [Description("Gets or sets a value indicating whether multiple items can be selected.")]
         [DefaultValue(false)]
@@ -503,6 +555,24 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+        [Category(Propertys.Appearance)]
+        [Description("Gets or sets the ImageList to use when displaying items as small icons in the control.")]
+        public virtual ImageList SmallImageList
+        {
+            get
+            {
+                return _listView.SmallImageList;
+            }
+
+            set
+            {
+                _listView.SmallImageList = value;
+            }
+        }
+
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Category("Behavior")]
         [Description("Gets or sets the sort order for items in the control.")]
         [DefaultValue(false)]
@@ -596,8 +666,16 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+<<<<<<< HEAD
             BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
             BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
+=======
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _columnHeaderColor = StyleManager.ControlStyle.FlatButtonDisabled;
             headerText = StyleManager.FontStyle.ForeColor;
@@ -627,7 +705,14 @@
                 _listView.BackColor = _backColor;
             }
 
+<<<<<<< HEAD
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+=======
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

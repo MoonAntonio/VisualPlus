@@ -16,7 +16,11 @@ namespace VisualPlus.Extensibility
 
         /// <summary>Returns the count length.</summary>
         /// <param name="enumerator">The enumerator.</param>
+<<<<<<< HEAD
         /// <returns>The count length.</returns>
+=======
+        /// <returns>The <see cref="int" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static int Count(this Enum enumerator)
         {
             return Enum.GetNames(enumerator.GetType()).Length;
@@ -25,7 +29,11 @@ namespace VisualPlus.Extensibility
         /// <summary>Gets the enumerator index from the value.</summary>
         /// <param name="enumerator">The enumerator.</param>
         /// <param name="value">Value to search.</param>
+<<<<<<< HEAD
         /// <returns>The value index.</returns>
+=======
+        /// <returns>The <see cref="int" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static int GetIndexByValue(this Enum enumerator, string value)
         {
             try
@@ -44,7 +52,11 @@ namespace VisualPlus.Extensibility
         /// <typeparam name="T">Type parameter.</typeparam>
         /// <param name="enumerator">The enumerator.</param>
         /// <param name="index">The index to search.</param>
+<<<<<<< HEAD
         /// <returns>The value string.</returns>
+=======
+        /// <returns>The <see cref="string" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static string GetValueByIndex<T>(this Enum enumerator, int index)
             where T : struct
         {
@@ -62,7 +74,11 @@ namespace VisualPlus.Extensibility
         /// <summary>Returns the string as an enumerator.</summary>
         /// <typeparam name="T">Type parameter.</typeparam>
         /// <param name="enumeratorString">The string.</param>
+<<<<<<< HEAD
         /// <returns>The enumerator.</returns>
+=======
+        /// <returns>The <see cref="Enum" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static Enum ToEnum<T>(this string enumeratorString)
             where T : struct
         {
@@ -82,7 +98,11 @@ namespace VisualPlus.Extensibility
         /// <summary>Converts enumerator to a list type.</summary>
         /// <typeparam name="T">Type parameter.</typeparam>
         /// <param name="enumerator">The enumerator.</param>
+<<<<<<< HEAD
         /// <returns>Returns enumerated list.</returns>
+=======
+        /// <returns>The <see cref="List{T}" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static List<T> ToList<T>(this Enum enumerator)
             where T : struct
         {
@@ -92,7 +112,11 @@ namespace VisualPlus.Extensibility
 
         /// <summary>Returns the value.</summary>
         /// <param name="enumerator">The enumerator.</param>
+<<<<<<< HEAD
         /// <returns>The enumerator description.</returns>
+=======
+        /// <returns>The <see cref="string" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static string Value(this Enum enumerator)
         {
             try

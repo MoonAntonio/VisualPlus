@@ -3,12 +3,20 @@
     #region Namespace
 
     using System;
+<<<<<<< HEAD
     using System.Drawing;
     using System.Drawing.Imaging;
+=======
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.Globalization;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using System.Windows.Forms;
 
     #endregion
 
+<<<<<<< HEAD
     internal class ImageManager
     {
         #region Events
@@ -17,6 +25,41 @@
         /// <param name="image">The image.</param>
         /// <param name="opacity">The opacity value.</param>
         /// <returns>A more opaque image.</returns>
+=======
+    [Description("The image manager.")]
+    public sealed class ImageManager
+    {
+        #region Events
+
+        /// <summary>Creates a gradient bitmap.</summary>
+        /// <param name="size">The size of the gradient.</param>
+        /// <param name="topLeft">The color for top-left.</param>
+        /// <param name="topRight">The color for top-right.</param>
+        /// <param name="bottomLeft">The color for bottom-left.</param>
+        /// <param name="bottomRight">The color for bottom-right.</param>
+        /// <returns>The <see cref="Bitmap" />.</returns>
+        public static Image CreateGradientBitmap(Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight)
+        {
+            Bitmap _bitmap = new Bitmap(size.Width, size.Height);
+
+            for (var i = 0; i < _bitmap.Width; i++)
+            {
+                Color _xColor = ColorManager.TransitionColor(int.Parse(Math.Round((i / (double)_bitmap.Width) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), topLeft, topRight);
+                for (var j = 0; j < _bitmap.Height; j++)
+                {
+                    Color _yColor = ColorManager.TransitionColor(int.Parse(Math.Round((j / (double)_bitmap.Height) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), bottomLeft, bottomRight);
+                    _bitmap.SetPixel(i, j, ColorManager.InsertColor(_xColor, _yColor));
+                }
+            }
+
+            return _bitmap;
+        }
+
+        /// <summary>Sets the image opacity.</summary>
+        /// <param name="image">The image.</param>
+        /// <param name="opacity">The opacity value.</param>
+        /// <returns>The <see cref="Image" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static Image SetOpacity(Image image, float opacity)
         {
             try

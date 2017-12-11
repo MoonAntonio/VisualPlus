@@ -5,9 +5,15 @@ namespace VisualPlus
     using System.ComponentModel;
     using System.Drawing;
 
+<<<<<<< HEAD
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Structure;
+=======
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -101,7 +107,13 @@ namespace VisualPlus
         #region Events
 
         /// <summary>Configures the animation settings.</summary>
+<<<<<<< HEAD
         void ConfigureAnimation();
+=======
+        /// <param name="effectIncrement">The effect Increment.</param>
+        /// <param name="effectType">The effect Type.</param>
+        void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
         /// <summary>Draws the animation on the graphics.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
@@ -125,6 +137,7 @@ namespace VisualPlus
         #endregion
     }
 
+<<<<<<< HEAD
     public interface IControlState
     {
         #region Properties
@@ -147,6 +160,8 @@ namespace VisualPlus
         #endregion
     }
 
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public interface IImageControl
     {
         #region Properties

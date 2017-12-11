@@ -7,21 +7,41 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [Designer(ControlManager.FilterProperties.VisualProgressIndicator)]
     [DefaultEvent("Click")]
     [DefaultProperty("Enabled")]
     [Description("The Visual Progress Indicator")]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("Click")]
+    [DefaultProperty("Enabled")]
+    [Description("The Visual Progress Indicator")]
+    [Designer(typeof(VisualProgressIndicatorDesigner))]
+    [ToolboxBitmap(typeof(VisualProgressIndicator), "Resources.ToolboxBitmaps.VisualProgressIndicator.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualProgressIndicator : VisualControlBase
     {
         #region Variables

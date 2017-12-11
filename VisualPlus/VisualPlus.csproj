@@ -50,7 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
+=======
+    <Compile Include="Collections\VisualTabPageCollectionEditor.cs" />
+    <Compile Include="Delegates\ControlBoxDelegate.cs" />
+    <Compile Include="Delegates\StyleManagerDelegate.cs" />
+    <Compile Include="Designer\VisualControlBoxDesigner.cs" />
+    <Compile Include="Designer\VisualTabPageDesigner.cs" />
+    <Compile Include="Enumerators\Brightness.cs" />
+    <Compile Include="EventArgs\ControlBoxEventArgs.cs" />
+    <Compile Include="EventArgs\ValueChangedEventArgs.cs" />
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     <Compile Include="EventArgs\CursorChangedEventArgs.cs" />
     <Compile Include="EventArgs\ThemeEventArgs.cs" />
     <Compile Include="EventArgs\TextRenderingEventArgs.cs" />
@@ -65,6 +76,14 @@
     <Compile Include="Localization\GlobalStrings.cs" />
     <Compile Include="Localization\Category\Propertys.cs" />
     <Compile Include="Managers\ImageManager.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Managers\MonitorManager.cs" />
+    <Compile Include="Managers\TickManager.cs" />
+    <Compile Include="PInvoke\Gdi32.cs" />
+    <Compile Include="PInvoke\Shlwapi.cs" />
+    <Compile Include="PInvoke\User32.cs" />
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -76,10 +95,15 @@
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
     <Compile Include="Structure\BorderEdge.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Structure\HoverColorState.cs" />
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     <Compile Include="Structure\ControlColorState.cs" />
     <Compile Include="Structure\ColorState.cs" />
     <Compile Include="Structure\Hatch.cs" />
     <Compile Include="Structure\TextState.cs" />
+<<<<<<< HEAD
     <Compile Include="Toolkit\ActionList\BackupDesigner.cs" />
     <Compile Include="Toolkit\ActionList\VisualCheckedListBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualRichBoxTasks.cs" />
@@ -87,6 +111,17 @@
     <Compile Include="Toolkit\ActionList\VisualListViewTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualComboBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisuaListBoxTasks.cs" />
+=======
+    <Compile Include="Designer\ActionList\VisualCheckedListBoxActionList.cs" />
+    <Compile Include="Designer\VisualCheckedListBoxDesigner.cs" />
+    <Compile Include="Designer\ActionList\VisualRichBoxActionList.cs" />
+    <Compile Include="Designer\ActionList\VisualTextBoxActionList.cs" />
+    <Compile Include="Designer\ActionList\VisualListViewActionList.cs" />
+    <Compile Include="Designer\ActionList\VisuaListBoxActionList.cs" />
+    <Compile Include="Toolkit\Child\VisualTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -97,6 +132,14 @@
     <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressStepper.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRangeBar.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Designer\ActionList\VisualComboBoxActionList.cs" />
+    <Compile Include="Designer\VisualComboBoxDesigner.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualControlBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     <Compile Include="Toolkit\VisualBase\BadgeLabel.cs" />
     <Compile Include="Toolkit\Components\Expander.cs">
       <SubType>Component</SubType>
@@ -134,6 +177,7 @@
     <Compile Include="Delegates\ControlDelegate.cs" />
     <Compile Include="Delegates\ControlDragDelegate.cs" />
     <Compile Include="EventArgs\DragControlEventArgs.cs" />
+<<<<<<< HEAD
     <Compile Include="Toolkit\PropertyFilter\VisualCircleProgressBarDesigner.cs" />
     <Compile Include="Toolkit\PropertyFilter\VisualContextMenuDesigner.cs" />
     <Compile Include="Toolkit\PropertyFilter\VisualLabelDesigner.cs" />
@@ -157,6 +201,29 @@
     <Compile Include="Toolkit\PropertyFilter\VisualComboBoxDesigner.cs" />
     <Compile Include="Toolkit\PropertyFilter\VisualButtonDesigner.cs" />
     <Compile Include="Toolkit\PropertyFilter\VisualCheckBoxDesigner.cs" />
+=======
+    <Compile Include="Designer\VisualRadialProgressDesigner.cs" />
+    <Compile Include="Designer\VisualLabelDesigner.cs" />
+    <Compile Include="Designer\VisualRatingDesigner.cs" />
+    <Compile Include="Designer\VisualListBoxDesigner.cs" />
+    <Compile Include="Designer\VisualListViewDesigner.cs" />
+    <Compile Include="Designer\VisualToolTipDesigner.cs" />
+    <Compile Include="Designer\VisualFormDesigner.cs" />
+    <Compile Include="Designer\VisualTrackBarDesigner.cs" />
+    <Compile Include="Designer\VisualToggleDesigner.cs" />
+    <Compile Include="Designer\VisualTextBoxDesigner.cs" />
+    <Compile Include="Designer\VisualTabControlDesigner.cs" />
+    <Compile Include="Designer\VisualSeparatorDesigner.cs" />
+    <Compile Include="Designer\VisualRichTextBoxDesigner.cs" />
+    <Compile Include="Designer\VisualRadioButtonDesigner.cs" />
+    <Compile Include="Designer\VisualProgressIndicatorDesigner.cs" />
+    <Compile Include="Designer\VisualProgressBarDesigner.cs" />
+    <Compile Include="Designer\VisualPanelDesigner.cs" />
+    <Compile Include="Designer\VisualNumericUpDownDesigner.cs" />
+    <Compile Include="Designer\VisualGroupBoxDesigner.cs" />
+    <Compile Include="Designer\VisualButtonDesigner.cs" />
+    <Compile Include="Designer\VisualCheckBoxDesigner.cs" />
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     <Compile Include="Toolkit\Controls\Interactivity\VisualButton.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualCheckBox.cs" />
     <Compile Include="Toolkit\Controls\Editors\VisualColorPicker.cs" />
@@ -190,7 +257,10 @@
     <Compile Include="Enumerators\Styles.cs" />
     <Compile Include="Structure\VisualBitmap.cs" />
     <Compile Include="Structure\Watermark.cs" />
+<<<<<<< HEAD
     <Compile Include="Native.cs" />
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     <Compile Include="Styles\Enigma.cs" />
     <Compile Include="Styles\IStyle.cs" />
     <Compile Include="Settings.cs" />
@@ -216,12 +286,20 @@
     <Compile Include="Toolkit\Controls\Interactivity\VisualTrackBar.cs">
       <SubType>Component</SubType>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="GDI.cs" />
+=======
+    <Compile Include="Managers\GraphicsManager.cs" />
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualKnob.cs">
       <SubType>UserControl</SubType>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Toolkit\VisualBase\VisualToolStripMenuItem.cs">
+=======
+    <Compile Include="Toolkit\Child\VisualToolStripMenuItem.cs">
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
       <SubType>Component</SubType>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />

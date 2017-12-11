@@ -7,6 +7,10 @@
     using System.Drawing.Drawing2D;
 
     using VisualPlus.Enumerators;
+<<<<<<< HEAD
+=======
+    using VisualPlus.Managers;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Structure;
 
     #endregion
@@ -17,7 +21,11 @@
 
         /// <summary>Gets the distance from the border.</summary>
         /// <param name="shape">The shape of the container control.</param>
+<<<<<<< HEAD
         /// <returns>The internal control distance.</returns>
+=======
+        /// <returns>The <see cref="int" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static int CalculateBorderCurve(Shape shape)
         {
             return (shape.Rounding / 2) + shape.Thickness + 1;
@@ -26,7 +34,11 @@
         /// <summary>Creates a border type path.</summary>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="shape">The shape.</param>
+<<<<<<< HEAD
         /// <returns>Border graphics path.</returns>
+=======
+        /// <returns>The <see cref="GraphicsPath" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static GraphicsPath CreateBorderTypePath(Rectangle rectangle, Shape shape)
         {
             return CreateBorderTypePath(rectangle, shape.Rounding, shape.Thickness, shape.Type);
@@ -102,7 +114,11 @@
         /// <param name="thickness">The thickness.</param>
         public static void DrawBorder(Graphics graphics, Rectangle rectangle, Color color, int rounding, float thickness)
         {
+<<<<<<< HEAD
             GraphicsPath _borderGraphicsPath = GDI.DrawRoundedRectangle(rectangle, rounding);
+=======
+            GraphicsPath _borderGraphicsPath = GraphicsManager.DrawRoundedRectangle(rectangle, rounding);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             Pen _borderPen = new Pen(color, thickness);
             graphics.DrawPath(_borderPen, _borderGraphicsPath);
         }

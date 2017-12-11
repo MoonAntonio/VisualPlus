@@ -9,6 +9,10 @@
 
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
+<<<<<<< HEAD
+=======
+    using VisualPlus.Managers;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
     #endregion
 
@@ -180,13 +184,21 @@
 
         /// <summary>Gets the <see cref="VisualGradient" /> as a bitmap.</summary>
         [Browsable(true)]
+<<<<<<< HEAD
+=======
+        [Category(Propertys.Appearance)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         [Description(Property.Image)]
         public Image Image
         {
             get
             {
                 Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+<<<<<<< HEAD
                 return GDI.CreateGradientBitmap(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
+=======
+                return ImageManager.CreateGradientBitmap(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             }
         }
 
@@ -285,7 +297,11 @@
                 return;
             }
 
+<<<<<<< HEAD
             GDI.ApplyGradientBackground(_control, _gradientSize, _topLeft, _topRight, _bottomLeft, _bottomRight);
+=======
+            GraphicsManager.ApplyGradientBackground(_control, _gradientSize, _topLeft, _topRight, _bottomLeft, _bottomRight);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         private void Control_Resize(object sender, EventArgs e)
@@ -298,7 +314,11 @@
         /// <param name="autoSize">The auto size toggle.</param>
         /// <param name="control">The control.</param>
         /// <param name="custom">The custom size.</param>
+<<<<<<< HEAD
         /// <returns>The auto adjusted gradient size.</returns>
+=======
+        /// <returns>The <see cref="Size" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private Size GetGradientSize(bool autoSize, Control control, Size custom)
         {
             Size _newSize;

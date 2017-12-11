@@ -8,6 +8,10 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Extensibility;
+<<<<<<< HEAD
+=======
+    using VisualPlus.Managers;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Structure;
 
     #endregion
@@ -48,6 +52,7 @@
         /// <param name="mouseStates">The mouse States.</param>
         public static void DrawCheckBox(Graphics graphics, Border border, CheckStyle checkStyle, Rectangle rectangle, bool checkState, bool enabled, Color color, Image backgroundImage, MouseStates mouseStates)
         {
+<<<<<<< HEAD
             VisualBackgroundRenderer.DrawBackground(graphics, color, backgroundImage, mouseStates, rectangle, border);
 
             if (!checkState)
@@ -58,6 +63,18 @@
             GraphicsPath _boxGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
             graphics.SetClip(_boxGraphicsPath);
             DrawCheckMark(graphics, checkStyle, rectangle, enabled);
+=======
+            GraphicsPath _boxGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
+            graphics.SetClip(_boxGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(graphics, color, backgroundImage, mouseStates, rectangle, border);
+
+            if (checkState)
+            {
+                DrawCheckMark(graphics, checkStyle, rectangle, enabled);
+            }
+
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, _boxGraphicsPath, mouseStates);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             graphics.ResetClip();
         }
 
@@ -71,7 +88,11 @@
         /// <param name="enabled">The state to draw the check mark in.</param>
         public static void DrawCheckMark(Graphics graphics, CheckStyle checkStyle, Rectangle rectangle, bool enabled)
         {
+<<<<<<< HEAD
             Size _characterSize = GDI.MeasureText(graphics, checkStyle.Character.ToString(), checkStyle.Font);
+=======
+            Size _characterSize = GraphicsManager.MeasureText(graphics, checkStyle.Character.ToString(), checkStyle.Font);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             int _styleCount = checkStyle.Style.Count();
             var _defaultLocations = new Point[_styleCount];

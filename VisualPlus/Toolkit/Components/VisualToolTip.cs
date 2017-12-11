@@ -6,22 +6,42 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Properties;
     using VisualPlus.Structure;
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ToolTip))]
     [DefaultEvent("Popup")]
     [DefaultProperty("Text")]
     [Description("The Visual ToolTip")]
     [Designer(ControlManager.FilterProperties.VisualToolTip)]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("Popup")]
+    [DefaultProperty("Text")]
+    [Description("The Visual Tool Tip")]
+    [Designer(typeof(VisualToolTipDesigner))]
+    [ToolboxBitmap(typeof(VisualToolTip), "Resources.ToolboxBitmaps.VisualButton.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualToolTip : ToolTip
     {
         #region Variables
@@ -414,7 +434,11 @@
 
         /// <summary>Input the text height to compare it to the icon height.</summary>
         /// <param name="textHeight">The text height.</param>
+<<<<<<< HEAD
         /// <returns>New height.</returns>
+=======
+        /// <returns>The <see cref="int" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private int GetTipHeight(int textHeight)
         {
             int tipHeight = textHeight > _iconSize.Height ? textHeight : _iconSize.Height;
@@ -424,7 +448,11 @@
         /// <summary>Input the title and text width to retrieve total width.</summary>
         /// <param name="titleWidth">The title width.</param>
         /// <param name="textWidth">The text width.</param>
+<<<<<<< HEAD
         /// <returns>New width.</returns>
+=======
+        /// <returns>The <see cref="int" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         private int GetTipWidth(int titleWidth, int textWidth)
         {
             int tipWidth = titleWidth > _iconSize.Width + textWidth ? titleWidth : _iconSize.Width + textWidth;

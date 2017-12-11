@@ -42,7 +42,11 @@
         /// <summary>Gets a boolean determining whether the object holds any value or is empty/null.</summary>
         /// <typeparam name="T">The type.</typeparam>
         /// <param name="source">The source.</param>
+<<<<<<< HEAD
         /// <returns>The object elements exist.</returns>
+=======
+        /// <returns>The <see cref="bool" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static bool AnyOrNotNull<T>(this IEnumerable<T> source)
         {
             return (source != null) && source.Any();
@@ -51,7 +55,11 @@
         /// <summary>Gets a bool value determining whether the object has the following method.</summary>
         /// <param name="objectToCheck">Object to check.</param>
         /// <param name="methodName">Method name to search.</param>
+<<<<<<< HEAD
         /// <returns>Returns bool value.</returns>
+=======
+        /// <returns>The <see cref="bool" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static bool HasMethod(this object objectToCheck, string methodName)
         {
             return objectToCheck.GetType().GetMethod(methodName) != null;
@@ -61,7 +69,11 @@
         /// <param name="value">The value.</param>
         /// <param name="minimum">The minimum value.</param>
         /// <param name="maximum">The maximum value.</param>
+<<<<<<< HEAD
         /// <returns>Returns value.</returns>
+=======
+        /// <returns>The <see cref="bool" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static bool IsInRange(this int value, int minimum, int maximum)
         {
             return (value >= minimum) && (value <= maximum);
@@ -69,7 +81,11 @@
 
         /// <summary>Indicates whether the specified <see cref="Array" /> is null or an empty <see cref="Array" />.</summary>
         /// <param name="array">The array.</param>
+<<<<<<< HEAD
         /// <returns>Is null or empty boolean.</returns>
+=======
+        /// <returns>The <see cref="bool" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static bool IsNullOrEmpty(this Array array)
         {
             return (array == null) || (array.Length == 0);
@@ -79,7 +95,11 @@
         /// <param name="value">The value.</param>
         /// <param name="inclusiveMinimum">The minimum.</param>
         /// <param name="inclusiveMaximum">The maximum.</param>
+<<<<<<< HEAD
         /// <returns>Returns value.</returns>
+=======
+        /// <returns>The <see cref="int" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static int LimitToRange(this int value, int inclusiveMinimum, int inclusiveMaximum)
         {
             if (value < inclusiveMinimum)

@@ -6,12 +6,22 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -19,12 +29,23 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [DefaultEvent("Click")]
     [DefaultProperty("Value")]
     [Description("The Visual ProgressBar")]
     [Designer(ControlManager.FilterProperties.VisualProgressBar)]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("Click")]
+    [DefaultProperty("Value")]
+    [Description("The Visual ProgressBar")]
+    [Designer(typeof(VisualProgressBarDesigner))]
+    [ToolboxBitmap(typeof(VisualProgressBar), "Resources.ToolboxBitmaps.VisualProgressBar.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualProgressBar : ProgressBase
     {
         #region Variables
@@ -56,7 +77,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         {
             Maximum = 100;
             _hatch = new Hatch();
+<<<<<<< HEAD
             _colorState = new ColorState();
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _orientation = Orientation.Horizontal;
             _marqueeWidth = 20;
             Size = new Size(100, 20);
@@ -276,8 +300,16 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+<<<<<<< HEAD
             _colorState.Enabled = StyleManager.ProgressStyle.BackProgress;
             _colorState.Disabled = StyleManager.ProgressStyle.ProgressDisabled;
+=======
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ProgressStyle.BackProgress,
+                    Disabled = StyleManager.ProgressStyle.ProgressDisabled
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _hatch.BackColor = StyleManager.ProgressStyle.Hatch;
             _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
@@ -299,13 +331,26 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             _graphics.TextRenderingHint = TextRenderingHint;
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+<<<<<<< HEAD
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
+=======
+
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
+            _graphics.SetClip(ControlGraphicsPath);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
             VisualBackgroundRenderer.DrawBackground(_graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
 
             DrawProgress(_orientation, _graphics);
+<<<<<<< HEAD
+=======
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -350,7 +395,11 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                     case Orientation.Horizontal:
                         {
                             _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Width - 2));
+<<<<<<< HEAD
                             _progressRectangle = new Rectangle(_border.Thickness, _border.Thickness, _indexValue - _border.Thickness, Height - _border.Thickness);
+=======
+                            _progressRectangle = new Rectangle(0, 0, _indexValue + _border.Thickness, Height);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                             _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _border);
                         }
 
@@ -358,7 +407,11 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                     case Orientation.Vertical:
                         {
                             _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Height - 2));
+<<<<<<< HEAD
                             _progressRectangle = new Rectangle(_border.Thickness, Height - _indexValue - _border.Thickness, Width - _border.Thickness, _indexValue);
+=======
+                            _progressRectangle = new Rectangle(0, Height - _indexValue - _border.Thickness - 1, Width, _indexValue);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                             _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _border);
                         }
 
@@ -372,7 +425,11 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                 if (_indexValue > 1)
                 {
                     graphics.SetClip(ControlGraphicsPath);
+<<<<<<< HEAD
                     VisualBackgroundRenderer.DrawBackground(graphics, _progressColor, _progressRectangle);
+=======
+                    graphics.FillRectangle(new SolidBrush(_progressColor), _progressRectangle);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
                     VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
                     graphics.ResetClip();
                 }

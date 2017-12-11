@@ -12,7 +12,11 @@
 
         /// <summary>Filter the bitmap with GrayScale.</summary>
         /// <param name="bitmap">The bitmap.</param>
+<<<<<<< HEAD
         /// <returns>Filtered bitmap.</returns>
+=======
+        /// <returns>The <see cref="Bitmap" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public static Bitmap FilterGrayScale(this Bitmap bitmap)
         {
             Bitmap grayScale = new Bitmap(bitmap.Width, bitmap.Height);

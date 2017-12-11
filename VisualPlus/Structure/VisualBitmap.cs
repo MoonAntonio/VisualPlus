@@ -160,7 +160,11 @@
 
         /// <summary>Returns the size of the image.</summary>
         /// <param name="_image">The image.</param>
+<<<<<<< HEAD
         /// <returns>The size.</returns>
+=======
+        /// <returns>The <see cref="Size" />.</returns>
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
         public Size GetOriginalSize(Image _image)
         {
             return _image.Size;

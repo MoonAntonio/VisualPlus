@@ -6,8 +6,15 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+<<<<<<< HEAD
     using System.Windows.Forms;
 
+=======
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Designer;
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
@@ -18,12 +25,23 @@
 
     #endregion
 
+<<<<<<< HEAD
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [DefaultEvent("Click")]
     [DefaultProperty("Value")]
     [Description("The Visual Radial ProgressBar")]
     [Designer(ControlManager.FilterProperties.VisualRadialProgress)]
+=======
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("Click")]
+    [DefaultProperty("Value")]
+    [Description("The Visual Radial Progress")]
+    [Designer(typeof(VisualRadialProgressDesigner))]
+    [ToolboxBitmap(typeof(VisualRadialProgress), "Resources.ToolboxBitmaps.VisualRadialProgress.bmp")]
+    [ToolboxItem(true)]
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
     public class VisualRadialProgress : ProgressBase, IThemeSupport
     {
         #region Variables
@@ -59,7 +77,10 @@
         {
             _backCircleVisible = true;
             _foreCircleVisible = true;
+<<<<<<< HEAD
             _colorState = new ControlColorState();
+=======
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             _imageSize = new Size(16, 16);
             _lineCap = LineCap.Round;
             _progressSize = 5F;
@@ -429,8 +450,16 @@
             _superscriptColor = StyleManager.FontStyle.ForeColor;
             _subscriptColor = StyleManager.FontStyle.ForeColor;
 
+<<<<<<< HEAD
             BackColorState.Enabled = StyleManager.ControlStyle.Background(0);
             BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
+=======
+            _colorState = new ControlColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(0),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
 
             _backCircleColor = StyleManager.ProgressStyle.BackCircle;
             _foreCircleColor = StyleManager.ProgressStyle.ForeCircle;
@@ -486,7 +515,11 @@
         {
             string _value = _textVisible ? Text : Value.ToString(string.Empty);
 
+<<<<<<< HEAD
             Size _textSize = GDI.MeasureText(graphics, _textVisible ? Text : Value.ToString("0"), Font);
+=======
+            Size _textSize = GraphicsManager.MeasureText(graphics, _textVisible ? Text : Value.ToString("0"), Font);
+>>>>>>> 69c10d72b8497b62b8145ca299806a7ae828bcb3
             Point _textPoint = new Point((Width / 2) - (_textSize.Width / 2), (Height / 2) - (_textSize.Height / 2));
             StringFormat _stringFormat = new StringFormat(RightToLeft == RightToLeft.Yes ? StringFormatFlags.DirectionRightToLeft : 0)
                 {
