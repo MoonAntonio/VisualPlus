@@ -12,6 +12,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.Extensibility;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
@@ -64,6 +65,8 @@
             _locations = null;
             _rectangle = new Rectangle(0, 0, 1, 1);
             Brush = null;
+            StartPoint = 0.0F;
+            EndPoint = 1.0F;
         }
 
         [Category(Events.PropertyChanged)]
@@ -88,7 +91,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Angle)]
+        [Description(PropertyDescription.Angle)]
         public float Angle
         {
             get
@@ -110,7 +113,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Colors)]
+        [Description(PropertyDescription.Colors)]
         public Color[] Colors
         {
             get
@@ -132,7 +135,7 @@
 
         /// <summary>Gets the <see cref="Gradient" /> as an image.</summary>
         [Browsable(true)]
-        [Description(Property.Image)]
+        [Description(PropertyDescription.Image)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         public Image Image
         {
@@ -152,7 +155,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Positions)]
+        [Description(PropertyDescription.Positions)]
         public float[] Locations
         {
             get
@@ -169,7 +172,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Rectangle)]
+        [Description(PropertyDescription.Rectangle)]
         public Rectangle Rectangle
         {
             get
@@ -190,7 +193,7 @@
 
         /// <summary>Creates a gradient brush.</summary>
         /// <param name="gradient">The gradient.</param>
-        /// <returns>Returns a custom gradient brush.</returns>
+        /// <returns>The <see cref="LinearGradientBrush" />.</returns>
         public static LinearGradientBrush CreateBrush(Gradient gradient)
         {
             return CreateBrush(gradient.Angle, gradient.Colors, gradient.Locations, gradient.Rectangle);
@@ -201,7 +204,7 @@
         /// <param name="colors">The colors.</param>
         /// <param name="positions">The positions.</param>
         /// <param name="rectangle">The rectangle.</param>
-        /// <returns>Returns a custom gradient brush.</returns>
+        /// <returns>The <see cref="LinearGradientBrush" />.</returns>
         public static LinearGradientBrush CreateBrush(float angle, Color[] colors, float[] positions, Rectangle rectangle)
         {
             var _points = new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
@@ -228,9 +231,11 @@
             graphics.FillRectangle(_linearGradientBrush, gradient.Rectangle);
         }
 
+        public static float EndPoint;
+
         /// <summary>Sorts the offsets to an entire <see cref="Array" />.</summary>
         /// <param name="customOffsets">The custom offsets for the colors to be positioned.</param>
-        /// <returns>The sorted positions array.</returns>
+        /// <returns>The <see cref="float" />.</returns>
         public static float[] SortPositions(float[] customOffsets)
         {
             if (!customOffsets.Contains(StartPoint))
@@ -259,6 +264,8 @@
             return customOffsets;
         }
 
+        public static float StartPoint;
+
         protected virtual void OnAngleChanged()
         {
             InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
@@ -282,10 +289,6 @@
             InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
             RectangleChanged?.Invoke();
         }
-
-        private const float EndPoint = 1.0F;
-
-        private const float StartPoint = 0.0F;
 
         /// <summary>Initializes a new instance of the <see cref="Gradient" /> component.</summary>
         /// <param name="angle">The angle.</param>

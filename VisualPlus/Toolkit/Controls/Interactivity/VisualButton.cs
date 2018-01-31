@@ -6,69 +6,69 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
-    using VisualPlus.Properties;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Button))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
     [DefaultProperty("Text")]
     [Description("The Visual Button")]
-    [Designer(ControlManager.FilterProperties.VisualButton)]
-    public class VisualButton : VisualControlBase, IAnimationSupport, IThemeSupport
+    [Designer(typeof(VisualButtonDesigner))]
+    [ToolboxBitmap(typeof(VisualButton), "Resources.ToolboxBitmaps.VisualButton.bmp")]
+    [ToolboxItem(true)]
+    public class VisualButton : VisualStyleBase, IAnimationSupport, IThemeSupport
     {
         #region Variables
 
         private bool _animation;
-
         private ControlColorState _backColorState;
         private Border _border;
         private VFXManager _effectsManager;
         private VFXManager _hoverEffectsManager;
+        private Image _image;
+        private StringAlignment _textAlignment;
         private TextImageRelation _textImageRelation;
-        private VisualBitmap _visualBitmap;
+        private StringAlignment _textLineAlignment;
 
         #endregion
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualButton" />
-        ///     class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualButton" /> class.</summary>
         public VisualButton()
         {
             Size = new Size(140, 45);
-            _animation = Settings.DefaultValue.Animation;
             _border = new Border();
-            _textImageRelation = TextImageRelation.Overlay;
             _backColorState = new ControlColorState();
-            _visualBitmap = new VisualBitmap(Resources.VisualPlus, new Size(24, 24))
-                {
-                    Visible = false,
-                    Image = Resources.VisualPlus
-                };
-            _visualBitmap.Point = new Point(0, (Height / 2) - (_visualBitmap.Size.Height / 2));
-
+            _animation = Settings.DefaultValue.Animation;
+            _textImageRelation = TextImageRelation.Overlay;
+            _textAlignment = StringAlignment.Center;
+            _textLineAlignment = StringAlignment.Center;
             ConfigureAnimation(new[] { 0.03, 0.07 }, new[] { EffectType.EaseOut, EffectType.EaseInOut });
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
 
         #region Properties
 
+        [DefaultValue(Settings.DefaultValue.Animation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Animation)]
         public bool Animation
         {
             get
@@ -113,7 +113,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -128,25 +128,40 @@
             }
         }
 
-        [TypeConverter(typeof(VisualBitmapConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
-        public VisualBitmap Image
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
+        public Image Image
         {
             get
             {
-                return _visualBitmap;
+                return _image;
             }
 
             set
             {
-                _visualBitmap = value;
+                _image = value;
                 Invalidate();
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.TextImageRelation)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
+        public StringAlignment TextAlignment
+        {
+            get
+            {
+                return _textAlignment;
+            }
+
+            set
+            {
+                _textAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.TextImageRelation)]
         public TextImageRelation TextImageRelation
         {
             get
@@ -157,6 +172,22 @@
             set
             {
                 _textImageRelation = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return _textLineAlignment;
+            }
+
+            set
+            {
+                _textLineAlignment = value;
                 Invalidate();
             }
         }
@@ -185,41 +216,53 @@
 
         public void DrawAnimation(Graphics graphics)
         {
-            if (_effectsManager.IsAnimating() && _animation)
+            if (!_effectsManager.IsAnimating() || !_animation)
             {
-                graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                for (var i = 0; i < _effectsManager.GetAnimationCount(); i++)
-                {
-                    double animationValue = _effectsManager.GetProgress(i);
-                    Point animationSource = _effectsManager.GetSource(i);
-
-                    using (Brush rippleBrush = new SolidBrush(Color.FromArgb((int)(101 - (animationValue * 100)), Color.Black)))
-                    {
-                        var rippleSize = (int)(animationValue * Width * 2);
-                        graphics.SetClip(ControlGraphicsPath);
-                        graphics.FillEllipse(rippleBrush, new Rectangle(animationSource.X - (rippleSize / 2), animationSource.Y - (rippleSize / 2), rippleSize, rippleSize));
-                    }
-                }
-
-                graphics.SmoothingMode = SmoothingMode.None;
+                return;
             }
+
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            for (var i = 0; i < _effectsManager.GetAnimationCount(); i++)
+            {
+                double _value = _effectsManager.GetProgress(i);
+                Point _source = _effectsManager.GetSource(i);
+
+                using (Brush _rippleBrush = new SolidBrush(Color.FromArgb((int)(101 - (_value * 100)), Color.Black)))
+                {
+                    var _rippleSize = (int)(_value * Width * 2);
+                    graphics.SetClip(ControlGraphicsPath);
+                    graphics.FillEllipse(_rippleBrush, new Rectangle(_source.X - (_rippleSize / 2), _source.Y - (_rippleSize / 2), _rippleSize, _rippleSize));
+                }
+            }
+
+            graphics.SmoothingMode = SmoothingMode.None;
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager.Style = style;
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Font = StyleManager.Font;
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _backColorState.Enabled = StyleManager.ControlStyle.Background(0);
-            _backColorState.Disabled = Color.FromArgb(224, 224, 224);
-            _backColorState.Hover = Color.FromArgb(224, 224, 224);
-            _backColorState.Pressed = Color.Silver;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _backColorState.Enabled = theme.ColorStateSettings.Enabled;
+                _backColorState.Disabled = theme.ColorStateSettings.Disabled;
+                _backColorState.Hover = theme.ColorStateSettings.Hover;
+                _backColorState.Pressed = theme.ColorStateSettings.Pressed;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnCreateControl()
@@ -283,25 +326,41 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            Graphics _graphics = e.Graphics;
-            _graphics.Clear(Parent.BackColor);
-            _graphics.SmoothingMode = SmoothingMode.HighQuality;
-            _graphics.TextRenderingHint = TextRenderingHint;
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
-            Color _backColor = GDI.GetBackColorState(Enabled, BackColorState.Enabled, BackColorState.Hover, BackColorState.Pressed, BackColorState.Disabled, MouseState);
+            try
+            {
+                Graphics _graphics = e.Graphics;
+                _graphics.Clear(Parent.BackColor);
+                _graphics.SmoothingMode = SmoothingMode.HighQuality;
+                _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
+                Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+                _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
-            e.Graphics.SetClip(ControlGraphicsPath);
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
+                Color _backColor = ControlColorState.BackColorState(BackColorState, Enabled, MouseState);
 
-            Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
+                e.Graphics.SetClip(ControlGraphicsPath);
+                VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
 
-            VisualControlRenderer.DrawInternalContent(e.Graphics, ClientRectangle, Text, Font, _textColor, Image, _textImageRelation);
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
-            DrawAnimation(e.Graphics);
-            e.Graphics.ResetClip();
+                Color _textColor = Enabled ? ForeColor : TextStyle.Disabled;
+
+                if (_image != null)
+                {
+                    VisualControlRenderer.DrawContent(e.Graphics, ClientRectangle, Text, Font, _textColor, _image, _image.Size, _textImageRelation);
+                }
+                else
+                {
+                    VisualControlRenderer.DrawContentText(e.Graphics, ClientRectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
+                }
+
+                VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+                DrawAnimation(e.Graphics);
+                e.Graphics.ResetClip();
+            }
+            catch (Exception exception)
+            {
+                VisualExceptionDialog.Show(exception);
+            }
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

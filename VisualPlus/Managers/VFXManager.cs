@@ -4,6 +4,7 @@ namespace VisualPlus.Managers
 
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Drawing;
     using System.Windows.Forms;
 
@@ -11,7 +12,8 @@ namespace VisualPlus.Managers
 
     #endregion
 
-    internal class VFXManager
+    [Description("The VFX manager.")]
+    public class VFXManager
     {
         #region Variables
 
@@ -463,7 +465,7 @@ namespace VisualPlus.Managers
         #endregion
     }
 
-    internal class AnimationLinear
+    public class AnimationLinear
     {
         #region Events
 
@@ -475,7 +477,7 @@ namespace VisualPlus.Managers
         #endregion
     }
 
-    internal class AnimationEaseInOut
+    public class AnimationEaseInOut
     {
         #region Events
 

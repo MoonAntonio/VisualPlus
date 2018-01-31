@@ -12,8 +12,8 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
+    using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -36,7 +36,6 @@
         private Color _backgroundColor;
         private Border _border;
         private Size _itemSize;
-        private StringAlignment _lineAlignment;
         private Point _mouseLocation;
         private MouseStates _mouseState;
         private TabAlignment _selectorAlignment;
@@ -48,7 +47,7 @@
         private int _separatorSpacing;
         private float _separatorThickness;
         private bool _separatorVisible;
-        private VisualStyleManager _styleManager;
+        private StylesManager _styleManager;
         private Color _tabHover;
         private Color _tabMenu;
         private Color _tabNormal;
@@ -57,8 +56,8 @@
         private Color _tabSelected;
         private Color _tabSelector;
         private StringAlignment _textAlignment;
+        private StringAlignment _textLineAlignment;
         private Color _textNormal;
-        private Rectangle _textRectangle;
         private TextRenderingHint _textRendererHint;
         private Color _textSelected;
 
@@ -66,11 +65,7 @@
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Navigation.VisualTabControl" />
-        ///     class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualTabControl" /> class.</summary>
         public VisualTabControl()
         {
             SetStyle(
@@ -81,38 +76,38 @@
 
             UpdateStyles();
 
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+
+            _textLineAlignment = StringAlignment.Center;
             _border = new Border();
             _alignment = TabAlignment.Top;
             _arrowSelectorVisible = true;
             _arrowSpacing = 10;
             _arrowThickness = 5;
             _itemSize = new Size(100, 25);
-            _lineAlignment = StringAlignment.Near;
             _selectorAlignment = TabAlignment.Top;
             _selectorAlignment2 = TabAlignment.Bottom;
             _selectorThickness = 4;
             _separatorSpacing = 2;
             _separatorThickness = 2F;
-            _backgroundColor = _styleManager.ControlStyle.Background(3);
-            _separator = _styleManager.ControlStyle.Line;
+            _backgroundColor = _styleManager.Theme.BackgroundSettings.Type4;
+            _separator = _styleManager.Theme.OtherSettings.Line;
             _tabMenu = Color.FromArgb(55, 61, 73);
             _textAlignment = StringAlignment.Center;
             _tabSelector = Color.Green;
             _textNormal = Color.FromArgb(174, 181, 187);
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _textSelected = Color.FromArgb(217, 220, 227);
-            Font = _styleManager.Font;
+            Font = _styleManager.Theme.TextSetting.Font;
 
             Size = new Size(320, 160);
             MinimumSize = new Size(144, 85);
-            LineAlignment = StringAlignment.Center;
             ItemSize = _itemSize;
 
             _tabPageBorder = new Shape();
-            _tabNormal = _styleManager.TabStyle.TabEnabled;
-            _tabSelected = _styleManager.TabStyle.TabSelected;
-            _tabHover = _styleManager.TabStyle.TabHover;
+            _tabNormal = _styleManager.Theme.OtherSettings.TabPageEnabled;
+            _tabSelected = _styleManager.Theme.OtherSettings.TabPageSelected;
+            _tabHover = _styleManager.Theme.OtherSettings.TabPageHover;
 
             foreach (TabPage page in TabPages)
             {
@@ -125,8 +120,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public new TabAlignment Alignment
         {
             get
@@ -170,8 +165,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ArrowSelectorVisible
         {
             get
@@ -186,8 +181,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Spacing)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Spacing)]
         public int ArrowSpacing
         {
             get
@@ -202,8 +197,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int ArrowThickness
         {
             get
@@ -218,8 +213,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color BackgroundColor
         {
             get
@@ -241,7 +236,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -256,8 +251,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         public new Size ItemSize
         {
             get
@@ -273,23 +268,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        public StringAlignment LineAlignment
-        {
-            get
-            {
-                return _lineAlignment;
-            }
-
-            set
-            {
-                _lineAlignment = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public TabAlignment SelectorAlignment
         {
             get
@@ -304,8 +284,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public TabAlignment SelectorAlignment2
         {
             get
@@ -320,8 +300,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         public int SelectorThickness
         {
             get
@@ -336,8 +316,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool SelectorVisible
         {
             get
@@ -352,8 +332,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool SelectorVisible2
         {
             get
@@ -368,8 +348,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Separator
         {
             get
@@ -384,8 +364,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Spacing)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Spacing)]
         public int SeparatorSpacing
         {
             get
@@ -400,8 +380,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public float SeparatorThickness
         {
             get
@@ -417,8 +397,8 @@
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool SeparatorVisible
         {
             get
@@ -433,8 +413,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates State
         {
             get
@@ -449,8 +429,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TabHover
         {
             get
@@ -465,8 +445,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TabMenu
         {
             get
@@ -481,8 +461,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TabNormal
         {
             get
@@ -499,7 +479,7 @@
 
         [TypeConverter(typeof(ShapeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Shape TabPageBorder
         {
             get
@@ -514,8 +494,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TabSelected
         {
             get
@@ -530,8 +510,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TabSelector
         {
             get
@@ -546,7 +526,7 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public StringAlignment TextAlignment
         {
             get
@@ -561,8 +541,24 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return _textLineAlignment;
+            }
+
+            set
+            {
+                _textLineAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TextNormal
         {
             get
@@ -577,8 +573,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextRenderingHint)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
@@ -593,8 +589,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TextSelected
         {
             get
@@ -622,6 +618,12 @@
             Appearance = TabAppearance.Normal;
         }
 
+        protected override void OnBackColorChanged(EventArgs e)
+        {
+            base.OnBackColorChanged(e);
+            GraphicsManager.ApplyContainerBackColorChange(this, _backgroundColor);
+        }
+
         protected override void OnControlAdded(ControlEventArgs e)
         {
             base.OnControlAdded(e);
@@ -643,8 +645,13 @@
             }
             finally
             {
-                e.Control.BackColor = _backgroundColor;
+                GraphicsManager.SetControlBackColor(e.Control, _backgroundColor, false);
             }
+        }
+
+        protected override void OnControlRemoved(ControlEventArgs e)
+        {
+            GraphicsManager.SetControlBackColor(e.Control, Parent.BackColor, true);
         }
 
         protected override void OnMouseEnter(EventArgs e)
@@ -701,104 +708,7 @@
 
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _tabMenu, BackgroundImage, _mouseState, ClientRectangle, _border);
 
-            for (var tabIndex = 0; tabIndex <= TabCount - 1; tabIndex++)
-            {
-                ConfigureAlignmentStyle(tabIndex);
-
-                // Draws the TabSelector
-                Rectangle selectorRectangle = GDI.ApplyAnchor(_selectorAlignment, GetTabRect(tabIndex), _selectorThickness);
-                Rectangle selectorRectangle2 = GDI.ApplyAnchor(SelectorAlignment2, GetTabRect(tabIndex), _selectorThickness);
-
-                StringFormat stringFormat = new StringFormat
-                    {
-                        Alignment = _textAlignment,
-                        LineAlignment = _lineAlignment
-                    };
-
-                if (tabIndex == SelectedIndex)
-                {
-                    // Draw selected tab
-                    _graphics.FillRectangle(new SolidBrush(_tabSelected), _tabPageRectangle);
-
-                    // Draw tab selector
-                    if (_selectorVisible)
-                    {
-                        _graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
-                    }
-
-                    if (_selectorVisible2)
-                    {
-                        _graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
-                    }
-
-                    GraphicsPath borderPath = new GraphicsPath();
-                    borderPath.AddRectangle(_tabPageRectangle);
-
-                    VisualBorderRenderer.DrawBorder(_graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
-
-                    if (_arrowSelectorVisible)
-                    {
-                        DrawSelectionArrow(e, _tabPageRectangle);
-                    }
-
-                    // Draw selected tab text
-                    _graphics.DrawString(
-                        TabPages[tabIndex].Text,
-                        Font,
-                        new SolidBrush(_textSelected),
-                        _textRectangle,
-                        stringFormat);
-
-                    // Draw image list
-                    if (ImageList != null)
-                    {
-                        _graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X + 12, _tabPageRectangle.Y + 11, ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);
-                    }
-                }
-                else
-                {
-                    // Draw other TabPages
-                    _graphics.FillRectangle(new SolidBrush(_tabNormal), _tabPageRectangle);
-
-                    if ((State == MouseStates.Hover) && _tabPageRectangle.Contains(_mouseLocation))
-                    {
-                        Cursor = Cursors.Hand;
-
-                        // Draw hover background
-                        _graphics.FillRectangle(new SolidBrush(_tabHover), _tabPageRectangle);
-
-                        // Draw tab selector
-                        if (_selectorVisible)
-                        {
-                            _graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
-                        }
-
-                        if (_selectorVisible2)
-                        {
-                            _graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
-                        }
-
-                        GraphicsPath borderPath = new GraphicsPath();
-                        borderPath.AddRectangle(_tabPageRectangle);
-
-                        VisualBorderRenderer.DrawBorder(_graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
-                    }
-
-                    _graphics.DrawString(
-                        TabPages[tabIndex].Text,
-                        Font,
-                        new SolidBrush(_textNormal),
-                        _textRectangle,
-                        stringFormat);
-
-                    // Draw image list
-                    if (ImageList != null)
-                    {
-                        _graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X + 12, _tabPageRectangle.Y + 11, ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);
-                    }
-                }
-            }
-
+            DrawTabPages(e);
             DrawSeparator(e);
         }
 
@@ -808,27 +718,15 @@
             {
                 // Top - Bottom
                 _tabPageRectangle = new Rectangle(
-                    new Point(
-                        GetTabRect(tabIndex).Location.X,
-                        GetTabRect(tabIndex).Location.Y),
-                    new Size(
-                        GetTabRect(tabIndex).Width,
-                        GetTabRect(tabIndex).Height));
-
-                _textRectangle = new Rectangle(_tabPageRectangle.Left, _tabPageRectangle.Top, _tabPageRectangle.Width, _tabPageRectangle.Height);
+                    new Point(GetTabRect(tabIndex).Location.X, GetTabRect(tabIndex).Location.Y),
+                    new Size(GetTabRect(tabIndex).Width, GetTabRect(tabIndex).Height));
             }
             else
             {
                 // Left - Right
                 _tabPageRectangle = new Rectangle(
-                    new Point(
-                        GetTabRect(tabIndex).Location.X,
-                        GetTabRect(tabIndex).Location.Y),
-                    new Size(
-                        GetTabRect(tabIndex).Width,
-                        GetTabRect(tabIndex).Height));
-
-                _textRectangle = new Rectangle(_tabPageRectangle.Left, _tabPageRectangle.Top, _tabPageRectangle.Width, _tabPageRectangle.Height);
+                    new Point(GetTabRect(tabIndex).Location.X, GetTabRect(tabIndex).Location.Y),
+                    new Size(GetTabRect(tabIndex).Width, GetTabRect(tabIndex).Height));
             }
         }
 
@@ -932,6 +830,93 @@
                     {
                         throw new ArgumentOutOfRangeException();
                     }
+            }
+        }
+
+        private void DrawTabPages(PaintEventArgs e)
+        {
+            StringFormat _tabTextFormat = new StringFormat
+                {
+                    Alignment = _textAlignment,
+                    LineAlignment = _textLineAlignment
+                };
+
+            for (var tabIndex = 0; tabIndex <= TabCount - 1; tabIndex++)
+            {
+                ConfigureAlignmentStyle(tabIndex);
+
+                // Draws the TabSelector
+                Rectangle selectorRectangle = GraphicsManager.ApplyAnchor(_selectorAlignment, GetTabRect(tabIndex), _selectorThickness);
+                Rectangle selectorRectangle2 = GraphicsManager.ApplyAnchor(SelectorAlignment2, GetTabRect(tabIndex), _selectorThickness);
+
+                if (tabIndex == SelectedIndex)
+                {
+                    // Draw selected tab
+                    e.Graphics.FillRectangle(new SolidBrush(_tabSelected), _tabPageRectangle);
+
+                    // Draw tab selector
+                    if (_selectorVisible)
+                    {
+                        e.Graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
+                    }
+
+                    if (_selectorVisible2)
+                    {
+                        e.Graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
+                    }
+
+                    GraphicsPath borderPath = new GraphicsPath();
+                    borderPath.AddRectangle(_tabPageRectangle);
+
+                    VisualBorderRenderer.DrawBorder(e.Graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
+
+                    if (_arrowSelectorVisible)
+                    {
+                        DrawSelectionArrow(e, _tabPageRectangle);
+                    }
+
+                    // Draw selected tab text
+                    e.Graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_textSelected), _tabPageRectangle, _tabTextFormat);
+
+                    if (ImageList != null)
+                    {
+                        e.Graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X, (_tabPageRectangle.Y + (_tabPageRectangle.Height / 2)) - (ImageList.ImageSize.Height / 2), ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);
+                    }
+                }
+                else
+                {
+                    // Draw other TabPages
+                    e.Graphics.FillRectangle(new SolidBrush(_tabNormal), _tabPageRectangle);
+
+                    if ((State == MouseStates.Hover) && _tabPageRectangle.Contains(_mouseLocation))
+                    {
+                        // Draw hover background
+                        e.Graphics.FillRectangle(new SolidBrush(_tabHover), _tabPageRectangle);
+
+                        // Draw tab selector
+                        if (_selectorVisible)
+                        {
+                            e.Graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
+                        }
+
+                        if (_selectorVisible2)
+                        {
+                            e.Graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
+                        }
+
+                        GraphicsPath borderPath = new GraphicsPath();
+                        borderPath.AddRectangle(_tabPageRectangle);
+
+                        VisualBorderRenderer.DrawBorder(e.Graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
+                    }
+
+                    e.Graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_textNormal), _tabPageRectangle, _tabTextFormat);
+
+                    if (ImageList != null)
+                    {
+                        e.Graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X, (_tabPageRectangle.Y + (_tabPageRectangle.Height / 2)) - (ImageList.ImageSize.Height / 2), ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);
+                    }
+                }
             }
         }
 

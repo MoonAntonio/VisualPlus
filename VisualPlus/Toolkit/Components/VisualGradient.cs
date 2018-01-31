@@ -7,8 +7,8 @@
     using System.Drawing;
     using System.Windows.Forms;
 
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
+    using VisualPlus.Managers;
 
     #endregion
 
@@ -91,8 +91,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.AutoSize)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.AutoSize)]
         public bool AutoSize
         {
             get
@@ -115,8 +115,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color BottomLeft
         {
             get
@@ -134,8 +134,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color BottomRight
         {
             get
@@ -154,7 +154,7 @@
         [EditorBrowsable(EditorBrowsableState.Never)]
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("The control to attach this component.")]
         public Control Control
         {
@@ -180,13 +180,14 @@
 
         /// <summary>Gets the <see cref="VisualGradient" /> as a bitmap.</summary>
         [Browsable(true)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image Image
         {
             get
             {
                 Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
-                return GDI.CreateGradientBitmap(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
+                return ImageManager.CreateGradientBitmap(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
             }
         }
 
@@ -202,8 +203,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Size Size
         {
             get
@@ -226,8 +227,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TopLeft
         {
             get
@@ -245,8 +246,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TopRight
         {
             get
@@ -285,7 +286,7 @@
                 return;
             }
 
-            GDI.ApplyGradientBackground(_control, _gradientSize, _topLeft, _topRight, _bottomLeft, _bottomRight);
+            GraphicsManager.ApplyGradientBackground(_control, _gradientSize, _topLeft, _topRight, _bottomLeft, _bottomRight);
         }
 
         private void Control_Resize(object sender, EventArgs e)
@@ -298,7 +299,7 @@
         /// <param name="autoSize">The auto size toggle.</param>
         /// <param name="control">The control.</param>
         /// <param name="custom">The custom size.</param>
-        /// <returns>The auto adjusted gradient size.</returns>
+        /// <returns>The <see cref="Size" />.</returns>
         private Size GetGradientSize(bool autoSize, Control control, Size custom)
         {
             Size _newSize;

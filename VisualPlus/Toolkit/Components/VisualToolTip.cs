@@ -6,22 +6,24 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Managers;
+    using VisualPlus.Designer;
+    using VisualPlus.Localization;
     using VisualPlus.Properties;
     using VisualPlus.Structure;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ToolTip))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Popup")]
     [DefaultProperty("Text")]
-    [Description("The Visual ToolTip")]
-    [Designer(ControlManager.FilterProperties.VisualToolTip)]
+    [Description("The Visual Tool Tip")]
+    [Designer(typeof(VisualToolTipDesigner))]
+    [ToolboxBitmap(typeof(VisualToolTip), "Resources.ToolboxBitmaps.VisualButton.bmp")]
+    [ToolboxItem(true)]
     public class VisualToolTip : ToolTip
     {
         #region Variables
@@ -42,7 +44,7 @@
         private Rectangle _separator;
         private int _separatorThickness;
         private int _spacing;
-        private VisualStyleManager _styleManager;
+        private StylesManager _styleManager;
         private string _text;
         private Point _textPoint;
         private TextRenderingHint _textRendererHint;
@@ -60,11 +62,10 @@
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Components.VisualToolTip" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualToolTip" /> class.</summary>
         public VisualToolTip()
         {
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
             _iconPoint = new Point(0, 0);
             _iconSize = new Size(24, 24);
             _padding = new Padding(4, 4, 4, 4);
@@ -77,12 +78,12 @@
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _text = "Enter your custom text here.";
             _icon = Resources.VisualPlus;
-            _background = _styleManager.ColorStateStyle.ControlEnabled;
-            _font = _styleManager.Font;
+            _background = _styleManager.Theme.ColorStateSettings.Enabled;
+            _font = _styleManager.Theme.TextSetting.Font;
             _autoSize = true;
-            _foreColor = _styleManager.FontStyle.ForeColor;
-            _lineColor = _styleManager.ControlStyle.Line;
-            _titleFont = _styleManager.Font;
+            _foreColor = _styleManager.Theme.TextSetting.Enabled;
+            _lineColor = _styleManager.Theme.OtherSettings.Line;
+            _titleFont = _styleManager.Theme.TextSetting.Font;
 
             _border = new Border();
 
@@ -108,8 +109,8 @@
 
         #region Properties
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.AutoSize)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.AutoSize)]
         public bool AutoSize
         {
             get
@@ -123,8 +124,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Background
         {
             get
@@ -140,7 +141,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -154,8 +155,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font Font
         {
             get
@@ -183,8 +184,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image Icon
         {
             get
@@ -198,8 +199,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool IconBorder
         {
             get
@@ -213,8 +214,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public Size IconSize
         {
             get
@@ -228,8 +229,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color LineColor
         {
             get
@@ -243,8 +244,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Padding)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Padding)]
         public Padding Padding
         {
             get
@@ -258,8 +259,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         public int SeparatorThickness
         {
             get
@@ -273,8 +274,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Spacing)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Spacing)]
         public int Spacing
         {
             get
@@ -288,8 +289,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Text)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
         public string Text
         {
             get
@@ -303,8 +304,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextRenderingHint)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
@@ -318,8 +319,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool TextShadow
         {
             get
@@ -333,8 +334,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Type)]
         public ToolTipType TipType
         {
             get
@@ -348,8 +349,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Text)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
         public string Title
         {
             get
@@ -363,8 +364,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TitleColor
         {
             get
@@ -378,8 +379,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font TitleFont
         {
             get
@@ -393,8 +394,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         public Size ToolTipSize
         {
             get
@@ -414,7 +415,7 @@
 
         /// <summary>Input the text height to compare it to the icon height.</summary>
         /// <param name="textHeight">The text height.</param>
-        /// <returns>New height.</returns>
+        /// <returns>The <see cref="int" />.</returns>
         private int GetTipHeight(int textHeight)
         {
             int tipHeight = textHeight > _iconSize.Height ? textHeight : _iconSize.Height;
@@ -424,7 +425,7 @@
         /// <summary>Input the title and text width to retrieve total width.</summary>
         /// <param name="titleWidth">The title width.</param>
         /// <param name="textWidth">The text width.</param>
-        /// <returns>New width.</returns>
+        /// <returns>The <see cref="int" />.</returns>
         private int GetTipWidth(int titleWidth, int textWidth)
         {
             int tipWidth = titleWidth > _iconSize.Width + textWidth ? titleWidth : _iconSize.Width + textWidth;

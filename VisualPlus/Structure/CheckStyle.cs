@@ -9,16 +9,15 @@
     using System.IO;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Renders;
-    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
 
     [Description("The check style structure.")]
     [TypeConverter(typeof(CheckStyleConverter))]
-    public class CheckStyle : ICheckmark
+    public class CheckStyle
     {
         #region Variables
 
@@ -31,6 +30,7 @@
         private Image _image;
         private int _shapeRounding;
         private ShapeType _shapeType;
+        private float _thickness;
 
         #endregion
 
@@ -40,17 +40,18 @@
         /// <param name="boundary">The boundary.</param>
         public CheckStyle(Rectangle boundary)
         {
-            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            StylesManager _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
-            _color = _styleManager.CheckmarkStyle.CheckColor;
+            _color = _styleManager.Theme.OtherSettings.Progress;
 
             _autoSize = true;
             _character = '✔';
-            _characterFont = _styleManager.Font;
+            _characterFont = _styleManager.Theme.TextSetting.Font;
             _checkType = CheckType.Character;
 
             _shapeRounding = Settings.DefaultValue.Rounding.BoxRounding;
             _shapeType = Settings.DefaultValue.BorderType;
+            _thickness = 2.0F;
 
             Bitmap _bitmap = new Bitmap(Image.FromStream(new MemoryStream(Convert.FromBase64String(VisualToggleRenderer.GetBase64CheckImage()))));
             _image = _bitmap;
@@ -61,6 +62,9 @@
         {
             /// <summary>The character.</summary>
             Character,
+
+            /// <summary>The checkmark.</summary>
+            Checkmark,
 
             /// <summary>The image.</summary>
             Image,
@@ -75,7 +79,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.AutoSize)]
+        [Description(PropertyDescription.AutoSize)]
         public bool AutoSize
         {
             get
@@ -91,7 +95,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Size)]
+        [Description(PropertyDescription.Size)]
         public Rectangle Bounds
         {
             get
@@ -107,7 +111,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Character)]
+        [Description(PropertyDescription.Character)]
         public char Character
         {
             get
@@ -123,7 +127,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color CheckColor
         {
             get
@@ -139,7 +143,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Font)]
+        [Description(PropertyDescription.Font)]
         public Font Font
         {
             get
@@ -155,7 +159,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Image)]
+        [Description(PropertyDescription.Image)]
         public Image Image
         {
             get
@@ -171,7 +175,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Rounding)]
+        [Description(PropertyDescription.Rounding)]
         public int ShapeRounding
         {
             get
@@ -187,7 +191,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Type)]
+        [Description(PropertyDescription.Type)]
         public ShapeType ShapeType
         {
             get
@@ -203,7 +207,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.CheckType)]
+        [Description(PropertyDescription.CheckType)]
         public CheckType Style
         {
             get
@@ -214,6 +218,22 @@
             set
             {
                 _checkType = value;
+            }
+        }
+
+        [NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Description(PropertyDescription.Thickness)]
+        public float Thickness
+        {
+            get
+            {
+                return _thickness;
+            }
+
+            set
+            {
+                _thickness = value;
             }
         }
 

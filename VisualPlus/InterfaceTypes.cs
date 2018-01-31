@@ -6,36 +6,33 @@ namespace VisualPlus
     using System.Drawing;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
 
     #endregion
 
-    public interface IThemeSupport
+    /// <summary>The IThemeManager.</summary>
+    public interface IThemeManager
     {
-        #region Events
+        #region Properties
 
-        /// <summary>Updates the control theme.</summary>
-        /// <param name="style">The style to update the control with.</param>
-        void UpdateTheme(Enumerators.Styles style);
+        /// <summary>The style manager.</summary>
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        StylesManager ThemeManager { get; set; }
 
         #endregion
     }
 
-    /// <summary>Exposes access to content values.</summary>
-    public interface IContentValues
+    /// <summary>The ITheme supported control.</summary>
+    public interface IThemeSupport
     {
         #region Events
 
-        /// <summary>Gets the content long text.</summary>
-        /// <returns>String value.</returns>
-        string GetLongText();
-
-        /// <summary>Gets the content short text.</summary>
-        /// <returns>String value.</returns>
-        string GetShortText();
+        /// <summary>Update the control theme.</summary>
+        /// <param name="theme">The theme to update with.</param>
+        void UpdateTheme(Theme theme);
 
         #endregion
     }
@@ -79,22 +76,13 @@ namespace VisualPlus
         #endregion
     }
 
-    public interface IControlStyle
-    {
-        #region Properties
-
-        VisualStyleManager StyleManager { get; set; }
-
-        #endregion
-    }
-
     public interface IAnimationSupport
     {
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Animation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Animation)]
         bool Animation { get; set; }
 
         #endregion
@@ -124,28 +112,6 @@ namespace VisualPlus
         Color BackgroundHover { get; set; }
 
         Color BackgroundPressed { get; set; }
-
-        #endregion
-    }
-
-    public interface IControlState
-    {
-        #region Properties
-
-        Gradient DisabledGradient { get; }
-
-        Gradient EnabledGradient { get; }
-
-        #endregion
-    }
-
-    public interface IControlStates : IControlState
-    {
-        #region Properties
-
-        Gradient HoverGradient { get; }
-
-        Gradient PressedGradient { get; }
 
         #endregion
     }

@@ -7,8 +7,7 @@
     using System.Drawing;
     using System.Windows.Forms;
 
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -164,7 +163,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Appearance)]
         public Color Background
         {
             get
@@ -181,7 +181,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("The control to attach this component.")]
         public Control Control
         {
@@ -212,8 +212,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool Enabled
         {
             get
@@ -241,7 +241,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
+        [Description(PropertyDescription.Font)]
+        [Category(PropertyCategory.Appearance)]
         public Font Font
         {
             get
@@ -256,7 +257,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Appearance)]
         public Color ForeColor
         {
             get
@@ -273,6 +275,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Appearance)]
         public Point Location
         {
             get
@@ -289,7 +293,7 @@
 
         [TypeConverter(typeof(ShapeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Shape Shape
         {
             get
@@ -304,6 +308,8 @@
             }
         }
 
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Appearance)]
         public Size Size
         {
             get
@@ -318,6 +324,8 @@
             }
         }
 
+        [Description(PropertyDescription.Text)]
+        [Category(PropertyCategory.Appearance)]
         public string Text
         {
             get

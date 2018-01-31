@@ -10,8 +10,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -81,9 +80,9 @@
                 ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor,
                 true);
 
-            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            StylesManager _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
-            _pointerColor = _styleManager.ProgressStyle.Progress;
+            _pointerColor = _styleManager.Theme.OtherSettings.Progress;
 
             UpdateStyles();
             _knobFont = Font;
@@ -161,7 +160,7 @@
         // Invalidate();
         // }
         // }
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Draw graduation strings inside or outside the knob circle")]
         [DefaultValue(false)]
         public bool DrawDivInside
@@ -179,7 +178,7 @@
         }
 
         [Description("Set the end angle to display graduations (max 450)")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [DefaultValue(405)]
         public float EndAngle
         {
@@ -201,7 +200,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Gradient Knob
         {
             get
@@ -218,7 +217,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border KnobBorder
         {
             get
@@ -233,8 +232,8 @@
             }
         }
 
-        [Description(Property.Size)]
-        [Category(Propertys.Layout)]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Layout)]
         public int KnobDistance
         {
             get
@@ -249,8 +248,8 @@
             }
         }
 
-        [Description(Property.Size)]
-        [Category(Propertys.Layout)]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Layout)]
         public Size KnobSize
         {
             get
@@ -266,7 +265,7 @@
         }
 
         [Description("Set the style of the knob pointer: a circle or a line")]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public PointerStyle KnobStyle
         {
             get
@@ -281,8 +280,8 @@
             }
         }
 
-        [Description(Property.Size)]
-        [Category(Propertys.Layout)]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Layout)]
         public Size KnobTickSize
         {
             get
@@ -299,7 +298,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Gradient KnobTop
         {
             get
@@ -316,7 +315,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border KnobTopBorder
         {
             get
@@ -331,8 +330,8 @@
             }
         }
 
-        [Description(Property.Size)]
-        [Category(Propertys.Layout)]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Layout)]
         public Size KnobTopSize
         {
             get
@@ -348,7 +347,7 @@
         }
 
         [Description("set the value for the large changes")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public int LargeChange
         {
             get
@@ -364,7 +363,7 @@
         }
 
         [Description("set the maximum value for the knob control")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public int Maximum
         {
             get
@@ -390,7 +389,7 @@
         }
 
         [Description("set the minimum value for the knob control")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public int Minimum
         {
             get
@@ -406,7 +405,7 @@
         }
 
         [Description("Set to how many parts is bar divided when using mouse wheel")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [DefaultValue(10)]
         public int MouseWheelBarPartitions
         {
@@ -428,8 +427,8 @@
             }
         }
 
-        [Description(Property.Color)]
-        [Category(Propertys.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Appearance)]
         public Color PointerColor
         {
             get
@@ -445,7 +444,7 @@
         }
 
         [Description("Set the number of intervals between minimum and maximum")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public int ScaleDivisions
         {
             get
@@ -462,7 +461,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Gradient ScaleGradient
         {
             get
@@ -478,7 +477,7 @@
         }
 
         [Description("Set the number of subdivisions between main divisions of graduation.")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public int ScaleSubDivisions
         {
             get
@@ -497,7 +496,7 @@
         }
 
         [Description("Show or hide graduations")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public bool ShowLargeScale
         {
             get
@@ -517,7 +516,7 @@
         }
 
         [Description("Show or hide subdivisions of graduations")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public bool ShowSmallScale
         {
             get
@@ -546,7 +545,7 @@
         }
 
         [Description("set the minimum value for the small changes")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public int SmallChange
         {
             get
@@ -562,7 +561,7 @@
         }
 
         [Description("Set the start angle to display graduations (min 90)")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [DefaultValue(135)]
         public float StartAngle
         {
@@ -582,8 +581,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates State
         {
             get
@@ -598,8 +597,8 @@
             }
         }
 
-        [Description(Property.Color)]
-        [Category(Propertys.Behavior)]
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Behavior)]
         public Color TickColor
         {
             get
@@ -615,7 +614,7 @@
         }
 
         [Description("set the current value of the knob control")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public int Value
         {
             get
@@ -636,7 +635,7 @@
         }
 
         [Description("Displays the value text")]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public bool ValueVisible
         {
             get
@@ -721,7 +720,7 @@
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            if (GDI.IsMouseInBounds(e.Location, _knobRectangle))
+            if (GraphicsManager.IsMouseInBounds(e.Location, _knobRectangle))
             {
                 if (_focused)
                 {
@@ -772,7 +771,7 @@
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            if (GDI.IsMouseInBounds(e.Location, _knobRectangle))
+            if (GraphicsManager.IsMouseInBounds(e.Location, _knobRectangle))
             {
                 if (_focused && _rotating)
                 {
@@ -794,7 +793,7 @@
         {
             base.OnMouseWheel(e);
 
-            if (_focused && _rotating && GDI.IsMouseInBounds(e.Location, _knobRectangle))
+            if (_focused && _rotating && GraphicsManager.IsMouseInBounds(e.Location, _knobRectangle))
             {
                 // the Delta value is always 120, as explained in MSDN
                 int v = ((e.Delta / 120) * (_maximum - _minimum)) / _mouseWheelBarPartitions;
@@ -829,7 +828,7 @@
             if (_valueVisible)
             {
                 string value = _value.ToString("0");
-                Size textAreaSize = GDI.MeasureText(e.Graphics, value, Font);
+                Size textAreaSize = GraphicsManager.MeasureText(e.Graphics, value, Font);
                 graphics.DrawString(value, Font, new SolidBrush(ForeColor), (Width / 2) - (textAreaSize.Width / 2), (Height / 2) - (textAreaSize.Height / 2));
             }
         }

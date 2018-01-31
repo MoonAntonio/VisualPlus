@@ -6,24 +6,27 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Designer;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ProgressBar))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
     [DefaultProperty("Value")]
-    [Description("The Visual Radial ProgressBar")]
-    [Designer(ControlManager.FilterProperties.VisualRadialProgress)]
+    [Description("The Visual Radial Progress")]
+    [Designer(typeof(VisualRadialProgressDesigner))]
+    [ToolboxBitmap(typeof(VisualRadialProgress), "Resources.ToolboxBitmaps.VisualRadialProgress.bmp")]
+    [ToolboxItem(true)]
     public class VisualRadialProgress : ProgressBase, IThemeSupport
     {
         #region Variables
@@ -53,13 +56,11 @@
 
         #region Constructors
 
-        /// <inheritdoc />
         /// <summary>Initializes a new instance of the <see cref="VisualRadialProgress" /> class.</summary>
         public VisualRadialProgress()
         {
             _backCircleVisible = true;
             _foreCircleVisible = true;
-            _colorState = new ControlColorState();
             _imageSize = new Size(16, 16);
             _lineCap = LineCap.Round;
             _progressSize = 5F;
@@ -73,15 +74,15 @@
             MinimumSize = Size;
             Maximum = 100;
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color BackCircleColor
         {
             get
@@ -97,8 +98,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool BackCircleVisible
         {
             get
@@ -134,8 +135,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ForeCircle
         {
             get
@@ -151,8 +152,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ForeCircleVisible
         {
             get
@@ -167,8 +168,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image Image
         {
             get
@@ -183,8 +184,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Point ImageLocation
         {
             get
@@ -199,8 +200,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public Size ImageSize
         {
             get
@@ -215,8 +216,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Type)]
         public LineCap LineCap
         {
             get
@@ -232,8 +233,8 @@
         }
 
         [DefaultValue(typeof(Color), "Green")]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ProgressColor
         {
             get
@@ -249,8 +250,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.ProgressSize)]
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public float ProgressSize
         {
             get
@@ -266,8 +267,8 @@
         }
 
         [DefaultValue(typeof(Color), "Black")]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color SubscriptColor
         {
             get
@@ -282,8 +283,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font SubscriptFont
         {
             get
@@ -298,8 +299,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Point)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Point)]
         public Point SubscriptLocation
         {
             get
@@ -314,8 +315,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Text)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
         public string SubscriptText
         {
             get
@@ -331,8 +332,8 @@
         }
 
         [DefaultValue(typeof(Color), "Black")]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color SuperscriptColor
         {
             get
@@ -347,8 +348,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font SuperscriptFont
         {
             get
@@ -363,8 +364,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Point)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Point)]
         public Point SuperscriptLocation
         {
             get
@@ -379,8 +380,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Text)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
         public string SuperscriptText
         {
             get
@@ -395,8 +396,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool TextVisible
         {
             get
@@ -415,29 +416,38 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Font = new Font(StyleManager.FontStyle.FontFamily, 16F, FontStyle.Bold);
+                Font = theme.TextSetting.Font; // TODO: 16F - Bold
+                _subscriptFont = theme.TextSetting.Font; // TODO: - Bold
+                _superscriptFont = theme.TextSetting.Font; // TODO: - Bold
 
-            _subscriptFont = new Font(StyleManager.FontStyle.FontFamily, 8.25F, FontStyle.Bold);
-            _superscriptFont = new Font(StyleManager.FontStyle.FontFamily, 8.25F, FontStyle.Bold);
+                _superscriptColor = theme.TextSetting.SuperscriptColor;
+                _subscriptColor = theme.TextSetting.SubscriptColor;
 
-            _superscriptColor = StyleManager.FontStyle.ForeColor;
-            _subscriptColor = StyleManager.FontStyle.ForeColor;
+                _colorState = new ControlColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type1,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
 
-            BackColorState.Enabled = StyleManager.ControlStyle.Background(0);
-            BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
-
-            _backCircleColor = StyleManager.ProgressStyle.BackCircle;
-            _foreCircleColor = StyleManager.ProgressStyle.ForeCircle;
-
-            _progressColor = StyleManager.ProgressStyle.Progress;
+                _backCircleColor = theme.OtherSettings.BackCircle;
+                _foreCircleColor = theme.OtherSettings.ForeCircle;
+                _progressColor = theme.OtherSettings.Progress;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected void DrawCircles(Graphics graphics)
@@ -486,7 +496,7 @@
         {
             string _value = _textVisible ? Text : Value.ToString(string.Empty);
 
-            Size _textSize = GDI.MeasureText(graphics, _textVisible ? Text : Value.ToString("0"), Font);
+            Size _textSize = GraphicsManager.MeasureText(graphics, _textVisible ? Text : Value.ToString("0"), Font);
             Point _textPoint = new Point((Width / 2) - (_textSize.Width / 2), (Height / 2) - (_textSize.Height / 2));
             StringFormat _stringFormat = new StringFormat(RightToLeft == RightToLeft.Yes ? StringFormatFlags.DirectionRightToLeft : 0)
                 {

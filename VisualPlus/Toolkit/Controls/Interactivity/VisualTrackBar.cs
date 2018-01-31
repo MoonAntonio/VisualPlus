@@ -7,25 +7,31 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Delegates;
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(TrackBar))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("ValueChanged")]
     [DefaultProperty("Value")]
     [Description("The Visual TrackBar")]
-    [Designer(ControlManager.FilterProperties.VisualTrackBar)]
-    public class VisualTrackBar : TrackBar
+    [Designer(typeof(VisualTrackBarDesigner))]
+    [ToolboxBitmap(typeof(VisualTrackBar), "Resources.ToolboxBitmaps.VisualTrackBar.bmp")]
+    [ToolboxItem(true)]
+    public class VisualTrackBar : TrackBar, IThemeSupport
     {
         #region Variables
 
@@ -37,14 +43,8 @@
 
         private int _barThickness;
         private int _barTickSpacing;
-        private bool _buttonAutoSize;
-        private Border _buttonBorder;
         private ControlColorState _buttonControlColorState;
         private GraphicsPath _buttonPath;
-        private Rectangle _buttonRectangle;
-        private Size _buttonSize;
-        private Color _buttonTextColor;
-        private bool _buttonVisible;
         private int _currentUsedPos;
         private ValueDivisor _dividedValue;
         private int _fillingValue;
@@ -61,19 +61,26 @@
         private bool _progressFilling;
         private bool _progressValueVisible;
         private bool _progressVisible;
-        private VisualStyleManager _styleManager;
+        private StylesManager _styleManager;
         private string _suffix;
         private Size _textAreaSize;
         private Color _textDisabledColor;
         private Font _textFont;
         private TextRenderingHint _textRendererHint;
+        private TextStyle _textStyle;
         private Color _tickColor;
         private int _tickHeight;
         private Border _trackBarBorder;
         private ColorState _trackBarColor;
         private GraphicsPath _trackBarPath;
         private Rectangle _trackBarRectangle;
+        private bool _trackerAutoSize;
+        private Border _trackerBorder;
+        private Rectangle _trackerButtonRectangle;
         private Rectangle _trackerRectangle;
+        private Size _trackerSize;
+        private Color _trackerTextColor;
+        private bool _trackerVisible;
         private bool _valueTicksVisible;
         private Rectangle _workingRectangle;
 
@@ -94,15 +101,15 @@
                 true);
 
             UpdateStyles();
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
             _trackerRectangle = Rectangle.Empty;
             _hatch = new Hatch();
             _orientation = Orientation.Horizontal;
             _buttonPath = new GraphicsPath();
-            _buttonAutoSize = true;
-            _buttonSize = new Size(27, 20);
+            _trackerAutoSize = true;
+            _trackerSize = new Size(27, 20);
             _barThickness = 10;
-            _buttonVisible = true;
+            _trackerVisible = true;
             _dividedValue = ValueDivisor.By1;
             _barTickSpacing = 8;
             _fillingValue = 25;
@@ -112,23 +119,24 @@
             _tickHeight = 4;
             _valueTicksVisible = Settings.DefaultValue.TextVisible;
 
-            _buttonControlColorState = new ControlColorState();
-            _trackBarColor = new ColorState();
-
             BackColor = Color.Transparent;
             DoubleBuffered = true;
             UpdateStyles();
             AutoSize = false;
             Size = new Size(200, 50);
             MinimumSize = new Size(0, 0);
-
+            _textStyle = new TextStyle();
             _trackBarBorder = new Border();
-            _buttonBorder = new Border();
+            _trackerBorder = new Border();
 
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(_styleManager.Theme);
         }
+
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description("Occours when the theme of the control has changed.")]
+        public event ThemeChangedEventHandler ThemeChanged;
 
         public enum ValueDivisor
         {
@@ -151,7 +159,7 @@
 
         [TypeConverter(typeof(ControlColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ControlColorState BackColorState
         {
             get
@@ -171,8 +179,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int BarThickness
         {
             get
@@ -187,8 +195,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int BarTickSpacing
         {
             get
@@ -203,90 +211,7 @@
             }
         }
 
-        [DefaultValue(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.AutoSize)]
-        public bool ButtonAutoSize
-        {
-            get
-            {
-                return _buttonAutoSize;
-            }
-
-            set
-            {
-                _buttonAutoSize = value;
-                Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(BorderConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
-        public Border ButtonBorder
-        {
-            get
-            {
-                return _buttonBorder;
-            }
-
-            set
-            {
-                _buttonBorder = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
-        public Size ButtonSize
-        {
-            get
-            {
-                return _buttonSize;
-            }
-
-            set
-            {
-                _buttonSize = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonTextColor
-        {
-            get
-            {
-                return _buttonTextColor;
-            }
-
-            set
-            {
-                _buttonTextColor = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
-        public bool ButtonVisible
-        {
-            get
-            {
-                return _buttonVisible;
-            }
-
-            set
-            {
-                _buttonVisible = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Data)]
+        [Category(PropertyCategory.Data)]
         [Description("Experiemental: Filling Value.")]
         public int FillingValue
         {
@@ -334,7 +259,7 @@
 
         [TypeConverter(typeof(HatchConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Hatch Hatch
         {
             get
@@ -349,8 +274,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int IndentHeight
         {
             get
@@ -365,8 +290,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int IndentWidth
         {
             get
@@ -382,8 +307,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool LineTicksVisible
         {
             get
@@ -398,8 +323,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates MouseState
         {
             get
@@ -414,8 +339,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Orientation)]
         public new Orientation Orientation
         {
             get
@@ -426,13 +351,13 @@
             set
             {
                 _orientation = value;
-                Size = GDI.FlipOrientationSize(_orientation, Size);
+                Size = GraphicsManager.FlipOrientationSize(_orientation, Size);
                 Invalidate();
             }
         }
 
-        [Category(Propertys.Data)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Data)]
+        [Description(PropertyDescription.Visible)]
         public string Prefix
         {
             get
@@ -447,8 +372,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ProgressColor
         {
             get
@@ -463,8 +388,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ProgressFilling
         {
             get
@@ -480,8 +405,8 @@
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool ProgressValueVisible
         {
             get
@@ -497,8 +422,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool ProgressVisible
         {
             get
@@ -513,8 +438,8 @@
             }
         }
 
-        [Category(Propertys.Data)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Data)]
+        [Description(PropertyDescription.Visible)]
         public string Suffix
         {
             get
@@ -529,8 +454,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TextDisabledColor
         {
             get
@@ -545,8 +470,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextRenderingHint)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
@@ -561,8 +486,26 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        /// <summary>Gets or sets the <see cref="TextStyle" />.</summary>
+        [Browsable(false)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextStyle)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public TextStyle TextStyle
+        {
+            get
+            {
+                return _textStyle;
+            }
+
+            set
+            {
+                _textStyle = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TickColor
         {
             get
@@ -577,8 +520,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int TickHeight
         {
             get
@@ -595,7 +538,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border TrackBar
         {
             get
@@ -612,7 +555,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState TrackBarState
         {
             get
@@ -632,8 +575,91 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.ValueDivisor)]
+        [DefaultValue(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.AutoSize)]
+        public bool TrackerAutoSize
+        {
+            get
+            {
+                return _trackerAutoSize;
+            }
+
+            set
+            {
+                _trackerAutoSize = value;
+                Invalidate();
+            }
+        }
+
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(PropertyCategory.Appearance)]
+        public Border TrackerBorder
+        {
+            get
+            {
+                return _trackerBorder;
+            }
+
+            set
+            {
+                _trackerBorder = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
+        public Size TrackerSize
+        {
+            get
+            {
+                return _trackerSize;
+            }
+
+            set
+            {
+                _trackerSize = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color TrackerTextColor
+        {
+            get
+            {
+                return _trackerTextColor;
+            }
+
+            set
+            {
+                _trackerTextColor = value;
+                Invalidate();
+            }
+        }
+
+        [DefaultValue(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
+        public bool TrackerVisible
+        {
+            get
+            {
+                return _trackerVisible;
+            }
+
+            set
+            {
+                _trackerVisible = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ValueDivisor)]
         public ValueDivisor ValueDivision
         {
             get
@@ -649,8 +675,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ValueTicksVisible
         {
             get
@@ -746,39 +772,56 @@
             Invalidate();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            VisualStyleManager _styleManager = new VisualStyleManager(style);
+            try
+            {
+                _trackerTextColor = theme.TextSetting.Enabled;
+                _textDisabledColor = theme.TextSetting.Disabled;
+                _progressColor = theme.OtherSettings.Progress;
 
-            ForeColor = _styleManager.FontStyle.ForeColor;
+                _buttonControlColorState = new ControlColorState
+                    {
+                        Enabled = theme.ColorStateSettings.Enabled,
+                        Disabled = theme.ColorStateSettings.Disabled,
+                        Hover = theme.ColorStateSettings.Hover,
+                        Pressed = theme.ColorStateSettings.Pressed
+                    };
 
-            Font = _styleManager.Font;
-            _textFont = Font;
-            _foreColor = _styleManager.FontStyle.ForeColor;
-            _buttonTextColor = ForeColor;
-            _textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
+                _trackBarColor = new ColorState
+                    {
+                        Enabled = theme.OtherSettings.ProgressBackground,
+                        Disabled = theme.OtherSettings.ProgressDisabled
+                    };
 
-            _progressColor = _styleManager.ProgressStyle.Progress;
+                _hatch.BackColor = theme.OtherSettings.HatchBackColor;
+                _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
 
-            _buttonControlColorState.Enabled = _styleManager.ControlStyle.Background(0);
-            _buttonControlColorState.Disabled = Color.FromArgb(224, 224, 224);
-            _buttonControlColorState.Hover = Color.FromArgb(224, 224, 224);
-            _buttonControlColorState.Pressed = Color.Silver;
+                _tickColor = theme.OtherSettings.Line;
 
-            _trackBarColor.Enabled = _styleManager.ProgressStyle.BackProgress;
-            _trackBarColor.Disabled = _styleManager.ProgressStyle.ProgressDisabled;
+                _trackerBorder.Color = theme.BorderSettings.Normal;
+                _trackerBorder.HoverColor = theme.BorderSettings.Hover;
 
-            _hatch.BackColor = _styleManager.ProgressStyle.Hatch;
-            _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
+                _trackBarBorder.Color = theme.BorderSettings.Normal;
+                _trackBarBorder.HoverColor = theme.BorderSettings.Hover;
 
-            _tickColor = _styleManager.ControlStyle.Line;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _buttonBorder.Color = _styleManager.ShapeStyle.Color;
-            _buttonBorder.HoverColor = _styleManager.BorderStyle.HoverColor;
+                Font = theme.TextSetting.Font;
+                _textFont = theme.TextSetting.Font;
 
-            _trackBarBorder.Color = _styleManager.ShapeStyle.Color;
-            _trackBarBorder.HoverColor = _styleManager.BorderStyle.HoverColor;
+                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
+                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -818,17 +861,17 @@
                 {
                     case Orientation.Horizontal:
                         {
-                            if ((currentPoint.X + _buttonSize.Width) / 2 >= Width - _indentWidth)
+                            if ((currentPoint.X + _trackerSize.Width) / 2 >= Width - _indentWidth)
                             {
                                 offsetValue = Maximum - Minimum;
                             }
-                            else if ((currentPoint.X - _buttonSize.Width) / 2 <= _indentWidth)
+                            else if ((currentPoint.X - _trackerSize.Width) / 2 <= _indentWidth)
                             {
                                 offsetValue = 0;
                             }
                             else
                             {
-                                offsetValue = (int)(((((currentPoint.X - _indentWidth - _buttonSize.Width) / 2) * (Maximum - Minimum)) / (Width - (2 * _indentWidth) - _buttonSize.Width)) + 0.5);
+                                offsetValue = (int)(((((currentPoint.X - _indentWidth - _trackerSize.Width) / 2) * (Maximum - Minimum)) / (Width - (2 * _indentWidth) - _trackerSize.Width)) + 0.5);
                             }
 
                             break;
@@ -836,17 +879,17 @@
 
                     case Orientation.Vertical:
                         {
-                            if ((currentPoint.Y + _buttonSize.Width) / 2 >= Height - _indentHeight)
+                            if ((currentPoint.Y + _trackerSize.Width) / 2 >= Height - _indentHeight)
                             {
                                 offsetValue = 0;
                             }
-                            else if ((currentPoint.Y - _buttonSize.Width) / 2 <= _indentHeight)
+                            else if ((currentPoint.Y - _trackerSize.Width) / 2 <= _indentHeight)
                             {
                                 offsetValue = Maximum - Minimum;
                             }
                             else
                             {
-                                offsetValue = (int)(((((Height - currentPoint.Y - _indentHeight - _buttonSize.Width) / 2) * (Maximum - Minimum)) / (Height - (2 * _indentHeight) - _buttonSize.Width)) + 0.5);
+                                offsetValue = (int)(((((Height - currentPoint.Y - _indentHeight - _trackerSize.Width) / 2) * (Maximum - Minimum)) / (Height - (2 * _indentHeight) - _trackerSize.Width)) + 0.5);
                             }
 
                             break;
@@ -906,7 +949,7 @@
                     {
                         case Orientation.Horizontal:
                             {
-                                if ((currentPoint.X + _buttonSize.Width) - _mouseStartPos >= Width - _indentWidth)
+                                if ((currentPoint.X + _trackerSize.Width) - _mouseStartPos >= Width - _indentWidth)
                                 {
                                     offsetValue = Maximum - Minimum;
                                 }
@@ -916,7 +959,7 @@
                                 }
                                 else
                                 {
-                                    offsetValue = (int)((((currentPoint.X - _mouseStartPos - _indentWidth) * (Maximum - Minimum)) / (Width - (2 * _indentWidth) - _buttonSize.Width)) + 0.5);
+                                    offsetValue = (int)((((currentPoint.X - _mouseStartPos - _indentWidth) * (Maximum - Minimum)) / (Width - (2 * _indentWidth) - _trackerSize.Width)) + 0.5);
                                 }
 
                                 break;
@@ -924,17 +967,17 @@
 
                         case Orientation.Vertical:
                             {
-                                if ((currentPoint.Y + _buttonSize.Height) / 2 >= Height - _indentHeight)
+                                if ((currentPoint.Y + _trackerSize.Height) / 2 >= Height - _indentHeight)
                                 {
                                     offsetValue = 0;
                                 }
-                                else if ((currentPoint.Y + _buttonSize.Height) / 2 <= _indentHeight)
+                                else if ((currentPoint.Y + _trackerSize.Height) / 2 <= _indentHeight)
                                 {
                                     offsetValue = Maximum - Minimum;
                                 }
                                 else
                                 {
-                                    offsetValue = (int)(((((((Height - currentPoint.Y) + _buttonSize.Height) / 2) - _mouseStartPos - _indentHeight) * (Maximum - Minimum)) / (Height - (2 * _indentHeight))) + 0.5);
+                                    offsetValue = (int)(((((((Height - currentPoint.Y) + _trackerSize.Height) / 2) - _mouseStartPos - _indentHeight) * (Maximum - Minimum)) / (Height - (2 * _indentHeight))) + 0.5);
                                 }
 
                                 break;
@@ -994,9 +1037,9 @@
 
             VisualBorderRenderer.DrawBorderStyle(graphics, _trackBarBorder, _trackBarPath, _mouseState);
 
-            Size _progressValue = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
+            Size _progressValue = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
 
-            DrawButton(graphics, _progressValue);
+            DrawTrackerButton(graphics, _progressValue);
             DrawText(graphics, _progressValue);
         }
 
@@ -1008,6 +1051,14 @@
         protected override void OnScroll(EventArgs e)
         {
             base.OnScroll(e);
+            Invalidate();
+        }
+
+        /// <summary>Invokes the theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            ThemeChanged?.Invoke(e);
             Invalidate();
         }
 
@@ -1100,10 +1151,10 @@
                 {
                     case TickStyle.TopLeft:
                         {
-                            if (_buttonVisible)
+                            if (_trackerVisible)
                             {
                                 _trackBarLocation = new Point(0, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing);
-                                Size = new Size(ClientRectangle.Width, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing + _barThickness + (_buttonSize.Height / 2));
+                                Size = new Size(ClientRectangle.Width, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing + _barThickness + (this._trackerSize.Height / 2));
                             }
                             else
                             {
@@ -1116,9 +1167,9 @@
 
                     case TickStyle.BottomRight:
                         {
-                            if (_buttonVisible)
+                            if (_trackerVisible)
                             {
-                                _trackBarLocation = new Point(0, _indentHeight + (_buttonSize.Height / 2));
+                                _trackBarLocation = new Point(0, _indentHeight + (this._trackerSize.Height / 2));
                                 Size = new Size(ClientRectangle.Width, _indentHeight + _barThickness + _barTickSpacing + _tickHeight + _textAreaSize.Height + (_textAreaSize.Height / 2));
                             }
                             else
@@ -1132,10 +1183,10 @@
 
                     case TickStyle.None:
                         {
-                            if (_buttonVisible)
+                            if (_trackerVisible)
                             {
-                                _trackBarLocation = new Point(0, _indentHeight + (_buttonSize.Height / 2));
-                                Size = new Size(ClientRectangle.Width, _indentHeight + _barThickness + _buttonSize.Height);
+                                _trackBarLocation = new Point(0, _indentHeight + (this._trackerSize.Height / 2));
+                                Size = new Size(ClientRectangle.Width, _indentHeight + _barThickness + this._trackerSize.Height);
                             }
                             else
                             {
@@ -1170,14 +1221,14 @@
 
                 // Remember this for drawing the Tracker later
                 _trackerLocation = new Point(_currentTrackerPosition, _currentUsedPos);
-                _trackerSize = new Size(_buttonSize.Width, _buttonSize.Height);
+                _trackerSize = new Size(this._trackerSize.Width, this._trackerSize.Height);
                 _trackerRectangle = new Rectangle(_trackerLocation, _trackerSize);
 
                 // Draws track bar
                 DrawTrackBar(graphics, _trackBarRectangle);
 
                 // Update current position
-                _currentUsedPos += _buttonSize.Height;
+                _currentUsedPos += this._trackerSize.Height;
 
                 // Draw value tick
                 if (_valueTicksVisible)
@@ -1201,10 +1252,10 @@
                 {
                     case TickStyle.TopLeft:
                         {
-                            if (_buttonVisible)
+                            if (_trackerVisible)
                             {
                                 _trackBarLocation = new Point(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing, 0);
-                                Size = new Size(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing + _barThickness + (_buttonSize.Width / 2), ClientRectangle.Height);
+                                Size = new Size(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing + _barThickness + (this._trackerSize.Width / 2), ClientRectangle.Height);
                             }
                             else
                             {
@@ -1217,10 +1268,10 @@
 
                     case TickStyle.BottomRight:
                         {
-                            if (_buttonVisible)
+                            if (_trackerVisible)
                             {
-                                _trackBarLocation = new Point(_indentWidth + (_buttonSize.Width / 2), 0);
-                                Size = new Size(_indentWidth + _barThickness + _barTickSpacing + _tickHeight + _textAreaSize.Width + (_buttonSize.Width / 2), ClientRectangle.Height);
+                                _trackBarLocation = new Point(_indentWidth + (this._trackerSize.Width / 2), 0);
+                                Size = new Size(_indentWidth + _barThickness + _barTickSpacing + _tickHeight + _textAreaSize.Width + (this._trackerSize.Width / 2), ClientRectangle.Height);
                             }
                             else
                             {
@@ -1233,10 +1284,10 @@
 
                     case TickStyle.None:
                         {
-                            if (_buttonVisible)
+                            if (_trackerVisible)
                             {
-                                _trackBarLocation = new Point(_indentWidth + (_buttonSize.Width / 2), _indentHeight);
-                                Size = new Size(_indentWidth + _barThickness + _buttonSize.Width, ClientRectangle.Height);
+                                _trackBarLocation = new Point(_indentWidth + (this._trackerSize.Width / 2), _indentHeight);
+                                Size = new Size(_indentWidth + _barThickness + this._trackerSize.Width, ClientRectangle.Height);
                             }
                             else
                             {
@@ -1265,15 +1316,15 @@
                 _currentTrackerPosition = RetrieveTrackerPosition(_workingRectangle);
 
                 // Remember this for drawing the Tracker later
-                _trackerLocation = new Point(_currentUsedPos, _workingRectangle.Bottom - _currentTrackerPosition - _buttonSize.Height);
-                _trackerSize = new Size(_buttonSize.Width, _buttonSize.Height);
+                _trackerLocation = new Point(_currentUsedPos, _workingRectangle.Bottom - _currentTrackerPosition - this._trackerSize.Height);
+                _trackerSize = new Size(this._trackerSize.Width, this._trackerSize.Height);
                 _trackerRectangle = new Rectangle(_trackerLocation, _trackerSize);
 
                 // Draw the track bar
                 DrawTrackBar(graphics, _trackBarRectangle);
 
                 // Update current position
-                _currentUsedPos += _buttonSize.Height;
+                _currentUsedPos += this._trackerSize.Height;
 
                 // Draw value tick
                 if (_valueTicksVisible)
@@ -1287,49 +1338,6 @@
                     VerticalStyle(graphics, _workingRectangle, true);
                 }
             }
-        }
-
-        /// <summary>Draws the button.</summary>
-        /// <param name="graphics">Graphics input.</param>
-        /// <param name="progressValue">The progress Value.</param>
-        private void DrawButton(Graphics graphics, Size progressValue)
-        {
-            Point _location;
-            graphics.ResetClip();
-
-            switch (Orientation)
-            {
-                case Orientation.Horizontal:
-                    {
-                        _location = new Point(_trackerRectangle.X, (_trackBarRectangle.Top + (_barThickness / 2)) - (_buttonSize.Height / 2));
-                        _buttonSize = _buttonAutoSize ? new Size(progressValue.Width, _buttonSize.Height) : new Size(_buttonSize.Width, _buttonSize.Height);
-                        break;
-                    }
-
-                case Orientation.Vertical:
-                    {
-                        _location = new Point((_trackBarRectangle.Left + (_barThickness / 2)) - (_buttonSize.Width / 2), _trackerRectangle.Y);
-                        _buttonSize = _buttonAutoSize ? new Size(_buttonSize.Width, progressValue.Height) : new Size(_buttonSize.Width, _buttonSize.Height);
-                        break;
-                    }
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            _buttonRectangle = new Rectangle(_location, _buttonSize);
-
-            if (!_buttonVisible)
-            {
-                return;
-            }
-
-            Color _backColor = GDI.GetBackColorState(Enabled, _buttonControlColorState.Enabled, _buttonControlColorState.Hover, _buttonControlColorState.Pressed, _buttonControlColorState.Disabled, _mouseState);
-
-            _buttonPath = VisualBorderRenderer.CreateBorderTypePath(_buttonRectangle, _buttonBorder);
-            graphics.FillPath(new SolidBrush(_backColor), _buttonPath);
-
-            VisualBorderRenderer.DrawBorderStyle(graphics, _buttonBorder, _buttonPath, _mouseState);
         }
 
         /// <summary>Draws the TrackBar progress.</summary>
@@ -1353,7 +1361,7 @@
                 case Orientation.Horizontal:
                     {
                         // Draws the progress to the middle of the button
-                        _barProgress = _buttonRectangle.X + (_buttonRectangle.Width / 2);
+                        _barProgress = _trackerButtonRectangle.X + (_trackerButtonRectangle.Width / 2);
 
                         _location = new Point(0, 0);
                         _size = new Size(_barProgress, Height);
@@ -1376,7 +1384,7 @@
                 case Orientation.Vertical:
                     {
                         // Draws the progress to the middle of the button
-                        _barProgress = _buttonRectangle.Y + (_buttonRectangle.Height / 2);
+                        _barProgress = _trackerButtonRectangle.Y + (_trackerButtonRectangle.Height / 2);
 
                         _location = new Point(0, _barProgress);
 
@@ -1424,9 +1432,9 @@
             string value = GetFormattedProgressValue();
             Point _textLocation = new Point();
 
-            if (_buttonVisible)
+            if (_trackerVisible)
             {
-                _textLocation = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (progressValue.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2)) - (progressValue.Height / 2));
+                _textLocation = new Point((_trackerButtonRectangle.X + (_trackerButtonRectangle.Width / 2)) - (progressValue.Width / 2), (_trackerButtonRectangle.Y + (_trackerButtonRectangle.Height / 2)) - (progressValue.Height / 2));
             }
             else
             {
@@ -1446,7 +1454,7 @@
                 }
             }
 
-            graphics.DrawString(value, _textFont, new SolidBrush(_buttonTextColor), _textLocation);
+            graphics.DrawString(value, _textFont, new SolidBrush(_trackerTextColor), _textLocation);
         }
 
         /// <summary>Draws the TrackBar.</summary>
@@ -1486,6 +1494,49 @@
             VisualBackgroundRenderer.DrawBackground(graphics, _backColor, BackgroundImage, _mouseState, _trackBarRectangle, _trackBarBorder);
         }
 
+        /// <summary>Draws the button.</summary>
+        /// <param name="graphics">Graphics input.</param>
+        /// <param name="progressValue">The progress Value.</param>
+        private void DrawTrackerButton(Graphics graphics, Size progressValue)
+        {
+            Point _location;
+            graphics.ResetClip();
+
+            switch (Orientation)
+            {
+                case Orientation.Horizontal:
+                    {
+                        _location = new Point(_trackerRectangle.X, (_trackBarRectangle.Top + (_barThickness / 2)) - (_trackerSize.Height / 2));
+                        _trackerSize = _trackerAutoSize ? new Size(progressValue.Width, _trackerSize.Height) : new Size(_trackerSize.Width, _trackerSize.Height);
+                        break;
+                    }
+
+                case Orientation.Vertical:
+                    {
+                        _location = new Point((_trackBarRectangle.Left + (_barThickness / 2)) - (_trackerSize.Width / 2), _trackerRectangle.Y);
+                        _trackerSize = _trackerAutoSize ? new Size(_trackerSize.Width, progressValue.Height) : new Size(_trackerSize.Width, _trackerSize.Height);
+                        break;
+                    }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            _trackerButtonRectangle = new Rectangle(_location, _trackerSize);
+
+            if (!_trackerVisible)
+            {
+                return;
+            }
+
+            Color _backColor = ControlColorState.BackColorState(_buttonControlColorState, Enabled, _mouseState);
+
+            _buttonPath = VisualBorderRenderer.CreateBorderTypePath(_trackerButtonRectangle, _trackerBorder);
+            graphics.FillPath(new SolidBrush(_backColor), _buttonPath);
+
+            VisualBorderRenderer.DrawBorderStyle(graphics, _trackerBorder, _buttonPath, _mouseState);
+        }
+
         /// <summary>Draws the horizontal style.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         /// <param name="rectangle">The working rectangle.</param>
@@ -1496,7 +1547,7 @@
             _currentUsedPos = _indentHeight;
             Point _location;
             Size _size;
-            _textAreaSize = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
+            _textAreaSize = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
 
             if (line)
             {
@@ -1509,7 +1560,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    TickManager.DrawTickLine(graphics, _tickColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1520,11 +1571,11 @@
                     _tickRectangle = new Rectangle(_location, _size);
 
                     // Enlarge tick barRectangle
-                    _tickRectangle.Inflate(-_buttonSize.Width / 2, 0);
+                    _tickRectangle.Inflate(-_trackerSize.Width / 2, 0);
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    TickManager.DrawTickLine(graphics, _tickColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation);
                 }
             }
             else
@@ -1537,11 +1588,11 @@
                     _tickRectangle = new Rectangle(_location, _size);
 
                     // Enlarge text barRectangle
-                    _tickRectangle.Inflate(-_buttonSize.Width / 2, 0);
+                    _tickRectangle.Inflate(-_trackerSize.Width / 2, 0);
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    TickManager.DrawTickTextLine(graphics, _foreColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation, _textFont);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1552,11 +1603,11 @@
                     _tickRectangle = new Rectangle(_location, _size);
 
                     // Enlarge text barRectangle
-                    _tickRectangle.Inflate(-_buttonSize.Width / 2, 0);
+                    _tickRectangle.Inflate(-_trackerSize.Width / 2, 0);
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    TickManager.DrawTickTextLine(graphics, _foreColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation, _textFont);
                 }
             }
         }
@@ -1578,7 +1629,7 @@
                         }
                         else
                         {
-                            _currentPosition = (((rectangle.Width - _buttonSize.Width) * (Value - Minimum)) / (Maximum - Minimum)) + rectangle.Left;
+                            _currentPosition = (((rectangle.Width - _trackerSize.Width) * (Value - Minimum)) / (Maximum - Minimum)) + rectangle.Left;
                         }
 
                         break;
@@ -1592,7 +1643,7 @@
                         }
                         else
                         {
-                            _currentPosition = ((rectangle.Height - _buttonSize.Height) * (Value - Minimum)) / (Maximum - Minimum);
+                            _currentPosition = ((rectangle.Height - _trackerSize.Height) * (Value - Minimum)) / (Maximum - Minimum);
                         }
 
                         break;
@@ -1617,7 +1668,7 @@
             _currentUsedPos = _indentWidth;
             Point _location;
             Size _size;
-            _textAreaSize = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
+            _textAreaSize = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
 
             if (line)
             {
@@ -1630,7 +1681,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    TickManager.DrawTickLine(graphics, _tickColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1642,7 +1693,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    TickManager.DrawTickLine(graphics, _tickColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation);
                 }
             }
             else
@@ -1656,7 +1707,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    TickManager.DrawTickTextLine(graphics, _foreColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation, _textFont);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1668,7 +1719,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    TickManager.DrawTickTextLine(graphics, _foreColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation, _textFont);
                 }
             }
         }

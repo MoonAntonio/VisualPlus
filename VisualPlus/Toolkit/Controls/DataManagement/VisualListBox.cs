@@ -7,36 +7,39 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Designer;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
+    using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ListBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
-    [DefaultBindingProperty("SelectedValue")]
     [Description("The Visual ListBox")]
-    [Designer(typeof(VisualListBoxTasks))]
-    public class VisualListBox : ContainedControlBase
+    [Designer(typeof(VisualListBoxDesigner))]
+    [ToolboxBitmap(typeof(ListBox), "Resources.ToolboxBitmaps.VisualListBox.bmp")]
+    [ToolboxItem(true)]
+    public class VisualListBox : ContainedControlBase, IThemeSupport
     {
         #region Variables
 
         private bool _alternateColors;
         private Border _border;
         private ColorState _colorState;
-
-        private FixedContentValue _contentValues = new FixedContentValue();
+        private ImageList _imageList;
         private Color _itemAlternate;
+        private StringAlignment _itemLineAlignment;
         private Color _itemNormal;
         private Color _itemSelected;
         private ListBox _listBox;
@@ -54,11 +57,20 @@
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
+            _itemLineAlignment = StringAlignment.Center;
+
             _border = new Border();
-            _colorState = new ColorState();
+
+            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+
+            _colorState = new ColorState
+                {
+                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
+                };
+
             _listBox = new ListBox
                 {
-                    BackColor = BackColorState.Enabled,
+                    BackColor = _colorState.Enabled,
                     Size = GetInternalControlSize(Size, _border),
                     BorderStyle = BorderStyle.None,
                     IntegralHeight = false,
@@ -94,7 +106,7 @@
 
             Controls.Add(_listBox);
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         [Description("Occurs when the value of the DataSource property changes.")]
@@ -137,8 +149,8 @@
 
         #region Properties
 
-        [DefaultValue(true)]
-        [Category(Propertys.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        [Category(PropertyCategory.Behavior)]
         public bool AlternateColors
         {
             get
@@ -155,7 +167,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -178,7 +190,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -331,8 +343,24 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
+        public ImageList ImageList
+        {
+            get
+            {
+                return _imageList;
+            }
+
+            set
+            {
+                _imageList = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ItemAlternate
         {
             get
@@ -363,8 +391,24 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
+        public StringAlignment ItemLineAlignment
+        {
+            get
+            {
+                return _itemLineAlignment;
+            }
+
+            set
+            {
+                _itemLineAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ItemNormal
         {
             get
@@ -393,8 +437,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ItemSelected
         {
             get
@@ -708,22 +752,36 @@
             _listBox.SetSelected(index, value);
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
-            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _itemNormal = BackColorState.Enabled;
-            _itemAlternate = StyleManager.ShapeStyle.Color;
-            _itemSelected = StyleManager.BorderStyle.HoverColor;
+                Font = theme.TextSetting.Font;
+
+                _itemNormal = theme.ListItemSettings.Item;
+                _itemAlternate = theme.ListItemSettings.ItemAlternate;
+                _itemSelected = theme.ListItemSettings.ItemSelected;
+
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnClick(EventArgs e)
@@ -835,7 +893,7 @@
 
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.TextRenderingHint = TextRenderingHint;
+            graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             // Draw the background of the ListBox control for each item.
             e.DrawBackground();
@@ -886,15 +944,28 @@
                 e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
 
                 // Draw the text
-                e.Graphics.DrawString(_listBox.GetItemText(_listBox.Items[e.Index].ToString()), e.Font, new SolidBrush(ForeColor), new RectangleF(e.Bounds.Location, e.Bounds.Size), StringFormat.GenericDefault);
+                Point _location;
 
-                // Clean up
+                if (_imageList != null)
+                {
+                    e.Graphics.DrawImage(_imageList.Images[e.Index], e.Bounds.X, (e.Bounds.Y + (e.Bounds.Height / 2)) - (_imageList.ImageSize.Height / 2), _imageList.ImageSize.Width, _imageList.ImageSize.Height);
+
+                    _location = new Point(e.Bounds.X + _imageList.ImageSize.Width, e.Bounds.Y);
+                }
+                else
+                {
+                    _location = new Point(e.Bounds.X, e.Bounds.Y);
+                }
+
+                StringFormat _stringFormat = new StringFormat
+                    {
+                        LineAlignment = _itemLineAlignment
+                    };
+
+                e.Graphics.DrawString(GetItemText(Items[e.Index]), Font, new SolidBrush(ForeColor), new Rectangle(_location, e.Bounds.Size), _stringFormat);
                 backgroundBrush.Dispose();
                 textBrush.Dispose();
             }
-
-            // Update our content object with values from the list item
-            UpdateContentFromItemIndex(e.Index);
         }
 
         private void ListBox_Format(object sender, ListControlConvertEventArgs e)
@@ -948,7 +1019,16 @@
             }
             else
             {
-                e.ItemHeight = GDI.MeasureText(e.Graphics, Items[e.Index].ToString(), Font).Height;
+                int _textHeight = GraphicsManager.MeasureText(e.Graphics, Items[e.Index].ToString(), Font).Height;
+
+                if (_imageList != null)
+                {
+                    e.ItemHeight = _imageList.ImageSize.Height > _textHeight ? _imageList.ImageSize.Height : _textHeight;
+                }
+                else
+                {
+                    e.ItemHeight = _textHeight;
+                }
             }
         }
 
@@ -985,30 +1065,6 @@
         private void ListBox_ValueMemberChanged(object sender, EventArgs e)
         {
             OnValueMemberChanged(e);
-        }
-
-        private void UpdateContentFromItemIndex(int index)
-        {
-            IContentValues itemValues = Items[index] as IContentValues;
-
-            // If the object exposes the rich interface then use is...
-            if (itemValues != null)
-            {
-                _contentValues.ShortText = itemValues.GetShortText();
-                _contentValues.LongText = itemValues.GetLongText();
-
-                // _contentValues.Image = itemValues.GetImage(PaletteState.Normal);
-                // _contentValues.ImageTransparentColor = itemValues.GetImageTransparentColor(PaletteState.Normal);
-            }
-            else
-            {
-                // Get the text string for the item
-                _contentValues.ShortText = _listBox.GetItemText(Items[index]);
-                _contentValues.LongText = null;
-
-                // _contentValues.Image = null;
-                // _contentValues.ImageTransparentColor = Color.Empty;
-            }
         }
 
         #endregion

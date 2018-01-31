@@ -5,29 +5,36 @@
     using System;
     using System.ComponentModel;
     using System.Drawing;
+    using System.Drawing.Design;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Designer;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Label))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
     [DefaultProperty("Text")]
     [Description("The Visual Label")]
-    [Designer(ControlManager.FilterProperties.VisualLabel)]
-    public class VisualLabel : VisualControlBase
+    [Designer(typeof(VisualLabelDesigner))]
+    [ToolboxBitmap(typeof(VisualLabel), "Resources.ToolboxBitmaps.VisualLabel.bmp")]
+    [ToolboxItem(true)]
+    public class VisualLabel : VisualStyleBase, IThemeSupport
     {
         #region Variables
 
+        private StringAlignment _alignment;
+        private StringAlignment _lineAlignment;
         private Orientation _orientation;
         private bool _outline;
         private Color _outlineColor;
@@ -58,6 +65,8 @@
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
 
             UpdateStyles();
+            _alignment = StringAlignment.Near;
+            _lineAlignment = StringAlignment.Center;
             _orientation = Orientation.Horizontal;
             _outlineColor = Color.Red;
             _outlineLocation = new Point(0, 0);
@@ -69,15 +78,15 @@
             shadowOpacity = 100;
             _shadowSmooth = 1.5f;
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Orientation)]
         public Orientation Orientation
         {
             get
@@ -88,13 +97,13 @@
             set
             {
                 _orientation = value;
-                Size = GDI.FlipOrientationSize(_orientation, Size);
+                Size = GraphicsManager.FlipOrientationSize(_orientation, Size);
                 Invalidate();
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Outline)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Outline)]
         public bool Outline
         {
             get
@@ -109,8 +118,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color OutlineColor
         {
             get
@@ -125,8 +134,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Point)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Point)]
         public Point OutlineLocation
         {
             get
@@ -142,8 +151,8 @@
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool Reflection
         {
             get
@@ -158,8 +167,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ReflectionColor
         {
             get
@@ -174,8 +183,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Spacing)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Spacing)]
         public int ReflectionSpacing
         {
             get
@@ -191,8 +200,8 @@
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Toggle)]
         public bool Shadow
         {
             get
@@ -207,8 +216,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ShadowColor
         {
             get
@@ -223,8 +232,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Direction)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Direction)]
         public int ShadowDirection
         {
             get
@@ -239,8 +248,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Point)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Point)]
         public Point ShadowLocation
         {
             get
@@ -255,8 +264,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Opacity)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Opacity)]
         public int ShadowOpacity
         {
             get
@@ -276,7 +285,7 @@
             }
         }
 
-        // [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+        [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         public override string Text
         {
             get
@@ -291,19 +300,59 @@
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextAlign)]
+        public StringAlignment TextAlignment
+        {
+            get
+            {
+                return _alignment;
+            }
+
+            set
+            {
+                _alignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextAlign)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return _lineAlignment;
+            }
+
+            set
+            {
+                _lineAlignment = value;
+                Invalidate();
+            }
+        }
+
         #endregion
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Font = StyleManager.Font;
+                Font = theme.TextSetting.Font;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -314,11 +363,11 @@
             graphics.Clear(Parent.BackColor);
             graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
-            Color _foreColor = Enabled ? ForeColor : ForeColorDisabled;
+            Color _foreColor = Enabled ? ForeColor : TextStyle.Disabled;
 
             if (_reflection && (_orientation == Orientation.Vertical))
             {
-                textBoxRectangle = new Rectangle(GDI.MeasureText(graphics, Text, Font).Height, 0, ClientRectangle.Width, ClientRectangle.Height);
+                textBoxRectangle = new Rectangle(GraphicsManager.MeasureText(graphics, Text, Font).Height, 0, ClientRectangle.Width, ClientRectangle.Height);
             }
             else
             {
@@ -377,6 +426,9 @@
 
                         break;
                     }
+
+                default:
+                    break;
             }
 
             graphics.DrawPath(new Pen(OutlineColor), outlinePath);
@@ -396,19 +448,22 @@
             {
                 case Orientation.Horizontal:
                     {
-                        imageGraphics.TranslateTransform(0, GDI.MeasureText(graphics, Text, Font).Height);
+                        imageGraphics.TranslateTransform(0, GraphicsManager.MeasureText(graphics, Text, Font).Height);
                         imageGraphics.ScaleTransform(1, -1);
 
-                        reflectionLocation = new Point(0, textBoxRectangle.Y - (GDI.MeasureText(graphics, Text, Font).Height / 2) - _reflectionSpacing);
+                        reflectionLocation = new Point(0, textBoxRectangle.Y - (GraphicsManager.MeasureText(graphics, Text, Font).Height / 2) - _reflectionSpacing);
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
                         imageGraphics.ScaleTransform(-1, 1);
-                        reflectionLocation = new Point((textBoxRectangle.X - (GDI.MeasureText(graphics, Text, Font).Width / 2)) + _reflectionSpacing, 0);
+                        reflectionLocation = new Point((textBoxRectangle.X - (GraphicsManager.MeasureText(graphics, Text, Font).Width / 2)) + _reflectionSpacing, 0);
                         break;
                     }
+
+                default:
+                    break;
             }
 
             // Draw reflected string
@@ -448,6 +503,9 @@
                         imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, _shadowColor)), _shadowLocation, new StringFormat(StringFormatFlags.DirectionVertical));
                         break;
                     }
+
+                default:
+                    break;
             }
 
             graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -455,26 +513,37 @@
             graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
         }
 
+        /// <summary>Retrieves the appropriate string format.</summary>
+        /// <returns>
+        ///     <see cref="StringFormat" />
+        /// </returns>
         private StringFormat GetStringFormat()
         {
-            StringFormat stringFormat = new StringFormat();
+            StringFormat _stringFormat;
 
             switch (_orientation)
             {
                 case Orientation.Horizontal:
                     {
-                        stringFormat = new StringFormat();
+                        _stringFormat = new StringFormat
+                            {
+                                Alignment = _alignment,
+                                LineAlignment = _lineAlignment
+                            };
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
-                        stringFormat = new StringFormat(StringFormatFlags.DirectionVertical);
+                        _stringFormat = new StringFormat(StringFormatFlags.DirectionVertical);
                         break;
                     }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            return stringFormat;
+            return _stringFormat;
         }
 
         #endregion

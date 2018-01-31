@@ -13,8 +13,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("VisualPlus")]
 [assembly: AssemblyProduct("VisualPlus")]
-[assembly: AssemblyCopyright("Copyright ©  2016 - 2017")]
-[assembly: AssemblyTrademark("https://github.com/DarkByte7/VisualPlus")]
+[assembly: AssemblyCopyright("Copyright ©  2016 - 2018")]
+[assembly: AssemblyTrademark("https://darkbyte7.github.io/VisualPlus/")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -33,5 +33,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.4.0.10")]
-[assembly: AssemblyFileVersion("0.4.0.10")]
+[assembly: AssemblyVersion("0.4.1.0")]
+[assembly: AssemblyFileVersion("0.4.1.0")]

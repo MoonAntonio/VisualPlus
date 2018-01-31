@@ -11,10 +11,10 @@
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
-    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -25,7 +25,7 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The shape.")]
-    public class Shape : IShape
+    public class Shape
     {
         #region Variables
 
@@ -42,8 +42,8 @@
         /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
         public Shape()
         {
-            VisualStyleManager styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-            ConstructShape(ShapeType.Rounded, styleManager.ShapeStyle.Color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
+            StylesManager styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            ConstructShape(ShapeType.Rounded, styleManager.Theme.BorderSettings.Normal, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
         }
 
         /// <inheritdoc />
@@ -104,7 +104,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color Color
         {
             get
@@ -121,7 +121,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Rounding)]
+        [Description(PropertyDescription.Rounding)]
         public int Rounding
         {
             get
@@ -143,7 +143,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Thickness)]
+        [Description(PropertyDescription.Thickness)]
         public int Thickness
         {
             get
@@ -165,7 +165,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Shape)]
+        [Description(PropertyDescription.Shape)]
         public ShapeType Type
         {
             get
@@ -182,7 +182,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Visible)]
+        [Description(PropertyDescription.Visible)]
         public bool Visible
         {
             get
@@ -251,7 +251,7 @@
             if ((shape != null) && (destinationType == typeof(string)))
             {
                 // result = borderStyle.ToString();
-                result = "Border Shape Settings";
+                result = "Shape Settings";
             }
 
             return result ?? base.ConvertTo(context, culture, value, destinationType);

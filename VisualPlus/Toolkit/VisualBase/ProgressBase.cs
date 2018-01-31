@@ -7,7 +7,7 @@
     using System.Runtime.InteropServices;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization;
 
     #endregion
 
@@ -15,7 +15,7 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ProgressBase : VisualControlBase
+    public abstract class ProgressBase : VisualStyleBase
     {
         #region Variables
 
@@ -49,7 +49,7 @@
         #region Properties
 
         [Bindable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets a value to be added to or subtracted from the Value property when the scroll box is moved a large distance.")]
         public int LargeChange
         {
@@ -62,7 +62,7 @@
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("LargeChange", @"LargeChange cannot be less than zero.");
+                    throw new ArgumentOutOfRangeException(LargeChange.ToString(), @"LargeChange cannot be less than zero.");
                 }
 
                 _largeChange = value;
@@ -70,7 +70,7 @@
         }
 
         [Bindable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("The upper bound of the range this ProgressBar is working on.")]
         public int Maximum
         {
@@ -94,7 +94,7 @@
         }
 
         [Bindable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("The lower bound of the range this ProgressBar is working on.")]
         public int Minimum
         {
@@ -118,7 +118,7 @@
         }
 
         [Bindable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets the value added to or subtracted from the Value property when the scroll box is moved a small distance.")]
         public int SmallChange
         {
@@ -131,7 +131,7 @@
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("SmallChange", "SmallChange cannot be less than zero.");
+                    throw new ArgumentOutOfRangeException(SmallChange.ToString(), "SmallChange cannot be less than zero.");
                 }
 
                 _smallChange = value;
@@ -139,7 +139,7 @@
         }
 
         [Bindable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("The current value for the ProgressBar, in the range specified by the minimum and maximum properties.")]
         public int Value
         {

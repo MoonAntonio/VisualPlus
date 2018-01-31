@@ -7,22 +7,24 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Managers;
+    using VisualPlus.Designer;
+    using VisualPlus.Localization;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ProgressBar))]
-    [Designer(ControlManager.FilterProperties.VisualProgressIndicator)]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
     [DefaultProperty("Enabled")]
     [Description("The Visual Progress Indicator")]
-    public class VisualProgressIndicator : VisualControlBase
+    [Designer(typeof(VisualProgressIndicatorDesigner))]
+    [ToolboxBitmap(typeof(VisualProgressIndicator), "Resources.ToolboxBitmaps.VisualProgressIndicator.bmp")]
+    [ToolboxItem(true)]
+    public class VisualProgressIndicator : VisualStyleBase
     {
         #region Variables
 
@@ -62,8 +64,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color AnimationColor
         {
             get
@@ -77,8 +79,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.AnimationSpeed)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.AnimationSpeed)]
         public int AnimationSpeed
         {
             get
@@ -92,8 +94,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color BaseColor
         {
             get
@@ -108,8 +110,8 @@
         }
 
         [DefaultValue(45F)]
-        [Category(Propertys.Layout)]
-        [Description(Property.Amount)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Amount)]
         public float Circles
         {
             get
@@ -125,8 +127,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public Size CircleSize
         {
             get
@@ -142,8 +144,8 @@
         }
 
         [DefaultValue(7.5F)]
-        [Category(Propertys.Layout)]
-        [Description(Property.Diameter)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Diameter)]
         public float Diameter
         {
             get

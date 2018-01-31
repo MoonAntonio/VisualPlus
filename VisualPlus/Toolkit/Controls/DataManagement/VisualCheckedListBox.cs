@@ -7,36 +7,40 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Designer;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
+    using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(CheckedListBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [DefaultBindingProperty("Items")]
     [Description("The Visual CheckedListBox")]
-    [Designer(typeof(VisualCheckedListBoxTasks))]
+    [Designer(typeof(VisualCheckedListBoxDesigner))]
+    [ToolboxBitmap(typeof(CheckedListBox), "Resources.ToolboxBitmaps.CheckedListBox.bmp")]
+    [ToolboxItem(true)]
     public class VisualCheckedListBox : ContainedControlBase
     {
         #region Variables
 
         private bool _alternateColors;
+        private ColorState _backColorState;
         private Border _border;
         private Size _box;
         private int _boxSpacing;
         private CheckedListBox _checkedListBox;
-        private ColorState _colorState;
         private Color _itemAlternate;
         private Color _itemNormal;
         private Color _itemSelected;
@@ -56,14 +60,18 @@
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
-            _colorState = new ColorState();
-
             _border = new Border();
 
             _alternateColors = true;
 
             _box = new Size(25, 25);
             _boxSpacing = 5;
+
+            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            _backColorState = new ColorState
+                {
+                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
+                };
 
             _checkedListBox = new CheckedListBox
                 {
@@ -72,7 +80,7 @@
                     BorderStyle = BorderStyle.None,
                     Font = Font,
                     ForeColor = ForeColor,
-                    BackColor = _colorState.Enabled
+                    BackColor = _backColorState.Enabled
                 };
 
             Size = new Size(150, 100);
@@ -81,15 +89,15 @@
             // _checkedListBox.MeasureItem += CheckedListBox_MeasureItem;
             Controls.Add(_checkedListBox);
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
 
         #region Properties
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool AlternateColors
         {
             get
@@ -106,24 +114,24 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
             {
-                return _colorState;
+                return _backColorState;
             }
 
             set
             {
-                _colorState = value;
+                _backColorState = value;
                 Invalidate();
             }
         }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -144,8 +152,8 @@
         [Description("Gets access to the contained control.")]
         public CheckedListBox ContainedControl => _checkedListBox;
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public new Font Font
         {
             get
@@ -160,8 +168,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public new Color ForeColor
         {
             get
@@ -179,7 +187,7 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Editor("System.Windows.Forms.Design.FormatStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Browsable(true)]
-        [Category(Propertys.Data)]
+        [Category(PropertyCategory.Data)]
         [Description("Gets or sets the format-specifier characters that indicate how the value is to be displayed.")]
         public string FormatString
         {
@@ -197,7 +205,7 @@
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets a value indicating whether the formatting is applied to the DisplayMember propery of the ListControl.")]
         public bool FormattingEnabled
         {
@@ -214,7 +222,7 @@
 
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets the width by which the horizontal scroll bar of a ListBox can scroll.")]
         public int HorizontalExtent
         {
@@ -231,7 +239,7 @@
 
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets a value indicating whether a horizontal scroll bar is displayed in the control.")]
         public bool HorizontalScrollbar
         {
@@ -246,8 +254,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ItemNormal
         {
             get
@@ -262,7 +270,7 @@
             }
         }
 
-        [Category(Propertys.Data)]
+        [Category(PropertyCategory.Data)]
         [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [MergableProperty(false)]
@@ -275,8 +283,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ItemSelected
         {
             get
@@ -294,7 +302,7 @@
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets a value specifying the selection mode.")]
         public SelectionMode SelectionMode
         {
@@ -312,7 +320,7 @@
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets a value indicating whether the items in the ListBox are sorted alphabetically.")]
         public bool Sorted
         {
@@ -331,24 +339,36 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
-            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+                Font = theme.TextSetting.Font;
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                _itemNormal = theme.ListItemSettings.Item;
+                _itemAlternate = theme.ListItemSettings.ItemAlternate;
+                _itemSelected = theme.ListItemSettings.ItemSelected;
 
-            _itemAlternate = Color.Gray;
-            _itemNormal = StyleManager.ControlStyle.ItemEnabled;
-            _itemSelected = StyleManager.BorderStyle.HoverColor;
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -357,7 +377,7 @@
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
-            Color _backColor = Enabled ? _colorState.Enabled : _colorState.Disabled;
+            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
 
             if (_checkedListBox.BackColor != _backColor)
             {
@@ -393,7 +413,7 @@
 
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.TextRenderingHint = TextRenderingHint;
+            graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             // Draw the background of the ListBox control for each item.
             e.DrawBackground();
@@ -446,9 +466,7 @@
                 Rectangle _boxRect = new Rectangle(new Point(e.Bounds.X, e.Bounds.Y + 0), _box);
 
                 // CheckBoxRenderer.DrawCheckBox(g, new Point(b.X + checkPad, b.Y + checkPad), new Rectangle(new Point(b.X + b.Height, b.Y), new Size(b.Width - b.Height, b.Height)), text, this.Font, TextFormatFlags.Left, false, state);
-                LinearGradientBrush _boxBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, new Rectangle(e.Bounds.Location, e.Bounds.Size));
-
-                Size textSize = GDI.MeasureText(graphics, Text, Font);
+                Size textSize = GraphicsManager.MeasureText(graphics, Text, Font);
                 Point textPoint = new Point(_boxRect.Right + _boxSpacing, (_boxRect.Y + (_boxRect.Height / 2)) - (textSize.Height / 2));
 
                 // VisualToggleRenderer.DrawCheckBox(graphics, _border, CheckMark, _boxRect, GetItemChecked(e.Index), Enabled, _boxBrush, MouseState, GetItemText(Items[e.Index].ToString()), e.Font, ForeColor, textPoint);

@@ -7,26 +7,30 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+    using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ComboBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [Description("The Visual ComboBox")]
-    [Designer(ControlManager.FilterProperties.VisualComboBox, typeof(VisualComboBoxTasks))]
-    public class VisualComboBox : ComboBox
+    [ToolboxBitmap(typeof(ComboBox), "Resources.ToolboxBitmaps.VisualComboBox.bmp")]
+    [ToolboxItem(true)]
+    public class VisualComboBox : ComboBox, IThemeSupport
     {
         #region Variables
 
@@ -34,33 +38,35 @@
         private Border _border;
         private BorderEdge _borderEdge;
         private Color _buttonColor;
-        private Alignment.Horizontal _buttonHorizontal;
-        private DropDownButtons _buttonStyles;
+        private Image _buttonImage;
+        private ButtonStyles _buttonStyle;
         private bool _buttonVisible;
         private int _buttonWidth;
         private GraphicsPath _controlGraphicsPath;
         private Color _foreColor;
-        private Size _itemSize;
+        private ImageList _imageList;
+        private bool _imageVisible;
+        private int _index;
+        private bool _itemImageVisible;
         private Color _menuItemHover;
         private Color _menuItemNormal;
         private Color _menuTextColor;
         private MouseStates _mouseState;
-        private int _startIndex;
-        private VisualStyleManager _styleManager;
+        private StylesManager _styleManager;
         private StringAlignment _textAlignment;
         private Color _textDisabledColor;
+        private TextImageRelation _textImageRelation;
+        private StringAlignment _textLineAlignment;
         private TextRenderingHint _textRendererHint;
+
+        private TextStyle _textStyle;
         private Watermark _watermark;
 
         #endregion
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualComboBox" />
-        ///     class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualComboBox" /> class.</summary>
         public VisualComboBox()
         {
             SetStyle(
@@ -71,44 +77,51 @@
             SetStyle((ControlStyles)139286, true);
             SetStyle(ControlStyles.Selectable, false);
 
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-
-            _buttonWidth = 30;
-            _buttonHorizontal = Alignment.Horizontal.Right;
-            _buttonStyles = DropDownButtons.Arrow;
-            _buttonVisible = Settings.DefaultValue.TextVisible;
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            _textImageRelation = TextImageRelation.ImageBeforeText;
             _textAlignment = StringAlignment.Center;
+            _textLineAlignment = StringAlignment.Center;
+            _itemImageVisible = true;
+            _imageVisible = false;
+            _buttonWidth = 30;
+            _buttonStyle = ButtonStyles.Arrow;
+            _buttonVisible = Settings.DefaultValue.TextVisible;
             _watermark = new Watermark();
-            _backColorState = new ColorState();
             _mouseState = MouseStates.Normal;
-            DrawMode = DrawMode.OwnerDrawFixed;
+            _textStyle = new TextStyle();
+            DrawMode = DrawMode.OwnerDrawVariable;
             DropDownStyle = ComboBoxStyle.DropDownList;
 
             _borderEdge = new BorderEdge();
 
             Size = new Size(135, 26);
-            ItemHeight = 20;
+            ItemHeight = 24;
             UpdateStyles();
             DropDownHeight = 100;
 
-            BackColor = SystemColors.Control;
-
+            // BackColor = SystemColors.Control;
             _border = new Border();
 
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
             Controls.Add(_borderEdge);
-
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(_styleManager.Theme);
         }
 
-        public enum DropDownButtons
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description("Occours when the theme of the control has changed.")]
+        public event ThemeChangedEventHandler ThemeChanged;
+
+        public enum ButtonStyles
         {
-            /// <summary>Use arrow button.</summary>
+            /// <summary>Arrow style.</summary>
             Arrow,
 
-            /// <summary>Use bars button.</summary>
-            Bars
+            /// <summary>Bars style.</summary>
+            Bars,
+
+            /// <summary>Image style.</summary>
+            Image
         }
 
         #endregion
@@ -117,7 +130,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -133,12 +146,12 @@
         }
 
         [Browsable(true)]
-        [Description(Property.Image)]
+        [Description(PropertyDescription.Image)]
         public new Image BackgroundImage { get; set; }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -153,8 +166,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ButtonColor
         {
             get
@@ -169,41 +182,41 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Direction)]
-        public Alignment.Horizontal ButtonHorizontal
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
+        public Image ButtonImage
         {
             get
             {
-                return _buttonHorizontal;
+                return _buttonImage;
             }
 
             set
             {
-                _buttonHorizontal = value;
+                _buttonImage = value;
                 Invalidate();
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
-        public DropDownButtons ButtonStyles
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Type)]
+        public ButtonStyles ButtonStyle
         {
             get
             {
-                return _buttonStyles;
+                return _buttonStyle;
             }
 
             set
             {
-                _buttonStyles = value;
+                _buttonStyle = value;
                 Invalidate();
             }
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool ButtonVisible
         {
             get
@@ -218,8 +231,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         public int ButtonWidth
         {
             get
@@ -249,8 +262,80 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
+        public ImageList ImageList
+        {
+            get
+            {
+                return _imageList;
+            }
+
+            set
+            {
+                _imageList = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
+        public bool ImageVisible
+        {
+            get
+            {
+                return _imageVisible;
+            }
+
+            set
+            {
+                _imageVisible = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.StartIndex)]
+        public int Index
+        {
+            get
+            {
+                return _index;
+            }
+
+            set
+            {
+                _index = value;
+                try
+                {
+                    SelectedIndex = value;
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
+        public bool ItemImageVisible
+        {
+            get
+            {
+                return _itemImageVisible;
+            }
+
+            set
+            {
+                _itemImageVisible = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color MenuItemHover
         {
             get
@@ -265,8 +350,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color MenuItemNormal
         {
             get
@@ -281,8 +366,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color MenuTextColor
         {
             get
@@ -297,8 +382,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates MouseState
         {
             get
@@ -313,8 +398,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color SeparatorColor
         {
             get
@@ -330,8 +415,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool SeparatorVisible
         {
             get
@@ -346,33 +431,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.StartIndex)]
-        public int StartIndex
-        {
-            get
-            {
-                return _startIndex;
-            }
-
-            set
-            {
-                _startIndex = value;
-                try
-                {
-                    SelectedIndex = value;
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates State
         {
             get
@@ -387,8 +447,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public StringAlignment TextAlignment
         {
             get
@@ -403,8 +463,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TextDisabledColor
         {
             get
@@ -419,8 +479,40 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextRenderingHint)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.TextImageRelation)]
+        public TextImageRelation TextImageRelation
+        {
+            get
+            {
+                return _textImageRelation;
+            }
+
+            set
+            {
+                _textImageRelation = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return _textLineAlignment;
+            }
+
+            set
+            {
+                _textLineAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
@@ -435,9 +527,27 @@
             }
         }
 
+        /// <summary>Gets or sets the <see cref="TextStyle" />.</summary>
+        [Browsable(false)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextStyle)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public TextStyle TextStyle
+        {
+            get
+            {
+                return _textStyle;
+            }
+
+            set
+            {
+                _textStyle = value;
+            }
+        }
+
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public Watermark Watermark
         {
             get
@@ -456,48 +566,72 @@
 
         #region Events
 
-        /// <summary>Update the style of the control.</summary>
-        /// <param name="style">The visual style.</param>
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _border.Color = _styleManager.ShapeStyle.Color;
-            _border.HoverColor = _styleManager.BorderStyle.HoverColor;
+                ForeColor = theme.TextSetting.Enabled;
+                _textStyle.Enabled = theme.TextSetting.Enabled;
+                _textStyle.Disabled = theme.TextSetting.Disabled;
 
-            Font = _styleManager.Font;
-            _foreColor = _styleManager.FontStyle.ForeColor;
-            _textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
+                Font = theme.TextSetting.Font;
 
-            _backColorState.Enabled = _styleManager.ControlStyle.BoxEnabled;
-            _backColorState.Disabled = _styleManager.ControlStyle.BoxDisabled;
+                _borderEdge.BackColor = theme.OtherSettings.Line;
 
-            _buttonColor = _styleManager.ControlStyle.FlatButtonEnabled;
-            _menuTextColor = _styleManager.FontStyle.ForeColor;
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.OtherSettings.BoxEnabled,
+                        Disabled = theme.OtherSettings.BoxDisabled
+                    };
 
-            _menuItemNormal = _styleManager.ControlStyle.ItemEnabled;
-            _menuItemHover = _styleManager.ControlStyle.ItemHover;
+                _buttonColor = theme.OtherSettings.FlatControlEnabled;
 
-            _borderEdge.BackColor = _styleManager.ControlStyle.Line;
+                _menuTextColor = theme.TextSetting.Enabled;
+                _menuItemNormal = theme.ListItemSettings.Item;
+                _menuItemHover = theme.ListItemSettings.ItemHover;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
+            // e.DrawBackground();
             e.Graphics.FillRectangle((e.State & DrawItemState.Selected) == DrawItemState.Selected ? new SolidBrush(_menuItemHover) : new SolidBrush(_menuItemNormal), e.Bounds);
-
-            _itemSize = e.Bounds.Size;
-
-            Point itemPoint = new Point(e.Bounds.X, e.Bounds.Y);
-            Rectangle itemBorderRectangle = new Rectangle(itemPoint, _itemSize);
-            GraphicsPath itemBorderPath = new GraphicsPath();
-            itemBorderPath.AddRectangle(itemBorderRectangle);
 
             if (e.Index != -1)
             {
-                e.Graphics.DrawString(GetItemText(Items[e.Index]), e.Font, new SolidBrush(_menuTextColor), e.Bounds);
+                Point _location;
+
+                if ((_imageList != null) && _itemImageVisible)
+                {
+                    e.Graphics.DrawImage(_imageList.Images[e.Index], e.Bounds.X, (e.Bounds.Y + (e.Bounds.Height / 2)) - (_imageList.ImageSize.Height / 2), _imageList.ImageSize.Width, _imageList.ImageSize.Height);
+
+                    _location = new Point(e.Bounds.X + _imageList.ImageSize.Width, e.Bounds.Y);
+                }
+                else
+                {
+                    _location = new Point(e.Bounds.X, e.Bounds.Y);
+                }
+
+                StringFormat _stringFormat = new StringFormat
+                    {
+                        LineAlignment = _textLineAlignment
+                    };
+
+                e.Graphics.DrawString(GetItemText(Items[e.Index]), Font, new SolidBrush(_menuTextColor), new Rectangle(_location, new Size(DropDownWidth, ItemHeight)), _stringFormat);
             }
+
+            // Draw rectangle over the item selected 
+            // e.DrawFocusRectangle();
         }
 
         protected override void OnEnter(EventArgs e)
@@ -523,6 +657,19 @@
             ResumeLayout();
             _mouseState = MouseStates.Normal;
             Invalidate();
+        }
+
+        protected override void OnMeasureItem(MeasureItemEventArgs e)
+        {
+            Graphics g = CreateGraphics();
+            var maxWidth = 0;
+
+            foreach (int width in Items.Cast<object>().Select(element => (int)g.MeasureString(element.ToString(), Font).Width).Where(width => width > maxWidth))
+            {
+                maxWidth = width;
+            }
+
+            DropDownWidth = maxWidth + 20;
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -559,62 +706,34 @@
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = _textRendererHint;
-            _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             _controlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
-            Color _textColor = Enabled ? _foreColor : _textDisabledColor;
-            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
-
-            _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
             _graphics.SetClip(_controlGraphicsPath);
+
+            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
             VisualBackgroundRenderer.DrawBackground(_graphics, _backColor, BackgroundImage, _mouseState, _clientRectangle, Border);
 
-            Point _textBoxLocation;
-            Point _buttonLocation;
-            Size _buttonSize = new Size(_buttonWidth, Height);
+            Rectangle _buttonRectangle = new Rectangle(new Point(Width - _buttonWidth, 0), new Size(_buttonWidth, Height));
+            Rectangle _textBoxRectangle = new Rectangle(0, 0, Width - _buttonWidth, Height);
 
-            if (_buttonHorizontal == Alignment.Horizontal.Right)
-            {
-                _buttonLocation = new Point(Width - _buttonWidth, 0);
-                _textBoxLocation = new Point(0, 0);
-            }
-            else
-            {
-                _buttonLocation = new Point(0, 0);
-                _textBoxLocation = new Point(_buttonWidth, 0);
-            }
+            ConfigureSeparator(_buttonRectangle);
 
-            Rectangle _buttonRectangle = new Rectangle(_buttonLocation, _buttonSize);
-            Rectangle _textBoxRectangle = new Rectangle(_textBoxLocation.X, _textBoxLocation.Y, Width - _buttonWidth, Height);
-
+            DrawContent(_graphics, _textBoxRectangle);
             DrawButton(_graphics, _buttonRectangle);
 
-            DrawSeparator(_buttonRectangle);
-
-            StringFormat _stringFormat = new StringFormat
-                {
-                    Alignment = _textAlignment,
-                    LineAlignment = StringAlignment.Center
-                };
-
-            ConfigureDirection(_textBoxRectangle, _buttonRectangle);
-            _graphics.DrawString(Text, Font, new SolidBrush(_textColor), _textBoxRectangle, _stringFormat);
-
-            if (Text.Length == 0)
-            {
-                Watermark.DrawWatermark(_graphics, _textBoxRectangle, _stringFormat, _watermark);
-            }
-
-            VisualBorderRenderer.DrawBorderStyle(_graphics, _border, _controlGraphicsPath, _mouseState);
             _graphics.ResetClip();
+
+            DrawWatermark(_graphics, _textBoxRectangle);
+            VisualBorderRenderer.DrawBorderStyle(_graphics, _border, _controlGraphicsPath, _mouseState);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.Clear(BackColor);
         }
 
         protected override void OnSelectionChangeCommitted(EventArgs e)
@@ -622,86 +741,110 @@
             OnLostFocus(e);
         }
 
-        private void ConfigureDirection(Rectangle textBoxRectangle, Rectangle buttonRectangle)
+        /// <summary>Invokes the theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
         {
-            if (_buttonHorizontal == Alignment.Horizontal.Right)
+            ThemeChanged?.Invoke(e);
+            Invalidate();
+        }
+
+        private void ConfigureSeparator(Rectangle rectangle)
+        {
+            if (!_borderEdge.Visible)
             {
-                switch (_textAlignment)
-                {
-                    case StringAlignment.Far:
-                        textBoxRectangle.Width -= buttonRectangle.Width;
+                return;
+            }
+
+            _borderEdge.Location = new Point(rectangle.X - 1, _border.Thickness);
+            _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
+        }
+
+        /// <summary>Draws the button.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle to draw on.</param>
+        private void DrawButton(Graphics graphics, Rectangle rectangle)
+        {
+            if (!_buttonVisible)
+            {
+                return;
+            }
+
+            Point _buttonImageLocation;
+            Size _buttonImageSize;
+
+            switch (_buttonStyle)
+            {
+                case ButtonStyles.Arrow:
+                    {
+                        _buttonImageSize = new Size(10, 6);
+                        _buttonImageLocation = new Point((rectangle.X + (rectangle.Width / 2)) - (_buttonImageSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (_buttonImageSize.Height / 2));
+                        GraphicsManager.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), new SolidBrush(_buttonColor), false);
+
                         break;
-                    case StringAlignment.Near:
-                        textBoxRectangle.X = 0;
+                    }
+
+                case ButtonStyles.Bars:
+                    {
+                        _buttonImageSize = new Size(18, 10);
+                        _buttonImageLocation = new Point((rectangle.X + (rectangle.Width / 2)) - (_buttonImageSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - _buttonImageSize.Height);
+                        Bars.DrawBars(graphics, _buttonImageLocation, _buttonImageSize, _buttonColor, 3, 5);
+
                         break;
-                    case StringAlignment.Center:
+                    }
+
+                case ButtonStyles.Image:
+                    {
+                        if (_buttonImage != null)
+                        {
+                            _buttonImageLocation = new Point((rectangle.X + (rectangle.Width / 2)) - (_buttonImage.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (_buttonImage.Height / 2));
+                            graphics.DrawImage(_buttonImage, _buttonImageLocation);
+                        }
+
                         break;
-                    default:
+                    }
+
+                default:
+                    {
                         throw new ArgumentOutOfRangeException();
-                }
+                    }
+            }
+        }
+
+        /// <summary>Draws the button.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle to draw on.</param>
+        private void DrawContent(Graphics graphics, Rectangle rectangle)
+        {
+            Color _textColor = Enabled ? _foreColor : _textDisabledColor;
+
+            if ((SelectedIndex != -1) && (_imageList != null) && _imageVisible)
+            {
+                VisualControlRenderer.DrawContent(graphics, rectangle, Text, Font, _textColor, _imageList.Images[SelectedIndex], _imageList.ImageSize, _textImageRelation);
             }
             else
             {
-                switch (_textAlignment)
-                {
-                    case StringAlignment.Far:
-                        textBoxRectangle.Width -= buttonRectangle.Width;
-                        textBoxRectangle.X = Width - textBoxRectangle.Width;
-                        break;
-                    case StringAlignment.Near:
-                        textBoxRectangle.X = _buttonWidth;
-                        break;
-                    case StringAlignment.Center:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                VisualControlRenderer.DrawContentText(graphics, rectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
             }
         }
 
-        private void DrawButton(Graphics graphics, Rectangle buttonRectangle)
+        /// <summary>Draws the watermark.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle to draw on.</param>
+        private void DrawWatermark(Graphics graphics, Rectangle rectangle)
         {
-            if (_buttonVisible)
+            if (Text.Length != 0)
             {
-                Point _buttonImageLocation;
-                Size _buttonImageSize;
-
-                switch (_buttonStyles)
-                {
-                    case DropDownButtons.Arrow:
-                        {
-                            _buttonImageSize = new Size(10, 8);
-                            _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (_buttonImageSize.Height / 2));
-                            GDI.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), new SolidBrush(_buttonColor), false);
-                            break;
-                        }
-
-                    case DropDownButtons.Bars:
-                        {
-                            _buttonImageSize = new Size(18, 10);
-                            _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - _buttonImageSize.Height);
-                            Bars.DrawBars(graphics, _buttonImageLocation, _buttonImageSize, _buttonColor, 3, 5);
-                            break;
-                        }
-                }
+                return;
             }
-        }
 
-        private void DrawSeparator(Rectangle rectangle)
-        {
-            if (_borderEdge.Visible)
-            {
-                if (_buttonHorizontal == Alignment.Horizontal.Right)
+            StringFormat _stringFormat = new StringFormat
                 {
-                    _borderEdge.Location = new Point(rectangle.X - 1, _border.Thickness);
-                    _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
-                }
-                else
-                {
-                    _borderEdge.Location = new Point(rectangle.Width - 1, _border.Thickness);
-                    _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
-                }
-            }
+                    Alignment = _textAlignment,
+                    LineAlignment = _textLineAlignment
+                };
+
+            Watermark.DrawWatermark(graphics, rectangle, _stringFormat, _watermark);
         }
 
         #endregion

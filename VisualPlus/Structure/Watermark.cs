@@ -8,16 +8,15 @@
     using System.Globalization;
 
     using VisualPlus.Delegates;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
 
     [Description("The watermark")]
     [TypeConverter(typeof(WatermarkConverter))]
-    public class Watermark : IWatermark
+    public class Watermark
     {
         #region Variables
 
@@ -41,11 +40,11 @@
         /// <summary>Initializes a new instance of the <see cref="Watermark" /> class.</summary>
         public Watermark()
         {
-            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            StylesManager _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
-            activeColor = _styleManager.WatermarkStyle.ActiveColor;
-            font = _styleManager.Font;
-            inactiveColor = _styleManager.WatermarkStyle.InactiveColor;
+            activeColor = _styleManager.Theme.OtherSettings.WatermarkActive;
+            font = _styleManager.Theme.TextSetting.Font;
+            inactiveColor = _styleManager.Theme.OtherSettings.WatermarkInactive;
             text = Settings.DefaultValue.WatermarkText;
             visible = Settings.DefaultValue.WatermarkVisible;
 
@@ -78,7 +77,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color ActiveColor
         {
             get
@@ -95,7 +94,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Font)]
+        [Description(PropertyDescription.Font)]
         public Font Font
         {
             get
@@ -112,7 +111,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color InactiveColor
         {
             get
@@ -129,7 +128,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Text)]
+        [Description(PropertyDescription.Text)]
         public string Text
         {
             get
@@ -146,7 +145,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Visible)]
+        [Description(PropertyDescription.Visible)]
         public bool Visible
         {
             get

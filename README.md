@@ -1,13 +1,20 @@
-![VisualPlus](http://i.imgur.com/KwWQDQZ.png)
-# VisualPlus
-[![Release](https://img.shields.io/github/release/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/releases/latest)
-[![NuGet](https://img.shields.io/nuget/v/VisualPlus.svg?style=flat)](https://www.nuget.org/packages/VisualPlus/)
-[![NuGetPre](https://img.shields.io/nuget/vpre/VisualPlus.svg?style=flat)](https://www.nuget.org/packages/VisualPlus/)
-[![Issues](https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/issues)
-[![All Releases](https://img.shields.io/github/downloads/DarkByte7/VisualPlus/total.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/releases)
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/VisualPlusUI/General)
+<p align="center">
+<a href="https://github.com/DarkByte7/VisualPlus"><img alt="VisualPlus" width="100" heigth="100" src="http://i.imgur.com/KwWQDQZ.png"></a>
+</p >
+
+<h1  align="center">VisualPlus</h1>
+
+<p align="center">
+<a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGet" src="https://img.shields.io/nuget/v/VisualPlus.svg?style=flat"></a>
+    <a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGetPre" src="https://img.shields.io/nuget/vpre/VisualPlus.svg?style=flat"></a>
+    <a href="https://github.com/DarkByte7/VisualPlus/issues/"><img alt="Issues" src="https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat"></a>
+    <a href="https://gitter.im/VisualPlusUI/General"><img alt="Gitter" src="https://img.shields.io/gitter/room/nwjs/nw.js.svg"></a>
+    <a href="https://github.com/DarkByte7/VisualPlus/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/DarkByte7/VisualPlus.svg?style=flat"></a>
+    <a href="https://github.com/DarkByte7/VisualPlus/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/DarkByte7/VisualPlus.svg?style=flat"></a>
+    <a href="https://github.com/DarkByte7/VisualPlus/blob/master/License.md"><img alt="Licence" src="https://img.shields.io/badge/GPL-3.0-blue.svg?style=flat"></a>
+</p >
  
-The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable controls.
+The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable components and controls.
 
 | Service | Stable | Beta |
 | :---- | :---- | :------ |
@@ -31,7 +38,7 @@ The [`VisualPlus`](https://github.com/DarkByte7/VisualPlus) repository is where 
 - Review the [documentation](https://github.com/DarkByte7/VisualPlus/wiki) and make pull requests for anything from typos to new content
 
 ## Build requirements
-- [.NET Framework 4.6.1](https://www.microsoft.com/en-us/download/details.aspx?id=49981)
+- [.NET Framework 4.0](https://www.microsoft.com/en-ca/download/details.aspx?id=17851)
 - [Visual Studio 2017](https://www.visualstudio.com/downloads/)
 
 ## Contributing
@@ -40,10 +47,10 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Coding Guidelines](https://github.com/DarkByte7/VisualPlus/wiki/Coding-Guidelines)
 - [Submitting pull requests](https://github.com/DarkByte7/VisualPlus/compare)
 
-Enjoy using this VisualPlus or just want to say thanks?
+Enjoy using `VisualPlus` or just want to say thanks?
 Hit the ⭐️ Star ⭐️ button.
 
-BitCoin donations are also welcome: `1KKghRonJu6orcu7rf4r1wSnsnAPbnC8B7`
+BitCoin donations are also welcome: `16BFVxxFEcTYPU2ANskjjQppUh8fYCtxSi`
 
 ## Feedback
 - Ask a question on [Gitter](https://gitter.im/VisualPlusUI/General).
@@ -54,12 +61,5 @@ BitCoin donations are also welcome: `1KKghRonJu6orcu7rf4r1wSnsnAPbnC8B7`
 ## Tutorial
 [![](http://youronline.biz/wp-content/uploads/2012/08/Play-Video-Now.jpg)](https://youtu.be/QulNVudD9o8)
 
-## Projects that use VisualPlus
-Send me a message to add a project to this list:
-- [VisualPlus](https://github.com/DarkByte7/VisualPlus)
-
 ## Screenshots
 ![ToolBox](https://i.imgur.com/vhY2yfU.jpg)
-
-## License
-This repository is licensed with the [GPLv3](LICENSE) license.

@@ -7,31 +7,35 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.IO;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Designer;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(RichTextBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("TextChanged")]
     [DefaultProperty("Text")]
     [Description("The Visual RichTextBox")]
-    [Designer(typeof(VisualRichBoxTasks))]
-    public class VisualRichTextBox : ContainedControlBase, IInputMethods
+    [Designer(typeof(VisualRichTextBoxDesigner))]
+    [ToolboxBitmap(typeof(RichTextBox), "Resources.ToolboxBitmaps.VisualRichTextBox.bmp")]
+    [ToolboxItem(true)]
+    public class VisualRichTextBox : ContainedControlBase, IInputMethods, IThemeSupport
     {
         #region Variables
 
+        private ColorState _backColorState;
+
         private Border _border;
-        private ColorState _colorState;
         private RichTextBox _richTextBox;
 
         #endregion
@@ -49,9 +53,14 @@
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
-            _colorState = new ColorState();
-
             _border = new Border();
+
+            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            _backColorState = new ColorState
+                {
+                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
+                };
+
             _richTextBox = new RichTextBox
                 {
                     Size = GetInternalControlSize(Size, _border),
@@ -60,7 +69,7 @@
                     BorderStyle = BorderStyle.None,
                     Font = Font,
                     ForeColor = ForeColor,
-                    BackColor = _colorState.Enabled,
+                    BackColor = _backColorState.Enabled,
                     Multiline = true
                 };
 
@@ -68,7 +77,7 @@
 
             Controls.Add(_richTextBox);
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -77,24 +86,24 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
             {
-                return _colorState;
+                return _backColorState;
             }
 
             set
             {
-                _colorState = value;
+                _backColorState = value;
                 Invalidate();
             }
         }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -115,8 +124,8 @@
         [Description("Gets access to the contained control.")]
         public RichTextBox ContainedControl => _richTextBox;
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public new Font Font
         {
             get
@@ -131,8 +140,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public new Color ForeColor
         {
             get
@@ -150,8 +159,8 @@
         [DefaultValue(32767)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.MaxLength)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.MaxLength)]
         public int MaxLength
         {
             get
@@ -165,8 +174,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.ReadOnly)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ReadOnly)]
         public bool ReadOnly
         {
             get
@@ -182,8 +191,8 @@
 
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.ScrollBars)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ScrollBars)]
         public RichTextBoxScrollBars ScrollBars
         {
             get
@@ -200,8 +209,8 @@
         [DefaultValue(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.ShortcutsEnabled)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ShortcutsEnabled)]
         public bool ShortcutsEnabled
         {
             get
@@ -218,8 +227,8 @@
         [DefaultValue(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.ShowSelectionMargin)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ShowSelectionMargin)]
         public bool ShowSelectionMargin
         {
             get
@@ -233,7 +242,7 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Localizable(false)]
         public new string Text
@@ -253,8 +262,8 @@
         [DefaultValue(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.WordWrap)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.WordWrap)]
         public bool WordWrap
         {
             get
@@ -544,20 +553,32 @@
             _richTextBox.Undo();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
-            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+                Font = theme.TextSetting.Font;
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -565,7 +586,7 @@
             base.OnPaint(e);
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            Color _backColor = Enabled ? _colorState.Enabled : _colorState.Disabled;
+            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
 
             if (_richTextBox.BackColor != _backColor)
             {

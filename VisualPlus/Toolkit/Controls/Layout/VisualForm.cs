@@ -13,23 +13,33 @@
     using System.Windows.Forms;
 
     using VisualPlus.Delegates;
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
+    using VisualPlus.Native;
     using VisualPlus.Properties;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Controls.Interactivity;
+    using VisualPlus.Toolkit.Dialogs;
+    using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(false)]
-    [ToolboxBitmap(typeof(Form))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("Load")]
+    [DefaultProperty("Text")]
     [Description("The Visual Form")]
-    [Designer(ControlManager.FilterProperties.VisualForm)]
-    public class VisualForm : Form
+    [Designer(typeof(VisualFormDesigner))]
+    [DesignerCategory("Form")]
+    [InitializationEvent("Load")]
+    [ToolboxBitmap(typeof(VisualForm), "Resources.ToolboxBitmaps.VisualForm.bmp")]
+    [ToolboxItem(false)]
+    public class VisualForm : Form, IThemeSupport
     {
         #region Variables
 
@@ -37,43 +47,32 @@
         private readonly Dictionary<int, int> _resizedLocationsCommand;
         private Color _background;
         private Border _border;
-        private Color _buttonBackHoverColor;
-        private Color _buttonBackPressedColor;
-        private Size _buttonSize;
-        private ButtonState _buttonState;
-        private Color _closeColor;
         private bool _headerMouseDown;
         private bool _magnetic;
         private int _magneticRadius;
-        private Rectangle _maxButtonBounds;
-        private Color _maxColor;
         private bool _maximized;
-        private Rectangle _minButtonBounds;
-        private Color _minColor;
         private MouseStates _mouseState;
-        private Point _previousLocation;
         private Size _previousSize;
         private ResizeDirection _resizeDir;
         private Rectangle _statusBarBounds;
-        private VisualStyleManager _styleManager;
+        private StylesManager _styleManager;
         private Alignment.TextAlignment _titleAlignment;
         private Size _titleTextSize;
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
-        private Rectangle _xButtonBounds;
 
         #endregion
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Layout.VisualForm" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualForm" /> class.</summary>
         public VisualForm()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
+
             UpdateStyles();
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+
             _resizeCursors = new[] { Cursors.SizeNESW, Cursors.SizeWE, Cursors.SizeNWSE, Cursors.SizeWE, Cursors.SizeNS };
 
             _resizedLocationsCommand = new Dictionary<int, int>
@@ -88,34 +87,11 @@
                     { HTBOTTOMRIGHT, WMSZ_BOTTOMRIGHT }
                 };
 
-            _titleAlignment = Alignment.TextAlignment.Center;
-            FormBorderStyle = FormBorderStyle.None;
-            Sizable = true;
-            _closeColor = Color.IndianRed;
-            _buttonBackHoverColor = _styleManager.ControlColorStateStyle.ControlHover;
-            _buttonBackPressedColor = _styleManager.ControlColorStateStyle.ControlPressed;
-            _buttonState = ButtonState.None;
-            _maxColor = _styleManager.ControlStyle.FlatButtonEnabled;
-            _minColor = _styleManager.ControlStyle.FlatButtonEnabled;
-            _buttonSize = new Size(25, 25);
-            _windowBarColor = _styleManager.ControlStyle.Background(0);
-            _background = _styleManager.ControlStyle.Background(3);
-            _magneticRadius = 100;
-            _magnetic = true;
-            _windowBarHeight = 30;
-            TransparencyKey = Color.Fuchsia;
-            DoubleBuffered = true;
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
-            Padding = new Padding(0, 0, 0, 0);
+            InitializeVisualForm();
 
-            _border = new Border
-                {
-                    Thickness = 3,
-                    Type = ShapeType.Rectangle
-                };
-
-            _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
-            _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
+            UpdateTheme(_styleManager.Theme);
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
             Application.AddMessageFilter(new MouseMessageFilter());
@@ -123,8 +99,12 @@
         }
 
         [Category(Localization.Category.Events.Appearance)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
+
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description("Occours when the theme of the control has changed.")]
+        public event ThemeChangedEventHandler ThemeChanged;
 
         public enum ButtonState
         {
@@ -187,8 +167,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Background
         {
             get
@@ -198,15 +178,20 @@
 
             set
             {
+                if (_background == value)
+                {
+                    return;
+                }
+
                 _background = value;
-                OnBackgroundChanged(new ColorEventArgs(_background));
                 Invalidate();
+                BackgroundChanged?.Invoke(new ColorEventArgs(_background));
             }
         }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -221,103 +206,7 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonBackHoverColor
-        {
-            get
-            {
-                return _buttonBackHoverColor;
-            }
-
-            set
-            {
-                _buttonBackHoverColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonBackPressedColor
-        {
-            get
-            {
-                return _buttonBackPressedColor;
-            }
-
-            set
-            {
-                _buttonBackPressedColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonCloseColor
-        {
-            get
-            {
-                return _closeColor;
-            }
-
-            set
-            {
-                _closeColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonMaximizeColor
-        {
-            get
-            {
-                return _maxColor;
-            }
-
-            set
-            {
-                _maxColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonMinimizeColor
-        {
-            get
-            {
-                return _minColor;
-            }
-
-            set
-            {
-                _minColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
-        public Size ButtonSize
-        {
-            get
-            {
-                return _buttonSize;
-            }
-
-            set
-            {
-                _buttonSize = value;
-                Invalidate();
-            }
-        }
-
-        [Browsable(false)]
+        [Browsable(true)]
         public new Icon Icon
         {
             get
@@ -334,7 +223,7 @@
 
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public VisualBitmap Image
         {
             get
@@ -350,7 +239,7 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Snap window snaps toggles snapping to screen edges.")]
         public bool Magnetic
         {
@@ -366,7 +255,7 @@
         }
 
         [DefaultValue(100)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("The snap radius determines the distance to trigger the snap.")]
         public int MagneticRadius
         {
@@ -381,8 +270,8 @@
             }
         }
 
-        [Category(Propertys.WindowStyle)]
-        [Description(Property.ShowIcon)]
+        [Category(PropertyCategory.WindowStyle)]
+        [Description(PropertyDescription.ShowIcon)]
         public new bool ShowIcon
         {
             get
@@ -398,8 +287,8 @@
 
         public bool Sizable { get; set; }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates State
         {
             get
@@ -414,8 +303,25 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        /// <summary>Gets or sets the <see cref="StylesManager" />.</summary>
+        [Browsable(false)]
+        [Category(PropertyCategory.Appearance)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public StylesManager StyleManager
+        {
+            get
+            {
+                return _styleManager;
+            }
+
+            set
+            {
+                _styleManager = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public Alignment.TextAlignment TitleAlignment
         {
             get
@@ -430,8 +336,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color WindowBarColor
         {
             get
@@ -446,8 +352,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int WindowBarHeight
         {
             get
@@ -479,20 +385,51 @@
 
         #region Events
 
-        protected virtual void OnBackgroundChanged(ColorEventArgs e)
+        public void UpdateTheme(Theme theme)
         {
-            GDI.ApplyContainerBackColorChange(this, Background);
-            BackgroundChanged?.Invoke(e);
+            try
+            {
+                _styleManager = new StylesManager(theme);
+
+                _background = theme.OtherSettings.FormBackground;
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+                ForeColor = theme.TextSetting.Enabled;
+                Font = theme.TextSetting.Font;
+                _windowBarColor = theme.OtherSettings.FormWindowBar;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
+        /// <summary>Raises the <see cref="OnControlAdded" /> event.</summary>
+        /// <param name="e">The event args.</param>
         protected override void OnControlAdded(ControlEventArgs e)
         {
-            GDI.SetControlBackColor(e.Control, Background, false);
-        }
+            base.OnControlAdded(e);
 
-        protected override void OnControlRemoved(ControlEventArgs e)
-        {
-            GDI.SetControlBackColor(e.Control, Background, true);
+            VisualControlBase _control = (VisualControlBase)e.Control;
+
+            if (_control != null)
+            {
+                // Successfully cast.
+                if (_control is VisualControlBox)
+                {
+                    _control.BackColor = _windowBarColor;
+                }
+                else
+                {
+                    _control.BackColor = _background;
+                }
+            }
+            else
+            {
+                // Cast failed - Unsupported control.
+            }
         }
 
         protected override void OnEnter(EventArgs e)
@@ -526,30 +463,12 @@
                 return;
             }
 
-            UpdateButtons(e);
-
             if ((e.Button == MouseButtons.Left) && !_maximized)
             {
                 ResizeForm(_resizeDir);
             }
 
             base.OnMouseDown(e);
-        }
-
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            base.OnMouseLeave(e);
-
-            if (DesignMode)
-            {
-                return;
-            }
-
-            if (_buttonState != ButtonState.None)
-            {
-                _buttonState = ButtonState.None;
-                Invalidate();
-            }
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -602,8 +521,6 @@
                     }
                 }
             }
-
-            UpdateButtons(e);
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
@@ -613,10 +530,8 @@
                 return;
             }
 
-            UpdateButtons(e, true);
-
             base.OnMouseUp(e);
-            Native.ReleaseCapture();
+            User32.ReleaseCapture();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -658,8 +573,7 @@
             // Title box
             graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
 
-            DrawButtons(graphics);
-            DrawIcon(graphics);
+            DrawImageIcon(graphics);
 
             graphics.SetClip(_clientPath);
 
@@ -674,9 +588,6 @@
         {
             base.OnResize(e);
             _vsImage.Point = new Point(_vsImage.Point.X, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
-            _minButtonBounds = new Rectangle(Width - (3 * _buttonSize.Width), (_windowBarHeight / 2) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
-            _maxButtonBounds = new Rectangle(Width - (2 * _buttonSize.Width), (_windowBarHeight / 2) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
-            _xButtonBounds = new Rectangle(Width - _buttonSize.Width, (_windowBarHeight / 2) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
             _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
         }
 
@@ -709,6 +620,14 @@
             }
         }
 
+        /// <summary>Invokes the theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            Invalidate();
+            ThemeChanged?.Invoke(e);
+        }
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -717,11 +636,7 @@
                 return;
             }
 
-            if (m.Msg == WM_LBUTTONDBLCLK)
-            {
-                MaximizeWindow(!_maximized);
-            }
-            else if ((m.Msg == WM_MOUSEMOVE) && _maximized && _statusBarBounds.Contains(PointToClient(Cursor.Position)) && !(_minButtonBounds.Contains(PointToClient(Cursor.Position)) || _maxButtonBounds.Contains(PointToClient(Cursor.Position)) || _xButtonBounds.Contains(PointToClient(Cursor.Position))))
+            if ((m.Msg == WM_MOUSEMOVE) && _maximized && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
             {
                 if (_headerMouseDown)
                 {
@@ -739,16 +654,16 @@
                     }
 
                     Size = _previousSize;
-                    Native.ReleaseCapture();
-                    Native.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                    User32.ReleaseCapture();
+                    User32.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
                 }
             }
-            else if ((m.Msg == WM_LBUTTONDOWN) && _statusBarBounds.Contains(PointToClient(Cursor.Position)) && !(_minButtonBounds.Contains(PointToClient(Cursor.Position)) || _maxButtonBounds.Contains(PointToClient(Cursor.Position)) || _xButtonBounds.Contains(PointToClient(Cursor.Position))))
+            else if ((m.Msg == WM_LBUTTONDOWN) && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
             {
                 if (!_maximized)
                 {
-                    Native.ReleaseCapture();
-                    Native.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                    User32.ReleaseCapture();
+                    User32.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
                 }
                 else
                 {
@@ -759,14 +674,13 @@
             {
                 Point cursorPos = PointToClient(Cursor.Position);
 
-                if (_statusBarBounds.Contains(cursorPos) && !_minButtonBounds.Contains(cursorPos) &&
-                    !_maxButtonBounds.Contains(cursorPos) && !_xButtonBounds.Contains(cursorPos))
+                if (_statusBarBounds.Contains(cursorPos))
                 {
                     // Show default system menu when right clicking titlebar
-                    int id = Native.TrackPopupMenuEx(Native.GetSystemMenu(Handle, false), TPM_LEFTALIGN | TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
+                    int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), TPM_LEFTALIGN | TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
 
                     // Pass the command as a WM_SYSCOMMAND message
-                    Native.SendMessage(Handle, WM_SYSCOMMAND, id, 0);
+                    User32.SendMessage(Handle, WM_SYSCOMMAND, id, 0);
                 }
             }
             else if (m.Msg == WM_NCLBUTTONDOWN)
@@ -788,7 +702,7 @@
 
                 if (bFlag != 0)
                 {
-                    Native.SendMessage(Handle, WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
+                    User32.SendMessage(Handle, WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
                 }
             }
             else if (m.Msg == WM_LBUTTONUP)
@@ -836,114 +750,14 @@
             return (position - edge > 0) && (position - edge <= _magneticRadius);
         }
 
-        private void DrawButtons(Graphics graphics)
-        {
-            // Determine whether or not we even should be drawing the buttons.
-            bool showMin = MinimizeBox && ControlBox;
-            bool showMax = MaximizeBox && ControlBox;
-            SolidBrush hoverBrush = new SolidBrush(_buttonBackHoverColor);
-            SolidBrush downBrush = new SolidBrush(_buttonBackPressedColor);
-
-            // When MaximizeButton == false, the minimize button will be painted in its place
-            DrawMinimizeOverMaximizeButton(graphics, showMin, showMax, hoverBrush, downBrush);
-
-            var penWidth = 2;
-            Pen minPen = new Pen(_minColor, penWidth);
-            Pen maxPen = new Pen(_maxColor, penWidth);
-            Pen closePen = new Pen(_closeColor, penWidth);
-
-            // Minimize button.
-            if (showMin)
-            {
-                int x = showMax ? _minButtonBounds.X : _maxButtonBounds.X;
-                int y = showMax ? _minButtonBounds.Y : _maxButtonBounds.Y;
-
-                graphics.DrawLine(
-                    minPen,
-                    x + (int)(_minButtonBounds.Width * 0.33),
-                    y + (int)(_minButtonBounds.Height * 0.66),
-                    x + (int)(_minButtonBounds.Width * 0.66),
-                    y + (int)(_minButtonBounds.Height * 0.66));
-            }
-
-            // Maximize button
-            if (showMax)
-            {
-                graphics.DrawRectangle(
-                    maxPen,
-                    _maxButtonBounds.X + (int)(_maxButtonBounds.Width * 0.33),
-                    _maxButtonBounds.Y + (int)(_maxButtonBounds.Height * 0.36),
-                    (int)(_maxButtonBounds.Width * 0.39),
-                    (int)(_maxButtonBounds.Height * 0.35));
-
-                graphics.DrawRectangle(
-                    maxPen,
-                    _maxButtonBounds.X + (int)(_maxButtonBounds.Width * 0.33),
-                    _maxButtonBounds.Y + (int)(_maxButtonBounds.Height * 0.36),
-                    (int)(_maxButtonBounds.Width * 0.39),
-                    (int)(_maxButtonBounds.Height * 0.08));
-            }
-
-            // Close button
-            if (ControlBox)
-            {
-                graphics.DrawLine(
-                    closePen,
-                    _xButtonBounds.X + (int)(_xButtonBounds.Width * 0.33),
-                    _xButtonBounds.Y + (int)(_xButtonBounds.Height * 0.33),
-                    _xButtonBounds.X + (int)(_xButtonBounds.Width * 0.66),
-                    _xButtonBounds.Y + (int)(_xButtonBounds.Height * 0.66));
-
-                graphics.DrawLine(
-                    closePen,
-                    _xButtonBounds.X + (int)(_xButtonBounds.Width * 0.66),
-                    _xButtonBounds.Y + (int)(_xButtonBounds.Height * 0.33),
-                    _xButtonBounds.X + (int)(_xButtonBounds.Width * 0.33),
-                    _xButtonBounds.Y + (int)(_xButtonBounds.Height * 0.66));
-            }
-        }
-
-        private void DrawIcon(Graphics graphics)
+        private void DrawImageIcon(Graphics graphics)
         {
             VisualBitmap.DrawImage(graphics, _vsImage.Border, _vsImage.Point, _vsImage.Image, _vsImage.Size, _vsImage.Visible);
         }
 
-        private void DrawMinimizeOverMaximizeButton(Graphics graphics, bool showMin, bool showMax, SolidBrush hoverBrush, SolidBrush downBrush)
-        {
-            if ((_buttonState == ButtonState.MinOver) && showMin)
-            {
-                graphics.FillRectangle(hoverBrush, showMax ? _minButtonBounds : _maxButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.MinDown) && showMin)
-            {
-                graphics.FillRectangle(downBrush, showMax ? _minButtonBounds : _maxButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.MaxOver) && showMax)
-            {
-                graphics.FillRectangle(hoverBrush, _maxButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.MaxDown) && showMax)
-            {
-                graphics.FillRectangle(downBrush, _maxButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.XOver) && ControlBox)
-            {
-                graphics.FillRectangle(hoverBrush, _xButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.XDown) && ControlBox)
-            {
-                graphics.FillRectangle(downBrush, _xButtonBounds);
-            }
-        }
-
         private void DrawTitle(Graphics graphics)
         {
-            _titleTextSize = GDI.MeasureText(graphics, Text, Font);
+            _titleTextSize = GraphicsManager.MeasureText(graphics, Text, Font);
             Point titlePoint;
 
             switch (_titleAlignment)
@@ -962,7 +776,7 @@
 
                 case Alignment.TextAlignment.Right:
                     {
-                        titlePoint = new Point(_minButtonBounds.X - _titleTextSize.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+                        titlePoint = new Point(Width - _border.Thickness - _titleTextSize.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
                         break;
                     }
 
@@ -976,30 +790,27 @@
             graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textRectangle);
         }
 
-        private void MaximizeWindow(bool maximize)
+        /// <summary>Initializes the <see cref="VisualForm" />.</summary>
+        private void InitializeVisualForm()
         {
-            if (!MaximizeBox || !ControlBox)
-            {
-                return;
-            }
+            _border = new Border
+                {
+                    Thickness = 3,
+                    Type = ShapeType.Rectangle
+                };
 
-            _maximized = maximize;
+            DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.None;
+            _magnetic = true;
+            _magneticRadius = 100;
+            Padding = new Padding(0, 0, 0, 0);
+            Sizable = true;
+            _titleAlignment = Alignment.TextAlignment.Center;
+            TransparencyKey = Color.Fuchsia;
+            _windowBarHeight = 30;
 
-            if (maximize)
-            {
-                IntPtr _monitorHandle = Native.MonitorFromWindow(Handle, MONITOR_DEFAULTTONEAREST);
-                MonitorManager _monitorInfo = new MonitorManager();
-                Native.GetMonitorInfo(new HandleRef(null, _monitorHandle), _monitorInfo);
-                _previousSize = Size;
-                _previousLocation = Location;
-                Size = new Size(_monitorInfo.WorkingArea.Width, _monitorInfo.WorkingArea.Height);
-                Location = new Point(_monitorInfo.WorkingArea.Left, _monitorInfo.WorkingArea.Top);
-            }
-            else
-            {
-                Size = _previousSize;
-                Location = _previousLocation;
-            }
+            _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
+            _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
         }
 
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)
@@ -1061,96 +872,10 @@
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
-            Native.ReleaseCapture();
+            User32.ReleaseCapture();
             if (_dir != -1)
             {
-                Native.SendMessage(Handle, WM_NCLBUTTONDOWN, _dir, 0);
-            }
-        }
-
-        private void UpdateButtons(MouseEventArgs e, bool up = false)
-        {
-            if (DesignMode)
-            {
-                return;
-            }
-
-            ButtonState oldState = _buttonState;
-            bool showMin = MinimizeBox && ControlBox;
-            bool showMax = MaximizeBox && ControlBox;
-
-            if ((e.Button == MouseButtons.Left) && !up)
-            {
-                if (showMin && !showMax && _maxButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MinDown;
-                }
-                else if (showMin && showMax && _minButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MinDown;
-                }
-                else if (showMax && _maxButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MaxDown;
-                }
-                else if (ControlBox && _xButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.XDown;
-                }
-                else
-                {
-                    _buttonState = ButtonState.None;
-                }
-            }
-            else
-            {
-                if (showMin && !showMax && _maxButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MinOver;
-
-                    if ((oldState == ButtonState.MinDown) && up)
-                    {
-                        WindowState = FormWindowState.Minimized;
-                    }
-                }
-                else if (showMin && showMax && _minButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MinOver;
-
-                    if ((oldState == ButtonState.MinDown) && up)
-                    {
-                        WindowState = FormWindowState.Minimized;
-                    }
-                }
-                else if (MaximizeBox && ControlBox && _maxButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MaxOver;
-
-                    if ((oldState == ButtonState.MaxDown) && up)
-                    {
-                        MaximizeWindow(!_maximized);
-                    }
-                }
-                else if (ControlBox && _xButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.XOver;
-
-                    if ((oldState == ButtonState.XDown) && up)
-                    {
-                        Close();
-                    }
-                }
-                else
-                {
-                    _buttonState = ButtonState.None;
-                }
-            }
-
-            if (oldState != _buttonState)
-            {
-                Invalidate(_maxButtonBounds);
-                Invalidate(_minButtonBounds);
-                Invalidate(_xButtonBounds);
+                User32.SendMessage(Handle, WM_NCLBUTTONDOWN, _dir, 0);
             }
         }
 

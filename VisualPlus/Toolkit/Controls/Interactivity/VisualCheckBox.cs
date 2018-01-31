@@ -2,24 +2,28 @@
 {
     #region Namespace
 
+    using System;
     using System.ComponentModel;
     using System.Drawing;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
-    using VisualPlus.Managers;
+    using VisualPlus.Designer;
+    using VisualPlus.EventArgs;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(CheckBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("ToggleChanged")]
     [DefaultProperty("Checked")]
     [Description("The Visual CheckBox")]
-    [Designer(ControlManager.FilterProperties.VisualCheckBox)]
+    [Designer(typeof(VisualCheckBoxDesigner))]
+    [ToolboxBitmap(typeof(VisualCheckBox), "Resources.ToolboxBitmaps.VisualCheckBox.bmp")]
+    [ToolboxItem(true)]
     public class VisualCheckBox : CheckBoxBase, IThemeSupport
     {
         #region Constructors
@@ -34,34 +38,43 @@
 
             CheckStyle = new CheckStyle(ClientRectangle)
                 {
-                    Style = CheckStyle.CheckType.Character
+                    Style = CheckStyle.CheckType.Checkmark
                 };
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                Border.Color = theme.BorderSettings.Normal;
+                Border.HoverColor = theme.BorderSettings.Hover;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Font = StyleManager.Font;
+                CheckStyle.CheckColor = theme.OtherSettings.Progress;
 
-            BoxColorState.Enabled = StyleManager.ControlStyle.Background(0);
-            BoxColorState.Disabled = Color.FromArgb(224, 224, 224);
-            BoxColorState.Hover = Color.FromArgb(224, 224, 224);
-            BoxColorState.Pressed = Color.Silver;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            CheckStyle.CheckColor = StyleManager.CheckmarkStyle.CheckColor;
+                Font = theme.TextSetting.Font;
 
-            Border.Color = StyleManager.ShapeStyle.Color;
-            Border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                BoxColorState.Enabled = theme.ColorStateSettings.Enabled;
+                BoxColorState.Disabled = theme.ColorStateSettings.Disabled;
+                BoxColorState.Hover = theme.ColorStateSettings.Hover;
+                BoxColorState.Pressed = theme.ColorStateSettings.Pressed;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

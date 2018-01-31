@@ -6,32 +6,37 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Delegates;
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(NumericUpDown))]
-    [DefaultEvent("Click")]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("ValueChanged")]
     [DefaultProperty("Value")]
     [Description("The Visual NumericUpDown")]
-    [Designer(ControlManager.FilterProperties.VisualNumericUpDown)]
-    public class VisualNumericUpDown : VisualControlBase
+    [Designer(typeof(VisualNumericUpDownDesigner))]
+    [ToolboxBitmap(typeof(VisualNumericUpDown), "Resources.ToolboxBitmaps.VisualNumericUpDown.bmp")]
+    [ToolboxItem(true)]
+    public class VisualNumericUpDown : VisualStyleBase, IThemeSupport
     {
         #region Variables
 
         private Border _border;
         private BorderEdge _borderButtons;
-
         private BorderEdge _borderEdge;
         private Color _buttonColor;
         private Font _buttonFont;
@@ -46,7 +51,7 @@
         private bool _keyboardNum;
         private long _maximumValue;
         private long _minimumValue;
-        private long _numericValue;
+        private long _value;
         private int _xValue;
         private int _yValue;
 
@@ -72,7 +77,6 @@
             _maximumValue = 100;
             Size = new Size(125, 25);
             MinimumSize = new Size(0, 0);
-            _colorState = new ColorState();
             _buttonOrientation = Orientation.Horizontal;
 
             _border = new Border();
@@ -80,8 +84,12 @@
             Controls.Add(_borderEdge);
             Controls.Add(_borderButtons);
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
+
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
+        public event ValueChangedEventHandler ValueChanged;
 
         #endregion
 
@@ -110,7 +118,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -125,8 +133,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ButtonColor
         {
             get
@@ -141,8 +149,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font ButtonFont
         {
             get
@@ -157,8 +165,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ButtonForeColor
         {
             get
@@ -173,8 +181,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public Orientation ButtonOrientation
         {
             get
@@ -189,8 +197,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int ButtonWidth
         {
             get
@@ -205,7 +213,7 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public long MaximumValue
         {
             get
@@ -220,16 +228,17 @@
                     _maximumValue = value;
                 }
 
-                if (_numericValue > _maximumValue)
+                if (_value > _maximumValue)
                 {
-                    _numericValue = _maximumValue;
+                    _value = _maximumValue;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
             }
         }
 
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public long MinimumValue
         {
             get
@@ -244,17 +253,18 @@
                     _minimumValue = value;
                 }
 
-                if (_numericValue < _minimumValue)
+                if (_value < _minimumValue)
                 {
-                    _numericValue = MinimumValue;
+                    _value = MinimumValue;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Separator
         {
             get
@@ -270,19 +280,20 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public long Value
         {
             get
             {
-                return _numericValue;
+                return _value;
             }
 
             set
             {
                 if ((value <= _maximumValue) & (value >= _minimumValue))
                 {
-                    _numericValue = value;
+                    _value = value;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
@@ -295,37 +306,51 @@
 
         public void Decrement(int value)
         {
-            _numericValue -= value;
+            _value -= value;
+            OnValueChanged(new ValueChangedEventArgs(_value));
             Invalidate();
         }
 
         public void Increment(int value)
         {
-            _numericValue += value;
+            _value += value;
+            OnValueChanged(new ValueChangedEventArgs(_value));
             Invalidate();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _buttonForeColor = Color.Gray;
-            _buttonFont = new Font(StyleManager.Font.FontFamily, 14, FontStyle.Bold);
-            _buttonColor = StyleManager.ControlStyle.Background(3);
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                Font = theme.TextSetting.Font;
 
-            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
-            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+                _borderEdge.BackColor = theme.OtherSettings.Line;
+                _borderButtons.BackColor = theme.OtherSettings.Line;
 
-            _borderButtons.BackColor = StyleManager.ControlStyle.Line;
-            _borderEdge.BackColor = StyleManager.ControlStyle.Line;
+                _buttonForeColor = theme.OtherSettings.LightText;
+                _buttonFont = new Font(theme.TextSetting.Font.FontFamily, 14, FontStyle.Bold);
+                _buttonColor = theme.BackgroundSettings.Type2;
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type2,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnKeyPress(KeyPressEventArgs e)
@@ -335,12 +360,14 @@
             {
                 if (_keyboardNum)
                 {
-                    _numericValue = long.Parse(_numericValue + e.KeyChar.ToString());
+                    _value = long.Parse(_value + e.KeyChar.ToString());
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
-                if (_numericValue > _maximumValue)
+                if (_value > _maximumValue)
                 {
-                    _numericValue = _maximumValue;
+                    _value = _maximumValue;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
             }
             catch (Exception)
@@ -354,14 +381,15 @@
             base.OnKeyUp(e);
             if (e.KeyCode == Keys.Back)
             {
-                string temporaryValue = _numericValue.ToString();
+                string temporaryValue = _value.ToString();
                 temporaryValue = temporaryValue.Remove(Convert.ToInt32(temporaryValue.Length - 1));
                 if (temporaryValue.Length == 0)
                 {
                     temporaryValue = "0";
                 }
 
-                _numericValue = Convert.ToInt32(temporaryValue);
+                _value = Convert.ToInt32(temporaryValue);
+                OnValueChanged(new ValueChangedEventArgs(_value));
             }
 
             Invalidate();
@@ -383,14 +411,16 @@
                             {
                                 if (Value + 1 <= _maximumValue)
                                 {
-                                    _numericValue++;
+                                    _value++;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
                                 }
                             }
                             else if ((_yValue > Height / 2) && (_yValue < Height))
                             {
                                 if (Value - 1 >= _minimumValue)
                                 {
-                                    _numericValue--;
+                                    _value--;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
                                 }
                             }
                         }
@@ -413,14 +443,16 @@
                             {
                                 if (Value + 1 <= _maximumValue)
                                 {
-                                    _numericValue++;
+                                    _value++;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
                                 }
                             }
                             else if ((_xValue > _buttonRectangle.X + (_buttonRectangle.Width / 2)) && (_xValue < Width))
                             {
                                 if (Value - 1 >= _minimumValue)
                                 {
-                                    _numericValue--;
+                                    _value--;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
                                 }
                             }
                         }
@@ -481,7 +513,8 @@
             {
                 if (Value + 1 <= _maximumValue)
                 {
-                    _numericValue++;
+                    _value++;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
@@ -490,7 +523,8 @@
             {
                 if (Value - 1 >= _minimumValue)
                 {
-                    _numericValue--;
+                    _value--;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
@@ -504,7 +538,7 @@
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
-            _graphics.TextRenderingHint = TextRenderingHint;
+            _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
@@ -514,8 +548,8 @@
 
             _buttonRectangle = new Rectangle(Width - _buttonWidth, 1, _buttonWidth, Height);
 
-            Size incrementSize = GDI.MeasureText(_graphics, "+", _buttonFont);
-            Size decrementSize = GDI.MeasureText(_graphics, "-", _buttonFont);
+            Size incrementSize = GraphicsManager.MeasureText(_graphics, "+", _buttonFont);
+            Size decrementSize = GraphicsManager.MeasureText(_graphics, "-", _buttonFont);
 
             _incrementButtonPoints[0] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (incrementSize.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2)) - (_buttonRectangle.Height / 4) - (incrementSize.Height / 2));
             _decrementButtonPoints[0] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (decrementSize.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2) + (_buttonRectangle.Height / 4)) - (decrementSize.Height / 2));
@@ -574,6 +608,11 @@
         {
             base.OnPaintBackground(e);
             e.Graphics.Clear(BackColor);
+        }
+
+        protected virtual void OnValueChanged(ValueChangedEventArgs e)
+        {
+            ValueChanged?.Invoke(e);
         }
 
         private void DrawText(Graphics _graphics)

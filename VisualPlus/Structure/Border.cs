@@ -10,9 +10,9 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -23,7 +23,7 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The border.")]
-    public class Border : Shape, IBorder
+    public class Border : Shape
     {
         #region Variables
 
@@ -52,8 +52,8 @@
         /// <summary>Initializes a new instance of the <see cref="Border" /> class.</summary>
         public Border()
         {
-            VisualStyleManager styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-            ConstructBorder(styleManager.BorderStyle.HoverColor, true);
+            StylesManager styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            ConstructBorder(styleManager.Theme.BorderSettings.Hover, true);
         }
 
         [Category(Events.PropertyChanged)]
@@ -70,7 +70,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color HoverColor
         {
             get
@@ -87,7 +87,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Visible)]
+        [Description(PropertyDescription.Visible)]
         public bool HoverVisible
         {
             get

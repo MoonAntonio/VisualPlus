@@ -3,6 +3,8 @@
     #region Namespace
 
     using System;
+    using System.ComponentModel;
+    using System.Drawing;
     using System.Linq;
     using System.Windows.Forms;
 
@@ -10,9 +12,32 @@
 
     #endregion
 
-    internal class ControlManager
+    [Description("The control manager.")]
+    public sealed class ControlManager
     {
         #region Events
+
+        /// <summary>Centers the control inside the parent control.</summary>
+        /// <param name="control">The control to center.</param>
+        /// <param name="parent">The parent control.</param>
+        /// <param name="centerX">Center X coordinate.</param>
+        /// <param name="centerY">Center Y coordinate.</param>
+        public static void CenterControl(Control control, Control parent, bool centerX, bool centerY)
+        {
+            Point _controlLocation = control.Location;
+
+            if (centerX)
+            {
+                _controlLocation.X = (parent.Width - control.Width) / 2;
+            }
+
+            if (centerY)
+            {
+                _controlLocation.Y = (parent.Height - control.Height) / 2;
+            }
+
+            control.Location = _controlLocation;
+        }
 
         /// <summary>Gets the checked VisualRadioButton.</summary>
         /// <param name="control">The container control.</param>
@@ -30,6 +55,16 @@
             return controlName.GetType().Namespace;
         }
 
+        /// <summary>Determines whether the object has the method.</summary>
+        /// <param name="objectToCheck">The object.</param>
+        /// <param name="methodName">The method name.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool HasMethod(object objectToCheck, string methodName)
+        {
+            Type _methodType = objectToCheck.GetType();
+            return _methodType.GetMethod(methodName) != null;
+        }
+
         /// <summary>Gets the control type.</summary>
         /// <typeparam name="T">The type.</typeparam>
         /// <param name="controlName">The control name.</param>
@@ -37,47 +72,6 @@
         private static T ControlType<T>(string controlName)
         {
             return (T)Activator.CreateInstance(Type.GetType(controlName));
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>Bind visual studio designer files here to controls.</summary>
-        /// <summary>Note: If you implement more controls or to bind your own designer styles, just add here.</summary>
-        public struct FilterProperties
-        {
-            private const string DesignerFilterPath = NamespaceLocations.FilterPropertiesLocation + "Visual";
-            private const string DesignerSuffix = "Designer";
-
-            public const string VisualButton = DesignerFilterPath + "Button" + DesignerSuffix;
-            public const string VisualCheckBox = DesignerFilterPath + "CheckBox" + DesignerSuffix;
-            public const string VisualRadialProgress = DesignerFilterPath + "CircleProgressBar" + DesignerSuffix;
-            public const string VisualComboBox = DesignerFilterPath + "ComboBox" + DesignerSuffix;
-            public const string VisualContextMenu = DesignerFilterPath + "ContextMenu" + DesignerSuffix;
-            public const string VisualForm = DesignerFilterPath + "Form" + DesignerSuffix;
-            public const string VisualGroupBox = DesignerFilterPath + "GroupBox" + DesignerSuffix;
-            public const string VisualLabel = DesignerFilterPath + "Label" + DesignerSuffix;
-            public const string VisualListBox = DesignerFilterPath + "ListBox" + DesignerSuffix;
-            public const string VisualListView = DesignerFilterPath + "ListView" + DesignerSuffix;
-            public const string VisualNumericUpDown = DesignerFilterPath + "NumericUpDown" + DesignerSuffix;
-            public const string VisualPanel = DesignerFilterPath + "Panel" + DesignerSuffix;
-            public const string VisualProgressBar = DesignerFilterPath + "ProgressBar" + DesignerSuffix;
-            public const string VisualProgressIndicator = DesignerFilterPath + "ProgressIndicator" + DesignerSuffix;
-            public const string VisualRadioButton = DesignerFilterPath + "RadioButton" + DesignerSuffix;
-            public const string VisualRating = DesignerFilterPath + "Rating" + DesignerSuffix;
-            public const string VisualRichTextBox = DesignerFilterPath + "RichTextBox" + DesignerSuffix;
-            public const string VisualSeparator = DesignerFilterPath + "Separator" + DesignerSuffix;
-            public const string VisualTabControl = DesignerFilterPath + "TabControl" + DesignerSuffix;
-            public const string VisualTextBox = DesignerFilterPath + "TextBox" + DesignerSuffix;
-            public const string VisualToggle = DesignerFilterPath + "Toggle" + DesignerSuffix;
-            public const string VisualToolTip = DesignerFilterPath + "ToolTip" + DesignerSuffix;
-            public const string VisualTrackBar = DesignerFilterPath + "TrackBar" + DesignerSuffix;
-        }
-
-        private struct NamespaceLocations
-        {
-            public const string FilterPropertiesLocation = @"VisualPlus.Toolkit.PropertyFilter.";
         }
 
         #endregion

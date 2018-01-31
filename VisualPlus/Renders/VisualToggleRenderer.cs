@@ -8,6 +8,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Extensibility;
+    using VisualPlus.Managers;
     using VisualPlus.Structure;
 
     #endregion
@@ -61,6 +62,23 @@
             graphics.ResetClip();
         }
 
+        /// <summary>Draws the checkmark.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="thickness">The thickness.</param>
+        public static void DrawCheckmark(Graphics graphics, Color color, Rectangle rectangle, float thickness = 2)
+        {
+            Point[] _locations =
+                {
+                    new Point((rectangle.Width / 4) - 1, rectangle.Y + 4 + (rectangle.Height / 3)),
+                    new Point((rectangle.Width / 4) + 3, rectangle.Y + 7 + (rectangle.Height / 3)),
+                    new Point((rectangle.Width / 4) + 9, rectangle.Y + (rectangle.Height / 3))
+                };
+
+            graphics.DrawLines(new Pen(color, thickness), _locations);
+        }
+
         /// <summary>
         ///     Draws a check mark control in the specified state, on the specified graphics surface, and within the specified
         ///     bounds.
@@ -71,13 +89,14 @@
         /// <param name="enabled">The state to draw the check mark in.</param>
         public static void DrawCheckMark(Graphics graphics, CheckStyle checkStyle, Rectangle rectangle, bool enabled)
         {
-            Size _characterSize = GDI.MeasureText(graphics, checkStyle.Character.ToString(), checkStyle.Font);
+            Size _characterSize = GraphicsManager.MeasureText(graphics, checkStyle.Character.ToString(), checkStyle.Font);
 
             int _styleCount = checkStyle.Style.Count();
             var _defaultLocations = new Point[_styleCount];
             _defaultLocations[0] = new Point((rectangle.X + (rectangle.Width / 2)) - (_characterSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (_characterSize.Height / 2));
             _defaultLocations[1] = new Point((rectangle.X + (rectangle.Width / 2)) - (checkStyle.Bounds.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (checkStyle.Bounds.Height / 2));
             _defaultLocations[2] = new Point((rectangle.X + (rectangle.Width / 2)) - (checkStyle.Bounds.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (checkStyle.Bounds.Height / 2));
+            _defaultLocations[3] = new Point((rectangle.X + (rectangle.Width / 2)) - (checkStyle.Bounds.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (checkStyle.Bounds.Height / 2));
 
             Point _tempLocation;
             if (checkStyle.AutoSize)
@@ -101,6 +120,12 @@
                     case CheckStyle.CheckType.Shape:
                         {
                             styleIndex = 2;
+                            break;
+                        }
+
+                    case CheckStyle.CheckType.Checkmark:
+                        {
+                            styleIndex = 3;
                             break;
                         }
 
@@ -140,6 +165,12 @@
                         break;
                     }
 
+                case CheckStyle.CheckType.Checkmark:
+                    {
+                        DrawCheckmark(graphics, checkStyle.CheckColor, rectangle, checkStyle.Thickness);
+                    }
+
+                    break;
                 default:
                     {
                         throw new ArgumentOutOfRangeException();

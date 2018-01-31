@@ -8,7 +8,7 @@
     using System.Drawing.Drawing2D;
     using System.Globalization;
 
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Renders;
 
     #endregion
@@ -67,7 +67,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Image)]
+        [Description(PropertyDescription.Image)]
         public Bitmap Image
         {
             get
@@ -82,7 +82,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Point)]
+        [Description(PropertyDescription.Point)]
         public Point Point
         {
             get
@@ -97,7 +97,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Size)]
+        [Description(PropertyDescription.Size)]
         public Size Size
         {
             get
@@ -112,7 +112,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Visible)]
+        [Description(PropertyDescription.Visible)]
         public bool Visible
         {
             get
@@ -160,7 +160,7 @@
 
         /// <summary>Returns the size of the image.</summary>
         /// <param name="_image">The image.</param>
-        /// <returns>The size.</returns>
+        /// <returns>The <see cref="Size" />.</returns>
         public Size GetOriginalSize(Image _image)
         {
             return _image.Size;

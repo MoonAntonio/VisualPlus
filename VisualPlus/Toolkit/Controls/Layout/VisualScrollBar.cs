@@ -6,8 +6,8 @@
     using System.Drawing;
     using System.Windows.Forms;
 
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
+    using VisualPlus.Managers;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -43,8 +43,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Orientation)]
         public Orientation Orientation
         {
             get
@@ -55,7 +55,7 @@
             set
             {
                 _orientation = value;
-                Size = GDI.FlipOrientationSize(_orientation, Size);
+                Size = GraphicsManager.FlipOrientationSize(_orientation, Size);
                 Invalidate();
             }
         }

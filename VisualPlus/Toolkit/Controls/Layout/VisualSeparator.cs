@@ -6,24 +6,27 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Designer;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Control))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
-    [DefaultProperty("Enabled")]
+    [DefaultProperty("Orientation")]
     [Description("The Visual Separator")]
-    [Designer(ControlManager.FilterProperties.VisualSeparator)]
-    public class VisualSeparator : VisualControlBase
+    [Designer(typeof(VisualProgressBarDesigner))]
+    [ToolboxBitmap(typeof(VisualSeparator), "Resources.ToolboxBitmaps.VisualSeparator.bmp")]
+    [ToolboxItem(true)]
+    public class VisualSeparator : VisualStyleBase
     {
         #region Variables
 
@@ -36,20 +39,19 @@
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Layout.VisualSeparator" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualSeparator" /> class.</summary>
         public VisualSeparator()
         {
             _orientation = Orientation.Horizontal;
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Line
         {
             get
@@ -69,8 +71,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Orientation)]
         public Orientation Orientation
         {
             get
@@ -106,8 +108,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Shadow
         {
             get
@@ -127,8 +129,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ShadowVisible
         {
             get
@@ -147,20 +149,26 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                Font = theme.TextSetting.Font;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-
-            _line = StyleManager.ControlStyle.Line;
-            _shadow = StyleManager.ControlStyle.Shadow;
+                _line = theme.OtherSettings.Line;
+                _shadow = theme.OtherSettings.Shadow;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -169,7 +177,7 @@
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
-            _graphics.TextRenderingHint = TextRenderingHint;
+            _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);

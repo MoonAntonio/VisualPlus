@@ -7,8 +7,7 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -20,7 +19,7 @@
     [Description("Displays a vertical or horizontal border edge.")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public class BorderEdge : VisualControlBase
+    public class BorderEdge : VisualStyleBase
     {
         #region Variables
 
@@ -44,8 +43,8 @@
 
         #region Properties
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Orientation)]
         public Orientation Orientation
         {
             get

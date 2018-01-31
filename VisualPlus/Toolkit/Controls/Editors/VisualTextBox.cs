@@ -7,27 +7,31 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
+    using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    // TODO: Clear Button
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(TextBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("TextChanged")]
     [DefaultProperty("Text")]
     [Description("The Visual TextBox")]
-    [Designer(typeof(VisualTextBoxTasks))]
-    public class VisualTextBox : ContainedControlBase, IInputMethods
+    [Designer(typeof(VisualTextBoxDesigner))]
+    [ToolboxBitmap(typeof(TextBox), "Resources.ToolboxBitmaps.VisualTextBox.bmp")]
+    [ToolboxItem(true)]
+    public class VisualTextBox : ContainedControlBase, IInputMethods, IThemeSupport
     {
         #region Variables
 
@@ -36,7 +40,6 @@
         private BorderEdge _borderButton;
         private BorderEdge _borderImage;
         private Border _buttonBorder;
-        private Color _buttonColor;
         private ControlColorState _buttonColorState;
         private Font _buttonFont;
         private int _buttonIndent;
@@ -45,6 +48,7 @@
         private bool _buttonVisible;
         private Image _image;
         private Rectangle _imageRectangle;
+        private Size _imageSize;
         private bool _imageVisible;
         private int _imageWidth;
         private TextBox _textBox;
@@ -73,11 +77,15 @@
 
             _borderImage = new BorderEdge { Visible = false };
 
-            _backColorState = new ColorState();
-            _buttonColorState = new ControlColorState();
-
             _textWidth = 125;
             _border = new Border();
+
+            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            _backColorState = new ColorState
+                {
+                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
+                };
+
             _textBox = new TextBox
                 {
                     Size = new Size(_textWidth, 25),
@@ -97,6 +105,7 @@
             _buttontext = "visualButton";
 
             _image = null;
+            _imageSize = new Size(16, 16);
 
             _watermark = new Watermark();
             _buttonBorder = new Border();
@@ -124,7 +133,7 @@
                 DrawWaterMark();
             }
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         public delegate void ButtonClickedEventHandler();
@@ -140,8 +149,8 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Localizable(true)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.AutoCompleteCustomSource)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.AutoCompleteCustomSource)]
         public AutoCompleteStringCollection AutoCompleteCustomSource
         {
             get
@@ -158,8 +167,8 @@
         [DefaultValue(typeof(AutoCompleteMode), "None")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.AutoCompleteMode)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.AutoCompleteMode)]
         public AutoCompleteMode AutoCompleteMode
         {
             get
@@ -176,8 +185,8 @@
         [DefaultValue(typeof(AutoCompleteSource), "None")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.AutoCompleteSource)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.AutoCompleteSource)]
         public AutoCompleteSource AutoCompleteSource
         {
             get
@@ -193,7 +202,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -215,7 +224,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -232,7 +241,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border ButtonBorder
         {
             get
@@ -249,7 +258,7 @@
 
         [TypeConverter(typeof(ControlColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ControlColorState ButtonColor
         {
             get
@@ -264,8 +273,8 @@
             }
         }
 
-        [Description(Property.Font)]
-        [Category(Propertys.Appearance)]
+        [Description(PropertyDescription.Font)]
+        [Category(PropertyCategory.Appearance)]
         public Font ButtonFont
         {
             get
@@ -280,8 +289,8 @@
             }
         }
 
-        [Description(Property.Size)]
-        [Category(Propertys.Layout)]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Layout)]
         public int ButtonIndent
         {
             get
@@ -296,8 +305,8 @@
             }
         }
 
-        [Description(Property.Text)]
-        [Category(Propertys.Appearance)]
+        [Description(PropertyDescription.Text)]
+        [Category(PropertyCategory.Appearance)]
         public string ButtonText
         {
             get
@@ -312,8 +321,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ButtonVisible
         {
             get
@@ -378,8 +387,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image Image
         {
             get
@@ -394,8 +403,24 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
+        public Size ImageSize
+        {
+            get
+            {
+                return _imageSize;
+            }
+
+            set
+            {
+                _imageSize = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public bool ImageVisible
         {
             get
@@ -420,8 +445,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int ImageWidth
         {
             get
@@ -439,8 +464,8 @@
         [DefaultValue(32767)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.MaxLength)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.MaxLength)]
         public int MaxLength
         {
             get
@@ -459,8 +484,8 @@
         [Description("Gets whether the mouse is on the button.")]
         public bool MouseOnButton { get; private set; }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.MultiLine)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.MultiLine)]
         [DefaultValue(false)]
         public virtual bool MultiLine
         {
@@ -479,8 +504,8 @@
         [DefaultValue('*')]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.PasswordChar)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.PasswordChar)]
         public char PasswordChar
         {
             get
@@ -494,8 +519,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.ReadOnly)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ReadOnly)]
         public bool ReadOnly
         {
             get
@@ -552,8 +577,8 @@
         [DefaultValue(typeof(HorizontalAlignment), "Left")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.TextAlign)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.TextAlign)]
         public HorizontalAlignment TextAlign
         {
             get
@@ -568,8 +593,8 @@
         }
 
         [DefaultValue(125)]
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int TextBoxWidth
         {
             get
@@ -588,8 +613,8 @@
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.UseSystemPasswordChar)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.UseSystemPasswordChar)]
         public bool UseSystemPasswordChar
         {
             get
@@ -605,7 +630,7 @@
 
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public Watermark Watermark
         {
             get
@@ -743,23 +768,36 @@
             _textBox.Undo();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
-            BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
+                Font = theme.TextSetting.Font;
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                _buttonColorState = new ControlColorState();
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type2
+                    };
 
-            _borderButton.BackColor = StyleManager.ControlStyle.Line;
-            _borderImage.BackColor = StyleManager.ControlStyle.Line;
+                _borderButton.BackColor = theme.OtherSettings.Line;
+                _borderImage.BackColor = theme.OtherSettings.Line;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnEnter(EventArgs e)
@@ -865,7 +903,7 @@
             base.OnMouseMove(e);
             _xValue = e.Location.X;
             _yValue = e.Location.Y;
-            MouseOnButton = GDI.IsMouseInBounds(e.Location, _buttonRectangle);
+            MouseOnButton = GraphicsManager.IsMouseInBounds(e.Location, _buttonRectangle);
 
             Invalidate();
 
@@ -987,7 +1025,7 @@
 
         private void DrawButton(Graphics graphics)
         {
-            _buttonColor = new Color();
+            Color _buttonColor;
 
             if (Enabled)
             {
@@ -1031,30 +1069,39 @@
             _borderButton.Location = new Point(_buttonRectangle.X, _border.Thickness);
             _borderButton.Size = new Size(1, Height - _border.Thickness - 1);
 
-            Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
+            Size textSize = GraphicsManager.MeasureText(graphics, _buttontext, _buttonFont);
             graphics.SetClip(buttonPath);
             graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + _buttonIndent, (Height / 2) - (textSize.Height / 2)));
             graphics.ResetClip();
         }
 
+        /// <summary>Draws the image.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawImage(Graphics graphics)
         {
-            if (_borderImage.Visible)
+            if (!_borderImage.Visible)
             {
-                _borderImage.Location = new Point(_imageRectangle.Right, _border.Thickness);
-                _borderImage.Size = new Size(1, Height - _border.Thickness - 1);
-
-                GraphicsPath _imagePath = new GraphicsPath();
-                _imagePath.AddRectangle(_imageRectangle);
-                graphics.SetClip(_imagePath);
-
-                if (_image != null)
-                {
-                    graphics.DrawImage(_image, new Point((_imageRectangle.X + (_imageRectangle.Width / 2)) - (_image.Width / 2), (_imageRectangle.Y + (_imageRectangle.Height / 2)) - (_image.Height / 2)));
-                }
-
-                graphics.ResetClip();
+                return;
             }
+
+            _borderImage.Location = new Point(_imageRectangle.Right, _border.Thickness);
+            _borderImage.Size = new Size(1, Height - _border.Thickness - 1);
+
+            GraphicsPath _imagePath = new GraphicsPath();
+            _imagePath.AddRectangle(_imageRectangle);
+            graphics.SetClip(_imagePath);
+
+            if (_image != null)
+            {
+                int _xLocation = (_imageRectangle.X + (_imageRectangle.Width / 2)) - (_imageSize.Width / 2);
+                int _yLocation = (_imageRectangle.Y + (_imageRectangle.Height / 2)) - (_imageSize.Height / 2);
+
+                Rectangle _imageFinalRectangle = new Rectangle(_xLocation, _yLocation, _imageSize.Width, _imageSize.Height);
+
+                graphics.DrawImage(_image, _imageFinalRectangle);
+            }
+
+            graphics.ResetClip();
         }
 
         private void DrawWaterMark()
@@ -1074,11 +1121,11 @@
         {
             if (_textBox.TextLength > 0)
             {
-                return GDI.MeasureText(Text, Font).Height;
+                return GraphicsManager.MeasureText(Text, Font).Height;
             }
             else
             {
-                return GDI.MeasureText("Hello World.", Font).Height;
+                return GraphicsManager.MeasureText("Hello World.", Font).Height;
             }
         }
 

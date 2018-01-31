@@ -12,8 +12,7 @@ namespace VisualPlus.Toolkit.VisualBase
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Extensibility;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -50,7 +49,6 @@ namespace VisualPlus.Toolkit.VisualBase
             _animation = Settings.DefaultValue.Animation;
             _checkStyle = new CheckStyle(ClientRectangle);
             _border = new Border();
-
             _colorState = new ControlColorState();
             ConfigureAnimation(new[] { 0.05, 0.10, 0.08 }, new[] { EffectType.EaseInOut, EffectType.Linear });
         }
@@ -60,8 +58,8 @@ namespace VisualPlus.Toolkit.VisualBase
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Animation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Animation)]
         public bool Animation
         {
             get
@@ -87,7 +85,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -102,8 +100,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Description(Property.Size)]
-        [Category(Propertys.Layout)]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Layout)]
         public Size Box
         {
             get
@@ -139,8 +137,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Spacing)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Spacing)]
         public int BoxSpacing
         {
             get
@@ -156,8 +154,8 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Checked)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Checked)]
         public bool Checked
         {
             get
@@ -183,7 +181,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(CheckStyleConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public CheckStyle CheckStyle
         {
             get
@@ -200,7 +198,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         /// <summary>Gets the <see cref="GlyphSize" /> of the control.</summary>
         [Browsable(false)]
-        [Description(Property.Size)]
+        [Description(PropertyDescription.Size)]
         public Size GlyphSize
         {
             get
@@ -298,7 +296,7 @@ namespace VisualPlus.Toolkit.VisualBase
                 {
                     MouseState = MouseStates.Down;
 
-                    if (_animation && (args.Button == MouseButtons.Left) && GDI.IsMouseInBounds(_mouseLocation, _box))
+                    if (_animation && (args.Button == MouseButtons.Left) && GraphicsManager.IsMouseInBounds(_mouseLocation, _box))
                     {
                         _rippleEffectsManager.SecondaryIncrement = 0;
                         _rippleEffectsManager.StartNewAnimation(AnimationDirection.InOutIn, new object[] { Toggle });
@@ -312,7 +310,7 @@ namespace VisualPlus.Toolkit.VisualBase
             MouseMove += (sender, args) =>
                 {
                     _mouseLocation = args.Location;
-                    Cursor = GDI.IsMouseInBounds(_mouseLocation, _box) ? Cursors.Hand : Cursors.Default;
+                    Cursor = GraphicsManager.IsMouseInBounds(_mouseLocation, _box) ? Cursors.Hand : Cursors.Default;
                 };
         }
 
@@ -358,12 +356,12 @@ namespace VisualPlus.Toolkit.VisualBase
                 _box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (_box.Height / 2)), _box.Size);
             }
 
-            Color _backColor = GDI.GetBackColorState(Enabled, BoxColorState.Enabled, BoxColorState.Hover, BoxColorState.Pressed, BoxColorState.Disabled, MouseState);
+            Color _backColor = ControlColorState.BackColorState(BoxColorState, Enabled, MouseState);
 
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
-            _graphics.TextRenderingHint = TextRenderingHint;
+            _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 2, ClientRectangle.Height + 2);
             Shape _clientShape = new Shape(ShapeType.Rectangle, _backColor, 0);
@@ -375,9 +373,9 @@ namespace VisualPlus.Toolkit.VisualBase
 
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
-            _textSize = GDI.MeasureText(_graphics, Text, Font);
+            _textSize = GraphicsManager.MeasureText(_graphics, Text, Font);
             Point _textLocation = new Point(_box.Right + _boxSpacing, (ClientRectangle.Height / 2) - (_textSize.Height / 2));
-            Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
+            Color _textColor = Enabled ? ForeColor : TextStyle.Disabled;
 
             VisualToggleRenderer.DrawCheckBox(_graphics, Border, _checkStyle, _box, Checked, Enabled, _backColor, BackgroundImage, MouseState, Text, Font, _textColor, _textLocation);
             DrawAnimation(_graphics);
@@ -392,7 +390,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         private void AutoFit(Size textSize)
         {
-            if (GDI.TextLargerThanRectangle(textSize, _box))
+            if (GraphicsManager.TextLargerThanRectangle(textSize, _box))
             {
                 IsBoxLarger = false;
                 Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, textSize.Height);
