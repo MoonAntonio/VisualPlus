@@ -794,7 +794,7 @@
                         Disabled = theme.OtherSettings.ProgressDisabled
                     };
 
-                _hatch.BackColor = theme.OtherSettings.HatchBackColor;
+                _hatch.BackColor = Color.FromArgb(0, theme.OtherSettings.HatchBackColor);
                 _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
 
                 _tickColor = theme.OtherSettings.Line;
