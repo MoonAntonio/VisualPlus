@@ -267,9 +267,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include=".nuget\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\Icon.ico" />
     <EmbeddedResource Include="Resources\ToolboxBitmaps\VisualLabel.bmp" />
