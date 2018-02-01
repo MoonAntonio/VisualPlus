@@ -27,13 +27,13 @@
         #region Variables
 
         private ColorState _colorState;
-
         private Label _labelMaximum;
         private Label _labelMinimum;
         private Label _labelProgress;
         private Color _progress;
-
         private Size _progressTextSize;
+
+        private bool _progressVisible;
         private int _thickness;
 
         #endregion
@@ -44,6 +44,7 @@
         public VisualGauge()
         {
             _thickness = 25;
+            _progressVisible = true;
             Maximum = 100;
 
             ConstructDisplay();
@@ -91,6 +92,22 @@
             {
                 _progress = value;
                 Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
+        public bool ProgressVisible
+        {
+            get
+            {
+                return _progressVisible;
+            }
+
+            set
+            {
+                _progressVisible = value;
+                _labelProgress.Visible = _progressVisible;
             }
         }
 
