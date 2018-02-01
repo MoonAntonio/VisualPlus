@@ -28,9 +28,9 @@ namespace VisualPlus.Designer
                 if (_actionListCollection == null)
                 {
                     _actionListCollection = new DesignerActionListCollection
-                        {
-                            new VisualCheckedListBoxActionList(Component)
-                        };
+                            {
+                               new VisualCheckedListBoxActionList(Component) 
+                            };
                 }
 
                 return _actionListCollection;

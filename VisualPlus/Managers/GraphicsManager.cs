@@ -271,6 +271,42 @@
             }
         }
 
+        /// <summary>Draws the rounded rectangle inside the rectangle.</summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="rounding">The rounding factor to apply.</param>
+        /// <returns>The <see cref="GraphicsPath" />.</returns>
+        public static GraphicsPath DrawRoundedRectangleInternal(Rectangle rectangle, int rounding)
+        {
+            GraphicsPath _roundedRectanglePath = new GraphicsPath();
+
+            // Only use a rounding that will fit inside the rect
+            rounding = Math.Min(rounding, Math.Min(rectangle.Width / 2, rectangle.Height / 2) - rounding);
+
+            // If there is no room for any rounding effect...
+            if (rounding <= 0)
+            {
+                // Just add a simple rectangle as a quick way of adding four lines
+                _roundedRectanglePath.AddRectangle(rectangle);
+            }
+            else
+            {
+                // We create the path using a floating point rectangle
+                RectangleF _rectangleF = new RectangleF(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+
+                // The border is made of up a quarter of a circle arc, in each corner
+                int _arcLength = rounding * 2;
+                _roundedRectanglePath.AddArc(_rectangleF.Left, _rectangleF.Top, _arcLength, _arcLength, 180F, 90F);
+                _roundedRectanglePath.AddArc(_rectangleF.Right - _arcLength, _rectangleF.Top, _arcLength, _arcLength, 270F, 90F);
+                _roundedRectanglePath.AddArc(_rectangleF.Right - _arcLength, _rectangleF.Bottom - _arcLength, _arcLength, _arcLength, 0F, 90F);
+                _roundedRectanglePath.AddArc(_rectangleF.Left, _rectangleF.Bottom - _arcLength, _arcLength, _arcLength, 90F, 90F);
+
+                // Make the last and first arc join up
+                _roundedRectanglePath.CloseFigure();
+            }
+
+            return _roundedRectanglePath;
+        }
+
         /// <summary>Draws the hatch brush as an image and then converts it to a texture brush for scaling.</summary>
         /// <param name="hatchBrush">Hatch brush pattern.</param>
         /// <returns>The <see cref="TextureBrush" />.</returns>

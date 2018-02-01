@@ -623,9 +623,9 @@
                 }
 
                 StringFormat _stringFormat = new StringFormat
-                    {
-                        LineAlignment = _textLineAlignment
-                    };
+                        {
+                           LineAlignment = _textLineAlignment 
+                        };
 
                 e.Graphics.DrawString(GetItemText(Items[e.Index]), Font, new SolidBrush(_menuTextColor), new Rectangle(_location, new Size(DropDownWidth, ItemHeight)), _stringFormat);
             }

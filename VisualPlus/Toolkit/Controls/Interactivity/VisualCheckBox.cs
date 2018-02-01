@@ -37,9 +37,9 @@
             Border = new Border { Rounding = Settings.DefaultValue.Rounding.BoxRounding };
 
             CheckStyle = new CheckStyle(ClientRectangle)
-                {
-                    Style = CheckStyle.CheckType.Checkmark
-                };
+                    {
+                       Style = CheckStyle.CheckType.Checkmark 
+                    };
 
             UpdateTheme(ThemeManager.Theme);
         }

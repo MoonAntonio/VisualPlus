@@ -69,9 +69,9 @@
 
             ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
             _backColorState = new ColorState
-                {
-                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
-                };
+                    {
+                       Enabled = ThemeManager.Theme.BackgroundSettings.Type4 
+                    };
 
             _checkedListBox = new CheckedListBox
                 {

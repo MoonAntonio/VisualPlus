@@ -53,9 +53,9 @@
         public override DesignerActionItemCollection GetSortedActionItems()
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
-                {
-                    new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode")
-                };
+                    {
+                       new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode") 
+                    };
 
             return items;
         }

@@ -677,6 +677,7 @@
                 case Keys.Left:
                     return true;
             }
+
             return base.IsInputKey(key);
         }
 

@@ -155,6 +155,12 @@
 
         #region Events
 
+        /// <summary>Automatically places the <see cref="VisualControlBox" /> on the <see cref="Form" /> corner location.</summary>
+        public void AutoPlaceOnForm()
+        {
+            Location = new Point(ParentForm.Width - Width, 0);
+        }
+
         public void UpdateTheme(Theme theme)
         {
             try
@@ -367,12 +373,6 @@
                 VisualExceptionDialog.Show(e);
                 return new Size(25, 25);
             }
-        }
-
-        /// <summary>Automatically places the <see cref="VisualControlBox"/> on the <see cref="Form"/> corner location.</summary>
-        public void AutoPlaceOnForm()
-        {
-            Location = new Point(ParentForm.Width - Width, 0);
         }
 
         /// <summary>Initializes the <see cref="VisualControlBox" />.</summary>

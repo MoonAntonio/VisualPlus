@@ -25,8 +25,13 @@ namespace VisualPlus
         public static readonly int MinimumCheckBoxBorderRounding = 1;
         public static readonly int MinimumCheckBoxSize = 3;
         public static readonly int MinimumRounding = 1;
-
         public static readonly string TemplatesFolder = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + @"\VisualPlus Themes\";
+
+        #endregion
+
+        #region Events
+
+        public const string DefaultCategoryText = "VisualExtension";
 
         #endregion
 

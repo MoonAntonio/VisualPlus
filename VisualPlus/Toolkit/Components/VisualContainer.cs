@@ -39,9 +39,9 @@
             }
 
             ToolStripControlHost controlHost = new ToolStripControlHost(contextControl)
-                {
-                    AutoSize = false
-                };
+                    {
+                       AutoSize = false 
+                    };
 
             Padding = Margin = controlHost.Padding = controlHost.Margin = Padding.Empty;
             contextControl.Location = Point.Empty;

@@ -386,8 +386,6 @@
                 _otherSettings.CloseButtonFore.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Enabled").ToColor();
                 _otherSettings.CloseButtonFore.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Hover").ToColor();
                 _otherSettings.CloseButtonFore.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Pressed").ToColor();
-                
-
             }
             catch (Exception e)
             {

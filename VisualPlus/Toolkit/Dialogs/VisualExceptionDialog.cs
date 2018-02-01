@@ -93,9 +93,9 @@
         public static void Show(Exception exception, string caption = "Exception Dialog", bool dialogWindow = true)
         {
             Thread _threadShowDialog = new Thread(() => Display(exception, caption, dialogWindow))
-                {
-                    IsBackground = true
-                };
+                    {
+                       IsBackground = true 
+                    };
 
             _threadShowDialog.SetApartmentState(ApartmentState.STA);
             _threadShowDialog.Start();

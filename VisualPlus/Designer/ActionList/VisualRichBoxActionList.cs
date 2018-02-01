@@ -53,9 +53,9 @@ namespace VisualPlus.Designer.ActionList
         public override DesignerActionItemCollection GetSortedActionItems()
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
-                {
-                    new DesignerActionPropertyItem("Text", "Edit Text:")
-                };
+                    {
+                       new DesignerActionPropertyItem("Text", "Edit Text:") 
+                    };
 
             return items;
         }

@@ -55,23 +55,23 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Size = new Size(50, 25);
 
             _animationTimer = new Timer
-                {
-                    Interval = 1
-                };
+                    {
+                       Interval = 1 
+                    };
 
             _animationTimer.Tick += AnimationTimerTick;
             _toggleType = ToggleTypes.YesNo;
             _buttonSize = new Size(20, 20);
 
             _border = new Border
-                {
-                    Rounding = Settings.DefaultValue.Rounding.ToggleBorder
-                };
+                    {
+                       Rounding = Settings.DefaultValue.Rounding.ToggleBorder 
+                    };
 
             _buttonBorder = new Border
-                {
-                    Rounding = Settings.DefaultValue.Rounding.ToggleButton
-                };
+                    {
+                       Rounding = Settings.DefaultValue.Rounding.ToggleButton 
+                    };
 
             UpdateTheme(ThemeManager.Theme);
         }

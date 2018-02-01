@@ -908,9 +908,9 @@
             static HSLManager()
             {
                 Empty = new HSLManager
-                    {
-                        IsEmpty = true
-                    };
+                        {
+                           IsEmpty = true 
+                        };
             }
 
             public HSLManager(double hue, double saturation, double lightness)

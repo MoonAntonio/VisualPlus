@@ -3,14 +3,14 @@
     public sealed class PropertyCategory
     {
 #if DEBUG
-        public const string Accessibility = GlobalStrings.DefaultCategoryText;
-        public const string Appearance = GlobalStrings.DefaultCategoryText;
-        public const string Behavior = GlobalStrings.DefaultCategoryText;
-        public const string Data = GlobalStrings.DefaultCategoryText;
-        public const string Design = GlobalStrings.DefaultCategoryText;
-        public const string Focus = GlobalStrings.DefaultCategoryText;
-        public const string Layout = GlobalStrings.DefaultCategoryText;
-        public const string WindowStyle = GlobalStrings.DefaultCategoryText;
+        public const string Accessibility = Settings.DefaultCategoryText;
+        public const string Appearance = Settings.DefaultCategoryText;
+        public const string Behavior = Settings.DefaultCategoryText;
+        public const string Data = Settings.DefaultCategoryText;
+        public const string Design = Settings.DefaultCategoryText;
+        public const string Focus = Settings.DefaultCategoryText;
+        public const string Layout = Settings.DefaultCategoryText;
+        public const string WindowStyle = Settings.DefaultCategoryText;
 
 #else
             public const string Accessibility = "Accessibility";

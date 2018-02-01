@@ -63,9 +63,9 @@
             ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
             headerFont = ThemeManager.Theme.TextSetting.Font;
             _colorState = new ColorState
-                {
-                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
-                };
+                    {
+                       Enabled = ThemeManager.Theme.BackgroundSettings.Type4 
+                    };
 
             _listView = new ListView
                 {

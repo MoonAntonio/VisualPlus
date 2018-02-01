@@ -28,9 +28,9 @@
                 if (_actionListCollection == null)
                 {
                     _actionListCollection = new DesignerActionListCollection
-                        {
-                            new VisualListBoxActionList(Component)
-                        };
+                            {
+                               new VisualListBoxActionList(Component) 
+                            };
                 }
 
                 return _actionListCollection;

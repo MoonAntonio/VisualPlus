@@ -48,6 +48,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\ReadOnlyControlCollection.cs" />
+    <Compile Include="Collections\VisualControlCollection.cs" />
     <Compile Include="Collections\VisualTabPageCollectionEditor.cs" />
     <Compile Include="Delegates\ControlBoxDelegate.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\TextManager.cs" />
     <Compile Include="Managers\TickManager.cs" />
+    <Compile Include="Native\Dwmapi.cs" />
     <Compile Include="Native\Gdi32.cs" />
     <Compile Include="Native\Shlwapi.cs" />
     <Compile Include="Native\User32.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
     <Compile Include="Structure\ControlBoxButton.cs" />
+    <Compile Include="Structure\GlobalId.cs" />
     <Compile Include="Structure\OtherSettings.cs" />
     <Compile Include="Structure\BackgroundSettings.cs" />
     <Compile Include="Structure\BorderEdge.cs" />

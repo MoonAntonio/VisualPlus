@@ -265,30 +265,30 @@
 
             try
             {
-            Graphics graphics = e.Graphics;
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.CompositingQuality = CompositingQuality.GammaCorrected;
+                Graphics graphics = e.Graphics;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.CompositingQuality = CompositingQuality.GammaCorrected;
 
-            Size textArea = GraphicsManager.MeasureText(graphics, Text, Font);
-            Rectangle group = ConfigureStyleBox(textArea);
-            Rectangle title = ConfigureStyleTitleBox(textArea);
+                Size textArea = GraphicsManager.MeasureText(graphics, Text, Font);
+                Rectangle group = ConfigureStyleBox(textArea);
+                Rectangle title = ConfigureStyleTitleBox(textArea);
 
-            _titleBoxRectangle = new Rectangle(title.X, title.Y, title.Width - 1, title.Height);
+                _titleBoxRectangle = new Rectangle(title.X, title.Y, title.Width - 1, title.Height);
 
-            Rectangle _clientRectangle = new Rectangle(group.X, group.Y, group.Width, group.Height);
-            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
+                Rectangle _clientRectangle = new Rectangle(group.X, group.Y, group.Width, group.Height);
+                ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+                graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
-            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, group, Border);
+                Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
+                VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, group, Border);
 
-            if (_borderEdge.Visible)
-            {
-                _borderEdge.Location = new Point(_titleBoxRectangle.X + _border.Thickness, _titleBoxRectangle.Bottom);
-                _borderEdge.Size = new Size(Width - _border.Thickness - 1, 1);
-            }
+                if (_borderEdge.Visible)
+                {
+                    _borderEdge.Location = new Point(_titleBoxRectangle.X + _border.Thickness, _titleBoxRectangle.Bottom);
+                    _borderEdge.Size = new Size(Width - _border.Thickness - 1, 1);
+                }
 
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+                VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
 
                 if (_boxStyle == GroupBoxStyle.Classic)
                 {

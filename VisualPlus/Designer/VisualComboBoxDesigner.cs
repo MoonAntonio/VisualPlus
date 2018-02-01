@@ -27,9 +27,9 @@
                 if (actionListCollection == null)
                 {
                     actionListCollection = new DesignerActionListCollection
-                        {
-                            new VisualComboBoxActionList(Component)
-                        };
+                            {
+                               new VisualComboBoxActionList(Component) 
+                            };
                 }
 
                 return actionListCollection;

@@ -406,8 +406,6 @@
             OnThemeChanged(new ThemeEventArgs(theme));
         }
 
-        /// <summary>Raises the <see cref="OnControlAdded" /> event.</summary>
-        /// <param name="e">The event args.</param>
         protected override void OnControlAdded(ControlEventArgs e)
         {
             base.OnControlAdded(e);
@@ -821,11 +819,13 @@
             }
 
             // Convert to client position and pass to Form.MouseMove
-            Point clientCursorPos = PointToClient(e.Location);
-            MouseEventArgs newE = new MouseEventArgs(MouseButtons.None, 0, clientCursorPos.X, clientCursorPos.Y, 0);
-            OnMouseMove(newE);
+            Point _clientCursorLocation = PointToClient(e.Location);
+            MouseEventArgs _mouseEventArgs = new MouseEventArgs(MouseButtons.None, 0, _clientCursorLocation.X, _clientCursorLocation.Y, 0);
+            OnMouseMove(_mouseEventArgs);
         }
 
+        /// <summary>Resize the form using the resize direction.</summary>
+        /// <param name="direction">The direction.</param>
         private void ResizeForm(ResizeDirection direction)
         {
             if (DesignMode)
@@ -833,49 +833,54 @@
                 return;
             }
 
-            int _dir = -1;
+            int _resizeDirection = -1;
             switch (direction)
             {
                 case ResizeDirection.BottomLeft:
                     {
-                        _dir = HTBOTTOMLEFT;
+                        _resizeDirection = HTBOTTOMLEFT;
                         break;
                     }
 
                 case ResizeDirection.Left:
                     {
-                        _dir = HTLEFT;
+                        _resizeDirection = HTLEFT;
                         break;
                     }
 
                 case ResizeDirection.Right:
                     {
-                        _dir = HTRIGHT;
+                        _resizeDirection = HTRIGHT;
                         break;
                     }
 
                 case ResizeDirection.BottomRight:
                     {
-                        _dir = HTBOTTOMRIGHT;
+                        _resizeDirection = HTBOTTOMRIGHT;
                         break;
                     }
 
                 case ResizeDirection.Bottom:
                     {
-                        _dir = HTBOTTOM;
+                        _resizeDirection = HTBOTTOM;
                         break;
                     }
 
                 case ResizeDirection.None:
-                    break;
+                    {
+                        break;
+                    }
+
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                    }
             }
 
             User32.ReleaseCapture();
-            if (_dir != -1)
+            if (_resizeDirection != -1)
             {
-                User32.SendMessage(Handle, WM_NCLBUTTONDOWN, _dir, 0);
+                User32.SendMessage(Handle, WM_NCLBUTTONDOWN, _resizeDirection, 0);
             }
         }
 

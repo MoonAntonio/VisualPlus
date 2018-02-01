@@ -3,17 +3,17 @@
     public sealed class Events
     {
 #if DEBUG
-        public const string Action = GlobalStrings.DefaultCategoryText;
-        public const string Appearance = GlobalStrings.DefaultCategoryText;
-        public const string Behavior = GlobalStrings.DefaultCategoryText;
-        public const string Data = GlobalStrings.DefaultCategoryText;
-        public const string DragDrop = GlobalStrings.DefaultCategoryText;
-        public const string Focus = GlobalStrings.DefaultCategoryText;
-        public const string Key = GlobalStrings.DefaultCategoryText;
-        public const string Layout = GlobalStrings.DefaultCategoryText;
-        public const string Misc = GlobalStrings.DefaultCategoryText;
-        public const string Mouse = GlobalStrings.DefaultCategoryText;
-        public const string PropertyChanged = GlobalStrings.DefaultCategoryText;
+        public const string Action = Settings.DefaultCategoryText;
+        public const string Appearance = Settings.DefaultCategoryText;
+        public const string Behavior = Settings.DefaultCategoryText;
+        public const string Data = Settings.DefaultCategoryText;
+        public const string DragDrop = Settings.DefaultCategoryText;
+        public const string Focus = Settings.DefaultCategoryText;
+        public const string Key = Settings.DefaultCategoryText;
+        public const string Layout = Settings.DefaultCategoryText;
+        public const string Misc = Settings.DefaultCategoryText;
+        public const string Mouse = Settings.DefaultCategoryText;
+        public const string PropertyChanged = Settings.DefaultCategoryText;
 #else
             public const string Action = "Action";
             public const string Appearance = "Appearance";

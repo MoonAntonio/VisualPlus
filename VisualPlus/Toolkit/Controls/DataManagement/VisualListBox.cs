@@ -64,9 +64,9 @@
             ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
             _colorState = new ColorState
-                {
-                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
-                };
+                    {
+                       Enabled = ThemeManager.Theme.BackgroundSettings.Type4 
+                    };
 
             _listBox = new ListBox
                 {
@@ -958,9 +958,9 @@
                 }
 
                 StringFormat _stringFormat = new StringFormat
-                    {
-                        LineAlignment = _itemLineAlignment
-                    };
+                        {
+                           LineAlignment = _itemLineAlignment 
+                        };
 
                 e.Graphics.DrawString(GetItemText(Items[e.Index]), Font, new SolidBrush(ForeColor), new Rectangle(_location, e.Bounds.Size), _stringFormat);
                 backgroundBrush.Dispose();
