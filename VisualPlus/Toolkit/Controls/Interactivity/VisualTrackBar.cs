@@ -77,6 +77,7 @@
         private bool _trackerAutoSize;
         private Border _trackerBorder;
         private Rectangle _trackerButtonRectangle;
+        private Font _trackerFont;
         private Rectangle _trackerRectangle;
         private Size _trackerSize;
         private Color _trackerTextColor;
@@ -227,6 +228,7 @@
             }
         }
 
+        [Browsable(true)]
         public new Font Font
         {
             get
@@ -242,6 +244,7 @@
             }
         }
 
+        [Browsable(true)]
         public new Color ForeColor
         {
             get
@@ -609,6 +612,21 @@
             }
         }
 
+        [Browsable(true)]
+        public Font TrackerFont
+        {
+            get
+            {
+                return _trackerFont;
+            }
+
+            set
+            {
+                _trackerFont = value;
+                Invalidate();
+            }
+        }
+
         [Category(PropertyCategory.Layout)]
         [Description(PropertyDescription.Size)]
         public Size TrackerSize
@@ -811,6 +829,7 @@
 
                 Font = theme.TextSetting.Font;
                 _textFont = theme.TextSetting.Font;
+                _trackerFont = theme.TextSetting.Font;
 
                 BackColorState.Enabled = theme.ColorStateSettings.Enabled;
                 BackColorState.Disabled = theme.ColorStateSettings.Disabled;
@@ -1037,7 +1056,7 @@
 
             VisualBorderRenderer.DrawBorderStyle(graphics, _trackBarBorder, _trackBarPath, _mouseState);
 
-            Size _progressValue = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
+            Size _progressValue = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _trackerFont);
 
             DrawTrackerButton(graphics, _progressValue);
             DrawText(graphics, _progressValue);
@@ -1454,7 +1473,7 @@
                 }
             }
 
-            graphics.DrawString(value, _textFont, new SolidBrush(_trackerTextColor), _textLocation);
+            graphics.DrawString(value, _trackerFont, new SolidBrush(_trackerTextColor), _textLocation);
         }
 
         /// <summary>Draws the TrackBar.</summary>
