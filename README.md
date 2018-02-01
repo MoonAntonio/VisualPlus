@@ -19,16 +19,11 @@ The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly
 | Service | Stable | Beta |
 | :---- | :---- | :------ |
 AppVeyor | [ ![Stable build status][1]][2] | [![Beta build status][3]][4] |
-Travic Cl | [ ![Stable build status][5]][6] | [![Beta build status][7]][8] |
 
 [1]: https://img.shields.io/appveyor/ci/DarkByte7/VisualPlus/master.svg?style=plastic
 [2]: https://github.com/DarkByte7/VisualPlus/releases
-[3]: https://img.shields.io/appveyor/ci/DarkByte7/VisualPlus/beta.svg?style=plastic
+[3]: https://img.shields.io/appveyor/ci/DarkByte7/VisualPlus/master.svg?style=plastic
 [4]: https://ci.appveyor.com/project/DarkByte7/VisualPlus
-[5]: https://img.shields.io/travis/DarkByte7/VisualPlus/master.svg?style=plastic
-[6]: https://github.com/DarkByte7/VisualPlus/releases
-[7]: https://img.shields.io/travis/DarkByte7/VisualPlus/beta.svg?style=plastic
-[8]: https://travis-ci.org/DarkByte7/VisualPlus
 
 To get the latest release, you can download a [`Fresh Build`](https://ci.appveyor.com/project/DarkByte7/VisualPlus/build/artifacts) here.
 
