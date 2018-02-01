@@ -25,7 +25,7 @@ AppVeyor | [ ![Stable build status][1]][2] | [![Beta build status][3]][4] |
 [3]: https://img.shields.io/appveyor/ci/DarkByte7/VisualPlus/master.svg?style=plastic
 [4]: https://ci.appveyor.com/project/DarkByte7/VisualPlus
 
-To get the latest release, you can download a [`Fresh Build`](https://ci.appveyor.com/project/DarkByte7/VisualPlus/build/artifacts) here.
+To get the latest release, you can download a [`Fresh Build`](https://ci.appveyor.com/project/DarkByte7/VisualPlus/build/artifacts) here. 
 
 The [`VisualPlus`](https://github.com/DarkByte7/VisualPlus) repository is where we do development and there are many ways you can participate in the project, for example:
 - [Submit bugs and feature requests](https://github.com/DarkByte7/VisualPlus/issues) and help us verify as they are checked in
