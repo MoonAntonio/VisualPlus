@@ -79,7 +79,12 @@
             _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
             _textLineAlignment = StringAlignment.Center;
-            _border = new Border();
+
+            _border = new Border
+                {
+                    Type = ShapeType.Rectangle
+                };
+
             _alignment = TabAlignment.Top;
             _arrowSelectorVisible = true;
             _arrowSpacing = 10;
@@ -230,23 +235,6 @@
                     page.BackColor = _backgroundColor;
                 }
 
-                Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(BorderConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(PropertyCategory.Appearance)]
-        public Border Border
-        {
-            get
-            {
-                return _border;
-            }
-
-            set
-            {
-                _border = value;
                 Invalidate();
             }
         }
@@ -703,10 +691,7 @@
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = _textRendererHint;
 
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
-            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
-
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _tabMenu, BackgroundImage, _mouseState, ClientRectangle, _border);
+            VisualBackgroundRenderer.DrawBackground(_graphics, _tabMenu, BackgroundImage, _mouseState, ClientRectangle, _border);
 
             DrawTabPages(e);
             DrawSeparator(e);
