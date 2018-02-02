@@ -32,8 +32,6 @@
         private Label _labelProgress;
         private Color _progress;
         private Size _progressTextSize;
-
-        private bool _progressVisible;
         private int _thickness;
 
         #endregion
@@ -44,7 +42,6 @@
         public VisualGauge()
         {
             _thickness = 25;
-            _progressVisible = true;
             Maximum = 100;
 
             ConstructDisplay();
@@ -78,6 +75,36 @@
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
+        public bool MaximumVisible
+        {
+            get
+            {
+                return _labelMaximum.Visible;
+            }
+
+            set
+            {
+                _labelMaximum.Visible = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
+        public bool MinimumVisible
+        {
+            get
+            {
+                return _labelMinimum.Visible;
+            }
+
+            set
+            {
+                _labelMinimum.Visible = value;
+            }
+        }
+
         [DefaultValue(typeof(Color), "Green")]
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
@@ -101,13 +128,12 @@
         {
             get
             {
-                return _progressVisible;
+                return _labelProgress.Visible;
             }
 
             set
             {
-                _progressVisible = value;
-                _labelProgress.Visible = _progressVisible;
+                _labelProgress.Visible = value;
             }
         }
 
