@@ -534,6 +534,21 @@
             }
         }
 
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ScrollBars)]
+        public ScrollBars ScrollBars
+        {
+            get
+            {
+                return _textBox.ScrollBars;
+            }
+
+            set
+            {
+                _textBox.ScrollBars = value;
+            }
+        }
+
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Localizable(false)]
         public new string Text
