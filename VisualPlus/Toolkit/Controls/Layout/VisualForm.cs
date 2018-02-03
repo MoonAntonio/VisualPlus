@@ -406,35 +406,6 @@
             OnThemeChanged(new ThemeEventArgs(theme));
         }
 
-        protected override void OnControlAdded(ControlEventArgs e)
-        {
-            base.OnControlAdded(e);
-            Control _control;
-
-            try
-            {
-                _control = (VisualControlBase)e.Control;
-
-                if (_control != null)
-                {
-                    _control.BackColor = _background;
-                }
-                else if (_control is VisualControlBox)
-                {
-                    _control.BackColor = _windowBarColor;
-                }
-            }
-            catch (Exception)
-            {
-                // Cast failed - Unsupported control base try default control base.
-            }
-            finally
-            {
-                _control = e.Control;
-                _control.BackColor = _background;
-            }
-        }
-
         protected override void OnEnter(EventArgs e)
         {
             base.OnEnter(e);
