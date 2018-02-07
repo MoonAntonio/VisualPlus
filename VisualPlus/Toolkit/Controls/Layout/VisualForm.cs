@@ -25,7 +25,6 @@
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.Controls.Interactivity;
     using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
@@ -41,6 +40,12 @@
     [ToolboxItem(false)]
     public class VisualForm : Form, IThemeSupport
     {
+        #region Variables
+
+        protected VisualControlBox _visualControlBox;
+
+        #endregion
+
         #region Variables
 
         private readonly Cursor[] _resizeCursors;
@@ -203,6 +208,22 @@
             {
                 _border = value;
                 Invalidate();
+            }
+        }
+
+        [TypeConverter(typeof(VisualControlBoxConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(PropertyCategory.Appearance)]
+        public new VisualControlBox ControlBox
+        {
+            get
+            {
+                return _visualControlBox;
+            }
+
+            set
+            {
+                _visualControlBox = value;
             }
         }
 
@@ -785,6 +806,10 @@
 
             _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
             _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
+
+            _visualControlBox = new VisualControlBox();
+            Controls.Add(_visualControlBox);
+            _visualControlBox.Location = new Point((Width - _visualControlBox.Width) + 8, _border.Thickness);
         }
 
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)
