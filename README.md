@@ -46,7 +46,9 @@ Enjoy using `VisualPlus` or just want to say thanks?
 Hit the ⭐️ Star ⭐️ button.
 
 BTC: `16BFVxxFEcTYPU2ANskjjQppUh8fYCtxSi`
+
 ETH: `0x7706B544a8497f861293d26984a105e4E93545Dd`
+
 LTC: `Lg7U91RPKnBNvHZFBfpDPRtMWTKiz6icp1`
 
 ## Feedback
