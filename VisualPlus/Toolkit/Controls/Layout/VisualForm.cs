@@ -796,7 +796,7 @@
 
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
-            _magnetic = true;
+            _magnetic = false;
             _magneticRadius = 100;
             Padding = new Padding(0, 0, 0, 0);
             Sizable = true;
