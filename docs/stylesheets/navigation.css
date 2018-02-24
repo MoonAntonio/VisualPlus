@@ -1,5 +1,9 @@
 #navigationBar {
 	display: block;
+	width: 100%;
+}
+.navigationBarRight {
+	float: right;
 }
 .navigationBar ul {
 	list-style-type: none;
@@ -12,7 +16,7 @@
 }
 .navigationBar li {
 	float: left;
-	height: 60px;
+	height: 75px;
 	text-decoration: none;
 }
 .navigationBar li a {
@@ -24,6 +28,6 @@
 	margin: 6px;
 }
 .navigationBar li a:hover {
-	background-color: #555;
-	color: white;
+	text-shadow: 0 0 1px white;
+	border-bottom: 3px solid #3194c0;
 }
