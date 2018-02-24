@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.Controls.Layout
+﻿namespace VisualPlus.Toolkit.Dialogs
 {
     #region Namespace
 
@@ -24,7 +24,6 @@
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.Controls.Interactivity;
-    using VisualPlus.Toolkit.Dialogs;
 
     #endregion
 

@@ -2,7 +2,7 @@
 {
     #region Namespace
 
-    using VisualPlus.Toolkit.Controls.Layout;
+    using VisualPlus.Toolkit.Dialogs;
 
     #endregion
 
