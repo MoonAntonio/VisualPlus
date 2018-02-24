@@ -6,7 +6,6 @@
 
 <p align="center">
 <a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGet" src="https://img.shields.io/nuget/v/VisualPlus.svg?style=flat"></a>
-    <a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGetPre" src="https://img.shields.io/nuget/vpre/VisualPlus.svg?style=flat"></a>
     <a href="https://github.com/DarkByte7/VisualPlus/issues/"><img alt="Issues" src="https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat"></a>
     <a href="https://gitter.im/VisualPlusUI/General"><img alt="Gitter" src="https://img.shields.io/gitter/room/nwjs/nw.js.svg"></a>
     <a href="https://github.com/DarkByte7/VisualPlus/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/DarkByte7/VisualPlus.svg?style=flat"></a>
