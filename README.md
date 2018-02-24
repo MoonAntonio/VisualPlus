@@ -5,24 +5,21 @@
 <h1  align="center">VisualPlus</h1>
 
 <p align="center">
-<a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGet" src="https://img.shields.io/nuget/v/VisualPlus.svg?style=flat"></a>
-    <a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGetPre" src="https://img.shields.io/nuget/vpre/VisualPlus.svg?style=flat"></a>
-    <a href="https://github.com/DarkByte7/VisualPlus/issues/"><img alt="Issues" src="https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat"></a>
-    <a href="https://gitter.im/VisualPlusUI/General"><img alt="Gitter" src="https://img.shields.io/gitter/room/nwjs/nw.js.svg"></a>
-    <a href="https://github.com/DarkByte7/VisualPlus/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/DarkByte7/VisualPlus.svg?style=flat"></a>
+<a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGet" src="https://img.shields.io/nuget/v/VisualPlus.svg?style=flat"></a> <a href="https://github.com/DarkByte7/VisualPlus/issues/"><img alt="Issues" src="https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat"></a> <a href="https://github.com/DarkByte7/VisualPlus/Releases/"><img alt="Downloads" src="https://img.shields.io/github/downloads/DarkByte7/VisualPlus/total.svg?style=flat"></a>
+        <a href="https://github.com/DarkByte7/VisualPlus/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/DarkByte7/VisualPlus.svg?style=flat"></a>
     <a href="https://github.com/DarkByte7/VisualPlus/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/DarkByte7/VisualPlus.svg?style=flat"></a>
     <a href="https://github.com/DarkByte7/VisualPlus/blob/master/LICENSE.md"><img alt="Licence" src="https://img.shields.io/badge/GPL-3.0-blue.svg?style=flat"></a>
 </p >
  
 The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable components and controls.
 
-| Service | Stable | Beta |
-| :---- | :---- | :------ |
-AppVeyor | [ ![Stable build status][1]][2] | [![Beta build status][3]][4] |
+| Gitter Chat | Build Status |
+| :---- | :---- |
+[ ![Join Gitter Chat][1]][2] | [ ![Build status][3]][4] |
 
-[1]: https://img.shields.io/appveyor/ci/DarkByte7/VisualPlus/master.svg?style=plastic
-[2]: https://github.com/DarkByte7/VisualPlus/releases
-[3]: https://img.shields.io/appveyor/ci/DarkByte7/VisualPlus/master.svg?style=plastic
+[1]: https://img.shields.io/gitter/room/nwjs/nw.js.svg
+[2]: https://gitter.im/VisualPlusUI/General
+[3]: https://img.shields.io/appveyor/ci/DarkByte7/VisualPlus/master.svg?style=flat
 [4]: https://ci.appveyor.com/project/DarkByte7/VisualPlus
 
 To get the latest release, you can download a [`Fresh Build`](https://ci.appveyor.com/project/DarkByte7/VisualPlus/build/artifacts) here. 
