@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.Controls.Navigation
+﻿namespace VisualPlus.Toolkit.Components
 {
     #region Namespace
 
@@ -13,7 +13,6 @@
     using VisualPlus.Enumerators;
     using VisualPlus.Localization;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
 
     #endregion
 
@@ -38,7 +37,7 @@
         /// <inheritdoc />
         /// <summary>
         ///     Initializes a new instance of the
-        ///     <see cref="T:VisualPlus.Toolkit.Controls.Navigation.VisualContextMenuStrip" /> class.
+        ///     <see cref="T:VisualPlus.Toolkit.Components.VisualContextMenuStrip" /> class.
         /// </summary>
         public VisualContextMenuStrip()
         {

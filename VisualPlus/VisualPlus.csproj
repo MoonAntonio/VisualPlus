@@ -201,7 +201,7 @@
     <Compile Include="Toolkit\Components\VisualContainer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\Navigation\VisualContextMenu.cs">
+    <Compile Include="Toolkit\Components\VisualContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Dialogs\VisualForm.cs">
