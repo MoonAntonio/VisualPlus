@@ -42,14 +42,14 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Coding Guidelines](https://github.com/DarkByte7/VisualPlus/wiki/Coding-Guidelines)
 - [Submitting pull requests](https://github.com/DarkByte7/VisualPlus/compare)
 
-Enjoy using `VisualPlus` or just want to say thanks?
-Hit the ⭐️ Star ⭐️ button.
-
 ## Feedback
 - Ask a question on [Gitter](https://gitter.im/VisualPlusUI/General).
 - Request a new feature on [GitHub](https://github.com/DarkByte7/VisualPlus/blob/beta/CONTRIBUTE.md).
 - Vote for [popular feature requests](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue+label:feature-request+sort:reactions-B1-desc).
 - File a bug in [GitHub Issues](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue).
+
+Enjoy using `VisualPlus` or just want to say thanks?
+Hit the ⭐️ Star ⭐️ button.
 
 ## Screenshots
 ![ToolBox](https://i.imgur.com/vhY2yfU.jpg)
