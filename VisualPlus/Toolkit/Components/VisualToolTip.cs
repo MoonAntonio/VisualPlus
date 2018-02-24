@@ -44,7 +44,7 @@
         private Rectangle _separator;
         private int _separatorThickness;
         private int _spacing;
-        private StylesManager _styleManager;
+        private StyleManager styleManager;
         private string _text;
         private Point _textPoint;
         private TextRenderingHint _textRendererHint;
@@ -65,7 +65,7 @@
         /// <summary>Initializes a new instance of the <see cref="VisualToolTip" /> class.</summary>
         public VisualToolTip()
         {
-            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _iconPoint = new Point(0, 0);
             _iconSize = new Size(24, 24);
             _padding = new Padding(4, 4, 4, 4);
@@ -78,12 +78,12 @@
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _text = "Enter your custom text here.";
             _icon = Resources.VisualPlus;
-            _background = _styleManager.Theme.ColorStateSettings.Enabled;
-            _font = _styleManager.Theme.TextSetting.Font;
+            _background = styleManager.Theme.ColorStateSettings.Enabled;
+            _font = styleManager.Theme.TextSetting.Font;
             _autoSize = true;
-            _foreColor = _styleManager.Theme.TextSetting.Enabled;
-            _lineColor = _styleManager.Theme.OtherSettings.Line;
-            _titleFont = _styleManager.Theme.TextSetting.Font;
+            _foreColor = styleManager.Theme.TextSetting.Enabled;
+            _lineColor = styleManager.Theme.OtherSettings.Line;
+            _titleFont = styleManager.Theme.TextSetting.Font;
 
             _border = new Border();
 

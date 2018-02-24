@@ -52,7 +52,7 @@
         /// <summary>Initializes a new instance of the <see cref="Border" /> class.</summary>
         public Border()
         {
-            StylesManager styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             ConstructBorder(styleManager.Theme.BorderSettings.Hover, true);
         }
 

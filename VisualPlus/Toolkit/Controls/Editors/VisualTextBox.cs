@@ -80,7 +80,7 @@
             _textWidth = 125;
             _border = new Border();
 
-            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _backColorState = new ColorState
                     {
                        Enabled = ThemeManager.Theme.BackgroundSettings.Type4 

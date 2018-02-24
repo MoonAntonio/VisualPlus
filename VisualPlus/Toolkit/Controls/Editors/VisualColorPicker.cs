@@ -59,7 +59,7 @@
         private int _selectionSize;
         private int _smallChange;
         private LinearGradientBrush _spectrumGradient;
-        private StylesManager _styleManager;
+        private StyleManager styleManager;
         private LinearGradientBrush _whiteTopGradient;
         private HSLManager management;
 
@@ -75,8 +75,8 @@
         public VisualColorPicker()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.Selectable | ControlStyles.StandardClick | ControlStyles.StandardDoubleClick | ControlStyles.SupportsTransparentBackColor, true);
-            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
-            _buttonColor = _styleManager.Theme.ColorStateSettings.Enabled;
+            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            _buttonColor = styleManager.Theme.ColorStateSettings.Enabled;
             _pickType = PickerType.Rectangle;
             Color = Color.Black;
             ColorStep = 4;

@@ -52,7 +52,7 @@
         private Color _menuItemNormal;
         private Color _menuTextColor;
         private MouseStates _mouseState;
-        private StylesManager _styleManager;
+        private StyleManager styleManager;
         private StringAlignment _textAlignment;
         private Color _textDisabledColor;
         private TextImageRelation _textImageRelation;
@@ -77,7 +77,7 @@
             SetStyle((ControlStyles)139286, true);
             SetStyle(ControlStyles.Selectable, false);
 
-            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _textImageRelation = TextImageRelation.ImageBeforeText;
             _textAlignment = StringAlignment.Center;
             _textLineAlignment = StringAlignment.Center;
@@ -105,7 +105,7 @@
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
             Controls.Add(_borderEdge);
-            UpdateTheme(_styleManager.Theme);
+            UpdateTheme(styleManager.Theme);
         }
 
         [Category(Localization.Category.Events.PropertyChanged)]

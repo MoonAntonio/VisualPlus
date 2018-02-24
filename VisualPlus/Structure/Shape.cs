@@ -42,7 +42,7 @@
         /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
         public Shape()
         {
-            StylesManager styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             ConstructShape(ShapeType.Rounded, styleManager.Theme.BorderSettings.Normal, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
         }
 

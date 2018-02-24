@@ -31,7 +31,7 @@
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Component))]
     [Description("The style manager component enables you to manage the control themes.")]
-    public class StylesManager : Component, ICloneable
+    public class StyleManager : Component, ICloneable
     {
         #region Variables
 
@@ -44,61 +44,61 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="StylesManager" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="StyleManager" /> class.</summary>
         /// <param name="container">The container.</param>
-        public StylesManager(IContainer container) : this()
+        public StyleManager(IContainer container) : this()
         {
             container.Add(this);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="StylesManager" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="StyleManager" /> class.</summary>
         /// <param name="filePath">The custom theme.</param>
-        public StylesManager(string filePath) : this()
+        public StyleManager(string filePath) : this()
         {
             _theme = new Theme(filePath);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="StylesManager" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="StyleManager" /> class.</summary>
         /// <param name="theme">The custom theme.</param>
-        public StylesManager(Theme theme) : this()
+        public StyleManager(Theme theme) : this()
         {
             _theme = new Theme(theme);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="StylesManager" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="StyleManager" /> class.</summary>
         /// <param name="form">The form.</param>
-        public StylesManager(Form form) : this()
+        public StyleManager(Form form) : this()
         {
             AddFormToManage(form);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="StylesManager" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="StyleManager" /> class.</summary>
         /// <param name="theme">The style.</param>
-        public StylesManager(Themes theme) : this()
+        public StyleManager(Themes theme) : this()
         {
             _theme = new Theme(theme);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="StylesManager" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="StyleManager" /> class.</summary>
         /// <param name="form">The form.</param>
         /// <param name="filePath">The custom theme.</param>
-        public StylesManager(Form form, string filePath) : this()
+        public StyleManager(Form form, string filePath) : this()
         {
             _theme = new Theme(filePath);
             AddFormToManage(form);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="StylesManager" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="StyleManager" /> class.</summary>
         /// <param name="form">The form.</param>
         /// <param name="theme">The style.</param>
-        public StylesManager(Form form, Themes theme) : this()
+        public StyleManager(Form form, Themes theme) : this()
         {
             _theme = new Theme(theme);
             AddFormToManage(form);
         }
 
-        /// <summary>Prevents a default instance of the <see cref="StylesManager" /> class from being created.</summary>
-        private StylesManager()
+        /// <summary>Prevents a default instance of the <see cref="StyleManager" /> class from being created.</summary>
+        private StyleManager()
         {
             try
             {

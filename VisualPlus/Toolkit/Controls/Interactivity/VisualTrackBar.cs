@@ -61,7 +61,7 @@
         private bool _progressFilling;
         private bool _progressValueVisible;
         private bool _progressVisible;
-        private StylesManager _styleManager;
+        private StyleManager styleManager;
         private string _suffix;
         private Size _textAreaSize;
         private Color _textDisabledColor;
@@ -102,7 +102,7 @@
                 true);
 
             UpdateStyles();
-            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _trackerRectangle = Rectangle.Empty;
             _hatch = new Hatch();
             _orientation = Orientation.Horizontal;
@@ -132,7 +132,7 @@
 
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
-            UpdateTheme(_styleManager.Theme);
+            UpdateTheme(styleManager.Theme);
         }
 
         [Category(Localization.Category.Events.PropertyChanged)]

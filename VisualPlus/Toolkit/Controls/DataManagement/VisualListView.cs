@@ -60,7 +60,7 @@
 
             _border = new Border();
 
-            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             headerFont = ThemeManager.Theme.TextSetting.Font;
             _colorState = new ColorState
                     {

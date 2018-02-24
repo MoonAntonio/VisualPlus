@@ -80,9 +80,9 @@
                 ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor,
                 true);
 
-            StylesManager _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
-            _pointerColor = _styleManager.Theme.OtherSettings.Progress;
+            _pointerColor = styleManager.Theme.OtherSettings.Progress;
 
             UpdateStyles();
             _knobFont = Font;

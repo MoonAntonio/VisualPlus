@@ -122,7 +122,7 @@
     <Compile Include="Toolkit\Child\VisualTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Components\StylesManager.cs">
+    <Compile Include="Toolkit\Components\StyleManager.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Components\VisualGradient.cs">

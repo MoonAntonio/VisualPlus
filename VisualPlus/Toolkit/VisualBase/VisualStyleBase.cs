@@ -27,7 +27,7 @@
 
         private MouseStates _mouseState;
         private TextStyle _textStyle;
-        private StylesManager _themeManager;
+        private StyleManager _themeManager;
 
         #endregion
 
@@ -101,11 +101,11 @@
             }
         }
 
-        /// <summary>Gets or sets the <see cref="StylesManager" />.</summary>
+        /// <summary>Gets or sets the <see cref="StyleManager" />.</summary>
         [Browsable(false)]
         [Category(PropertyCategory.Appearance)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public StylesManager ThemeManager
+        public StyleManager ThemeManager
         {
             get
             {
@@ -155,7 +155,7 @@
             ResizeRedraw = true;
 
             _mouseState = MouseStates.Normal;
-            _themeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            _themeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _textStyle = new TextStyle();
         }
 

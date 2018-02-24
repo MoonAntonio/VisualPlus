@@ -61,7 +61,7 @@
 
             _border = new Border();
 
-            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
             _colorState = new ColorState
                     {

@@ -60,7 +60,7 @@
         private Size _previousSize;
         private ResizeDirection _resizeDir;
         private Rectangle _statusBarBounds;
-        private StylesManager _styleManager;
+        private StyleManager styleManager;
         private Alignment.TextAlignment _titleAlignment;
         private Size _titleTextSize;
         private VisualBitmap _vsImage;
@@ -92,11 +92,11 @@
                     { HTBOTTOMRIGHT, WMSZ_BOTTOMRIGHT }
                 };
 
-            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
             InitializeVisualForm();
 
-            UpdateTheme(_styleManager.Theme);
+            UpdateTheme(styleManager.Theme);
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
             Application.AddMessageFilter(new MouseMessageFilter());
@@ -324,20 +324,20 @@
             }
         }
 
-        /// <summary>Gets or sets the <see cref="StylesManager" />.</summary>
+        /// <summary>Gets or sets the <see cref="Components.StyleManager" />.</summary>
         [Browsable(false)]
         [Category(PropertyCategory.Appearance)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public StylesManager StyleManager
+        public StyleManager StyleManager
         {
             get
             {
-                return _styleManager;
+                return styleManager;
             }
 
             set
             {
-                _styleManager = value;
+                styleManager = value;
             }
         }
 
@@ -410,7 +410,7 @@
         {
             try
             {
-                _styleManager = new StylesManager(theme);
+                styleManager = new StyleManager(theme);
 
                 _background = theme.OtherSettings.FormBackground;
                 _border.Color = theme.BorderSettings.Normal;

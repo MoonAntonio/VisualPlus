@@ -20,7 +20,7 @@ namespace VisualPlus
         /// <summary>The style manager.</summary>
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        StylesManager ThemeManager { get; set; }
+        StyleManager ThemeManager { get; set; }
 
         #endregion
     }

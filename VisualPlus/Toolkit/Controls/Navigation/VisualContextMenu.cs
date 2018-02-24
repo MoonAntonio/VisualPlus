@@ -28,7 +28,7 @@
     {
         #region Variables
 
-        private StylesManager _styleManager;
+        private StyleManager styleManager;
         private ToolStripItemClickedEventArgs _toolStripItemClickedEventArgs;
 
         #endregion
@@ -42,7 +42,7 @@
         /// </summary>
         public VisualContextMenuStrip()
         {
-            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
             Renderer = new VisualToolStripRender();
             ConfigureStyleManager();
@@ -269,18 +269,18 @@
                     Type = ShapeType.Rectangle
                 };
 
-            Font = _styleManager.Theme.TextSetting.Font;
-            foreColor = _styleManager.Theme.TextSetting.Enabled;
-            textDisabledColor = _styleManager.Theme.TextSetting.Disabled;
+            Font = styleManager.Theme.TextSetting.Font;
+            foreColor = styleManager.Theme.TextSetting.Enabled;
+            textDisabledColor = styleManager.Theme.TextSetting.Disabled;
 
             BackColor = _backgroundColor;
-            arrowColor = _styleManager.Theme.OtherSettings.FlatControlEnabled;
-            arrowDisabledColor = _styleManager.Theme.OtherSettings.FlatControlDisabled;
+            arrowColor = styleManager.Theme.OtherSettings.FlatControlEnabled;
+            arrowDisabledColor = styleManager.Theme.OtherSettings.FlatControlDisabled;
             contextMenuFont = Font;
 
-            _backgroundColor = _styleManager.Theme.BackgroundSettings.Type1;
-            _selectedItemBackColor = _styleManager.Theme.ListItemSettings.ItemHover;
-            _itemHoverColor = _styleManager.Theme.BorderSettings.Hover;
+            _backgroundColor = styleManager.Theme.BackgroundSettings.Type1;
+            _selectedItemBackColor = styleManager.Theme.ListItemSettings.ItemHover;
+            _itemHoverColor = styleManager.Theme.BorderSettings.Hover;
         }
 
         #endregion
