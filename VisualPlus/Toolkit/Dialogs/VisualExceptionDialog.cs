@@ -21,7 +21,7 @@
     [Description("The Visual Exception Dialog")]
     [ToolboxBitmap(typeof(VisualExceptionDialog), "Resources.VisualExceptionDialog.bmp")]
     [ToolboxItem(false)]
-    public class VisualExceptionDialog : Form
+    public class VisualExceptionDialog : VisualForm
     {
         #region Variables
 
@@ -68,6 +68,7 @@
             Padding = new Padding(10);
             Size = new Size(440, 410);
             BackColor = Color.White;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = @"Comet Exception Log";
 
             _exception = e;
@@ -92,13 +93,36 @@
         /// <param name="dialogWindow">The dialog Window.</param>
         public static void Show(Exception exception, string caption = "Exception Dialog", bool dialogWindow = true)
         {
-            Thread _threadShowDialog = new Thread(() => Display(exception, caption, dialogWindow))
-                    {
-                       IsBackground = true 
-                    };
+            BackgroundWorker _backgroundWorkerShow = new BackgroundWorker();
+            _backgroundWorkerShow.DoWork += BackgroundWorker_DoShowWork(exception, caption, dialogWindow);
+            _backgroundWorkerShow.RunWorkerAsync();
+        }
 
-            _threadShowDialog.SetApartmentState(ApartmentState.STA);
-            _threadShowDialog.Start();
+
+        /// <summary>Display the <see cref="VisualExceptionDialog"/>.</summary>
+        /// <param name="exception">The exception.</param>
+        /// <param name="caption">The caption.</param>
+        /// <param name="dialogWindow">The dialog Window.</param>
+        /// <returns>The <see cref="DoWorkEventHandler"/>.</returns>
+        private static DoWorkEventHandler BackgroundWorker_DoShowWork(Exception exception, string caption, bool dialogWindow)
+        {
+            VisualExceptionDialog _exceptionDialog = new VisualExceptionDialog(exception)
+                {
+                    Text = caption
+                };
+
+            if (dialogWindow)
+            {
+                _exceptionDialog.ShowDialog();
+               
+            }
+            else
+            {
+                _exceptionDialog.Show();
+             
+            }
+
+            return null;
         }
 
         /// <summary>Copy the log to the clipboard.</summary>
@@ -138,11 +162,12 @@
             File.WriteAllText(filePath, CreateLog());
         }
 
+        [Obsolete]
         /// <summary>Display the <see cref="VisualExceptionDialog" />.</summary>
         /// <param name="exception">The exception.</param>
         /// <param name="caption">The caption.</param>
         /// <param name="dialogWindow">The dialog Window.</param>
-        private static void Display(Exception exception, string caption, bool dialogWindow)
+        private void Display(Exception exception, string caption, bool dialogWindow)
         {
             VisualExceptionDialog _exceptionDialog = new VisualExceptionDialog(exception)
                 {
