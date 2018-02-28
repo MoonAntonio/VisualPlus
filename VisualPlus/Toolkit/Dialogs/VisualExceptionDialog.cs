@@ -21,7 +21,7 @@
     [Description("The Visual Exception Dialog")]
     [ToolboxBitmap(typeof(VisualExceptionDialog), "Resources.VisualExceptionDialog.bmp")]
     [ToolboxItem(false)]
-    public class VisualExceptionDialog : VisualForm
+    public class VisualExceptionDialog : Form
     {
         #region Variables
 
@@ -56,9 +56,10 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualExceptionDialog" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualExceptionDialog"/> class.</summary>
         /// <param name="e">The exception.</param>
-        public VisualExceptionDialog(Exception e)
+        /// <param name="caption">The caption.</param>
+        public VisualExceptionDialog(Exception e, string caption = "Exception Dialog")
         {
             MaximizeBox = false;
             MinimizeBox = false;
@@ -69,7 +70,7 @@
             Size = new Size(440, 410);
             BackColor = Color.White;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = @"Comet Exception Log";
+            Text = caption;
 
             _exception = e;
 
