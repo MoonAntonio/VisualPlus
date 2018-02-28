@@ -8,7 +8,6 @@
     using System.IO;
     using System.Runtime.InteropServices;
     using System.Text;
-    using System.Threading;
     using System.Windows.Forms;
 
     #endregion
@@ -31,7 +30,7 @@
 
         private Exception _exception;
 
-        private int _imageSpacing = 10;
+        private int _imageSpacing;
 
         private Label _messageLabel;
 
@@ -47,7 +46,8 @@
 
         private TextBox _textBoxStack;
 
-        private int _textheight = 16;
+        private int _textHeight;
+
         private Label _typeLabel;
 
         private TextBox _typeTextBox;
@@ -56,11 +56,14 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualExceptionDialog"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualExceptionDialog" /> class.</summary>
         /// <param name="e">The exception.</param>
         /// <param name="caption">The caption.</param>
         public VisualExceptionDialog(Exception e, string caption = "Exception Dialog")
         {
+            _imageSpacing = 10;
+            _textHeight = 16;
+
             MaximizeBox = false;
             MinimizeBox = false;
             ShowIcon = false;
@@ -97,33 +100,6 @@
             BackgroundWorker _backgroundWorkerShow = new BackgroundWorker();
             _backgroundWorkerShow.DoWork += BackgroundWorker_DoShowWork(exception, caption, dialogWindow);
             _backgroundWorkerShow.RunWorkerAsync();
-        }
-
-
-        /// <summary>Display the <see cref="VisualExceptionDialog"/>.</summary>
-        /// <param name="exception">The exception.</param>
-        /// <param name="caption">The caption.</param>
-        /// <param name="dialogWindow">The dialog Window.</param>
-        /// <returns>The <see cref="DoWorkEventHandler"/>.</returns>
-        private static DoWorkEventHandler BackgroundWorker_DoShowWork(Exception exception, string caption, bool dialogWindow)
-        {
-            VisualExceptionDialog _exceptionDialog = new VisualExceptionDialog(exception)
-                {
-                    Text = caption
-                };
-
-            if (dialogWindow)
-            {
-                _exceptionDialog.ShowDialog();
-               
-            }
-            else
-            {
-                _exceptionDialog.Show();
-             
-            }
-
-            return null;
         }
 
         /// <summary>Copy the log to the clipboard.</summary>
@@ -163,18 +139,17 @@
             File.WriteAllText(filePath, CreateLog());
         }
 
-        [Obsolete]
         /// <summary>Display the <see cref="VisualExceptionDialog" />.</summary>
         /// <param name="exception">The exception.</param>
         /// <param name="caption">The caption.</param>
         /// <param name="dialogWindow">The dialog Window.</param>
-        private void Display(Exception exception, string caption, bool dialogWindow)
+        /// <returns>The <see cref="DoWorkEventHandler" />.</returns>
+        private static DoWorkEventHandler BackgroundWorker_DoShowWork(Exception exception, string caption, bool dialogWindow)
         {
             VisualExceptionDialog _exceptionDialog = new VisualExceptionDialog(exception)
-                {
-                    Text = caption,
-                    StartPosition = FormStartPosition.CenterScreen
-                };
+                    {
+                       Text = caption 
+                    };
 
             if (dialogWindow)
             {
@@ -184,6 +159,8 @@
             {
                 _exceptionDialog.Show();
             }
+
+            return null;
         }
 
         /// <summary>The Copy button is clicked.</summary>
@@ -248,7 +225,7 @@
                 {
                     Text = @"An unhandled exception has occurred in a component in your application.",
                     Location = new Point(_pictureBoxImage.Right + _imageSpacing, Padding.Top),
-                    Size = new Size(width, _textheight),
+                    Size = new Size(width, _textHeight),
                     BorderStyle = BorderStyle.None
                 };
 
@@ -264,7 +241,7 @@
                     Text = @"Message:",
                     BorderStyle = BorderStyle.None,
                     Location = new Point(_pictureBoxImage.Right + _imageSpacing, _descriptionLabel.Bottom + 10),
-                    Size = new Size(width, _textheight)
+                    Size = new Size(width, _textHeight)
                 };
 
             Controls.Add(_messageLabel);
@@ -306,7 +283,7 @@
                 {
                     Text = @"Stack Trace:",
                     Location = new Point(_typeTextBox.Location.X, _typeTextBox.Bottom + 10),
-                    Size = new Size(width, _textheight),
+                    Size = new Size(width, _textHeight),
                     BorderStyle = BorderStyle.None
                 };
 
@@ -334,7 +311,7 @@
                 {
                     Text = @"Type:",
                     Location = new Point(_pictureBoxImage.Right + _imageSpacing, _messageTextBox.Bottom + 10),
-                    Size = new Size(width, _textheight),
+                    Size = new Size(width, _textHeight),
                     BorderStyle = BorderStyle.None
                 };
 
