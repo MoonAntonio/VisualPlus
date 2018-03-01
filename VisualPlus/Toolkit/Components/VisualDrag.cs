@@ -23,10 +23,8 @@
 
         private Control _control;
         private Cursor _cursorMove;
-        private bool _enabled;
-        private bool _horizontal;
+        private DragDirection _direction;
         private Point _lastPosition;
-        private bool _vertical;
 
         #endregion
 
@@ -48,13 +46,13 @@
 
         /// <summary>Initializes a new instance of the <see cref="VisualDrag" /> class.</summary>
         /// <param name="control">The control to attach.</param>
-        /// <param name="enabled">Dragging enabled state.</param>
-        public VisualDrag(Control control, bool enabled) : this()
+        /// <param name="direction">Dragging enabled state.</param>
+        public VisualDrag(Control control, DragDirection direction) : this()
         {
             _control = control;
-            _enabled = enabled;
+            _direction = direction;
 
-            if (_enabled)
+            if (Enabled)
             {
                 AttachEvents();
             }
@@ -62,15 +60,15 @@
 
         /// <summary>Initializes a new instance of the <see cref="VisualDrag" /> class.</summary>
         /// <param name="control">The control to attach.</param>
-        /// <param name="enabled">Dragging enabled state.</param>
+        /// <param name="direction">Dragging enabled state.</param>
         /// <param name="moveCursor">The move Cursor.</param>
-        public VisualDrag(Control control, bool enabled, Cursor moveCursor)
+        public VisualDrag(Control control, DragDirection direction, Cursor moveCursor)
         {
             _cursorMove = moveCursor;
             _control = control;
-            _enabled = enabled;
+            _direction = direction;
 
-            if (_enabled)
+            if (Enabled)
             {
                 AttachEvents();
             }
@@ -80,8 +78,7 @@
         private VisualDrag()
         {
             _cursorMove = Cursors.SizeAll;
-            _vertical = true;
-            _horizontal = true;
+            _direction = DragDirection.Both;
         }
 
         [Category(Localization.Category.Events.DragDrop)]
@@ -95,6 +92,21 @@
         [Category(Localization.Category.Events.PropertyChanged)]
         [Description(Event.ControlDragToggleChanged)]
         public event ControlDragToggleEventHandler ControlDragToggle;
+
+        public enum DragDirection
+        {
+            /// <summary>Both directions.</summary>
+            Both,
+
+            /// <summary>The horizontal direction.</summary>
+            Horizontal,
+
+            /// <summary>The vertical direction.</summary>
+            Vertical,
+
+            /// <summary>No directions.</summary>
+            None
+        }
 
         #endregion
 
@@ -144,23 +156,23 @@
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(PropertyCategory.Behavior)]
         [Description(PropertyDescription.Toggle)]
-        public bool Enabled
+        public DragDirection Direction
         {
             get
             {
-                return _enabled;
+                return _direction;
             }
 
             set
             {
-                _enabled = value;
+                _direction = value;
 
                 if (_control == null)
                 {
                     return;
                 }
 
-                if (_enabled)
+                if (_direction != DragDirection.None)
                 {
                     AttachEvents();
                 }
@@ -175,16 +187,11 @@
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(PropertyCategory.Behavior)]
         [Description(PropertyDescription.Toggle)]
-        public bool Horizontal
+        public bool Enabled
         {
             get
             {
-                return _horizontal;
-            }
-
-            set
-            {
-                _horizontal = value;
+                return _direction != DragDirection.None;
             }
         }
 
@@ -193,23 +200,6 @@
         [Description(PropertyDescription.IsDragging)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public bool IsDragging { get; private set; }
-
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(PropertyCategory.Behavior)]
-        [Description(PropertyDescription.Toggle)]
-        public bool Vertical
-        {
-            get
-            {
-                return _vertical;
-            }
-
-            set
-            {
-                _vertical = value;
-            }
-        }
 
         #endregion
 
@@ -222,7 +212,7 @@
             _control.MouseMove += ControlMouseMove;
             _control.MouseUp += ControlMouseUp;
 
-            OnControlDragToggle(new ToggleEventArgs(_enabled));
+            OnControlDragToggle(new ToggleEventArgs(Enabled));
         }
 
         /// <summary>Creates a copy of the current object.</summary>
@@ -239,7 +229,7 @@
             _control.MouseMove -= ControlMouseMove;
             _control.MouseUp -= ControlMouseUp;
 
-            OnControlDragToggle(new ToggleEventArgs(_enabled));
+            OnControlDragToggle(new ToggleEventArgs(Enabled));
         }
 
         protected virtual void OnControlDrag(DragControlEventArgs e)
@@ -262,11 +252,13 @@
         /// <param name="e">The event.</param>
         private void ControlMouseDown(object sender, MouseEventArgs e)
         {
-            if (_enabled)
+            if (!Enabled)
             {
-                _lastPosition = e.Location;
-                _control.Cursor = CursorMove;
+                return;
             }
+
+            _lastPosition = e.Location;
+            _control.Cursor = CursorMove;
         }
 
         /// <summary>Control mouse move event.</summary>
@@ -274,19 +266,41 @@
         /// <param name="e">The event.</param>
         private void ControlMouseMove(object sender, MouseEventArgs e)
         {
-            if (!_enabled || (e.Button != MouseButtons.Left))
+            if (!Enabled || (e.Button != MouseButtons.Left))
             {
                 return;
             }
 
-            if (_horizontal)
+            switch (_direction)
             {
-                _control.Left += e.Location.X - _lastPosition.X;
-            }
+                case DragDirection.Both:
+                    {
+                        _control.Left += e.Location.X - _lastPosition.X;
+                        _control.Top += e.Location.Y - _lastPosition.Y;
+                        break;
+                    }
 
-            if (_vertical)
-            {
-                _control.Top += e.Location.Y - _lastPosition.Y;
+                case DragDirection.Horizontal:
+                    {
+                        _control.Left += e.Location.X - _lastPosition.X;
+                        break;
+                    }
+
+                case DragDirection.Vertical:
+                    {
+                        _control.Top += e.Location.Y - _lastPosition.Y;
+                        break;
+                    }
+
+                case DragDirection.None:
+                    {
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
 
             IsDragging = true;
@@ -298,7 +312,7 @@
         /// <param name="e">The event.</param>
         private void ControlMouseUp(object sender, MouseEventArgs e)
         {
-            if (_enabled)
+            if (Enabled)
             {
                 _control.Cursor = Cursors.Default;
             }
