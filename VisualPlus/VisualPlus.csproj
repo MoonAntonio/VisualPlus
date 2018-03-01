@@ -83,6 +83,7 @@
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\TextManager.cs" />
     <Compile Include="Managers\TickManager.cs" />
+    <Compile Include="Native\Constants.cs" />
     <Compile Include="Native\Dwmapi.cs" />
     <Compile Include="Native\Gdi32.cs" />
     <Compile Include="Native\Shlwapi.cs" />

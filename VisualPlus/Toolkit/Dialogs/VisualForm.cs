@@ -81,14 +81,14 @@
 
             _resizedLocationsCommand = new Dictionary<int, int>
                 {
-                    { HTTOP, WMSZ_TOP },
-                    { HTTOPLEFT, WMSZ_TOPLEFT },
-                    { HTTOPRIGHT, WMSZ_TOPRIGHT },
-                    { HTLEFT, WMSZ_LEFT },
-                    { HTRIGHT, WMSZ_RIGHT },
-                    { HTBOTTOM, WMSZ_BOTTOM },
-                    { HTBOTTOMLEFT, WMSZ_BOTTOMLEFT },
-                    { HTBOTTOMRIGHT, WMSZ_BOTTOMRIGHT }
+                    { Constants.HTTOP, Constants.WMSZ_TOP },
+                    { Constants.HTTOPLEFT, Constants.WMSZ_TOPLEFT },
+                    { Constants.HTTOPRIGHT, Constants.WMSZ_TOPRIGHT },
+                    { Constants.HTLEFT, Constants.WMSZ_LEFT },
+                    { Constants.HTRIGHT, Constants.WMSZ_RIGHT },
+                    { Constants.HTBOTTOM, Constants.WMSZ_BOTTOM },
+                    { Constants.HTBOTTOMLEFT, Constants.WMSZ_BOTTOMLEFT },
+                    { Constants.HTBOTTOMRIGHT, Constants.WMSZ_BOTTOMRIGHT }
                 };
 
             styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
@@ -360,7 +360,7 @@
 
                 // WS_SYSMENU: Trigger the creation of the system menu
                 // WS_MINIMIZEBOX: Allow minimizing from taskbar
-                par.Style = par.Style | WS_MINIMIZEBOX | WS_SYSMENU; // Turn on the WS_MINIMIZEBOX style flag
+                par.Style = par.Style | Constants.WS_MINIMIZEBOX | Constants.WS_SYSMENU; // Turn on the WS_MINIMIZEBOX style flag
                 return par;
             }
         }
@@ -601,7 +601,7 @@
                 return;
             }
 
-            if ((m.Msg == WM_MOUSEMOVE) && _maximized && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
+            if ((m.Msg == Constants.WM_MOUSEMOVE) && _maximized && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
             {
                 if (_headerMouseDown)
                 {
@@ -620,35 +620,35 @@
 
                     Size = _previousSize;
                     User32.ReleaseCapture();
-                    User32.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                    User32.SendMessage(Handle, Constants.WM_NCLBUTTONDOWN, Constants.HT_CAPTION, 0);
                 }
             }
-            else if ((m.Msg == WM_LBUTTONDOWN) && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
+            else if ((m.Msg == Constants.WM_LBUTTONDOWN) && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
             {
                 if (!_maximized)
                 {
                     User32.ReleaseCapture();
-                    User32.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                    User32.SendMessage(Handle, Constants.WM_NCLBUTTONDOWN, Constants.HT_CAPTION, 0);
                 }
                 else
                 {
                     _headerMouseDown = true;
                 }
             }
-            else if (m.Msg == WM_RBUTTONDOWN)
+            else if (m.Msg == Constants.WM_RBUTTONDOWN)
             {
                 Point cursorPos = PointToClient(Cursor.Position);
 
                 if (_statusBarBounds.Contains(cursorPos))
                 {
                     // Show default system menu when right clicking titlebar
-                    int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), TPM_LEFTALIGN | TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
+                    int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), Constants.TPM_LEFTALIGN | Constants.TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
 
                     // Pass the command as a WM_SYSCOMMAND message
-                    User32.SendMessage(Handle, WM_SYSCOMMAND, id, 0);
+                    User32.SendMessage(Handle, Constants.WM_SYSCOMMAND, id, 0);
                 }
             }
-            else if (m.Msg == WM_NCLBUTTONDOWN)
+            else if (m.Msg == Constants.WM_NCLBUTTONDOWN)
             {
                 // This re-enables resizing by letting the application know when the
                 // user is trying to resize a side. This is disabled by default when using WS_SYSMENU.
@@ -667,44 +667,14 @@
 
                 if (bFlag != 0)
                 {
-                    User32.SendMessage(Handle, WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
+                    User32.SendMessage(Handle, Constants.WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
                 }
             }
-            else if (m.Msg == WM_LBUTTONUP)
+            else if (m.Msg == Constants.WM_LBUTTONUP)
             {
                 _headerMouseDown = false;
             }
         }
-
-        private const int HT_CAPTION = 0x2;
-        private const int HTBOTTOM = 15;
-        private const int HTBOTTOMLEFT = 16;
-        private const int HTBOTTOMRIGHT = 17;
-        private const int HTLEFT = 10;
-        private const int HTRIGHT = 11;
-        private const int HTTOP = 12;
-        private const int HTTOPLEFT = 13;
-        private const int HTTOPRIGHT = 14;
-        private const int MONITOR_DEFAULTTONEAREST = 2;
-        private const uint TPM_LEFTALIGN = 0x0000;
-        private const uint TPM_RETURNCMD = 0x0100;
-        private const int WM_LBUTTONDBLCLK = 0x0203;
-        private const int WM_LBUTTONDOWN = 0x0201;
-        private const int WM_LBUTTONUP = 0x0202;
-        private const int WM_MOUSEMOVE = 0x0200;
-        private const int WM_NCLBUTTONDOWN = 0xA1;
-        private const int WM_RBUTTONDOWN = 0x0204;
-        private const int WM_SYSCOMMAND = 0x0112;
-        private const int WMSZ_BOTTOM = 6;
-        private const int WMSZ_BOTTOMLEFT = 7;
-        private const int WMSZ_BOTTOMRIGHT = 8;
-        private const int WMSZ_LEFT = 1;
-        private const int WMSZ_RIGHT = 2;
-        private const int WMSZ_TOP = 3;
-        private const int WMSZ_TOPLEFT = 4;
-        private const int WMSZ_TOPRIGHT = 5;
-        private const int WS_MINIMIZEBOX = 0x20000;
-        private const int WS_SYSMENU = 0x00080000;
 
         /// <summary>Snap the position to edge.</summary>
         /// <param name="position">The position.</param>
@@ -809,31 +779,31 @@
             {
                 case ResizeDirection.BottomLeft:
                     {
-                        _resizeDirection = HTBOTTOMLEFT;
+                        _resizeDirection = Constants.HTBOTTOMLEFT;
                         break;
                     }
 
                 case ResizeDirection.Left:
                     {
-                        _resizeDirection = HTLEFT;
+                        _resizeDirection = Constants.HTLEFT;
                         break;
                     }
 
                 case ResizeDirection.Right:
                     {
-                        _resizeDirection = HTRIGHT;
+                        _resizeDirection = Constants.HTRIGHT;
                         break;
                     }
 
                 case ResizeDirection.BottomRight:
                     {
-                        _resizeDirection = HTBOTTOMRIGHT;
+                        _resizeDirection = Constants.HTBOTTOMRIGHT;
                         break;
                     }
 
                 case ResizeDirection.Bottom:
                     {
-                        _resizeDirection = HTBOTTOM;
+                        _resizeDirection = Constants.HTBOTTOM;
                         break;
                     }
 
@@ -851,7 +821,7 @@
             User32.ReleaseCapture();
             if (_resizeDirection != -1)
             {
-                User32.SendMessage(Handle, WM_NCLBUTTONDOWN, _resizeDirection, 0);
+                User32.SendMessage(Handle, Constants.WM_NCLBUTTONDOWN, _resizeDirection, 0);
             }
         }
 
@@ -871,7 +841,7 @@
 
             public bool PreFilterMessage(ref Message m)
             {
-                if (m.Msg == WM_MOUSEMOVE)
+                if (m.Msg == Constants.WM_MOUSEMOVE)
                 {
                     if (MouseMove != null)
                     {
@@ -883,8 +853,6 @@
 
                 return false;
             }
-
-            private const int WM_MOUSEMOVE = 0x0200;
 
             #endregion
         }
