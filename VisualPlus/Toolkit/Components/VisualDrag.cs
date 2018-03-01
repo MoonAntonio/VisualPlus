@@ -5,7 +5,6 @@
     using System;
     using System.ComponentModel;
     using System.Drawing;
-    using System.Globalization;
     using System.Windows.Forms;
 
     using VisualPlus.Delegates;
@@ -17,9 +16,8 @@
 
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Component))]
-    [Description("The VisualPlus drag component enables controls to be dragged.")]
-    [TypeConverter(typeof(DragConverter))]
-    public class VisualDrag : Component
+    [Description("The VisualDrag component enables controls to be draggable.")]
+    public class VisualDrag : Component, ICloneable
     {
         #region Variables
 
@@ -227,6 +225,13 @@
             OnControlDragToggle(new ToggleEventArgs(_enabled));
         }
 
+        /// <summary>Creates a copy of the current object.</summary>
+        /// <returns>The <see cref="object" />.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
         /// <summary>Unhooks the drag events from the control.</summary>
         public void DetachEvents()
         {
@@ -298,67 +303,6 @@
                 _control.Cursor = Cursors.Default;
             }
         }
-
-        #endregion
-    }
-
-    public class DragConverter : ExpandableObjectConverter
-    {
-        #region Events
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectDragWrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            object result = null;
-            VisualDrag drag = value as VisualDrag;
-
-            if ((drag != null) && (destinationType == typeof(string)))
-            {
-                // result = borderStyle.ToString();
-                result = "Drag Settings";
-            }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(DragConverter))]
-    public class ObjectDragWrapper
-    {
-        #region Constructors
-
-        public ObjectDragWrapper()
-        {
-        }
-
-        public ObjectDragWrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }
