@@ -59,12 +59,12 @@
         private Size _previousSize;
         private ResizeDirection _resizeDir;
         private Rectangle _statusBarBounds;
-        private StyleManager styleManager;
         private Alignment.TextAlignment _titleAlignment;
         private Size _titleTextSize;
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
+        private StyleManager styleManager;
 
         #endregion
 
@@ -109,42 +109,6 @@
         [Category(Localization.Category.Events.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
-
-        public enum ButtonState
-        {
-            /// <summary>The x over.</summary>
-            XOver,
-
-            /// <summary>The max over.</summary>
-            MaxOver,
-
-            /// <summary>The min over.</summary>
-            MinOver,
-
-            /// <summary>The x down.</summary>
-            XDown,
-
-            /// <summary>The max down.</summary>
-            MaxDown,
-
-            /// <summary>The min down.</summary>
-            MinDown,
-
-            /// <summary>The None.</summary>
-            None
-        }
-
-        public enum ControlBoxAlignment
-        {
-            /// <summary>The bottom.</summary>
-            Bottom,
-
-            /// <summary>The center.</summary>
-            Center,
-
-            /// <summary>The top.</summary>
-            Top
-        }
 
         public enum ResizeDirection
         {
