@@ -841,16 +841,12 @@
 
             public bool PreFilterMessage(ref Message m)
             {
-                if (m.Msg == Constants.WM_MOUSEMOVE)
+                if ((m.Msg != Constants.WM_MOUSEMOVE) || (MouseMove == null))
                 {
-                    if (MouseMove != null)
-                    {
-                        int x = MousePosition.X, y = MousePosition.Y;
-
-                        MouseMove(null, new MouseEventArgs(MouseButtons.None, 0, x, y, 0));
-                    }
+                    return false;
                 }
 
+                MouseMove(null, new MouseEventArgs(MouseButtons.None, 0, MousePosition.X, MousePosition.Y, 0));
                 return false;
             }
 
