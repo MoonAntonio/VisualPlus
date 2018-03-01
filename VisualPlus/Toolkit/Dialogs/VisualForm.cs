@@ -37,7 +37,7 @@
     [InitializationEvent("Load")]
     [ToolboxBitmap(typeof(VisualForm), "Resources.ToolboxBitmaps.VisualForm.bmp")]
     [ToolboxItem(false)]
-    public class VisualForm : Form, IThemeSupport
+    public class VisualForm : Form, ICloneable, IThemeSupport
     {
         #region Variables
 
@@ -368,6 +368,13 @@
         #endregion
 
         #region Events
+
+        /// <summary>Creates a copy of the current object.</summary>
+        /// <returns>The <see cref="object" />.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
         public void UpdateTheme(Theme theme)
         {
