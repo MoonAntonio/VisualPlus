@@ -64,7 +64,7 @@
             textStyle1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this._visualControlBox.HelpButton.TextStyle = textStyle1;
             this._visualControlBox.HelpButton.Visible = false;
-            this._visualControlBox.Location = new System.Drawing.Point(224, 3);
+            this._visualControlBox.Location = new System.Drawing.Point(482, 3);
             // 
             // 
             // 
@@ -128,7 +128,7 @@
             this.Border.Thickness = 3;
             this.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
             this.Border.Visible = true;
-            this.ClientSize = new System.Drawing.Size(300, 300);
+            this.ClientSize = new System.Drawing.Size(558, 391);
             border1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             border1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             border1.HoverVisible = false;
