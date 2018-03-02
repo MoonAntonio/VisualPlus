@@ -9,7 +9,9 @@
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
+    using VisualPlus.Enumerators;
     using VisualPlus.Localization;
+    using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -20,6 +22,7 @@
     {
         #region Variables
 
+        private Shape _border;
         private Image _image;
         private Size _imageSize;
         private Color _tabHover;
@@ -55,6 +58,12 @@
             ForeColor = Color.FromArgb(174, 181, 187);
             Font = _styleManager.Theme.TextSetting.Font;
 
+            _border = new Shape
+                {
+                    Visible = false,
+                    Type = ShapeType.Rectangle
+                };
+
             _textImageRelation = TextImageRelation.Overlay;
             _image = null;
             _imageSize = new Size(16, 16);
@@ -66,6 +75,23 @@
         #endregion
 
         #region Properties
+
+        [TypeConverter(typeof(ShapeConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(PropertyCategory.Appearance)]
+        public Shape Border
+        {
+            get
+            {
+                return _border;
+            }
+
+            set
+            {
+                _border = value;
+                Invalidate();
+            }
+        }
 
         [Browsable(true)]
         [Category(PropertyCategory.Behavior)]

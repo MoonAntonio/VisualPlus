@@ -53,7 +53,6 @@
         private bool _separatorVisible;
         private StyleManager _styleManager;
         private Color _tabMenu;
-        private Shape _tabPageBorder;
         private Color _tabSelector;
         private TextRenderingHint _textRendererHint;
 
@@ -97,8 +96,6 @@
             Size = new Size(320, 160);
             DrawMode = TabDrawMode.OwnerDrawFixed;
             ItemSize = _itemSize;
-
-            _tabPageBorder = new Shape();
         }
 
         #endregion
@@ -392,23 +389,6 @@
             }
         }
 
-        [TypeConverter(typeof(ShapeConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(PropertyCategory.Appearance)]
-        public Shape TabPageBorder
-        {
-            get
-            {
-                return _tabPageBorder;
-            }
-
-            set
-            {
-                _tabPageBorder = value;
-                Invalidate();
-            }
-        }
-
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Editor(typeof(VisualTabPageCollectionEditor), typeof(UITypeEditor))]
@@ -545,6 +525,22 @@
             DrawSeparator(e.Graphics);
         }
 
+        /// <summary>Draws the headers border.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="tabPage">The tab page to draw.</param>
+        private static void DrawHeaderBorder(Graphics graphics, VisualTabPage tabPage)
+        {
+            if (!tabPage.Border.Visible)
+            {
+                return;
+            }
+
+            GraphicsPath _borderGraphicsPath = new GraphicsPath();
+            _borderGraphicsPath.AddRectangle(tabPage.Rectangle);
+            Pen _borderPen = new Pen(tabPage.Border.Color, tabPage.Border.Thickness);
+            graphics.DrawPath(_borderPen, _borderGraphicsPath);
+        }
+
         /// <summary>Draws the selection arrow.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         /// <param name="rectangle">The rectangle.</param>
@@ -677,14 +673,21 @@
                             LineAlignment = _tabPage.TextLineAlignment
                         };
 
-                    Rectangle _imageRectangle = new Rectangle(_tabPage.Rectangle.X + _tabPageBorder.Thickness + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_tabPage.ImageSize.Height / 2), _tabPage.ImageSize.Width, _tabPage.ImageSize.Height);
+                    Rectangle _imageRectangle = new Rectangle(_tabPage.Rectangle.X + _tabPage.Border.Thickness + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_tabPage.ImageSize.Height / 2), _tabPage.ImageSize.Width, _tabPage.ImageSize.Height);
                     Size _textSize = GraphicsManager.MeasureText(graphics, _tabPage.Text, _tabPage.Font);
-                    Color _textColor;
 
                     if (tabIndex == SelectedIndex)
                     {
-                        // Draw selected tab
+                        // Draw selected TabPageHeader
                         graphics.FillRectangle(new SolidBrush(_tabPage.TabSelected), _tabPage.Rectangle);
+
+                        if ((_mouseState == MouseStates.Hover) && _tabPage.Rectangle.Contains(_mouseLocation))
+                        {
+                            // BUG: doesn't un-select on mouse leave
+                            // graphics.FillRectangle(new SolidBrush(_tabPage.TabHover), _tabPage.Rectangle);
+                        }
+
+                        DrawHeaderBorder(graphics, _tabPage);
 
                         // Draw tab selector
                         if (_selectorVisible)
@@ -697,50 +700,53 @@
                             graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
                         }
 
-                        VisualBorderRenderer.DrawBorder(graphics, _tabPage.Rectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
-
                         if (_arrowSelectorVisible)
                         {
                             DrawSelectionArrow(graphics, _tabPage.Rectangle);
                         }
 
-                        _textColor = _tabPage.TextSelected;
+                        if (_tabPage.Image != null)
+                        {
+                            graphics.DrawImage(_tabPage.Image, _imageRectangle);
+                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.TextSelected), new Rectangle(_imageRectangle.Right + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_textSize.Height / 2), _tabPage.Rectangle.Width, _tabPage.Rectangle.Height));
+                        }
+                        else
+                        {
+                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.TextSelected), _tabPage.Rectangle, _tabStringFormat);
+                        }
                     }
                     else
                     {
-                        // Draw other TabPages
+                        // Draw unselected TabPageHeaders
                         graphics.FillRectangle(new SolidBrush(_tabPage.TabNormal), _tabPage.Rectangle);
 
-                        if ((State == MouseStates.Hover) && _tabPage.Rectangle.Contains(_mouseLocation))
+                        if ((_mouseState == MouseStates.Hover) && _tabPage.Rectangle.Contains(_mouseLocation))
                         {
-                            // Draw hover background
                             graphics.FillRectangle(new SolidBrush(_tabPage.TabHover), _tabPage.Rectangle);
-
-                            // Draw tab selector
-                            if (_selectorVisible)
-                            {
-                                graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
-                            }
-
-                            if (_selectorVisible2)
-                            {
-                                graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
-                            }
-
-                            VisualBorderRenderer.DrawBorder(graphics, _tabPage.Rectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
                         }
 
-                        _textColor = _tabPage.ForeColor;
-                    }
+                        DrawHeaderBorder(graphics, _tabPage);
 
-                    if (_tabPage.Image != null)
-                    {
-                        graphics.DrawImage(_tabPage.Image, _imageRectangle);
-                        graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_textColor), new Rectangle(_imageRectangle.Right + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_textSize.Height / 2), _tabPage.Rectangle.Width, _tabPage.Rectangle.Height));
-                    }
-                    else
-                    {
-                        graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_textColor), _tabPage.Rectangle, _tabStringFormat);
+                        // Draw tab selector
+                        if (_selectorVisible)
+                        {
+                            graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
+                        }
+
+                        if (_selectorVisible2)
+                        {
+                            graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
+                        }
+
+                        if (_tabPage.Image != null)
+                        {
+                            graphics.DrawImage(_tabPage.Image, _imageRectangle);
+                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.ForeColor), new Rectangle(_imageRectangle.Right + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_textSize.Height / 2), _tabPage.Rectangle.Width, _tabPage.Rectangle.Height));
+                        }
+                        else
+                        {
+                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.ForeColor), _tabPage.Rectangle, _tabStringFormat);
+                        }
                     }
                 }
             }
