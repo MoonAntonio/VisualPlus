@@ -24,10 +24,11 @@
 
         #region Events
 
-        /// <summary>Creates a new item types.</summary>
-        /// <returns>
-        ///     <see cref="Type" />
-        /// </returns>
+        protected override Type CreateCollectionItemType()
+        {
+            return typeof(VisualTabPage);
+        }
+
         protected override Type[] CreateNewItemTypes()
         {
             return new[] { typeof(TabPage), typeof(VisualTabPage) };

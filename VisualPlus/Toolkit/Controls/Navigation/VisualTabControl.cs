@@ -6,16 +6,20 @@
     using System.Collections;
     using System.ComponentModel;
     using System.Drawing;
+    using System.Drawing.Design;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
     using System.Linq;
     using System.Windows.Forms;
 
+    using VisualPlus.Collections;
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Child;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -25,6 +29,7 @@
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("TabPages")]
     [Description("The Visual TabControl")]
+    [Designer(typeof(VisualTabControlDesigner))]
     public class VisualTabControl : TabControl
     {
         #region Variables
@@ -223,7 +228,7 @@
             set
             {
                 _backgroundColor = value;
-                foreach (TabPage page in TabPages)
+                foreach (VisualTabPage page in TabPages)
                 {
                     page.BackColor = _backgroundColor;
                 }
@@ -475,6 +480,18 @@
             }
         }
 
+        [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Editor(typeof(VisualTabPageCollectionEditor), typeof(UITypeEditor))]
+        [MergableProperty(false)]
+        public new TabPageCollection TabPages
+        {
+            get
+            {
+                return base.TabPages;
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color TabSelected
@@ -590,6 +607,23 @@
 
         #region Events
 
+        /// <summary>Swaps the tab pages.</summary>
+        /// <param name="tabPage1">The tab page.</param>
+        /// <param name="tabPage2">The other tab page.</param>
+        public void SwapTabPages(TabPage tabPage1, TabPage tabPage2)
+        {
+            if (!TabPages.Contains(tabPage1) || !TabPages.Contains(tabPage2))
+            {
+                throw new ArgumentException(@"TabPages must be in the TabControls TabPageCollection.");
+            }
+
+            int _index1 = TabPages.IndexOf(tabPage1);
+            int _index2 = TabPages.IndexOf(tabPage2);
+
+            TabPages[_index1] = tabPage2;
+            TabPages[_index2] = tabPage1;
+        }
+
         protected override void CreateHandle()
         {
             base.CreateHandle();
@@ -600,7 +634,7 @@
             MinimumSize = new Size(144, 85);
             SizeMode = TabSizeMode.Fixed;
 
-            foreach (TabPage _tabPage in TabPages)
+            foreach (VisualTabPage _tabPage in TabPages)
             {
                 _tabPage.BackColor = _backgroundColor;
                 _tabPage.Font = Font;
@@ -616,7 +650,7 @@
         protected override void OnControlAdded(ControlEventArgs e)
         {
             base.OnControlAdded(e);
-            if (!(e.Control is TabPage))
+            if (!(e.Control is VisualTabPage))
             {
                 return;
             }
@@ -626,7 +660,7 @@
                 IEnumerator _controlsEnumerator = Controls.GetEnumerator();
                 while (_controlsEnumerator.MoveNext())
                 {
-                    using (new TabPage())
+                    using (new VisualTabPage())
                     {
                         BackColor = _backgroundColor;
                     }
@@ -660,7 +694,7 @@
         protected override void OnMouseLeave(EventArgs e)
         {
             State = MouseStates.Normal;
-            if (TabPages.Cast<TabPage>().Any(Tab => Tab.DisplayRectangle.Contains(_mouseLocation)))
+            if (TabPages.Cast<VisualTabPage>().Any(Tab => Tab.DisplayRectangle.Contains(_mouseLocation)))
             {
                 Invalidate();
             }
@@ -671,7 +705,7 @@
         protected override void OnMouseMove(MouseEventArgs e)
         {
             _mouseLocation = e.Location;
-            if (TabPages.Cast<TabPage>().Any(Tab => Tab.DisplayRectangle.Contains(e.Location)))
+            if (TabPages.Cast<VisualTabPage>().Any(Tab => Tab.DisplayRectangle.Contains(e.Location)))
             {
                 Invalidate();
             }

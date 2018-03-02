@@ -55,6 +55,7 @@
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
     <Compile Include="Designer\VisualControlBoxButtonDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxDesigner.cs" />
+    <Compile Include="EventArgs\VisualTabControlEventArgs.cs" />
     <Compile Include="Designer\VisualTabPageDesigner.cs" />
     <Compile Include="Enumerators\Brightness.cs" />
     <Compile Include="EventArgs\ControlBoxEventArgs.cs" />
