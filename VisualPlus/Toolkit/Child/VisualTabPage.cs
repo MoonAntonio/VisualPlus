@@ -102,11 +102,7 @@
         {
             Graphics _graphics = e.Graphics;
             _graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-
-            using (SolidBrush _backgroundBrush = new SolidBrush(BackColor))
-            {
-                _graphics.FillRectangle(_backgroundBrush, ClientRectangle);
-            }
+            _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
             if (_image != null)
             {
