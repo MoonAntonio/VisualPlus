@@ -710,9 +710,6 @@
                         graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
                     }
 
-                    GraphicsPath borderPath = new GraphicsPath();
-                    borderPath.AddRectangle(_tabPageRectangle);
-
                     VisualBorderRenderer.DrawBorder(graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
 
                     if (_arrowSelectorVisible)
@@ -747,9 +744,6 @@
                         {
                             graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
                         }
-
-                        GraphicsPath borderPath = new GraphicsPath();
-                        borderPath.AddRectangle(_tabPageRectangle);
 
                         VisualBorderRenderer.DrawBorder(graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
                     }
