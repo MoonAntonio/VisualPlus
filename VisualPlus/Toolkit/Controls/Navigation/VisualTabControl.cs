@@ -47,7 +47,6 @@
         private int _separatorSpacing;
         private float _separatorThickness;
         private bool _separatorVisible;
-        private StyleManager styleManager;
         private Color _tabHover;
         private Color _tabMenu;
         private Color _tabNormal;
@@ -60,6 +59,7 @@
         private Color _textNormal;
         private TextRenderingHint _textRendererHint;
         private Color _textSelected;
+        private StyleManager styleManager;
 
         #endregion
 
@@ -70,8 +70,8 @@
         {
             SetStyle(
                 ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
-                ControlStyles.ResizeRedraw |
-                ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor,
+                ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.SupportsTransparentBackColor,
                 true);
 
             UpdateStyles();
@@ -81,9 +81,9 @@
             _textLineAlignment = StringAlignment.Center;
 
             _border = new Border
-                {
-                    Type = ShapeType.Rectangle
-                };
+                    {
+                       Type = ShapeType.Rectangle 
+                    };
 
             _alignment = TabAlignment.Top;
             _arrowSelectorVisible = true;
@@ -103,22 +103,15 @@
             _textNormal = Color.FromArgb(174, 181, 187);
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _textSelected = Color.FromArgb(217, 220, 227);
-            Font = styleManager.Theme.TextSetting.Font;
 
             Size = new Size(320, 160);
-            MinimumSize = new Size(144, 85);
+
             ItemSize = _itemSize;
 
             _tabPageBorder = new Shape();
             _tabNormal = styleManager.Theme.OtherSettings.TabPageEnabled;
             _tabSelected = styleManager.Theme.OtherSettings.TabPageSelected;
             _tabHover = styleManager.Theme.OtherSettings.TabPageHover;
-
-            foreach (TabPage page in TabPages)
-            {
-                page.BackColor = _backgroundColor;
-                page.Font = Font;
-            }
         }
 
         #endregion
@@ -601,9 +594,17 @@
         {
             base.CreateHandle();
 
-            DoubleBuffered = true;
-            SizeMode = TabSizeMode.Fixed;
             Appearance = TabAppearance.Normal;
+            DoubleBuffered = true;
+            Font = styleManager.Theme.TextSetting.Font;
+            MinimumSize = new Size(144, 85);
+            SizeMode = TabSizeMode.Fixed;
+
+            foreach (TabPage _tabPage in TabPages)
+            {
+                _tabPage.BackColor = _backgroundColor;
+                _tabPage.Font = Font;
+            }
         }
 
         protected override void OnBackColorChanged(EventArgs e)
@@ -622,8 +623,8 @@
 
             try
             {
-                IEnumerator enumerator = Controls.GetEnumerator();
-                while (enumerator.MoveNext())
+                IEnumerator _controlsEnumerator = Controls.GetEnumerator();
+                while (_controlsEnumerator.MoveNext())
                 {
                     using (new TabPage())
                     {
@@ -693,91 +694,97 @@
 
             VisualBackgroundRenderer.DrawBackground(_graphics, _tabMenu, BackgroundImage, _mouseState, ClientRectangle, _border);
 
-            DrawTabPages(e);
-            DrawSeparator(e);
+            DrawTabPages(e.Graphics);
+            DrawSeparator(e.Graphics);
         }
 
-        private void ConfigureAlignmentStyle(int tabIndex)
+        /// <summary>Configures the alignment style using the index.</summary>
+        /// <param name="index">The index.</param>
+        private void ConfigureAlignmentStyle(int index)
         {
             if ((Alignment == TabAlignment.Top) && (Alignment == TabAlignment.Bottom))
             {
                 // Top - Bottom
-                _tabPageRectangle = new Rectangle(
-                    new Point(GetTabRect(tabIndex).Location.X, GetTabRect(tabIndex).Location.Y),
-                    new Size(GetTabRect(tabIndex).Width, GetTabRect(tabIndex).Height));
+                _tabPageRectangle = new Rectangle(new Point(GetTabRect(index).Location.X, GetTabRect(index).Location.Y), new Size(GetTabRect(index).Width, GetTabRect(index).Height));
             }
             else
             {
                 // Left - Right
-                _tabPageRectangle = new Rectangle(
-                    new Point(GetTabRect(tabIndex).Location.X, GetTabRect(tabIndex).Location.Y),
-                    new Size(GetTabRect(tabIndex).Width, GetTabRect(tabIndex).Height));
+                _tabPageRectangle = new Rectangle(new Point(GetTabRect(index).Location.X, GetTabRect(index).Location.Y), new Size(GetTabRect(index).Width, GetTabRect(index).Height));
             }
         }
 
-        private void DrawSelectionArrow(PaintEventArgs e, Rectangle selectedRectangle)
+        /// <summary>Draws the selection arrow.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        private void DrawSelectionArrow(Graphics graphics, Rectangle rectangle)
         {
-            var points = new Point[3];
+            var _arrow = new Point[3];
 
             switch (Alignment)
             {
                 case TabAlignment.Left:
                     {
-                        points[0].X = selectedRectangle.Right - ArrowThickness;
-                        points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
+                        _arrow[0].X = rectangle.Right - ArrowThickness;
+                        _arrow[0].Y = rectangle.Y + (rectangle.Height / 2);
 
-                        points[1].X = selectedRectangle.Right + ArrowSpacing;
-                        points[1].Y = selectedRectangle.Top + ArrowSpacing;
+                        _arrow[1].X = rectangle.Right + ArrowSpacing;
+                        _arrow[1].Y = rectangle.Top + ArrowSpacing;
 
-                        points[2].X = selectedRectangle.Right + ArrowSpacing;
-                        points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
+                        _arrow[2].X = rectangle.Right + ArrowSpacing;
+                        _arrow[2].Y = rectangle.Bottom - ArrowSpacing;
                         break;
                     }
 
                 case TabAlignment.Top:
                     {
-                        points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
-                        points[0].Y = selectedRectangle.Bottom - ArrowThickness;
+                        _arrow[0].X = rectangle.X + (rectangle.Width / 2);
+                        _arrow[0].Y = rectangle.Bottom - ArrowThickness;
 
-                        points[1].X = selectedRectangle.Left + ArrowSpacing;
-                        points[1].Y = selectedRectangle.Bottom + ArrowSpacing;
+                        _arrow[1].X = rectangle.Left + ArrowSpacing;
+                        _arrow[1].Y = rectangle.Bottom + ArrowSpacing;
 
-                        points[2].X = selectedRectangle.Right - ArrowSpacing;
-                        points[2].Y = selectedRectangle.Bottom + ArrowSpacing;
+                        _arrow[2].X = rectangle.Right - ArrowSpacing;
+                        _arrow[2].Y = rectangle.Bottom + ArrowSpacing;
                         break;
                     }
 
                 case TabAlignment.Bottom:
                     {
-                        points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
-                        points[0].Y = selectedRectangle.Top + ArrowThickness;
+                        _arrow[0].X = rectangle.X + (rectangle.Width / 2);
+                        _arrow[0].Y = rectangle.Top + ArrowThickness;
 
-                        points[1].X = selectedRectangle.Left + ArrowSpacing;
-                        points[1].Y = selectedRectangle.Top - ArrowSpacing;
+                        _arrow[1].X = rectangle.Left + ArrowSpacing;
+                        _arrow[1].Y = rectangle.Top - ArrowSpacing;
 
-                        points[2].X = selectedRectangle.Right - ArrowSpacing;
-                        points[2].Y = selectedRectangle.Top - ArrowSpacing;
+                        _arrow[2].X = rectangle.Right - ArrowSpacing;
+                        _arrow[2].Y = rectangle.Top - ArrowSpacing;
                         break;
                     }
 
                 case TabAlignment.Right:
                     {
-                        points[0].X = selectedRectangle.Left + ArrowThickness;
-                        points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
+                        _arrow[0].X = rectangle.Left + ArrowThickness;
+                        _arrow[0].Y = rectangle.Y + (rectangle.Height / 2);
 
-                        points[1].X = selectedRectangle.Left - ArrowSpacing;
-                        points[1].Y = selectedRectangle.Top + ArrowSpacing;
+                        _arrow[1].X = rectangle.Left - ArrowSpacing;
+                        _arrow[1].Y = rectangle.Top + ArrowSpacing;
 
-                        points[2].X = selectedRectangle.Left - ArrowSpacing;
-                        points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
+                        _arrow[2].X = rectangle.Left - ArrowSpacing;
+                        _arrow[2].Y = rectangle.Bottom - ArrowSpacing;
                         break;
                     }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            e.Graphics.FillPolygon(new SolidBrush(_backgroundColor), points);
+            graphics.FillPolygon(new SolidBrush(_backgroundColor), _arrow);
         }
 
-        private void DrawSeparator(PaintEventArgs e)
+        /// <summary>Draws the separator.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        private void DrawSeparator(Graphics graphics)
         {
             if (!_separatorVisible)
             {
@@ -789,25 +796,25 @@
             {
                 case TabAlignment.Top:
                     {
-                        e.Graphics.DrawLine(new Pen(_separator, _separatorThickness), 0, ItemSize.Height + _separatorSpacing, Width, ItemSize.Height + _separatorSpacing);
+                        graphics.DrawLine(new Pen(_separator, _separatorThickness), 0, ItemSize.Height + _separatorSpacing, Width, ItemSize.Height + _separatorSpacing);
                         break;
                     }
 
                 case TabAlignment.Bottom:
                     {
-                        e.Graphics.DrawLine(new Pen(_separator, _separatorThickness), 0, Height - ItemSize.Height - _separatorSpacing, Width, Height - ItemSize.Height - _separatorSpacing);
+                        graphics.DrawLine(new Pen(_separator, _separatorThickness), 0, Height - ItemSize.Height - _separatorSpacing, Width, Height - ItemSize.Height - _separatorSpacing);
                         break;
                     }
 
                 case TabAlignment.Left:
                     {
-                        e.Graphics.DrawLine(new Pen(_separator, _separatorThickness), ItemSize.Height + _separatorSpacing, 0, ItemSize.Height + _separatorSpacing, Height);
+                        graphics.DrawLine(new Pen(_separator, _separatorThickness), ItemSize.Height + _separatorSpacing, 0, ItemSize.Height + _separatorSpacing, Height);
                         break;
                     }
 
                 case TabAlignment.Right:
                     {
-                        e.Graphics.DrawLine(new Pen(_separator, _separatorThickness), Width - ItemSize.Height - _separatorSpacing, 0, Width - ItemSize.Height - _separatorSpacing, Height);
+                        graphics.DrawLine(new Pen(_separator, _separatorThickness), Width - ItemSize.Height - _separatorSpacing, 0, Width - ItemSize.Height - _separatorSpacing, Height);
                         break;
                     }
 
@@ -818,7 +825,9 @@
             }
         }
 
-        private void DrawTabPages(PaintEventArgs e)
+        /// <summary>Draws the tab pages.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        private void DrawTabPages(Graphics graphics)
         {
             StringFormat _tabTextFormat = new StringFormat
                 {
@@ -837,74 +846,75 @@
                 if (tabIndex == SelectedIndex)
                 {
                     // Draw selected tab
-                    e.Graphics.FillRectangle(new SolidBrush(_tabSelected), _tabPageRectangle);
+                    graphics.FillRectangle(new SolidBrush(_tabSelected), _tabPageRectangle);
 
                     // Draw tab selector
                     if (_selectorVisible)
                     {
-                        e.Graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
+                        graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
                     }
 
                     if (_selectorVisible2)
                     {
-                        e.Graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
+                        graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
                     }
 
                     GraphicsPath borderPath = new GraphicsPath();
                     borderPath.AddRectangle(_tabPageRectangle);
 
-                    VisualBorderRenderer.DrawBorder(e.Graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
+                    VisualBorderRenderer.DrawBorder(graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
 
                     if (_arrowSelectorVisible)
                     {
-                        DrawSelectionArrow(e, _tabPageRectangle);
+                        DrawSelectionArrow(graphics, _tabPageRectangle);
                     }
 
                     // Draw selected tab text
-                    e.Graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_textSelected), _tabPageRectangle, _tabTextFormat);
+                    graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_textSelected), _tabPageRectangle, _tabTextFormat);
 
                     if (ImageList != null)
                     {
-                        e.Graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X, (_tabPageRectangle.Y + (_tabPageRectangle.Height / 2)) - (ImageList.ImageSize.Height / 2), ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);
+                        graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X, (_tabPageRectangle.Y + (_tabPageRectangle.Height / 2)) - (ImageList.ImageSize.Height / 2), ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);
                     }
                 }
                 else
                 {
                     // Draw other TabPages
-                    e.Graphics.FillRectangle(new SolidBrush(_tabNormal), _tabPageRectangle);
+                    graphics.FillRectangle(new SolidBrush(_tabNormal), _tabPageRectangle);
 
                     if ((State == MouseStates.Hover) && _tabPageRectangle.Contains(_mouseLocation))
                     {
                         // Draw hover background
-                        e.Graphics.FillRectangle(new SolidBrush(_tabHover), _tabPageRectangle);
+                        graphics.FillRectangle(new SolidBrush(_tabHover), _tabPageRectangle);
 
                         // Draw tab selector
                         if (_selectorVisible)
                         {
-                            e.Graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
+                            graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
                         }
 
                         if (_selectorVisible2)
                         {
-                            e.Graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
+                            graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
                         }
 
                         GraphicsPath borderPath = new GraphicsPath();
                         borderPath.AddRectangle(_tabPageRectangle);
 
-                        VisualBorderRenderer.DrawBorder(e.Graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
+                        VisualBorderRenderer.DrawBorder(graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
                     }
 
-                    e.Graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_textNormal), _tabPageRectangle, _tabTextFormat);
+                    graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_textNormal), _tabPageRectangle, _tabTextFormat);
 
                     if (ImageList != null)
                     {
-                        e.Graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X, (_tabPageRectangle.Y + (_tabPageRectangle.Height / 2)) - (ImageList.ImageSize.Height / 2), ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);
+                        graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X, (_tabPageRectangle.Y + (_tabPageRectangle.Height / 2)) - (ImageList.ImageSize.Height / 2), ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);
                     }
                 }
             }
         }
 
+        /// <summary>Update the arrow location.</summary>
         private void UpdateArrowLocation()
         {
             switch (_alignment)
@@ -924,6 +934,9 @@
                         _arrowSpacing = 3;
                         break;
                     }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
