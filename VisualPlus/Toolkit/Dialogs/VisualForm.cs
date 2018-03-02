@@ -93,7 +93,27 @@
 
             styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
-            InitializeVisualForm();
+            _border = new Border
+                {
+                    Thickness = 3,
+                    Type = ShapeType.Rectangle
+                };
+
+            FormBorderStyle = FormBorderStyle.None;
+            _magnetic = false;
+            _magneticRadius = 100;
+            Padding = new Padding(0, 0, 0, 0);
+            Sizable = true;
+            _titleAlignment = Alignment.TextAlignment.Center;
+            TransparencyKey = Color.Fuchsia;
+            _windowBarHeight = 30;
+
+            _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
+            _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
+
+            _visualControlBox = new VisualControlBox();
+            Controls.Add(_visualControlBox);
+            _visualControlBox.Location = new Point((Width - _visualControlBox.Width) + 8, _border.Thickness);
 
             UpdateTheme(styleManager.Theme);
 
@@ -395,6 +415,13 @@
             }
 
             OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
+        protected override void CreateHandle()
+        {
+            base.CreateHandle();
+
+            DoubleBuffered = true;
         }
 
         protected override void OnEnter(EventArgs e)
@@ -723,33 +750,6 @@
 
             Rectangle textRectangle = new Rectangle(titlePoint.X, titlePoint.Y, Width, _titleTextSize.Height);
             graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textRectangle);
-        }
-
-        /// <summary>Initializes the <see cref="VisualForm" />.</summary>
-        private void InitializeVisualForm()
-        {
-            _border = new Border
-                {
-                    Thickness = 3,
-                    Type = ShapeType.Rectangle
-                };
-
-            DoubleBuffered = true;
-            FormBorderStyle = FormBorderStyle.None;
-            _magnetic = false;
-            _magneticRadius = 100;
-            Padding = new Padding(0, 0, 0, 0);
-            Sizable = true;
-            _titleAlignment = Alignment.TextAlignment.Center;
-            TransparencyKey = Color.Fuchsia;
-            _windowBarHeight = 30;
-
-            _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
-            _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
-
-            _visualControlBox = new VisualControlBox();
-            Controls.Add(_visualControlBox);
-            _visualControlBox.Location = new Point((Width - _visualControlBox.Width) + 8, _border.Thickness);
         }
 
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)
