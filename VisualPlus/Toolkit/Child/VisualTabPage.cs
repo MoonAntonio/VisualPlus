@@ -50,6 +50,7 @@
             _textAlignment = StringAlignment.Center;
 
             BackColor = _styleManager.Theme.BackgroundSettings.Type4;
+            ForeColor = Color.FromArgb(174, 181, 187);
             Font = _styleManager.Theme.TextSetting.Font;
 
             _tabNormal = _styleManager.Theme.OtherSettings.TabPageEnabled;
@@ -60,6 +61,22 @@
         #endregion
 
         #region Properties
+
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        public new bool Enabled
+        {
+            get
+            {
+                return base.Enabled;
+            }
+
+            set
+            {
+                base.Enabled = value;
+            }
+        }
 
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Image)]
@@ -203,13 +220,6 @@
             DoubleBuffered = true;
 
             return base.CreateControlsInstance();
-        }
-
-        protected override void CreateHandle()
-        {
-            base.CreateHandle();
-
-            ForeColor = Color.FromArgb(174, 181, 187);
         }
 
         protected override void Dispose(bool disposing)

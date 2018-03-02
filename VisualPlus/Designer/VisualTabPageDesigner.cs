@@ -20,7 +20,6 @@
             properties.Remove("BorderStyle");
             properties.Remove("Margin");
             properties.Remove("Padding");
-            properties.Remove("Enabled");
             properties.Remove("UseVisualStyleBackColor");
 
             base.PreFilterProperties(properties);
