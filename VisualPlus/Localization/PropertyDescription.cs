@@ -62,6 +62,7 @@
         public const string Type = "Gets or sets the controls type.";
         public const string UseSystemPasswordChar = "Indicates if the text in the edit control should appear as the default password character.";
         public const string ValueDivisor = "The value division.";
+        public const string VerticalAlignment = "Gets or sets vertical alignment of the content.";
         public const string Visible = "Gets or sets whether the control is visible.";
         public const string WordWrap = "Indicates whether a multiline text box control automatically wraps words to the beginning of the next line when necessary.";
 

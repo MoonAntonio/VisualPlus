@@ -3,7 +3,6 @@
     #region Namespace
 
     using System;
-    using System.Collections;
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Design;
@@ -38,7 +37,6 @@
         private bool _arrowSelectorVisible;
         private int _arrowSpacing;
         private int _arrowThickness;
-        private Color _backgroundColor;
         private Border _border;
         private Size _itemSize;
         private Point _mouseLocation;
@@ -52,19 +50,12 @@
         private int _separatorSpacing;
         private float _separatorThickness;
         private bool _separatorVisible;
-        private Color _tabHover;
+        private StyleManager _styleManager;
         private Color _tabMenu;
-        private Color _tabNormal;
         private Shape _tabPageBorder;
         private Rectangle _tabPageRectangle;
-        private Color _tabSelected;
         private Color _tabSelector;
-        private StringAlignment _textAlignment;
-        private StringAlignment _textLineAlignment;
-        private Color _textNormal;
         private TextRenderingHint _textRendererHint;
-        private Color _textSelected;
-        private StyleManager styleManager;
 
         #endregion
 
@@ -81,9 +72,7 @@
 
             UpdateStyles();
 
-            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-
-            _textLineAlignment = StringAlignment.Center;
+            _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
             _border = new Border
                     {
@@ -100,23 +89,16 @@
             _selectorThickness = 4;
             _separatorSpacing = 2;
             _separatorThickness = 2F;
-            _backgroundColor = styleManager.Theme.BackgroundSettings.Type4;
-            _separator = styleManager.Theme.OtherSettings.Line;
+            _separator = _styleManager.Theme.OtherSettings.Line;
             _tabMenu = Color.FromArgb(55, 61, 73);
-            _textAlignment = StringAlignment.Center;
-            _tabSelector = Color.Green;
-            _textNormal = Color.FromArgb(174, 181, 187);
+            _tabSelector = _styleManager.Theme.BackgroundSettings.Type4;
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
-            _textSelected = Color.FromArgb(217, 220, 227);
 
             Size = new Size(320, 160);
-
+            DrawMode = TabDrawMode.OwnerDrawFixed;
             ItemSize = _itemSize;
 
             _tabPageBorder = new Shape();
-            _tabNormal = styleManager.Theme.OtherSettings.TabPageEnabled;
-            _tabSelected = styleManager.Theme.OtherSettings.TabPageSelected;
-            _tabHover = styleManager.Theme.OtherSettings.TabPageHover;
         }
 
         #endregion
@@ -212,27 +194,6 @@
             set
             {
                 _arrowThickness = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        public Color BackgroundColor
-        {
-            get
-            {
-                return _backgroundColor;
-            }
-
-            set
-            {
-                _backgroundColor = value;
-                foreach (VisualTabPage page in TabPages)
-                {
-                    page.BackColor = _backgroundColor;
-                }
-
                 Invalidate();
             }
         }
@@ -417,22 +378,6 @@
 
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
-        public Color TabHover
-        {
-            get
-            {
-                return _tabHover;
-            }
-
-            set
-            {
-                _tabHover = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
         public Color TabMenu
         {
             get
@@ -443,22 +388,6 @@
             set
             {
                 _tabMenu = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        public Color TabNormal
-        {
-            get
-            {
-                return _tabNormal;
-            }
-
-            set
-            {
-                _tabNormal = value;
                 Invalidate();
             }
         }
@@ -494,22 +423,6 @@
 
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
-        public Color TabSelected
-        {
-            get
-            {
-                return _tabSelected;
-            }
-
-            set
-            {
-                _tabSelected = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
         public Color TabSelector
         {
             get
@@ -520,53 +433,6 @@
             set
             {
                 _tabSelector = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        public StringAlignment TextAlignment
-        {
-            get
-            {
-                return _textAlignment;
-            }
-
-            set
-            {
-                _textAlignment = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Alignment)]
-        public StringAlignment TextLineAlignment
-        {
-            get
-            {
-                return _textLineAlignment;
-            }
-
-            set
-            {
-                _textLineAlignment = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        public Color TextNormal
-        {
-            get
-            {
-                return _textNormal;
-            }
-
-            set
-            {
-                _textNormal = value;
                 Invalidate();
             }
         }
@@ -583,22 +449,6 @@
             set
             {
                 _textRendererHint = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        public Color TextSelected
-        {
-            get
-            {
-                return _textSelected;
-            }
-
-            set
-            {
-                _textSelected = value;
                 Invalidate();
             }
         }
@@ -630,46 +480,9 @@
 
             Appearance = TabAppearance.Normal;
             DoubleBuffered = true;
-            Font = styleManager.Theme.TextSetting.Font;
+            Font = _styleManager.Theme.TextSetting.Font;
             MinimumSize = new Size(144, 85);
             SizeMode = TabSizeMode.Fixed;
-
-            foreach (VisualTabPage _tabPage in TabPages)
-            {
-                _tabPage.BackColor = _backgroundColor;
-                _tabPage.Font = Font;
-            }
-        }
-
-        protected override void OnBackColorChanged(EventArgs e)
-        {
-            base.OnBackColorChanged(e);
-            GraphicsManager.ApplyContainerBackColorChange(this, _backgroundColor);
-        }
-
-        protected override void OnControlAdded(ControlEventArgs e)
-        {
-            base.OnControlAdded(e);
-            if (!(e.Control is VisualTabPage))
-            {
-                return;
-            }
-
-            try
-            {
-                IEnumerator _controlsEnumerator = Controls.GetEnumerator();
-                while (_controlsEnumerator.MoveNext())
-                {
-                    using (new VisualTabPage())
-                    {
-                        BackColor = _backgroundColor;
-                    }
-                }
-            }
-            finally
-            {
-                GraphicsManager.SetControlBackColor(e.Control, _backgroundColor, false);
-            }
         }
 
         protected override void OnControlRemoved(ControlEventArgs e)
@@ -813,7 +626,7 @@
                     throw new ArgumentOutOfRangeException();
             }
 
-            graphics.FillPolygon(new SolidBrush(_backgroundColor), _arrow);
+            graphics.FillPolygon(new SolidBrush(_tabSelector), _arrow);
         }
 
         /// <summary>Draws the separator.</summary>
@@ -863,12 +676,6 @@
         /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawTabPages(Graphics graphics)
         {
-            StringFormat _tabTextFormat = new StringFormat
-                {
-                    Alignment = _textAlignment,
-                    LineAlignment = _textLineAlignment
-                };
-
             for (var tabIndex = 0; tabIndex <= TabCount - 1; tabIndex++)
             {
                 ConfigureAlignmentStyle(tabIndex);
@@ -877,10 +684,20 @@
                 Rectangle selectorRectangle = GraphicsManager.ApplyAnchor(_selectorAlignment, GetTabRect(tabIndex), _selectorThickness);
                 Rectangle selectorRectangle2 = GraphicsManager.ApplyAnchor(SelectorAlignment2, GetTabRect(tabIndex), _selectorThickness);
 
+                VisualTabPage _tabPage = (VisualTabPage)TabPages[tabIndex];
+
+                StringFormat _tabStringFormat = new StringFormat
+                    {
+                        Alignment = _tabPage.TextAlignment,
+                        LineAlignment = _tabPage.TextLineAlignment
+                    };
+
+                // TODO: Create TabPageHeaderRender
+
                 if (tabIndex == SelectedIndex)
                 {
                     // Draw selected tab
-                    graphics.FillRectangle(new SolidBrush(_tabSelected), _tabPageRectangle);
+                    graphics.FillRectangle(new SolidBrush(_tabPage.TabSelected), _tabPageRectangle);
 
                     // Draw tab selector
                     if (_selectorVisible)
@@ -904,8 +721,7 @@
                     }
 
                     // Draw selected tab text
-                    graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_textSelected), _tabPageRectangle, _tabTextFormat);
-
+                    graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_tabPage.TextSelected), _tabPageRectangle, _tabStringFormat);
                     if (ImageList != null)
                     {
                         graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X, (_tabPageRectangle.Y + (_tabPageRectangle.Height / 2)) - (ImageList.ImageSize.Height / 2), ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);
@@ -914,12 +730,12 @@
                 else
                 {
                     // Draw other TabPages
-                    graphics.FillRectangle(new SolidBrush(_tabNormal), _tabPageRectangle);
+                    graphics.FillRectangle(new SolidBrush(_tabPage.TabNormal), _tabPageRectangle);
 
                     if ((State == MouseStates.Hover) && _tabPageRectangle.Contains(_mouseLocation))
                     {
                         // Draw hover background
-                        graphics.FillRectangle(new SolidBrush(_tabHover), _tabPageRectangle);
+                        graphics.FillRectangle(new SolidBrush(_tabPage.TabHover), _tabPageRectangle);
 
                         // Draw tab selector
                         if (_selectorVisible)
@@ -938,8 +754,7 @@
                         VisualBorderRenderer.DrawBorder(graphics, _tabPageRectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
                     }
 
-                    graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_textNormal), _tabPageRectangle, _tabTextFormat);
-
+                    graphics.DrawString(TabPages[tabIndex].Text, Font, new SolidBrush(_tabPage.ForeColor), _tabPageRectangle, _tabStringFormat);
                     if (ImageList != null)
                     {
                         graphics.DrawImage(ImageList.Images[tabIndex], _tabPageRectangle.X, (_tabPageRectangle.Y + (_tabPageRectangle.Height / 2)) - (ImageList.ImageSize.Height / 2), ImageList.Images[tabIndex].Size.Height, ImageList.Images[tabIndex].Size.Width);

@@ -15,7 +15,6 @@
         {
             properties.Remove("BackgroundImage");
             properties.Remove("BackgroundImageLayout");
-            properties.Remove("ForeColor");
             properties.Remove("RightToLeft");
             properties.Remove("ImeMode");
             properties.Remove("BorderStyle");

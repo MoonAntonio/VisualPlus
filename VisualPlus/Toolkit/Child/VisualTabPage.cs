@@ -10,6 +10,7 @@
 
     using VisualPlus.Designer;
     using VisualPlus.Localization;
+    using VisualPlus.Toolkit.Components;
 
     #endregion
 
@@ -20,6 +21,12 @@
         #region Variables
 
         private Image _image;
+        private Color _tabHover;
+        private Color _tabNormal;
+        private Color _tabSelected;
+        private StringAlignment _textAlignment;
+        private StringAlignment _textLineAlignment;
+        private Color _textSelected;
 
         /// <summary>Required designer variable.</summary>
         private Container components;
@@ -34,6 +41,20 @@
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
             UpdateStyles();
+
+            StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+
+            _textSelected = Color.FromArgb(217, 220, 227);
+
+            _textLineAlignment = StringAlignment.Center;
+            _textAlignment = StringAlignment.Center;
+
+            BackColor = _styleManager.Theme.BackgroundSettings.Type4;
+            Font = _styleManager.Theme.TextSetting.Font;
+
+            _tabNormal = _styleManager.Theme.OtherSettings.TabPageEnabled;
+            _tabSelected = _styleManager.Theme.OtherSettings.TabPageSelected;
+            _tabHover = _styleManager.Theme.OtherSettings.TabPageHover;
         }
 
         #endregion
@@ -52,6 +73,102 @@
             set
             {
                 _image = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color TabHover
+        {
+            get
+            {
+                return _tabHover;
+            }
+
+            set
+            {
+                _tabHover = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color TabNormal
+        {
+            get
+            {
+                return _tabNormal;
+            }
+
+            set
+            {
+                _tabNormal = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color TabSelected
+        {
+            get
+            {
+                return _tabSelected;
+            }
+
+            set
+            {
+                _tabSelected = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.VerticalAlignment)]
+        public StringAlignment TextAlignment
+        {
+            get
+            {
+                return _textAlignment;
+            }
+
+            set
+            {
+                _textAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return _textLineAlignment;
+            }
+
+            set
+            {
+                _textLineAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color TextSelected
+        {
+            get
+            {
+                return _textSelected;
+            }
+
+            set
+            {
+                _textSelected = value;
                 Invalidate();
             }
         }
@@ -86,6 +203,13 @@
             DoubleBuffered = true;
 
             return base.CreateControlsInstance();
+        }
+
+        protected override void CreateHandle()
+        {
+            base.CreateHandle();
+
+            ForeColor = Color.FromArgb(174, 181, 187);
         }
 
         protected override void Dispose(bool disposing)
