@@ -545,27 +545,6 @@
             DrawSeparator(e.Graphics);
         }
 
-        /// <summary>Retrieves the styled tab rectangle using the index.</summary>
-        /// <param name="index">The index.</param>
-        /// <returns>The <see cref="Rectangle"/>.</returns>
-        private Rectangle GetStyledTabRectangle(int index)
-        {
-            Rectangle _rectangle;
-
-            if ((Alignment == TabAlignment.Top) && (Alignment == TabAlignment.Bottom))
-            {
-                // Top - Bottom
-                _rectangle = new Rectangle(new Point(GetTabRect(index).Location.X, GetTabRect(index).Location.Y), new Size(GetTabRect(index).Width, GetTabRect(index).Height));
-            }
-            else
-            {
-                // Left - Right
-                _rectangle = new Rectangle(new Point(GetTabRect(index).Location.X, GetTabRect(index).Location.Y), new Size(GetTabRect(index).Width, GetTabRect(index).Height));
-            }
-
-            return _rectangle;
-        }
-
         /// <summary>Draws the selection arrow.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         /// <param name="rectangle">The rectangle.</param>
@@ -700,6 +679,7 @@
 
                     Rectangle _imageRectangle = new Rectangle(_tabPage.Rectangle.X + _tabPageBorder.Thickness + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_tabPage.ImageSize.Height / 2), _tabPage.ImageSize.Width, _tabPage.ImageSize.Height);
                     Size _textSize = GraphicsManager.MeasureText(graphics, _tabPage.Text, _tabPage.Font);
+                    Color _textColor;
 
                     if (tabIndex == SelectedIndex)
                     {
@@ -724,15 +704,7 @@
                             DrawSelectionArrow(graphics, _tabPage.Rectangle);
                         }
 
-                        if (_tabPage.Image != null)
-                        {
-                            graphics.DrawImage(_tabPage.Image, _imageRectangle);
-                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.TextSelected), new Rectangle(_imageRectangle.Right + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_textSize.Height / 2), _tabPage.Rectangle.Width, _tabPage.Rectangle.Height));
-                        }
-                        else
-                        {
-                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.TextSelected), _tabPage.Rectangle, _tabStringFormat);
-                        }
+                        _textColor = _tabPage.TextSelected;
                     }
                     else
                     {
@@ -758,15 +730,17 @@
                             VisualBorderRenderer.DrawBorder(graphics, _tabPage.Rectangle, _tabPageBorder.Color, _tabPageBorder.Thickness);
                         }
 
-                        if (_tabPage.Image != null)
-                        {
-                            graphics.DrawImage(_tabPage.Image, _imageRectangle);
-                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.ForeColor), new Rectangle(_imageRectangle.Right + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_textSize.Height / 2), _tabPage.Rectangle.Width, _tabPage.Rectangle.Height));
-                        }
-                        else
-                        {
-                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.ForeColor), _tabPage.Rectangle, _tabStringFormat);
-                        }
+                        _textColor = _tabPage.ForeColor;
+                    }
+
+                    if (_tabPage.Image != null)
+                    {
+                        graphics.DrawImage(_tabPage.Image, _imageRectangle);
+                        graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_textColor), new Rectangle(_imageRectangle.Right + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_textSize.Height / 2), _tabPage.Rectangle.Width, _tabPage.Rectangle.Height));
+                    }
+                    else
+                    {
+                        graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_textColor), _tabPage.Rectangle, _tabStringFormat);
                     }
                 }
             }
@@ -774,6 +748,27 @@
             {
                 VisualExceptionDialog.Show(e);
             }
+        }
+
+        /// <summary>Retrieves the styled tab rectangle using the index.</summary>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="Rectangle" />.</returns>
+        private Rectangle GetStyledTabRectangle(int index)
+        {
+            Rectangle _rectangle;
+
+            if ((Alignment == TabAlignment.Top) && (Alignment == TabAlignment.Bottom))
+            {
+                // Top - Bottom
+                _rectangle = new Rectangle(new Point(GetTabRect(index).Location.X, GetTabRect(index).Location.Y), new Size(GetTabRect(index).Width, GetTabRect(index).Height));
+            }
+            else
+            {
+                // Left - Right
+                _rectangle = new Rectangle(new Point(GetTabRect(index).Location.X, GetTabRect(index).Location.Y), new Size(GetTabRect(index).Width, GetTabRect(index).Height));
+            }
+
+            return _rectangle;
         }
 
         /// <summary>Update the arrow location.</summary>
