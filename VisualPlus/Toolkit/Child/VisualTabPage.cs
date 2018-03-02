@@ -23,6 +23,8 @@
         #region Variables
 
         private Shape _border;
+
+        private Image _headerImage;
         private Image _image;
         private Size _imageSize;
         private Color _tabHover;
@@ -67,6 +69,9 @@
             _textImageRelation = TextImageRelation.Overlay;
             _image = null;
             _imageSize = new Size(16, 16);
+
+            _headerImage = null;
+
             _tabNormal = _styleManager.Theme.OtherSettings.TabPageEnabled;
             _tabSelected = _styleManager.Theme.OtherSettings.TabPageSelected;
             _tabHover = _styleManager.Theme.OtherSettings.TabPageHover;
@@ -106,6 +111,22 @@
             set
             {
                 base.Enabled = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
+        public Image HeaderImage
+        {
+            get
+            {
+                return _headerImage;
+            }
+
+            set
+            {
+                _headerImage = value;
+                Invalidate();
             }
         }
 

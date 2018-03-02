@@ -42,11 +42,6 @@
         private Size _itemSize;
         private Point _mouseLocation;
         private MouseStates _mouseState;
-        private TabAlignment _selectorAlignment;
-        private TabAlignment _selectorAlignment2;
-        private int _selectorThickness;
-        private bool _selectorVisible;
-        private bool _selectorVisible2;
         private Color _separator;
         private int _separatorSpacing;
         private float _separatorThickness;
@@ -83,15 +78,14 @@
             _arrowSpacing = 10;
             _arrowThickness = 5;
             _itemSize = new Size(100, 25);
-            _selectorAlignment = TabAlignment.Top;
-            _selectorAlignment2 = TabAlignment.Bottom;
-            _selectorThickness = 4;
-            _separatorSpacing = 2;
-            _separatorThickness = 2F;
-            _separator = _styleManager.Theme.OtherSettings.Line;
+
             _tabMenu = Color.FromArgb(55, 61, 73);
             _tabSelector = _styleManager.Theme.BackgroundSettings.Type4;
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
+
+            _separatorSpacing = 2;
+            _separatorThickness = 2F;
+            _separator = _styleManager.Theme.OtherSettings.Line;
 
             Size = new Size(320, 160);
             DrawMode = TabDrawMode.OwnerDrawFixed;
@@ -140,6 +134,9 @@
 
                             break;
                         }
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
 
                 UpdateArrowLocation();
@@ -208,86 +205,6 @@
             {
                 _itemSize = value;
                 base.ItemSize = _itemSize;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Alignment)]
-        public TabAlignment SelectorAlignment
-        {
-            get
-            {
-                return _selectorAlignment;
-            }
-
-            set
-            {
-                _selectorAlignment = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Alignment)]
-        public TabAlignment SelectorAlignment2
-        {
-            get
-            {
-                return _selectorAlignment2;
-            }
-
-            set
-            {
-                _selectorAlignment2 = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Size)]
-        public int SelectorThickness
-        {
-            get
-            {
-                return _selectorThickness;
-            }
-
-            set
-            {
-                _selectorThickness = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Visible)]
-        public bool SelectorVisible
-        {
-            get
-            {
-                return _selectorVisible;
-            }
-
-            set
-            {
-                _selectorVisible = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Visible)]
-        public bool SelectorVisible2
-        {
-            get
-            {
-                return _selectorVisible2;
-            }
-
-            set
-            {
-                _selectorVisible2 = value;
                 Invalidate();
             }
         }
@@ -521,8 +438,9 @@
 
             VisualBackgroundRenderer.DrawBackground(_graphics, _tabMenu, BackgroundImage, _mouseState, ClientRectangle, _border);
 
-            DrawTabPages(e.Graphics);
-            DrawSeparator(e.Graphics);
+            DrawTabPages(_graphics);
+            DrawSeparator(_graphics);
+            DrawSelector(_graphics);
         }
 
         /// <summary>Draws the headers border.</summary>
@@ -609,6 +527,32 @@
             graphics.FillPolygon(new SolidBrush(_tabSelector), _arrow);
         }
 
+        /// <summary>Draws the selector.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        private void DrawSelector(Graphics graphics)
+        {
+            try
+            {
+                for (var tabIndex = 0; tabIndex <= TabCount - 1; tabIndex++)
+                {
+                    VisualTabPage _tabPage = (VisualTabPage)TabPages[tabIndex];
+                    _tabPage.Rectangle = GetStyledTabRectangle(tabIndex);
+
+                    if (tabIndex == SelectedIndex)
+                    {
+                        if (_arrowSelectorVisible)
+                        {
+                            DrawSelectionArrow(graphics, _tabPage.Rectangle);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+        }
+
         /// <summary>Draws the separator.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawSeparator(Graphics graphics)
@@ -660,10 +604,6 @@
             {
                 for (var tabIndex = 0; tabIndex <= TabCount - 1; tabIndex++)
                 {
-                    // Draws the TabSelector
-                    Rectangle selectorRectangle = GraphicsManager.ApplyAnchor(_selectorAlignment, GetTabRect(tabIndex), _selectorThickness);
-                    Rectangle selectorRectangle2 = GraphicsManager.ApplyAnchor(SelectorAlignment2, GetTabRect(tabIndex), _selectorThickness);
-
                     VisualTabPage _tabPage = (VisualTabPage)TabPages[tabIndex];
                     _tabPage.Rectangle = GetStyledTabRectangle(tabIndex);
 
@@ -681,29 +621,18 @@
                         // Draw selected TabPageHeader
                         graphics.FillRectangle(new SolidBrush(_tabPage.TabSelected), _tabPage.Rectangle);
 
+                        if (_tabPage.HeaderImage != null)
+                        {
+                            graphics.DrawImage(_tabPage.HeaderImage, new Point(0, 0));
+                        }
+
                         if ((_mouseState == MouseStates.Hover) && _tabPage.Rectangle.Contains(_mouseLocation))
                         {
-                            // BUG: doesn't un-select on mouse leave
+                            // BUG: doesn't un-select on mouse leave.
                             // graphics.FillRectangle(new SolidBrush(_tabPage.TabHover), _tabPage.Rectangle);
                         }
 
                         DrawHeaderBorder(graphics, _tabPage);
-
-                        // Draw tab selector
-                        if (_selectorVisible)
-                        {
-                            graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
-                        }
-
-                        if (_selectorVisible2)
-                        {
-                            graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
-                        }
-
-                        if (_arrowSelectorVisible)
-                        {
-                            DrawSelectionArrow(graphics, _tabPage.Rectangle);
-                        }
 
                         if (_tabPage.Image != null)
                         {
@@ -726,17 +655,6 @@
                         }
 
                         DrawHeaderBorder(graphics, _tabPage);
-
-                        // Draw tab selector
-                        if (_selectorVisible)
-                        {
-                            graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
-                        }
-
-                        if (_selectorVisible2)
-                        {
-                            graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle2);
-                        }
 
                         if (_tabPage.Image != null)
                         {
