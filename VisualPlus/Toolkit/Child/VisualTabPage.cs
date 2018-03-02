@@ -21,10 +21,12 @@
         #region Variables
 
         private Image _image;
+        private Size _imageSize;
         private Color _tabHover;
         private Color _tabNormal;
         private Color _tabSelected;
         private StringAlignment _textAlignment;
+        private TextImageRelation _textImageRelation;
         private StringAlignment _textLineAlignment;
         private Color _textSelected;
 
@@ -53,8 +55,9 @@
             ForeColor = Color.FromArgb(174, 181, 187);
             Font = _styleManager.Theme.TextSetting.Font;
 
+            _textImageRelation = TextImageRelation.Overlay;
             _image = null;
-
+            _imageSize = new Size(16, 16);
             _tabNormal = _styleManager.Theme.OtherSettings.TabPageEnabled;
             _tabSelected = _styleManager.Theme.OtherSettings.TabPageSelected;
             _tabHover = _styleManager.Theme.OtherSettings.TabPageHover;
@@ -92,6 +95,22 @@
             set
             {
                 _image = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
+        public Size ImageSize
+        {
+            get
+            {
+                return _imageSize;
+            }
+
+            set
+            {
+                _imageSize = value;
                 Invalidate();
             }
         }
@@ -160,6 +179,22 @@
             }
         }
 
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.TextImageRelation)]
+        public TextImageRelation TextImageRelation
+        {
+            get
+            {
+                return _textImageRelation;
+            }
+
+            set
+            {
+                _textImageRelation = value;
+                Invalidate();
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Alignment)]
         public StringAlignment TextLineAlignment
@@ -191,6 +226,9 @@
                 Invalidate();
             }
         }
+
+        [Browsable(false)]
+        internal Rectangle Rectangle { get; set; }
 
         #endregion
 

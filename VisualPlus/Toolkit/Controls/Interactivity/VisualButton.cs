@@ -350,7 +350,13 @@
                 }
                 else
                 {
-                    VisualControlRenderer.DrawContentText(e.Graphics, ClientRectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
+                    StringFormat _stringFormat = new StringFormat
+                        {
+                            Alignment = _textAlignment,
+                            LineAlignment = _textLineAlignment
+                        };
+
+                    VisualControlRenderer.DrawContentText(e.Graphics, ClientRectangle, Text, Font, _textColor, _stringFormat);
                 }
 
                 VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);

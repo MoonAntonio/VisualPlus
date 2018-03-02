@@ -63,9 +63,8 @@
         /// <param name="text">The string to draw.</param>
         /// <param name="font">The font to use in the string.</param>
         /// <param name="foreColor">The color of the string.</param>
-        /// <param name="alignment">The string Alignment.</param>
-        /// <param name="lineAlignment">The line Alignment.</param>
-        public static void DrawContentText(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, StringAlignment alignment, StringAlignment lineAlignment)
+        /// <param name="stringFormat">The string Format.</param>
+        public static void DrawContentText(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, StringFormat stringFormat)
         {
             const int Padding = 0;
 
@@ -73,7 +72,7 @@
             int _yPosition;
             Size _textSize = GraphicsManager.MeasureText(graphics, text, font);
 
-            switch (alignment)
+            switch (stringFormat.Alignment)
             {
                 case StringAlignment.Near:
                     {
@@ -95,11 +94,11 @@
 
                 default:
                     {
-                        throw new ArgumentOutOfRangeException(nameof(alignment), alignment, null);
+                        throw new ArgumentOutOfRangeException(nameof(stringFormat.Alignment), stringFormat.Alignment, null);
                     }
             }
 
-            switch (lineAlignment)
+            switch (stringFormat.LineAlignment)
             {
                 case StringAlignment.Near:
                     {
@@ -121,7 +120,7 @@
 
                 default:
                     {
-                        throw new ArgumentOutOfRangeException(nameof(lineAlignment), lineAlignment, null);
+                        throw new ArgumentOutOfRangeException(nameof(stringFormat.LineAlignment), stringFormat.LineAlignment, null);
                     }
             }
 

@@ -312,7 +312,13 @@
                 }
                 else
                 {
-                    VisualControlRenderer.DrawContentText(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _textAlignment, _textLineAlignment);
+                    StringFormat _stringFormat = new StringFormat
+                        {
+                            Alignment = _textAlignment,
+                            LineAlignment = _textLineAlignment
+                        };
+
+                    VisualControlRenderer.DrawContentText(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _stringFormat);
                 }
             }
             catch (Exception exception)

@@ -824,7 +824,13 @@
             }
             else
             {
-                VisualControlRenderer.DrawContentText(graphics, rectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
+                StringFormat _stringFormat = new StringFormat
+                    {
+                        Alignment = _textAlignment,
+                        LineAlignment = _textLineAlignment
+                    };
+
+                VisualControlRenderer.DrawContentText(graphics, rectangle, Text, Font, _textColor, _stringFormat);
             }
         }
 
