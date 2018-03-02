@@ -13,7 +13,6 @@
 
         protected override void PreFilterProperties(IDictionary properties)
         {
-            properties.Remove("BackgroundImage");
             properties.Remove("BackgroundImageLayout");
             properties.Remove("RightToLeft");
             properties.Remove("ImeMode");

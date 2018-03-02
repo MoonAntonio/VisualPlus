@@ -53,6 +53,8 @@
             ForeColor = Color.FromArgb(174, 181, 187);
             Font = _styleManager.Theme.TextSetting.Font;
 
+            _image = null;
+
             _tabNormal = _styleManager.Theme.OtherSettings.TabPageEnabled;
             _tabSelected = _styleManager.Theme.OtherSettings.TabPageSelected;
             _tabHover = _styleManager.Theme.OtherSettings.TabPageHover;
@@ -238,9 +240,9 @@
             _graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
             _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
-            if (_image != null)
+            if (BackgroundImage != null)
             {
-                _graphics.DrawImage(_image, new Rectangle(new Point(0, 0), Size));
+                _graphics.DrawImage(BackgroundImage, new Rectangle(new Point(0, 0), Size));
             }
         }
 
