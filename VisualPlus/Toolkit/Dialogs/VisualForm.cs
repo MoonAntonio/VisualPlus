@@ -51,6 +51,8 @@
         private readonly Dictionary<int, int> _resizedLocationsCommand;
         private Color _background;
         private Border _border;
+
+        private bool _dropShadow;
         private bool _headerMouseDown;
         private bool _magnetic;
         private int _magneticRadius;
@@ -99,6 +101,8 @@
                     Type = ShapeType.Rectangle
                 };
 
+            _dropShadow = true;
+
             FormBorderStyle = FormBorderStyle.None;
             _magnetic = false;
             _magneticRadius = 100;
@@ -113,7 +117,7 @@
 
             _visualControlBox = new VisualControlBox();
             Controls.Add(_visualControlBox);
-            _visualControlBox.Location = new Point((Width - _visualControlBox.Width) - 16, _border.Thickness);
+            _visualControlBox.Location = new Point(Width - _visualControlBox.Width - 16, _border.Thickness);
 
             UpdateTheme(styleManager.Theme);
 
@@ -207,6 +211,21 @@
             set
             {
                 _visualControlBox = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Toggle)]
+        public bool DropShadow
+        {
+            get
+            {
+                return _dropShadow;
+            }
+
+            set
+            {
+                _dropShadow = value;
             }
         }
 
@@ -376,12 +395,18 @@
         {
             get
             {
-                CreateParams par = base.CreateParams;
+                CreateParams _parameter = base.CreateParams;
 
-                // WS_SYSMENU: Trigger the creation of the system menu
-                // WS_MINIMIZEBOX: Allow minimizing from taskbar
-                par.Style = par.Style | Constants.WS_MINIMIZEBOX | Constants.WS_SYSMENU; // Turn on the WS_MINIMIZEBOX style flag
-                return par;
+                // WS_SYSMENU: Trigger the creation of the system menu.
+                // WS_MINIMIZEBOX: Allow minimizing from task bar.
+                _parameter.Style = _parameter.Style | Constants.WS_MINIMIZEBOX | Constants.WS_SYSMENU; // Turn on the WS_MINIMIZEBOX style flag
+
+                if (_dropShadow)
+                {
+                    _parameter.ClassStyle |= 0x20000;
+                }
+
+                return _parameter;
             }
         }
 
