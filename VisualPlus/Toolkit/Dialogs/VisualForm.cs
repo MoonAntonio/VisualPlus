@@ -113,7 +113,7 @@
 
             _visualControlBox = new VisualControlBox();
             Controls.Add(_visualControlBox);
-            _visualControlBox.Location = new Point((Width - _visualControlBox.Width) + 8, _border.Thickness);
+            _visualControlBox.Location = new Point((Width - _visualControlBox.Width) - 16, _border.Thickness);
 
             UpdateTheme(styleManager.Theme);
 

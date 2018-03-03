@@ -63,8 +63,7 @@
             textStyle1.Hover = System.Drawing.Color.Empty;
             textStyle1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this._visualControlBox.HelpButton.TextStyle = textStyle1;
-            this._visualControlBox.HelpButton.Visible = false;
-            this._visualControlBox.Location = new System.Drawing.Point(482, 3);
+            this._visualControlBox.Location = new System.Drawing.Point(457, 3);
             // 
             // 
             // 
@@ -78,7 +77,7 @@
             this._visualControlBox.MaximizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this._visualControlBox.MaximizeButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this._visualControlBox.MaximizeButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
-            this._visualControlBox.MaximizeButton.Location = new System.Drawing.Point(24, 0);
+            this._visualControlBox.MaximizeButton.Location = new System.Drawing.Point(48, 0);
             this._visualControlBox.MaximizeButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this._visualControlBox.MaximizeButton.Name = "";
             this._visualControlBox.MaximizeButton.OffsetLocation = new System.Drawing.Point(1, 1);
@@ -103,7 +102,7 @@
             this._visualControlBox.MinimizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this._visualControlBox.MinimizeButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this._visualControlBox.MinimizeButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
-            this._visualControlBox.MinimizeButton.Location = new System.Drawing.Point(0, 0);
+            this._visualControlBox.MinimizeButton.Location = new System.Drawing.Point(24, 0);
             this._visualControlBox.MinimizeButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this._visualControlBox.MinimizeButton.Name = "";
             this._visualControlBox.MinimizeButton.OffsetLocation = new System.Drawing.Point(2, 0);
@@ -115,7 +114,7 @@
             textStyle3.Hover = System.Drawing.Color.Empty;
             textStyle3.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this._visualControlBox.MinimizeButton.TextStyle = textStyle3;
-            this._visualControlBox.Size = new System.Drawing.Size(72, 25);
+            this._visualControlBox.Size = new System.Drawing.Size(96, 25);
             // 
             // Form1
             // 

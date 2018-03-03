@@ -2,6 +2,9 @@
 {
     #region Namespace
 
+    using System;
+    using System.Diagnostics;
+
     using VisualPlus.Toolkit.Dialogs;
 
     #endregion
@@ -14,6 +17,17 @@
         public Form1()
         {
             InitializeComponent();
+
+            _visualControlBox.HelpButton.Click += HelpButton_Click;
+        }
+
+        #endregion
+
+        #region Events
+
+        private void HelpButton_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://darkbyte7.github.io/VisualPlus/");
         }
 
         #endregion

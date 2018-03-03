@@ -34,6 +34,7 @@
         #region Variables
 
         protected ControlBoxButton _closeButton;
+        protected ControlBoxButton _helpButton;
         protected ControlBoxButton _maximizeButton;
         protected ControlBoxButton _minimizeButton;
 
@@ -42,7 +43,6 @@
         #region Variables
 
         private Size _buttonSize;
-        private ControlBoxButton _helpButton;
         private bool _initialized;
 
         #endregion
@@ -162,10 +162,11 @@
 
         #region Events
 
-        /// <summary>Automatically places the <see cref="VisualControlBox" /> on the <see cref="Form" /> corner location.</summary>
-        public void AutoPlaceOnForm()
+        /// <summary>Automatically places the <see cref="VisualControlBox"/> on the <see cref="Form"/> corner location.</summary>
+        /// <param name="spacing">The spacing.</param>
+        public void AutoPlaceOnForm(int spacing)
         {
-            Location = new Point(ParentForm.Width - Width, 0);
+            Location = new Point(((ParentForm.Location.X + ParentForm.Width) - Width) + spacing, 0);
         }
 
         public void UpdateTheme(Theme theme)
@@ -403,7 +404,6 @@
                     Size = _buttonSize,
                     Text = @"s",
                     OffsetLocation = new Point(0, 1),
-                    Visible = false
                 };
 
             _helpButton.Click += OnHelpClick;
