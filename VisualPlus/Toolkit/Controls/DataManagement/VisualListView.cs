@@ -12,6 +12,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
+    using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
     using VisualPlus.Renders;
@@ -30,7 +31,7 @@
     [Designer(typeof(VisualListViewDesigner))]
     [ToolboxBitmap(typeof(ListView), "Resources.ToolboxBitmaps.VisualListView.bmp")]
     [ToolboxItem(true)]
-    public class VisualListView : ContainedControlBase, IThemeSupport
+    public class VisualListView : ContainedControlBase, ICloneable, IThemeSupport
     {
         #region Variables
 
@@ -38,6 +39,7 @@
         private ColorState _colorState;
         private Color _columnHeaderColor;
         private Color _itemEnabled;
+        private Color _itemHover;
         private Color _itemSelected;
         private ListView _listView;
         private bool _standardHeader;
@@ -80,22 +82,50 @@
                     FullRowSelect = true,
                     GridLines = true,
                     HeaderStyle = ColumnHeaderStyle.Nonclickable,
-                    OwnerDraw = false,
+                    OwnerDraw = true,
                     Location = GetInternalControlLocation(_border)
                 };
 
             AutoSize = true;
             Size = new Size(250, 150);
 
-            // _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            // _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            // _listView.DrawColumnHeader += ListView_DrawColumnHeader;
-            // _listView.DrawItem += ListView_DrawItem;
-            // _listView.DrawSubItem += ListView_DrawSubItem;
+            _listView.DrawColumnHeader += ListView_DrawColumnHeader;
+            _listView.DrawSubItem += ListView_DrawSubItem;
 
             Controls.Add(_listView);
 
             UpdateTheme(ThemeManager.Theme);
+
+            MouseLocation = new Point(-1, -1);
+            _listView.MouseEnter += delegate
+                {
+                    MouseState = MouseStates.Hover;
+                };
+            _listView.MouseLeave += delegate
+                {
+                    MouseState = MouseStates.Normal;
+                    MouseLocation = new Point(-1, -1);
+                    HoveredItem = null;
+                    Invalidate();
+                };
+            _listView.MouseDown += delegate
+                {
+                    MouseState = MouseStates.Down;
+                };
+            _listView.MouseUp += delegate
+                {
+                    MouseState = MouseStates.Hover;
+                };
+            _listView.MouseMove += delegate(object sender, MouseEventArgs args)
+                {
+                    MouseLocation = args.Location;
+                    ListViewItem currentHoveredItem = _listView.GetItemAt(MouseLocation.X, MouseLocation.Y);
+                    if (HoveredItem != currentHoveredItem)
+                    {
+                        HoveredItem = currentHoveredItem;
+                        Invalidate();
+                    }
+                };
         }
 
         #endregion
@@ -380,6 +410,23 @@
             }
         }
 
+        [Browsable(false)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color ItemHover
+        {
+            get
+            {
+                return _itemHover;
+            }
+
+            set
+            {
+                _itemHover = value;
+                Invalidate();
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         public int ItemPadding
         {
@@ -471,6 +518,9 @@
                 _listView.LargeImageList = value;
             }
         }
+
+        [Browsable(false)]
+        public Point MouseLocation { get; set; }
 
         [Category("Behaviour")]
         [Description("Gets or sets a value indicating whether multiple items can be selected.")]
@@ -625,9 +675,19 @@
         [EditorBrowsable(EditorBrowsableState.Never)]
         internal Point LastPosition { get; set; }
 
+        [Browsable(false)]
+        private ListViewItem HoveredItem { get; set; }
+
         #endregion
 
         #region Events
+
+        /// <summary>Creates a copy of the current object.</summary>
+        /// <returns>The <see cref="object" />.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
         public void UpdateTheme(Theme theme)
         {
@@ -644,6 +704,7 @@
 
                 _itemEnabled = theme.ListItemSettings.Item;
                 _itemSelected = theme.ListItemSettings.ItemSelected;
+                _itemHover = theme.ListItemSettings.ItemHover;
 
                 _columnHeaderColor = theme.OtherSettings.ColumnHeader;
                 headerText = theme.OtherSettings.ColumnText;
@@ -743,27 +804,31 @@
             e.Graphics.DrawString(e.Header.Text, headerFont, new SolidBrush(headerText), _textRectangle, _stringFormat);
         }
 
-        private void ListView_DrawItem(object sender, DrawListViewItemEventArgs e)
+        private void ListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
             // We draw the current line of items (= item with sub items) on a temp bitmap, then draw the bitmap at once. This is to reduce flickering.
-            Bitmap bitmap = new Bitmap(e.Item.Bounds.Width, e.Item.Bounds.Height);
-            Graphics graphics = Graphics.FromImage(bitmap);
+            Bitmap _bitmap = new Bitmap(e.Item.Bounds.Width, e.Item.Bounds.Height);
+            Graphics _graphics = Graphics.FromImage(_bitmap);
 
-            // always draw default background
-            graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
-
-            if (e.State.HasFlag(ListViewItemStates.Selected))
+            if (e.ItemState.HasFlag(ListViewItemStates.Selected))
             {
-                // selected background
-                graphics.FillRectangle(new SolidBrush(_itemSelected), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+                _graphics.FillRectangle(new SolidBrush(_itemSelected), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+            }
+            else if (e.Bounds.Contains(MouseLocation) && (MouseState == MouseStates.Hover))
+            {
+                _graphics.FillRectangle(new SolidBrush(_itemHover), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+            }
+            else
+            {
+                _graphics.FillRectangle(new SolidBrush(_itemEnabled), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
             }
 
             // Draw separator
-            // graphics.DrawLine(new Pen(StyleManager.BorderStyle.Color), e.Bounds.Left, 0, e.Bounds.Right, 0);
+            // graphics.DrawLine(new Pen(Color.Red), e.Bounds.Left, 0, e.Bounds.Right, 0);
             foreach (ListViewItem.ListViewSubItem subItem in e.Item.SubItems)
             {
                 // Draw text
-                graphics.DrawString(subItem.Text, Font, new SolidBrush(Color.Black), new Rectangle(subItem.Bounds.X + itemPadding, itemPadding, subItem.Bounds.Width - (2 * itemPadding), subItem.Bounds.Height - (2 * itemPadding)), GetStringFormat());
+                _graphics.DrawString(subItem.Text, Font, new SolidBrush(Color.Black), new Rectangle(subItem.Bounds.X + itemPadding, itemPadding, subItem.Bounds.Width - (2 * itemPadding), subItem.Bounds.Height - (2 * itemPadding)), GetStringFormat());
             }
 
             // Draw the item text for views other than the Details view
@@ -772,53 +837,64 @@
                 e.DrawText();
             }
 
-            e.Graphics.DrawImage((Image)bitmap.Clone(), new Point(0, e.Item.Bounds.Location.Y));
-            graphics.Dispose();
-            bitmap.Dispose();
-        }
-
-        private void ListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
-        {
             TextFormatFlags _textFormatFlags = TextFormatFlags.Left;
+            StringFormat _stringFormat = new StringFormat();
 
-            using (StringFormat _stringFormat = new StringFormat())
+            // Store the column text alignment, letting it default
+            // to Left if it has not been set to Center or Right.
+            switch (e.Header.TextAlign)
             {
-                // Store the column text alignment, letting it default
-                // to Left if it has not been set to Center or Right.
-                switch (e.Header.TextAlign)
-                {
-                    case HorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
+                    {
                         _stringFormat.Alignment = StringAlignment.Center;
                         _textFormatFlags = TextFormatFlags.HorizontalCenter;
                         break;
-                    case HorizontalAlignment.Right:
+                    }
+
+                case HorizontalAlignment.Right:
+                    {
                         _stringFormat.Alignment = StringAlignment.Far;
                         _textFormatFlags = TextFormatFlags.Right;
                         break;
-                }
-
-                // Draw the text and background for a sub item with a 
-                // negative value. 
-                double _subItemValue;
-                if ((e.ColumnIndex > 0) && double.TryParse(e.SubItem.Text, NumberStyles.Currency, NumberFormatInfo.CurrentInfo, out _subItemValue) && (_subItemValue < 0))
-                {
-                    // Unless the item is selected, draw the standard 
-                    // background to make it stand out from the gradient.
-                    if ((e.ItemState & ListViewItemStates.Selected) == 0)
-                    {
-                        e.DrawBackground();
                     }
 
-                    // Draw the sub item text in red to highlight it. 
-                    e.Graphics.DrawString(e.SubItem.Text, Font, Brushes.Red, e.Bounds, _stringFormat);
+                case HorizontalAlignment.Left:
+                    {
+                        break;
+                    }
 
-                    return;
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+            }
+
+            // Draw the text and background for a sub item with a 
+            // negative value. 
+            double _subItemValue;
+            if ((e.ColumnIndex > 0) && double.TryParse(e.SubItem.Text, NumberStyles.Currency, NumberFormatInfo.CurrentInfo, out _subItemValue) && (_subItemValue < 0))
+            {
+                // Unless the item is selected, draw the standard 
+                // background to make it stand out from the gradient.
+                if ((e.ItemState & ListViewItemStates.Selected) == 0)
+                {
+                    e.DrawBackground();
                 }
 
-                // Draw normal text for a sub item with a non negative 
-                // or non numerical value.
-                e.DrawText(_textFormatFlags);
+                // Draw the sub item text in red to highlight it. 
+                _graphics.DrawString(e.SubItem.Text, Font, Brushes.Red, e.Bounds, _stringFormat);
+
+                return;
             }
+
+            e.Graphics.DrawImage((Image)_bitmap.Clone(), new Point(0, e.Item.Bounds.Location.Y));
+
+            // Draw normal text for a sub item with a non negative 
+            // or non numerical value.
+            e.DrawText(_textFormatFlags);
+
+            _graphics.Dispose();
+            _bitmap.Dispose();
         }
 
         #endregion
