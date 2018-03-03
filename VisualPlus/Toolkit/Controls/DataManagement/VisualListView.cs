@@ -80,7 +80,7 @@
                     FullRowSelect = true,
                     GridLines = true,
                     HeaderStyle = ColumnHeaderStyle.Nonclickable,
-                    OwnerDraw = true,
+                    OwnerDraw = false,
                     Location = GetInternalControlLocation(_border)
                 };
 
@@ -89,9 +89,9 @@
 
             // _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             // _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            _listView.DrawColumnHeader += ListView_DrawColumnHeader;
-            _listView.DrawItem += ListView_DrawItem;
-            _listView.DrawSubItem += ListView_DrawSubItem;
+            // _listView.DrawColumnHeader += ListView_DrawColumnHeader;
+            // _listView.DrawItem += ListView_DrawItem;
+            // _listView.DrawSubItem += ListView_DrawSubItem;
 
             Controls.Add(_listView);
 
