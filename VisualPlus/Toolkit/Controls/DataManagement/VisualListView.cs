@@ -38,14 +38,14 @@
         private Border _border;
         private ColorState _colorState;
         private Color _columnHeaderColor;
+        private Font _headerFont;
+        private Color _headerText;
         private Color _itemEnabled;
         private Color _itemHover;
+        private int _itemPadding;
         private Color _itemSelected;
         private ListView _listView;
         private bool _standardHeader;
-        private Font headerFont;
-        private Color headerText;
-        private int itemPadding = 12;
 
         #endregion
 
@@ -63,7 +63,9 @@
             _border = new Border();
 
             ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-            headerFont = ThemeManager.Theme.TextSetting.Font;
+
+            _itemPadding = 12;
+
             _colorState = new ColorState
                     {
                        Enabled = ThemeManager.Theme.BackgroundSettings.Type4 
@@ -86,7 +88,6 @@
                     Location = GetInternalControlLocation(_border)
                 };
 
-            AutoSize = true;
             Size = new Size(250, 150);
 
             _listView.DrawColumnHeader += ListView_DrawColumnHeader;
@@ -96,7 +97,8 @@
 
             UpdateTheme(ThemeManager.Theme);
 
-            MouseLocation = new Point(-1, -1);
+            LastPosition = new Point(-1, -1);
+            MouseState = MouseStates.Normal;
             _listView.MouseEnter += delegate
                 {
                     MouseState = MouseStates.Hover;
@@ -104,7 +106,7 @@
             _listView.MouseLeave += delegate
                 {
                     MouseState = MouseStates.Normal;
-                    MouseLocation = new Point(-1, -1);
+                    LastPosition = new Point(-1, -1);
                     HoveredItem = null;
                     Invalidate();
                 };
@@ -118,8 +120,8 @@
                 };
             _listView.MouseMove += delegate(object sender, MouseEventArgs args)
                 {
-                    MouseLocation = args.Location;
-                    ListViewItem currentHoveredItem = _listView.GetItemAt(MouseLocation.X, MouseLocation.Y);
+                    LastPosition = args.Location;
+                    ListViewItem currentHoveredItem = _listView.GetItemAt(LastPosition.X, LastPosition.Y);
                     if (HoveredItem != currentHoveredItem)
                     {
                         HoveredItem = currentHoveredItem;
@@ -304,12 +306,12 @@
         {
             get
             {
-                return headerFont;
+                return _headerFont;
             }
 
             set
             {
-                headerFont = value;
+                _headerFont = value;
                 Invalidate();
             }
         }
@@ -336,12 +338,12 @@
         {
             get
             {
-                return headerText;
+                return _headerText;
             }
 
             set
             {
-                headerText = value;
+                _headerText = value;
                 Invalidate();
             }
         }
@@ -432,12 +434,12 @@
         {
             get
             {
-                return itemPadding;
+                return _itemPadding;
             }
 
             set
             {
-                itemPadding = value;
+                _itemPadding = value;
                 Invalidate();
             }
         }
@@ -518,9 +520,6 @@
                 _listView.LargeImageList = value;
             }
         }
-
-        [Browsable(false)]
-        public Point MouseLocation { get; set; }
 
         [Category("Behaviour")]
         [Description("Gets or sets a value indicating whether multiple items can be selected.")]
@@ -701,13 +700,14 @@
                 TextStyle.Disabled = theme.TextSetting.Disabled;
 
                 Font = theme.TextSetting.Font;
+                _headerFont = ThemeManager.Theme.TextSetting.Font;
 
                 _itemEnabled = theme.ListItemSettings.Item;
                 _itemSelected = theme.ListItemSettings.ItemSelected;
                 _itemHover = theme.ListItemSettings.ItemHover;
 
                 _columnHeaderColor = theme.OtherSettings.ColumnHeader;
-                headerText = theme.OtherSettings.ColumnText;
+                _headerText = theme.OtherSettings.ColumnText;
 
                 _colorState = new ColorState
                     {
@@ -722,6 +722,14 @@
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
+        protected override void CreateHandle()
+        {
+            base.CreateHandle();
+
+            AutoSize = true;
+            DoubleBuffered = true;
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -798,10 +806,10 @@
                     LineAlignment = StringAlignment.Center
                 };
 
-            Rectangle _textRectangle = new Rectangle(e.Bounds.X + itemPadding, e.Bounds.Y + itemPadding, e.Bounds.Width - (itemPadding * 2), e.Bounds.Height - (itemPadding * 2));
+            Rectangle _textRectangle = new Rectangle(e.Bounds.X + _itemPadding, e.Bounds.Y + _itemPadding, e.Bounds.Width - (_itemPadding * 2), e.Bounds.Height - (_itemPadding * 2));
 
             // Draw the header text.
-            e.Graphics.DrawString(e.Header.Text, headerFont, new SolidBrush(headerText), _textRectangle, _stringFormat);
+            e.Graphics.DrawString(e.Header.Text, _headerFont, new SolidBrush(_headerText), _textRectangle, _stringFormat);
         }
 
         private void ListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
@@ -814,7 +822,7 @@
             {
                 _graphics.FillRectangle(new SolidBrush(_itemSelected), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
             }
-            else if (e.Bounds.Contains(MouseLocation) && (MouseState == MouseStates.Hover))
+            else if (e.Bounds.Contains(LastPosition) && (MouseState == MouseStates.Hover))
             {
                 _graphics.FillRectangle(new SolidBrush(_itemHover), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
             }
@@ -828,7 +836,7 @@
             foreach (ListViewItem.ListViewSubItem subItem in e.Item.SubItems)
             {
                 // Draw text
-                _graphics.DrawString(subItem.Text, Font, new SolidBrush(Color.Black), new Rectangle(subItem.Bounds.X + itemPadding, itemPadding, subItem.Bounds.Width - (2 * itemPadding), subItem.Bounds.Height - (2 * itemPadding)), GetStringFormat());
+                _graphics.DrawString(subItem.Text, Font, new SolidBrush(Color.Black), new Rectangle(subItem.Bounds.X + _itemPadding, _itemPadding, subItem.Bounds.Width - (2 * _itemPadding), subItem.Bounds.Height - (2 * _itemPadding)), GetStringFormat());
             }
 
             // Draw the item text for views other than the Details view
