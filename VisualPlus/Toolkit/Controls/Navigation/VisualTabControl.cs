@@ -35,13 +35,15 @@
         #region Variables
 
         private TabAlignment _alignment;
-        private bool _arrowSelectorVisible;
-        private int _arrowSpacing;
-        private int _arrowThickness;
         private Border _border;
         private Size _itemSize;
         private Point _mouseLocation;
         private MouseStates _mouseState;
+        private TabAlignment _selectorAlignment;
+        private int _selectorSpacing;
+        private int _selectorThickness;
+        private SelectorTypes _selectorTypes;
+        private bool _selectorVisible;
         private Color _separator;
         private int _separatorSpacing;
         private float _separatorThickness;
@@ -74,11 +76,12 @@
                     };
 
             _alignment = TabAlignment.Top;
-            _arrowSelectorVisible = true;
-            _arrowSpacing = 10;
-            _arrowThickness = 5;
-            _itemSize = new Size(100, 25);
+            _selectorVisible = true;
+            _selectorSpacing = 10;
+            _selectorThickness = 5;
+            _selectorAlignment = TabAlignment.Bottom;
 
+            _itemSize = new Size(100, 25);
             _tabMenu = Color.FromArgb(55, 61, 73);
             _tabSelector = _styleManager.Theme.BackgroundSettings.Type4;
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
@@ -86,10 +89,20 @@
             _separatorSpacing = 2;
             _separatorThickness = 2F;
             _separator = _styleManager.Theme.OtherSettings.Line;
+            _selectorTypes = SelectorTypes.Arrow;
 
             Size = new Size(320, 160);
             DrawMode = TabDrawMode.OwnerDrawFixed;
             ItemSize = _itemSize;
+        }
+
+        public enum SelectorTypes
+        {
+            /// <summary>The arrow.</summary>
+            Arrow,
+
+            /// <summary>The line.</summary>
+            Line
         }
 
         #endregion
@@ -147,54 +160,6 @@
         }
 
         [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Visible)]
-        public bool ArrowSelectorVisible
-        {
-            get
-            {
-                return _arrowSelectorVisible;
-            }
-
-            set
-            {
-                _arrowSelectorVisible = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Layout)]
-        [Description(PropertyDescription.Spacing)]
-        public int ArrowSpacing
-        {
-            get
-            {
-                return _arrowSpacing;
-            }
-
-            set
-            {
-                _arrowSpacing = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Layout)]
-        [Description(PropertyDescription.Size)]
-        public int ArrowThickness
-        {
-            get
-            {
-                return _arrowThickness;
-            }
-
-            set
-            {
-                _arrowThickness = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Size)]
         public new Size ItemSize
         {
@@ -207,6 +172,86 @@
             {
                 _itemSize = value;
                 base.ItemSize = _itemSize;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
+        public TabAlignment SelectorAlignment
+        {
+            get
+            {
+                return _selectorAlignment;
+            }
+
+            set
+            {
+                _selectorAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Spacing)]
+        public int SelectorSpacing
+        {
+            get
+            {
+                return _selectorSpacing;
+            }
+
+            set
+            {
+                _selectorSpacing = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
+        public int SelectorThickness
+        {
+            get
+            {
+                return _selectorThickness;
+            }
+
+            set
+            {
+                _selectorThickness = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Type)]
+        public SelectorTypes SelectorType
+        {
+            get
+            {
+                return _selectorTypes;
+            }
+
+            set
+            {
+                _selectorTypes = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
+        public bool SelectorVisible
+        {
+            get
+            {
+                return _selectorVisible;
+            }
+
+            set
+            {
+                _selectorVisible = value;
                 Invalidate();
             }
         }
@@ -442,7 +487,39 @@
 
             DrawTabPages(_graphics);
             DrawSeparator(_graphics);
-            DrawSelector(_graphics);
+            DrawSelector(_graphics, _selectorTypes);
+        }
+
+        /// <summary>Draws the header background.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="tabPage">The tab page.</param>
+        /// <param name="selected">The selected toggle.</param>
+        private static void DrawBackgroundHeader(Graphics graphics, VisualTabPage tabPage, bool selected)
+        {
+            Color _tabBackColor = selected ? tabPage.TabSelected : tabPage.TabNormal;
+
+            graphics.FillRectangle(new SolidBrush(_tabBackColor), tabPage.Rectangle);
+
+            if (tabPage.HeaderImage != null)
+            {
+                graphics.DrawImage(tabPage.HeaderImage, tabPage.Rectangle);
+            }
+        }
+
+        /// <summary>Draws the headers border.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="tabPage">The tab page to draw.</param>
+        private static void DrawBorderHeader(Graphics graphics, VisualTabPage tabPage)
+        {
+            if (!tabPage.Border.Visible)
+            {
+                return;
+            }
+
+            GraphicsPath _borderGraphicsPath = new GraphicsPath();
+            _borderGraphicsPath.AddRectangle(tabPage.Rectangle);
+            Pen _borderPen = new Pen(tabPage.Border.Color, tabPage.Border.Thickness);
+            graphics.DrawPath(_borderPen, _borderGraphicsPath);
         }
 
         /// <summary>Draws the tab header content.</summary>
@@ -500,42 +577,55 @@
             }
         }
 
-        /// <summary>Draws the header background.</summary>
+        /// <summary>Draws the selector.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
-        /// <param name="tabPage">The tab page.</param>
-        /// <param name="selected">The selected toggle.</param>
-        private static void DrawBackgroundHeader(Graphics graphics, VisualTabPage tabPage, bool selected)
+        /// <param name="selectorType">The selector Type.</param>
+        private void DrawSelector(Graphics graphics, SelectorTypes selectorType)
         {
-            Color _tabBackColor = selected ? tabPage.TabSelected : tabPage.TabNormal;
-
-            graphics.FillRectangle(new SolidBrush(_tabBackColor), tabPage.Rectangle);
-
-            if (tabPage.HeaderImage != null)
+            if (_selectorVisible)
             {
-                graphics.DrawImage(tabPage.HeaderImage, tabPage.Rectangle);
-            }
-        }
+                try
+                {
+                    for (var tabIndex = 0; tabIndex <= TabCount - 1; tabIndex++)
+                    {
+                        VisualTabPage _tabPage = (VisualTabPage)TabPages[tabIndex];
+                        _tabPage.Rectangle = GetStyledTabRectangle(tabIndex);
 
-        /// <summary>Draws the headers border.</summary>
-        /// <param name="graphics">The specified graphics to draw on.</param>
-        /// <param name="tabPage">The tab page to draw.</param>
-        private static void DrawBorderHeader(Graphics graphics, VisualTabPage tabPage)
-        {
-            if (!tabPage.Border.Visible)
-            {
-                return;
-            }
+                        if (tabIndex == SelectedIndex)
+                        {
+                            switch (selectorType)
+                            {
+                                case SelectorTypes.Arrow:
+                                    {
+                                        DrawSelectorArrow(graphics, _tabPage.Rectangle);
+                                        break;
+                                    }
 
-            GraphicsPath _borderGraphicsPath = new GraphicsPath();
-            _borderGraphicsPath.AddRectangle(tabPage.Rectangle);
-            Pen _borderPen = new Pen(tabPage.Border.Color, tabPage.Border.Thickness);
-            graphics.DrawPath(_borderPen, _borderGraphicsPath);
+                                case SelectorTypes.Line:
+                                    {
+                                        DrawSelectorLine(graphics, _tabPage.Rectangle);
+                                        break;
+                                    }
+
+                                default:
+                                    {
+                                        throw new ArgumentOutOfRangeException(nameof(selectorType), selectorType, null);
+                                    }
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    VisualExceptionDialog.Show(e);
+                }
+            }
         }
 
         /// <summary>Draws the selection arrow.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         /// <param name="rectangle">The rectangle.</param>
-        private void DrawSelectionArrow(Graphics graphics, Rectangle rectangle)
+        private void DrawSelectorArrow(Graphics graphics, Rectangle rectangle)
         {
             var _arrow = new Point[3];
 
@@ -543,53 +633,53 @@
             {
                 case TabAlignment.Left:
                     {
-                        _arrow[0].X = rectangle.Right - ArrowThickness;
+                        _arrow[0].X = rectangle.Right - SelectorThickness;
                         _arrow[0].Y = rectangle.Y + (rectangle.Height / 2);
 
-                        _arrow[1].X = rectangle.Right + ArrowSpacing;
-                        _arrow[1].Y = rectangle.Top + ArrowSpacing;
+                        _arrow[1].X = rectangle.Right + SelectorSpacing;
+                        _arrow[1].Y = rectangle.Top + SelectorSpacing;
 
-                        _arrow[2].X = rectangle.Right + ArrowSpacing;
-                        _arrow[2].Y = rectangle.Bottom - ArrowSpacing;
+                        _arrow[2].X = rectangle.Right + SelectorSpacing;
+                        _arrow[2].Y = rectangle.Bottom - SelectorSpacing;
                         break;
                     }
 
                 case TabAlignment.Top:
                     {
                         _arrow[0].X = rectangle.X + (rectangle.Width / 2);
-                        _arrow[0].Y = rectangle.Bottom - ArrowThickness;
+                        _arrow[0].Y = rectangle.Bottom - SelectorThickness;
 
-                        _arrow[1].X = rectangle.Left + ArrowSpacing;
-                        _arrow[1].Y = rectangle.Bottom + ArrowSpacing;
+                        _arrow[1].X = rectangle.Left + SelectorSpacing;
+                        _arrow[1].Y = rectangle.Bottom + SelectorSpacing;
 
-                        _arrow[2].X = rectangle.Right - ArrowSpacing;
-                        _arrow[2].Y = rectangle.Bottom + ArrowSpacing;
+                        _arrow[2].X = rectangle.Right - SelectorSpacing;
+                        _arrow[2].Y = rectangle.Bottom + SelectorSpacing;
                         break;
                     }
 
                 case TabAlignment.Bottom:
                     {
                         _arrow[0].X = rectangle.X + (rectangle.Width / 2);
-                        _arrow[0].Y = rectangle.Top + ArrowThickness;
+                        _arrow[0].Y = rectangle.Top + SelectorThickness;
 
-                        _arrow[1].X = rectangle.Left + ArrowSpacing;
-                        _arrow[1].Y = rectangle.Top - ArrowSpacing;
+                        _arrow[1].X = rectangle.Left + SelectorSpacing;
+                        _arrow[1].Y = rectangle.Top - SelectorSpacing;
 
-                        _arrow[2].X = rectangle.Right - ArrowSpacing;
-                        _arrow[2].Y = rectangle.Top - ArrowSpacing;
+                        _arrow[2].X = rectangle.Right - SelectorSpacing;
+                        _arrow[2].Y = rectangle.Top - SelectorSpacing;
                         break;
                     }
 
                 case TabAlignment.Right:
                     {
-                        _arrow[0].X = rectangle.Left + ArrowThickness;
+                        _arrow[0].X = rectangle.Left + SelectorThickness;
                         _arrow[0].Y = rectangle.Y + (rectangle.Height / 2);
 
-                        _arrow[1].X = rectangle.Left - ArrowSpacing;
-                        _arrow[1].Y = rectangle.Top + ArrowSpacing;
+                        _arrow[1].X = rectangle.Left - SelectorSpacing;
+                        _arrow[1].Y = rectangle.Top + SelectorSpacing;
 
-                        _arrow[2].X = rectangle.Left - ArrowSpacing;
-                        _arrow[2].Y = rectangle.Bottom - ArrowSpacing;
+                        _arrow[2].X = rectangle.Left - SelectorSpacing;
+                        _arrow[2].Y = rectangle.Bottom - SelectorSpacing;
                         break;
                     }
 
@@ -602,30 +692,13 @@
             graphics.FillPolygon(new SolidBrush(_tabSelector), _arrow);
         }
 
-        /// <summary>Draws the selector.</summary>
+        /// <summary>Draws the selector line.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
-        private void DrawSelector(Graphics graphics)
+        /// <param name="rectangle">The rectangle.</param>
+        private void DrawSelectorLine(Graphics graphics, Rectangle rectangle)
         {
-            try
-            {
-                for (var tabIndex = 0; tabIndex <= TabCount - 1; tabIndex++)
-                {
-                    VisualTabPage _tabPage = (VisualTabPage)TabPages[tabIndex];
-                    _tabPage.Rectangle = GetStyledTabRectangle(tabIndex);
-
-                    if (tabIndex == SelectedIndex)
-                    {
-                        if (_arrowSelectorVisible)
-                        {
-                            DrawSelectionArrow(graphics, _tabPage.Rectangle);
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
+            Rectangle selectorRectangle = GraphicsManager.ApplyAnchor(_selectorAlignment, rectangle, _selectorThickness);
+            graphics.FillRectangle(new SolidBrush(_tabSelector), selectorRectangle);
         }
 
         /// <summary>Draws the separator.</summary>
@@ -739,16 +812,16 @@
                 case TabAlignment.Top:
                 case TabAlignment.Bottom:
                     {
-                        _arrowThickness = 5;
-                        _arrowSpacing = 10;
+                        _selectorThickness = 5;
+                        _selectorSpacing = 10;
                         break;
                     }
 
                 case TabAlignment.Left:
                 case TabAlignment.Right:
                     {
-                        _arrowThickness = 10;
-                        _arrowSpacing = 3;
+                        _selectorThickness = 10;
+                        _selectorSpacing = 3;
                         break;
                     }
 
