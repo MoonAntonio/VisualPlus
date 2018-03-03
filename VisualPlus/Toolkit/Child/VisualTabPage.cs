@@ -23,7 +23,6 @@
         #region Variables
 
         private Shape _border;
-
         private Image _headerImage;
         private Image _image;
         private Size _imageSize;
@@ -31,12 +30,13 @@
         private Color _tabNormal;
         private Color _tabSelected;
         private StringAlignment _textAlignment;
-        private TextImageRelation _textImageRelation;
         private StringAlignment _textLineAlignment;
         private Color _textSelected;
 
         /// <summary>Required designer variable.</summary>
         private Container components;
+
+        private TextImageRelations _textImageRelation;
 
         #endregion
 
@@ -66,7 +66,8 @@
                     Type = ShapeType.Rectangle
                 };
 
-            _textImageRelation = TextImageRelation.Overlay;
+            _textImageRelation = TextImageRelations.Text;
+
             _image = null;
             _imageSize = new Size(16, 16);
 
@@ -75,6 +76,18 @@
             _tabNormal = _styleManager.Theme.OtherSettings.TabPageEnabled;
             _tabSelected = _styleManager.Theme.OtherSettings.TabPageSelected;
             _tabHover = _styleManager.Theme.OtherSettings.TabPageHover;
+        }
+
+        public enum TextImageRelations
+        {
+            /// <summary>The image before text.</summary>
+            ImageBeforeText,
+
+            /// <summary>The image.</summary>
+            Image,
+
+            /// <summary>The text.</summary>
+            Text
         }
 
         #endregion
@@ -162,6 +175,22 @@
             }
         }
 
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.TextImageRelation)]
+        public TextImageRelations TextImageRelation
+        {
+            get
+            {
+                return _textImageRelation;
+            }
+
+            set
+            {
+                _textImageRelation = value;
+                Invalidate();
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color TabHover
@@ -222,22 +251,6 @@
             set
             {
                 _textAlignment = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Behavior)]
-        [Description(PropertyDescription.TextImageRelation)]
-        public TextImageRelation TextImageRelation
-        {
-            get
-            {
-                return _textImageRelation;
-            }
-
-            set
-            {
-                _textImageRelation = value;
                 Invalidate();
             }
         }

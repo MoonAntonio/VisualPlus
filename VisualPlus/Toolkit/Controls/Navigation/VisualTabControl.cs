@@ -136,7 +136,9 @@
                         }
 
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
                 }
 
                 UpdateArrowLocation();
@@ -443,10 +445,81 @@
             DrawSelector(_graphics);
         }
 
+        /// <summary>Draws the tab header content.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="tabPage">The tab page.</param>
+        /// <param name="selected">The selected toggle.</param>
+        private static void DrawContentHeader(Graphics graphics, VisualTabPage tabPage, bool selected)
+        {
+            Rectangle _imageRectangle = new Rectangle(tabPage.Rectangle.X + tabPage.Border.Thickness + 1, (tabPage.Rectangle.Y + (tabPage.Rectangle.Height / 2)) - (tabPage.ImageSize.Height / 2), tabPage.ImageSize.Width, tabPage.ImageSize.Height);
+            Rectangle _imageCenterRectangle = new Rectangle((tabPage.Rectangle.X + (tabPage.Rectangle.Width / 2)) - (tabPage.ImageSize.Width / 2), (tabPage.Rectangle.Y + (tabPage.Rectangle.Height / 2)) - (tabPage.ImageSize.Height / 2), tabPage.ImageSize.Width, tabPage.ImageSize.Height);
+
+            StringFormat _tabStringFormat = new StringFormat
+                {
+                    Alignment = tabPage.TextAlignment,
+                    LineAlignment = tabPage.TextLineAlignment
+                };
+
+            Size _textSize = GraphicsManager.MeasureText(graphics, tabPage.Text, tabPage.Font);
+            Color _foreColor = selected ? tabPage.TextSelected : tabPage.ForeColor;
+
+            switch (tabPage.TextImageRelation)
+            {
+                case VisualTabPage.TextImageRelations.ImageBeforeText:
+                    {
+                        if (tabPage.Image != null)
+                        {
+                            graphics.DrawImage(tabPage.Image, _imageRectangle);
+                        }
+
+                        graphics.DrawString(tabPage.Text, tabPage.Font, new SolidBrush(_foreColor), new Rectangle(_imageRectangle.Right + 1, (tabPage.Rectangle.Y + (tabPage.Rectangle.Height / 2)) - (_textSize.Height / 2), tabPage.Rectangle.Width, tabPage.Rectangle.Height));
+
+                        break;
+                    }
+
+                case VisualTabPage.TextImageRelations.Image:
+                    {
+                        if (tabPage.Image != null)
+                        {
+                            graphics.DrawImage(tabPage.Image, _imageCenterRectangle);
+                        }
+
+                        break;
+                    }
+
+                case VisualTabPage.TextImageRelations.Text:
+                    {
+                        graphics.DrawString(tabPage.Text, tabPage.Font, new SolidBrush(_foreColor), tabPage.Rectangle, _tabStringFormat);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+            }
+        }
+
+        /// <summary>Draws the header background.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="tabPage">The tab page.</param>
+        /// <param name="selected">The selected toggle.</param>
+        private static void DrawBackgroundHeader(Graphics graphics, VisualTabPage tabPage, bool selected)
+        {
+            Color _tabBackColor = selected ? tabPage.TabSelected : tabPage.TabNormal;
+
+            graphics.FillRectangle(new SolidBrush(_tabBackColor), tabPage.Rectangle);
+
+            if (tabPage.HeaderImage != null)
+            {
+                graphics.DrawImage(tabPage.HeaderImage, tabPage.Rectangle);
+            }
+        }
+
         /// <summary>Draws the headers border.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         /// <param name="tabPage">The tab page to draw.</param>
-        private static void DrawHeaderBorder(Graphics graphics, VisualTabPage tabPage)
+        private static void DrawBorderHeader(Graphics graphics, VisualTabPage tabPage)
         {
             if (!tabPage.Border.Visible)
             {
@@ -521,7 +594,9 @@
                     }
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
 
             graphics.FillPolygon(new SolidBrush(_tabSelector), _arrow);
@@ -607,64 +682,25 @@
                     VisualTabPage _tabPage = (VisualTabPage)TabPages[tabIndex];
                     _tabPage.Rectangle = GetStyledTabRectangle(tabIndex);
 
-                    StringFormat _tabStringFormat = new StringFormat
-                        {
-                            Alignment = _tabPage.TextAlignment,
-                            LineAlignment = _tabPage.TextLineAlignment
-                        };
-
-                    Rectangle _imageRectangle = new Rectangle(_tabPage.Rectangle.X + _tabPage.Border.Thickness + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_tabPage.ImageSize.Height / 2), _tabPage.ImageSize.Width, _tabPage.ImageSize.Height);
-                    Size _textSize = GraphicsManager.MeasureText(graphics, _tabPage.Text, _tabPage.Font);
-
                     if (tabIndex == SelectedIndex)
                     {
-                        // Draw selected TabPageHeader
-                        graphics.FillRectangle(new SolidBrush(_tabPage.TabSelected), _tabPage.Rectangle);
-
-                        if (_tabPage.HeaderImage != null)
-                        {
-                            graphics.DrawImage(_tabPage.HeaderImage, new Point(0, 0));
-                        }
-
-                        if ((_mouseState == MouseStates.Hover) && _tabPage.Rectangle.Contains(_mouseLocation))
-                        {
-                            // BUG: doesn't un-select on mouse leave.
-                            // graphics.FillRectangle(new SolidBrush(_tabPage.TabHover), _tabPage.Rectangle);
-                        }
-
-                        DrawHeaderBorder(graphics, _tabPage);
-
-                        if (_tabPage.Image != null)
-                        {
-                            graphics.DrawImage(_tabPage.Image, _imageRectangle);
-                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.TextSelected), new Rectangle(_imageRectangle.Right + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_textSize.Height / 2), _tabPage.Rectangle.Width, _tabPage.Rectangle.Height));
-                        }
-                        else
-                        {
-                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.TextSelected), _tabPage.Rectangle, _tabStringFormat);
-                        }
+                        // Selected tab header
+                        DrawBackgroundHeader(graphics, _tabPage, true);
+                        DrawBorderHeader(graphics, _tabPage);
+                        DrawContentHeader(graphics, _tabPage, true);
                     }
                     else
                     {
-                        // Draw unselected TabPageHeaders
-                        graphics.FillRectangle(new SolidBrush(_tabPage.TabNormal), _tabPage.Rectangle);
+                        // Unselected tab header
+                        DrawBackgroundHeader(graphics, _tabPage, false);
 
                         if ((_mouseState == MouseStates.Hover) && _tabPage.Rectangle.Contains(_mouseLocation))
                         {
                             graphics.FillRectangle(new SolidBrush(_tabPage.TabHover), _tabPage.Rectangle);
                         }
 
-                        DrawHeaderBorder(graphics, _tabPage);
-
-                        if (_tabPage.Image != null)
-                        {
-                            graphics.DrawImage(_tabPage.Image, _imageRectangle);
-                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.ForeColor), new Rectangle(_imageRectangle.Right + 1, (_tabPage.Rectangle.Y + (_tabPage.Rectangle.Height / 2)) - (_textSize.Height / 2), _tabPage.Rectangle.Width, _tabPage.Rectangle.Height));
-                        }
-                        else
-                        {
-                            graphics.DrawString(_tabPage.Text, _tabPage.Font, new SolidBrush(_tabPage.ForeColor), _tabPage.Rectangle, _tabStringFormat);
-                        }
+                        DrawBorderHeader(graphics, _tabPage);
+                        DrawContentHeader(graphics, _tabPage, false);
                     }
                 }
             }
@@ -717,7 +753,9 @@
                     }
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
         }
 
