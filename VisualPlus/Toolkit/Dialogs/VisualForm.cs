@@ -51,7 +51,6 @@
         private readonly Dictionary<int, int> _resizedLocationsCommand;
         private Color _background;
         private Border _border;
-
         private bool _dropShadow;
         private bool _headerMouseDown;
         private bool _magnetic;
