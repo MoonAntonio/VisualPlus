@@ -60,12 +60,12 @@
         private Size _previousSize;
         private ResizeDirection _resizeDir;
         private Rectangle _statusBarBounds;
+        private StyleManager _styleManager;
         private Alignment.TextAlignment _titleAlignment;
         private Size _titleTextSize;
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
-        private StyleManager styleManager;
 
         #endregion
 
@@ -92,7 +92,7 @@
                     { Constants.HTBOTTOMRIGHT, Constants.WMSZ_BOTTOMRIGHT }
                 };
 
-            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
             _border = new Border
                 {
@@ -110,7 +110,7 @@
             _titleAlignment = Alignment.TextAlignment.Center;
             TransparencyKey = Color.Fuchsia;
             _windowBarHeight = 30;
-
+            _previousSize = Size.Empty;
             _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
             _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
 
@@ -118,7 +118,7 @@
             Controls.Add(_visualControlBox);
             _visualControlBox.Location = new Point(Width - _visualControlBox.Width - 16, _border.Thickness);
 
-            UpdateTheme(styleManager.Theme);
+            UpdateTheme(_styleManager.Theme);
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
             Application.AddMessageFilter(new MouseMessageFilter());
@@ -333,12 +333,12 @@
         {
             get
             {
-                return styleManager;
+                return _styleManager;
             }
 
             set
             {
-                styleManager = value;
+                _styleManager = value;
             }
         }
 
@@ -424,7 +424,7 @@
         {
             try
             {
-                styleManager = new StyleManager(theme);
+                _styleManager = new StyleManager(theme);
 
                 _background = theme.OtherSettings.FormBackground;
                 _border.Color = theme.BorderSettings.Normal;
@@ -692,7 +692,7 @@
 
                 if (_statusBarBounds.Contains(cursorPos))
                 {
-                    // Show default system menu when right clicking titlebar
+                    // Show default system menu when right clicking title bar
                     int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), Constants.TPM_LEFTALIGN | Constants.TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
 
                     // Pass the command as a WM_SYSCOMMAND message
