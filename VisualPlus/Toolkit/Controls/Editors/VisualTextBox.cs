@@ -14,6 +14,7 @@
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -110,7 +111,6 @@
             _watermark = new Watermark();
             _buttonBorder = new Border();
 
-            AutoSize = true;
             Size = new Size(135, 25);
 
             _textBox.KeyDown += TextBox_KeyDown;
@@ -139,6 +139,22 @@
         public delegate void ButtonClickedEventHandler();
 
         public event ButtonClickedEventHandler ButtonClicked;
+
+        [Browsable(true)]
+        [Description(Event.TextChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
+        public new event EventHandler TextChanged
+        {
+            add
+            {
+                _textBox.TextChanged += value;
+            }
+
+            remove
+            {
+                _textBox.TextChanged -= value;
+            }
+        }
 
         #endregion
 
@@ -549,6 +565,12 @@
             }
         }
 
+        [Bindable(true)]
+        [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description(PropertyDescription.Text)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Localizable(false)]
         public new string Text
@@ -569,7 +591,6 @@
                     }
 
                     _textBox.Text = value;
-                    base.Text = value;
                 }
 
                 if (_watermark.Visible)
@@ -813,6 +834,12 @@
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
+        protected override void CreateHandle()
+        {
+            base.CreateHandle();
+            AutoSize = true;
         }
 
         protected override void OnEnter(EventArgs e)

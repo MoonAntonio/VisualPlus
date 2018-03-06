@@ -13,6 +13,7 @@
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -34,7 +35,6 @@
         #region Variables
 
         private ColorState _backColorState;
-
         private Border _border;
         private RichTextBox _richTextBox;
 
@@ -78,6 +78,22 @@
             Controls.Add(_richTextBox);
 
             UpdateTheme(ThemeManager.Theme);
+        }
+
+        [Browsable(true)]
+        [Description(Event.TextChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
+        public new event EventHandler TextChanged
+        {
+            add
+            {
+                _richTextBox.TextChanged += value;
+            }
+
+            remove
+            {
+                _richTextBox.TextChanged -= value;
+            }
         }
 
         #endregion
@@ -242,20 +258,29 @@
             }
         }
 
+        [Bindable(true)]
+        [Browsable(true)]
         [Category(PropertyCategory.Appearance)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description(PropertyDescription.Text)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Localizable(false)]
         public new string Text
         {
             get
             {
-                return base.Text;
+                return _richTextBox.Text;
             }
 
             set
             {
+                if (_richTextBox.Text == value)
+                {
+                    return;
+                }
+
                 _richTextBox.Text = value;
-                base.Text = value;
             }
         }
 
