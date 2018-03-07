@@ -471,27 +471,15 @@
             DoubleBuffered = true;
         }
 
-        protected override void OnEnter(EventArgs e)
+        protected override void OnActivated(EventArgs e)
         {
-            base.OnEnter(e);
+            base.OnActivated(e);
             State = MouseStates.Hover;
         }
 
-        protected override void OnGotFocus(EventArgs e)
+        protected override void OnDeactivate(EventArgs e)
         {
-            base.OnGotFocus(e);
-            State = MouseStates.Hover;
-        }
-
-        protected override void OnLeave(EventArgs e)
-        {
-            base.OnLeave(e);
-            State = MouseStates.Normal;
-        }
-
-        protected override void OnLostFocus(EventArgs e)
-        {
-            base.OnLostFocus(e);
+            base.OnDeactivate(e);
             State = MouseStates.Normal;
         }
 
