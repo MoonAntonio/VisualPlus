@@ -756,13 +756,13 @@
 
                 case Alignment.TextAlignment.Left:
                     {
-                        titlePoint = new Point(_vsImage.Point.X + _vsImage.Size.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+                        titlePoint = new Point(_vsImage.Point.X + _vsImage.Size.Width + 1, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
                         break;
                     }
 
                 case Alignment.TextAlignment.Right:
                     {
-                        titlePoint = new Point(Width - _border.Thickness - _titleTextSize.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+                        titlePoint = new Point(Width - _border.Thickness - _titleTextSize.Width - _visualControlBox.Width - 1, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
                         break;
                     }
 
