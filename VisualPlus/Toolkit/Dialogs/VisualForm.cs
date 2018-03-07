@@ -235,6 +235,21 @@
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
+        public new bool HelpButton
+        {
+            get
+            {
+                return _visualControlBox.HelpButton.Visible;
+            }
+
+            set
+            {
+                _visualControlBox.HelpButton.Visible = value;
+            }
+        }
+
         [Browsable(true)]
         public new Icon Icon
         {
@@ -296,6 +311,36 @@
             set
             {
                 _magneticRadius = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
+        public new bool MaximizeBox
+        {
+            get
+            {
+                return _visualControlBox.MaximizeButton.Visible;
+            }
+
+            set
+            {
+                _visualControlBox.MaximizeButton.Visible = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
+        public new bool MinimizeBox
+        {
+            get
+            {
+                return _visualControlBox.MinimizeButton.Visible;
+            }
+
+            set
+            {
+                _visualControlBox.MinimizeButton.Visible = value;
             }
         }
 
