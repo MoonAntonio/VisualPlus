@@ -496,7 +496,7 @@
         {
             string _value = _textVisible ? Text : Value.ToString(string.Empty);
 
-            Size _textSize = GraphicsManager.MeasureText(graphics, _textVisible ? Text : Value.ToString("0"), Font);
+            Size _textSize = GraphicsManager.MeasureText(_textVisible ? Text : Value.ToString("0"), Font, graphics);
             Point _textPoint = new Point((Width / 2) - (_textSize.Width / 2), (Height / 2) - (_textSize.Height / 2));
             StringFormat _stringFormat = new StringFormat(RightToLeft == RightToLeft.Yes ? StringFormatFlags.DirectionRightToLeft : 0)
                 {

@@ -548,8 +548,8 @@
 
             _buttonRectangle = new Rectangle(Width - _buttonWidth, 1, _buttonWidth, Height);
 
-            Size incrementSize = GraphicsManager.MeasureText(_graphics, "+", _buttonFont);
-            Size decrementSize = GraphicsManager.MeasureText(_graphics, "-", _buttonFont);
+            Size incrementSize = GraphicsManager.MeasureText("+", _buttonFont, _graphics);
+            Size decrementSize = GraphicsManager.MeasureText("-", _buttonFont, _graphics);
 
             _incrementButtonPoints[0] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (incrementSize.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2)) - (_buttonRectangle.Height / 4) - (incrementSize.Height / 2));
             _decrementButtonPoints[0] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (decrementSize.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2) + (_buttonRectangle.Height / 4)) - (decrementSize.Height / 2));

@@ -395,24 +395,23 @@
         /// <summary>Measures the specified string when draw with the specified font.</summary>
         /// <param name="text">The text to measure.</param>
         /// <param name="font">The font to apply to the measured text.</param>
+        /// <param name="graphics">The specified graphics input.</param>
         /// <returns>The <see cref="Size" />.</returns>
-        public static Size MeasureText(string text, Font font)
+        public static Size MeasureText(string text, Font font, Graphics graphics = null)
         {
-            return TextRenderer.MeasureText(text, font);
+            Graphics _graphics = graphics ?? new Control().CreateGraphics();
+            int _width = Convert.ToInt32(_graphics.MeasureString(text, font).Width);
+            int _height = Convert.ToInt32(_graphics.MeasureString(text, font).Height);
+            return new Size(_width, _height);
         }
 
         /// <summary>Measures the specified string when draw with the specified font.</summary>
-        /// <param name="graphics">Graphics input.</param>
         /// <param name="text">The text to measure.</param>
         /// <param name="font">The font to apply to the measured text.</param>
         /// <returns>The <see cref="Size" />.</returns>
-        public static Size MeasureText(Graphics graphics, string text, Font font)
+        public static Size MeasureTextRenderer(string text, Font font)
         {
-            int width = Convert.ToInt32(graphics.MeasureString(text, font).Width);
-            int height = Convert.ToInt32(graphics.MeasureString(text, font).Height);
-            Size textSize = new Size(width, height);
-
-            return textSize;
+            return TextRenderer.MeasureText(text, font);
         }
 
         /// <summary>Rounds the region of the control.</summary>

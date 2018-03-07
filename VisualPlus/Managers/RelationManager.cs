@@ -20,7 +20,7 @@
             Point _newPosition = new Point(0, 0);
             Point _imageLocation = new Point(0, 0);
             Point _textLocation = new Point(0, 0);
-            Size textSize = GraphicsManager.MeasureText(graphics, text, font);
+            Size textSize = GraphicsManager.MeasureText(text, font, graphics);
 
             switch (relation)
             {

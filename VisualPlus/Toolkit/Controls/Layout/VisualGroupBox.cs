@@ -269,7 +269,7 @@
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
                 graphics.CompositingQuality = CompositingQuality.GammaCorrected;
 
-                Size textArea = GraphicsManager.MeasureText(graphics, Text, Font);
+                Size textArea = GraphicsManager.MeasureText(Text, Font, graphics);
                 Rectangle group = ConfigureStyleBox(textArea);
                 Rectangle title = ConfigureStyleTitleBox(textArea);
 

@@ -537,7 +537,7 @@
                     LineAlignment = tabPage.TextLineAlignment
                 };
 
-            Size _textSize = GraphicsManager.MeasureText(graphics, tabPage.Text, tabPage.Font);
+            Size _textSize = GraphicsManager.MeasureText(tabPage.Text, tabPage.Font, graphics);
             Color _foreColor = selected ? tabPage.TextSelected : tabPage.ForeColor;
 
             switch (tabPage.TextImageRelation)

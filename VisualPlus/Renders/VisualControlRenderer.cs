@@ -70,7 +70,7 @@
 
             int _xPosition;
             int _yPosition;
-            Size _textSize = GraphicsManager.MeasureText(graphics, text, font);
+            Size _textSize = GraphicsManager.MeasureText(text, font, graphics);
 
             switch (stringFormat.Alignment)
             {

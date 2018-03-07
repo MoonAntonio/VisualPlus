@@ -1056,7 +1056,7 @@
 
             VisualBorderRenderer.DrawBorderStyle(graphics, _trackBarBorder, _trackBarPath, _mouseState);
 
-            Size _progressValue = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _trackerFont);
+            Size _progressValue = GraphicsManager.MeasureText(Maximum.ToString(), _trackerFont, graphics);
 
             DrawTrackerButton(graphics, _progressValue);
             DrawText(graphics, _progressValue);
@@ -1566,7 +1566,7 @@
             _currentUsedPos = _indentHeight;
             Point _location;
             Size _size;
-            _textAreaSize = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
+            _textAreaSize = GraphicsManager.MeasureText(Maximum.ToString(), _textFont, graphics);
 
             if (line)
             {
@@ -1687,7 +1687,7 @@
             _currentUsedPos = _indentWidth;
             Point _location;
             Size _size;
-            _textAreaSize = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
+            _textAreaSize = GraphicsManager.MeasureText(Maximum.ToString(), _textFont, graphics);
 
             if (line)
             {

@@ -1019,7 +1019,7 @@
             }
             else
             {
-                int _textHeight = GraphicsManager.MeasureText(e.Graphics, Items[e.Index].ToString(), Font).Height;
+                int _textHeight = GraphicsManager.MeasureText(Items[e.Index].ToString(), Font, e.Graphics).Height;
 
                 if (_imageList != null)
                 {

@@ -1111,7 +1111,7 @@
             _borderButton.Location = new Point(_buttonRectangle.X, _border.Thickness);
             _borderButton.Size = new Size(1, Height - _border.Thickness - 1);
 
-            Size textSize = GraphicsManager.MeasureText(graphics, _buttontext, _buttonFont);
+            Size textSize = GraphicsManager.MeasureText(_buttontext, _buttonFont, graphics);
             graphics.SetClip(buttonPath);
             graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + _buttonIndent, (Height / 2) - (textSize.Height / 2)));
             graphics.ResetClip();
@@ -1163,11 +1163,11 @@
         {
             if (_textBox.TextLength > 0)
             {
-                return GraphicsManager.MeasureText(Text, Font).Height;
+                return GraphicsManager.MeasureTextRenderer(Text, Font).Height;
             }
             else
             {
-                return GraphicsManager.MeasureText("Hello World.", Font).Height;
+                return GraphicsManager.MeasureTextRenderer("Hello World.", Font).Height;
             }
         }
 

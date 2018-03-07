@@ -62,7 +62,7 @@
         private Rectangle _statusBarBounds;
         private StyleManager _styleManager;
         private Alignment.TextAlignment _titleAlignment;
-        private Size _titleTextSize;
+        private Rectangle _titleRectangle;
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
@@ -111,7 +111,14 @@
             TransparencyKey = Color.Fuchsia;
             _windowBarHeight = 30;
             _previousSize = Size.Empty;
-            _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
+            _titleRectangle = new Rectangle(0, 7, 0, 0);
+            _statusBarBounds = Rectangle.Empty;
+
+            _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16))
+                    {
+                       Visible = true 
+                    };
+
             _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
 
             _visualControlBox = new VisualControlBox();
@@ -358,6 +365,22 @@
             }
         }
 
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Rectangle)]
+        public Rectangle TitleRectangle
+        {
+            get
+            {
+                return _titleRectangle;
+            }
+
+            set
+            {
+                _titleRectangle = value;
+                Invalidate();
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color WindowBarColor
@@ -554,85 +577,87 @@
         {
             base.OnPaint(e);
 
-            Graphics graphics = e.Graphics;
-            graphics.Clear(BackColor);
-            graphics.SmoothingMode = SmoothingMode.Default;
-            graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-
-            Rectangle _clientRectangle;
-
-            switch (_border.Type)
+            try
             {
-                case ShapeType.Rectangle:
-                    {
-                        _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
-                        break;
-                    }
+                Graphics graphics = e.Graphics;
+                graphics.Clear(BackColor);
+                graphics.SmoothingMode = SmoothingMode.Default;
+                graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-                case ShapeType.Rounded:
-                    {
-                        _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-                        break;
-                    }
+                Rectangle _clientRectangle;
 
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                switch (_border.Type)
+                {
+                    case ShapeType.Rectangle:
+                        {
+                            _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+                            break;
+                        }
+
+                    case ShapeType.Rounded:
+                        {
+                            _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                            break;
+                        }
+
+                    default:
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
+                }
+
+                GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+
+                graphics.SetClip(_clientPath);
+                graphics.FillPath(new SolidBrush(_background), _clientPath);
+
+                _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
+                graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
+
+                DrawImageIcon(graphics);
+
+                graphics.SetClip(_clientPath);
+
+                DrawTitle(graphics);
+
+                graphics.ResetClip();
+
+                VisualBorderRenderer.DrawBorderStyle(graphics, _border, _clientPath, State);
             }
-
-            GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-
-            graphics.SetClip(_clientPath);
-            graphics.FillPath(new SolidBrush(_background), _clientPath);
-
-            // Title box
-            graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
-
-            DrawImageIcon(graphics);
-
-            graphics.SetClip(_clientPath);
-
-            DrawTitle(graphics);
-
-            graphics.ResetClip();
-
-            VisualBorderRenderer.DrawBorderStyle(graphics, _border, _clientPath, State);
-        }
-
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            _vsImage.Point = new Point(_vsImage.Point.X, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
-            _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
+            catch (Exception exception)
+            {
+                VisualExceptionDialog.Show(exception);
+            }
         }
 
         protected override void OnResizeEnd(EventArgs e)
         {
             base.OnResizeEnd(e);
 
-            if (_magnetic)
+            if (!_magnetic)
             {
-                Screen _screen = Screen.FromPoint(Location);
-                if (DoSnap(Left, _screen.WorkingArea.Left))
-                {
-                    Left = _screen.WorkingArea.Left;
-                }
+                return;
+            }
 
-                if (DoSnap(Top, _screen.WorkingArea.Top))
-                {
-                    Top = _screen.WorkingArea.Top;
-                }
+            Screen _screen = Screen.FromPoint(Location);
+            if (DoSnap(Left, _screen.WorkingArea.Left))
+            {
+                Left = _screen.WorkingArea.Left;
+            }
 
-                if (DoSnap(_screen.WorkingArea.Right, Right))
-                {
-                    Left = _screen.WorkingArea.Right - Width;
-                }
+            if (DoSnap(Top, _screen.WorkingArea.Top))
+            {
+                Top = _screen.WorkingArea.Top;
+            }
 
-                if (DoSnap(_screen.WorkingArea.Bottom, Bottom))
-                {
-                    Top = _screen.WorkingArea.Bottom - Height;
-                }
+            if (DoSnap(_screen.WorkingArea.Right, Right))
+            {
+                Left = _screen.WorkingArea.Right - Width;
+            }
+
+            if (DoSnap(_screen.WorkingArea.Bottom, Bottom))
+            {
+                Top = _screen.WorkingArea.Bottom - Height;
             }
         }
 
@@ -730,50 +755,61 @@
         /// <summary>Snap the position to edge.</summary>
         /// <param name="position">The position.</param>
         /// <param name="edge">The edge.</param>
-        /// <returns>Does a snap.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         private bool DoSnap(int position, int edge)
         {
             return (position - edge > 0) && (position - edge <= _magneticRadius);
         }
 
+        /// <summary>Draws the icon image.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawImageIcon(Graphics graphics)
         {
             VisualBitmap.DrawImage(graphics, _vsImage.Border, _vsImage.Point, _vsImage.Image, _vsImage.Size, _vsImage.Visible);
         }
 
+        /// <summary>Draws the text title.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawTitle(Graphics graphics)
         {
-            _titleTextSize = GraphicsManager.MeasureText(graphics, Text, Font);
-            Point titlePoint;
-
-            switch (_titleAlignment)
+            try
             {
-                case Alignment.TextAlignment.Center:
-                    {
-                        titlePoint = new Point((Width / 2) - (_titleTextSize.Width / 2), (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
-                        break;
-                    }
+                Size _textSize = GraphicsManager.MeasureText(Text, Font, graphics);
+                Point _titleLocation;
 
-                case Alignment.TextAlignment.Left:
-                    {
-                        titlePoint = new Point(_vsImage.Point.X + _vsImage.Size.Width + 1, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
-                        break;
-                    }
+                switch (_titleAlignment)
+                {
+                    case Alignment.TextAlignment.Center:
+                        {
+                            _titleLocation = new Point((Width / 2) - (_textSize.Width / 2), _titleRectangle.Y);
+                            break;
+                        }
 
-                case Alignment.TextAlignment.Right:
-                    {
-                        titlePoint = new Point(Width - _border.Thickness - _titleTextSize.Width - _visualControlBox.Width - 1, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
-                        break;
-                    }
+                    case Alignment.TextAlignment.Left:
+                        {
+                            _titleLocation = new Point(_vsImage.Point.X + _vsImage.Size.Width + 1, _titleRectangle.Y);
+                            break;
+                        }
 
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                    case Alignment.TextAlignment.Right:
+                        {
+                            _titleLocation = new Point(Width - _border.Thickness - _textSize.Width - _visualControlBox.Width - 1, _titleRectangle.Y);
+                            break;
+                        }
+
+                    default:
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
+                }
+
+                _titleRectangle = new Rectangle(_titleLocation.X, _titleLocation.Y, _textSize.Width, _textSize.Height);
+                graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _titleRectangle);
             }
-
-            Rectangle textRectangle = new Rectangle(titlePoint.X, titlePoint.Y, Width, _titleTextSize.Height);
-            graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textRectangle);
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
         }
 
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)

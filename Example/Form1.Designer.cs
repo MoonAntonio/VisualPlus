@@ -142,6 +142,7 @@
             this.Image.Visible = true;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.TitleRectangle = new System.Drawing.Rectangle(261, 7, 36, 16);
             this.ResumeLayout(false);
 
         }

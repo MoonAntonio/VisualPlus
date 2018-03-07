@@ -205,7 +205,7 @@
         {
             base.OnPaint(e);
 
-            _progressTextSize = GraphicsManager.MeasureText(e.Graphics, _labelProgress.Text + @"%", Font);
+            _progressTextSize = GraphicsManager.MeasureText(_labelProgress.Text + @"%", Font, e.Graphics);
             _labelProgress.Location = new Point((Width / 2) - (_progressTextSize.Width / 2), Height - _progressTextSize.Height - 30);
 
             Graphics _graphics = e.Graphics;
