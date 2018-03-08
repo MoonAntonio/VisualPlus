@@ -6,6 +6,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.Design;
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
@@ -29,13 +30,15 @@
 
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
+    [DesignTimeVisible(false)]
     [DefaultEvent("Load")]
     [DefaultProperty("Text")]
     [Description("The Visual Form")]
-    [Designer(typeof(VisualFormDesigner))]
+    [Designer(typeof(VisualFormDesigner), typeof(IRootDesigner))]
     [DesignerCategory("Form")]
     [InitializationEvent("Load")]
     [ToolboxBitmap(typeof(VisualForm), "Resources.ToolboxBitmaps.VisualForm.bmp")]
+    [ToolboxItemFilter("System.Windows.Forms.Control.TopLevel")]
     [ToolboxItem(false)]
     public class VisualForm : Form, ICloneable, IThemeSupport
     {

@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualFormDesigner : ControlDesigner
+    internal class VisualFormDesigner : DocumentDesigner
     {
         #region Events
 
@@ -27,7 +27,7 @@
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
             properties.Remove("RightToLeft");
-
+            properties.Remove("RightToLeftLayout");
             base.PreFilterProperties(properties);
         }
 
