@@ -128,6 +128,7 @@
             this.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
             this.Border.Visible = true;
             this.ClientSize = new System.Drawing.Size(558, 391);
+            this.HelpButton = true;
             border1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             border1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             border1.HoverVisible = false;
@@ -140,6 +141,8 @@
             this.Image.Point = new System.Drawing.Point(5, 7);
             this.Image.Size = new System.Drawing.Size(16, 16);
             this.Image.Visible = true;
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.TitleRectangle = new System.Drawing.Rectangle(261, 7, 36, 16);
