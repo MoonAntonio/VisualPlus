@@ -27,7 +27,7 @@
     [DefaultProperty("Text")]
     [Description("The Visual Button")]
     [Designer(typeof(VisualButtonDesigner))]
-    [ToolboxBitmap(typeof(VisualButton), "Resources.ToolboxBitmaps.VisualButton.bmp")]
+    [ToolboxBitmap(typeof(VisualButton), "VisualButton.bmp")]
     [ToolboxItem(true)]
     public class VisualButton : VisualStyleBase, IAnimationSupport, IThemeSupport
     {

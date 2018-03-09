@@ -30,7 +30,7 @@
     [DefaultProperty("Text")]
     [Description("The Visual TextBox")]
     [Designer(typeof(VisualTextBoxDesigner))]
-    [ToolboxBitmap(typeof(TextBox), "Resources.ToolboxBitmaps.VisualTextBox.bmp")]
+    [ToolboxBitmap(typeof(TextBox), "VisualTextBox.bmp")]
     [ToolboxItem(true)]
     public class VisualTextBox : ContainedControlBase, IInputMethods, IThemeSupport
     {

@@ -21,7 +21,7 @@
     [DefaultProperty("Value")]
     [Description("The Visual Rating")]
     [Designer(typeof(VisualRatingDesigner))]
-    [ToolboxBitmap(typeof(VisualRating), "Resources.ToolboxBitmaps.VisualRating.bmp")]
+    [ToolboxBitmap(typeof(VisualRating), "VisualRating.bmp")]
     [ToolboxItem(true)]
     public class VisualRating : VisualStyleBase
     {

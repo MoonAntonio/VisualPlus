@@ -15,7 +15,7 @@
     #endregion
 
     [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Component))]
+    [ToolboxBitmap(typeof(VisualDrag), "VisualDrag.bmp")]
     [Description("The VisualDrag component enables controls to be draggable.")]
     public class VisualDrag : Component, ICloneable
     {

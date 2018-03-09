@@ -28,7 +28,7 @@
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [Description("The Visual ComboBox")]
-    [ToolboxBitmap(typeof(ComboBox), "Resources.ToolboxBitmaps.VisualComboBox.bmp")]
+    [ToolboxBitmap(typeof(ComboBox), "VisualComboBox.bmp")]
     [ToolboxItem(true)]
     public class VisualComboBox : ComboBox, IThemeSupport
     {
@@ -52,13 +52,12 @@
         private Color _menuItemNormal;
         private Color _menuTextColor;
         private MouseStates _mouseState;
-        private StyleManager styleManager;
+        private StyleManager _styleManager;
         private StringAlignment _textAlignment;
         private Color _textDisabledColor;
         private TextImageRelation _textImageRelation;
         private StringAlignment _textLineAlignment;
         private TextRenderingHint _textRendererHint;
-
         private TextStyle _textStyle;
         private Watermark _watermark;
 
@@ -77,7 +76,7 @@
             SetStyle((ControlStyles)139286, true);
             SetStyle(ControlStyles.Selectable, false);
 
-            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _textImageRelation = TextImageRelation.ImageBeforeText;
             _textAlignment = StringAlignment.Center;
             _textLineAlignment = StringAlignment.Center;
@@ -105,7 +104,7 @@
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
             Controls.Add(_borderEdge);
-            UpdateTheme(styleManager.Theme);
+            UpdateTheme(_styleManager.Theme);
         }
 
         [Category(Localization.Category.Events.PropertyChanged)]

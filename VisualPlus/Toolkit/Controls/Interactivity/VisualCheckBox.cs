@@ -22,7 +22,7 @@
     [DefaultProperty("Checked")]
     [Description("The Visual CheckBox")]
     [Designer(typeof(VisualCheckBoxDesigner))]
-    [ToolboxBitmap(typeof(VisualCheckBox), "Resources.ToolboxBitmaps.VisualCheckBox.bmp")]
+    [ToolboxBitmap(typeof(VisualCheckBox), "VisualCheckBox.bmp")]
     [ToolboxItem(true)]
     public class VisualCheckBox : CheckBoxBase, IThemeSupport
     {
@@ -31,7 +31,6 @@
         /// <summary>Initializes a new instance of the <see cref="VisualCheckBox" /> class.</summary>
         public VisualCheckBox()
         {
-            Cursor = Cursors.Hand;
             Size = new Size(125, 23);
 
             Border = new Border { Rounding = Settings.DefaultValue.Rounding.BoxRounding };
@@ -75,6 +74,12 @@
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
+        protected override void CreateHandle()
+        {
+            base.CreateHandle();
+            Cursor = Cursors.Hand;
         }
 
         #endregion

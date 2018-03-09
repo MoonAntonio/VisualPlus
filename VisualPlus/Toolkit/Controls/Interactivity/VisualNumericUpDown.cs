@@ -29,7 +29,7 @@
     [DefaultProperty("Value")]
     [Description("The Visual NumericUpDown")]
     [Designer(typeof(VisualNumericUpDownDesigner))]
-    [ToolboxBitmap(typeof(VisualNumericUpDown), "Resources.ToolboxBitmaps.VisualNumericUpDown.bmp")]
+    [ToolboxBitmap(typeof(VisualNumericUpDown), "VisualNumericUpDown.bmp")]
     [ToolboxItem(true)]
     public class VisualNumericUpDown : VisualStyleBase, IThemeSupport
     {

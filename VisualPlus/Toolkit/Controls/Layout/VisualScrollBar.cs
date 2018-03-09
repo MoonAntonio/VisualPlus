@@ -13,7 +13,7 @@
     #endregion
 
     [ToolboxItem(false)]
-    [ToolboxBitmap(typeof(ScrollBar))]
+    [ToolboxBitmap(typeof(VisualScrollBar), "VisualScrollBar.bmp")]
     [DefaultEvent("Scroll")]
     [DefaultProperty("Value")]
     [Description("The Visual ScrollBar")]

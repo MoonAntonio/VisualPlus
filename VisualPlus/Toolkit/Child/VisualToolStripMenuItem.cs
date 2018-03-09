@@ -36,7 +36,7 @@
                 return base.CreateDefaultDropDown();
             }
 
-            VisualContextMenuStrip defaultDropDown = new VisualContextMenuStrip();
+            VisualContextMenu defaultDropDown = new VisualContextMenu();
             defaultDropDown.Items.AddRange(base.CreateDefaultDropDown().Items);
             return defaultDropDown;
         }

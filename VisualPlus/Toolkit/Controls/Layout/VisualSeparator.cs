@@ -24,7 +24,7 @@
     [DefaultProperty("Orientation")]
     [Description("The Visual Separator")]
     [Designer(typeof(VisualProgressBarDesigner))]
-    [ToolboxBitmap(typeof(VisualSeparator), "Resources.ToolboxBitmaps.VisualSeparator.bmp")]
+    [ToolboxBitmap(typeof(VisualSeparator), "VisualSeparator.bmp")]
     [ToolboxItem(true)]
     public class VisualSeparator : VisualStyleBase
     {

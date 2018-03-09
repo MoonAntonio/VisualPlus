@@ -28,7 +28,7 @@
     [DefaultProperty("Items")]
     [Description("The Visual ListBox")]
     [Designer(typeof(VisualListBoxDesigner))]
-    [ToolboxBitmap(typeof(ListBox), "Resources.ToolboxBitmaps.VisualListBox.bmp")]
+    [ToolboxBitmap(typeof(ListBox), "VisualListBox.bmp")]
     [ToolboxItem(true)]
     public class VisualListBox : ContainedControlBase, IThemeSupport
     {

@@ -1,11 +1,17 @@
 ﻿namespace VisualPlus.Managers
 {
+    #region Namespace
+
     using System;
     using System.Drawing;
     using System.Windows.Forms;
 
+    #endregion
+
     public sealed class RelationManager
     {
+        #region Events
+
         /// <summary>Draws the text image relation.</summary>
         /// <param name="graphics">The graphics.</param>
         /// <param name="relation">The relation type.</param>
@@ -115,5 +121,7 @@
                 return _textLocation;
             }
         }
+
+        #endregion
     }
 }

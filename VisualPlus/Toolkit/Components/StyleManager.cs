@@ -29,7 +29,7 @@
     #endregion
 
     [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Component))]
+    [ToolboxBitmap(typeof(StyleManager), "StyleManager.bmp")]
     [Description("The style manager component enables you to manage the control themes.")]
     public class StyleManager : Component, ICloneable
     {

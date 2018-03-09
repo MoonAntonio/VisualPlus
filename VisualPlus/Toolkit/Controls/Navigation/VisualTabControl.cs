@@ -25,7 +25,7 @@
     #endregion
 
     [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(TabControl))]
+    [ToolboxBitmap(typeof(VisualTabControl), "VisualTabControl.bmp")]
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("TabPages")]
     [Description("The Visual TabControl")]

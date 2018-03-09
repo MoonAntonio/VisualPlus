@@ -19,7 +19,7 @@
     #endregion
 
     [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Control))]
+    [ToolboxBitmap(typeof(VisualKnob), "VisualKnob.bmp")]
     [DefaultEvent("Click")]
     [DefaultProperty("Value")]
     [Description("The Visual Knob")]

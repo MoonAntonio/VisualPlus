@@ -26,7 +26,7 @@
     [DefaultProperty("MaximizeVisible")]
     [Description("The Visual ControlBox")]
     [Designer(typeof(VisualControlBoxDesigner))]
-    [ToolboxBitmap(typeof(VisualControlBox), "Resources.ToolboxBitmaps.VisualControlBox.bmp")]
+    [ToolboxBitmap(typeof(VisualControlBox), "VisualControlBox.bmp")]
     [ToolboxItem(true)]
     [TypeConverter(typeof(VisualControlBoxConverter))]
     public class VisualControlBox : VisualStyleBase, IThemeSupport
@@ -162,7 +162,7 @@
 
         #region Events
 
-        /// <summary>Automatically places the <see cref="VisualControlBox"/> on the <see cref="Form"/> corner location.</summary>
+        /// <summary>Automatically places the <see cref="VisualControlBox" /> on the <see cref="Form" /> corner location.</summary>
         /// <param name="spacing">The spacing.</param>
         public void AutoPlaceOnForm(int spacing)
         {
@@ -403,7 +403,7 @@
                     Location = new Point(0, 0),
                     Size = _buttonSize,
                     Text = @"s",
-                    OffsetLocation = new Point(0, 1),
+                    OffsetLocation = new Point(0, 1)
                 };
 
             _helpButton.Click += OnHelpClick;

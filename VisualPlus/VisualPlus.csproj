@@ -128,9 +128,9 @@
     <Compile Include="Toolkit\Components\StyleManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Components\VisualGradient.cs">
+    <EmbeddedResource Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
-    </Compile>
+    </EmbeddedResource>
     <Compile Include="Toolkit\Controls\DataManagement\VisualCheckedListBox.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressStepper.cs" />
@@ -219,9 +219,9 @@
     <Compile Include="InterfaceTypes.cs" />
     <Compile Include="Managers\ControlManager.cs" />
     <Compile Include="Structure\CheckStyle.cs" />
-    <Compile Include="Toolkit\Components\VisualDrag.cs">
+    <EmbeddedResource Include="Toolkit\Components\VisualDrag.cs">
       <SubType>Component</SubType>
-    </Compile>
+    </EmbeddedResource>
     <Compile Include="Managers\ExceptionManager.cs" />
     <Compile Include="Managers\ColorManager.cs" />
     <Compile Include="Extensibility\Extensions.cs" />
@@ -274,10 +274,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\Icon.ico" />
-    <EmbeddedResource Include="Resources\ToolboxBitmaps\VisualLabel.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualLabel.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\VisualPlus.png" />
@@ -287,6 +286,63 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Themes\Enigma.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualButton.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualCheckBox.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualComboBox.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualControlBox.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualNumericUpDown.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualRadioButton.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualTrackBar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualRating.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualToggle.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\DataManagement\VisualCheckedListBox.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\DataManagement\VisualListBox.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\DataManagement\VisualListView.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\DataVisualization\VisualGauge.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\DataVisualization\VisualProgressBar.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\DataVisualization\VisualRadialProgress.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\Editors\VisualColorPicker.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Editors\VisualRichTextBox.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Editors\VisualTextBox.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\Navigation\VisualTabControl.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Controls\DataVisualization\VisualProgressIndicator.bmp" />
+    <EmbeddedResource Include="Toolkit\Components\VisualContextMenu.bmp" />
+    <EmbeddedResource Include="Toolkit\Components\VisualToolTip.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Layout\VisualGroupBox.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Layout\VisualPanel.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Layout\VisualScrollBar.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Layout\VisualSeparator.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Components\StyleManager.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Components\VisualBadge.bmp" />
+    <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualKnob.bmp" />
+    <EmbeddedResource Include="Toolkit\Components\VisualDrag.bmp" />
+    <Content Include="Toolkit\Components\VisualGradient.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

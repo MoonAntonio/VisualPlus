@@ -13,7 +13,7 @@
     #endregion
 
     [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Component))]
+    [ToolboxBitmap(typeof(VisualGradient), "VisualGradient.bmp")]
     [Description("The VisualPlus gradient component can be used to apply gradient backgrounds on controls.")]
     public class VisualGradient : Component
     {

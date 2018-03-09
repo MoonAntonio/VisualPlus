@@ -27,7 +27,7 @@
     [DefaultEvent("ColorChanged")]
     [DefaultProperty("Color")]
     [Description("The Visual Color Picker")]
-    [ToolboxBitmap(typeof(VisualColorPicker), "Resources.ToolboxBitmaps.VisualColorPicker.bmp")]
+    [ToolboxBitmap(typeof(VisualColorPicker), "VisualColorPicker.bmp")]
     [ToolboxItem(true)]
     public class VisualColorPicker : VisualStyleBase
     {
@@ -59,9 +59,9 @@
         private int _selectionSize;
         private int _smallChange;
         private LinearGradientBrush _spectrumGradient;
-        private StyleManager styleManager;
         private LinearGradientBrush _whiteTopGradient;
         private HSLManager management;
+        private StyleManager styleManager;
 
         #endregion
 

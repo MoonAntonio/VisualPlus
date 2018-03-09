@@ -22,7 +22,7 @@
     [DefaultProperty("Text")]
     [Description("The Visual Tool Tip")]
     [Designer(typeof(VisualToolTipDesigner))]
-    [ToolboxBitmap(typeof(VisualToolTip), "Resources.ToolboxBitmaps.VisualButton.bmp")]
+    [ToolboxBitmap(typeof(VisualToolTip), "VisualToolTip.bmp")]
     [ToolboxItem(true)]
     public class VisualToolTip : ToolTip
     {
@@ -44,7 +44,6 @@
         private Rectangle _separator;
         private int _separatorThickness;
         private int _spacing;
-        private StyleManager styleManager;
         private string _text;
         private Point _textPoint;
         private TextRenderingHint _textRendererHint;
@@ -57,6 +56,7 @@
         private ToolTipType _toolTipType;
         private int _xWidth;
         private int _yHeight;
+        private StyleManager styleManager;
 
         #endregion
 

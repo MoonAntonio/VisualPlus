@@ -19,7 +19,7 @@
     #endregion
 
     [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(GroupBox))]
+    [ToolboxBitmap(typeof(VisualGroupBox), "VisualGroupBox.bmp")]
     [DefaultEvent("Enter")]
     [DefaultProperty("Text")]
     [Description("The Visual GroupBox")]

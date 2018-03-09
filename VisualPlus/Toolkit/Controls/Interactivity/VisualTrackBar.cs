@@ -29,7 +29,7 @@
     [DefaultProperty("Value")]
     [Description("The Visual TrackBar")]
     [Designer(typeof(VisualTrackBarDesigner))]
-    [ToolboxBitmap(typeof(VisualTrackBar), "Resources.ToolboxBitmaps.VisualTrackBar.bmp")]
+    [ToolboxBitmap(typeof(VisualTrackBar), "VisualTrackBar.bmp")]
     [ToolboxItem(true)]
     public class VisualTrackBar : TrackBar, IThemeSupport
     {
@@ -61,7 +61,6 @@
         private bool _progressFilling;
         private bool _progressValueVisible;
         private bool _progressVisible;
-        private StyleManager styleManager;
         private string _suffix;
         private Size _textAreaSize;
         private Color _textDisabledColor;
@@ -84,6 +83,7 @@
         private bool _trackerVisible;
         private bool _valueTicksVisible;
         private Rectangle _workingRectangle;
+        private StyleManager styleManager;
 
         #endregion
 

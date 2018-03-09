@@ -29,7 +29,7 @@
     [DefaultBindingProperty("Items")]
     [Description("The Visual CheckedListBox")]
     [Designer(typeof(VisualCheckedListBoxDesigner))]
-    [ToolboxBitmap(typeof(CheckedListBox), "Resources.ToolboxBitmaps.CheckedListBox.bmp")]
+    [ToolboxBitmap(typeof(CheckedListBox), "VisualCheckedListBox.bmp")]
     [ToolboxItem(true)]
     public class VisualCheckedListBox : ContainedControlBase
     {

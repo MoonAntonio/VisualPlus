@@ -28,7 +28,7 @@
     [DefaultProperty("Text")]
     [Description("The Visual RichTextBox")]
     [Designer(typeof(VisualRichTextBoxDesigner))]
-    [ToolboxBitmap(typeof(RichTextBox), "Resources.ToolboxBitmaps.VisualRichTextBox.bmp")]
+    [ToolboxBitmap(typeof(RichTextBox), "VisualRichTextBox.bmp")]
     [ToolboxItem(true)]
     public class VisualRichTextBox : ContainedControlBase, IInputMethods, IThemeSupport
     {

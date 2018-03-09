@@ -21,14 +21,15 @@
     [DefaultEvent("Opening")]
     [DefaultProperty("Items")]
     [Description("The Visual Context Menu Strip")]
-    [ToolboxBitmap(typeof(VisualContextMenuStrip), "Resources.ToolboxBitmaps.VisualContextMenuStrip.bmp")]
+    [ToolboxBitmap(typeof(VisualContextMenu), "VisualContextMenu.bmp")]
     [ToolboxItem(true)]
-    public class VisualContextMenuStrip : ContextMenuStrip
+    public class VisualContextMenu : ContextMenuStrip
     {
         #region Variables
 
-        private StyleManager styleManager;
         private ToolStripItemClickedEventArgs _toolStripItemClickedEventArgs;
+
+        private StyleManager styleManager;
 
         #endregion
 
@@ -39,7 +40,7 @@
         ///     Initializes a new instance of the
         ///     <see cref="T:VisualPlus.Toolkit.Components.VisualContextMenuStrip" /> class.
         /// </summary>
-        public VisualContextMenuStrip()
+        public VisualContextMenu()
         {
             styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 

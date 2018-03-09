@@ -22,7 +22,7 @@
     [DefaultProperty("Checked")]
     [Description("The Visual RadioButton")]
     [Designer(typeof(VisualRadioButtonDesigner))]
-    [ToolboxBitmap(typeof(VisualRadioButton), "Resources.ToolboxBitmaps.VisualRadioButton.bmp")]
+    [ToolboxBitmap(typeof(VisualRadioButton), "VisualRadioButton.bmp")]
     [ToolboxItem(true)]
     public class VisualRadioButton : RadioButtonBase, IThemeSupport
     {

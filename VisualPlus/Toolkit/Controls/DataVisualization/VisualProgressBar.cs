@@ -25,7 +25,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
     [DefaultProperty("Value")]
     [Description("The Visual ProgressBar")]
     [Designer(typeof(VisualProgressBarDesigner))]
-    [ToolboxBitmap(typeof(VisualProgressBar), "Resources.ToolboxBitmaps.VisualProgressBar.bmp")]
+    [ToolboxBitmap(typeof(VisualProgressBar), "VisualProgressBar.bmp")]
     [ToolboxItem(true)]
     public class VisualProgressBar : ProgressBase
     {

@@ -29,7 +29,7 @@
     [DefaultProperty("Items")]
     [Description("The Visual ListView")]
     [Designer(typeof(VisualListViewDesigner))]
-    [ToolboxBitmap(typeof(ListView), "Resources.ToolboxBitmaps.VisualListView.bmp")]
+    [ToolboxBitmap(typeof(ListView), "VisualListView.bmp")]
     [ToolboxItem(true)]
     public class VisualListView : ContainedControlBase, ICloneable, IThemeSupport
     {

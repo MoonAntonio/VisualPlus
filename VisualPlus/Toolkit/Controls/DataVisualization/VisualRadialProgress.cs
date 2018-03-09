@@ -25,7 +25,7 @@
     [DefaultProperty("Value")]
     [Description("The Visual Radial Progress")]
     [Designer(typeof(VisualRadialProgressDesigner))]
-    [ToolboxBitmap(typeof(VisualRadialProgress), "Resources.ToolboxBitmaps.VisualRadialProgress.bmp")]
+    [ToolboxBitmap(typeof(VisualRadialProgress), "VisualRadialProgress.bmp")]
     [ToolboxItem(true)]
     public class VisualRadialProgress : ProgressBase, IThemeSupport
     {

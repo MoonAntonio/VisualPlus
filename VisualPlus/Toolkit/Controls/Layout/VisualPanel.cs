@@ -18,7 +18,7 @@
     #endregion
 
     [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Panel))]
+    [ToolboxBitmap(typeof(VisualPanel), "VisualPanel.bmp")]
     [DefaultEvent("Paint")]
     [DefaultProperty("Enabled")]
     [Description("The Visual Panel")]

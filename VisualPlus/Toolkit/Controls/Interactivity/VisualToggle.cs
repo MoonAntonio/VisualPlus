@@ -27,7 +27,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     [DefaultProperty("Toggled")]
     [Description("The Visual Toggle")]
     [Designer(typeof(VisualToggleDesigner))]
-    [ToolboxBitmap(typeof(VisualToggle), "Resources.ToolboxBitmaps.VisualToggle.bmp")]
+    [ToolboxBitmap(typeof(VisualToggle), "VisualToggle.bmp")]
     [ToolboxItem(true)]
     public class VisualToggle : ToggleBase, IThemeSupport
     {

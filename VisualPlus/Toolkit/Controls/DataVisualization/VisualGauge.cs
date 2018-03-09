@@ -18,7 +18,7 @@
     #endregion
 
     [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ProgressBar))]
+    [ToolboxBitmap(typeof(VisualGauge), "VisualGauge.bmp")]
     [DefaultEvent("Click")]
     [DefaultProperty("Value")]
     [Description("The Visual Gauge")]

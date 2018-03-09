@@ -27,7 +27,7 @@
     [DefaultProperty("Text")]
     [Description("The Visual Label")]
     [Designer(typeof(VisualLabelDesigner))]
-    [ToolboxBitmap(typeof(VisualLabel), "Resources.ToolboxBitmaps.VisualLabel.bmp")]
+    [ToolboxBitmap(typeof(VisualLabel), "VisualLabel.bmp")]
     [ToolboxItem(true)]
     public class VisualLabel : VisualStyleBase, IThemeSupport
     {
