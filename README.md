@@ -49,4 +49,4 @@ Enjoy using `VisualPlus` or just want to say thanks?
 Hit the ⭐️ Star ⭐️ button.
 
 ## Screenshots
-![ToolBox](https://i.imgur.com/vhY2yfU.jpg)
+![ToolBox](https://github.com/DarkByte7/VisualPlus/raw/f5ad1424fad56b806026ac44cbd006014ec4be28/docs/assets/images/documentation/Toolbox.jpg)
