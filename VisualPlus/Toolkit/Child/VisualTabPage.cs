@@ -17,7 +17,7 @@
     #endregion
 
     [Designer(typeof(VisualTabPageDesigner))]
-    [ToolboxItem(true)]
+    [ToolboxItem(false)]
     public class VisualTabPage : TabPage
     {
         #region Variables
@@ -30,13 +30,13 @@
         private Color _tabNormal;
         private Color _tabSelected;
         private StringAlignment _textAlignment;
+
+        private TextImageRelations _textImageRelation;
         private StringAlignment _textLineAlignment;
         private Color _textSelected;
 
         /// <summary>Required designer variable.</summary>
         private Container components;
-
-        private TextImageRelations _textImageRelation;
 
         #endregion
 
@@ -175,22 +175,6 @@
             }
         }
 
-        [Category(PropertyCategory.Behavior)]
-        [Description(PropertyDescription.TextImageRelation)]
-        public TextImageRelations TextImageRelation
-        {
-            get
-            {
-                return _textImageRelation;
-            }
-
-            set
-            {
-                _textImageRelation = value;
-                Invalidate();
-            }
-        }
-
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color TabHover
@@ -251,6 +235,22 @@
             set
             {
                 _textAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.TextImageRelation)]
+        public TextImageRelations TextImageRelation
+        {
+            get
+            {
+                return _textImageRelation;
+            }
+
+            set
+            {
+                _textImageRelation = value;
                 Invalidate();
             }
         }
