@@ -128,9 +128,9 @@
     <Compile Include="Toolkit\Components\StyleManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="Toolkit\Components\VisualGradient.cs">
+    <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
-    </EmbeddedResource>
+    </Compile>
     <Compile Include="Toolkit\Controls\DataManagement\VisualCheckedListBox.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressStepper.cs" />
@@ -342,7 +342,9 @@
     <EmbeddedResource Include="Toolkit\Components\VisualBadge.bmp" />
     <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualKnob.bmp" />
     <EmbeddedResource Include="Toolkit\Components\VisualDrag.bmp" />
-    <Content Include="Toolkit\Components\VisualGradient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Toolkit\Components\VisualGradient.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
