@@ -9,7 +9,6 @@
     using System.ComponentModel.Design;
     using System.Drawing;
     using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
@@ -62,10 +61,10 @@
         private MouseStates _mouseState;
         private Size _previousSize;
         private ResizeDirection _resizeDir;
-        private Rectangle _statusBarBounds;
         private StyleManager _styleManager;
+        private Rectangle _textRectangle;
         private Alignment.TextAlignment _titleAlignment;
-        private Rectangle _titleRectangle;
+        private Rectangle _titleBarRectangle;
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
@@ -114,8 +113,8 @@
             TransparencyKey = Color.Fuchsia;
             _windowBarHeight = 30;
             _previousSize = Size.Empty;
-            _titleRectangle = new Rectangle(0, 7, 0, 0);
-            _statusBarBounds = Rectangle.Empty;
+            _textRectangle = new Rectangle(0, 7, 0, 0);
+            _titleBarRectangle = new Rectangle(0, 0, Width, _windowBarHeight);
 
             _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16))
                     {
@@ -397,6 +396,22 @@
             }
         }
 
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Rectangle)]
+        public Rectangle TextRectangle
+        {
+            get
+            {
+                return _textRectangle;
+            }
+
+            set
+            {
+                _textRectangle = value;
+                Invalidate();
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Alignment)]
         public Alignment.TextAlignment TitleAlignment
@@ -409,22 +424,6 @@
             set
             {
                 _titleAlignment = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Layout)]
-        [Description(PropertyDescription.Rectangle)]
-        public Rectangle TitleRectangle
-        {
-            get
-            {
-                return _titleRectangle;
-            }
-
-            set
-            {
-                _titleRectangle = value;
                 Invalidate();
             }
         }
@@ -617,41 +616,24 @@
             {
                 Graphics graphics = e.Graphics;
                 graphics.Clear(BackColor);
-                graphics.SmoothingMode = SmoothingMode.Default;
-                graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-                Rectangle _clientRectangle;
+                GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(GetBorderBounds(), _border);
 
-                switch (_border.Type)
+                if (_border.Type != ShapeType.Rectangle)
                 {
-                    case ShapeType.Rectangle:
-                        {
-                            _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
-                            break;
-                        }
-
-                    case ShapeType.Rounded:
-                        {
-                            _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-                            break;
-                        }
-
-                    default:
-                        {
-                            throw new ArgumentOutOfRangeException();
-                        }
+                    graphics.SetClip(_clientPath);
                 }
 
-                GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-                graphics.FillPath(new SolidBrush(_background), _clientPath);
+                graphics.FillRectangle(new SolidBrush(_background), new Rectangle(0, 0, Width, Height));
 
                 if (BackgroundImage != null)
                 {
-                    Rectangle _windowWithoutTitleBar = new Rectangle(1, _titleRectangle.Bottom, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+                    Rectangle _windowWithoutTitleBar = new Rectangle(1, _textRectangle.Bottom, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
                     graphics.DrawImage(BackgroundImage, _windowWithoutTitleBar);
                 }
 
                 DrawWindowTitleBar(graphics);
+                graphics.ResetClip();
                 VisualBorderRenderer.DrawBorderStyle(graphics, _border, _clientPath, State);
             }
             catch (Exception exception)
@@ -707,7 +689,7 @@
                 return;
             }
 
-            if ((m.Msg == Constants.WM_MOUSEMOVE) && _maximized && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
+            if ((m.Msg == Constants.WM_MOUSEMOVE) && _maximized && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
                 if (_headerMouseDown)
                 {
@@ -729,7 +711,7 @@
                     User32.SendMessage(Handle, Constants.WM_NCLBUTTONDOWN, Constants.HT_CAPTION, 0);
                 }
             }
-            else if ((m.Msg == Constants.WM_LBUTTONDOWN) && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
+            else if ((m.Msg == Constants.WM_LBUTTONDOWN) && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
                 if (!_maximized)
                 {
@@ -745,7 +727,7 @@
             {
                 Point cursorPos = PointToClient(Cursor.Position);
 
-                if (_statusBarBounds.Contains(cursorPos))
+                if (_titleBarRectangle.Contains(cursorPos))
                 {
                     // Show default system menu when right clicking title bar
                     int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), Constants.TPM_LEFTALIGN | Constants.TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
@@ -811,19 +793,19 @@
                 {
                     case Alignment.TextAlignment.Center:
                         {
-                            _titleLocation = new Point((Width / 2) - (_textSize.Width / 2), _titleRectangle.Y);
+                            _titleLocation = new Point((Width / 2) - (_textSize.Width / 2), _textRectangle.Y);
                             break;
                         }
 
                     case Alignment.TextAlignment.Left:
                         {
-                            _titleLocation = new Point(_vsImage.Point.X + _vsImage.Size.Width + 1, _titleRectangle.Y);
+                            _titleLocation = new Point(_vsImage.Point.X + _vsImage.Size.Width + 1, _textRectangle.Y);
                             break;
                         }
 
                     case Alignment.TextAlignment.Right:
                         {
-                            _titleLocation = new Point(Width - _border.Thickness - _textSize.Width - _visualControlBox.Width - 1, _titleRectangle.Y);
+                            _titleLocation = new Point(Width - _border.Thickness - _textSize.Width - _visualControlBox.Width - 1, _textRectangle.Y);
                             break;
                         }
 
@@ -833,8 +815,8 @@
                         }
                 }
 
-                _titleRectangle = new Rectangle(_titleLocation.X, _titleLocation.Y, _textSize.Width, _textSize.Height);
-                graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _titleRectangle);
+                _textRectangle = new Rectangle(_titleLocation.X, _titleLocation.Y, _textSize.Width, _textSize.Height);
+                graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _textRectangle);
             }
             catch (Exception e)
             {
@@ -846,11 +828,39 @@
         /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawWindowTitleBar(Graphics graphics)
         {
-            _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
-            graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
+            _titleBarRectangle = new Rectangle(0, 0, Width, _windowBarHeight);
+            graphics.FillRectangle(new SolidBrush(_windowBarColor), _titleBarRectangle);
 
             DrawImageIcon(graphics);
             DrawTitle(graphics);
+        }
+
+        /// <summary>Retrieves the border bounds.</summary>
+        /// <returns>The <see cref="Rectangle" />.</returns>
+        private Rectangle GetBorderBounds()
+        {
+            Rectangle _borderBounds;
+            switch (_border.Type)
+            {
+                case ShapeType.Rectangle:
+                    {
+                        _borderBounds = new Rectangle(1, 1, Width, Height);
+                        break;
+                    }
+
+                case ShapeType.Rounded:
+                    {
+                        _borderBounds = new Rectangle(0, 0, Width - 1, Height - 1);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+            }
+
+            return _borderBounds;
         }
 
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)
