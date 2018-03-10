@@ -647,6 +647,12 @@
                 graphics.SetClip(_clientPath);
                 graphics.FillPath(new SolidBrush(_background), _clientPath);
 
+                if (BackgroundImage != null)
+                {
+                    Rectangle _windowWithoutTitleBar = new Rectangle(1, _titleRectangle.Bottom, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+                    graphics.DrawImage(BackgroundImage, _windowWithoutTitleBar);
+                }
+                
                 _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
                 graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
 
