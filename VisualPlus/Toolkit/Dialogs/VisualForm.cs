@@ -643,8 +643,6 @@
                 }
 
                 GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-
-                graphics.SetClip(_clientPath);
                 graphics.FillPath(new SolidBrush(_background), _clientPath);
 
                 if (BackgroundImage != null)
@@ -652,18 +650,8 @@
                     Rectangle _windowWithoutTitleBar = new Rectangle(1, _titleRectangle.Bottom, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
                     graphics.DrawImage(BackgroundImage, _windowWithoutTitleBar);
                 }
-                
-                _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
-                graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
 
-                DrawImageIcon(graphics);
-
-                graphics.SetClip(_clientPath);
-
-                DrawTitle(graphics);
-
-                graphics.ResetClip();
-
+                DrawWindowTitleBar(graphics);
                 VisualBorderRenderer.DrawBorderStyle(graphics, _border, _clientPath, State);
             }
             catch (Exception exception)
@@ -803,7 +791,7 @@
             return (position - edge > 0) && (position - edge <= _magneticRadius);
         }
 
-        /// <summary>Draws the icon image.</summary>
+        /// <summary>Draws the title icon image.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawImageIcon(Graphics graphics)
         {
@@ -852,6 +840,17 @@
             {
                 VisualExceptionDialog.Show(e);
             }
+        }
+
+        /// <summary>Draws the window title bar.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        private void DrawWindowTitleBar(Graphics graphics)
+        {
+            _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
+            graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
+
+            DrawImageIcon(graphics);
+            DrawTitle(graphics);
         }
 
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)
