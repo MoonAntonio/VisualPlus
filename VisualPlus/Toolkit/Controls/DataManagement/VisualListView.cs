@@ -43,6 +43,7 @@
         private Color _itemEnabled;
         private Color _itemHover;
         private int _itemPadding;
+        private bool _itemsBackColorOverride;
         private Color _itemSelected;
         private ListView _listView;
         private bool _standardHeader;
@@ -65,6 +66,7 @@
             ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
             _itemPadding = 12;
+            _itemsBackColorOverride = false;
 
             _colorState = new ColorState
                     {
@@ -459,6 +461,21 @@
         }
 
         [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Toggle)]
+        public bool ItemsBackColorOverride
+        {
+            get
+            {
+                return _itemsBackColorOverride;
+            }
+
+            set
+            {
+                _itemsBackColorOverride = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color ItemSelectedColor
         {
@@ -828,7 +845,18 @@
             }
             else
             {
-                _graphics.FillRectangle(new SolidBrush(_itemEnabled), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+                Color _backColor;
+
+                if (_itemsBackColorOverride)
+                {
+                    _backColor = e.Item.BackColor;
+                }
+                else
+                {
+                    _backColor = _itemEnabled;
+                }
+
+                _graphics.FillRectangle(new SolidBrush(_backColor), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
             }
 
             // Draw separator
