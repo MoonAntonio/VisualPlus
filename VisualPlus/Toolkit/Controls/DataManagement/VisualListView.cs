@@ -40,10 +40,8 @@
         private Color _columnHeaderColor;
         private Font _headerFont;
         private Color _headerText;
-        private Color _itemEnabled;
         private Color _itemHover;
         private int _itemPadding;
-        private bool _itemsBackColorOverride;
         private Color _itemSelected;
         private ListView _listView;
         private bool _standardHeader;
@@ -66,7 +64,6 @@
             ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
             _itemPadding = 12;
-            _itemsBackColorOverride = false;
 
             _colorState = new ColorState
                     {
@@ -398,22 +395,6 @@
             }
         }
 
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        public Color ItemBackground
-        {
-            get
-            {
-                return _itemEnabled;
-            }
-
-            set
-            {
-                _itemEnabled = value;
-                Invalidate();
-            }
-        }
-
         [Browsable(false)]
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
@@ -457,21 +438,6 @@
             get
             {
                 return _listView.Items;
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Toggle)]
-        public bool ItemsBackColorOverride
-        {
-            get
-            {
-                return _itemsBackColorOverride;
-            }
-
-            set
-            {
-                _itemsBackColorOverride = value;
             }
         }
 
@@ -719,7 +685,11 @@
                 Font = theme.TextSetting.Font;
                 _headerFont = ThemeManager.Theme.TextSetting.Font;
 
-                _itemEnabled = theme.ListItemSettings.Item;
+                foreach (ListViewItem _item in Items)
+                {
+                    _item.BackColor = theme.ListItemSettings.Item;
+                }
+
                 _itemSelected = theme.ListItemSettings.ItemSelected;
                 _itemHover = theme.ListItemSettings.ItemHover;
 
@@ -845,18 +815,7 @@
             }
             else
             {
-                Color _backColor;
-
-                if (_itemsBackColorOverride)
-                {
-                    _backColor = e.Item.BackColor;
-                }
-                else
-                {
-                    _backColor = _itemEnabled;
-                }
-
-                _graphics.FillRectangle(new SolidBrush(_backColor), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+                _graphics.FillRectangle(new SolidBrush(e.Item.BackColor), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
             }
 
             // Draw separator
