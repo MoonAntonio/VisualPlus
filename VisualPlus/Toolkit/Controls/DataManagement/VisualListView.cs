@@ -664,6 +664,35 @@
 
         #region Events
 
+        /// <summary>Determines whether the item is in the collection.</summary>
+        /// <param name="listViewItem">The list view item.</param>
+        /// <param name="listView">The list view.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool IsItemInCollection(ListViewItem listViewItem, VisualListView listView)
+        {
+            foreach (ListViewItem _item in listView.Items)
+            {
+                var _subItemFlag = true;
+                for (var i = 0; i < _item.SubItems.Count; i++)
+                {
+                    string _subItem1 = _item.SubItems[i].Text;
+                    string _subItem2 = listViewItem.SubItems[i].Text;
+
+                    if (_subItem1 != _subItem2)
+                    {
+                        _subItemFlag = false;
+                    }
+                }
+
+                if (_subItemFlag)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         /// <summary>Creates a copy of the current object.</summary>
         /// <returns>The <see cref="object" />.</returns>
         public object Clone()
