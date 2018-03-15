@@ -26,6 +26,7 @@
         public const int WM_NCHITTEST = 0x84;
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int WM_RBUTTONDOWN = 0x0204;
+        public const int WM_SETREDRAW = 11;
         public const int WM_SYSCOMMAND = 0x0112;
         public const int WMSZ_BOTTOM = 6;
         public const int WMSZ_BOTTOMLEFT = 7;

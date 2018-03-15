@@ -29,7 +29,10 @@
         public const string HatchStyle = "Specifies the different patterns available for HatchBrush objects.";
         public const string Image = "Gets or sets the image to be displayed on the control.";
         public const string IsDragging = "The current drag state of the control.";
+        public const string LargeChange = "Gets or sets the large change value.";
+        public const string Maximum = "Gets or sets the maximum value.";
         public const string MaxLength = "Specifies the maximum number of characters that can be entered into the edit control.";
+        public const string Minimum = "Gets or sets the minimum value.";
         public const string MouseState = "The state of the mouse on the control.";
         public const string MultiLine = "Gets or sets a value indicating whether this is a multiline TextBox control.";
         public const string Opacity = "Gets or sets the opacity level of the object.";
@@ -50,6 +53,7 @@
         public const string ShowIcon = "Indicates whether an icon is displayed in the title bar of the form.";
         public const string ShowSelectionMargin = "Gets or sets a value indicating whether a selection margin is displayed in the text field.";
         public const string Size = "Gets or sets the size in pixels.";
+        public const string SmallChange = "Gets or sets the small change value.";
         public const string Spacing = "The spacing between two components.";
         public const string StartIndex = "Gets or sets the starting index.";
         public const string Text = "Gets or sets the text associated with this control.";
@@ -61,6 +65,7 @@
         public const string Toggle = "Toggles the behaviour.";
         public const string Type = "Gets or sets the controls type.";
         public const string UseSystemPasswordChar = "Indicates if the text in the edit control should appear as the default password character.";
+        public const string Value = "Gets or sets the current value.";
         public const string ValueDivisor = "The value division.";
         public const string VerticalAlignment = "Gets or sets vertical alignment of the content.";
         public const string Visible = "Gets or sets whether the control is visible.";

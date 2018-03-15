@@ -55,6 +55,8 @@
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
     <Compile Include="Designer\VisualControlBoxButtonDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxDesigner.cs" />
+    <Compile Include="Designer\VisualScrollBarDesigner.cs" />
+    <Compile Include="EventArgs\VisualPaintEventArgs.cs" />
     <Compile Include="EventArgs\VisualTabControlEventArgs.cs" />
     <Compile Include="Designer\VisualTabPageDesigner.cs" />
     <Compile Include="Enumerators\Brightness.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Renders\VisualBackgroundRenderer.cs" />
     <Compile Include="Renders\VisualBadgeRenderer.cs" />
     <Compile Include="Renders\VisualBorderRenderer.cs" />
+    <Compile Include="Renders\VisualScrollBarRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
     <Compile Include="Structure\ControlBoxButton.cs" />
@@ -345,6 +348,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Toolkit\Components\VisualGradient.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\GripNormal.png" />
+    <EmbeddedResource Include="Resources\Images\ScrollBarArrowDown.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

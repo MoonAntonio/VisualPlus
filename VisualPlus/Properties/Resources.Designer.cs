@@ -63,6 +63,26 @@ namespace VisualPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GripNormal {
+            get {
+                object obj = ResourceManager.GetObject("GripNormal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ScrollBarArrowDown {
+            get {
+                object obj = ResourceManager.GetObject("ScrollBarArrowDown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap VisualPlus {
             get {
                 object obj = ResourceManager.GetObject("VisualPlus", resourceCulture);

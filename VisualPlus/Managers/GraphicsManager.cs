@@ -383,6 +383,37 @@
             return newSize;
         }
 
+        /// <summary>Flip the size by orientation.</summary>
+        /// <param name="orientation">The orientation.</param>
+        /// <param name="size">Current size.</param>
+        /// <returns>The <see cref="Size" />.</returns>
+        public static Size FlipOrientationSize(ScrollOrientation orientation, Size size)
+        {
+            Size _newSize;
+
+            switch (orientation)
+            {
+                case ScrollOrientation.HorizontalScroll:
+                    {
+                        _newSize = FlipOrientationSize(Orientation.Horizontal, size);
+                        break;
+                    }
+
+                case ScrollOrientation.VerticalScroll:
+                    {
+                        _newSize = FlipOrientationSize(Orientation.Vertical, size);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
+                    }
+            }
+
+            return _newSize;
+        }
+
         /// <summary>Checks whether the mouse is inside the bounds.</summary>
         /// <param name="mousePoint">Mouse location.</param>
         /// <param name="bounds">The rectangle.</param>

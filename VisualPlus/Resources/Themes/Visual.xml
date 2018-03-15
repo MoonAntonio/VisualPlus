@@ -144,6 +144,26 @@
                 <ForeCircle>#FFDCDCDC</ForeCircle>
                 <BackCircle>#FFDCDCDC</BackCircle>
             </VisualRadialProgress>
+            <VisualScrollBar>
+                <Bar>
+                    <Disabled>#FFEAEAEA</Disabled>
+                    <Enabled>#FFEAEAEA</Enabled>
+                    <Hover>#FFEAEAEA</Hover>
+                    <Pressed>#FFEAEAEA</Pressed>
+                </Bar>
+                <Button>
+                    <Disabled>#FFDDDDDD</Disabled>
+                    <Enabled>#FFDDDDDD</Enabled>
+                    <Hover>#FF111111</Hover>
+                    <Pressed>#FF111111</Pressed>
+                </Button>
+                <Thumb>
+                    <Disabled>#FFDDDDDD</Disabled>
+                    <Enabled>#FFDDDDDD</Enabled>
+                    <Hover>#FF111111</Hover>
+                    <Pressed>#FF111111</Pressed>
+                </Thumb>
+            </VisualScrollBar>
         </Toolkit>
     </StyleTable>
 </VisualPlus-Theme>

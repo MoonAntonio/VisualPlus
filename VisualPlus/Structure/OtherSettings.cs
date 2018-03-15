@@ -64,6 +64,12 @@ namespace VisualPlus.Structure
 
         public Color ProgressDisabled { get; set; }
 
+        public ControlColorState ScrollBar { get; set; }
+
+        public ControlColorState ScrollButton { get; set; }
+
+        public ControlColorState ScrollThumb { get; set; }
+
         public Color Shadow { get; set; }
 
         public Color TabPageDisabled { get; set; }

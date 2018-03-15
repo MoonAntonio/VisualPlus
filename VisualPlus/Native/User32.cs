@@ -41,6 +41,10 @@ namespace VisualPlus.Native
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 
+        [Description("Sends a message to the window handle.")]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern int SendMessage(IntPtr wnd, int msg, bool param, int lparam);
+
         [Description("Displays a popup menu at a specified point. The function also tracks the menu, updating the selection highlight until the user either selects an item or otherwise closes the menu.")]
         [DllImport("user32.dll")]
         public static extern int TrackPopupMenuEx(IntPtr hmenu, uint fuFlags, int x, int y, IntPtr hwnd, IntPtr lptpm);

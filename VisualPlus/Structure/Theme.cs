@@ -88,7 +88,10 @@
                     MaximizeButtonBack = new ControlColorState(),
                     MaximizeButtonFore = new ControlColorState(),
                     CloseButtonBack = new ControlColorState(),
-                    CloseButtonFore = new ControlColorState()
+                    CloseButtonFore = new ControlColorState(),
+                    ScrollBar = new ControlColorState(),
+                    ScrollButton = new ControlColorState(),
+                    ScrollThumb = new ControlColorState()
                 };
 
             LoadThemeFromResources(Themes.Visual);
@@ -386,6 +389,21 @@
                 _otherSettings.CloseButtonFore.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Enabled").ToColor();
                 _otherSettings.CloseButtonFore.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Hover").ToColor();
                 _otherSettings.CloseButtonFore.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Pressed").ToColor();
+
+                _otherSettings.ScrollBar.Disabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Bar/Disabled").ToColor();
+                _otherSettings.ScrollBar.Enabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Bar/Enabled").ToColor();
+                _otherSettings.ScrollBar.Hover = themeContainer.GetValue(Toolkit + "VisualScrollBar/Bar/Hover").ToColor();
+                _otherSettings.ScrollBar.Pressed = themeContainer.GetValue(Toolkit + "VisualScrollBar/Bar/Pressed").ToColor();
+
+                _otherSettings.ScrollThumb.Disabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Thumb/Disabled").ToColor();
+                _otherSettings.ScrollThumb.Enabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Thumb/Enabled").ToColor();
+                _otherSettings.ScrollThumb.Hover = themeContainer.GetValue(Toolkit + "VisualScrollBar/Thumb/Hover").ToColor();
+                _otherSettings.ScrollThumb.Pressed = themeContainer.GetValue(Toolkit + "VisualScrollBar/Thumb/Pressed").ToColor();
+
+                _otherSettings.ScrollButton.Disabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Button/Disabled").ToColor();
+                _otherSettings.ScrollButton.Enabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Button/Enabled").ToColor();
+                _otherSettings.ScrollButton.Hover = themeContainer.GetValue(Toolkit + "VisualScrollBar/Button/Hover").ToColor();
+                _otherSettings.ScrollButton.Pressed = themeContainer.GetValue(Toolkit + "VisualScrollBar/Button/Pressed").ToColor();
             }
             catch (Exception e)
             {
