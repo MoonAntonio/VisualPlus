@@ -11,8 +11,6 @@
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -56,12 +54,12 @@
             ConstructBorder(styleManager.Theme.BorderSettings.Hover, true);
         }
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event BorderHoverColorChangedEventHandler HoverColorChanged;
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event BorderHoverVisibleChangedEventHandler HoverVisibleChanged;
 
         #endregion

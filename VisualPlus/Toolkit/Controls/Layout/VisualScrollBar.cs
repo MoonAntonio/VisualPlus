@@ -117,7 +117,7 @@
             ConfigureScrollBar();
         }
 
-        [Category(Localization.Category.Events.Behavior)]
+        [Category(EventCategory.Behavior)]
         [Description(PropertyDescription.ScrollBars)]
         public event ScrollEventHandler Scroll;
 

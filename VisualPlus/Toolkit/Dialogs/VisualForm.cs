@@ -134,11 +134,11 @@
             MouseMessageFilter.MouseMove += OnGlobalMouseMove;
         }
 
-        [Category(Localization.Category.Events.Appearance)]
+        [Category(Localization.EventCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
 
-        [Category(Localization.Category.Events.PropertyChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
 

@@ -27,7 +27,7 @@
 
         #region Constructors
 
-        [Category(Localization.Category.Events.PropertyChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
         [Description(PropertyDescription.Checked)]
         public event EventHandler CheckStateChanged;
 

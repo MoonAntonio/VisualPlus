@@ -107,7 +107,7 @@
             UpdateTheme(_styleManager.Theme);
         }
 
-        [Category(Localization.Category.Events.PropertyChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
 

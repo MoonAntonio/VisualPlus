@@ -13,8 +13,6 @@
     using VisualPlus.Delegates;
     using VisualPlus.Extensibility;
     using VisualPlus.Localization;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
 
     #endregion
@@ -69,20 +67,20 @@
             EndPoint = 1.0F;
         }
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event GradientAngleChangedEventHandler AngleChanged;
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event GradientColorChangedEventHandler ColorsChanged;
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event GradientPositionsChangedEventHandler PositionsChanged;
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event GradientRectangleChangedEventHandler RectangleChanged;
 
         #endregion

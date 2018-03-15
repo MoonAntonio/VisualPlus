@@ -12,8 +12,6 @@
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Toolkit.Components;
 
@@ -78,24 +76,24 @@
             ConstructShape(shapeType, color, rounding, thickness, visible);
         }
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event BorderColorChangedEventHandler ColorChanged;
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event BorderRoundingChangedEventHandler RoundingChanged;
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event BorderThicknessChangedEventHandler ThicknessChanged;
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event BorderTypeChangedEventHandler TypeChanged;
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event BorderVisibleChangedEventHandler VisibleChanged;
 
         #endregion

@@ -73,8 +73,8 @@
     <Compile Include="Extensibility\ImageExtensions.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
     <Compile Include="Extensibility\XmlExtension.cs" />
-    <Compile Include="Localization\Category\Events.cs" />
-    <Compile Include="Localization\Descriptions\Event.cs" />
+    <Compile Include="Localization\EventCategory.cs" />
+    <Compile Include="Localization\EventDescription.cs" />
     <Compile Include="Localization\GlobalStrings.cs" />
     <Compile Include="Localization\PropertyCategory.cs" />
     <Compile Include="Localization\PropertyDescription.cs" />
@@ -353,6 +353,7 @@
     <EmbeddedResource Include="Resources\Images\GripNormal.png" />
     <EmbeddedResource Include="Resources\Images\ScrollBarArrowDown.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

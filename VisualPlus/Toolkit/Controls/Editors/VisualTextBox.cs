@@ -14,7 +14,6 @@
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
-    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -141,8 +140,8 @@
         public event ButtonClickedEventHandler ButtonClicked;
 
         [Browsable(true)]
-        [Description(Event.TextChanged)]
-        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description(EventDescription.TextChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
         public new event EventHandler TextChanged
         {
             add

@@ -13,8 +13,6 @@ namespace VisualPlus.Structure
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
 
     #endregion
 
@@ -51,8 +49,8 @@ namespace VisualPlus.Structure
         {
         }
 
-        [Category(Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event BackColorStateChangedEventHandler HoverColorChanged;
 
         #endregion

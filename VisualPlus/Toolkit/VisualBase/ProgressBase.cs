@@ -40,7 +40,7 @@
             _largeChange = 5;
         }
 
-        [Category(Localization.Category.Events.Action)]
+        [Category(Localization.EventCategory.Action)]
         [Description("Occurs when the value of the Value property changes.")]
         public event EventHandler ValueChanged;
 

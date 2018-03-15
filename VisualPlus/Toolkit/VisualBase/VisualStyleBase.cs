@@ -49,11 +49,11 @@
             Initialize();
         }
 
-        [Category(Localization.Category.Events.Mouse)]
+        [Category(Localization.EventCategory.Mouse)]
         [Description("Occours when the MouseState of the control has changed.")]
         public event MouseStateChangedEventHandler MouseStateChanged;
 
-        [Category(Localization.Category.Events.PropertyChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
 

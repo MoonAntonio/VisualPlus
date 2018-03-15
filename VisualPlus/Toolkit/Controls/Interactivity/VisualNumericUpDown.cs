@@ -14,7 +14,6 @@
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
-    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -87,8 +86,8 @@
             UpdateTheme(ThemeManager.Theme);
         }
 
-        [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event ValueChangedEventHandler ValueChanged;
 
         #endregion

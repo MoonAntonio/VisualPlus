@@ -12,7 +12,7 @@
     using VisualPlus.Delegates;
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
@@ -63,24 +63,24 @@
             UpdateTheme(ThemeManager.Theme);
         }
 
-        [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler CloseClick;
 
-        [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler HelpClick;
 
-        [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler MaximizeClick;
 
-        [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler MinimizeClick;
 
-        [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Event.PropertyEventChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler RestoredFormWindow;
 
         #endregion

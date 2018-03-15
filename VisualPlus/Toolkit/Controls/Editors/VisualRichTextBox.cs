@@ -13,7 +13,6 @@
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
-    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -81,8 +80,8 @@
         }
 
         [Browsable(true)]
-        [Description(Event.TextChanged)]
-        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description(EventDescription.TextChanged)]
+        [Category(Localization.EventCategory.PropertyChanged)]
         public new event EventHandler TextChanged
         {
             add

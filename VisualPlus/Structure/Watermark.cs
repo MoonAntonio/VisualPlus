@@ -9,7 +9,6 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.Localization;
-    using VisualPlus.Localization.Category;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -51,23 +50,23 @@
             Brush = new SolidBrush(inactiveColor);
         }
 
-        [Category(Events.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the active color property has changed.")]
         public event WatermarkActiveColorChangedEventHandler ActiveColorChanged;
 
-        [Category(Events.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the font property has changed.")]
         public event WatermarkFontChangedEventHandler FontChanged;
 
-        [Category(Events.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the inactive property has changed.")]
         public event WatermarkInactiveColorChangedEventHandler InactiveColorChanged;
 
-        [Category(Events.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the text property has changed.")]
         public event WatermarkTextChangedEventHandler TextChanged;
 
-        [Category(Events.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the visible property has changed.")]
         public event WatermarkVisibleChangedEventHandler VisibleChanged;
 
