@@ -30,10 +30,7 @@
                     // if vertical orientation
                     if (orientation == ScrollOrientation.VerticalScroll)
                     {
-                        return SelectionRules.Visible
-                               | SelectionRules.Moveable
-                               | SelectionRules.BottomSizeable
-                               | SelectionRules.TopSizeable;
+                        return SelectionRules.Visible | SelectionRules.Moveable | SelectionRules.BottomSizeable | SelectionRules.TopSizeable;
                     }
 
                     return SelectionRules.Visible | SelectionRules.Moveable | SelectionRules.LeftSizeable | SelectionRules.RightSizeable;
@@ -55,7 +52,6 @@
             properties.Remove("ImeMode");
             properties.Remove("Padding");
             properties.Remove("BackgroundImageLayout");
-            properties.Remove("BackColor");
             properties.Remove("Font");
             properties.Remove("RightToLeft");
 

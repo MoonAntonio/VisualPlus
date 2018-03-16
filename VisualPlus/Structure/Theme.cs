@@ -89,7 +89,7 @@
                     MaximizeButtonFore = new ControlColorState(),
                     CloseButtonBack = new ControlColorState(),
                     CloseButtonFore = new ControlColorState(),
-                    ScrollBar = new ControlColorState(),
+                    ScrollBar = new ColorState(),
                     ScrollButton = new ControlColorState(),
                     ScrollThumb = new ControlColorState()
                 };
@@ -392,8 +392,6 @@
 
                 _otherSettings.ScrollBar.Disabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Bar/Disabled").ToColor();
                 _otherSettings.ScrollBar.Enabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Bar/Enabled").ToColor();
-                _otherSettings.ScrollBar.Hover = themeContainer.GetValue(Toolkit + "VisualScrollBar/Bar/Hover").ToColor();
-                _otherSettings.ScrollBar.Pressed = themeContainer.GetValue(Toolkit + "VisualScrollBar/Bar/Pressed").ToColor();
 
                 _otherSettings.ScrollThumb.Disabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Thumb/Disabled").ToColor();
                 _otherSettings.ScrollThumb.Enabled = themeContainer.GetValue(Toolkit + "VisualScrollBar/Thumb/Enabled").ToColor();

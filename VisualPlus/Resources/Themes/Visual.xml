@@ -146,22 +146,20 @@
             </VisualRadialProgress>
             <VisualScrollBar>
                 <Bar>
-                    <Disabled>#FFEAEAEA</Disabled>
-                    <Enabled>#FFEAEAEA</Enabled>
-                    <Hover>#FFEAEAEA</Hover>
-                    <Pressed>#FFEAEAEA</Pressed>
+                    <Disabled>#FFCCCCCC</Disabled>
+                    <Enabled>#FFDCDCDC</Enabled>
                 </Bar>
                 <Button>
-                    <Disabled>#FFDDDDDD</Disabled>
-                    <Enabled>#FFDDDDDD</Enabled>
-                    <Hover>#FF111111</Hover>
-                    <Pressed>#FF111111</Pressed>
+                    <Enabled>#FFDCDCDC</Enabled>
+                    <Disabled>#FFE0E0E0</Disabled>
+                    <Hover>#FFE0E0E0</Hover>
+                    <Pressed>#FFC0C0C0</Pressed>
                 </Button>
                 <Thumb>
                     <Disabled>#FFDDDDDD</Disabled>
                     <Enabled>#FFDDDDDD</Enabled>
-                    <Hover>#FF111111</Hover>
-                    <Pressed>#FF111111</Pressed>
+                    <Hover>#FFE0E0E0</Hover>
+                    <Pressed>#FFC0C0C0</Pressed>
                 </Thumb>
             </VisualScrollBar>
         </Toolkit>

@@ -148,8 +148,6 @@
                 <Bar>
                     <Disabled>#FFEAEAEA</Disabled>
                     <Enabled>#FFEAEAEA</Enabled>
-                    <Hover>#FFEAEAEA</Hover>
-                    <Pressed>#FFEAEAEA</Pressed>
                 </Bar>
                 <Button>
                     <Disabled>#FFDDDDDD</Disabled>
