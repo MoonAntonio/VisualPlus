@@ -47,7 +47,6 @@
         protected override void PreFilterProperties(IDictionary properties)
         {
             properties.Remove("Text");
-            properties.Remove("BackgroundImage");
             properties.Remove("ForeColor");
             properties.Remove("ImeMode");
             properties.Remove("Padding");

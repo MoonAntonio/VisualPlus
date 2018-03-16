@@ -137,18 +137,42 @@
         /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         public static void DrawElement(Graphics graphics, Image image, Border border, ColorState color, bool enabled, MouseStates mouseState, Rectangle rectangle)
         {
-            Color _colorState = ColorState.BackColorState(color, enabled, mouseState);
             GraphicsPath _elementGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
             graphics.SetClip(_elementGraphicsPath);
+            Color _colorState = ColorState.BackColorState(color, enabled, mouseState);
             graphics.FillRectangle(new SolidBrush(_colorState), rectangle);
             graphics.ResetClip();
 
             if (image != null)
             {
-                Point _location = new Point(rectangle.Width - image.Width, rectangle.Height - image.Height);
-                Size _size = new Size(image.Width, image.Height);
                 graphics.SetClip(_elementGraphicsPath);
-                graphics.DrawImage(image, new Rectangle(_location, _size));
+                graphics.DrawImage(image, rectangle);
+                graphics.ResetClip();
+            }
+
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, _elementGraphicsPath, mouseState);
+        }
+
+        /// <summary>Draws the control background, with a BackColor and the specified BackgroundImage.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="image">The background image to use for the background.</param>
+        /// <param name="border">The shape settings.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="enabled">The enabled.</param>
+        /// <param name="mouseState">The mouse state.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        public static void DrawElement(Graphics graphics, Image image, Border border, ControlColorState color, bool enabled, MouseStates mouseState, Rectangle rectangle)
+        {
+            GraphicsPath _elementGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
+            graphics.SetClip(_elementGraphicsPath);
+            Color _colorState = ControlColorState.BackColorState(color, enabled, mouseState);
+            graphics.FillRectangle(new SolidBrush(_colorState), rectangle);
+            graphics.ResetClip();
+
+            if (image != null)
+            {
+                graphics.SetClip(_elementGraphicsPath);
+                graphics.DrawImage(image, rectangle);
                 graphics.ResetClip();
             }
 

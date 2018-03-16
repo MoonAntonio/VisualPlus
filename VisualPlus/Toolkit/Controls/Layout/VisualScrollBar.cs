@@ -64,7 +64,6 @@
         private ControlColorState _thumbColorState;
         private bool _thumbGripVisible;
         private int _thumbHeight;
-        private Image _thumbImage;
         private int _thumbPosition;
         private Rectangle _thumbRectangle;
         private MouseStates _thumbState;
@@ -114,7 +113,6 @@
             _arrowHeight = 17;
 
             _thumbGripVisible = true;
-            _thumbImage = null;
 
             _thumbState = MouseStates.Normal;
             _buttonTopState = MouseStates.Normal;
@@ -528,23 +526,6 @@
             }
         }
 
-        [Browsable(false)]
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Image)]
-        public Image ThumbImage
-        {
-            get
-            {
-                return _thumbImage;
-            }
-
-            set
-            {
-                _thumbImage = value;
-                Invalidate();
-            }
-        }
-
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.MouseState)]
         public MouseStates ThumbMouseState
@@ -942,49 +923,17 @@
                 }
 
                 VisualControlRenderer.DrawElement(e.Graphics, BackgroundImage, _border, _backColorState, Enabled, MouseState, _rectangle);
-                VisualControlRenderer.DrawElement(e.Graphics, _thumbImage, _thumbBorder, _thumbColorState, Enabled, _thumbState, _thumbRectangle);
+                VisualControlRenderer.DrawElement(e.Graphics, null, _thumbBorder, _thumbColorState, Enabled, _thumbState, _thumbRectangle);
 
-                if (Enabled)
+                if (_thumbGripVisible)
                 {
-                    if (_thumbGripVisible)
-                    {
-                        VisualScrollBarRenderer.DrawThumbGrip(e.Graphics, _thumbRectangle, _orientation);
-                    }
+                    VisualScrollBarRenderer.DrawThumbGrip(e.Graphics, _thumbRectangle, _orientation);
                 }
 
-                VisualScrollBarRenderer.DrawArrowButton(e.Graphics, _topArrowRectangle, _buttonTopState, true, _orientation, Enabled, _buttonColorState, _buttonBorder, null);
-                VisualScrollBarRenderer.DrawArrowButton(e.Graphics, _bottomArrowRectangle, _buttonBottomState, false, _orientation, Enabled, _buttonColorState, _buttonBorder, null);
+                VisualScrollBarRenderer.DrawArrowButton(e.Graphics, true, _buttonBorder, _buttonColorState, Enabled, _orientation, _topArrowRectangle, _buttonTopState);
+                VisualScrollBarRenderer.DrawArrowButton(e.Graphics, false, _buttonBorder, _buttonColorState, Enabled, _orientation, _bottomArrowRectangle, _buttonBottomState);
 
-                if (_topBarClicked)
-                {
-                    if (_orientation == Orientation.Vertical)
-                    {
-                        _clickedBarRectangle.Y = _thumbTopLimit;
-                        _clickedBarRectangle.Height = _thumbRectangle.Y - _thumbTopLimit;
-                    }
-                    else
-                    {
-                        _clickedBarRectangle.X = _thumbTopLimit;
-                        _clickedBarRectangle.Width = _thumbRectangle.X - _thumbTopLimit;
-                    }
-
-                    e.Graphics.FillRectangle(new SolidBrush(_trackPressed), _clickedBarRectangle);
-                }
-                else if (_bottomBarClicked)
-                {
-                    if (_orientation == Orientation.Vertical)
-                    {
-                        _clickedBarRectangle.Y = _thumbRectangle.Bottom + 1;
-                        _clickedBarRectangle.Height = (_thumbBottomLimitBottom - _clickedBarRectangle.Y) + 1;
-                    }
-                    else
-                    {
-                        _clickedBarRectangle.X = _thumbRectangle.Right + 1;
-                        _clickedBarRectangle.Width = (_thumbBottomLimitBottom - _clickedBarRectangle.X) + 1;
-                    }
-
-                    e.Graphics.FillRectangle(new SolidBrush(_trackPressed), _clickedBarRectangle);
-                }
+                DrawClickedBar(e);
             }
             catch (Exception exception)
             {
@@ -1232,6 +1181,42 @@
 
             ChangeThumbPosition(GetThumbPosition());
             Refresh();
+        }
+
+        /// <summary>Draws the clicked bar rectangle.</summary>
+        /// <param name="e">The paint event args.</param>
+        private void DrawClickedBar(PaintEventArgs e)
+        {
+            if (_topBarClicked)
+            {
+                if (_orientation == Orientation.Vertical)
+                {
+                    _clickedBarRectangle.Y = _thumbTopLimit;
+                    _clickedBarRectangle.Height = _thumbRectangle.Y - _thumbTopLimit;
+                }
+                else
+                {
+                    _clickedBarRectangle.X = _thumbTopLimit;
+                    _clickedBarRectangle.Width = _thumbRectangle.X - _thumbTopLimit;
+                }
+
+                e.Graphics.FillRectangle(new SolidBrush(_trackPressed), _clickedBarRectangle);
+            }
+            else if (_bottomBarClicked)
+            {
+                if (_orientation == Orientation.Vertical)
+                {
+                    _clickedBarRectangle.Y = _thumbRectangle.Bottom + 1;
+                    _clickedBarRectangle.Height = (_thumbBottomLimitBottom - _clickedBarRectangle.Y) + 1;
+                }
+                else
+                {
+                    _clickedBarRectangle.X = _thumbRectangle.Right + 1;
+                    _clickedBarRectangle.Width = (_thumbBottomLimitBottom - _clickedBarRectangle.X) + 1;
+                }
+
+                e.Graphics.FillRectangle(new SolidBrush(_trackPressed), _clickedBarRectangle);
+            }
         }
 
         /// <summary>Enables the timer.</summary>
