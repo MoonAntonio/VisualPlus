@@ -5,10 +5,10 @@
     using System;
     using System.ComponentModel;
     using System.Drawing;
-    using System.Drawing.Drawing2D;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Delegates;
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
@@ -40,13 +40,15 @@
         private bool _bottomArrowClicked;
         private Rectangle _bottomArrowRectangle;
         private bool _bottomBarClicked;
-        private VisualScrollBarArrowButtonState _bottomButtonState;
         private Border _buttonBorder;
+        private MouseStates _buttonBottomState;
         private ControlColorState _buttonColorState;
+        private MouseStates _buttonTopState;
         private Rectangle _channelRectangle;
         private Rectangle _clickedBarRectangle;
         private IContainer _components;
         private ContextMenuStrip _contextMenu;
+        private int _defaultWidth;
         private bool _inUpdate;
         private int _largeChange;
         private int _maximum;
@@ -65,6 +67,7 @@
         private Image _thumbImage;
         private int _thumbPosition;
         private Rectangle _thumbRectangle;
+        private MouseStates _thumbState;
         private int _thumbTopLimit;
         private int _thumbWidth;
         private ToolStripSeparator _toolStripSeparator1;
@@ -73,7 +76,6 @@
         private bool _topArrowClicked;
         private Rectangle _topArrowRectangle;
         private bool _topBarClicked;
-        private VisualScrollBarArrowButtonState _topButtonState;
         private int _trackPosition;
         private Color _trackPressed;
         private ToolStripMenuItem _tsmiBottom;
@@ -96,10 +98,11 @@
 
             InitializeComponent();
 
-            Width = 19;
+            _defaultWidth = 20;
+
+            Width = _defaultWidth;
             Height = 200;
 
-            _topButtonState = VisualScrollBarArrowButtonState.UpNormal;
             _thumbWidth = 15;
             _smallChange = 1;
             _scrollOrientation = ScrollOrientation.VerticalScroll;
@@ -107,12 +110,15 @@
             _orientation = Orientation.Vertical;
             _maximum = 100;
             _largeChange = 10;
-            _bottomButtonState = VisualScrollBarArrowButtonState.DownNormal;
             _arrowWidth = 15;
             _arrowHeight = 17;
 
             _thumbGripVisible = true;
             _thumbImage = null;
+
+            _thumbState = MouseStates.Normal;
+            _buttonTopState = MouseStates.Normal;
+            _buttonBottomState = MouseStates.Normal;
 
             _border = new Border();
             _thumbBorder = new Border();
@@ -133,59 +139,20 @@
         }
 
         [Category(EventCategory.Behavior)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ElementClickedEventHandler ButtonBottomClicked;
+
+        [Category(EventCategory.Behavior)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ElementClickedEventHandler ButtonTopClicked;
+
+        [Category(EventCategory.Behavior)]
         [Description(PropertyDescription.ScrollBars)]
         public event ScrollEventHandler Scroll;
 
-        public enum VisualScrollBarArrowButtonState
-        {
-            /// <summary>Indicates the up arrow is in normal state.</summary>
-            UpNormal,
-
-            /// <summary>Indicates the up arrow is in hot state.</summary>
-            UpHot,
-
-            /// <summary>Indicates the up arrow is in active state.</summary>
-            UpActive,
-
-            /// <summary>Indicates the up arrow is in pressed state.</summary>
-            UpPressed,
-
-            /// <summary>Indicates the up arrow is in disabled state.</summary>
-            UpDisabled,
-
-            /// <summary>Indicates the down arrow is in normal state.</summary>
-            DownNormal,
-
-            /// <summary>Indicates the down arrow is in hot state.</summary>
-            DownHot,
-
-            /// <summary>Indicates the down arrow is in active state.</summary>
-            DownActive,
-
-            /// <summary>Indicates the down arrow is in pressed state.</summary>
-            DownPressed,
-
-            /// <summary>Indicates the down arrow is in disabled state.</summary>
-            DownDisabled
-        }
-
-        public enum VisualScrollBarState
-        {
-            /// <summary>Indicates a normal scrollbar state.</summary>
-            Normal,
-
-            /// <summary>Indicates a hot scrollbar state.</summary>
-            Hot,
-
-            /// <summary>Indicates an active scrollbar state.</summary>
-            Active,
-
-            /// <summary>Indicates a pressed scrollbar state.</summary>
-            Pressed,
-
-            /// <summary>Indicates a disabled scrollbar state.</summary>
-            Disabled
-        }
+        [Category(EventCategory.Behavior)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ElementClickedEventHandler ThumbClicked;
 
         #endregion
 
@@ -229,7 +196,39 @@
             }
         }
 
-        [Browsable(false)]
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(PropertyCategory.Appearance)]
+        public Border ButtonBorder
+        {
+            get
+            {
+                return _buttonBorder;
+            }
+
+            set
+            {
+                _buttonBorder = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
+        public MouseStates ButtonBottomMouseState
+        {
+            get
+            {
+                return _buttonBottomState;
+            }
+
+            set
+            {
+                _buttonBottomState = value;
+                Invalidate();
+            }
+        }
+
         [TypeConverter(typeof(ControlColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState ButtonColorState
@@ -247,6 +246,22 @@
                 }
 
                 _buttonColorState = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
+        public MouseStates ButtonTopMouseState
+        {
+            get
+            {
+                return _buttonTopState;
+            }
+
+            set
+            {
+                _buttonTopState = value;
                 Invalidate();
             }
         }
@@ -531,6 +546,22 @@
         }
 
         [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
+        public MouseStates ThumbMouseState
+        {
+            get
+            {
+                return _thumbState;
+            }
+
+            set
+            {
+                _thumbState = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color TrackPressed
         {
@@ -639,19 +670,29 @@
             ContextMenuStrip = _contextMenu;
         }
 
+        protected virtual void OnButtonBottomClicked(EventArgs e)
+        {
+            ButtonBottomClicked?.Invoke(e);
+        }
+
+        protected virtual void OnButtonTopClicked(EventArgs e)
+        {
+            ButtonTopClicked?.Invoke(e);
+        }
+
         protected override void OnEnabledChanged(EventArgs e)
         {
             base.OnEnabledChanged(e);
 
             if (Enabled)
             {
-                _topButtonState = VisualScrollBarArrowButtonState.UpNormal;
-                _bottomButtonState = VisualScrollBarArrowButtonState.DownNormal;
+                _buttonTopState = MouseStates.Normal;
+                _buttonBottomState = MouseStates.Normal;
             }
             else
             {
-                _topButtonState = VisualScrollBarArrowButtonState.UpDisabled;
-                _bottomButtonState = VisualScrollBarArrowButtonState.DownDisabled;
+                _buttonTopState = MouseStates.Normal;
+                _buttonBottomState = MouseStates.Normal;
             }
 
             Refresh();
@@ -675,23 +716,25 @@
                 {
                     _thumbClicked = true;
                     _thumbPosition = _orientation == Orientation.Vertical ? _mouseLocation.Y - _thumbRectangle.Y : _mouseLocation.X - _thumbRectangle.X;
-
-                    // _thumbState = VisualScrollBarState.Pressed;
+                    _thumbState = MouseStates.Down;
                     Invalidate(_thumbRectangle);
+                    OnThumbClicked(EventArgs.Empty);
                 }
                 else if (_topArrowRectangle.Contains(_mouseLocation))
                 {
                     _topArrowClicked = true;
-                    _topButtonState = VisualScrollBarArrowButtonState.UpPressed;
+                    _buttonTopState = MouseStates.Down;
                     Invalidate(_topArrowRectangle);
                     ProgressThumb(true);
+                    OnButtonTopClicked(EventArgs.Empty);
                 }
                 else if (_bottomArrowRectangle.Contains(_mouseLocation))
                 {
                     _bottomArrowClicked = true;
-                    _bottomButtonState = VisualScrollBarArrowButtonState.DownPressed;
+                    _buttonBottomState = MouseStates.Down;
                     Invalidate(_bottomArrowRectangle);
                     ProgressThumb(true);
+                    OnButtonBottomClicked(EventArgs.Empty);
                 }
                 else
                 {
@@ -718,10 +761,9 @@
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
-            _bottomButtonState = VisualScrollBarArrowButtonState.DownActive;
-            _topButtonState = VisualScrollBarArrowButtonState.UpActive;
-
-            // _thumbState = VisualScrollBarState.Active;
+            _buttonTopState = MouseStates.Hover;
+            _buttonBottomState = MouseStates.Hover;
+            _thumbState = MouseStates.Normal;
             Invalidate();
         }
 
@@ -745,43 +787,34 @@
         {
             base.OnMouseMove(e);
 
-            // moving and holding the left mouse button
             if (e.Button == MouseButtons.Left)
             {
-                // Update the thumb position, if the new location is within the bounds.
                 if (_thumbClicked)
                 {
-                    int oldScrollValue = _value;
+                    int _oldScrollValue = _value;
 
-                    _topButtonState = VisualScrollBarArrowButtonState.UpActive;
-                    _bottomButtonState = VisualScrollBarArrowButtonState.DownActive;
+                    _buttonTopState = MouseStates.Normal;
+                    _buttonBottomState = MouseStates.Normal;
                     int pos = _orientation == Orientation.Vertical ? e.Location.Y : e.Location.X;
 
-                    // The thumb is all the way to the top
                     if (pos <= _thumbTopLimit + _thumbPosition)
                     {
                         ChangeThumbPosition(_thumbTopLimit);
-
                         _value = _minimum;
                     }
                     else if (pos >= _thumbBottomLimitTop + _thumbPosition)
                     {
-                        // The thumb is all the way to the bottom
                         ChangeThumbPosition(_thumbBottomLimitTop);
-
                         _value = _maximum;
                     }
                     else
                     {
-                        // The thumb is between the ends of the track.
                         ChangeThumbPosition(pos - _thumbPosition);
 
                         int _pixelRange;
                         int _thumbLocation;
                         int _arrowSize;
 
-                        // calculate the value - first some helper variables
-                        // dependent on the current orientation
                         if (_orientation == Orientation.Vertical)
                         {
                             _pixelRange = Height - (2 * _arrowHeight) - _thumbHeight;
@@ -799,19 +832,15 @@
 
                         if (_pixelRange != 0)
                         {
-                            // percent of the new position
                             _percent = (_thumbLocation - _arrowSize) / (float)_pixelRange;
                         }
 
-                        // the new value is somewhere between max and min, starting
-                        // at min position
                         _value = Convert.ToInt32((_percent * (_maximum - _minimum)) + _minimum);
                     }
 
-                    // raise scroll event if new value different
-                    if (oldScrollValue != _value)
+                    if (_oldScrollValue != _value)
                     {
-                        OnScroll(new ScrollEventArgs(ScrollEventType.ThumbTrack, oldScrollValue, _value, _scrollOrientation));
+                        OnScroll(new ScrollEventArgs(ScrollEventType.ThumbTrack, _oldScrollValue, _value, _scrollOrientation));
                         Refresh();
                     }
                 }
@@ -822,28 +851,28 @@
             }
             else if (e.Button == MouseButtons.None)
             {
-                // only moving the mouse
                 if (_topArrowRectangle.Contains(e.Location))
                 {
-                    _topButtonState = VisualScrollBarArrowButtonState.UpHot;
+                    _buttonTopState = MouseStates.Hover;
+                    _buttonBottomState = MouseStates.Normal;
                     Invalidate(_topArrowRectangle);
                 }
                 else if (_bottomArrowRectangle.Contains(e.Location))
                 {
-                    _bottomButtonState = VisualScrollBarArrowButtonState.DownHot;
+                    _buttonTopState = MouseStates.Normal;
+                    _buttonBottomState = MouseStates.Hover;
                     Invalidate(_bottomArrowRectangle);
                 }
                 else if (_thumbRectangle.Contains(e.Location))
                 {
-                    // _thumbState = VisualScrollBarState.Hot;
+                    _thumbState = MouseStates.Hover;
                     Invalidate(_thumbRectangle);
                 }
                 else if (ClientRectangle.Contains(e.Location))
                 {
-                    _topButtonState = VisualScrollBarArrowButtonState.UpActive;
-                    _bottomButtonState = VisualScrollBarArrowButtonState.DownActive;
-
-                    // _thumbState = VisualScrollBarState.Active;
+                    _buttonTopState = MouseStates.Normal;
+                    _buttonBottomState = MouseStates.Normal;
+                    _thumbState = MouseStates.Normal;
                     Invalidate();
                 }
             }
@@ -863,19 +892,19 @@
                 {
                     _thumbClicked = false;
 
-                    // _thumbState = VisualScrollBarState.Normal;
+                    _thumbState = MouseStates.Normal;
                     OnScroll(new ScrollEventArgs(ScrollEventType.EndScroll, -1, _value, _scrollOrientation));
                 }
                 else if (_topArrowClicked)
                 {
                     _topArrowClicked = false;
-                    _topButtonState = VisualScrollBarArrowButtonState.UpNormal;
+                    _buttonTopState = MouseStates.Normal;
                     StopTimer();
                 }
                 else if (_bottomArrowClicked)
                 {
                     _bottomArrowClicked = false;
-                    _bottomButtonState = VisualScrollBarArrowButtonState.DownNormal;
+                    _buttonBottomState = MouseStates.Normal;
                     StopTimer();
                 }
                 else if (_topBarClicked)
@@ -901,7 +930,6 @@
             {
                 e.Graphics.Clear(BackColor);
                 e.Graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
-                e.Graphics.SmoothingMode = SmoothingMode.None;
 
                 Rectangle _rectangle;
                 if (_border.Type == ShapeType.Rounded)
@@ -913,17 +941,8 @@
                     _rectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
                 }
 
-                ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_rectangle, _border);
-
-                Color _backColor = ColorState.BackColorState(_backColorState, Enabled, MouseState);
-                VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _rectangle, _border);
-                VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
-
-                Color _thumbBackColor = ControlColorState.BackColorState(_thumbColorState, Enabled, MouseState);
-                VisualBackgroundRenderer.DrawBackground(e.Graphics, _thumbBackColor, _thumbImage, MouseState, _thumbRectangle, _thumbBorder);
-
-                GraphicsPath _thumbGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_thumbRectangle, _border);
-                VisualBorderRenderer.DrawBorderStyle(e.Graphics, _thumbBorder, _thumbGraphicsPath, MouseState);
+                VisualControlRenderer.DrawElement(e.Graphics, BackgroundImage, _border, _backColorState, Enabled, MouseState, _rectangle);
+                VisualControlRenderer.DrawElement(e.Graphics, _thumbImage, _thumbBorder, _thumbColorState, Enabled, _thumbState, _thumbRectangle);
 
                 if (Enabled)
                 {
@@ -933,8 +952,8 @@
                     }
                 }
 
-                VisualScrollBarRenderer.DrawArrowButton(e.Graphics, _topArrowRectangle, _topButtonState, true, _orientation);
-                VisualScrollBarRenderer.DrawArrowButton(e.Graphics, _bottomArrowRectangle, _bottomButtonState, false, _orientation);
+                VisualScrollBarRenderer.DrawArrowButton(e.Graphics, _topArrowRectangle, _buttonTopState, true, _orientation, Enabled, _buttonColorState, _buttonBorder, null);
+                VisualScrollBarRenderer.DrawArrowButton(e.Graphics, _bottomArrowRectangle, _buttonBottomState, false, _orientation, Enabled, _buttonColorState, _buttonBorder, null);
 
                 if (_topBarClicked)
                 {
@@ -990,6 +1009,11 @@
         {
             base.OnSizeChanged(e);
             ConfigureScrollBar();
+        }
+
+        protected virtual void OnThumbClicked(EventArgs e)
+        {
+            ThumbClicked?.Invoke(e);
         }
 
         protected override bool ProcessDialogKey(Keys keyData)
@@ -1069,7 +1093,7 @@
                         height = (2 * _arrowHeight) + 10;
                     }
 
-                    width = 19;
+                    width = _defaultWidth;
                 }
                 else
                 {
@@ -1159,9 +1183,9 @@
 
                 _channelRectangle = _clickedBarRectangle;
 
-                _thumbRectangle = new Rectangle(ClientRectangle.X + 2, ClientRectangle.Y + _arrowHeight + 1, _thumbWidth - 1, _thumbHeight);
+                _thumbRectangle = new Rectangle(ClientRectangle.X + 2, ClientRectangle.Y + _arrowHeight + 1, _thumbWidth, _thumbHeight);
                 _topArrowRectangle = new Rectangle(ClientRectangle.X + 2, ClientRectangle.Y + 1, _arrowWidth, _arrowHeight);
-                _bottomArrowRectangle = new Rectangle(ClientRectangle.X + 2, ClientRectangle.Bottom - _arrowHeight - 1, _arrowWidth, _arrowHeight);
+                _bottomArrowRectangle = new Rectangle(ClientRectangle.X + 2, ClientRectangle.Bottom - _arrowHeight - 2, _arrowWidth, _arrowHeight);
 
                 // Set the default starting thumb position.
                 _thumbPosition = _thumbRectangle.Height / 2;
@@ -1190,8 +1214,8 @@
                 _channelRectangle = _clickedBarRectangle;
 
                 _thumbRectangle = new Rectangle(ClientRectangle.X + _arrowWidth + 1, ClientRectangle.Y + 2, _thumbWidth, _thumbHeight - 1);
-                _topArrowRectangle = new Rectangle(ClientRectangle.X + 1, ClientRectangle.Y + 2, _arrowWidth, _arrowHeight);
-                _bottomArrowRectangle = new Rectangle(ClientRectangle.Right - _arrowWidth - 1, ClientRectangle.Y + 2, _arrowWidth, _arrowHeight);
+                _topArrowRectangle = new Rectangle(ClientRectangle.X + 1, ClientRectangle.Y + 2, _arrowWidth, _arrowHeight - 1);
+                _bottomArrowRectangle = new Rectangle(ClientRectangle.Right - _arrowWidth - 2, ClientRectangle.Y + 2, _arrowWidth, _arrowHeight - 1);
 
                 // Set the default starting thumb position.
                 _thumbPosition = _thumbRectangle.Width / 2;
@@ -1519,16 +1543,16 @@
 
             if (ClientRectangle.Contains(_location))
             {
-                _bottomButtonState = VisualScrollBarArrowButtonState.DownActive;
-                _topButtonState = VisualScrollBarArrowButtonState.UpActive;
+                _buttonTopState = MouseStates.Hover;
+                _buttonBottomState = MouseStates.Hover;
             }
             else
             {
-                _bottomButtonState = VisualScrollBarArrowButtonState.DownNormal;
-                _topButtonState = VisualScrollBarArrowButtonState.UpNormal;
+                _buttonTopState = MouseStates.Normal;
+                _buttonBottomState = MouseStates.Normal;
             }
 
-            // _thumbState = _thumbRectangle.Contains(_location) ? VisualScrollBarState.Hot : VisualScrollBarState.Normal;
+            _thumbState = _thumbRectangle.Contains(_location) ? MouseStates.Hover : MouseStates.Normal;
             _bottomArrowClicked = _bottomBarClicked = _topArrowClicked = _topBarClicked = false;
 
             StopTimer();

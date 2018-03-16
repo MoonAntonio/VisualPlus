@@ -2,9 +2,13 @@
 {
     #region Namespace
 
+    using System;
+
     using VisualPlus.EventArgs;
 
     #endregion
+
+    public delegate void ElementClickedEventHandler(EventArgs e);
 
     public delegate void ForeColorDisabledChangedEventHandler(ColorEventArgs e);
 

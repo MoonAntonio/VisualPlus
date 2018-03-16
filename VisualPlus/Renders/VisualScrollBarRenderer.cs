@@ -8,78 +8,15 @@
     using System.Drawing.Imaging;
     using System.Windows.Forms;
 
+    using VisualPlus.Enumerators;
     using VisualPlus.Properties;
+    using VisualPlus.Structure;
     using VisualPlus.Toolkit.Controls.Layout;
 
     #endregion
 
     public sealed class VisualScrollBarRenderer
     {
-        #region Constructors
-
-        /// <summary>Initializes static members of the <see cref="VisualScrollBarRenderer" /> class.</summary>
-        static VisualScrollBarRenderer()
-        {
-            /* picture of colors and indices
-             *(0,0)
-             * -----------------------------------------------
-             * |                                             |
-             * | |-----------------------------------------| |
-             * | |                  (2)                    | |
-             * | | |-------------------------------------| | |
-             * | | |                (0)                  | | |
-             * | | |                                     | | |
-             * | | |                                     | | |
-             * | |3|                (1)                  |3| |
-             * | |6|                (4)                  |6| |
-             * | | |                                     | | |
-             * | | |                (5)                  | | |
-             * | | |-------------------------------------| | |
-             * | |                  (12)                   | |
-             * | |-----------------------------------------| |
-             * |                                             |
-             * ----------------------------------------------- (15,17)
-             */
-
-            // hot state
-            arrowColors[0, 0] = Color.FromArgb(223, 236, 252);
-            arrowColors[0, 1] = Color.FromArgb(207, 225, 248);
-            arrowColors[0, 2] = Color.FromArgb(245, 249, 255);
-            arrowColors[0, 3] = Color.FromArgb(237, 244, 252);
-            arrowColors[0, 4] = Color.FromArgb(244, 249, 255);
-            arrowColors[0, 5] = Color.FromArgb(244, 249, 255);
-            arrowColors[0, 6] = Color.FromArgb(251, 253, 255);
-            arrowColors[0, 7] = Color.FromArgb(251, 253, 255);
-
-            // over state
-            arrowColors[1, 0] = Color.FromArgb(205, 222, 243);
-            arrowColors[1, 1] = Color.FromArgb(186, 208, 235);
-            arrowColors[1, 2] = Color.FromArgb(238, 244, 252);
-            arrowColors[1, 3] = Color.FromArgb(229, 237, 247);
-            arrowColors[1, 4] = Color.FromArgb(223, 234, 247);
-            arrowColors[1, 5] = Color.FromArgb(241, 246, 254);
-            arrowColors[1, 6] = Color.FromArgb(243, 247, 252);
-            arrowColors[1, 7] = Color.FromArgb(250, 252, 255);
-
-            // pressed state
-            arrowColors[2, 0] = Color.FromArgb(215, 220, 225);
-            arrowColors[2, 1] = Color.FromArgb(195, 202, 210);
-            arrowColors[2, 2] = Color.FromArgb(242, 244, 245);
-            arrowColors[2, 3] = Color.FromArgb(232, 235, 238);
-            arrowColors[2, 4] = Color.FromArgb(226, 228, 230);
-            arrowColors[2, 5] = Color.FromArgb(230, 233, 236);
-            arrowColors[2, 6] = Color.FromArgb(244, 245, 245);
-            arrowColors[2, 7] = Color.FromArgb(245, 247, 248);
-
-            // arrow border colors
-            arrowBorderColors[0] = Color.FromArgb(135, 146, 160);
-            arrowBorderColors[1] = Color.FromArgb(140, 151, 165);
-            arrowBorderColors[2] = Color.FromArgb(128, 139, 153);
-            arrowBorderColors[3] = Color.FromArgb(99, 110, 125);
-        }
-
-        #endregion
-
         #region Events
 
         /// <summary>Draws an arrow button.</summary>
@@ -88,7 +25,11 @@
         /// <param name="state">The <see cref="VisualScrollBar.VisualScrollBarArrowButtonState" /> of the arrow button.</param>
         /// <param name="arrowUp">true for an up arrow, false otherwise.</param>
         /// <param name="orientation">The <see cref="Orientation" />.</param>
-        public static void DrawArrowButton(Graphics graphics, Rectangle rectangle, VisualScrollBar.VisualScrollBarArrowButtonState state, bool arrowUp, Orientation orientation)
+        /// <param name="enabled">The enabled.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="border">The border.</param>
+        /// <param name="image">The image.</param>
+        public static void DrawArrowButton(Graphics graphics, Rectangle rectangle, MouseStates state, bool arrowUp, Orientation orientation, bool enabled, ControlColorState color, Border border, Image image)
         {
             if (graphics == null)
             {
@@ -100,7 +41,13 @@
                 return;
             }
 
-            Image _arrowImage = GetArrowDownButtonImage(state);
+            Color _thumbBackColor = ControlColorState.BackColorState(color, enabled, state);
+            VisualBackgroundRenderer.DrawBackground(graphics, _thumbBackColor, image, state, rectangle, border);
+
+            GraphicsPath _thumbGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, _thumbGraphicsPath, state);
+
+            Image _arrowImage = GetArrowDownButtonImage(enabled);
             if (orientation == Orientation.Vertical)
             {
                 if (arrowUp)
@@ -195,134 +142,29 @@
             return r;
         }
 
-        /// <summary>The arrow border colors.</summary>
-        private static Color[] arrowBorderColors = new Color[4];
-
-        /// <summary>The arrow colors in the three states.</summary>
-        private static Color[,] arrowColors = new Color[3, 8];
-
+        /// <summary>The arrow image.</summary>
         /// <summary>Draws the arrow down button for the scrollbar.</summary>
-        /// <param name="state">The button state.</param>
+        /// <param name="enabled">The enabled.</param>
         /// <returns>The arrow down button as <see cref="Image" />.</returns>
-        private static Image GetArrowDownButtonImage(VisualScrollBar.VisualScrollBarArrowButtonState state)
+        private static Image GetArrowDownButtonImage(bool enabled)
         {
-            Rectangle _rectangle = new Rectangle(0, 0, 15, 17);
             Bitmap bitmap = new Bitmap(15, 17, PixelFormat.Format32bppArgb);
             bitmap.SetResolution(72f, 72f);
 
-            using (Graphics g = Graphics.FromImage(bitmap))
+            using (Graphics _graphics = Graphics.FromImage(bitmap))
             {
-                g.SmoothingMode = SmoothingMode.None;
-                g.InterpolationMode = InterpolationMode.Low;
-
-                int index = -1;
-
-                switch (state)
-                {
-                    case VisualScrollBar.VisualScrollBarArrowButtonState.UpHot:
-                    case VisualScrollBar.VisualScrollBarArrowButtonState.DownHot:
-                        {
-                            index = 1;
-
-                            break;
-                        }
-
-                    case VisualScrollBar.VisualScrollBarArrowButtonState.UpActive:
-                    case VisualScrollBar.VisualScrollBarArrowButtonState.DownActive:
-                        {
-                            index = 0;
-
-                            break;
-                        }
-
-                    case VisualScrollBar.VisualScrollBarArrowButtonState.UpPressed:
-                    case VisualScrollBar.VisualScrollBarArrowButtonState.DownPressed:
-                        {
-                            index = 2;
-
-                            break;
-                        }
-                }
-
-                if (index != -1)
-                {
-                    using (Pen p1 = new Pen(arrowBorderColors[0]), p2 = new Pen(arrowBorderColors[1]))
-                    {
-                        g.DrawLine(p1, _rectangle.X, _rectangle.Y, _rectangle.Right - 1, _rectangle.Y);
-                        g.DrawLine(p2, _rectangle.X, _rectangle.Bottom - 1, _rectangle.Right - 1, _rectangle.Bottom - 1);
-                    }
-
-                    _rectangle.Inflate(0, -1);
-
-                    using (LinearGradientBrush brush = new LinearGradientBrush(_rectangle, arrowBorderColors[2], arrowBorderColors[1], LinearGradientMode.Vertical))
-                    {
-                        ColorBlend blend = new ColorBlend(3)
-                            {
-                                Positions = new[] { 0f, .5f, 1f },
-                                Colors = new[]
-                                    {
-                                        arrowBorderColors[2],
-                                        arrowBorderColors[3],
-                                        arrowBorderColors[0]
-                                    }
-                            };
-
-                        brush.InterpolationColors = blend;
-
-                        using (Pen p = new Pen(brush))
-                        {
-                            g.DrawLine(p, _rectangle.X, _rectangle.Y, _rectangle.X, _rectangle.Bottom - 1);
-                            g.DrawLine(p, _rectangle.Right - 1, _rectangle.Y, _rectangle.Right - 1, _rectangle.Bottom - 1);
-                        }
-                    }
-
-                    _rectangle.Inflate(0, 1);
-
-                    Rectangle _upper = _rectangle;
-                    _upper.Inflate(-1, 0);
-                    _upper.Y++;
-                    _upper.Height = 7;
-
-                    using (LinearGradientBrush brush = new LinearGradientBrush(_upper, arrowColors[index, 2], arrowColors[index, 3], LinearGradientMode.Vertical))
-                    {
-                        g.FillRectangle(brush, _upper);
-                    }
-
-                    _upper.Inflate(-1, 0);
-                    _upper.Height = 6;
-
-                    using (LinearGradientBrush brush = new LinearGradientBrush(_upper, arrowColors[index, 0], arrowColors[index, 1], LinearGradientMode.Vertical))
-                    {
-                        g.FillRectangle(brush, _upper);
-                    }
-
-                    Rectangle _lower = _rectangle;
-                    _lower.Inflate(-1, 0);
-                    _lower.Y = 8;
-                    _lower.Height = 8;
-
-                    using (LinearGradientBrush brush = new LinearGradientBrush(_lower, arrowColors[index, 6], arrowColors[index, 7], LinearGradientMode.Vertical))
-                    {
-                        g.FillRectangle(brush, _lower);
-                    }
-
-                    _lower.Inflate(-1, 0);
-
-                    using (LinearGradientBrush brush = new LinearGradientBrush(_lower, arrowColors[index, 4], arrowColors[index, 5], LinearGradientMode.Vertical))
-                    {
-                        g.FillRectangle(brush, _lower);
-                    }
-                }
+                _graphics.SmoothingMode = SmoothingMode.None;
+                _graphics.InterpolationMode = InterpolationMode.Low;
 
                 using (Image _arrowImage = Resources.ScrollBarArrowDown)
                 {
-                    if ((state == VisualScrollBar.VisualScrollBarArrowButtonState.DownDisabled) || (state == VisualScrollBar.VisualScrollBarArrowButtonState.UpDisabled))
+                    if (enabled)
                     {
-                        ControlPaint.DrawImageDisabled(g, _arrowImage, 3, 6, Color.Transparent);
+                        _graphics.DrawImage(_arrowImage, 3, 6);
                     }
                     else
                     {
-                        g.DrawImage(_arrowImage, 3, 6);
+                        ControlPaint.DrawImageDisabled(_graphics, _arrowImage, 3, 6, Color.Transparent);
                     }
                 }
             }
