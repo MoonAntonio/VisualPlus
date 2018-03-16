@@ -364,31 +364,10 @@
             ThemeChanged?.Invoke(e);
         }
 
-        /// <summary>Creates a default theme file in the templates folder.</summary>
-        private void ConstructDefaultThemeFile()
-        {
-            string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
-
-            if (File.Exists(_defaultThemePath))
-            {
-                return;
-            }
-
-            Theme _defaultTheme = new Theme(Themes.Visual);
-            string _text = _defaultTheme.RawTheme;
-
-            if (!Directory.Exists(Settings.TemplatesFolder))
-            {
-                Directory.CreateDirectory(Settings.TemplatesFolder);
-            }
-
-            File.WriteAllText(_defaultThemePath, _text);
-        }
-
         /// <summary>Updates the supported controls style.</summary>
         /// <param name="control">The control.</param>
         /// <param name="theme">The theme.</param>
-        private void UpdateControl(Control control, Theme theme)
+        private static void UpdateControl(Control control, Theme theme)
         {
             (control as VisualButton)?.UpdateTheme(theme);
 
@@ -420,7 +399,8 @@
 
             (control as VisualRadioButton)?.UpdateTheme(theme);
 
-            // (control as VisualProgressStepper)?.UpdateTheme(theme);
+            (control as VisualScrollBar)?.UpdateTheme(theme);
+
             (control as VisualToggle)?.UpdateTheme(theme);
 
             (control as VisualTrackBar)?.UpdateTheme(theme);
@@ -428,6 +408,27 @@
             (control as VisualPanel)?.UpdateTheme(theme);
 
             (control as VisualSeparator)?.UpdateTheme(theme);
+        }
+
+        /// <summary>Creates a default theme file in the templates folder.</summary>
+        private void ConstructDefaultThemeFile()
+        {
+            string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
+
+            if (File.Exists(_defaultThemePath))
+            {
+                return;
+            }
+
+            Theme _defaultTheme = new Theme(Themes.Visual);
+            string _text = _defaultTheme.RawTheme;
+
+            if (!Directory.Exists(Settings.TemplatesFolder))
+            {
+                Directory.CreateDirectory(Settings.TemplatesFolder);
+            }
+
+            File.WriteAllText(_defaultThemePath, _text);
         }
 
         #endregion
