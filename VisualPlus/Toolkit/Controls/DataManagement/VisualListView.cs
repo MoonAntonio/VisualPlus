@@ -31,7 +31,7 @@
     [Designer(typeof(VisualListViewDesigner))]
     [ToolboxBitmap(typeof(ListView), "VisualListView.bmp")]
     [ToolboxItem(true)]
-    public class VisualListView : ContainedControlBase, ICloneable, IThemeSupport
+    public class VisualListView : ContainedControlBase, IThemeSupport
     {
         #region Variables
 
@@ -691,13 +691,6 @@
             }
 
             return false;
-        }
-
-        /// <summary>Creates a copy of the current object.</summary>
-        /// <returns>The <see cref="object" />.</returns>
-        public object Clone()
-        {
-            return MemberwiseClone();
         }
 
         public void UpdateTheme(Theme theme)
