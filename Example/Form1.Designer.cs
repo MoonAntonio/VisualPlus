@@ -63,7 +63,7 @@
             textStyle1.Hover = System.Drawing.Color.Empty;
             textStyle1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this._visualControlBox.HelpButton.TextStyle = textStyle1;
-            this._visualControlBox.Location = new System.Drawing.Point(457, 3);
+            this._visualControlBox.Location = new System.Drawing.Point(457, 4);
             // 
             // 
             // 
