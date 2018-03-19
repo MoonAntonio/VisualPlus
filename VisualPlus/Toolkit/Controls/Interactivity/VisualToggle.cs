@@ -40,10 +40,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         private Rectangle _buttonRectangle;
         private Size _buttonSize;
         private ColorState _controlColorState;
+        private string _falseTextToggle;
         private Image _progressImage;
         private string _textProcessor;
         private int _toggleLocation;
         private ToggleTypes _toggleType;
+        private string _trueTextToggle;
 
         #endregion
 
@@ -62,6 +64,8 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _animationTimer.Tick += AnimationTimerTick;
             _toggleType = ToggleTypes.YesNo;
             _buttonSize = new Size(20, 20);
+            _trueTextToggle = "Yes";
+            _falseTextToggle = "No";
 
             _border = new Border
                     {
@@ -85,7 +89,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             OnOff,
 
             /// <summary>I / O toggle.</summary>
-            IO
+            IO,
+
+            /// <summary>The custom toggle.</summary>
+            Custom
         }
 
         #endregion
@@ -187,6 +194,22 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         }
 
         [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
+        public string FalseTextToggle
+        {
+            get
+            {
+                return _falseTextToggle;
+            }
+
+            set
+            {
+                _falseTextToggle = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Image)]
         public Image ProgressImage
         {
@@ -217,6 +240,22 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 Toggle = value;
                 Invalidate();
                 OnToggleChanged(new ToggleEventArgs(Toggle));
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
+        public string TrueTextToggle
+        {
+            get
+            {
+                return _trueTextToggle;
+            }
+
+            set
+            {
+                _trueTextToggle = value;
+                Invalidate();
             }
         }
 
@@ -379,23 +418,29 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 case ToggleTypes.YesNo:
                     {
                         _textProcessor = Toggled ? "No" : "Yes";
-
                         break;
                     }
 
                 case ToggleTypes.OnOff:
                     {
                         _textProcessor = Toggled ? "Off" : "On";
-
                         break;
                     }
 
                 case ToggleTypes.IO:
                     {
                         _textProcessor = Toggled ? "O" : "I";
-
                         break;
                     }
+
+                case ToggleTypes.Custom:
+                    {
+                        _textProcessor = Toggled ? _falseTextToggle : _trueTextToggle;
+                        break;
+                    }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             // Draw string
