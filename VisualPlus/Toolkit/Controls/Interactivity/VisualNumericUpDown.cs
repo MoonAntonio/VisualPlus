@@ -58,11 +58,7 @@
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the
-        ///     <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualNumericUpDown" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualNumericUpDown" /> class.</summary>
         public VisualNumericUpDown()
         {
             _decrementButtonPoints = new Point[2];
@@ -86,7 +82,7 @@
             UpdateTheme(ThemeManager.Theme);
         }
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ValueChangedEventHandler ValueChanged;
 
@@ -330,7 +326,7 @@
 
                 Font = theme.TextSetting.Font;
 
-                _borderEdge.BackColor = theme.OtherSettings.Line;
+                _borderEdge.BackColor = theme.BorderSettings.Normal;
                 _borderButtons.BackColor = theme.OtherSettings.Line;
 
                 _buttonForeColor = theme.OtherSettings.LightText;
