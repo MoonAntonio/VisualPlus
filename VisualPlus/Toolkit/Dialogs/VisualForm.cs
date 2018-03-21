@@ -134,11 +134,11 @@
             MouseMessageFilter.MouseMove += OnGlobalMouseMove;
         }
 
-        [Category(Localization.EventCategory.Appearance)]
+        [Category(EventCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
 
@@ -786,7 +786,7 @@
         {
             try
             {
-                Size _textSize = GraphicsManager.MeasureText(Text, Font, graphics);
+                Size _textSize = GraphicsManager.MeasureTextRenderer(Text, Font);
                 Point _titleLocation;
 
                 switch (_titleAlignment)
