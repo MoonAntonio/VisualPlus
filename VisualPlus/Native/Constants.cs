@@ -4,6 +4,24 @@
     {
         #region Events
 
+        public const int SB_ENDSCROLL = 8;
+        public const int SB_HORZ = 1;
+        public const int SB_LEFT = 6;
+        public const int SB_LINELEFT = 0;
+        public const int SB_LINERIGHT = 1;
+        public const int SB_PAGELEFT = 2;
+        public const int SB_PAGERIGHT = 3;
+        public const int SB_RIGHT = 7;
+        public const int SB_THUMBPOSITION = 4;
+        public const int SB_THUMBTRACK = 5;
+        public const int SIF_ALL = SIF_RANGE | SIF_PAGE | SIF_POS | SIF_TRACKPOS;
+        public const int SIF_PAGE = 0x2;
+        public const int SIF_POS = 0x4;
+        public const int SIF_RANGE = 0x1;
+        public const int SIF_TRACKPOS = 0x10;
+        public const int WM_HSCROLL = 0x114;
+        public const int WM_MOUSEWHEEL = 0x20A;
+        public const int WM_VSCROLL = 0x115;
         public const int HT_CAPTION = 0x2;
         public const int HTBOTTOM = 15;
         public const int HTBOTTOMLEFT = 16;

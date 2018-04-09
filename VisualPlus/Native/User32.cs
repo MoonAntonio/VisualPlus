@@ -9,6 +9,8 @@ namespace VisualPlus.Native
     using System.Security;
 
     using VisualPlus.Managers;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Controls.DataManagement;
 
     #endregion
 
@@ -24,6 +26,10 @@ namespace VisualPlus.Native
         [Description("Retrieves the monitor information.")]
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern bool GetMonitorInfo(HandleRef hmonitor, [In] [Out] MonitorManager info);
+
+        [Description("The GetScrollInfo function retrieves the parameters of a scroll bar.")]
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int GetScrollInfo(IntPtr hWnd, int n, ref ScrollInfo lpScrollInfo);
 
         [Description("Retrieves the system menu.")]
         [DllImport("user32.dll")]

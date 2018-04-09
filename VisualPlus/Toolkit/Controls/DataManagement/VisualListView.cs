@@ -40,10 +40,11 @@
         private Color _columnHeaderColor;
         private Font _headerFont;
         private Color _headerText;
+        private bool _hoverItem;
         private Color _itemHover;
         private int _itemPadding;
         private Color _itemSelected;
-        private ListView _listView;
+        private ListViewEx _listView;
         private bool _standardHeader;
 
         #endregion
@@ -59,7 +60,9 @@
             // Cannot select this control, only the child ListView and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
+            LastPosition = new Point(-1, -1);
             _border = new Border();
+            _hoverItem = true;
 
             ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
@@ -70,7 +73,7 @@
                        Enabled = ThemeManager.Theme.BackgroundSettings.Type4 
                     };
 
-            _listView = new ListView
+            _listView = new ListViewEx
                 {
                     BackColor = _colorState.Enabled,
                     Size = GetInternalControlSize(Size, _border),
@@ -93,30 +96,8 @@
             _listView.DrawSubItem += ListView_DrawSubItem;
 
             Controls.Add(_listView);
-
             UpdateTheme(ThemeManager.Theme);
 
-            LastPosition = new Point(-1, -1);
-            MouseState = MouseStates.Normal;
-            _listView.MouseEnter += delegate
-                {
-                    MouseState = MouseStates.Hover;
-                };
-            _listView.MouseLeave += delegate
-                {
-                    MouseState = MouseStates.Normal;
-                    LastPosition = new Point(-1, -1);
-                    HoveredItem = null;
-                    Invalidate();
-                };
-            _listView.MouseDown += delegate
-                {
-                    MouseState = MouseStates.Down;
-                };
-            _listView.MouseUp += delegate
-                {
-                    MouseState = MouseStates.Hover;
-                };
             _listView.MouseMove += delegate(object sender, MouseEventArgs args)
                 {
                     LastPosition = args.Location;
@@ -124,7 +105,24 @@
                     if (HoveredItem != currentHoveredItem)
                     {
                         HoveredItem = currentHoveredItem;
-                        Invalidate();
+                        _listView.Invalidate();
+                    }
+                };
+
+            _listView.MouseLeave += delegate
+                {
+                    LastPosition = new Point(-1, -1);
+                    HoveredItem = null;
+                    _listView.Invalidate();
+                };
+
+            _listView.Scroll += delegate
+                {
+                    ListViewItem currentHoveredItem = _listView.GetItemAt(LastPosition.X, LastPosition.Y);
+                    if (HoveredItem != currentHoveredItem)
+                    {
+                        HoveredItem = currentHoveredItem;
+                        _listView.Invalidate();
                     }
                 };
         }
@@ -379,6 +377,21 @@
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Toggle)]
+        public bool HoverItem
+        {
+            get
+            {
+                return _hoverItem;
+            }
+
+            set
+            {
+                _hoverItem = value;
+            }
+        }
+
         [Category("Behaviour")]
         [Description("Gets or sets a value indicating whether an item is automatically selected when the mouse pointer remains over the item for a few seconds.")]
         [DefaultValue(false)]
@@ -395,7 +408,6 @@
             }
         }
 
-        [Browsable(false)]
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color ItemHover
@@ -443,7 +455,7 @@
 
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
-        public Color ItemSelectedColor
+        public Color ItemSelected
         {
             get
             {
@@ -517,6 +529,22 @@
             set
             {
                 _listView.MultiSelect = value;
+            }
+        }
+
+        [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Toggle)]
+        public bool OwnerDraw
+        {
+            get
+            {
+                return _listView.OwnerDraw;
+            }
+
+            set
+            {
+                _listView.OwnerDraw = value;
             }
         }
 
@@ -741,10 +769,18 @@
             DoubleBuffered = true;
         }
 
-        protected override void OnMouseMove(MouseEventArgs e)
+        protected override void OnEnter(EventArgs e)
         {
-            base.OnMouseMove(e);
-            LastPosition = e.Location;
+            base.OnEnter(e);
+            MouseState = MouseStates.Hover;
+            Invalidate();
+        }
+
+        protected override void OnLeave(EventArgs e)
+        {
+            base.OnLeave(e);
+            MouseState = MouseStates.Normal;
+            Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -831,7 +867,7 @@
             {
                 _graphics.FillRectangle(new SolidBrush(_itemSelected), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
             }
-            else if (e.Bounds.Contains(LastPosition) && (MouseState == MouseStates.Hover))
+            else if (e.Bounds.Contains(LastPosition) && (MouseState == MouseStates.Hover) && _hoverItem)
             {
                 _graphics.FillRectangle(new SolidBrush(_itemHover), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
             }

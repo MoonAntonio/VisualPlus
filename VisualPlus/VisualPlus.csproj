@@ -134,6 +134,10 @@
     <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Toolkit\Controls\DataManagement\ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Structure\ScrollInfo.cs" />
     <Compile Include="Toolkit\Controls\DataManagement\VisualCheckedListBox.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressStepper.cs" />
