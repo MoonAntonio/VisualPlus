@@ -15,9 +15,9 @@ The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly
 
 | Discord | Gitter | Build Status |
 | :---- | :---- | :---- |
-[![Join Discord][1]][2] | [ ![Join Gitter Chat][3]][4] | [ ![Build status][5]][6] |
+[![Join Discord][1]][2] | [ ![Join Gitter][3]][4] | [ ![Build status][5]][6] |
 
-[1]: https://img.shields.io/discord/102860784329052160.svg
+[1]: https://img.shields.io/discord/VmsWKKT.svg
 [2]: https://discord.gg/VmsWKKT
 [3]: https://img.shields.io/gitter/room/nwjs/nw.js.svg
 [4]: https://gitter.im/VisualPlusUI/General
