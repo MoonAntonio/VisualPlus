@@ -20,6 +20,7 @@
         /// <summary>Initializes a new instance of the <see cref="ListViewEx" /> class.</summary>
         public ListViewEx()
         {
+            DoubleBuffered = true;
             View = View.Details;
         }
 
