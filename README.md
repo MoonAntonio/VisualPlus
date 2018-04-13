@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://github.com/DarkByte7/VisualPlus"><img alt="VisualPlus" width="100" heigth="100" src="http://i.imgur.com/KwWQDQZ.png"></a>
+<a href="https://darkbyte7.github.io/VisualPlus/"><img alt="VisualPlus" width="100" heigth="100" src="http://i.imgur.com/KwWQDQZ.png"></a>
 </p >
 
 <h1  align="center">VisualPlus</h1>
@@ -13,14 +13,16 @@
  
 The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable components and controls.
 
-| Gitter Chat | Build Status |
-| :---- | :---- |
-[ ![Join Gitter Chat][1]][2] | [ ![Build status][3]][4] |
+| Discord | Gitter | Build Status |
+| :---- | :---- | :---- |
+[![Join Discord][1]][2] | [ ![Join Gitter][3]][4] | [ ![Build status][5]][6] |
 
-[1]: https://img.shields.io/gitter/room/nwjs/nw.js.svg
-[2]: https://gitter.im/VisualPlusUI/General
-[3]: https://img.shields.io/appveyor/ci/DarkByte7/VisualPlus/master.svg?style=flat
-[4]: https://ci.appveyor.com/project/DarkByte7/VisualPlus
+[1]: https://img.shields.io/discord/433671717286707203.svg
+[2]: https://discord.gg/VmsWKKT
+[3]: https://img.shields.io/gitter/room/nwjs/nw.js.svg
+[4]: https://gitter.im/VisualPlusUI/General
+[5]: https://img.shields.io/appveyor/ci/DarkByte7/VisualPlus/master.svg?style=flat
+[6]: https://ci.appveyor.com/project/DarkByte7/VisualPlus
 
 To get the latest release, you can download a [`Fresh Build`](https://ci.appveyor.com/project/DarkByte7/VisualPlus/build/artifacts) here. 
 
@@ -40,7 +42,7 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Submitting pull requests](https://github.com/DarkByte7/VisualPlus/compare)
 
 ## Feedback
-- Ask a question on [Gitter](https://gitter.im/VisualPlusUI/General).
+- Ask a question on [Discord](https://discord.gg/VmsWKKT) or [Gitter](https://gitter.im/VisualPlusUI/General).
 - Request a new feature on [GitHub](https://github.com/DarkByte7/VisualPlus/blob/beta/CONTRIBUTE.md).
 - Vote for [popular feature requests](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue+label:feature-request+sort:reactions-B1-desc).
 - File a bug in [GitHub Issues](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue).
