@@ -940,7 +940,7 @@
                 return;
             }
 
-            e.Graphics.DrawImage((Image)_bitmap.Clone(), new Point(0, e.Item.Bounds.Location.Y));
+            _graphics.DrawImage((Image)_bitmap.Clone(), new Point(0, e.Item.Bounds.Location.Y));
 
             // Draw normal text for a sub item with a non negative 
             // or non numerical value.
