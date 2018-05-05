@@ -1,4 +1,4 @@
-﻿namespace UnitTests
+﻿namespace UnitTests.Tests
 {
     partial class VisualListViewTest
     {

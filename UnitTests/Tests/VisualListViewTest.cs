@@ -1,4 +1,4 @@
-﻿namespace UnitTests
+﻿namespace UnitTests.Tests
 {
     #region Namespace
 
@@ -26,9 +26,9 @@
             for (var i = 0; i < 25; i++)
             {
                 ListViewItem _listViewItem = new ListViewItem
-                    {
-                        Text = @"Item " + i 
-                    };
+                        {
+                           Text = @"Item " + i 
+                        };
 
                 visualListView1.Items.Add(_listViewItem);
             }
