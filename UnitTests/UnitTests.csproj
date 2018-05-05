@@ -48,10 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Compile Include="VisualListViewTest.cs">
+    <Compile Include="Tests\VisualListViewTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VisualListViewTest.Designer.cs">
+    <Compile Include="Tests\VisualListViewTest.Designer.cs">
       <DependentUpon>VisualListViewTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,7 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VisualListViewTest.resx">
+    <EmbeddedResource Include="Tests\VisualListViewTest.resx">
       <DependentUpon>VisualListViewTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
