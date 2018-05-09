@@ -149,7 +149,6 @@
     <Compile Include="Toolkit\Dialogs\VisualExceptionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Toolkit\VisualBase\BadgeLabel.cs" />
     <Compile Include="Toolkit\Components\Expander.cs">
       <SubType>Component</SubType>
     </Compile>
