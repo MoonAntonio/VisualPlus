@@ -11,7 +11,6 @@
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Dialogs;
 
     #endregion
 
@@ -423,14 +422,7 @@
         /// <param name="e">The event args.</param>
         private void OnLabel_Click(object sender, EventArgs e)
         {
-            if (_clickEvent == null)
-            {
-                VisualExceptionDialog.Show(new NullReferenceException(@"No click action has been set."));
-            }
-            else
-            {
-                _clickEvent(_label);
-            }
+            _clickEvent?.Invoke(_label);
         }
 
         /// <summary>On label paint.</summary>
