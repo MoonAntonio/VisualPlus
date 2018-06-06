@@ -120,7 +120,7 @@
             _fullRowSelect = true;
             _headerVisible = true;
             _selectable = true;
-            _showBorder = true;
+            _showBorder = false;
             _colorAlternateBackground = Color.DarkGreen;
             _colorGridColor = Color.LightGray;
             _colorSelectionColor = Color.DarkBlue;
