@@ -293,7 +293,6 @@
 
         #region Properties
 
-        /// <summary>Items ActivatedEmbeddedControl.</summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public Control ActivatedEmbeddedControl
@@ -309,10 +308,9 @@
             }
         }
 
-        /// <summary>Allow columns to be resized.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Allow resizing of columns")]
-        [Category("Header")]
+        [Description("Allow resizing of columns.")]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool AllowColumnResize
         {
@@ -327,28 +325,9 @@
             }
         }
 
-        /// <summary>Allow multiple row selection.</summary>
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Allow multiple selections.")]
-        [Category("Item")]
-        [Browsable(true)]
-        public bool AllowMultiselect
-        {
-            get
-            {
-                return _multiSelect;
-            }
-
-            set
-            {
-                _multiSelect = value;
-            }
-        }
-
-        /// <summary>Second background color if we use alternating colors.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description("Color for text in boxes that are selected.")]
-        [Category("Item Alternating Colors")]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public Color AlternateBackground
         {
@@ -368,10 +347,9 @@
             }
         }
 
-        /// <summary>Alternating Colors on or off.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("turn xp themes on or not")]
-        [Category("Item Alternating Colors")]
+        [Description("Toggle alternating colors.")]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool AlternatingColors
         {
@@ -391,10 +369,9 @@
             }
         }
 
-        /// <summary>Control resizes height of row based on size.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Do we want rows to automatically adjust height")]
-        [Category("Item")]
+        [Description("Automatically adjust the height for rows.")]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool AutoHeight
         {
@@ -413,9 +390,8 @@
             }
         }
 
-        /// <summary>Items BackgroundStretchToFit.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Whether or not to stretch background to fit inner list area.")]
+        [Description(PropertyDescription.Toggle)]
         [Category(EventCategory.Behavior)]
         [Browsable(true)]
         public bool BackgroundStretchToFit
@@ -431,9 +407,8 @@
             }
         }
 
-        /// <summary>Border padding.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Border Padding")]
+        [Description(PropertyDescription.Size)]
         [Category(EventCategory.Appearance)]
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -452,8 +427,7 @@
             }
         }
 
-        /// <summary>Amount of space inside any given cell to borders.</summary>
-        [Description("Cell padding area")]
+        [Description(PropertyDescription.Size)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public int CellPaddingSize
@@ -466,7 +440,6 @@
             // default I set to 4
         }
 
-        /// <summary>Collection of columns.</summary>
         [Category(PropertyCategory.Behavior)]
         [Description("The columns shown in Details view.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -480,9 +453,8 @@
             }
         }
 
-        /// <summary>Overall look of control.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Overall look of control")]
+        [Description("The control theme.")]
         [Category(EventCategory.Behavior)]
         [Browsable(true)]
         public LVControlStyles ControlStyle
@@ -504,8 +476,7 @@
             }
         }
 
-        /// <summary>Current count of items in collection.</summary>
-        [Description("Number of items/rows in the list.")]
+        [Description("Number of items/rows.")]
         [Category(EventCategory.Behavior)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
@@ -518,8 +489,7 @@
             }
         }
 
-        /// <summary>Currently focused item.</summary>
-        [Description("Currently Focused Item")]
+        [Description("Currently focused item.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public VisualListViewItem FocusedItem
@@ -551,10 +521,9 @@
             }
         }
 
-        /// <summary>Selection Full Row.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Allow full row select.")]
-        [Category("Item")]
+        [Description(PropertyDescription.Toggle)]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool FullRowSelect
         {
@@ -569,10 +538,9 @@
             }
         }
 
-        /// <summary>Color of grid lines.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Color of the grid if we draw it.")]
-        [Category("Grid")]
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
         public Color GridColor
         {
@@ -593,10 +561,9 @@
             }
         }
 
-        /// <summary>Grid Lines Type.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Whether or not to draw gridlines")]
-        [Category("Grid")]
+        [Description("Whether or not to draw gridlines.")]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public GridLines GridLines
         {
@@ -617,10 +584,9 @@
             }
         }
 
-        /// <summary>Grid Line Styles.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Whether or not to draw gridlines")]
-        [Category("Grid")]
+        [Description("Whether or not to draw gridlines style.")]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public GridLineStyle GridLineStyle
         {
@@ -641,10 +607,9 @@
             }
         }
 
-        /// <summary>What type of grid you want to draw.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Whether or not to draw gridlines")]
-        [Category("Grid")]
+        [Description("Whether or not to draw grid types.")]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public GridTypes GridTypes
         {
@@ -665,10 +630,9 @@
             }
         }
 
-        /// <summary>Force header height.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("How high the columns are.")]
-        [Category("Header")]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
         public int HeaderHeight
         {
@@ -695,8 +659,7 @@
             }
         }
 
-        /// <summary>Rect of header area.</summary>
-        [Description("The rectangle of the header inside parent control")]
+        [Description(PropertyDescription.Rectangle)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public Rectangle HeaderRect
@@ -707,10 +670,9 @@
             }
         }
 
-        /// <summary>You want the header to be visible or not.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Column Headers Visible")]
-        [Category("Header")]
+        [Description(PropertyDescription.Toggle)]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool HeaderVisible
         {
@@ -729,10 +691,9 @@
             }
         }
 
-        /// <summary>Word wrap in header.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Word wrap in header")]
-        [Category("Header")]
+        [Description(PropertyDescription.Toggle)]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool HeaderWordWrap
         {
@@ -752,7 +713,6 @@
             }
         }
 
-        /// <summary>Currently Hot Column.</summary>
         [Description("Currently Focused Column")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
@@ -782,8 +742,7 @@
             }
         }
 
-        /// <summary>Hot Tracking of columns and items.</summary>
-        [Description("Show hot tracking.")]
+        [Description(PropertyDescription.Toggle)]
         [Category(EventCategory.Behavior)]
         [Browsable(true)]
         public bool HotColumnTracking
@@ -799,7 +758,6 @@
             }
         }
 
-        /// <summary>Current Hot Item.</summary>
         [Description("Currently Focused Item")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
@@ -826,8 +784,7 @@
             }
         }
 
-        /// <summary>Hot Tracking of columns and items.</summary>
-        [Description("Show hot tracking.")]
+        [Description(PropertyDescription.Toggle)]
         [Category(EventCategory.Behavior)]
         [Browsable(true)]
         public bool HotItemTracking
@@ -843,8 +800,7 @@
             }
         }
 
-        /// <summary>Hot tracking.</summary>
-        [Description("Color for hot tracking.")]
+        [Description(PropertyDescription.Color)]
         [Category(EventCategory.Appearance)]
         [Browsable(true)]
         public Color HotTrackingColor
@@ -860,7 +816,6 @@
             }
         }
 
-        /// <summary>Items HoverEvents.</summary>
         [Description("Enabling hover events slows the control some but allows you to be informed when a user has hovered over an item.")]
         [Category(EventCategory.Behavior)]
         [Browsable(true)]
@@ -895,8 +850,8 @@
             }
         }
 
-        [Description("Amount of time in seconds a user hovers before hover event is fired.  Can NOT be zero.")]
-        [Category("Behavior")]
+        [Description("Amount of time in seconds a user hovers before hover event is fired. Can NOT be zero.")]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public int HoverTime
         {
@@ -935,10 +890,9 @@
             }
         }
 
-        /// <summary>How big do we want the individual items to be.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("How high each row is.")]
-        [Category("Item")]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
         public int ItemHeight
         {
@@ -962,9 +916,8 @@
             }
         }
 
-        /// <summary>Collection of items.</summary>
         [Category(PropertyCategory.Behavior)]
-        [Description("The items in the ListView.")]
+        [Description("The items in the collection.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
         [Browsable(true)]
@@ -976,10 +929,9 @@
             }
         }
 
-        /// <summary>Word wrap in cells.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Word wrap in cells")]
-        [Category("Item")]
+        [Description(PropertyDescription.Toggle)]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool ItemWordWrap
         {
@@ -999,8 +951,7 @@
             }
         }
 
-        /// <summary>Max Height of any given row at any given time.  Used with AutoHeight exclusively.</summary>
-        [Description("this will always reflect the most height any item line has needed")]
+        [Description(PropertyDescription.Size)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public int MaxHeight
@@ -1031,7 +982,23 @@
             }
         }
 
-        /// <summary>Row Client Rectangle.</summary>
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Description(PropertyDescription.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Browsable(true)]
+        public bool MultiSelect
+        {
+            get
+            {
+                return _multiSelect;
+            }
+
+            set
+            {
+                _multiSelect = value;
+            }
+        }
+
         [Description("The rectangle of the client inside parent control")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
@@ -1047,7 +1014,6 @@
             }
         }
 
-        /// <summary>The inner rectangle of the client inside parent control taking scroll bars into account.</summary>
         [Description("The inner rectangle of the client inside parent control taking scroll bars into account.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
@@ -1074,7 +1040,6 @@
             }
         }
 
-        /// <summary>Full Sized rectangle of all columns total width.</summary>
         [Description("Full Sized rectangle of all columns total width.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
@@ -1093,9 +1058,8 @@
             }
         }
 
-        /// <summary>Items selectable.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Items selectable.")]
+        [Description(PropertyDescription.Toggle)]
         [Category(EventCategory.Behavior)]
         [Browsable(true)]
         public bool Selectable
@@ -1111,8 +1075,7 @@
             }
         }
 
-        /// <summary>Returns a list of only the selected items indexes.</summary>
-        [Description("Selected Items Array Of Indicies")]
+        [Description("Selected Items Array Of Indicies.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public ArrayList SelectedIndicies
@@ -1123,8 +1086,7 @@
             }
         }
 
-        /// <summary>Returns a list of only the selected items.</summary>
-        [Description("Selected Items Array")]
+        [Description("Selected Items Array.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public ArrayList SelectedItems
@@ -1135,10 +1097,9 @@
             }
         }
 
-        /// <summary>Color for text in boxes that are selected.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Color for text in boxes that are selected.")]
-        [Category("Item")]
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
         public Color SelectedTextColor
         {
@@ -1153,10 +1114,9 @@
             }
         }
 
-        /// <summary>Selection bar color.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Background color to mark selection.")]
-        [Category("Item")]
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
         public Color SelectionColor
         {
@@ -1171,8 +1131,7 @@
             }
         }
 
-        /// <summary>Whether or not to show a border.</summary>
-        [Description("Whether or not to show a border.")]
+        [Description(PropertyDescription.Toggle)]
         [Category(EventCategory.Appearance)]
         [Browsable(true)]
         public bool ShowBorder
@@ -1193,9 +1152,8 @@
             }
         }
 
-        /// <summary>Show the focus rect or not.</summary>
-        [Description("Show Focus Rect on items.")]
-        [Category("Item")]
+        [Description(PropertyDescription.Toggle)]
+        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool ShowFocusRect
         {
@@ -1210,7 +1168,6 @@
             }
         }
 
-        /// <summary>Auto sorting.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description("Type of sorting algorithm used.")]
         [Category(EventCategory.Behavior)]
@@ -1228,10 +1185,9 @@
             }
         }
 
-        /// <summary>Background color to use if flat.</summary>
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Color for text in boxes that are selected.")]
-        [Category("Header")]
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
         public Color SuperFlatHeaderColor
         {
@@ -1251,8 +1207,7 @@
             }
         }
 
-        /// <summary>Are themes available for this control?</summary>
-        [Description("Are Themes Available")]
+        [Description(PropertyDescription.Toggle)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public bool ThemesAvailable
@@ -1263,7 +1218,6 @@
             }
         }
 
-        /// <summary>Number of rows currently visible.</summary>
         [Description("Number of rows currently visible in inner rect.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
@@ -1275,8 +1229,7 @@
             }
         }
 
-        /// <summary>Calculates total height of all rows combined.</summary>
-        [Description("All items together height.")]
+        [Description("Calculates total height of all rows combined.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         protected int TotalRowHeight
@@ -1432,7 +1385,7 @@
 
                 FocusedItem = Items[_item];
 
-                if (((ModifierKeys & Keys.Control) == Keys.Control) && AllowMultiselect)
+                if (((ModifierKeys & Keys.Control) == Keys.Control) && MultiSelect)
                 {
                     _lastSelectionIndex = _item;
 
@@ -1450,7 +1403,7 @@
                 }
 
                 // shift based multi row select -------------------------------------------------------
-                if (((ModifierKeys & Keys.Shift) == Keys.Shift) && AllowMultiselect)
+                if (((ModifierKeys & Keys.Shift) == Keys.Shift) && MultiSelect)
                 {
                     _items.ClearSelection();
                     if (_lastSelectionIndex >= 0)
@@ -1706,7 +1659,7 @@
                     }
                     else if (keyCode == Keys.Space)
                     {
-                        if (!AllowMultiselect)
+                        if (!MultiSelect)
                         {
                             _items.ClearSelection(Items[_itemIndex]);
                         }
@@ -1758,7 +1711,7 @@
                             _items.ClearSelection();
 
                             // gotta catch when the multi select is NOT set
-                            if (!AllowMultiselect)
+                            if (!MultiSelect)
                             {
                                 Items[_itemIndex].Selected = !Items[_itemIndex].Selected;
                             }

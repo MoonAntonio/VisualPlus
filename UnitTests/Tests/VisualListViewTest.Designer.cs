@@ -41,7 +41,7 @@
             // visualListViewAdvanced1
             // 
             this.visualListViewAdvanced1.AllowColumnResize = true;
-            this.visualListViewAdvanced1.AllowMultiselect = false;
+            this.visualListViewAdvanced1.MultiSelect = false;
             this.visualListViewAdvanced1.AlternateBackground = System.Drawing.Color.DarkGreen;
             this.visualListViewAdvanced1.AlternatingColors = false;
             this.visualListViewAdvanced1.AutoHeight = true;

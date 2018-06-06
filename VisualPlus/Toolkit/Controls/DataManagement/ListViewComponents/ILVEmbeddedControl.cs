@@ -2,7 +2,6 @@
 {
     #region Namespace
 
-    using VisualPlus.Enumerators;
     using VisualPlus.Toolkit.Child;
 
     #endregion

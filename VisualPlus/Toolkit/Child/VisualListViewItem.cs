@@ -397,7 +397,7 @@
             {
                 if (_selected != value)
                 {
-                    if ((_listView != null) && _listView.AllowMultiselect && _listView.Items.SuspendEvents)
+                    if ((_listView != null) && _listView.MultiSelect && _listView.Items.SuspendEvents)
                     {
                         _listView.Items.SuspendEvents = true;
                         _listView.Items.ClearSelection();
