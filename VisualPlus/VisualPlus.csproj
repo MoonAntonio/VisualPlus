@@ -56,7 +56,6 @@
     <Compile Include="Collections\ControlCollection\VisualControlCollection.cs" />
     <Compile Include="Collections\CollectionsEditor\VisualTabPageCollectionEditor.cs" />
     <Compile Include="Constants\FormConstants.cs" />
-    <Compile Include="Constants\ListViewExConstants.cs" />
     <Compile Include="Delegates\ControlBoxDelegate.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
     <Compile Include="Designer\VisualControlBoxButtonDesigner.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="Managers\ResourcesManager.cs" />
     <Compile Include="Managers\TextManager.cs" />
     <Compile Include="Managers\TickManager.cs" />
-    <Compile Include="Native\Constants.cs" />
     <Compile Include="Constants\ListViewConstants.cs" />
     <Compile Include="Native\Dwmapi.cs" />
     <Compile Include="Native\Gdi32.cs" />

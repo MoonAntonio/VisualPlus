@@ -42,19 +42,19 @@
 
         protected override void WndProc(ref Message msg)
         {
-            if ((msg.Msg == ListViewExConstants.WM_VSCROLL) || (msg.Msg == ListViewExConstants.WM_MOUSEWHEEL))
+            if ((msg.Msg == ListViewConstants.WM_VSCROLL) || (msg.Msg == ListViewConstants.WM_MOUSEWHEEL))
             {
                 if (Scrolled != null)
                 {
                     ScrollInfo _scrollInfo = new ScrollInfo
                             {
-                               fMask = ListViewExConstants.SIF_ALL 
+                               fMask = ListViewConstants.SIF_ALL 
                             };
 
                     _scrollInfo.cbSize = Marshal.SizeOf(_scrollInfo);
-                    User32.GetScrollInfo(msg.HWnd, ListViewExConstants.SB_HORZ, ref _scrollInfo);
+                    User32.GetScrollInfo(msg.HWnd, ListViewConstants.SB_HORZ, ref _scrollInfo);
 
-                    if ((msg.WParam.ToInt32() == ListViewExConstants.SB_ENDSCROLL) || (msg.Msg == ListViewExConstants.WM_MOUSEWHEEL))
+                    if ((msg.WParam.ToInt32() == ListViewConstants.SB_ENDSCROLL) || (msg.Msg == ListViewConstants.WM_MOUSEWHEEL))
                     {
                         ScrollEventArgs _scrollEventArgs = new ScrollEventArgs(ScrollEventType.EndScroll, _scrollInfo.nPos);
                         Scrolled(this, _scrollEventArgs);
