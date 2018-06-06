@@ -1544,27 +1544,21 @@
 
             RecalculateScroll(); // at some point I need to move this out of paint.  Doesn't really belong here.
 
-            // Debug.WriteLine( "Redraw called " + DateTime.Now.ToLongTimeString() );
             Graphics _graphics = e.Graphics;
             {
-                // if ( Columns.Count > 0 )
                 int _insideWidth = Columns.Width > HeaderRect.Width ? Columns.Width : HeaderRect.Width;
 
-                // Draw header.
                 if (HeaderVisible)
                 {
                     _graphics.SetClip(HeaderRect);
                     ListViewRenderer.DrawColumnHeader(_graphics, new Size(HeaderRect.Width, HeaderRect.Height), this, _hPanelScrollBar, _theme);
                 }
 
-                // Draw client area
                 _graphics.SetClip(RowsInnerClientRect);
                 ListViewRenderer.DrawRows(_graphics, this, _vPanelScrollBar, _hPanelScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
 
-                // Removing controls that aren't visible anymore without having to iterate the entire items list
                 foreach (Control control in _liveControls)
                 {
-                    Debug.WriteLine("Setting " + control + " to hidden.");
                     control.Visible = false;
                 }
 
@@ -1828,57 +1822,49 @@
                 _activatedEmbeddedControl = null;
             }
 
-            /*
-            using activator.createinstance
-            typeof()/GetType
-            Type t = obj.GetType()
-             */
             if (Columns[column].EmbeddedControlTemplate == null)
             {
                 return;
             }
 
-            Type type = Columns[column].EmbeddedControlTemplate.GetType();
-            Control control = (Control)Activator.CreateInstance(type);
-            ILVEmbeddedControl icontrol = (ILVEmbeddedControl)control;
+            Type _type = _columns[column].EmbeddedControlTemplate.GetType();
+            Control _control = (Control)Activator.CreateInstance(_type);
+            ILVEmbeddedControl _iEmbeddedControl = (ILVEmbeddedControl)_control;
 
-            if (icontrol == null)
+            if (_iEmbeddedControl == null)
             {
                 throw new Exception(@"Control does not implement the GLEmbeddedControl interface, can't start");
             }
 
-            icontrol.LVEmbeddedControlLoad(item, subItem, this);
+            _iEmbeddedControl.LVEmbeddedControlLoad(item, subItem, this);
 
-            // control.LostFocus += new EventHandler( ActivatedEmbbed_LostFocus );
-            control.KeyPress += TextBox_KeyPress;
+            _control.KeyPress += TextBox_KeyPress;
 
-            control.Parent = this;
-            ActivatedEmbeddedControl = control;
-
-            // subItem.Control = control; // seed the control
+            _control.Parent = this;
+            ActivatedEmbeddedControl = _control;
             if (_activatedEmbeddedControl != null)
             {
-                int nYOffset = (subItem.LastCellRect.Height - _activatedEmbeddedControl.Bounds.Height) / 2;
+                int _yOffset = (subItem.LastCellRect.Height - _activatedEmbeddedControl.Bounds.Height) / 2;
             }
 
-            Rectangle controlBounds;
+            Rectangle _controlBounds;
 
             if (GridLineStyle == GridLineStyle.None)
             {
                 // add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
-                controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 1, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 2);
+                _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 1, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 2);
             }
             else
             {
                 // add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
-                controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 2, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 3);
+                _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 2, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 3);
             }
 
             // control.Bounds = subItem.LastCellRect; //new Rectangle( subItem.LastCellRect.X, subItem.LastCellRect.Y + nYOffset, subItem.LastCellRect.Width, subItem.LastCellRect.Height );
-            control.Bounds = controlBounds;
+            _control.Bounds = _controlBounds;
 
-            control.Show();
-            control.Focus();
+            _control.Show();
+            _control.Focus();
         }
 
         /// <summary>Determines if themes are available.</summary>
@@ -1986,53 +1972,38 @@
         /// <param name="e">The event args.</param>
         private void HoverTimer_TimerTick(object sender, EventArgs e)
         {
-#if false
-
-// Control.MousePosition.X
-			int nx = Control.MousePosition.X;
-			int ny = Control.MousePosition.Y;
-			Debug.WriteLine( "Control " + nx.ToString() + " " + ny.ToString() );
-
-
-			nx = Cursor.Position.X;
-			ny = Cursor.Position.Y;
-			Debug.WriteLine( "Cursor " + nx.ToString() + " " + ny.ToString() );
-#endif
-
-            // make sure hover is actually inside control too
-            Point pointLocalMouse;
+            Point _pointLocalMouse;
             if (Cursor != null)
             {
-                pointLocalMouse = PointToClient(Cursor.Position);
+                _pointLocalMouse = PointToClient(Cursor.Position);
             }
             else
             {
-                pointLocalMouse = new Point(9999, 9999);
+                _pointLocalMouse = new Point(9999, 9999);
             }
 
             int nItem;
-            nItem = 0;
-            var nColumn = 0;
+            int nColumn;
             var nCellX = 0;
             var nCellY = 0;
             ListStates eState;
             ListViewRegion listRegion;
-            InterpretCoordinates(pointLocalMouse.X, pointLocalMouse.Y, out listRegion, out nCellX, out nCellY, out nItem, out nColumn, out eState);
+            InterpretCoordinates(_pointLocalMouse.X, _pointLocalMouse.Y, out listRegion, out nCellX, out nCellY, out nItem, out nColumn, out eState);
 
-            if ((pointLocalMouse == _lastHoverSpot) && !_hoverLive && (listRegion != ListViewRegion.NonClient))
+            if ((_pointLocalMouse == _lastHoverSpot) && !_hoverLive && (listRegion != ListViewRegion.NonClient))
             {
-                Debug.WriteLine("Firing Hover");
+                Debug.WriteLine("VisualListView::HoverTimer-Firing");
                 HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverStart, nItem, nColumn, listRegion));
                 _hoverLive = true;
             }
-            else if (_hoverLive && (pointLocalMouse != _lastHoverSpot))
+            else if (_hoverLive && (_pointLocalMouse != _lastHoverSpot))
             {
-                Debug.WriteLine("Canceling Hover");
+                Debug.WriteLine("VisualListView::HoverTimer-Canceling");
                 HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverEnd, -1, -1, ListViewRegion.NonClient));
                 _hoverLive = false;
             }
 
-            _lastHoverSpot = pointLocalMouse;
+            _lastHoverSpot = _pointLocalMouse;
         }
 
         private void InitializeComponent()
@@ -2107,40 +2078,37 @@
         /// <summary>Recalculate scroll bars and control size.</summary>
         private void RecalculateScroll()
         {
-            // Graphics g )
-            DebugTraceManager.WriteDebug("RecalcScroll", DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("VisualListView::RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
 
-            int nSomethingHasGoneVeryWrongSoBreakOut = 0;
-            bool bSBChanged;
+            var _exitCode = 0;
+            bool _bSbChanged;
             do
             {
-                // this loop is to handle changes and rechanges that happen when oen or the other changes
-                DebugTraceManager.WriteDebug("Begin scrolbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
-                bSBChanged = false;
+                // this loop is to handle changes and re-changes that happen when one or the other changes
+                DebugTraceManager.WriteDebug("Begin scrollbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
+                _bSbChanged = false;
 
-                if ((Columns.Width > RowsInnerClientRect.Width) && (_hPanelScrollBar.Visible == false))
+                if ((_columns.Width > RowsInnerClientRect.Width) && (_hPanelScrollBar.Visible == false))
                 {
                     // total width of all the rows is less than the visible rect
                     _hPanelScrollBar.MVisible = true;
                     _hPanelScrollBar.Value = 0;
-                    bSBChanged = true;
+                    _bSbChanged = true;
 
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalcScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
                     Invalidate();
-
-                    DebugTraceManager.WriteDebug("showing hscrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                    DebugTraceManager.WriteDebug("showing hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
                 }
 
-                if ((Columns.Width <= RowsInnerClientRect.Width) && _hPanelScrollBar.Visible)
+                if ((_columns.Width <= RowsInnerClientRect.Width) && _hPanelScrollBar.Visible)
                 {
                     // total width of all the rows is less than the visible rect
                     _hPanelScrollBar.MVisible = false;
                     _hPanelScrollBar.Value = 0;
-                    bSBChanged = true;
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalcScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    _bSbChanged = true;
+                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
                     Invalidate();
-
-                    DebugTraceManager.WriteDebug("hiding hscrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                    DebugTraceManager.WriteDebug("hiding hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
                 }
 
                 if ((TotalRowHeight > RowsInnerClientRect.Height) && (_vPanelScrollBar.Visible == false))
@@ -2148,11 +2116,10 @@
                     // total height of all the rows is greater than the visible rect
                     _vPanelScrollBar.MVisible = true;
                     _hPanelScrollBar.Value = 0;
-                    bSBChanged = true;
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalcScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    _bSbChanged = true;
+                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
                     Invalidate();
-
-                    DebugTraceManager.WriteDebug("showing vscrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                    DebugTraceManager.WriteDebug("showing vScrollbar", DebugTraceManager.DebugOutput.TraceListener);
                 }
 
                 if ((TotalRowHeight <= RowsInnerClientRect.Height) && _vPanelScrollBar.Visible)
@@ -2160,57 +2127,51 @@
                     // total height of all rows is less than the visible rect
                     _vPanelScrollBar.MVisible = false;
                     _vPanelScrollBar.Value = 0;
-                    bSBChanged = true;
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalcScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    _bSbChanged = true;
+                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
                     Invalidate();
-
-                    DebugTraceManager.WriteDebug("hiding vscrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                    DebugTraceManager.WriteDebug("hiding vScrollbar", DebugTraceManager.DebugOutput.TraceListener);
                 }
 
-                DebugTraceManager.WriteDebug("End scrolbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
+                DebugTraceManager.WriteDebug("End scrollbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
 
-                // *** WARNING *** WARNING *** Kludge.  Not sure why this is sometimes hanging.  Fix this.
-                if (++nSomethingHasGoneVeryWrongSoBreakOut > 4)
+                if (++_exitCode > 4)
                 {
                     break;
                 }
             }
-            while (bSBChanged); // this should never really run more than twice
+            while (_bSbChanged);
 
-            // Rectangle headerRect = HeaderRect;		// tihs is an optimization so header rect doesnt recalc every time we call it
-            Rectangle rectClient = RowsInnerClientRect;
+            Rectangle _rectangleClient = RowsInnerClientRect;
 
-            /*
-             *  now that we know which scrollbars are showing and which aren't, resize the scrollbars to fit those windows
-             */
             if (_vPanelScrollBar.Visible)
             {
-                _vPanelScrollBar.MTop = rectClient.Y;
-                _vPanelScrollBar.MLeft = rectClient.Right;
-                _vPanelScrollBar.MHeight = rectClient.Height;
+                _vPanelScrollBar.MTop = _rectangleClient.Y;
+                _vPanelScrollBar.MLeft = _rectangleClient.Right;
+                _vPanelScrollBar.MHeight = _rectangleClient.Height;
                 _vPanelScrollBar.MLargeChange = VisibleRowsCount;
                 _vPanelScrollBar.MMaximum = Count - 1;
 
                 if (_vPanelScrollBar.Value + VisibleRowsCount > Count)
                 {
-                    // catch all to make sure the scrollbar isnt going farther than visible items
-                    DebugTraceManager.WriteDebug("Changing vpanel value", DebugTraceManager.DebugOutput.TraceListener);
+                    // catch all to make sure the scrollbar isn't going farther than visible items
+                    DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
                     _vPanelScrollBar.Value = Count - VisibleRowsCount; // an item got deleted underneath somehow and scroll value is larger than can be displayed
                 }
             }
 
             if (_hPanelScrollBar.Visible)
             {
-                _hPanelScrollBar.MLeft = rectClient.Left;
-                _hPanelScrollBar.MTop = rectClient.Bottom;
-                _hPanelScrollBar.MWidth = rectClient.Width;
+                _hPanelScrollBar.MLeft = _rectangleClient.Left;
+                _hPanelScrollBar.MTop = _rectangleClient.Bottom;
+                _hPanelScrollBar.MWidth = _rectangleClient.Width;
 
-                _hPanelScrollBar.MLargeChange = rectClient.Width; // this reall is the size we want to move
+                _hPanelScrollBar.MLargeChange = _rectangleClient.Width; // this re-all is the size we want to move
                 _hPanelScrollBar.MMaximum = Columns.Width;
 
                 if (_hPanelScrollBar.Value + _hPanelScrollBar.LargeChange > _hPanelScrollBar.Maximum)
                 {
-                    DebugTraceManager.WriteDebug("Changing vpanel value", DebugTraceManager.DebugOutput.TraceListener);
+                    DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
                     _hPanelScrollBar.Value = _hPanelScrollBar.Maximum - _hPanelScrollBar.LargeChange;
                 }
             }
@@ -2219,7 +2180,6 @@
             {
                 _horiBottomBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Bottom - BorderPadding, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
                 _horiTopBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Top, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
-
                 _vertLeftBorderStrip.Bounds = new Rectangle(0, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
                 _vertRightBorderStrip.Bounds = new Rectangle(ClientRectangle.Right - BorderPadding, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
             }
