@@ -289,16 +289,16 @@
 
         /// <summary>Draw grid lines in client area.</summary>
         /// <param name="rowsDC">Graphics dc.</param>
-        /// <param name="rect">The rectangle.</param>
         /// <param name="vPanelScrollBar">The v Panel Scroll Bar.</param>
         /// <param name="hPanelScrollBar">The h Panel Scroll Bar.</param>
         /// <param name="listView">The list View.</param>
-        public static void DrawGridLines(Graphics rowsDC, Rectangle rect, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, VisualListViewAdvanced listView)
+        public static void DrawGridLines(Graphics rowsDC, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, VisualListViewAdvanced listView)
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawGridLines", DebugTraceManager.DebugOutput.TraceListener);
 
             // int _startItem = vPanelScrollBar.Value;
-            int _yCursor = rect.Y;
+           // int _yCursor = rect.Y;
+            int _yCursor = listView.RowsInnerClientRect.Y;
             using (Pen _gridPen = new Pen(listView.GridColor))
             {
                 if (listView.GridLineStyle == GridLineStyle.Dashed)
@@ -330,7 +330,7 @@
                         _yCursor += listView.ItemHeight;
 
                         // draw horizontal line
-                        rowsDC.DrawLine(_gridPen, 0, _yCursor, rect.Width, _yCursor);
+                        rowsDC.DrawLine(_gridPen, 0, _yCursor, listView.RowsInnerClientRect.Width, _yCursor);
                     }
                 }
 
@@ -340,7 +340,7 @@
                     for (var column = 0; column < listView.Columns.Count; column++)
                     {
                         _xCursor += listView.Columns[column].Width;
-                        rowsDC.DrawLine(_gridPen, _xCursor + 1, rect.Y, _xCursor + 1, rect.Bottom); // draw vertical line
+                        rowsDC.DrawLine(_gridPen, _xCursor + 1, listView.RowsInnerClientRect.Y, _xCursor + 1, listView.RowsInnerClientRect.Bottom); // draw vertical line
                     }
                 }
             }
@@ -512,7 +512,7 @@
 
             if (listView.GridLineStyle != GridLineStyle.None)
             {
-                DrawGridLines(graphicsRows, listView.RowsInnerClientRect, vPanelScrollBar, hPanelScrollBar, listView);
+                DrawGridLines(graphicsRows, vPanelScrollBar, hPanelScrollBar, listView);
             }
 
             // draw hot tracking column overlay

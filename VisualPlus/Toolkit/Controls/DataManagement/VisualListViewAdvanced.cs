@@ -90,7 +90,6 @@
         private int _resizeColumnNumber;
         private bool _selectable;
         private Color _selectedTextColor;
-        private bool _showBorder;
         private bool _showFocusRect;
         private ImageList _smallImageList;
         private SortTypes _sortType;
@@ -102,6 +101,7 @@
         private BorderStrip _vertLeftBorderStrip;
         private BorderStrip _vertRightBorderStrip;
         private ManagedVScrollBar _vPanelScrollBar;
+        private bool _borderVisible;
         private ImageList imageList1;
 
         #endregion
@@ -120,7 +120,7 @@
             _fullRowSelect = true;
             _headerVisible = true;
             _selectable = true;
-            _showBorder = false;
+            _borderVisible = false;
             _colorAlternateBackground = Color.DarkGreen;
             _colorGridColor = Color.LightGray;
             _colorSelectionColor = Color.DarkBlue;
@@ -140,7 +140,7 @@
             _gridType = GridTypes.Normal;
             _gridLineStyle = GridLineStyle.Solid;
             _gridLines = GridLines.Both;
-            _controlStyle = LVControlStyles.Normal;
+            _controlStyle = LVControlStyles.SuperFlat;
             _multiSelect = false;
             _hotItemTracking = true;
             _hotColumnTracking = true;
@@ -309,7 +309,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Allow resizing of columns.")]
+        [Description(PropertyDescription.Toggle)]
         [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool AllowColumnResize
@@ -326,7 +326,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Color for text in boxes that are selected.")]
+        [Description(PropertyDescription.Color)]
         [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public Color AlternateBackground
@@ -348,7 +348,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Toggle alternating colors.")]
+        [Description(PropertyDescription.Toggle)]
         [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool AlternatingColors
@@ -370,7 +370,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Automatically adjust the height for rows.")]
+        [Description(PropertyDescription.Toggle)]
         [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool AutoHeight
@@ -416,13 +416,34 @@
         {
             get
             {
-                if (ShowBorder)
+                if (BorderVisible)
                 {
                     return 2;
                 }
                 else
                 {
                     return 0;
+                }
+            }
+        }
+
+        [Description(PropertyDescription.Toggle)]
+        [Category(EventCategory.Appearance)]
+        [Browsable(true)]
+        public bool BorderVisible
+        {
+            get
+            {
+                return _borderVisible;
+            }
+
+            set
+            {
+                _borderVisible = value;
+
+                if (DesignMode && (Parent != null))
+                {
+                    Parent.Invalidate(true);
                 }
             }
         }
@@ -1132,27 +1153,6 @@
         }
 
         [Description(PropertyDescription.Toggle)]
-        [Category(EventCategory.Appearance)]
-        [Browsable(true)]
-        public bool ShowBorder
-        {
-            get
-            {
-                return _showBorder;
-            }
-
-            set
-            {
-                _showBorder = value;
-
-                if (DesignMode && (Parent != null))
-                {
-                    Parent.Invalidate(true);
-                }
-            }
-        }
-
-        [Description(PropertyDescription.Toggle)]
         [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
         public bool ShowFocusRect
@@ -1542,7 +1542,7 @@
                 return;
             }
 
-            RecalculateScroll(); // at some point I need to move this out of paint.  Doesn't really belong here.
+            RecalculateScroll(); // Doesn't really belong in paint.
 
             Graphics _graphics = e.Graphics;
             {

@@ -49,7 +49,7 @@
             this.visualListViewAdvanced1.AlternateBackground = System.Drawing.Color.DarkGreen;
             this.visualListViewAdvanced1.AlternatingColors = false;
             this.visualListViewAdvanced1.AutoHeight = true;
-            this.visualListViewAdvanced1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.visualListViewAdvanced1.BackColor = System.Drawing.Color.White;
             this.visualListViewAdvanced1.BackgroundStretchToFit = true;
             visualListViewColumn1.CheckBoxes = false;
             visualListViewColumn1.EmbeddedType = VisualPlus.Enumerators.LVActivatedEmbeddedTypes.None;
@@ -88,7 +88,7 @@
             visualListViewColumn2,
             visualListViewColumn3,
             visualListViewColumn4});
-            this.visualListViewAdvanced1.ControlStyle = VisualPlus.Enumerators.LVControlStyles.XP;
+            this.visualListViewAdvanced1.ControlStyle = VisualPlus.Enumerators.LVControlStyles.SuperFlat;
             this.visualListViewAdvanced1.FullRowSelect = true;
             this.visualListViewAdvanced1.GridColor = System.Drawing.Color.LightGray;
             this.visualListViewAdvanced1.GridLines = VisualPlus.Enumerators.GridLines.Both;
@@ -111,8 +111,8 @@
             this.visualListViewAdvanced1.Name = "visualListViewAdvanced1";
             this.visualListViewAdvanced1.Selectable = true;
             this.visualListViewAdvanced1.SelectedTextColor = System.Drawing.Color.White;
-            this.visualListViewAdvanced1.SelectionColor = System.Drawing.Color.DarkBlue;
-            this.visualListViewAdvanced1.ShowBorder = false;
+            this.visualListViewAdvanced1.SelectionColor = System.Drawing.Color.CornflowerBlue;
+            this.visualListViewAdvanced1.BorderVisible = false;
             this.visualListViewAdvanced1.ShowFocusRect = false;
             this.visualListViewAdvanced1.Size = new System.Drawing.Size(457, 231);
             this.visualListViewAdvanced1.SortType = VisualPlus.Enumerators.SortTypes.InsertionSort;
