@@ -48,6 +48,7 @@
         private bool _alternatingColors;
         private bool _autoHeight;
         private bool _backgroundStretchToFit;
+        private bool _borderVisible;
         private Color _colorAlternateBackground;
         private Color _colorGridColor;
         private Color _colorSelectionColor;
@@ -64,8 +65,9 @@
         private int _headerHeight;
         private bool _headerVisible;
         private bool _headerWordWrap;
-        private BorderStrip _horiBottomBorderStrip;
-        private BorderStrip _horiTopBorderStrip;
+        private BorderStrip _horizontalBottomBorderStrip;
+        private ManagedHScrollBar _horizontalScrollBar;
+        private BorderStrip _horizontalTopBorderStrip;
         private int _hotColumnIndex;
         private bool _hotColumnTracking;
         private int _hotItemIndex;
@@ -74,7 +76,6 @@
         private bool _hoverEvents;
         private bool _hoverLive;
         private int _hoverTime;
-        private ManagedHScrollBar _hPanelScrollBar;
         private ImageList _imageList;
         private int _itemHeight;
         private VisualListViewItemCollection _items;
@@ -98,10 +99,9 @@
         private bool _themesAvailable;
         private Timer _timer;
         private bool _updating;
-        private BorderStrip _vertLeftBorderStrip;
-        private BorderStrip _vertRightBorderStrip;
-        private ManagedVScrollBar _vPanelScrollBar;
-        private bool _borderVisible;
+        private BorderStrip _verticalLeftBorderStrip;
+        private BorderStrip _verticalRightBorderStrip;
+        private ManagedVScrollBar _verticalScrollBar;
         private ImageList imageList1;
 
         #endregion
@@ -179,16 +179,9 @@
 
             BackColor = SystemColors.ControlLightLight;
 
-            // Debug.WriteLine( "Creating borders" );
-            _vertLeftBorderStrip = new BorderStrip();
-            _vertRightBorderStrip = new BorderStrip();
-            _horiBottomBorderStrip = new BorderStrip();
-            _horiTopBorderStrip = new BorderStrip();
-            _cornerBox = new BorderStrip();
-
             SuspendLayout();
 
-            _hPanelScrollBar = new ManagedHScrollBar
+            _horizontalScrollBar = new ManagedHScrollBar
                 {
                     Anchor = AnchorStyles.None,
                     CausesValidation = false,
@@ -199,12 +192,11 @@
                     Size = new Size(120, 16),
                     Parent = this
                 };
+            _horizontalScrollBar.Scroll += OnScroll;
+            _horizontalScrollBar.Scroll += HorizontalPanelScrollBar_Scroll;
+            Controls.Add(_horizontalScrollBar);
 
-            _hPanelScrollBar.Scroll += OnScroll;
-            _hPanelScrollBar.Scroll += HorizontalPanelScrollBar_Scroll;
-            Controls.Add(_hPanelScrollBar);
-
-            _vPanelScrollBar = new ManagedVScrollBar
+            _verticalScrollBar = new ManagedVScrollBar
                 {
                     Anchor = AnchorStyles.None,
                     CausesValidation = false,
@@ -215,38 +207,49 @@
                     Size = new Size(16, 120),
                     Parent = this
                 };
+            _verticalScrollBar.Scroll += OnScroll;
+            _verticalScrollBar.Scroll += VerticalPanelScrollBar_Scroll;
+            Controls.Add(_verticalScrollBar);
 
-            _vPanelScrollBar.Scroll += OnScroll;
-            _vPanelScrollBar.Scroll += VerticalPanelScrollBar_Scroll;
-            Controls.Add(_vPanelScrollBar);
+            _horizontalTopBorderStrip = new BorderStrip
+                {
+                    Parent = this,
+                    BorderType = BorderStrip.BorderTypes.Top,
+                    Visible = false
+                };
+            _horizontalTopBorderStrip.BringToFront();
 
-            _horiTopBorderStrip.Parent = this;
-            _horiTopBorderStrip.BorderType = BorderStrip.BorderTypes.Top;
-            _horiTopBorderStrip.Visible = true;
-            _horiTopBorderStrip.BringToFront();
+            _horizontalBottomBorderStrip = new BorderStrip
+                {
+                    Parent = this,
+                    BorderType = BorderStrip.BorderTypes.Bottom,
+                    Visible = true
+                };
+            _horizontalBottomBorderStrip.BringToFront();
 
-            // this.horiBottomBorderStrip.BackColor=Color.Black;
-            _horiBottomBorderStrip.Parent = this;
-            _horiBottomBorderStrip.BorderType = BorderStrip.BorderTypes.Bottom;
-            _horiBottomBorderStrip.Visible = true;
-            _horiBottomBorderStrip.BringToFront();
+            _verticalLeftBorderStrip = new BorderStrip
+                {
+                    BorderType = BorderStrip.BorderTypes.Left,
+                    Parent = this,
+                    Visible = true
+                };
+            _verticalLeftBorderStrip.BringToFront();
 
-            // this.vertLeftBorderStrip.BackColor=Color.Black;
-            _vertLeftBorderStrip.BorderType = BorderStrip.BorderTypes.Left;
-            _vertLeftBorderStrip.Parent = this;
-            _vertLeftBorderStrip.Visible = true;
-            _vertLeftBorderStrip.BringToFront();
+            _verticalRightBorderStrip = new BorderStrip
+                {
+                    BorderType = BorderStrip.BorderTypes.Right,
+                    Parent = this,
+                    Visible = true
+                };
+            _verticalRightBorderStrip.BringToFront();
 
-            // this.vertRightBorderStrip.BackColor=Color.Black;
-            _vertRightBorderStrip.BorderType = BorderStrip.BorderTypes.Right;
-            _vertRightBorderStrip.Parent = this;
-            _vertRightBorderStrip.Visible = true;
-            _vertRightBorderStrip.BringToFront();
-
-            _cornerBox.BackColor = SystemColors.Control;
-            _cornerBox.BorderType = BorderStrip.BorderTypes.Square;
-            _cornerBox.Visible = false;
-            _cornerBox.Parent = this;
+            _cornerBox = new BorderStrip
+                {
+                    BackColor = SystemColors.Control,
+                    BorderType = BorderStrip.BorderTypes.Square,
+                    Visible = false,
+                    Parent = this
+                };
             _cornerBox.BringToFront();
 
             Size = new Size(121, 97);
@@ -1044,8 +1047,8 @@
             {
                 Rectangle innerRect = RowsClientRect;
 
-                innerRect.Width -= _vPanelScrollBar.MWidth; // horizontal bar crosses vertical plane and vice versa
-                innerRect.Height -= _hPanelScrollBar.MHeight;
+                innerRect.Width -= _verticalScrollBar.MWidth; // horizontal bar crosses vertical plane and vice versa
+                innerRect.Height -= _horizontalScrollBar.MHeight;
 
                 if (innerRect.Width < 0)
                 {
@@ -1070,7 +1073,7 @@
             {
                 Rectangle rect = new Rectangle();
 
-                rect.X = -_hPanelScrollBar.Value + BorderPadding;
+                rect.X = -_horizontalScrollBar.Value + BorderPadding;
                 rect.Y = HeaderHeight + BorderPadding;
                 rect.Width = Columns.Width;
                 rect.Height = VisibleRowsCount * ItemHeight;
@@ -1551,11 +1554,11 @@
                 if (HeaderVisible)
                 {
                     _graphics.SetClip(HeaderRect);
-                    ListViewRenderer.DrawColumnHeader(_graphics, new Size(HeaderRect.Width, HeaderRect.Height), this, _hPanelScrollBar, _theme);
+                    ListViewRenderer.DrawColumnHeader(_graphics, new Size(HeaderRect.Width, HeaderRect.Height), this, _horizontalScrollBar, _theme);
                 }
 
                 _graphics.SetClip(RowsInnerClientRect);
-                ListViewRenderer.DrawRows(_graphics, this, _vPanelScrollBar, _hPanelScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
+                ListViewRenderer.DrawRows(_graphics, this, _verticalScrollBar, _horizontalScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
 
                 foreach (Control control in _liveControls)
                 {
@@ -1679,15 +1682,15 @@
                     }
 
                     // move view.  Need to move end -1 to take into account 0 based index
-                    if (_itemIndex < _vPanelScrollBar.Value)
+                    if (_itemIndex < _verticalScrollBar.Value)
                     {
                         // its out of viewable, move the surface
-                        _vPanelScrollBar.Value = _itemIndex;
+                        _verticalScrollBar.Value = _itemIndex;
                     }
 
-                    if (_itemIndex > _vPanelScrollBar.Value + (VisibleRowsCount - 1))
+                    if (_itemIndex > _verticalScrollBar.Value + (VisibleRowsCount - 1))
                     {
-                        _vPanelScrollBar.Value = _itemIndex - (VisibleRowsCount - 1);
+                        _verticalScrollBar.Value = _itemIndex - (VisibleRowsCount - 1);
                     }
 
                     if (_previousIndex != _itemIndex)
@@ -1747,7 +1750,7 @@
                 else
                 {
                     // only if non selectable
-                    int nMoveIndex = _vPanelScrollBar.Value;
+                    int nMoveIndex = _verticalScrollBar.Value;
 
                     if (keyCode == Keys.Down)
                     {
@@ -1776,7 +1779,7 @@
                     }
                     else
                     {
-                        return base.PreProcessMessage(ref msg); // we don't know how to deal with this key
+                        return base.PreProcessMessage(ref msg);
                     }
 
                     if (nMoveIndex > Count - VisibleRowsCount)
@@ -1789,9 +1792,9 @@
                         nMoveIndex = 0;
                     }
 
-                    if (_vPanelScrollBar.Value != nMoveIndex)
+                    if (_verticalScrollBar.Value != nMoveIndex)
                     {
-                        _vPanelScrollBar.Value = nMoveIndex;
+                        _verticalScrollBar.Value = nMoveIndex;
 
                         DebugTraceManager.WriteDebug("Calling Invalidate From PreProcessMessage", DebugTraceManager.DebugOutput.TraceListener);
                         Invalidate();
@@ -1800,7 +1803,7 @@
             }
             else
             {
-                return base.PreProcessMessage(ref msg); // handle ALL other messages
+                return base.PreProcessMessage(ref msg);
             }
 
             return true;
@@ -1851,12 +1854,12 @@
 
             if (GridLineStyle == GridLineStyle.None)
             {
-                // add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
+                // Add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
                 _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 1, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 2);
             }
             else
             {
-                // add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
+                // Add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
                 _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 2, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 3);
             }
 
@@ -2088,11 +2091,11 @@
                 DebugTraceManager.WriteDebug("Begin scrollbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
                 _bSbChanged = false;
 
-                if ((_columns.Width > RowsInnerClientRect.Width) && (_hPanelScrollBar.Visible == false))
+                if ((_columns.Width > RowsInnerClientRect.Width) && (_horizontalScrollBar.Visible == false))
                 {
                     // total width of all the rows is less than the visible rect
-                    _hPanelScrollBar.MVisible = true;
-                    _hPanelScrollBar.Value = 0;
+                    _horizontalScrollBar.MVisible = true;
+                    _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
 
                     DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
@@ -2100,33 +2103,33 @@
                     DebugTraceManager.WriteDebug("showing hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
                 }
 
-                if ((_columns.Width <= RowsInnerClientRect.Width) && _hPanelScrollBar.Visible)
+                if ((_columns.Width <= RowsInnerClientRect.Width) && _horizontalScrollBar.Visible)
                 {
                     // total width of all the rows is less than the visible rect
-                    _hPanelScrollBar.MVisible = false;
-                    _hPanelScrollBar.Value = 0;
+                    _horizontalScrollBar.MVisible = false;
+                    _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
                     DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
                     Invalidate();
                     DebugTraceManager.WriteDebug("hiding hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
                 }
 
-                if ((TotalRowHeight > RowsInnerClientRect.Height) && (_vPanelScrollBar.Visible == false))
+                if ((TotalRowHeight > RowsInnerClientRect.Height) && (_verticalScrollBar.Visible == false))
                 {
                     // total height of all the rows is greater than the visible rect
-                    _vPanelScrollBar.MVisible = true;
-                    _hPanelScrollBar.Value = 0;
+                    _verticalScrollBar.MVisible = true;
+                    _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
                     DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
                     Invalidate();
                     DebugTraceManager.WriteDebug("showing vScrollbar", DebugTraceManager.DebugOutput.TraceListener);
                 }
 
-                if ((TotalRowHeight <= RowsInnerClientRect.Height) && _vPanelScrollBar.Visible)
+                if ((TotalRowHeight <= RowsInnerClientRect.Height) && _verticalScrollBar.Visible)
                 {
                     // total height of all rows is less than the visible rect
-                    _vPanelScrollBar.MVisible = false;
-                    _vPanelScrollBar.Value = 0;
+                    _verticalScrollBar.MVisible = false;
+                    _verticalScrollBar.Value = 0;
                     _bSbChanged = true;
                     DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
                     Invalidate();
@@ -2144,76 +2147,76 @@
 
             Rectangle _rectangleClient = RowsInnerClientRect;
 
-            if (_vPanelScrollBar.Visible)
+            if (_verticalScrollBar.Visible)
             {
-                _vPanelScrollBar.MTop = _rectangleClient.Y;
-                _vPanelScrollBar.MLeft = _rectangleClient.Right;
-                _vPanelScrollBar.MHeight = _rectangleClient.Height;
-                _vPanelScrollBar.MLargeChange = VisibleRowsCount;
-                _vPanelScrollBar.MMaximum = Count - 1;
+                _verticalScrollBar.MTop = _rectangleClient.Y;
+                _verticalScrollBar.MLeft = _rectangleClient.Right;
+                _verticalScrollBar.MHeight = _rectangleClient.Height;
+                _verticalScrollBar.MLargeChange = VisibleRowsCount;
+                _verticalScrollBar.MMaximum = Count - 1;
 
-                if (_vPanelScrollBar.Value + VisibleRowsCount > Count)
+                if (_verticalScrollBar.Value + VisibleRowsCount > Count)
                 {
                     // catch all to make sure the scrollbar isn't going farther than visible items
                     DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
-                    _vPanelScrollBar.Value = Count - VisibleRowsCount; // an item got deleted underneath somehow and scroll value is larger than can be displayed
+                    _verticalScrollBar.Value = Count - VisibleRowsCount; // an item got deleted underneath somehow and scroll value is larger than can be displayed
                 }
             }
 
-            if (_hPanelScrollBar.Visible)
+            if (_horizontalScrollBar.Visible)
             {
-                _hPanelScrollBar.MLeft = _rectangleClient.Left;
-                _hPanelScrollBar.MTop = _rectangleClient.Bottom;
-                _hPanelScrollBar.MWidth = _rectangleClient.Width;
+                _horizontalScrollBar.MLeft = _rectangleClient.Left;
+                _horizontalScrollBar.MTop = _rectangleClient.Bottom;
+                _horizontalScrollBar.MWidth = _rectangleClient.Width;
 
-                _hPanelScrollBar.MLargeChange = _rectangleClient.Width; // this re-all is the size we want to move
-                _hPanelScrollBar.MMaximum = Columns.Width;
+                _horizontalScrollBar.MLargeChange = _rectangleClient.Width; // this re-all is the size we want to move
+                _horizontalScrollBar.MMaximum = Columns.Width;
 
-                if (_hPanelScrollBar.Value + _hPanelScrollBar.LargeChange > _hPanelScrollBar.Maximum)
+                if (_horizontalScrollBar.Value + _horizontalScrollBar.LargeChange > _horizontalScrollBar.Maximum)
                 {
                     DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
-                    _hPanelScrollBar.Value = _hPanelScrollBar.Maximum - _hPanelScrollBar.LargeChange;
+                    _horizontalScrollBar.Value = _horizontalScrollBar.Maximum - _horizontalScrollBar.LargeChange;
                 }
             }
 
             if (BorderPadding > 0)
             {
-                _horiBottomBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Bottom - BorderPadding, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
-                _horiTopBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Top, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
-                _vertLeftBorderStrip.Bounds = new Rectangle(0, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
-                _vertRightBorderStrip.Bounds = new Rectangle(ClientRectangle.Right - BorderPadding, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
+                _horizontalBottomBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Bottom - BorderPadding, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
+                _horizontalTopBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Top, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
+                _verticalLeftBorderStrip.Bounds = new Rectangle(0, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
+                _verticalRightBorderStrip.Bounds = new Rectangle(ClientRectangle.Right - BorderPadding, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
             }
             else
             {
-                if (_horiBottomBorderStrip.Visible)
+                if (_horizontalBottomBorderStrip.Visible)
                 {
-                    _horiBottomBorderStrip.Visible = false;
+                    _horizontalBottomBorderStrip.Visible = false;
                 }
 
-                if (_horiTopBorderStrip.Visible)
+                if (_horizontalTopBorderStrip.Visible)
                 {
-                    _horiTopBorderStrip.Visible = false;
+                    _horizontalTopBorderStrip.Visible = false;
                 }
 
-                if (_vertLeftBorderStrip.Visible)
+                if (_verticalLeftBorderStrip.Visible)
                 {
-                    _vertLeftBorderStrip.Visible = false;
+                    _verticalLeftBorderStrip.Visible = false;
                 }
 
-                if (_vertRightBorderStrip.Visible)
+                if (_verticalRightBorderStrip.Visible)
                 {
-                    _vertRightBorderStrip.Visible = false;
+                    _verticalRightBorderStrip.Visible = false;
                 }
             }
 
-            if (_hPanelScrollBar.Visible && _vPanelScrollBar.Visible)
+            if (_horizontalScrollBar.Visible && _verticalScrollBar.Visible)
             {
                 if (!_cornerBox.Visible)
                 {
                     _cornerBox.Visible = true;
                 }
 
-                _cornerBox.Bounds = new Rectangle(_hPanelScrollBar.Right, _vPanelScrollBar.Bottom, _vPanelScrollBar.Width, _hPanelScrollBar.Height);
+                _cornerBox.Bounds = new Rectangle(_horizontalScrollBar.Right, _verticalScrollBar.Bottom, _verticalScrollBar.Width, _horizontalScrollBar.Height);
             }
             else
             {
@@ -2342,7 +2345,7 @@
                 return 0;
             }
 
-            int nCurrentX = -_hPanelScrollBar.Value; // GetHScrollPoint();			// offset the starting point by the current scroll point
+            int nCurrentX = -_horizontalScrollBar.Value; // GetHScrollPoint();			// offset the starting point by the current scroll point
             int nColIndex = 0;
             foreach (VisualListViewColumn col in Columns)
             {
@@ -2383,7 +2386,7 @@
             listRegion = ListViewRegion.NonClient;
 
             // Calculate horizontal subitem
-            int _currentX = -_hPanelScrollBar.Value; // offset the starting point by the current scroll point
+            int _currentX = -_horizontalScrollBar.Value; // offset the starting point by the current scroll point
 
             for (columnIndex = 0; columnIndex < Columns.Count; columnIndex++)
             {
@@ -2423,14 +2426,14 @@
                 _columns.ClearHotStates();
                 _hotColumnIndex = -1;
 
-                _itemIndex = ((_screenY - RowsInnerClientRect.Y) / ItemHeight) + _vPanelScrollBar.Value;
+                _itemIndex = ((_screenY - RowsInnerClientRect.Y) / ItemHeight) + _verticalScrollBar.Value;
 
                 // get inner cell Y
                 _cellY = (_screenY - RowsInnerClientRect.Y) % ItemHeight;
 
                 HotItemIndex = _itemIndex;
 
-                if ((_itemIndex >= _items.Count) || (_itemIndex > _vPanelScrollBar.Value + VisibleRowsCount))
+                if ((_itemIndex >= _items.Count) || (_itemIndex > _verticalScrollBar.Value + VisibleRowsCount))
                 {
                     nState = ListStates.None;
                     listRegion = ListViewRegion.NonClient;
@@ -2483,7 +2486,7 @@
         {
             // TODO: change this to only walk to visible items list
             int nItemIndex = _items.FindItemIndex(item);
-            if ((nItemIndex >= _vPanelScrollBar.Value) && (nItemIndex < _vPanelScrollBar.Value + VisibleRowsCount))
+            if ((nItemIndex >= _verticalScrollBar.Value) && (nItemIndex < _verticalScrollBar.Value + VisibleRowsCount))
             {
                 return true;
             }
