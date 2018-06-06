@@ -23,4 +23,6 @@
     public delegate void BackColorStateChangedEventHandler(ColorEventArgs e);
 
     public delegate void ValueChangedEventHandler(ValueChangedEventArgs e);
+
+    public delegate void ListViewChangedEventHandler(object source, ListViewChangedEventArgs e);
 }

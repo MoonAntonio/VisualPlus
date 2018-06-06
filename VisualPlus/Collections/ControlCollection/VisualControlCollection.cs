@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Collections
+﻿namespace VisualPlus.Collections.ControlCollection
 {
     #region Namespace
 

@@ -11,10 +11,12 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Constants;
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
+    using VisualPlus.Native;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -23,13 +25,14 @@
 
     #endregion
 
+    [Obsolete]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [Description("The Visual ListView")]
     [Designer(typeof(VisualListViewDesigner))]
-    [ToolboxBitmap(typeof(ListView), "VisualListView.bmp")]
+    [ToolboxBitmap(typeof(VisualListView), "VisualListView.bmp")]
     [ToolboxItem(true)]
     public class VisualListView : ContainedControlBase, IThemeSupport
     {
@@ -690,76 +693,7 @@
 
         #endregion
 
-        #region Events
-
-        /// <summary>Determines whether the item is in the collection.</summary>
-        /// <param name="listViewItem">The list view item.</param>
-        /// <param name="listView">The list view.</param>
-        /// <returns>The <see cref="bool" />.</returns>
-        public static bool IsItemInCollection(ListViewItem listViewItem, VisualListView listView)
-        {
-            foreach (ListViewItem _item in listView.Items)
-            {
-                var _subItemFlag = true;
-                for (var i = 0; i < _item.SubItems.Count; i++)
-                {
-                    string _subItem1 = _item.SubItems[i].Text;
-                    string _subItem2 = listViewItem.SubItems[i].Text;
-
-                    if (_subItem1 != _subItem2)
-                    {
-                        _subItemFlag = false;
-                    }
-                }
-
-                if (_subItemFlag)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-                _headerFont = ThemeManager.Theme.TextSetting.Font;
-
-                foreach (ListViewItem _item in Items)
-                {
-                    _item.BackColor = theme.ListItemSettings.Item;
-                }
-
-                _itemSelected = theme.ListItemSettings.ItemSelected;
-                _itemHover = theme.ListItemSettings.ItemHover;
-
-                _columnHeaderColor = theme.OtherSettings.ColumnHeader;
-                _headerText = theme.OtherSettings.ColumnText;
-
-                _colorState = new ColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type4,
-                        Disabled = theme.BackgroundSettings.Type1
-                    };
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void CreateHandle()
         {
@@ -815,6 +749,10 @@
             _listView.Location = GetInternalControlLocation(_border);
             _listView.Size = GetInternalControlSize(Size, _border);
         }
+
+        #endregion
+ 
+        #region Methods
 
         private static StringFormat GetStringFormat()
         {
@@ -948,6 +886,75 @@
 
             _graphics.Dispose();
             _bitmap.Dispose();
+        }
+
+        /// <summary>Determines whether the item is in the collection.</summary>
+        /// <param name="listViewItem">The list view item.</param>
+        /// <param name="listView">The list view.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool IsItemInCollection(ListViewItem listViewItem, VisualListView listView)
+        {
+            foreach (ListViewItem _item in listView.Items)
+            {
+                var _subItemFlag = true;
+                for (var i = 0; i < _item.SubItems.Count; i++)
+                {
+                    string _subItem1 = _item.SubItems[i].Text;
+                    string _subItem2 = listViewItem.SubItems[i].Text;
+
+                    if (_subItem1 != _subItem2)
+                    {
+                        _subItemFlag = false;
+                    }
+                }
+
+                if (_subItemFlag)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+                _headerFont = ThemeManager.Theme.TextSetting.Font;
+
+                foreach (ListViewItem _item in Items)
+                {
+                    _item.BackColor = theme.ListItemSettings.Item;
+                }
+
+                _itemSelected = theme.ListItemSettings.ItemSelected;
+                _itemHover = theme.ListItemSettings.ItemHover;
+
+                _columnHeaderColor = theme.OtherSettings.ColumnHeader;
+                _headerText = theme.OtherSettings.ColumnText;
+
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

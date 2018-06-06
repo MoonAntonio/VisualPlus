@@ -2,7 +2,7 @@
 {
     public sealed class PropertyDescription
     {
-        #region Events
+        #region Methods
 
         public const string Alignment = "Gets or sets horizontal alignment of the content.";
         public const string Amount = "The total number of objects.";
@@ -15,11 +15,13 @@
         public const string AutoSize = "Gets or sets a value indicating whether the control is automatically resized to display its entire contents.";
         public const string Bars = "The amount of bars to divide the progress between.";
         public const string Character = "The checkmark character.";
+        public const string CheckBoxes = "Gets or sets the checkboxes on the control.";
         public const string Checked = "Indicates whether the component is in the checked state.";
         public const string CheckType = "The checkmark type.";
         public const string Color = "Gets or sets the color of the component.";
         public const string ColorGradient = "Gets or sets the gradient.";
         public const string Colors = "The range of position-dependant colors";
+        public const string ColumnStates = "Gets or sets the state of the column header.";
         public const string ContractedHeight = "The contracted height.";
         public const string Cursor = "Represents the image used to paint the mouse pointer.";
         public const string Diameter = "A unit of linear measurement.";
@@ -28,6 +30,7 @@
         public const string Font = "Defines a particular format for text, including font face, size, and style attributes.";
         public const string HatchStyle = "Specifies the different patterns available for HatchBrush objects.";
         public const string Image = "Gets or sets the image to be displayed on the control.";
+        public const string ImageIndex = "Gets or sets the index of the image displayed in the control.";
         public const string IsDragging = "The current drag state of the control.";
         public const string LargeChange = "Gets or sets the large change value.";
         public const string Maximum = "Gets or sets the maximum value.";
@@ -35,10 +38,13 @@
         public const string Minimum = "Gets or sets the minimum value.";
         public const string MouseState = "The state of the mouse on the control.";
         public const string MultiLine = "Gets or sets a value indicating whether this is a multiline TextBox control.";
+        public const string Name = "Gets or sets the name of the control.";
+        public const string NumericSort = "Gets or sets whether to only compare numeric values in the cells.";
         public const string Opacity = "Gets or sets the opacity level of the object.";
         public const string Orientation = "Defines the different orientations that a control or layout can have.";
         public const string Outline = "Draws a line around the elements.";
         public const string Padding = "Represents padding or margin information associated with a user interface (UI) element.";
+        public const string Parent = "Gets or sets the parent control of the component.";
         public const string PasswordChar = "Indicates the character to display for password input for single-line edit controls.";
         public const string Point = "Gets or sets the point.";
         public const string Positions = "The gradient color positioning.";
@@ -54,10 +60,12 @@
         public const string ShowSelectionMargin = "Gets or sets a value indicating whether a selection margin is displayed in the text field.";
         public const string Size = "Gets or sets the size in pixels.";
         public const string SmallChange = "Gets or sets the small change value.";
+
+        public const string SortDirection = "Gets or sets the sort direction";
         public const string Spacing = "The spacing between two components.";
         public const string StartIndex = "Gets or sets the starting index.";
         public const string Text = "Gets or sets the text associated with this control.";
-        public const string TextAlign = "Gets or sets how text is aligned in a TextBox control.";
+        public const string TextAlign = "Gets or sets how text is aligned.";
         public const string TextImageRelation = "Specifies the position of the text and image relative to each other on a control.";
         public const string TextRenderingHint = "Gets or sets the rendering mode for text associated with this graphics.";
         public const string TextStyle = "Gets or sets the text style.";

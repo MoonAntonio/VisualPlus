@@ -15,6 +15,7 @@ namespace VisualPlus
     {
         #region Variables
 
+        public static readonly string DebugLogFile = "VisualPlus-Debug.log";
         public static readonly int MaximumAlpha = 255;
         public static readonly int MaximumBorderSize = 24;
         public static readonly int MaximumCheckBoxBorderRounding = 12;
@@ -29,13 +30,9 @@ namespace VisualPlus
 
         #endregion
 
-        #region Events
+        #region Methods
 
         public const string DefaultCategoryText = "VisualExtension";
-
-        #endregion
-
-        #region Methods
 
         public struct DefaultValue
         {
@@ -44,6 +41,7 @@ namespace VisualPlus
             public const bool BorderHoverVisible = true;
             public const ShapeType BorderType = ShapeType.Rounded;
             public const bool BorderVisible = true;
+            public const int ColumnWidth = 60;
             public const bool TextVisible = true;
             public const float ProgressSize = 5F;
             public const bool TitleBoxVisible = true;

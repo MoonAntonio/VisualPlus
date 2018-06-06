@@ -35,6 +35,7 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,14 +49,30 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\ReadOnlyControlCollection.cs" />
-    <Compile Include="Collections\VisualControlCollection.cs" />
-    <Compile Include="Collections\VisualTabPageCollectionEditor.cs" />
+    <Compile Include="Collections\CollectionsEditor\VisualListViewSubItemCollectionEditor.cs" />
+    <Compile Include="Collections\CollectionsEditor\VisualListViewItemCollectionEditor.cs" />
+    <Compile Include="Collections\ControlCollection\ReadOnlyControlCollection.cs" />
+    <Compile Include="Collections\CollectionsEditor\VisualListViewColumnCollectionEditor.cs" />
+    <Compile Include="Collections\ControlCollection\VisualControlCollection.cs" />
+    <Compile Include="Collections\CollectionsEditor\VisualTabPageCollectionEditor.cs" />
+    <Compile Include="Constants\FormConstants.cs" />
+    <Compile Include="Constants\ListViewExConstants.cs" />
     <Compile Include="Delegates\ControlBoxDelegate.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
     <Compile Include="Designer\VisualControlBoxButtonDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxDesigner.cs" />
     <Compile Include="Designer\VisualScrollBarDesigner.cs" />
+    <Compile Include="Enumerators\ColumnStates.cs" />
+    <Compile Include="Enumerators\GridTypes.cs" />
+    <Compile Include="Enumerators\GridLineStyle.cs" />
+    <Compile Include="Enumerators\ListViewRegion.cs" />
+    <Compile Include="Enumerators\ListViewChangedTypes.cs" />
+    <Compile Include="Enumerators\CompareDirection.cs" />
+    <Compile Include="Enumerators\ListViewHoverTypes.cs" />
+    <Compile Include="Enumerators\SortDirections.cs" />
+    <Compile Include="EventArgs\ListViewHoverEventArgs.cs" />
+    <Compile Include="EventArgs\ListViewClickEventArgs.cs" />
+    <Compile Include="EventArgs\ListViewChangedEventArgs.cs" />
     <Compile Include="EventArgs\VisualPaintEventArgs.cs" />
     <Compile Include="EventArgs\VisualTabControlEventArgs.cs" />
     <Compile Include="Designer\VisualTabPageDesigner.cs" />
@@ -71,6 +88,7 @@
     <Compile Include="Extensibility\ColorExtension.cs" />
     <Compile Include="Extensibility\ControlExtension.cs" />
     <Compile Include="Extensibility\ImageExtensions.cs" />
+    <Compile Include="Extensibility\ListExtension.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
     <Compile Include="Extensibility\XmlExtension.cs" />
     <Compile Include="Localization\EventCategory.cs" />
@@ -79,24 +97,28 @@
     <Compile Include="Localization\PropertyCategory.cs" />
     <Compile Include="Localization\PropertyDescription.cs" />
     <Compile Include="Managers\BrushManager.cs" />
+    <Compile Include="Managers\DebugTraceManager.cs" />
     <Compile Include="Managers\ExceptionMessenger.cs" />
     <Compile Include="Managers\FontManager.cs" />
     <Compile Include="Managers\ImageManager.cs" />
     <Compile Include="Managers\MonitorManager.cs" />
     <Compile Include="Managers\RelationManager.cs" />
-    <Compile Include="Managers\ResourceManager.cs" />
+    <Compile Include="Managers\ResourcesManager.cs" />
     <Compile Include="Managers\TextManager.cs" />
     <Compile Include="Managers\TickManager.cs" />
     <Compile Include="Native\Constants.cs" />
+    <Compile Include="Constants\ListViewConstants.cs" />
     <Compile Include="Native\Dwmapi.cs" />
     <Compile Include="Native\Gdi32.cs" />
     <Compile Include="Native\Shlwapi.cs" />
     <Compile Include="Native\User32.cs" />
+    <Compile Include="Native\Uxtheme.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Renders\ListViewRenderer.cs" />
     <Compile Include="Renders\VisualBackgroundRenderer.cs" />
     <Compile Include="Renders\VisualBadgeRenderer.cs" />
     <Compile Include="Renders\VisualBorderRenderer.cs" />
@@ -110,6 +132,7 @@
     <Compile Include="Structure\BorderEdge.cs" />
     <Compile Include="Structure\ListItemSettings.cs" />
     <Compile Include="Structure\ControlColorStateSettings.cs" />
+    <Compile Include="Structure\RECT.cs" />
     <Compile Include="Structure\ThemeInformation.cs" />
     <Compile Include="Structure\TextSettings.cs" />
     <Compile Include="Structure\BorderSettings.cs" />
@@ -132,6 +155,42 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Components\VisualGradient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Child\BorderStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Collections\CollectionBase\VisualListViewColumnCollection.cs" />
+    <Compile Include="Enumerators\ListStates.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\EmbeddedControls\LVComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\EmbeddedControls\LVDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\EmbeddedControls\LVTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Enumerators\LVActivatedEmbeddedTypes.cs" />
+    <Compile Include="Enumerators\LVControlStyles.cs" />
+    <Compile Include="Enumerators\GridLines.cs" />
+    <Compile Include="Enumerators\SortTypes.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\VisualListViewAdvanced.cs" />
+    <Compile Include="Toolkit\Child\VisualListViewColumn.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\LVMergeSort.cs" />
+    <Compile Include="Collections\CollectionBase\VisualListViewSubItemCollection.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\ILVEmbeddedControl.cs" />
+    <Compile Include="Collections\CollectionBase\VisualListViewItemCollection.cs" />
+    <Compile Include="TypeConverters\VisualListViewColumnConverter.cs" />
+    <Compile Include="TypeConverters\VisualListViewSubItemConverter.cs" />
+    <Compile Include="TypeConverters\VisualListViewItemConverter.cs" />
+    <Compile Include="Toolkit\Child\VisualListViewSubItem.cs" />
+    <Compile Include="Toolkit\Child\VisualListViewItem.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\LVQuickSort.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\ManagedHScrollBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\ManagedVScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Controls\DataManagement\ListViewEx.cs">

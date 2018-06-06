@@ -142,8 +142,8 @@
                 Message _message = new Message
                     {
                         HWnd = Control.Handle,
-                        Msg = Constants.TCM_HITTEST
-                    };
+                        Msg = 0x130D
+                };
 
                 IntPtr _longIntParameter = Marshal.AllocHGlobal(Marshal.SizeOf(_tabControlHitTestInfo));
                 Marshal.StructureToPtr(_tabControlHitTestInfo, _longIntParameter, false);
@@ -198,12 +198,12 @@
         {
             base.WndProc(ref m);
 
-            if (m.Msg == Constants.WM_NCHITTEST)
+            if (m.Msg == 0x84)
             {
                 // select tab control when Tab control clicked outside of TabItem.
-                if (m.Result.ToInt32() == Constants.HTTRANSPARENT)
+                if (m.Result.ToInt32() == -1)
                 {
-                    m.Result = (IntPtr)Constants.HTCLIENT;
+                    m.Result = (IntPtr)1;
                 }
             }
         }

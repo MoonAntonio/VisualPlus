@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Collections
+﻿namespace VisualPlus.Collections.CollectionsEditor
 {
     #region Namespace
 

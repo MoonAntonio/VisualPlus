@@ -11,7 +11,7 @@
     using System.Linq;
     using System.Windows.Forms;
 
-    using VisualPlus.Collections;
+    using VisualPlus.Collections.CollectionsEditor;
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization;

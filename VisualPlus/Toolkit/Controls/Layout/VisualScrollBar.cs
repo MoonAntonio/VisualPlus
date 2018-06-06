@@ -136,6 +136,10 @@
             ConfigureScrollBar();
         }
 
+        #endregion
+
+        #region Events
+
         [Category(EventCategory.Behavior)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ElementClickedEventHandler ButtonBottomClicked;
@@ -590,75 +594,12 @@
 
         #endregion
 
-        #region Events
-
-        /// <summary>Prevents the drawing of the control until <see cref="EndUpdate" /> is called.</summary>
-        public void BeginUpdate()
-        {
-            User32.SendMessage(Handle, Constants.WM_SETREDRAW, false, 0);
-            _inUpdate = true;
-        }
-
-        /// <summary>Ends the updating process and the control can draw itself again.</summary>
-        public void EndUpdate()
-        {
-            User32.SendMessage(Handle, Constants.WM_SETREDRAW, true, 0);
-            _inUpdate = false;
-            ConfigureScrollBar();
-            Refresh();
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                _buttonBorder.Color = theme.BorderSettings.Normal;
-                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
-
-                _thumbBorder.Color = theme.BorderSettings.Normal;
-                _thumbBorder.HoverColor = theme.BorderSettings.Hover;
-
-                _backColorState.Disabled = theme.OtherSettings.ScrollBar.Disabled;
-                _backColorState.Enabled = theme.OtherSettings.ScrollBar.Enabled;
-
-                _thumbColorState.Disabled = theme.OtherSettings.ScrollThumb.Enabled;
-                _thumbColorState.Enabled = theme.OtherSettings.ScrollThumb.Disabled;
-                _thumbColorState.Hover = theme.OtherSettings.ScrollThumb.Hover;
-                _thumbColorState.Pressed = theme.OtherSettings.ScrollThumb.Pressed;
-
-                _buttonColorState.Disabled = theme.OtherSettings.ScrollButton.Enabled;
-                _buttonColorState.Enabled = theme.OtherSettings.ScrollButton.Disabled;
-                _buttonColorState.Hover = theme.OtherSettings.ScrollButton.Hover;
-                _buttonColorState.Pressed = theme.OtherSettings.ScrollButton.Pressed;
-
-                _trackPressed = Color.FromArgb(10, 0, 0, 0);
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void CreateHandle()
         {
             base.CreateHandle();
             ContextMenuStrip = _contextMenu;
-        }
-
-        protected virtual void OnButtonBottomClicked(EventArgs e)
-        {
-            ButtonBottomClicked?.Invoke(e);
-        }
-
-        protected virtual void OnButtonTopClicked(EventArgs e)
-        {
-            ButtonTopClicked?.Invoke(e);
         }
 
         protected override void OnEnabledChanged(EventArgs e)
@@ -947,22 +888,10 @@
             e.Graphics.Clear(BackColor);
         }
 
-        /// <summary>Raises the <see cref="Scroll" /> event.</summary>
-        /// <param name="e">The <see cref="ScrollEventArgs" /> that contains the event data.</param>
-        protected virtual void OnScroll(ScrollEventArgs e)
-        {
-            Scroll?.Invoke(this, e);
-        }
-
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
             ConfigureScrollBar();
-        }
-
-        protected virtual void OnThumbClicked(EventArgs e)
-        {
-            ThumbClicked?.Invoke(e);
         }
 
         protected override bool ProcessDialogKey(Keys keyData)
@@ -1062,6 +991,32 @@
                 ConfigureScrollBar();
             }
         }
+
+        protected virtual void OnButtonBottomClicked(EventArgs e)
+        {
+            ButtonBottomClicked?.Invoke(e);
+        }
+
+        protected virtual void OnButtonTopClicked(EventArgs e)
+        {
+            ButtonTopClicked?.Invoke(e);
+        }
+
+        /// <summary>Raises the <see cref="Scroll" /> event.</summary>
+        /// <param name="e">The <see cref="ScrollEventArgs" /> that contains the event data.</param>
+        protected virtual void OnScroll(ScrollEventArgs e)
+        {
+            Scroll?.Invoke(this, e);
+        }
+
+        protected virtual void OnThumbClicked(EventArgs e)
+        {
+            ThumbClicked?.Invoke(e);
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
@@ -1620,6 +1575,61 @@
         {
             Value = _minimum;
         }
+
+        /// <summary>Prevents the drawing of the control until <see cref="EndUpdate" /> is called.</summary>
+        public void BeginUpdate()
+        {
+            User32.SendMessage(Handle, WM_SETREDRAW, false, 0);
+            _inUpdate = true;
+        }
+
+        /// <summary>Ends the updating process and the control can draw itself again.</summary>
+        public void EndUpdate()
+        {
+            User32.SendMessage(Handle, WM_SETREDRAW, true, 0);
+            _inUpdate = false;
+            ConfigureScrollBar();
+            Refresh();
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                _buttonBorder.Color = theme.BorderSettings.Normal;
+                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
+
+                _thumbBorder.Color = theme.BorderSettings.Normal;
+                _thumbBorder.HoverColor = theme.BorderSettings.Hover;
+
+                _backColorState.Disabled = theme.OtherSettings.ScrollBar.Disabled;
+                _backColorState.Enabled = theme.OtherSettings.ScrollBar.Enabled;
+
+                _thumbColorState.Disabled = theme.OtherSettings.ScrollThumb.Enabled;
+                _thumbColorState.Enabled = theme.OtherSettings.ScrollThumb.Disabled;
+                _thumbColorState.Hover = theme.OtherSettings.ScrollThumb.Hover;
+                _thumbColorState.Pressed = theme.OtherSettings.ScrollThumb.Pressed;
+
+                _buttonColorState.Disabled = theme.OtherSettings.ScrollButton.Enabled;
+                _buttonColorState.Enabled = theme.OtherSettings.ScrollButton.Disabled;
+                _buttonColorState.Hover = theme.OtherSettings.ScrollButton.Hover;
+                _buttonColorState.Pressed = theme.OtherSettings.ScrollButton.Pressed;
+
+                _trackPressed = Color.FromArgb(10, 0, 0, 0);
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
+        private const int WM_SETREDRAW = 11;
 
         #endregion
     }

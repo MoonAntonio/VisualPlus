@@ -12,6 +12,7 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Constants;
     using VisualPlus.Delegates;
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
@@ -84,14 +85,14 @@
 
             _resizedLocationsCommand = new Dictionary<int, int>
                 {
-                    { Constants.HTTOP, Constants.WMSZ_TOP },
-                    { Constants.HTTOPLEFT, Constants.WMSZ_TOPLEFT },
-                    { Constants.HTTOPRIGHT, Constants.WMSZ_TOPRIGHT },
-                    { Constants.HTLEFT, Constants.WMSZ_LEFT },
-                    { Constants.HTRIGHT, Constants.WMSZ_RIGHT },
-                    { Constants.HTBOTTOM, Constants.WMSZ_BOTTOM },
-                    { Constants.HTBOTTOMLEFT, Constants.WMSZ_BOTTOMLEFT },
-                    { Constants.HTBOTTOMRIGHT, Constants.WMSZ_BOTTOMRIGHT }
+                    { FormConstants.HTTOP, FormConstants.WMSZ_TOP },
+                    { FormConstants.HTTOPLEFT, FormConstants.WMSZ_TOPLEFT },
+                    { FormConstants.HTTOPRIGHT, FormConstants.WMSZ_TOPRIGHT },
+                    { FormConstants.HTLEFT, FormConstants.WMSZ_LEFT },
+                    { FormConstants.HTRIGHT, FormConstants.WMSZ_RIGHT },
+                    { FormConstants.HTBOTTOM, FormConstants.WMSZ_BOTTOM },
+                    { FormConstants.HTBOTTOMLEFT, FormConstants.WMSZ_BOTTOMLEFT },
+                    { FormConstants.HTBOTTOMRIGHT, FormConstants.WMSZ_BOTTOMRIGHT }
                 };
 
             _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
@@ -468,7 +469,7 @@
 
                 // WS_SYSMENU: Trigger the creation of the system menu.
                 // WS_MINIMIZEBOX: Allow minimizing from task bar.
-                _parameter.Style = _parameter.Style | Constants.WS_MINIMIZEBOX | Constants.WS_SYSMENU; // Turn on the WS_MINIMIZEBOX style flag
+                _parameter.Style = _parameter.Style | FormConstants.WS_MINIMIZEBOX | FormConstants.WS_SYSMENU; // Turn on the WS_MINIMIZEBOX style flag
 
                 if (_dropShadow)
                 {
@@ -689,7 +690,7 @@
                 return;
             }
 
-            if ((m.Msg == Constants.WM_MOUSEMOVE) && _maximized && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
+            if ((m.Msg == FormConstants.WM_MOUSEMOVE) && _maximized && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
                 if (_headerMouseDown)
                 {
@@ -708,35 +709,35 @@
 
                     Size = _previousSize;
                     User32.ReleaseCapture();
-                    User32.SendMessage(Handle, Constants.WM_NCLBUTTONDOWN, Constants.HT_CAPTION, 0);
+                    User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, FormConstants.HT_CAPTION, 0);
                 }
             }
-            else if ((m.Msg == Constants.WM_LBUTTONDOWN) && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
+            else if ((m.Msg == FormConstants.WM_LBUTTONDOWN) && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
                 if (!_maximized)
                 {
                     User32.ReleaseCapture();
-                    User32.SendMessage(Handle, Constants.WM_NCLBUTTONDOWN, Constants.HT_CAPTION, 0);
+                    User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, FormConstants.HT_CAPTION, 0);
                 }
                 else
                 {
                     _headerMouseDown = true;
                 }
             }
-            else if (m.Msg == Constants.WM_RBUTTONDOWN)
+            else if (m.Msg == FormConstants.WM_RBUTTONDOWN)
             {
                 Point cursorPos = PointToClient(Cursor.Position);
 
                 if (_titleBarRectangle.Contains(cursorPos))
                 {
                     // Show default system menu when right clicking title bar
-                    int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), Constants.TPM_LEFTALIGN | Constants.TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
+                    int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), FormConstants.TPM_LEFTALIGN | FormConstants.TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
 
                     // Pass the command as a WM_SYSCOMMAND message
-                    User32.SendMessage(Handle, Constants.WM_SYSCOMMAND, id, 0);
+                    User32.SendMessage(Handle, FormConstants.WM_SYSCOMMAND, id, 0);
                 }
             }
-            else if (m.Msg == Constants.WM_NCLBUTTONDOWN)
+            else if (m.Msg == FormConstants.WM_NCLBUTTONDOWN)
             {
                 // This re-enables resizing by letting the application know when the
                 // user is trying to resize a side. This is disabled by default when using WS_SYSMENU.
@@ -755,10 +756,10 @@
 
                 if (bFlag != 0)
                 {
-                    User32.SendMessage(Handle, Constants.WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
+                    User32.SendMessage(Handle, FormConstants.WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
                 }
             }
-            else if (m.Msg == Constants.WM_LBUTTONUP)
+            else if (m.Msg == FormConstants.WM_LBUTTONUP)
             {
                 _headerMouseDown = false;
             }
@@ -890,31 +891,31 @@
             {
                 case ResizeDirection.BottomLeft:
                     {
-                        _resizeDirection = Constants.HTBOTTOMLEFT;
+                        _resizeDirection = FormConstants.HTBOTTOMLEFT;
                         break;
                     }
 
                 case ResizeDirection.Left:
                     {
-                        _resizeDirection = Constants.HTLEFT;
+                        _resizeDirection = FormConstants.HTLEFT;
                         break;
                     }
 
                 case ResizeDirection.Right:
                     {
-                        _resizeDirection = Constants.HTRIGHT;
+                        _resizeDirection = FormConstants.HTRIGHT;
                         break;
                     }
 
                 case ResizeDirection.BottomRight:
                     {
-                        _resizeDirection = Constants.HTBOTTOMRIGHT;
+                        _resizeDirection = FormConstants.HTBOTTOMRIGHT;
                         break;
                     }
 
                 case ResizeDirection.Bottom:
                     {
-                        _resizeDirection = Constants.HTBOTTOM;
+                        _resizeDirection = FormConstants.HTBOTTOM;
                         break;
                     }
 
@@ -932,7 +933,7 @@
             User32.ReleaseCapture();
             if (_resizeDirection != -1)
             {
-                User32.SendMessage(Handle, Constants.WM_NCLBUTTONDOWN, _resizeDirection, 0);
+                User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, _resizeDirection, 0);
             }
         }
 
@@ -952,7 +953,7 @@
 
             public bool PreFilterMessage(ref Message m)
             {
-                if ((m.Msg != Constants.WM_MOUSEMOVE) || (MouseMove == null))
+                if ((m.Msg != FormConstants.WM_MOUSEMOVE) || (MouseMove == null))
                 {
                     return false;
                 }

@@ -98,25 +98,7 @@ namespace VisualPlus.Designer.ActionList
 
         #endregion
 
-        #region Events
-
-        public void DockContainer()
-        {
-            if (!_dockState)
-            {
-                _control.Dock = DockStyle.None;
-                _dockText = ContainerText.Docked;
-                _dockState = true;
-            }
-            else
-            {
-                _control.Dock = DockStyle.Fill;
-                _dockText = ContainerText.Undock;
-                _dockState = false;
-            }
-
-            _designerService.Refresh(_control);
-        }
+        #region Overrides
 
         public override DesignerActionItemCollection GetSortedActionItems()
         {
@@ -135,6 +117,24 @@ namespace VisualPlus.Designer.ActionList
         #endregion
 
         #region Methods
+
+        public void DockContainer()
+        {
+            if (!_dockState)
+            {
+                _control.Dock = DockStyle.None;
+                _dockText = ContainerText.Docked;
+                _dockState = true;
+            }
+            else
+            {
+                _control.Dock = DockStyle.Fill;
+                _dockText = ContainerText.Undock;
+                _dockState = false;
+            }
+
+            _designerService.Refresh(_control);
+        }
 
         private struct ContainerText
         {

@@ -415,7 +415,7 @@
         {
             try
             {
-                _rawTheme = ResourceManager.ReadResource(Assembly.GetExecutingAssembly().Location, $"VisualPlus.Resources.Themes.{theme.ToString()}.xml");
+                _rawTheme = ResourcesManager.ReadResource(Assembly.GetExecutingAssembly().Location, $"VisualPlus.Resources.Themes.{theme.ToString()}.xml");
                 XDocument _resourceDocumentTheme = XDocument.Parse(_rawTheme);
                 Deserialize(_resourceDocumentTheme);
             }

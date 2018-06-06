@@ -13,7 +13,7 @@
 
     #endregion
 
-    internal class ResourceManager
+    internal class ResourcesManager
     {
         #region Events
 
