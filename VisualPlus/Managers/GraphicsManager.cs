@@ -16,7 +16,7 @@
     [Description("The graphics manager.")]
     public sealed class GraphicsManager
     {
-        #region Events
+        #region Methods
 
         /// <summary>Anchors the rectangle to an anchored alignment of the base rectangle.</summary>
         /// <param name="anchorStyle">Alignment style.</param>
@@ -305,6 +305,25 @@
             }
 
             return _roundedRectanglePath;
+        }
+
+        /// <summary>Draw the text on to the specified graphics.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="layout">The layout rectangle.</param>
+        /// <param name="alignment">The alignment.</param>
+        /// <param name="lineAlignment">The line alignment.</param>
+        public static void DrawText(Graphics graphics, string text, Font font, Color color, Rectangle layout, StringAlignment alignment = StringAlignment.Center, StringAlignment lineAlignment = StringAlignment.Center)
+        {
+            StringFormat _stringFormat = new StringFormat
+                {
+                    Alignment = alignment,
+                    LineAlignment = lineAlignment
+                };
+
+            graphics.DrawString(text, font, new SolidBrush(color), layout, _stringFormat);
         }
 
         /// <summary>Draws the hatch brush as an image and then converts it to a texture brush for scaling.</summary>

@@ -5,7 +5,6 @@
     using System;
     using System.Collections;
     using System.ComponentModel;
-    using System.ComponentModel.Design;
     using System.Diagnostics;
     using System.Drawing;
     using System.Drawing.Design;
@@ -57,6 +56,11 @@
         private IContainer _components;
         private LVControlStyles _controlStyle;
         private BorderStrip _cornerBox;
+        private string _displayText;
+        private Color _displayTextColor;
+        private Font _displayTextFont;
+
+        private bool _displayTextOnEmpty;
         private VisualListViewItem _focusedItem;
         private bool _fullRowSelect;
         private GridLines _gridLines;
@@ -144,6 +148,11 @@
             _multiSelect = false;
             _hotItemTracking = true;
             _hotColumnTracking = true;
+
+            _displayTextOnEmpty = true;
+            _displayTextColor = Color.DimGray;
+            _displayText = "The list is empty.";
+            _displayTextFont = DefaultFont;
 
             _columns = new VisualListViewColumnCollection(this);
             _columns.ChangedEvent += Columns_Changed;
@@ -510,6 +519,74 @@
             get
             {
                 return _items.Count;
+            }
+        }
+
+        [Description(PropertyDescription.Text)]
+        [Category(PropertyCategory.Appearance)]
+        [Browsable(true)]
+        public string DisplayText
+        {
+            get
+            {
+                return _displayText;
+            }
+
+            set
+            {
+                _displayText = value;
+                Invalidate();
+            }
+        }
+
+        [Description(PropertyDescription.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Browsable(true)]
+        public Color DisplayTextColor
+        {
+            get
+            {
+                return _displayTextColor;
+            }
+
+            set
+            {
+                _displayTextColor = value;
+                Invalidate();
+            }
+        }
+
+        [Description(PropertyDescription.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Browsable(true)]
+        public Font DisplayTextFont
+        {
+            get
+            {
+                return _displayTextFont;
+            }
+
+            set
+            {
+                _displayTextFont = value;
+                Invalidate();
+            }
+        }
+
+        [Description(PropertyDescription.Toggle)]
+        [Category(PropertyCategory.Appearance)]
+        [Browsable(true)]
+        public bool DisplayTextOnEmpty
+        {
+            get
+            {
+                return _displayTextOnEmpty;
+            }
+
+            set
+            {
+                _displayTextOnEmpty = value;
+                Invalidate();
             }
         }
 
@@ -927,10 +1004,6 @@
 
             set
             {
-                // Debug.WriteLine( "Setting item height to " + value.ToString() );
-
-                // if ( value == 15 )
-                // Debug.WriteLine( "stop" );
                 _itemHeight = value;
                 if (DesignMode && (Parent != null))
                 {
@@ -943,7 +1016,7 @@
         [Category(PropertyCategory.Behavior)]
         [Description("The items in the collection.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
+        [Editor(typeof(VisualListViewItemCollectionEditor), typeof(UITypeEditor))]
         [Browsable(true)]
         public VisualListViewItemCollection Items
         {
@@ -1548,28 +1621,28 @@
             RecalculateScroll(); // Doesn't really belong in paint.
 
             Graphics _graphics = e.Graphics;
+            int _insideWidth = Columns.Width > HeaderRect.Width ? Columns.Width : HeaderRect.Width;
+
+            if (HeaderVisible)
             {
-                int _insideWidth = Columns.Width > HeaderRect.Width ? Columns.Width : HeaderRect.Width;
-
-                if (HeaderVisible)
-                {
-                    _graphics.SetClip(HeaderRect);
-                    ListViewRenderer.DrawColumnHeader(_graphics, new Size(HeaderRect.Width, HeaderRect.Height), this, _horizontalScrollBar, _theme);
-                }
-
-                _graphics.SetClip(RowsInnerClientRect);
-                ListViewRenderer.DrawRows(_graphics, this, _verticalScrollBar, _horizontalScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
-
-                foreach (Control control in _liveControls)
-                {
-                    control.Visible = false;
-                }
-
-                _liveControls = _newLiveControls;
-                _newLiveControls = new ArrayList();
+                _graphics.SetClip(HeaderRect);
+                ListViewRenderer.DrawColumnHeader(_graphics, new Size(HeaderRect.Width, HeaderRect.Height), this, _horizontalScrollBar, _theme);
             }
 
+            _graphics.SetClip(RowsInnerClientRect);
+            ListViewRenderer.DrawRows(_graphics, this, _verticalScrollBar, _horizontalScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
+
+            foreach (Control control in _liveControls)
+            {
+                control.Visible = false;
+            }
+
+            _liveControls = _newLiveControls;
+            _newLiveControls = new ArrayList();
+
+            DrawDisplayText(_graphics);
             _graphics.SetClip(ClientRectangle);
+
             base.OnPaint(e);
         }
 
@@ -1954,6 +2027,17 @@
                     _activatedEmbeddedControl.Dispose();
                     _activatedEmbeddedControl = null;
                 }
+            }
+        }
+
+        /// <summary>Draws the display text.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        private void DrawDisplayText(Graphics graphics)
+        {
+            if ((_items.Count <= 0) && _displayTextOnEmpty)
+            {
+                Rectangle _layoutRectangle = new Rectangle(0, 0, RowsClientRect.Width, RowsClientRect.Height);
+                GraphicsManager.DrawText(graphics, _displayText, _displayTextFont, _displayTextColor, _layoutRectangle);
             }
         }
 
