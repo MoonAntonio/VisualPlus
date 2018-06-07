@@ -46,11 +46,8 @@
 
             object _item = base.CreateInstance(itemType);
 
-            // ((VisualListViewItem)_item).Name = _itemName;
-            // ((VisualListViewItem)_item).Text = _itemName;
-
-            ((VisualListViewItem)_item).SubItems[0].Name = _itemName;
-            ((VisualListViewItem)_item).SubItems[0].Text = _itemName;
+            ((VisualListViewItem)_item).Name = _itemName;
+            ((VisualListViewItem)_item).Text = _itemName;
 
             return _item;
         }

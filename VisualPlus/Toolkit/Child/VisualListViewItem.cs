@@ -4,12 +4,12 @@
 
     using System;
     using System.ComponentModel;
-    using System.ComponentModel.Design;
     using System.Drawing;
     using System.Drawing.Design;
     using System.Windows.Forms;
 
     using VisualPlus.Collections.CollectionBase;
+    using VisualPlus.Collections.CollectionsEditor;
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
@@ -37,7 +37,6 @@
         private int _rowBorderSize;
         private bool _selected;
         private VisualListViewSubItemCollection _subItemCollection;
-
         private object _tag;
 
         #endregion
@@ -331,8 +330,7 @@
             set
             {
                 _listView = value;
-
-                // _subItems.ListView = value;
+                _subItemCollection.ListView = value;
             }
         }
 
@@ -412,19 +410,14 @@
 
         [Browsable(true)]
         [Category(PropertyCategory.Data)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Editor(typeof(VisualListViewSubItemCollectionEditor), typeof(UITypeEditor))]
         public VisualListViewSubItemCollection SubItems
         {
             get
             {
                 return _subItemCollection;
             }
-
-            // set
-            // {
-            // _subItemCollection = value;
-            // }
         }
 
         [Bindable(true)]

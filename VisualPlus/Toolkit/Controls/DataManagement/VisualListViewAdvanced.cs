@@ -1647,23 +1647,19 @@
 
         protected override void OnResize(EventArgs e)
         {
-            DebugTraceManager.WriteDebug("OnResize", DebugTraceManager.DebugOutput.TraceListener);
-
-            // RecalcScroll();
-            DebugTraceManager.WriteDebug("Calling Invalidate From OnResize", DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("OnResize - Calling Invalidate From OnResize", DebugTraceManager.DebugOutput.TraceListener);
             Invalidate();
         }
 
         public override bool PreProcessMessage(ref Message msg)
         {
-            DebugTraceManager.WriteDebug("PreProcessMessage " + msg, DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("PreProcessMessage - Msg: " + msg, DebugTraceManager.DebugOutput.TraceListener);
 
-            // return base.PreProcessMessage(ref msg);
             if (msg.Msg == ListViewConstants.WM_KEYDOWN)
             {
-                Keys keyCode = (Keys)(int)msg.WParam; // this should turn the key data off because it will match selected keys to ORA them off
+                Keys _keyCode = (Keys)(int)msg.WParam; // this should turn the key data off because it will match selected keys to ORA them off
 
-                if (keyCode == Keys.Return)
+                if (_keyCode == Keys.Return)
                 {
                     DestroyActivatedEmbedded();
                     return true;
@@ -1671,7 +1667,7 @@
 
                 // Debug.WriteLine("---");
                 // Debug.WriteLine( ModifierKeys.ToString() );
-                Debug.WriteLine(keyCode.ToString());
+                Debug.WriteLine(_keyCode.ToString());
 
                 if ((FocusedItem != null) && (Count > 0) && Selectable)
                 {
@@ -1683,7 +1679,7 @@
                         return true; // this can't move
                     }
 
-                    if ((keyCode == Keys.A) && ((ModifierKeys & Keys.Control) == Keys.Control))
+                    if ((_keyCode == Keys.A) && ((ModifierKeys & Keys.Control) == Keys.Control))
                     {
                         for (var index = 0; index < _items.Count; index++)
                         {
@@ -1693,7 +1689,7 @@
                         return base.PreProcessMessage(ref msg);
                     }
 
-                    if (keyCode == Keys.Escape)
+                    if (_keyCode == Keys.Escape)
                     {
                         _items.ClearSelection(); // clear selections
                         FocusedItem = null;
@@ -1701,48 +1697,48 @@
                         return base.PreProcessMessage(ref msg);
                     }
 
-                    if (keyCode == Keys.Down)
+                    if (_keyCode == Keys.Down)
                     {
                         // Could be a switch
                         _itemIndex++;
                     }
-                    else if (keyCode == Keys.Up)
+                    else if (_keyCode == Keys.Up)
                     {
                         _itemIndex--;
                     }
-                    else if (keyCode == Keys.PageDown)
+                    else if (_keyCode == Keys.PageDown)
                     {
                         _itemIndex += VisibleRowsCount;
                     }
-                    else if (keyCode == Keys.PageUp)
+                    else if (_keyCode == Keys.PageUp)
                     {
                         _itemIndex -= VisibleRowsCount;
                     }
-                    else if (keyCode == Keys.Home)
+                    else if (_keyCode == Keys.Home)
                     {
                         _itemIndex = 0;
                     }
-                    else if (keyCode == Keys.End)
+                    else if (_keyCode == Keys.End)
                     {
                         _itemIndex = Count - 1;
                     }
-                    else if (keyCode == Keys.Space)
+                    else if (_keyCode == Keys.Space)
                     {
                         if (!MultiSelect)
                         {
-                            _items.ClearSelection(Items[_itemIndex]);
+                            _items.ClearSelection(_items[_itemIndex]);
                         }
 
-                        Items[_itemIndex].Selected = !Items[_itemIndex].Selected;
+                        _items[_itemIndex].Selected = !_items[_itemIndex].Selected;
 
                         return base.PreProcessMessage(ref msg);
                     }
                     else
                     {
-                        return base.PreProcessMessage(ref msg); // bail out, they only pressed a key we didn't care about (probably a modifier)
+                        return base.PreProcessMessage(ref msg);
                     }
 
-                    // bounds check them
+                    // Check the bounds.
                     if (_itemIndex > Count - 1)
                     {
                         _itemIndex = Count - 1;
@@ -1753,10 +1749,10 @@
                         _itemIndex = 0;
                     }
 
-                    // move view.  Need to move end -1 to take into account 0 based index
+                    // Move view - Need to move end -1 to take into account 0 based index.
                     if (_itemIndex < _verticalScrollBar.Value)
                     {
-                        // its out of viewable, move the surface
+                        // Its out of viewable, move the surface
                         _verticalScrollBar.Value = _itemIndex;
                     }
 
@@ -1769,17 +1765,17 @@
                     {
                         if (((ModifierKeys & Keys.Control) != Keys.Control) && ((ModifierKeys & Keys.Shift) != Keys.Shift))
                         {
-                            // no control no shift
+                            // No control no shift
                             _lastSelectionIndex = _itemIndex;
                             Items[_itemIndex].Selected = true;
                             _items.ClearSelection(Items[_itemIndex]);
                         }
                         else if ((ModifierKeys & Keys.Shift) == Keys.Shift)
                         {
-                            // shift only
+                            // Shift only
                             _items.ClearSelection();
 
-                            // gotta catch when the multi select is NOT set
+                            // Gotta catch when the multi select is NOT set
                             if (!MultiSelect)
                             {
                                 Items[_itemIndex].Selected = !Items[_itemIndex].Selected;
@@ -1811,7 +1807,7 @@
                         }
                         else
                         {
-                            // control only
+                            // Control only
                             _lastSelectionIndex = _itemIndex;
                         }
 
@@ -1821,52 +1817,52 @@
                 }
                 else
                 {
-                    // only if non selectable
-                    int nMoveIndex = _verticalScrollBar.Value;
+                    // Only if non selectable
+                    int _moveIndex = _verticalScrollBar.Value;
 
-                    if (keyCode == Keys.Down)
+                    if (_keyCode == Keys.Down)
                     {
                         // Could be a switch
-                        nMoveIndex++;
+                        _moveIndex++;
                     }
-                    else if (keyCode == Keys.Up)
+                    else if (_keyCode == Keys.Up)
                     {
-                        nMoveIndex--;
+                        _moveIndex--;
                     }
-                    else if (keyCode == Keys.PageDown)
+                    else if (_keyCode == Keys.PageDown)
                     {
-                        nMoveIndex += VisibleRowsCount;
+                        _moveIndex += VisibleRowsCount;
                     }
-                    else if (keyCode == Keys.PageUp)
+                    else if (_keyCode == Keys.PageUp)
                     {
-                        nMoveIndex -= VisibleRowsCount;
+                        _moveIndex -= VisibleRowsCount;
                     }
-                    else if (keyCode == Keys.Home)
+                    else if (_keyCode == Keys.Home)
                     {
-                        nMoveIndex = 0;
+                        _moveIndex = 0;
                     }
-                    else if (keyCode == Keys.End)
+                    else if (_keyCode == Keys.End)
                     {
-                        nMoveIndex = Count - VisibleRowsCount;
+                        _moveIndex = Count - VisibleRowsCount;
                     }
                     else
                     {
                         return base.PreProcessMessage(ref msg);
                     }
 
-                    if (nMoveIndex > Count - VisibleRowsCount)
+                    if (_moveIndex > Count - VisibleRowsCount)
                     {
-                        nMoveIndex = Count - VisibleRowsCount;
+                        _moveIndex = Count - VisibleRowsCount;
                     }
 
-                    if (nMoveIndex < 0)
+                    if (_moveIndex < 0)
                     {
-                        nMoveIndex = 0;
+                        _moveIndex = 0;
                     }
 
-                    if (_verticalScrollBar.Value != nMoveIndex)
+                    if (_verticalScrollBar.Value != _moveIndex)
                     {
-                        _verticalScrollBar.Value = nMoveIndex;
+                        _verticalScrollBar.Value = _moveIndex;
 
                         DebugTraceManager.WriteDebug("Calling Invalidate From PreProcessMessage", DebugTraceManager.DebugOutput.TraceListener);
                         Invalidate();
