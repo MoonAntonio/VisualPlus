@@ -59,7 +59,6 @@
         private string _displayText;
         private Color _displayTextColor;
         private Font _displayTextFont;
-
         private bool _displayTextOnEmpty;
         private VisualListViewItem _focusedItem;
         private bool _fullRowSelect;
@@ -1887,10 +1886,10 @@
         #region Methods
 
         /// <summary>Instance the activated embedded control for this item/column.</summary>
-        /// <param name="column">The column.</param>
+        /// <param name="columnIndex">The column index.</param>
         /// <param name="item">The item.</param>
         /// <param name="subItem">The sub item.</param>
-        private void ActivateEmbeddedControl(int column, VisualListViewItem item, VisualListViewSubItem subItem)
+        private void ActivateEmbeddedControl(int columnIndex, VisualListViewItem item, VisualListViewSubItem subItem)
         {
             if (_activatedEmbeddedControl != null)
             {
@@ -1898,12 +1897,12 @@
                 _activatedEmbeddedControl = null;
             }
 
-            if (Columns[column].EmbeddedControlTemplate == null)
+            if (_columns[columnIndex].EmbeddedControlTemplate == null)
             {
                 return;
             }
 
-            Type _type = _columns[column].EmbeddedControlTemplate.GetType();
+            Type _type = _columns[columnIndex].EmbeddedControlTemplate.GetType();
             Control _control = (Control)Activator.CreateInstance(_type);
             ILVEmbeddedControl _iEmbeddedControl = (ILVEmbeddedControl)_control;
 
@@ -2117,28 +2116,22 @@
         {
             DebugTraceManager.WriteDebug("VisualListView::Items_Changed", DebugTraceManager.DebugOutput.TraceListener);
 
-            // Debug.WriteLine( e.ChangedType.ToString() );
-            // if ( e.ChangedType != ChangedTypes.
-
-            // kill activated embedded object
             DestroyActivatedEmbedded();
 
-            if (ItemChangedEvent != null)
-            {
-                ItemChangedEvent(this, e); // fire the column clicked event
-            }
+            ItemChangedEvent?.Invoke(this, e);
 
-            // only invalidate if an item that is within the visible area has changed
+            // Invalidate if an item that is within the visible area has changed
             if (e.Item != null)
             {
-                // int nItemIndex = Items.FindItemIndex( e.Item );
-                // if ( ( nItemIndex >= this.vPanelScrollBar.Value ) && ( nItemIndex <  this.vPanelScrollBar.Value+this.VisibleRowsCount ) )
                 if (IsItemVisible(e.Item))
                 {
                     DebugTraceManager.WriteDebug("Calling Invalidate From Items_Changed", DebugTraceManager.DebugOutput.TraceListener);
                     Invalidate();
                 }
             }
+
+            // FIX: Invalidates list view on items changed.
+            Invalidate();
         }
 
         private void OnMouseDownFromSubItem(object sender, MouseEventArgs e)
@@ -2398,13 +2391,10 @@
 
             if (e.ChangedType != ListViewChangedTypes.ColumnStateChanged)
             {
-                DestroyActivatedEmbedded(); // kill activated embedded object
+                DestroyActivatedEmbedded();
             }
 
-            if (ColumnChangedEvent != null)
-            {
-                ColumnChangedEvent(this, e); // fire the column clicked event
-            }
+            ColumnChangedEvent?.Invoke(this, e);
 
             DebugTraceManager.WriteDebug("Calling Invalidate From Columns_Changed", DebugTraceManager.DebugOutput.TraceListener);
             Invalidate();
@@ -2569,8 +2559,8 @@
         public bool IsItemVisible(VisualListViewItem item)
         {
             // TODO: change this to only walk to visible items list
-            int nItemIndex = _items.FindItemIndex(item);
-            if ((nItemIndex >= _verticalScrollBar.Value) && (nItemIndex < _verticalScrollBar.Value + VisibleRowsCount))
+            int _itemIndex = _items.FindItemIndex(item);
+            if ((_itemIndex >= _verticalScrollBar.Value) && (_itemIndex < _verticalScrollBar.Value + VisibleRowsCount))
             {
                 return true;
             }

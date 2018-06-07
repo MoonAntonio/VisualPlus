@@ -22,7 +22,7 @@
             InitializeComponent();
 
             visualListViewAdvanced1.DisplayText = "No tasks in the current view." + Environment.NewLine + Environment.NewLine + "Click 'Add' to create a new task.";
-            
+
             visualListViewAdvanced1.SelectedIndexChanged += VisualListViewAdvanced1_SelectedIndexChanged;
         }
 
@@ -79,16 +79,18 @@
             _selectedIndex.AppendLine("Row: " + _rowIndex);
             _selectedIndex.AppendLine("Content: " + _row);
 
-            MessageBox.Show(_selectedIndex.ToString(), Application.ProductName);
+           // MessageBox.Show(_selectedIndex.ToString(), Application.ProductName);
         }
 
         private void VisualListViewTest_Load(object sender, EventArgs e)
         {
-            for (var i = 0; i < 0; i++)
+            for (var i = 0; i < 5; i++)
             {
                 VisualListViewItem _listViewItem = GenerateItem();
                 visualListViewAdvanced1.Items.Add(_listViewItem);
             }
+
+            visualListViewAdvanced1.Items[1].Selected = true;
         }
 
         #endregion

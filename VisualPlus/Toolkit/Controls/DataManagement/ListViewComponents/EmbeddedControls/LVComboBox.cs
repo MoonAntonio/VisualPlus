@@ -7,7 +7,6 @@
     using System.Diagnostics;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
     using VisualPlus.Toolkit.Child;
 
     #endregion

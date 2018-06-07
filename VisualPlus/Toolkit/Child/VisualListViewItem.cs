@@ -542,6 +542,8 @@
                 e.Item = this;
                 ChangedEvent(this, e);
             }
+
+            _listView.Invalidate();
         }
 
         #endregion

@@ -405,7 +405,7 @@
         /// <returns>The <see cref="int" />.</returns>
         public int FindItemIndex(VisualListViewItem item)
         {
-            for (int index = 0; index < Count; index++)
+            for (var index = 0; index < Count; index++)
             {
                 if (item == this[index])
                 {
@@ -413,7 +413,6 @@
                 }
             }
 
-            // Unable to find it.
             return -1;
         }
 
