@@ -26,8 +26,8 @@
         #region Variables
 
         private Color _backColor;
+        private bool _checkBox;
         private bool _checked;
-        private Control embeddedControl;
         private Hashtable _embeddedControlProperties;
         private Font _font;
         private bool _forceText;
@@ -41,6 +41,7 @@
         private bool _selected;
         private object _tag;
         private string _text;
+        private Control embeddedControl;
 
         #endregion
 
@@ -58,6 +59,7 @@
             embeddedControl = null;
             _listView = null;
             _checked = false;
+            _checkBox = false;
             _embeddedControlProperties = null;
             _lastCellRect = new Rectangle(0, 0, 0, 0);
             _foreColor = Color.Black;
@@ -128,7 +130,27 @@
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [Description("Item check state")]
+        [Description(PropertyDescription.Toggle)]
+        public bool CheckBox
+        {
+            get
+            {
+                return _checkBox;
+            }
+
+            set
+            {
+                if (_checkBox != value)
+                {
+                    _checkBox = value;
+                    ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.SubItemChanged, null, null, this));
+                }
+            }
+        }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description(PropertyDescription.Toggle)]
         public bool Checked
         {
             get
@@ -191,7 +213,7 @@
 
             set
             {
-                if (_font != value)
+                if (!Equals(_font, value))
                 {
                     _font = value;
                     ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.SubItemChanged, null, null, this));

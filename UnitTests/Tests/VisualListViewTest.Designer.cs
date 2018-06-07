@@ -53,13 +53,13 @@
             this.visualListViewAdvanced1.BackColor = System.Drawing.Color.White;
             this.visualListViewAdvanced1.BackgroundStretchToFit = true;
             this.visualListViewAdvanced1.BorderVisible = false;
-            visualListViewColumn1.CheckBoxes = false;
+            visualListViewColumn1.CheckBoxes = true;
             visualListViewColumn1.EmbeddedType = VisualPlus.Enumerators.LVActivatedEmbeddedTypes.None;
             visualListViewColumn1.ImageIndex = -1;
             visualListViewColumn1.Name = "VisualListViewColumn1";
             visualListViewColumn1.NumericSort = false;
             visualListViewColumn1.Text = "Title";
-            visualListViewColumn1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            visualListViewColumn1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             visualListViewColumn1.Width = 100;
             visualListViewColumn2.CheckBoxes = false;
             visualListViewColumn2.EmbeddedType = VisualPlus.Enumerators.LVActivatedEmbeddedTypes.TextBox;

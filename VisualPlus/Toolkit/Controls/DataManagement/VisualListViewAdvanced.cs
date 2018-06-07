@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Drawing;
@@ -16,7 +17,6 @@
     using VisualPlus.Collections.CollectionsEditor;
     using VisualPlus.Constants;
     using VisualPlus.Delegates;
-    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
@@ -35,6 +35,7 @@
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [Description("The Visual ListView")]
+
     // [Designer(typeof(VisualListViewAdvDesigner))]
     [ToolboxBitmap(typeof(VisualListViewAdvanced), "VisualListView.bmp")]
     [ToolboxItem(true)]
@@ -468,8 +469,6 @@
             {
                 return 2;
             }
-
-            // default I set to 4
         }
 
         [Category(PropertyCategory.Behavior)]
@@ -1171,10 +1170,10 @@
             }
         }
 
-        [Description("Selected Items Array Of Indicies.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>Gets the currently selected indicies in the control.</summary>
         [Browsable(false)]
-        public ArrayList SelectedIndicies
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<int> SelectedIndicies
         {
             get
             {
@@ -1182,10 +1181,10 @@
             }
         }
 
-        [Description("Selected Items Array.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>Gets the currently selected items in the control.</summary>
         [Browsable(false)]
-        public ArrayList SelectedItems
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<VisualListViewItem> SelectedItems
         {
             get
             {
@@ -1358,7 +1357,7 @@
             InterpretCoordinates(pointLocalMouse.X, pointLocalMouse.Y, out _listViewRegion, out _cellX, out _cellY, out _item, out _column, out _liveStates);
 
             // Debug.WriteLine( "listRegion " + listRegion.ToString() );
-            if ((_listViewRegion == ListViewRegion.Client) && (_column < Columns.Count))
+            if ((_listViewRegion == ListViewRegion.Client) && (_column < _columns.Count))
             {
                 ActivateEmbeddedControl(_column, _items[_item], _items[_item].SubItems[_column]);
             }
@@ -1385,10 +1384,8 @@
             ListViewRegion _listViewRegion;
             InterpretCoordinates(e.X, e.Y, out _listViewRegion, out _cellX, out _cellY, out _item, out _column, out _liveStates);
 
-            // Debug.WriteLine( nCellX.ToString() + " - " + nCellY.ToString() );
             if (e.Button == MouseButtons.Right)
             {
-                // if its the right button then we don't really care till its released
                 base.OnMouseDown(e);
                 return;
             }
@@ -1401,7 +1398,7 @@
 
                 if (SortType != SortTypes.None)
                 {
-                    Columns[_column].State = ColumnStates.Pressed;
+                    _columns[_column].State = ColumnStates.Pressed;
                     SortColumn(_column);
                 }
 
@@ -1426,17 +1423,13 @@
                 return;
             }
 
-            // --Item check, if no items exist go no further--
-            // if ( Items.Count == 0 )
-            // return;
-
             // ---Items --------------------------------------------------------------------------------------
             if (_liveStates == ListStates.Selecting)
             {
-                // ctrl based multi select ------------------------------------------------------------
+                // Control based multi select ------------------------------------------------------------
 
-                // whatever else this does, it needs to first check to see if the state of the checkbox is changing
-                if ((_column < Columns.Count) && Columns[_column].CheckBoxes)
+                // Whatever else this does, it needs to first check to see if the state of the checkbox is changing
+                if ((_column < _columns.Count) && _columns[_column].CheckBoxes)
                 {
                     // there is a checkbox on this control, lets see if the click came in the region
                     if ((_cellX > CellPaddingSize) &&
@@ -1477,7 +1470,7 @@
                     return;
                 }
 
-                // shift based multi row select -------------------------------------------------------
+                // Shift based multi row select -------------------------------------------------------
                 if (((ModifierKeys & Keys.Shift) == Keys.Shift) && MultiSelect)
                 {
                     _items.ClearSelection();
@@ -1507,16 +1500,16 @@
                     return;
                 }
 
-                // the normal single select -----------------------------------------------------------
+                // Normal single select -----------------------------------------------------------
                 _items.ClearSelection(_items[_item]);
 
-                // following two if statements deal ONLY with non multi=select where a singel sub item is being selected
-                if ((_lastSelectionIndex < Count) && (_lastSubSelectionIndex < Columns.Count))
+                // Following two if statements deal ONLY with non multi=select where a single sub item is being selected
+                if ((_lastSelectionIndex < Count) && (_lastSubSelectionIndex < _columns.Count))
                 {
                     _items[_lastSelectionIndex].SubItems[_lastSubSelectionIndex].Selected = false;
                 }
 
-                if ((_fullRowSelect == false) && (_item < Count) && (_column < Columns.Count))
+                if ((_fullRowSelect == false) && (_item < Count) && (_column < _columns.Count))
                 {
                     _items[_item].SubItems[_column].Selected = true;
                 }
@@ -1531,7 +1524,6 @@
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            // clear all the hot tracking
             _columns.ClearHotStates(); // this is the HEADER hot state
             HotItemIndex = -1;
             _hotColumnIndex = -1;

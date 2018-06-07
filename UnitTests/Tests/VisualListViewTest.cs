@@ -35,6 +35,8 @@
         private static VisualListViewItem GenerateItem()
         {
             VisualListViewItem _item = new VisualListViewItem(@"Item: " + new Random().Next(0, 1000));
+            _item.SubItems[0].CheckBox = true;
+
             VisualListViewSubItem _content = new VisualListViewSubItem(@"Sub-Content: " + new Random().Next(0, 1000));
             VisualListViewSubItem _date = new VisualListViewSubItem(DateTime.Now.ToLongDateString());
 
@@ -79,7 +81,7 @@
             _selectedIndex.AppendLine("Row: " + _rowIndex);
             _selectedIndex.AppendLine("Content: " + _row);
 
-           // MessageBox.Show(_selectedIndex.ToString(), Application.ProductName);
+            // MessageBox.Show(_selectedIndex.ToString(), Application.ProductName);
         }
 
         private void VisualListViewTest_Load(object sender, EventArgs e)

@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
     using System.Linq;
@@ -12,6 +13,7 @@
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Extensibility;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Toolkit.Child;
     using VisualPlus.Toolkit.Controls.DataManagement;
@@ -54,10 +56,51 @@
 
         #region Properties
 
-        /// <summary>Gets or sets the parent to know what to refresh on change.</summary>
-        [Description("Parent")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>Gets the index of the currently checked items in the control.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<int> CheckedIndicies
+        {
+            get
+            {
+                var _checkedItems = new List<int>();
+                for (var i = 0; i < Count; i++)
+                {
+                    VisualListViewSubItem _item = this[i];
+                    if (_item.Checked)
+                    {
+                        _checkedItems.Add(i);
+                    }
+                }
+
+                return _checkedItems;
+            }
+        }
+
+        /// <summary>Gets the currently checked items in the control.</summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<VisualListViewSubItem> CheckedItems
+        {
+            get
+            {
+                var _checkedItems = new List<VisualListViewSubItem>();
+                for (var i = 0; i < Count; i++)
+                {
+                    VisualListViewSubItem _item = this[i];
+                    if (_item.Checked)
+                    {
+                        _checkedItems.Add(_item);
+                    }
+                }
+
+                return _checkedItems;
+            }
+        }
+
+        [Browsable(false)]
+        [Description(PropertyDescription.Parent)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public VisualListViewAdvanced ListView
         {
             get
@@ -77,45 +120,41 @@
             }
         }
 
-        /// <summary>Returns a list of only the selected items indexes.</summary>
-        [Description("Selected items array of indicies")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>Gets the currently selected indicies in the control.</summary>
         [Browsable(false)]
-        public ArrayList SelectedIndicies
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<int> SelectedIndicies
         {
             get
             {
-                ArrayList _selectedItems = new ArrayList();
-
-                // Go through list and add only selected items.
-                for (int index = 0; index < Count; index++)
+                var _selectedIndicies = new List<int>();
+                for (var i = 0; i < Count; i++)
                 {
-                    if (this[index].Selected)
+                    VisualListViewSubItem _item = this[i];
+                    if (_item.Selected)
                     {
-                        _selectedItems.Add(index);
+                        _selectedIndicies.Add(i);
                     }
                 }
 
-                return _selectedItems;
+                return _selectedIndicies;
             }
         }
 
-        /// <summary>Returns a list of only the selected items.</summary>
-        [Description("Selected items array")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>Gets the currently selected items in the control.</summary>
         [Browsable(false)]
-        public ArrayList SelectedItems
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<VisualListViewSubItem> SelectedItems
         {
             get
             {
-                ArrayList _selectedItems = new ArrayList();
-
-                // Go through list and add only selected items.
-                for (var index = 0; index < Count; index++)
+                var _selectedItems = new List<VisualListViewSubItem>();
+                for (var i = 0; i < Count; i++)
                 {
-                    if (this[index].Selected)
+                    VisualListViewSubItem _item = this[i];
+                    if (_item.Selected)
                     {
-                        _selectedItems.Add(this[index]);
+                        _selectedItems.Add(_item);
                     }
                 }
 

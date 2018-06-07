@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
 
@@ -49,15 +50,6 @@
         #region Properties
 
         [Browsable(false)]
-        public new int Count
-        {
-            get
-            {
-                return InnerList.Count;
-            }
-        }
-
-        [Browsable(false)]
         [Description(PropertyDescription.Parent)]
         public VisualListViewAdvanced ListView
         {
@@ -78,45 +70,41 @@
             }
         }
 
-        /// <summary>Returns a list of only the selected items indexes.</summary>
-        [Description("Selected items array of indicies")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>Gets the currently selected indicies in the control.</summary>
         [Browsable(false)]
-        public ArrayList SelectedIndicies
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<int> SelectedIndicies
         {
             get
             {
-                ArrayList _selectedItems = new ArrayList();
-
-                // Go through list and add only selected items.
-                for (int index = 0; index < Count; index++)
+                var _selectedIndicies = new List<int>();
+                for (var i = 0; i < Count; i++)
                 {
-                    if (this[index].Selected)
+                    VisualListViewItem _item = this[i];
+                    if (_item.Selected)
                     {
-                        _selectedItems.Add(index);
+                        _selectedIndicies.Add(i);
                     }
                 }
 
-                return _selectedItems;
+                return _selectedIndicies;
             }
         }
 
-        /// <summary>Returns a list of only the selected items.</summary>
-        [Description("Selected items array")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>Gets the currently selected items in the control.</summary>
         [Browsable(false)]
-        public ArrayList SelectedItems
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<VisualListViewItem> SelectedItems
         {
             get
             {
-                ArrayList _selectedItems = new ArrayList();
-
-                // Go through list and add only selected items.
-                for (int index = 0; index < Count; index++)
+                var _selectedItems = new List<VisualListViewItem>();
+                for (var i = 0; i < Count; i++)
                 {
-                    if (this[index].Selected)
+                    VisualListViewItem _item = this[i];
+                    if (_item.Selected)
                     {
-                        _selectedItems.Add(this[index]);
+                        _selectedItems.Add(_item);
                     }
                 }
 
@@ -128,7 +116,6 @@
         ///     Used for operations when multiple items are changed consecutively and don't want to send a larger number of
         ///     change events than necessary.
         /// </summary>
-        [Description("Extra User Info.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
         public bool SuspendEvents

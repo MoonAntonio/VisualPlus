@@ -152,20 +152,24 @@
             int ty = rectCell.Y + listView.CellPaddingSize + ((rectCell.Height - th) / 2);
             int tx = rectCell.X + listView.CellPaddingSize;
 
+            Point _location = new Point(tx, ty);
+
             if (checkToggle)
             {
-                graphicsCell.DrawImage(listView.ImageList.Images[1], tx, ty);
-
-                // graphicsCell.FillRectangle( Brushes.YellowGreen, tx, ty, CHECKBOX_SIZE, CHECKBOX_SIZE );
+                // Checked
+                // graphicsCell.DrawImage(listView.ImageList.Images[1], tx, ty);
+                // graphicsCell.FillRectangle( Brushes.YellowGreen, tx, ty, checkBoxSize, checkBoxSize);
+                CheckBoxRenderer.DrawCheckBox(graphicsCell, _location, System.Windows.Forms.VisualStyles.CheckBoxState.CheckedNormal);
             }
             else
             {
-                graphicsCell.DrawImage(listView.ImageList.Images[0], tx, ty);
-
-                // graphicsCell.FillRectangle( Brushes.Red, tx, ty, CHECKBOX_SIZE, CHECKBOX_SIZE );
+                // Unchecked
+                // graphicsCell.DrawImage(listView.ImageList.Images[0], tx, ty);
+                // graphicsCell.FillRectangle( Brushes.Red, tx, ty, checkBoxSize, checkBoxSize);
+                CheckBoxRenderer.DrawCheckBox(graphicsCell, _location, System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal);
             }
 
-            // remove the width that we used for the graphic from the cell
+            // Remove the width that we used for the graphic from the cell
             rectCell.Width -= checkBoxSize + (listView.CellPaddingSize * 2);
             rectCell.X += tw;
 
@@ -605,8 +609,8 @@
                     }
                 }
 
-                // do we need checkboxes in this column or not?
-                if (listView.Columns[column].CheckBoxes)
+                // Check if we need checkboxes in this column
+                if (listView.Columns[column].CheckBoxes && subItem.CheckBox)
                 {
                     rectSubItem = DrawCheckBox(graphicsSubItem, rectSubItem, subItem.Checked, checkBoxSize, listView);
                 }
