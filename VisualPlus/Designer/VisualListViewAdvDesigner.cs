@@ -10,7 +10,7 @@
 
     #endregion
 
-    internal class VisualListBoxDesigner : ControlDesigner
+    internal class VisualListViewAdvDesigner : ControlDesigner
     {
         #region Variables
 
@@ -29,7 +29,7 @@
                 {
                     _actionListCollection = new DesignerActionListCollection
                             {
-                               new VisualListBoxActionList(Component) 
+                               new VisualListViewAdvActionList(Component) 
                             };
                 }
 
@@ -47,18 +47,26 @@
             properties.Remove("Padding");
             properties.Remove("FlatAppearance");
             properties.Remove("FlatStyle");
+
             properties.Remove("AutoEllipsis");
             properties.Remove("UseCompatibleTextRendering");
+
             properties.Remove("Image");
             properties.Remove("ImageAlign");
             properties.Remove("ImageIndex");
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
             properties.Remove("TextImageRelation");
+
+            // properties.Remove("BackColor");
             properties.Remove("BackgroundImage");
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
+
+            // properties.Remove("Font");
+            // properties.Remove("ForeColor");
             properties.Remove("RightToLeft");
+            properties.Remove("View");
 
             base.PreFilterProperties(properties);
         }

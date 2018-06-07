@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Designer.ActionList
+namespace VisualPlus.ActionList
 {
     #region Namespace
 
@@ -11,20 +11,20 @@
 
     #endregion
 
-    internal class VisualCheckedListBoxActionList : DesignerActionList
+    internal class VisualListBoxActionList : DesignerActionList
     {
         #region Variables
 
-        private VisualCheckedListBox _control;
+        private VisualListBox _control;
         private DesignerActionUIService _designerService;
 
         #endregion
 
         #region Constructors
 
-        public VisualCheckedListBoxActionList(IComponent component) : base(component)
+        public VisualListBoxActionList(IComponent component) : base(component)
         {
-            _control = (VisualCheckedListBox)component;
+            _control = (VisualListBox)component;
             _designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
@@ -38,7 +38,7 @@
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [MergableProperty(false)]
         [Localizable(true)]
-        public virtual CheckedListBox.ObjectCollection Items
+        public virtual ListBox.ObjectCollection Items
         {
             get
             {
@@ -53,9 +53,10 @@
         public override DesignerActionItemCollection GetSortedActionItems()
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
-                    {
-                       new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode") 
-                    };
+                {
+                    new DesignerActionHeaderItem("Appearance"),
+                    new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode")
+                };
 
             return items;
         }

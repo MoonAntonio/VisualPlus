@@ -109,7 +109,6 @@
             this.visualListViewAdvanced1.HotTrackingColor = System.Drawing.Color.LightGray;
             this.visualListViewAdvanced1.HoverEvents = false;
             this.visualListViewAdvanced1.HoverTime = 1;
-            this.visualListViewAdvanced1.ImageList = null;
             this.visualListViewAdvanced1.ItemHeight = 17;
             this.visualListViewAdvanced1.ItemWordWrap = false;
             this.visualListViewAdvanced1.Location = new System.Drawing.Point(0, 80);

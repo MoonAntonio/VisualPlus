@@ -11,12 +11,10 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Constants;
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
-    using VisualPlus.Native;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -751,7 +749,7 @@
         }
 
         #endregion
- 
+
         #region Methods
 
         private static StringFormat GetStringFormat()

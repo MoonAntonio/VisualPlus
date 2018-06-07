@@ -1,4 +1,4 @@
-namespace VisualPlus.Designer.ActionList
+namespace VisualPlus.ActionList
 {
     #region Namespace
 

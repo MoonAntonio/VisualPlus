@@ -58,8 +58,10 @@
     <Compile Include="Constants\FormConstants.cs" />
     <Compile Include="Delegates\ControlBoxDelegate.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
+    <Compile Include="ActionList\VisualListViewAdvActionList.cs" />
     <Compile Include="Designer\VisualControlBoxButtonDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxDesigner.cs" />
+    <Compile Include="Designer\VisualListViewAdvDesigner.cs" />
     <Compile Include="Designer\VisualScrollBarDesigner.cs" />
     <Compile Include="Enumerators\ColumnStates.cs" />
     <Compile Include="Enumerators\GridTypes.cs" />
@@ -139,12 +141,12 @@
     <Compile Include="Structure\ColorState.cs" />
     <Compile Include="Structure\Hatch.cs" />
     <Compile Include="Structure\TextStyle.cs" />
-    <Compile Include="Designer\ActionList\VisualCheckedListBoxActionList.cs" />
+    <Compile Include="ActionList\VisualCheckedListBoxActionList.cs" />
     <Compile Include="Designer\VisualCheckedListBoxDesigner.cs" />
-    <Compile Include="Designer\ActionList\VisualRichBoxActionList.cs" />
-    <Compile Include="Designer\ActionList\VisualTextBoxActionList.cs" />
-    <Compile Include="Designer\ActionList\VisualListViewActionList.cs" />
-    <Compile Include="Designer\ActionList\VisuaListBoxActionList.cs" />
+    <Compile Include="ActionList\VisualRichBoxActionList.cs" />
+    <Compile Include="ActionList\VisualTextBoxActionList.cs" />
+    <Compile Include="ActionList\VisualListViewActionList.cs" />
+    <Compile Include="ActionList\VisuaListBoxActionList.cs" />
     <Compile Include="Structure\Theme.cs" />
     <Compile Include="Toolkit\Child\VisualTabPage.cs">
       <SubType>Component</SubType>
@@ -199,7 +201,7 @@
     <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressStepper.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRangeBar.cs" />
-    <Compile Include="Designer\ActionList\VisualComboBoxActionList.cs" />
+    <Compile Include="ActionList\VisualComboBoxActionList.cs" />
     <Compile Include="Designer\VisualComboBoxDesigner.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualControlBox.cs" />
     <Compile Include="Toolkit\Dialogs\ThemesEditor.cs" />

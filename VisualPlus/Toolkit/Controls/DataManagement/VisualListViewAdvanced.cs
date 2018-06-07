@@ -16,6 +16,7 @@
     using VisualPlus.Collections.CollectionsEditor;
     using VisualPlus.Constants;
     using VisualPlus.Delegates;
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization;
@@ -34,8 +35,7 @@
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [Description("The Visual ListView")]
-
-    // [Designer(typeof(VisualListViewDesigner))]
+    // [Designer(typeof(VisualListViewAdvDesigner))]
     [ToolboxBitmap(typeof(VisualListViewAdvanced), "VisualListView.bmp")]
     [ToolboxItem(true)]
     public partial class VisualListViewAdvanced : VisualStyleBase
@@ -1012,7 +1012,7 @@
             }
         }
 
-        [Category(PropertyCategory.Behavior)]
+        [Category(PropertyCategory.Data)]
         [Description("The items in the collection.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Editor(typeof(VisualListViewItemCollectionEditor), typeof(UITypeEditor))]

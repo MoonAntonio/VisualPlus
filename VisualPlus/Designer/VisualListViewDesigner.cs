@@ -6,7 +6,7 @@
     using System.ComponentModel.Design;
     using System.Windows.Forms.Design;
 
-    using VisualPlus.Designer.ActionList;
+    using VisualPlus.ActionList;
 
     #endregion
 

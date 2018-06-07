@@ -1,4 +1,4 @@
-namespace VisualPlus.Designer.ActionList
+﻿namespace VisualPlus.ActionList
 {
     #region Namespace
 
@@ -7,24 +7,24 @@ namespace VisualPlus.Designer.ActionList
     using System.Drawing.Design;
     using System.Windows.Forms;
 
-    using VisualPlus.Toolkit.Controls.DataManagement;
+    using VisualPlus.Toolkit.Controls.Interactivity;
 
     #endregion
 
-    internal class VisualListBoxActionList : DesignerActionList
+    internal class VisualComboBoxActionList : DesignerActionList
     {
         #region Variables
 
-        private VisualListBox _control;
+        private VisualComboBox _control;
         private DesignerActionUIService _designerService;
 
         #endregion
 
         #region Constructors
 
-        public VisualListBoxActionList(IComponent component) : base(component)
+        public VisualComboBoxActionList(IComponent component) : base(component)
         {
-            _control = (VisualListBox)component;
+            _control = (VisualComboBox)component;
             _designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
@@ -33,12 +33,12 @@ namespace VisualPlus.Designer.ActionList
         #region Properties
 
         [Category("Data")]
-        [Description("The items in the VisualListBox.")]
+        [Description("The items in the VisualComboBox.")]
         [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [MergableProperty(false)]
         [Localizable(true)]
-        public virtual ListBox.ObjectCollection Items
+        public virtual ComboBox.ObjectCollection Items
         {
             get
             {
@@ -54,7 +54,7 @@ namespace VisualPlus.Designer.ActionList
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
                 {
-                    new DesignerActionHeaderItem("Appearance"),
+                    new DesignerActionHeaderItem("Unbound Mode"),
                     new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode")
                 };
 
