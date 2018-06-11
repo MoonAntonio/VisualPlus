@@ -37,7 +37,7 @@
     [Designer(typeof(VisualFormDesigner), typeof(IRootDesigner))]
     [DesignerCategory("Form")]
     [InitializationEvent("Load")]
-    [ToolboxBitmap(typeof(VisualForm), "Resources.ToolboxBitmaps.VisualForm.bmp")]
+    [ToolboxBitmap(typeof(VisualForm), "VisualForm.bmp")]
     [ToolboxItemFilter("System.Windows.Forms.Control.TopLevel")]
     [ToolboxItem(false)]
     public class VisualForm : Form, ICloneable, IThemeSupport
@@ -73,6 +73,13 @@
         #endregion
 
         #region Constructors
+
+        /// <summary>Initializes a new instance of the <see cref="VisualForm" /> class.</summary>
+        /// <param name="text">The text associated with this control.</param>
+        public VisualForm(string text) : this()
+        {
+            InitializeText(text);
+        }
 
         /// <summary>Initializes a new instance of the <see cref="VisualForm" /> class.</summary>
         public VisualForm()
@@ -114,7 +121,6 @@
             TransparencyKey = Color.Fuchsia;
             _windowBarHeight = 30;
             _previousSize = Size.Empty;
-            _textRectangle = new Rectangle(0, 7, 0, 0);
             _titleBarRectangle = new Rectangle(0, 0, Width, _windowBarHeight);
 
             _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16))
@@ -128,6 +134,7 @@
             Controls.Add(_visualControlBox);
             _visualControlBox.Location = new Point(Width - _visualControlBox.Width - 16, _border.Thickness);
 
+            _textRectangle = new Rectangle(0, 7, 0, 0);
             UpdateTheme(_styleManager.Theme);
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
@@ -142,6 +149,81 @@
         [Category(EventCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ControlBoxEventHandler CloseButtonClicked
+        {
+            add
+            {
+                _visualControlBox.CloseClick += value;
+            }
+
+            remove
+            {
+                _visualControlBox.CloseClick -= value;
+            }
+        }
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public new event ControlBoxEventHandler HelpButtonClicked
+        {
+            add
+            {
+                _visualControlBox.HelpClick += value;
+            }
+
+            remove
+            {
+                _visualControlBox.HelpClick -= value;
+            }
+        }
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ControlBoxEventHandler MaximizeButtonClicked
+        {
+            add
+            {
+                _visualControlBox.MaximizeClick += value;
+            }
+
+            remove
+            {
+                _visualControlBox.MaximizeClick -= value;
+            }
+        }
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ControlBoxEventHandler MinimizeButtonClicked
+        {
+            add
+            {
+                _visualControlBox.MinimizeClick += value;
+            }
+
+            remove
+            {
+                _visualControlBox.MinimizeClick -= value;
+            }
+        }
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ControlBoxEventHandler RestoredFormWindow
+        {
+            add
+            {
+                _visualControlBox.RestoredFormWindow += value;
+            }
+
+            remove
+            {
+                _visualControlBox.RestoredFormWindow -= value;
+            }
+        }
 
         [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
@@ -772,6 +854,10 @@
             try
             {
                 Size _textSize = GraphicsManager.MeasureTextRenderer(Text, Font);
+
+                // Fixes: Lower hanging characters like 'g'.
+                _textSize.Height = _textSize.Height + 1;
+
                 Point _titleLocation;
 
                 switch (_titleAlignment)
@@ -846,6 +932,14 @@
             }
 
             return _borderBounds;
+        }
+
+        /// <summary>Initialize the components text.</summary>
+        /// <param name="text">The text associated with this control.</param>
+        private void InitializeText(string text)
+        {
+            // Fixes: Virtual member call in constructor.
+            Text = text;
         }
 
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)

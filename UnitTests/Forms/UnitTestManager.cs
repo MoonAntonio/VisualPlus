@@ -27,7 +27,8 @@
         public UnitTestManager()
         {
             InitializeComponent();
-            _visualControlBox.HelpClick += VisualControlBox_HelpClick;
+
+            HelpButtonClicked += VisualControlBox_HelpClick;
         }
 
         #endregion
@@ -37,11 +38,11 @@
         /// <summary>The different kind of unit tests.</summary>
         private enum UnitTests
         {
-            /// <summary>The list view advanced.</summary>
-            VisualListViewAdvanced = 0,
+            /// <summary>The VisualForm.</summary>
+            VisualForm = 0,
 
-            /// <summary>The none.</summary>
-            None = 1
+            /// <summary>The list view advanced.</summary>
+            VisualListViewExtended = 1
         }
 
         #endregion
@@ -54,15 +55,15 @@
 
             switch (_unitTest)
             {
-                case UnitTests.VisualListViewAdvanced:
+                case UnitTests.VisualListViewExtended:
                     {
                         _formToOpen = new VisualListViewTest();
                         break;
                     }
 
-                case UnitTests.None:
+                case UnitTests.VisualForm:
                     {
-                        _formToOpen = null;
+                        _formToOpen = new VisualForm("Empty VisualForm");
                         break;
                     }
 
@@ -72,7 +73,7 @@
                     }
             }
 
-            _formToOpen?.ShowDialog();
+            _formToOpen.ShowDialog();
         }
 
         private void ListBoxTests_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,7 +83,7 @@
 
         private void TestManager_Load(object sender, EventArgs e)
         {
-            _unitTest = UnitTests.VisualListViewAdvanced;
+            _unitTest = UnitTests.VisualListViewExtended;
 
             Array _tests = typeof(UnitTests).GetEnumValues();
             visualLabelTestsCount.Text = $@"Tests Count: {_tests.Length}";
