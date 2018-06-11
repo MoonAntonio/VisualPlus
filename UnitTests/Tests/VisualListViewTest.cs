@@ -151,8 +151,7 @@
                 visualListViewExTest.Items.Add(_listViewItem);
             }
 
-            visualListViewExTest.Items[1].Selected = true;
-            visualListViewExTest.Items[1].CheckBox = true;
+            visualListViewExTest.Items[0].Selected = true;
         }
 
         #endregion
