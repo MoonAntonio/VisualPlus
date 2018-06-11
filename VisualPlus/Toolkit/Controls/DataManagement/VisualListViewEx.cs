@@ -191,74 +191,74 @@
             SuspendLayout();
 
             _horizontalScrollBar = new ManagedHScrollBar
-                {
-                    Anchor = AnchorStyles.None,
-                    CausesValidation = false,
-                    Location = new Point(24, 0),
-                    MHeight = 16,
-                    MWidth = 120,
-                    Name = "hPanelScrollBar",
-                    Size = new Size(120, 16),
-                    Parent = this
-                };
+            {
+                Anchor = AnchorStyles.None,
+                CausesValidation = false,
+                Location = new Point(24, 0),
+                MHeight = 16,
+                MWidth = 120,
+                Name = "hPanelScrollBar",
+                Size = new Size(120, 16),
+                Parent = this
+            };
             _horizontalScrollBar.Scroll += OnScroll;
             _horizontalScrollBar.Scroll += HorizontalPanelScrollBar_Scroll;
             Controls.Add(_horizontalScrollBar);
 
             _verticalScrollBar = new ManagedVScrollBar
-                {
-                    Anchor = AnchorStyles.None,
-                    CausesValidation = false,
-                    Location = new Point(0, 12),
-                    MHeight = 120,
-                    MWidth = 16,
-                    Name = "vPanelScrollBar",
-                    Size = new Size(16, 120),
-                    Parent = this
-                };
+            {
+                Anchor = AnchorStyles.None,
+                CausesValidation = false,
+                Location = new Point(0, 12),
+                MHeight = 120,
+                MWidth = 16,
+                Name = "vPanelScrollBar",
+                Size = new Size(16, 120),
+                Parent = this
+            };
             _verticalScrollBar.Scroll += OnScroll;
             _verticalScrollBar.Scroll += VerticalPanelScrollBar_Scroll;
             Controls.Add(_verticalScrollBar);
 
             _horizontalTopBorderStrip = new BorderStrip
-                {
-                    Parent = this,
-                    BorderType = BorderStrip.BorderTypes.Top,
-                    Visible = false
-                };
+            {
+                Parent = this,
+                BorderType = BorderStrip.BorderTypes.Top,
+                Visible = false
+            };
             _horizontalTopBorderStrip.BringToFront();
 
             _horizontalBottomBorderStrip = new BorderStrip
-                {
-                    Parent = this,
-                    BorderType = BorderStrip.BorderTypes.Bottom,
-                    Visible = true
-                };
+            {
+                Parent = this,
+                BorderType = BorderStrip.BorderTypes.Bottom,
+                Visible = true
+            };
             _horizontalBottomBorderStrip.BringToFront();
 
             _verticalLeftBorderStrip = new BorderStrip
-                {
-                    BorderType = BorderStrip.BorderTypes.Left,
-                    Parent = this,
-                    Visible = true
-                };
+            {
+                BorderType = BorderStrip.BorderTypes.Left,
+                Parent = this,
+                Visible = true
+            };
             _verticalLeftBorderStrip.BringToFront();
 
             _verticalRightBorderStrip = new BorderStrip
-                {
-                    BorderType = BorderStrip.BorderTypes.Right,
-                    Parent = this,
-                    Visible = true
-                };
+            {
+                BorderType = BorderStrip.BorderTypes.Right,
+                Parent = this,
+                Visible = true
+            };
             _verticalRightBorderStrip.BringToFront();
 
             _cornerBox = new BorderStrip
-                {
-                    BackColor = SystemColors.Control,
-                    BorderType = BorderStrip.BorderTypes.Square,
-                    Visible = false,
-                    Parent = this
-                };
+            {
+                BackColor = SystemColors.Control,
+                BorderType = BorderStrip.BorderTypes.Square,
+                Visible = false,
+                Parent = this
+            };
             _cornerBox.BringToFront();
 
             Size = new Size(121, 97);
@@ -1501,7 +1501,6 @@
         {
             DebugTraceManager.WriteDebug("OnMouseDown", DebugTraceManager.DebugOutput.TraceListener);
 
-            // Debug.WriteLine( "Real " + e.X.ToString() + " " + e.Y.ToString() );
             int _item;
             int _column;
             int _cellX;
@@ -1522,10 +1521,44 @@
                 // Column select
                 _state = ListStates.None;
 
-                if (SortType != SortTypes.None)
+                bool _checkBoxClicked;
+                
+                if (_columns[_column].CheckBox)
                 {
-                    _columns[_column].State = ColumnStates.Pressed;
-                    SortColumn(_column);
+                    // Using MouseEvent.Location.Y instead of cellY since it's for the column.
+                    if ((_cellX > CellPaddingSize) && (_cellX < CellPaddingSize + ListViewConstants.CHECKBOX_SIZE) && (e.Location.Y > CellPaddingSize) && (e.Location.Y < CellPaddingSize + ListViewConstants.CHECKBOX_SIZE))
+                    {
+                        // Toggle the column checkbox
+                        if (_columns[_column].Checked)
+                        {
+                            _columns[_column].Checked = false;
+                        }
+                        else
+                        {
+                            _columns[_column].Checked = true;
+                        }
+
+                        // Clicked on the column CheckBox.
+                        _checkBoxClicked = true;
+                    }
+                    else
+                    {
+                        _checkBoxClicked = false;
+                    }
+                }
+                else
+                {
+                    _checkBoxClicked = false;
+                }
+
+                // Do not sort columns when checkbox clicked.
+                if (!_checkBoxClicked)
+                {
+                    if (SortType != SortTypes.None)
+                    {
+                        _columns[_column].State = ColumnStates.Pressed;
+                        SortColumn(_column);
+                    }
                 }
 
                 ColumnClickedEvent?.Invoke(this, new ListViewClickEventArgs(_item, _column)); // fire the column clicked event
@@ -1650,7 +1683,8 @@
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            _columns.ClearHotStates(); // this is the HEADER hot state
+            // This is the HEADER hot state
+            _columns.ClearHotStates();
             HotItemIndex = -1;
             _hotColumnIndex = -1;
 
@@ -1738,7 +1772,8 @@
                 return;
             }
 
-            RecalculateScroll(); // Doesn't really belong in paint.
+            // Doesn't really belong in paint.
+            RecalculateScroll();
 
             Graphics _graphics = e.Graphics;
             int _insideWidth = Columns.Width > HeaderRect.Width ? Columns.Width : HeaderRect.Width;
@@ -2105,11 +2140,10 @@
 
                             for (var i = 0; i < _items.Count; i++)
                             {
-                                // TODO: Fix image indexer
-                                // if (_items[i].ImageIndexer.ActualIndex > -1)
-                                // {
-                                // _addPadding = false;
-                                // }
+                                if (_items[i].ImageIndex > -1)
+                                {
+                                    _addPadding = false;
+                                }
                             }
 
                             if (_addPadding)
@@ -2127,9 +2161,7 @@
             return 0;
         }
 
-        /// <summary>
-        ///     If an activated embedded control exists, remove and unload it
-        /// </summary>
+        /// <summary>Destroy activated embedded control exists, remove and unload it.</summary>
         private void DestroyActivatedEmbedded()
         {
             if (_activatedEmbeddedControl != null)
@@ -2248,11 +2280,8 @@
         {
             DebugTraceManager.WriteDebug("OnMouseDownFromSubItem", DebugTraceManager.DebugOutput.TraceListener);
 
-            // Debug.WriteLine( "OnMouseDownFromSubItem called " + e.X.ToString() + " " + e.Y.ToString() );
-            Point cp = PointToClient(new Point(MousePosition.X, MousePosition.Y));
-            e = new MouseEventArgs(e.Button, e.Clicks, cp.X, cp.Y, e.Delta);
-
-            // Debug.WriteLine( "after " + cp.X.ToString() + " " + cp.Y.ToString() );
+            Point _clientPoint = PointToClient(new Point(MousePosition.X, MousePosition.Y));
+            e = new MouseEventArgs(e.Button, e.Clicks, _clientPoint.X, _clientPoint.Y, e.Delta);
             OnMouseDown(e);
         }
 
@@ -2529,7 +2558,7 @@
                 return 0;
             }
 
-            int nCurrentX = -_horizontalScrollBar.Value; // GetHScrollPoint();			// offset the starting point by the current scroll point
+            int nCurrentX = -_horizontalScrollBar.Value; // Offset the starting point by the current scroll point.
             int nColIndex = 0;
             foreach (VisualListViewColumn col in Columns)
             {
@@ -2542,7 +2571,7 @@
                 nCurrentX += col.Width;
             }
 
-            return 0; // this should never happen;
+            return 0; // Should never reach.
         }
 
         /// <summary>

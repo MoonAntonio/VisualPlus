@@ -36,10 +36,6 @@
             VisualPlus.Structure.TextStyle textStyle1 = new VisualPlus.Structure.TextStyle();
             VisualPlus.Structure.TextStyle textStyle2 = new VisualPlus.Structure.TextStyle();
             VisualPlus.Structure.TextStyle textStyle3 = new VisualPlus.Structure.TextStyle();
-            VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn1 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
-            VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn2 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
-            VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn3 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
-            VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn4 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
             VisualPlus.Structure.TextStyle textStyle4 = new VisualPlus.Structure.TextStyle();
             VisualPlus.Structure.TextStyle textStyle5 = new VisualPlus.Structure.TextStyle();
             VisualPlus.Structure.Border border1 = new VisualPlus.Structure.Border();
@@ -143,43 +139,6 @@
             this.visualListViewExTest.BackColor = System.Drawing.Color.White;
             this.visualListViewExTest.BackgroundStretchToFit = true;
             this.visualListViewExTest.BorderVisible = false;
-            visualListViewColumn1.CheckBoxes = true;
-            visualListViewColumn1.EmbeddedType = VisualPlus.Enumerators.LVActivatedEmbeddedTypes.None;
-            visualListViewColumn1.ImageIndex = -1;
-            visualListViewColumn1.Name = "VisualListViewColumn1";
-            visualListViewColumn1.NumericSort = false;
-            visualListViewColumn1.Text = "Title";
-            visualListViewColumn1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            visualListViewColumn1.Width = 100;
-            visualListViewColumn2.CheckBoxes = false;
-            visualListViewColumn2.EmbeddedType = VisualPlus.Enumerators.LVActivatedEmbeddedTypes.TextBox;
-            visualListViewColumn2.ImageIndex = -1;
-            visualListViewColumn2.Name = "VisualListViewColumn2";
-            visualListViewColumn2.NumericSort = false;
-            visualListViewColumn2.Text = "Content";
-            visualListViewColumn2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            visualListViewColumn2.Width = 100;
-            visualListViewColumn3.CheckBoxes = false;
-            visualListViewColumn3.EmbeddedType = VisualPlus.Enumerators.LVActivatedEmbeddedTypes.DateTimePicker;
-            visualListViewColumn3.ImageIndex = -1;
-            visualListViewColumn3.Name = "VisualListViewColumn3";
-            visualListViewColumn3.NumericSort = false;
-            visualListViewColumn3.Text = "Date";
-            visualListViewColumn3.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            visualListViewColumn3.Width = 100;
-            visualListViewColumn4.CheckBoxes = false;
-            visualListViewColumn4.EmbeddedType = VisualPlus.Enumerators.LVActivatedEmbeddedTypes.None;
-            visualListViewColumn4.ImageIndex = -1;
-            visualListViewColumn4.Name = "VisualListViewColumn4";
-            visualListViewColumn4.NumericSort = false;
-            visualListViewColumn4.Text = "Progress";
-            visualListViewColumn4.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            visualListViewColumn4.Width = 100;
-            this.visualListViewExTest.Columns.AddRange(new VisualPlus.Toolkit.Child.VisualListViewColumn[] {
-            visualListViewColumn1,
-            visualListViewColumn2,
-            visualListViewColumn3,
-            visualListViewColumn4});
             this.visualListViewExTest.ControlStyle = VisualPlus.Enumerators.LVControlStyles.SuperFlat;
             this.visualListViewExTest.DisplayText = "The list is empty.";
             this.visualListViewExTest.DisplayTextColor = System.Drawing.Color.DimGray;
@@ -326,7 +285,7 @@
             this.MinimizeBox = true;
             this.Name = "VisualListViewTest";
             this.Text = "VisualListView Extended Test";
-            this.TextRectangle = new System.Drawing.Rectangle(193, 7, 153, 13);
+            this.TextRectangle = new System.Drawing.Rectangle(193, 7, 153, 14);
             this.Load += new System.EventHandler(this.VisualListViewTest_Load);
             this.Controls.SetChildIndex(this.BtnAdd, 0);
             this.Controls.SetChildIndex(this.BtnRemove, 0);

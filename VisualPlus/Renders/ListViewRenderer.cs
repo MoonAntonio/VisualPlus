@@ -11,6 +11,7 @@
     using System.Windows.Forms;
     using System.Windows.Forms.VisualStyles;
 
+    using VisualPlus.Constants;
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
     using VisualPlus.Native;
@@ -234,6 +235,12 @@
                 }
             }
 
+            // Check if we need checkboxes in this column
+            if (column.CheckBox)
+            {
+                rectColumn = DrawCheckBox(graphicsColumn, rectColumn, column.Checked, ListViewConstants.CHECKBOX_SIZE, listView);
+            }
+
             // if there is an image, this routine will RETURN with exactly the space left for everything else after the image is drawn (or not drawn due to lack of space)
             if ((column.ImageIndex > -1) && (listView.ImageListColumns != null) && (column.ImageIndex < listView.ImageListColumns.Images.Count))
             {
@@ -269,28 +276,28 @@
                 return;
             }
 
-            // draw vertical lines first, then horizontal lines
-            int nCurrentX = -hPanelScrollBar.Value + listView.HeaderRect.X;
+            // Draw vertical lines first, then horizontal lines
+            int _currentX = -hPanelScrollBar.Value + listView.HeaderRect.X;
             foreach (VisualListViewColumn column in listView.Columns)
             {
                 // cull columns that won't be drawn first
-                if (nCurrentX + column.Width < 0)
+                if (_currentX + column.Width < 0)
                 {
-                    nCurrentX += column.Width;
+                    _currentX += column.Width;
                     continue; // skip this column, its not being drawn
                 }
 
-                if (nCurrentX > listView.HeaderRect.Right)
+                if (_currentX > listView.HeaderRect.Right)
                 {
                     return; // were past the end of the visible column, stop drawing
                 }
 
                 if (column.Width > 0)
                 {
-                    DrawColumnHeader(graphicHeader, new Rectangle(nCurrentX, listView.HeaderRect.Y, column.Width, listView.HeaderHeight), column, theme, listView);
+                    DrawColumnHeader(graphicHeader, new Rectangle(_currentX, listView.HeaderRect.Y, column.Width, listView.HeaderHeight), column, theme, listView);
                 }
 
-                nCurrentX += column.Width; // move the parser
+                _currentX += column.Width; // move the parser
             }
         }
 

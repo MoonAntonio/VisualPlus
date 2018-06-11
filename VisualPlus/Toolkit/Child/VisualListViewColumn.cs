@@ -25,7 +25,9 @@
         #region Variables
 
         private ArrayList _activeControlItems;
+        private bool _checkBox;
         private bool _checkBoxes;
+        private bool _checked;
         private ColumnStates _columnState;
         private int _imageIndex;
         private SortDirections _lastSortDirection;
@@ -36,9 +38,8 @@
         private string _text;
         private ContentAlignment _textAlignment;
         private int _width;
-
-        private Control embeddedControlTemplate;
-        private LVActivatedEmbeddedTypes embeddedType;
+        private Control _embeddedControlTemplate;
+        private LVActivatedEmbeddedTypes _embeddedType;
 
         #endregion
 
@@ -47,7 +48,8 @@
         /// <summary>Initializes a new instance of the <see cref="VisualListViewColumn" /> class.</summary>
         public VisualListViewColumn()
         {
-            embeddedType = LVActivatedEmbeddedTypes.None;
+            _embeddedControlTemplate = null;
+            _embeddedType = LVActivatedEmbeddedTypes.None;
             _activeControlItems = new ArrayList();
             _columnState = ColumnStates.None;
             _imageIndex = -1;
@@ -55,6 +57,11 @@
             _textAlignment = ContentAlignment.MiddleLeft;
             _width = 100;
             _tag = null;
+            _listView = null;
+            _numericSort = false;
+            _checked = false;
+            _checkBoxes = false;
+            _checkBox = false;
         }
 
         /// <summary>Initializes a new instance of the <see cref="VisualListViewColumn" /> class.</summary>
@@ -105,6 +112,22 @@
         [Browsable(true)]
         [Category(PropertyCategory.Behavior)]
         [Description(PropertyDescription.CheckBoxes)]
+        public bool CheckBox
+        {
+            get
+            {
+                return _checkBox;
+            }
+
+            set
+            {
+                _checkBox = value;
+            }
+        }
+
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.CheckBoxes)]
         public bool CheckBoxes
         {
             get
@@ -118,6 +141,22 @@
             }
         }
 
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.CheckBoxes)]
+        public bool Checked
+        {
+            get
+            {
+                return _checked;
+            }
+
+            set
+            {
+                _checked = value;
+            }
+        }
+
         [Browsable(false)]
         [Description("Activated embedded control types available.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -125,12 +164,12 @@
         {
             get
             {
-                return embeddedControlTemplate;
+                return _embeddedControlTemplate;
             }
 
             set
             {
-                embeddedControlTemplate = value;
+                _embeddedControlTemplate = value;
             }
         }
 
@@ -141,26 +180,26 @@
         {
             get
             {
-                return embeddedType;
+                return _embeddedType;
             }
 
             set
             {
                 // set the activated embedded control template here
-                embeddedType = value;
+                _embeddedType = value;
 
                 // only handle system types
                 if (value == LVActivatedEmbeddedTypes.TextBox)
                 {
-                    embeddedControlTemplate = new LVTextBox();
+                    _embeddedControlTemplate = new LVTextBox();
                 }
                 else if (value == LVActivatedEmbeddedTypes.ComboBox)
                 {
-                    embeddedControlTemplate = new LVComboBox();
+                    _embeddedControlTemplate = new LVComboBox();
                 }
                 else if (value == LVActivatedEmbeddedTypes.DateTimePicker)
                 {
-                    embeddedControlTemplate = new LVDateTimePicker();
+                    _embeddedControlTemplate = new LVDateTimePicker();
                 }
                 else if (value == LVActivatedEmbeddedTypes.None)
                 {
