@@ -1,6 +1,9 @@
+#region Namespace
+
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
+#endregion
 
 [assembly: AssemblyTitle("UnitTests")]
 [assembly: AssemblyDescription("")]

@@ -12,7 +12,6 @@
     using System.Windows.Forms.Design;
 
     using VisualPlus.EventArgs;
-    using VisualPlus.Native;
     using VisualPlus.Toolkit.Child;
     using VisualPlus.Toolkit.Controls.Navigation;
 
@@ -40,7 +39,23 @@
             _designerVerbCollection.AddRange(new[] { verb1, verb2, verb3 });
         }
 
+        #endregion
+
+        #region Delegates
+
         public delegate void VisualTabControlEventHandler(object sender, VisualTabControlEventArgs e);
+
+        #endregion
+
+        #region Enumerators
+
+        private enum TabControlHitTest
+        {
+            TCHT_NOWHERE = 1,
+            TCHT_ONITEMICON = 2,
+            TCHT_ONITEMLABEL = 4,
+            TCHT_ONITEM = TCHT_ONITEMICON | TCHT_ONITEMLABEL
+        }
 
         #endregion
 
@@ -113,21 +128,7 @@
 
         #endregion
 
-        #region Events
-
-        public override void InitializeNewComponent(IDictionary defaultValues)
-        {
-            base.InitializeNewComponent(defaultValues);
-
-            VisualTabPage _tabPage1 = (VisualTabPage)DesignerHost.CreateComponent(typeof(VisualTabPage));
-            VisualTabPage _tabPage2 = (VisualTabPage)DesignerHost.CreateComponent(typeof(VisualTabPage));
-
-            _tabPage1.Text = _tabPage1.Name;
-            _tabPage2.Text = _tabPage2.Name;
-
-            Control.Controls.Add(_tabPage1);
-            Control.Controls.Add(_tabPage2);
-        }
+        #region Overrides
 
         protected override bool GetHitTest(Point point)
         {
@@ -143,7 +144,7 @@
                     {
                         HWnd = Control.Handle,
                         Msg = 0x130D
-                };
+                    };
 
                 IntPtr _longIntParameter = Marshal.AllocHGlobal(Marshal.SizeOf(_tabControlHitTestInfo));
                 Marshal.StructureToPtr(_tabControlHitTestInfo, _longIntParameter, false);
@@ -207,6 +208,24 @@
                 }
             }
         }
+
+        public override void InitializeNewComponent(IDictionary defaultValues)
+        {
+            base.InitializeNewComponent(defaultValues);
+
+            VisualTabPage _tabPage1 = (VisualTabPage)DesignerHost.CreateComponent(typeof(VisualTabPage));
+            VisualTabPage _tabPage2 = (VisualTabPage)DesignerHost.CreateComponent(typeof(VisualTabPage));
+
+            _tabPage1.Text = _tabPage1.Name;
+            _tabPage2.Text = _tabPage2.Name;
+
+            Control.Controls.Add(_tabPage1);
+            Control.Controls.Add(_tabPage2);
+        }
+
+        #endregion
+
+        #region Methods
 
         private void OnAddPage(object sender, EventArgs e)
         {
@@ -308,18 +327,6 @@
                         break;
                     }
             }
-        }
-
-        #endregion
-
-        #region Methods
-
-        private enum TabControlHitTest
-        {
-            TCHT_NOWHERE = 1,
-            TCHT_ONITEMICON = 2,
-            TCHT_ONITEMLABEL = 4,
-            TCHT_ONITEM = TCHT_ONITEMICON | TCHT_ONITEMLABEL
         }
 
         private struct TCHITTESTINFO

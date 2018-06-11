@@ -11,7 +11,7 @@
 
     public static class XmlExtension
     {
-        #region Events
+        #region Methods
 
         public static XmlNode AppendElement(this XmlNode parent, string tagName)
         {

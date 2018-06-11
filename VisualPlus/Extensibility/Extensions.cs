@@ -3,7 +3,6 @@
     #region Namespace
 
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
@@ -38,7 +37,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         /// <summary>Gets a boolean determining whether the object holds any value or is empty/null.</summary>
         /// <typeparam name="T">The type.</typeparam>
@@ -130,7 +129,7 @@
 
     public class CustomNumberTypeConverter : TypeConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

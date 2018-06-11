@@ -334,26 +334,7 @@
 
         #endregion
 
-        #region Events
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -394,6 +375,10 @@
 
             graphics.DrawString(Text, Font, new SolidBrush(_foreColor), textBoxRectangle, GetStringFormat());
         }
+
+        #endregion
+
+        #region Methods
 
         private void DrawOutline(Graphics graphics)
         {
@@ -544,6 +529,25 @@
             }
 
             return _stringFormat;
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

@@ -93,6 +93,10 @@
             Draw += VisualToolTip_Draw;
         }
 
+        #endregion
+
+        #region Enumerators
+
         public enum ToolTipType
         {
             /// <summary>The default.</summary>
@@ -411,7 +415,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         /// <summary>Input the text height to compare it to the icon height.</summary>
         /// <param name="textHeight">The text height.</param>

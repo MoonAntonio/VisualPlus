@@ -14,7 +14,7 @@
 
     public sealed class VisualBorderRenderer
     {
-        #region Events
+        #region Methods
 
         /// <summary>Gets the distance from the border.</summary>
         /// <param name="shape">The shape of the container control.</param>

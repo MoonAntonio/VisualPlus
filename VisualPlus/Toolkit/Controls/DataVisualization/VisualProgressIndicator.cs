@@ -174,7 +174,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override void OnEnabledChanged(EventArgs e)
         {
@@ -222,6 +222,10 @@
             UpdateGraphics();
             SetPoints();
         }
+
+        #endregion
+
+        #region Methods
 
         private static X AssignValues<X>(ref X run, X length)
         {

@@ -247,7 +247,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         /// <summary>Reset all strings to default values.</summary>
         public void Reset()

@@ -13,7 +13,7 @@ namespace VisualPlus.Native
     [SuppressUnmanagedCodeSecurity]
     internal static class Shlwapi
     {
-        #region Events
+        #region Methods
 
         [Description("Truncates a path to fit within a certain number of characters by replacing path components with ellipses.")]
         [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]

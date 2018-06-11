@@ -14,7 +14,7 @@
 
     public class VisualListViewSubItemConverter : TypeConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {

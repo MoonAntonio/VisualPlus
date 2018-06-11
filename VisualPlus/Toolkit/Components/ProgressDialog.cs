@@ -38,6 +38,10 @@
             _parentHandle = parentHandle;
         }
 
+        #endregion
+
+        #region Enumerators
+
         /// <summary>Flags that indicate the action to be taken by the ProgressDialog.SetTime() method.</summary>
         public enum ProgressDialogAction : uint
         {
@@ -189,7 +193,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         public void CloseDialog()
         {
@@ -231,10 +235,6 @@
 
             _progressDialog.StartProgressDialog(_parentHandle, null, dialogFlags, IntPtr.Zero);
         }
-
-        #endregion
-
-        #region Methods
 
         [ComImport]
         [Guid("F8383852-FCD3-11d1-A6B9-006097DF5BD4")]

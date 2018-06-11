@@ -54,6 +54,10 @@
             ConstructBorder(styleManager.Theme.BorderSettings.Hover, true);
         }
 
+        #endregion
+
+        #region Events
+
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event BorderHoverColorChangedEventHandler HoverColorChanged;
@@ -102,7 +106,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         /// <summary>Constructs the shape.</summary>
         /// <param name="hoverColor">The hover Color.</param>
@@ -118,7 +122,7 @@
 
     public class BorderConverter : ExpandableObjectConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

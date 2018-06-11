@@ -46,7 +46,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         /// <summary>Adds the specified control to the control collection.</summary>
         /// <param name="control">The control.</param>

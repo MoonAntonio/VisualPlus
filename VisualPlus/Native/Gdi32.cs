@@ -12,7 +12,7 @@ namespace VisualPlus.Native
     [SuppressUnmanagedCodeSecurity]
     internal static class Gdi32
     {
-        #region Events
+        #region Methods
 
         [Description("The BitBlt function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context.")]
         [DllImport("gdi32.dll", EntryPoint = "BitBlt", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]

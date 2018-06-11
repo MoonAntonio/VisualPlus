@@ -9,7 +9,7 @@ namespace VisualPlus.Designer
 
     internal class VisualControlBoxButtonDesigner : ControlDesigner
     {
-        #region Events
+        #region Overrides
 
         protected override void PreFilterProperties(IDictionary properties)
         {

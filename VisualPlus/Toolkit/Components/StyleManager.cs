@@ -122,6 +122,10 @@
             }
         }
 
+        #endregion
+
+        #region Events
+
         public event ThemeChangedEventHandler ThemeChanged;
 
         #endregion
@@ -254,62 +258,13 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
-        /// <summary>Opens the templates directory in the windows explorer.</summary>
-        public static void OpenTemplatesDirectory()
+        /// <summary>The theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
         {
-            Process.Start(Settings.TemplatesFolder);
-        }
-
-        /// <summary>Adds a form to the collection to manage.</summary>
-        /// <param name="form">The form.</param>
-        public void AddFormToManage(Form form)
-        {
-            if (!_formCollection.Contains(form))
-            {
-                _formCollection.Add(form);
-            }
-
-            Update();
-        }
-
-        /// <summary>Creates a copy of the current object.</summary>
-        /// <returns>The <see cref="object" />.</returns>
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
-
-        /// <summary>Open the ThemesEditor dialog to pick a custom theme file.</summary>
-        public void OpenCustomTheme()
-        {
-            using (OpenFileDialog _openFileDialog = new OpenFileDialog())
-            {
-                _openFileDialog.Filter = @"Theme File|*.xml";
-
-                if (_openFileDialog.ShowDialog() != DialogResult.OK)
-                {
-                    return;
-                }
-
-                _customThemePath = _openFileDialog.FileName;
-                ReadTheme();
-            }
-        }
-
-        /// <summary>Reads the theme from the custom file path.</summary>
-        public void ReadTheme()
-        {
-            _theme = new Theme(_customThemePath);
-            OnThemeChanged(new ThemeEventArgs(_theme));
-        }
-
-        /// <summary>Saves the theme to a file path.</summary>
-        /// <param name="filePath">The file path.</param>
-        public void SaveTheme(string filePath)
-        {
-            _theme.Save(filePath);
+            ThemeChanged?.Invoke(e);
         }
 
         public override string ToString()
@@ -325,44 +280,9 @@
             return _stringBuilder.ToString();
         }
 
-        /// <summary>Updates all the <see cref="Control" />/s in the <see cref="Form" />.</summary>
-        public void Update()
-        {
-            if (_formCollection.Count == 0)
-            {
-                return;
-            }
+        #endregion
 
-            foreach (Form _form in _formCollection)
-            {
-                if (_form == null)
-                {
-                    throw new ArgumentNullException(nameof(_form));
-                }
-
-                if (_form.Controls.Count == 0)
-                {
-                    return;
-                }
-
-                foreach (Control _control in _form.Controls)
-                {
-                    if (ControlManager.HasMethod(_control, "UpdateTheme"))
-                    {
-                        UpdateControl(_control, _theme);
-                    }
-                }
-            }
-
-            OnThemeChanged(new ThemeEventArgs(_theme));
-        }
-
-        /// <summary>The theme changed event.</summary>
-        /// <param name="e">The event args.</param>
-        protected virtual void OnThemeChanged(ThemeEventArgs e)
-        {
-            ThemeChanged?.Invoke(e);
-        }
+        #region Methods
 
         /// <summary>Updates the supported controls style.</summary>
         /// <param name="control">The control.</param>
@@ -429,6 +349,94 @@
             }
 
             File.WriteAllText(_defaultThemePath, _text);
+        }
+
+        /// <summary>Opens the templates directory in the windows explorer.</summary>
+        public static void OpenTemplatesDirectory()
+        {
+            Process.Start(Settings.TemplatesFolder);
+        }
+
+        /// <summary>Adds a form to the collection to manage.</summary>
+        /// <param name="form">The form.</param>
+        public void AddFormToManage(Form form)
+        {
+            if (!_formCollection.Contains(form))
+            {
+                _formCollection.Add(form);
+            }
+
+            Update();
+        }
+
+        /// <summary>Creates a copy of the current object.</summary>
+        /// <returns>The <see cref="object" />.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        /// <summary>Open the ThemesEditor dialog to pick a custom theme file.</summary>
+        public void OpenCustomTheme()
+        {
+            using (OpenFileDialog _openFileDialog = new OpenFileDialog())
+            {
+                _openFileDialog.Filter = @"Theme File|*.xml";
+
+                if (_openFileDialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
+                _customThemePath = _openFileDialog.FileName;
+                ReadTheme();
+            }
+        }
+
+        /// <summary>Reads the theme from the custom file path.</summary>
+        public void ReadTheme()
+        {
+            _theme = new Theme(_customThemePath);
+            OnThemeChanged(new ThemeEventArgs(_theme));
+        }
+
+        /// <summary>Saves the theme to a file path.</summary>
+        /// <param name="filePath">The file path.</param>
+        public void SaveTheme(string filePath)
+        {
+            _theme.Save(filePath);
+        }
+
+        /// <summary>Updates all the <see cref="Control" />/s in the <see cref="Form" />.</summary>
+        public void Update()
+        {
+            if (_formCollection.Count == 0)
+            {
+                return;
+            }
+
+            foreach (Form _form in _formCollection)
+            {
+                if (_form == null)
+                {
+                    throw new ArgumentNullException(nameof(_form));
+                }
+
+                if (_form.Controls.Count == 0)
+                {
+                    return;
+                }
+
+                foreach (Control _control in _form.Controls)
+                {
+                    if (ControlManager.HasMethod(_control, "UpdateTheme"))
+                    {
+                        UpdateControl(_control, _theme);
+                    }
+                }
+            }
+
+            OnThemeChanged(new ThemeEventArgs(_theme));
         }
 
         #endregion

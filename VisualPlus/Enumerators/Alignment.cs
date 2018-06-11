@@ -2,7 +2,7 @@
 {
     public class Alignment
     {
-        #region Constructors
+        #region Enumerators
 
         public enum Direction
         {

@@ -48,6 +48,10 @@
         {
         }
 
+        #endregion
+
+        #region Events
+
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event BackColorStateChangedEventHandler DisabledColorChanged;
@@ -106,7 +110,44 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
+
+        protected virtual void OnDisabledColorChanged(ColorEventArgs e)
+        {
+            DisabledColorChanged?.Invoke(e);
+        }
+
+        protected virtual void OnNormalColorChanged(ColorEventArgs e)
+        {
+            NormalColorChanged?.Invoke(e);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder _stringBuilder = new StringBuilder();
+            _stringBuilder.Append(GetType().Name);
+            _stringBuilder.Append(" [");
+
+            if (IsEmpty)
+            {
+                _stringBuilder.Append("IsEmpty");
+            }
+            else
+            {
+                _stringBuilder.Append("Disabled=");
+                _stringBuilder.Append(Disabled);
+                _stringBuilder.Append("Normal=");
+                _stringBuilder.Append(Enabled);
+            }
+
+            _stringBuilder.Append("]");
+
+            return _stringBuilder.ToString();
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Get the control back color state.</summary>
         /// <param name="colorState">The color State.</param>
@@ -155,45 +196,12 @@
             return _color;
         }
 
-        public override string ToString()
-        {
-            StringBuilder _stringBuilder = new StringBuilder();
-            _stringBuilder.Append(GetType().Name);
-            _stringBuilder.Append(" [");
-
-            if (IsEmpty)
-            {
-                _stringBuilder.Append("IsEmpty");
-            }
-            else
-            {
-                _stringBuilder.Append("Disabled=");
-                _stringBuilder.Append(Disabled);
-                _stringBuilder.Append("Normal=");
-                _stringBuilder.Append(Enabled);
-            }
-
-            _stringBuilder.Append("]");
-
-            return _stringBuilder.ToString();
-        }
-
-        protected virtual void OnDisabledColorChanged(ColorEventArgs e)
-        {
-            DisabledColorChanged?.Invoke(e);
-        }
-
-        protected virtual void OnNormalColorChanged(ColorEventArgs e)
-        {
-            NormalColorChanged?.Invoke(e);
-        }
-
         #endregion
     }
 
     public class ColorStateConverter : ExpandableObjectConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

@@ -48,7 +48,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         public override DesignerActionItemCollection GetSortedActionItems()
         {

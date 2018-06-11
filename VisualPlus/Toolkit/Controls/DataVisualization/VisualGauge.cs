@@ -172,34 +172,7 @@
 
         #endregion
 
-        #region Events
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _colorState = new ColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type3,
-                        Disabled = theme.OtherSettings.ControlDisabled
-                    };
-
-                _progress = theme.OtherSettings.Progress;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -234,6 +207,10 @@
             _labelMinimum.Left = 20;
             _labelMaximum.Left = Size.Width - _labelMaximum.Width - 20;
         }
+
+        #endregion
+
+        #region Methods
 
         private void ConstructDisplay()
         {
@@ -275,6 +252,33 @@
                     Text = @"100",
                     BackColor = Color.Transparent
                 };
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type3,
+                        Disabled = theme.OtherSettings.ControlDisabled
+                    };
+
+                _progress = theme.OtherSettings.Progress;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

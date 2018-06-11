@@ -63,23 +63,27 @@
             UpdateTheme(ThemeManager.Theme);
         }
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        #endregion
+
+        #region Events
+
+        [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler CloseClick;
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler HelpClick;
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler MaximizeClick;
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler MinimizeClick;
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler RestoredFormWindow;
 
@@ -160,90 +164,20 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
-        /// <summary>Automatically places the <see cref="VisualControlBox" /> on the <see cref="Form" /> corner location.</summary>
-        /// <param name="spacing">The spacing.</param>
-        public void AutoPlaceOnForm(int spacing)
+        protected override void OnResize(EventArgs e)
         {
-            Location = new Point(((ParentForm.Location.X + ParentForm.Width) - Width) + spacing, 0);
-        }
+            base.OnResize(e);
 
-        public void UpdateTheme(Theme theme)
-        {
-            try
+            if (_initialized)
             {
-                _closeButton.BackColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.CloseButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.CloseButtonBack.Enabled,
-                        Hover = theme.OtherSettings.CloseButtonBack.Hover,
-                        Pressed = theme.OtherSettings.CloseButtonBack.Pressed
-                    };
-
-                _closeButton.ForeColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.CloseButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.CloseButtonFore.Enabled,
-                        Hover = theme.OtherSettings.CloseButtonFore.Hover,
-                        Pressed = theme.OtherSettings.CloseButtonFore.Pressed
-                    };
-
-                _maximizeButton.BackColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.MaximizeButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.MaximizeButtonBack.Enabled,
-                        Hover = theme.OtherSettings.MaximizeButtonBack.Hover,
-                        Pressed = theme.OtherSettings.MaximizeButtonBack.Pressed
-                    };
-
-                _maximizeButton.ForeColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.MaximizeButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.MaximizeButtonFore.Enabled,
-                        Hover = theme.OtherSettings.MaximizeButtonFore.Hover,
-                        Pressed = theme.OtherSettings.MaximizeButtonFore.Pressed
-                    };
-
-                _minimizeButton.BackColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.MinimizeButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.MinimizeButtonBack.Enabled,
-                        Hover = theme.OtherSettings.MinimizeButtonBack.Hover,
-                        Pressed = theme.OtherSettings.MinimizeButtonBack.Pressed
-                    };
-
-                _minimizeButton.ForeColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.MinimizeButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.MinimizeButtonFore.Enabled,
-                        Hover = theme.OtherSettings.MinimizeButtonFore.Hover,
-                        Pressed = theme.OtherSettings.MinimizeButtonFore.Pressed
-                    };
-
-                _helpButton.BackColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.HelpButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.HelpButtonBack.Enabled,
-                        Hover = theme.OtherSettings.HelpButtonBack.Hover,
-                        Pressed = theme.OtherSettings.HelpButtonBack.Pressed
-                    };
-
-                _helpButton.ForeColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.HelpButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.HelpButtonFore.Enabled,
-                        Hover = theme.OtherSettings.HelpButtonFore.Hover,
-                        Pressed = theme.OtherSettings.HelpButtonFore.Pressed
-                    };
+                Size = GetAdjustedSize();
             }
-            catch (Exception e)
+            else
             {
-                VisualExceptionDialog.Show(e);
+                Size = new Size(100, 25);
             }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         /// <summary>The OnCloseClick.</summary>
@@ -299,19 +233,9 @@
             MinimizeClick?.Invoke(new ControlBoxEventArgs(ParentForm));
         }
 
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
+        #endregion
 
-            if (_initialized)
-            {
-                Size = GetAdjustedSize();
-            }
-            else
-            {
-                Size = new Size(100, 25);
-            }
-        }
+        #region Methods
 
         private void Button_VisibleChanged(object sender, EventArgs e)
         {
@@ -450,12 +374,96 @@
             Controls.Add(_closeButton);
         }
 
+        /// <summary>Automatically places the <see cref="VisualControlBox" /> on the <see cref="Form" /> corner location.</summary>
+        /// <param name="spacing">The spacing.</param>
+        public void AutoPlaceOnForm(int spacing)
+        {
+            Location = new Point(((ParentForm.Location.X + ParentForm.Width) - Width) + spacing, 0);
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _closeButton.BackColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.CloseButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.CloseButtonBack.Enabled,
+                        Hover = theme.OtherSettings.CloseButtonBack.Hover,
+                        Pressed = theme.OtherSettings.CloseButtonBack.Pressed
+                    };
+
+                _closeButton.ForeColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.CloseButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.CloseButtonFore.Enabled,
+                        Hover = theme.OtherSettings.CloseButtonFore.Hover,
+                        Pressed = theme.OtherSettings.CloseButtonFore.Pressed
+                    };
+
+                _maximizeButton.BackColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.MaximizeButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.MaximizeButtonBack.Enabled,
+                        Hover = theme.OtherSettings.MaximizeButtonBack.Hover,
+                        Pressed = theme.OtherSettings.MaximizeButtonBack.Pressed
+                    };
+
+                _maximizeButton.ForeColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.MaximizeButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.MaximizeButtonFore.Enabled,
+                        Hover = theme.OtherSettings.MaximizeButtonFore.Hover,
+                        Pressed = theme.OtherSettings.MaximizeButtonFore.Pressed
+                    };
+
+                _minimizeButton.BackColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.MinimizeButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.MinimizeButtonBack.Enabled,
+                        Hover = theme.OtherSettings.MinimizeButtonBack.Hover,
+                        Pressed = theme.OtherSettings.MinimizeButtonBack.Pressed
+                    };
+
+                _minimizeButton.ForeColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.MinimizeButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.MinimizeButtonFore.Enabled,
+                        Hover = theme.OtherSettings.MinimizeButtonFore.Hover,
+                        Pressed = theme.OtherSettings.MinimizeButtonFore.Pressed
+                    };
+
+                _helpButton.BackColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.HelpButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.HelpButtonBack.Enabled,
+                        Hover = theme.OtherSettings.HelpButtonBack.Hover,
+                        Pressed = theme.OtherSettings.HelpButtonBack.Pressed
+                    };
+
+                _helpButton.ForeColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.HelpButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.HelpButtonFore.Enabled,
+                        Hover = theme.OtherSettings.HelpButtonFore.Hover,
+                        Pressed = theme.OtherSettings.HelpButtonFore.Pressed
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
         #endregion
     }
 
     public class VisualControlBoxConverter : ExpandableObjectConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

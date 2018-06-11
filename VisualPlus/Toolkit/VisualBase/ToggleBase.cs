@@ -7,6 +7,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
 
     #endregion
 
@@ -17,9 +18,9 @@
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public abstract class ToggleBase : VisualStyleBase
     {
-        #region Constructors
+        #region Events
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the toggle has been changed on the control.")]
         public event ToggleChangedEventHandler ToggleChanged;
 
@@ -33,7 +34,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected virtual void OnToggleChanged(ToggleEventArgs e)
         {

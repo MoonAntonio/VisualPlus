@@ -25,9 +25,9 @@
 
         #endregion
 
-        #region Constructors
+        #region Events
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description(PropertyDescription.Checked)]
         public event EventHandler CheckStateChanged;
 
@@ -91,12 +91,7 @@
 
         #endregion
 
-        #region Events
-
-        protected virtual void OnCheckStateChanged(EventArgs e)
-        {
-            CheckStateChanged?.Invoke(this, e);
-        }
+        #region Overrides
 
         protected override void OnClick(EventArgs e)
         {
@@ -135,6 +130,11 @@
             _checkState = Checked ? CheckState.Checked : CheckState.Unchecked;
             OnCheckStateChanged(EventArgs.Empty);
             Invalidate();
+        }
+
+        protected virtual void OnCheckStateChanged(EventArgs e)
+        {
+            CheckStateChanged?.Invoke(this, e);
         }
 
         #endregion

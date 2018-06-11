@@ -266,43 +266,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #endregion
 
-        #region Events
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _colorState = new ColorState
-                    {
-                        Enabled = theme.OtherSettings.ProgressBackground,
-                        Disabled = theme.OtherSettings.ProgressDisabled
-                    };
-
-                _hatch.BackColor = Color.FromArgb(0, theme.OtherSettings.HatchBackColor);
-                _hatch.ForeColor = Color.FromArgb(20, theme.OtherSettings.HatchForeColor);
-
-                _progressColor = theme.OtherSettings.Progress;
-
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
-                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -332,6 +296,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             base.OnPaintBackground(e);
             e.Graphics.Clear(BackColor);
         }
+
+        #endregion
+
+        #region Methods
 
         private void DrawProgress(Orientation orientation, Graphics graphics)
         {
@@ -548,6 +516,42 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _marqueeTimer.Stop();
 
             Invalidate();
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.OtherSettings.ProgressBackground,
+                        Disabled = theme.OtherSettings.ProgressDisabled
+                    };
+
+                _hatch.BackColor = Color.FromArgb(0, theme.OtherSettings.HatchBackColor);
+                _hatch.ForeColor = Color.FromArgb(20, theme.OtherSettings.HatchForeColor);
+
+                _progressColor = theme.OtherSettings.Progress;
+
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
+                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

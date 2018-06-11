@@ -28,7 +28,7 @@ namespace VisualPlus
     /// <summary>The ITheme supported control.</summary>
     public interface IThemeSupport
     {
-        #region Events
+        #region Methods
 
         /// <summary>Update the control theme.</summary>
         /// <param name="theme">The theme to update with.</param>
@@ -39,7 +39,7 @@ namespace VisualPlus
 
     public interface IInputMethods
     {
-        #region Events
+        #region Methods
 
         void AppendText(string text);
 
@@ -87,7 +87,7 @@ namespace VisualPlus
 
         #endregion
 
-        #region Events
+        #region Methods
 
         /// <summary>Configures the animation settings.</summary>
         /// <param name="effectIncrement">The effect Increment.</param>

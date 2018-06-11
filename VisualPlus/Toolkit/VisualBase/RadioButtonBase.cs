@@ -18,7 +18,7 @@
     [ComVisible(true)]
     public abstract class RadioButtonBase : ToggleCheckmarkBase
     {
-        #region Events
+        #region Overrides
 
         protected override void OnClick(EventArgs e)
         {
@@ -36,6 +36,10 @@
             AutoUpdateOthers();
             Invalidate();
         }
+
+        #endregion
+
+        #region Methods
 
         private void AutoUpdateOthers()
         {

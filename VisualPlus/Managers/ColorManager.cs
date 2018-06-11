@@ -16,7 +16,70 @@
     [Description("The color manager.")]
     public sealed class ColorManager
     {
-        #region Events
+        #region Methods
+
+        /// <summary>Blends the colors.</summary>
+        /// <param name="backColor">The back color.</param>
+        /// <param name="foreColor">The fore color.</param>
+        /// <param name="alpha">The alpha value.</param>
+        /// <returns>
+        ///     <see cref="double" />
+        /// </returns>
+        private static double BlendColor(double backColor, double foreColor, double alpha)
+        {
+            double result = backColor + (alpha * (foreColor - backColor));
+            if (result < 0.0)
+            {
+                result = 0.0;
+            }
+
+            if (result > 255)
+            {
+                result = 255;
+            }
+
+            return result;
+        }
+
+        /// <summary>Calculate the overlay.</summary>
+        /// <param name="baseValue">The base value.</param>
+        /// <param name="alpha">The alpha value.</param>
+        /// <returns>
+        ///     <see cref="int" />
+        /// </returns>
+        private static int OverlayMath(int baseValue, int alpha)
+        {
+            double _baseOverlay = (double)baseValue / 255;
+            double _alphaOverlay = (double)alpha / 255;
+            if (_baseOverlay < 0.5)
+            {
+                return (int)(2 * _baseOverlay * _alphaOverlay * 255);
+            }
+            else
+            {
+                return (int)((1 - (2 * (1 - _baseOverlay) * (1 - _alphaOverlay))) * 255);
+            }
+        }
+
+        /// <summary>Calculate the soft light.</summary>
+        /// <param name="baseValue">The base value.</param>
+        /// <param name="alpha">The alpha value.</param>
+        /// <returns>
+        ///     <see cref="int" />
+        /// </returns>
+        private static int SoftLightMath(int baseValue, int alpha)
+        {
+            float _softLightBase = (float)baseValue / 255;
+            float _softLightAlpha = (float)alpha / 255;
+            if (_softLightAlpha < 0.5)
+            {
+                return (int)(((2 * _softLightBase * _softLightAlpha) + (Math.Pow(_softLightBase, 2) * (1 - (2 * _softLightAlpha)))) * 255);
+            }
+            else
+            {
+                return (int)(((Math.Sqrt(_softLightBase) * ((2 * _softLightAlpha) - 1)) + (2 * _softLightBase * (1 - _softLightAlpha))) * 255);
+            }
+        }
 
         /// <summary>Blends the colors.</summary>
         /// <param name="backColor">The back color.</param>
@@ -380,69 +443,6 @@
             {
                 Console.WriteLine(e);
                 throw;
-            }
-        }
-
-        /// <summary>Blends the colors.</summary>
-        /// <param name="backColor">The back color.</param>
-        /// <param name="foreColor">The fore color.</param>
-        /// <param name="alpha">The alpha value.</param>
-        /// <returns>
-        ///     <see cref="double" />
-        /// </returns>
-        private static double BlendColor(double backColor, double foreColor, double alpha)
-        {
-            double result = backColor + (alpha * (foreColor - backColor));
-            if (result < 0.0)
-            {
-                result = 0.0;
-            }
-
-            if (result > 255)
-            {
-                result = 255;
-            }
-
-            return result;
-        }
-
-        /// <summary>Calculate the overlay.</summary>
-        /// <param name="baseValue">The base value.</param>
-        /// <param name="alpha">The alpha value.</param>
-        /// <returns>
-        ///     <see cref="int" />
-        /// </returns>
-        private static int OverlayMath(int baseValue, int alpha)
-        {
-            double _baseOverlay = (double)baseValue / 255;
-            double _alphaOverlay = (double)alpha / 255;
-            if (_baseOverlay < 0.5)
-            {
-                return (int)(2 * _baseOverlay * _alphaOverlay * 255);
-            }
-            else
-            {
-                return (int)((1 - (2 * (1 - _baseOverlay) * (1 - _alphaOverlay))) * 255);
-            }
-        }
-
-        /// <summary>Calculate the soft light.</summary>
-        /// <param name="baseValue">The base value.</param>
-        /// <param name="alpha">The alpha value.</param>
-        /// <returns>
-        ///     <see cref="int" />
-        /// </returns>
-        private static int SoftLightMath(int baseValue, int alpha)
-        {
-            float _softLightBase = (float)baseValue / 255;
-            float _softLightAlpha = (float)alpha / 255;
-            if (_softLightAlpha < 0.5)
-            {
-                return (int)(((2 * _softLightBase * _softLightAlpha) + (Math.Pow(_softLightBase, 2) * (1 - (2 * _softLightAlpha)))) * 255);
-            }
-            else
-            {
-                return (int)(((Math.Sqrt(_softLightBase) * ((2 * _softLightAlpha) - 1)) + (2 * _softLightBase * (1 - _softLightAlpha))) * 255);
             }
         }
 

@@ -2,7 +2,7 @@
 {
     public sealed class EventDescription
     {
-        #region Events
+        #region Methods
 
         public const string ControlDragChanged = "Occours when the control is being dragged.";
         public const string ControlDragToggleChanged = "Occours when the control drag toggle has been changed.";

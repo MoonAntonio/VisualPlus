@@ -14,7 +14,7 @@
     [SuppressUnmanagedCodeSecurity]
     internal static class Uxtheme
     {
-        #region Events
+        #region Methods
 
         [Description("Closes an open theme data pointer.")]
         [DllImport("uxtheme.dll")]

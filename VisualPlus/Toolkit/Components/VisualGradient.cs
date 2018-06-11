@@ -265,7 +265,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         /// <summary>Construct visual gradient.</summary>
         /// <param name="gradientSize">The size of the gradient.</param>

@@ -96,6 +96,10 @@
             ItemSize = _itemSize;
         }
 
+        #endregion
+
+        #region Enumerators
+
         public enum SelectorTypes
         {
             /// <summary>The arrow.</summary>
@@ -399,24 +403,7 @@
 
         #endregion
 
-        #region Events
-
-        /// <summary>Swaps the tab pages.</summary>
-        /// <param name="tabPage1">The tab page.</param>
-        /// <param name="tabPage2">The other tab page.</param>
-        public void SwapTabPages(TabPage tabPage1, TabPage tabPage2)
-        {
-            if (!TabPages.Contains(tabPage1) || !TabPages.Contains(tabPage2))
-            {
-                throw new ArgumentException(@"TabPages must be in the TabControls TabPageCollection.");
-            }
-
-            int _index1 = TabPages.IndexOf(tabPage1);
-            int _index2 = TabPages.IndexOf(tabPage2);
-
-            TabPages[_index1] = tabPage2;
-            TabPages[_index2] = tabPage1;
-        }
+        #region Overrides
 
         protected override void CreateHandle()
         {
@@ -489,6 +476,10 @@
             DrawSeparator(_graphics);
             DrawSelector(_graphics, _selectorTypes);
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Draws the header background.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
@@ -830,6 +821,23 @@
                         throw new ArgumentOutOfRangeException();
                     }
             }
+        }
+
+        /// <summary>Swaps the tab pages.</summary>
+        /// <param name="tabPage1">The tab page.</param>
+        /// <param name="tabPage2">The other tab page.</param>
+        public void SwapTabPages(TabPage tabPage1, TabPage tabPage2)
+        {
+            if (!TabPages.Contains(tabPage1) || !TabPages.Contains(tabPage2))
+            {
+                throw new ArgumentException(@"TabPages must be in the TabControls TabPageCollection.");
+            }
+
+            int _index1 = TabPages.IndexOf(tabPage1);
+            int _index2 = TabPages.IndexOf(tabPage2);
+
+            TabPages[_index1] = tabPage2;
+            TabPages[_index2] = tabPage1;
         }
 
         #endregion

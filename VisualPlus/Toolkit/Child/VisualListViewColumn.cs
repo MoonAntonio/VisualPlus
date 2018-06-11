@@ -24,8 +24,6 @@
     {
         #region Variables
 
-        private Control embeddedControlTemplate;
-        private LVActivatedEmbeddedTypes embeddedType;
         private ArrayList _activeControlItems;
         private bool _checkBoxes;
         private ColumnStates _columnState;
@@ -38,6 +36,9 @@
         private string _text;
         private ContentAlignment _textAlignment;
         private int _width;
+
+        private Control embeddedControlTemplate;
+        private LVActivatedEmbeddedTypes embeddedType;
 
         #endregion
 
@@ -84,6 +85,38 @@
         #endregion
 
         #region Properties
+
+        [Browsable(false)]
+        [Description("Array of items that have live controls.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public ArrayList ActiveControlItems
+        {
+            get
+            {
+                return _activeControlItems;
+            }
+
+            set
+            {
+                _activeControlItems = value;
+            }
+        }
+
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.CheckBoxes)]
+        public bool CheckBoxes
+        {
+            get
+            {
+                return _checkBoxes;
+            }
+
+            set
+            {
+                _checkBoxes = value;
+            }
+        }
 
         [Browsable(false)]
         [Description("Activated embedded control types available.")]
@@ -135,38 +168,6 @@
                 }
 
                 // if its none or user control them leave it alone
-            }
-        }
-
-        [Browsable(false)]
-        [Description("Array of items that have live controls.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ArrayList ActiveControlItems
-        {
-            get
-            {
-                return _activeControlItems;
-            }
-
-            set
-            {
-                _activeControlItems = value;
-            }
-        }
-
-        [Browsable(true)]
-        [Category(PropertyCategory.Behavior)]
-        [Description(PropertyDescription.CheckBoxes)]
-        public bool CheckBoxes
-        {
-            get
-            {
-                return _checkBoxes;
-            }
-
-            set
-            {
-                _checkBoxes = value;
             }
         }
 

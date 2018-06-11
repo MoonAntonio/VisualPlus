@@ -8,7 +8,7 @@
 
     public class Bars
     {
-        #region Events
+        #region Methods
 
         /// <summary>Draws bars.</summary>
         /// <param name="graphics">The graphics.</param>

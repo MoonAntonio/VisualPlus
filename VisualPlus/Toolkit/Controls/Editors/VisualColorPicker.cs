@@ -98,6 +98,10 @@
             UpdateGraphicsBuffer();
         }
 
+        #endregion
+
+        #region Events
+
         [Category("Property Changed")]
         public event EventHandler ColorChanged
         {
@@ -125,6 +129,10 @@
                 Events.RemoveHandler(EventLargeChangeChanged, value);
             }
         }
+
+        #endregion
+
+        #region Enumerators
 
         public enum PickerType
         {
@@ -384,7 +392,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
@@ -577,6 +585,10 @@
             UpdateLinearGradientBrushes();
             UpdateGraphicsBuffer();
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Calculates wheel attributes.</summary>
         private void CalculateWheel()
@@ -889,10 +901,6 @@
             _rectangleF = new RectangleF(Point.Empty, new SizeF(Width, Height * 0.3F));
             _whiteTopGradient = new LinearGradientBrush(_rectangleF, Color.White, Color.Transparent, 90f);
         }
-
-        #endregion
-
-        #region Methods
 
         [Serializable]
         public struct HSLManager

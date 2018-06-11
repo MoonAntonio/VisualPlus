@@ -8,7 +8,7 @@
 
     public static class RectangleExtension
     {
-        #region Events
+        #region Methods
 
         /// <summary>Aligns the rectangle to the bottom.</summary>
         /// <param name="rectangle">The rectangle.</param>

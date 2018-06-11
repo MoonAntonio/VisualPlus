@@ -109,6 +109,10 @@
             UpdateTheme(ThemeManager.Theme);
         }
 
+        #endregion
+
+        #region Events
+
         [Description("Occurs when the value of the DataSource property changes.")]
         [Category("Property Changed")]
         public event EventHandler DataSourceChanged;
@@ -609,215 +613,12 @@
 
         #endregion
 
-        #region Events
-
-        /// <summary>
-        ///     Maintains performance while items are added to the ListBox one at a time by preventing the control from
-        ///     drawing until the EndUpdate method is called.
-        /// </summary>
-        public void BeginUpdate()
-        {
-            _listBox.BeginUpdate();
-        }
-
-        /// <summary>Un-select all items in the VisualListBox.</summary>
-        public void ClearSelected()
-        {
-            _listBox.ClearSelected();
-        }
-
-        /// <summary>Resumes painting the ListBox control after painting is suspended by the BeginUpdate method.</summary>
-        public void EndUpdate()
-        {
-            _listBox.EndUpdate();
-        }
-
-        /// <summary>Finds the first item in the list box that starts with the specified string.</summary>
-        /// <param name="str">The String to search for.</param>
-        /// <returns>The zero-based index of the first item found; returns -1 if no match is found.</returns>
-        public int FindString(string str)
-        {
-            return _listBox.FindString(str);
-        }
-
-        /// <summary>
-        ///     Finds the first item after the given index which starts with the given string. The search is not case
-        ///     sensitive.
-        /// </summary>
-        /// <param name="str">The String to search for.</param>
-        /// <param name="startIndex">
-        ///     The zero-based index of the item before the first item to be searched. Set to -1 to search
-        ///     from the beginning of the control.
-        /// </param>
-        /// <returns>
-        ///     The zero-based index of the first item found; returns -1 if no match is found, or 0 if the s parameter
-        ///     specifies Empty.
-        /// </returns>
-        public int FindString(string str, int startIndex)
-        {
-            return _listBox.FindString(str, startIndex);
-        }
-
-        /// <summary>Finds the first item in the list box that matches the specified string.</summary>
-        /// <param name="str">The String to search for.</param>
-        /// <returns>The zero-based index of the first item found; returns -1 if no match is found.</returns>
-        public int FindStringExact(string str)
-        {
-            return _listBox.FindStringExact(str);
-        }
-
-        /// <summary>
-        ///     Finds the first item after the specified index that matches the specified string.
-        /// </summary>
-        /// <param name="str">The String to search for.</param>
-        /// <param name="startIndex">
-        ///     The zero-based index of the item before the first item to be searched. Set to -1 to search
-        ///     from the beginning of the control.
-        /// </param>
-        /// <returns>
-        ///     The zero-based index of the first item found; returns -1 if no match is found, or 0 if the s parameter
-        ///     specifies Empty.
-        /// </returns>
-        public int FindStringExact(string str, int startIndex)
-        {
-            return _listBox.FindStringExact(str, startIndex);
-        }
-
-        /// <summary>Returns the height of an item in the VisualListBox.</summary>
-        /// <param name="index">The index of the item to return the height of.</param>
-        /// <returns>The height, in pixels, of the item at the specified index.</returns>
-        public int GetItemHeight(int index)
-        {
-            return _listBox.GetItemHeight(index);
-        }
-
-        /// <summary>Returns the bounding rectangle for an item in the VisualListBox.</summary>
-        /// <param name="index">The zero-based index of item whose bounding rectangle you want to return.</param>
-        /// <returns>A Rectangle that represents the bounding rectangle for the specified item.</returns>
-        public Rectangle GetItemRectangle(int index)
-        {
-            return _listBox.GetItemRectangle(index);
-        }
-
-        /// <summary>Returns the text representation of the specified item.</summary>
-        /// <param name="item">The object from which to get the contents to display.</param>
-        /// <returns>
-        ///     If the DisplayMember property is not specified, the value returned by GetItemText is the value of the item's
-        ///     ToString method. Otherwise, the method returns the string value of the member specified in the DisplayMember
-        ///     property for the object specified in the item parameter.
-        /// </returns>
-        public string GetItemText(object item)
-        {
-            return _listBox.GetItemText(item);
-        }
-
-        /// <summary>
-        ///     Returns a value indicating whether the specified item is selected.
-        /// </summary>
-        /// <param name="index">The zero-based index of the item that determines whether it is selected.</param>
-        /// <returns>true if the specified item is currently selected in the VisualListBox; otherwise, false.</returns>
-        public bool GetSelected(int index)
-        {
-            return _listBox.GetSelected(index);
-        }
-
-        /// <summary>Returns the zero-based index of the item at the specified coordinates.</summary>
-        /// <param name="p">A Point object containing the coordinates used to obtain the item index.</param>
-        /// <returns>
-        ///     The zero-based index of the item found at the specified coordinates; returns ListBox.NoMatches if no match is
-        ///     found.
-        /// </returns>
-        public int IndexFromPoint(Point p)
-        {
-            return _listBox.IndexFromPoint(p);
-        }
-
-        /// <summary>Returns the zero-based index of the item at the specified coordinates.</summary>
-        /// <param name="x">The x-coordinate of the location to search.</param>
-        /// <param name="y">The y-coordinate of the location to search.</param>
-        /// <returns>
-        ///     The zero-based index of the item found at the specified coordinates; returns ListBox.NoMatches if no match is
-        ///     found.
-        /// </returns>
-        public int IndexFromPoint(int x, int y)
-        {
-            return _listBox.IndexFromPoint(x, y);
-        }
-
-        /// <summary>Selects or clears the selection for the specified item in a VisualListBox.</summary>
-        /// <param name="index">The zero-based index of the item in a VisualListBox to select or clear the selection for.</param>
-        /// <param name="value">true to select the specified item; otherwise, false.</param>
-        public void SetSelected(int index, bool value)
-        {
-            _listBox.SetSelected(index, value);
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _itemNormal = theme.ListItemSettings.Item;
-                _itemAlternate = theme.ListItemSettings.ItemAlternate;
-                _itemSelected = theme.ListItemSettings.ItemSelected;
-
-                _colorState = new ColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type4,
-                        Disabled = theme.BackgroundSettings.Type1
-                    };
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
             Invalidate();
-        }
-
-        protected virtual void OnDataSourceChanged(EventArgs e)
-        {
-            DataSourceChanged?.Invoke(this, e);
-        }
-
-        protected virtual void OnDisplayMemberChanged(EventArgs e)
-        {
-            DisplayMemberChanged?.Invoke(this, e);
-        }
-
-        protected virtual void OnFormat(ListControlConvertEventArgs e)
-        {
-            Format?.Invoke(this, e);
-        }
-
-        protected virtual void OnFormatInfoChanged(EventArgs e)
-        {
-            FormatInfoChanged?.Invoke(this, e);
-        }
-
-        protected virtual void OnFormatStringChanged(EventArgs e)
-        {
-            FormatStringChanged?.Invoke(this, e);
-        }
-
-        protected virtual void OnFormattingEnabledChanged(EventArgs e)
-        {
-            FormattingEnabledChanged?.Invoke(this, e);
         }
 
         protected override void OnMouseClick(MouseEventArgs e)
@@ -858,6 +659,36 @@
             _listBox.Size = GetInternalControlSize(Size, _border);
         }
 
+        protected virtual void OnDataSourceChanged(EventArgs e)
+        {
+            DataSourceChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnDisplayMemberChanged(EventArgs e)
+        {
+            DisplayMemberChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnFormat(ListControlConvertEventArgs e)
+        {
+            Format?.Invoke(this, e);
+        }
+
+        protected virtual void OnFormatInfoChanged(EventArgs e)
+        {
+            FormatInfoChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnFormatStringChanged(EventArgs e)
+        {
+            FormatStringChanged?.Invoke(this, e);
+        }
+
+        protected virtual void OnFormattingEnabledChanged(EventArgs e)
+        {
+            FormattingEnabledChanged?.Invoke(this, e);
+        }
+
         protected virtual void OnSelectedIndexChanged(EventArgs e)
         {
             SelectedIndexChanged?.Invoke(this, e);
@@ -872,6 +703,10 @@
         {
             ValueMemberChanged?.Invoke(this, e);
         }
+
+        #endregion
+
+        #region Methods
 
         private void ListBox_DataSourceChanged(object sender, EventArgs e)
         {
@@ -1065,6 +900,179 @@
         private void ListBox_ValueMemberChanged(object sender, EventArgs e)
         {
             OnValueMemberChanged(e);
+        }
+
+        /// <summary>
+        ///     Maintains performance while items are added to the ListBox one at a time by preventing the control from
+        ///     drawing until the EndUpdate method is called.
+        /// </summary>
+        public void BeginUpdate()
+        {
+            _listBox.BeginUpdate();
+        }
+
+        /// <summary>Un-select all items in the VisualListBox.</summary>
+        public void ClearSelected()
+        {
+            _listBox.ClearSelected();
+        }
+
+        /// <summary>Resumes painting the ListBox control after painting is suspended by the BeginUpdate method.</summary>
+        public void EndUpdate()
+        {
+            _listBox.EndUpdate();
+        }
+
+        /// <summary>Finds the first item in the list box that starts with the specified string.</summary>
+        /// <param name="str">The String to search for.</param>
+        /// <returns>The zero-based index of the first item found; returns -1 if no match is found.</returns>
+        public int FindString(string str)
+        {
+            return _listBox.FindString(str);
+        }
+
+        /// <summary>
+        ///     Finds the first item after the given index which starts with the given string. The search is not case
+        ///     sensitive.
+        /// </summary>
+        /// <param name="str">The String to search for.</param>
+        /// <param name="startIndex">
+        ///     The zero-based index of the item before the first item to be searched. Set to -1 to search
+        ///     from the beginning of the control.
+        /// </param>
+        /// <returns>
+        ///     The zero-based index of the first item found; returns -1 if no match is found, or 0 if the s parameter
+        ///     specifies Empty.
+        /// </returns>
+        public int FindString(string str, int startIndex)
+        {
+            return _listBox.FindString(str, startIndex);
+        }
+
+        /// <summary>Finds the first item in the list box that matches the specified string.</summary>
+        /// <param name="str">The String to search for.</param>
+        /// <returns>The zero-based index of the first item found; returns -1 if no match is found.</returns>
+        public int FindStringExact(string str)
+        {
+            return _listBox.FindStringExact(str);
+        }
+
+        /// <summary>
+        ///     Finds the first item after the specified index that matches the specified string.
+        /// </summary>
+        /// <param name="str">The String to search for.</param>
+        /// <param name="startIndex">
+        ///     The zero-based index of the item before the first item to be searched. Set to -1 to search
+        ///     from the beginning of the control.
+        /// </param>
+        /// <returns>
+        ///     The zero-based index of the first item found; returns -1 if no match is found, or 0 if the s parameter
+        ///     specifies Empty.
+        /// </returns>
+        public int FindStringExact(string str, int startIndex)
+        {
+            return _listBox.FindStringExact(str, startIndex);
+        }
+
+        /// <summary>Returns the height of an item in the VisualListBox.</summary>
+        /// <param name="index">The index of the item to return the height of.</param>
+        /// <returns>The height, in pixels, of the item at the specified index.</returns>
+        public int GetItemHeight(int index)
+        {
+            return _listBox.GetItemHeight(index);
+        }
+
+        /// <summary>Returns the bounding rectangle for an item in the VisualListBox.</summary>
+        /// <param name="index">The zero-based index of item whose bounding rectangle you want to return.</param>
+        /// <returns>A Rectangle that represents the bounding rectangle for the specified item.</returns>
+        public Rectangle GetItemRectangle(int index)
+        {
+            return _listBox.GetItemRectangle(index);
+        }
+
+        /// <summary>Returns the text representation of the specified item.</summary>
+        /// <param name="item">The object from which to get the contents to display.</param>
+        /// <returns>
+        ///     If the DisplayMember property is not specified, the value returned by GetItemText is the value of the item's
+        ///     ToString method. Otherwise, the method returns the string value of the member specified in the DisplayMember
+        ///     property for the object specified in the item parameter.
+        /// </returns>
+        public string GetItemText(object item)
+        {
+            return _listBox.GetItemText(item);
+        }
+
+        /// <summary>
+        ///     Returns a value indicating whether the specified item is selected.
+        /// </summary>
+        /// <param name="index">The zero-based index of the item that determines whether it is selected.</param>
+        /// <returns>true if the specified item is currently selected in the VisualListBox; otherwise, false.</returns>
+        public bool GetSelected(int index)
+        {
+            return _listBox.GetSelected(index);
+        }
+
+        /// <summary>Returns the zero-based index of the item at the specified coordinates.</summary>
+        /// <param name="p">A Point object containing the coordinates used to obtain the item index.</param>
+        /// <returns>
+        ///     The zero-based index of the item found at the specified coordinates; returns ListBox.NoMatches if no match is
+        ///     found.
+        /// </returns>
+        public int IndexFromPoint(Point p)
+        {
+            return _listBox.IndexFromPoint(p);
+        }
+
+        /// <summary>Returns the zero-based index of the item at the specified coordinates.</summary>
+        /// <param name="x">The x-coordinate of the location to search.</param>
+        /// <param name="y">The y-coordinate of the location to search.</param>
+        /// <returns>
+        ///     The zero-based index of the item found at the specified coordinates; returns ListBox.NoMatches if no match is
+        ///     found.
+        /// </returns>
+        public int IndexFromPoint(int x, int y)
+        {
+            return _listBox.IndexFromPoint(x, y);
+        }
+
+        /// <summary>Selects or clears the selection for the specified item in a VisualListBox.</summary>
+        /// <param name="index">The zero-based index of the item in a VisualListBox to select or clear the selection for.</param>
+        /// <param name="value">true to select the specified item; otherwise, false.</param>
+        public void SetSelected(int index, bool value)
+        {
+            _listBox.SetSelected(index, value);
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _itemNormal = theme.ListItemSettings.Item;
+                _itemAlternate = theme.ListItemSettings.ItemAlternate;
+                _itemSelected = theme.ListItemSettings.ItemSelected;
+
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

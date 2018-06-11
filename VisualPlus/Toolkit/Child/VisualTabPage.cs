@@ -78,6 +78,10 @@
             _tabHover = _styleManager.Theme.OtherSettings.TabPageHover;
         }
 
+        #endregion
+
+        #region Enumerators
+
         public enum TextImageRelations
         {
             /// <summary>The image before text.</summary>
@@ -292,20 +296,7 @@
 
         #endregion
 
-        #region Events
-
-        /// <summary>Updates the properties after an Invalidate.</summary>
-        public void UpdateProperties()
-        {
-            try
-            {
-                Invalidate();
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.StackTrace);
-            }
-        }
+        #region Overrides
 
         protected override ControlCollection CreateControlsInstance()
         {
@@ -344,6 +335,10 @@
             }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
         private void InitializeComponent()
         {
@@ -353,6 +348,19 @@
 
         private void VisualTabPage_Disposed(object sender, EventArgs e)
         {
+        }
+
+        /// <summary>Updates the properties after an Invalidate.</summary>
+        public void UpdateProperties()
+        {
+            try
+            {
+                Invalidate();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.StackTrace);
+            }
         }
 
         #endregion

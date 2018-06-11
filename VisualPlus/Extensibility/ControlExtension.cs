@@ -10,7 +10,7 @@
 
     public static class ControlExtension
     {
-        #region Events
+        #region Methods
 
         /// <summary>Centers the control inside the parent control.</summary>
         /// <param name="control">The control to center.</param>

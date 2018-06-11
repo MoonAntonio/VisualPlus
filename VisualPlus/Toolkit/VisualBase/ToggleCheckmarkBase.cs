@@ -228,50 +228,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #endregion
 
-        #region Events
-
-        public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
-        {
-            VFXManager effectsManager = new VFXManager
-                {
-                    Increment = effectIncrement[0],
-                    EffectType = effectType[0]
-                };
-
-            _rippleEffectsManager = new VFXManager(false)
-                {
-                    Increment = effectIncrement[1],
-                    SecondaryIncrement = effectIncrement[2],
-                    EffectType = effectType[1]
-                };
-
-            effectsManager.OnAnimationProgress += sender => Invalidate();
-            _rippleEffectsManager.OnAnimationProgress += sender => Invalidate();
-            effectsManager.StartNewAnimation(Toggle ? AnimationDirection.In : AnimationDirection.Out);
-        }
-
-        public void DrawAnimation(Graphics graphics)
-        {
-            if (_animation && _rippleEffectsManager.IsAnimating())
-            {
-                for (var i = 0; i < _rippleEffectsManager.GetAnimationCount(); i++)
-                {
-                    double animationValue = _rippleEffectsManager.GetProgress(i);
-
-                    Point animationSource = new Point(_box.X + (_box.Width / 2), _box.Y + (_box.Height / 2));
-                    SolidBrush animationBrush = new SolidBrush(Color.FromArgb((int)(animationValue * 40), (bool)_rippleEffectsManager.GetData(i)[0] ? Color.Black : _checkStyle.CheckColor));
-
-                    int height = _box.Height;
-                    int size = _rippleEffectsManager.GetDirection(i) == AnimationDirection.InOutIn ? (int)(height * (0.8d + (0.2d * animationValue))) : height;
-
-                    Rectangle _animationBox = new Rectangle(animationSource.X - (size / 2), animationSource.Y - (size / 2), size, size);
-                    GraphicsPath _path = VisualBorderRenderer.CreateBorderTypePath(_animationBox, _border);
-
-                    graphics.FillPath(animationBrush, _path);
-                    animationBrush.Dispose();
-                }
-            }
-        }
+        #region Overrides
 
         protected override void OnCreateControl()
         {
@@ -388,6 +345,10 @@ namespace VisualPlus.Toolkit.VisualBase
             e.Graphics.Clear(BackColor);
         }
 
+        #endregion
+
+        #region Methods
+
         private void AutoFit(Size textSize)
         {
             if (GraphicsManager.TextLargerThanRectangle(textSize, _box))
@@ -399,6 +360,49 @@ namespace VisualPlus.Toolkit.VisualBase
             {
                 IsBoxLarger = true;
                 Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, _box.Height);
+            }
+        }
+
+        public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
+        {
+            VFXManager effectsManager = new VFXManager
+                {
+                    Increment = effectIncrement[0],
+                    EffectType = effectType[0]
+                };
+
+            _rippleEffectsManager = new VFXManager(false)
+                {
+                    Increment = effectIncrement[1],
+                    SecondaryIncrement = effectIncrement[2],
+                    EffectType = effectType[1]
+                };
+
+            effectsManager.OnAnimationProgress += sender => Invalidate();
+            _rippleEffectsManager.OnAnimationProgress += sender => Invalidate();
+            effectsManager.StartNewAnimation(Toggle ? AnimationDirection.In : AnimationDirection.Out);
+        }
+
+        public void DrawAnimation(Graphics graphics)
+        {
+            if (_animation && _rippleEffectsManager.IsAnimating())
+            {
+                for (var i = 0; i < _rippleEffectsManager.GetAnimationCount(); i++)
+                {
+                    double animationValue = _rippleEffectsManager.GetProgress(i);
+
+                    Point animationSource = new Point(_box.X + (_box.Width / 2), _box.Y + (_box.Height / 2));
+                    SolidBrush animationBrush = new SolidBrush(Color.FromArgb((int)(animationValue * 40), (bool)_rippleEffectsManager.GetData(i)[0] ? Color.Black : _checkStyle.CheckColor));
+
+                    int height = _box.Height;
+                    int size = _rippleEffectsManager.GetDirection(i) == AnimationDirection.InOutIn ? (int)(height * (0.8d + (0.2d * animationValue))) : height;
+
+                    Rectangle _animationBox = new Rectangle(animationSource.X - (size / 2), animationSource.Y - (size / 2), size, size);
+                    GraphicsPath _path = VisualBorderRenderer.CreateBorderTypePath(_animationBox, _border);
+
+                    graphics.FillPath(animationBrush, _path);
+                    animationBrush.Dispose();
+                }
             }
         }
 

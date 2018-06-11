@@ -379,17 +379,7 @@
 
         #endregion
 
-        #region Events
-
-        /// <summary>Sets the click action for the <see cref="VisualBadge" />.</summary>
-        /// <param name="action">The click action to set.</param>
-        public void SetClickAction(Action<Control> action)
-        {
-            if (_label != null)
-            {
-                _clickEvent = action;
-            }
-        }
+        #region Methods
 
         /// <summary>Attach the <see cref="VisualBadge" /> to the control.</summary>
         private void Attach()
@@ -440,6 +430,16 @@
             if (_label != null)
             {
                 _control.Controls.Remove(_label);
+            }
+        }
+
+        /// <summary>Sets the click action for the <see cref="VisualBadge" />.</summary>
+        /// <param name="action">The click action to set.</param>
+        public void SetClickAction(Action<Control> action)
+        {
+            if (_label != null)
+            {
+                _clickEvent = action;
             }
         }
 

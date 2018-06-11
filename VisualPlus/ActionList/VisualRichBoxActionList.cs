@@ -48,7 +48,7 @@ namespace VisualPlus.ActionList
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         public override DesignerActionItemCollection GetSortedActionItems()
         {

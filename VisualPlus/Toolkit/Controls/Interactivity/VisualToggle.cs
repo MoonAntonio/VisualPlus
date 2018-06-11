@@ -80,6 +80,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             UpdateTheme(ThemeManager.Theme);
         }
 
+        #endregion
+
+        #region Enumerators
+
         public enum ToggleTypes
         {
             /// <summary>Yes / No toggle.</summary>
@@ -277,46 +281,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #endregion
 
-        #region Events
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                _buttonBorder.Color = theme.BorderSettings.Normal;
-                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _controlColorState = new ColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type2,
-                        Disabled = theme.BackgroundSettings.Type1
-                    };
-
-                _buttonColorState = new ControlColorState
-                    {
-                        Enabled = theme.ColorStateSettings.Enabled,
-                        Disabled = theme.ColorStateSettings.Disabled,
-                        Hover = theme.ColorStateSettings.Hover,
-                        Pressed = theme.ColorStateSettings.Pressed
-                    };
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnHandleCreated(EventArgs e)
         {
@@ -387,6 +352,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             base.OnPaintBackground(e);
             e.Graphics.Clear(BackColor);
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Create a slide animation when toggled.</summary>
         /// <param name="sender">The sender.</param>
@@ -473,6 +442,45 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 new SolidBrush(_foreColor),
                 textBoxRectangle,
                 stringFormat);
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                _buttonBorder.Color = theme.BorderSettings.Normal;
+                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _controlColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type2,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+
+                _buttonColorState = new ControlColorState
+                    {
+                        Enabled = theme.ColorStateSettings.Enabled,
+                        Disabled = theme.ColorStateSettings.Disabled,
+                        Hover = theme.ColorStateSettings.Hover,
+                        Pressed = theme.ColorStateSettings.Pressed
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

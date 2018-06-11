@@ -12,7 +12,7 @@
 
     public static class GraphicsPathExtension
     {
-        #region Events
+        #region Methods
 
         /// <summary>Converts the GraphicsPath to a border path.</summary>
         /// <param name="borderPath">The border path.</param>

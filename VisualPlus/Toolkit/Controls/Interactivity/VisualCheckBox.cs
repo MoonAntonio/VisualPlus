@@ -45,7 +45,17 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
+
+        protected override void CreateHandle()
+        {
+            base.CreateHandle();
+            Cursor = Cursors.Hand;
+        }
+
+        #endregion
+
+        #region Methods
 
         public void UpdateTheme(Theme theme)
         {
@@ -74,12 +84,6 @@
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
-        }
-
-        protected override void CreateHandle()
-        {
-            base.CreateHandle();
-            Cursor = Cursors.Hand;
         }
 
         #endregion

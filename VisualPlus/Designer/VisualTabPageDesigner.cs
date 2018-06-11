@@ -9,7 +9,7 @@
 
     internal class VisualTabPageDesigner : ScrollableControlDesigner
     {
-        #region Events
+        #region Overrides
 
         protected override void PreFilterProperties(IDictionary properties)
         {

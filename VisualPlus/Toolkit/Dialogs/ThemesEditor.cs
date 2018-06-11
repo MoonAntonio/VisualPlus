@@ -12,7 +12,7 @@
 
     public class ThemesEditor : UITypeEditor
     {
-        #region Events
+        #region Overrides
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {

@@ -66,7 +66,33 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            Graphics graphics = e.Graphics;
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+            graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
+
+            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(BackColor);
+        }
+
+        #endregion
+
+        #region Methods
 
         public void UpdateTheme(Theme theme)
         {
@@ -91,28 +117,6 @@
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            Graphics graphics = e.Graphics;
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
-
-            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
         }
 
         #endregion

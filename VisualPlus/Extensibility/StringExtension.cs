@@ -14,7 +14,7 @@
 
     public static class StringExtension
     {
-        #region Events
+        #region Methods
 
         /// <summary>The between text.</summary>
         /// <param name="text">The text.</param>

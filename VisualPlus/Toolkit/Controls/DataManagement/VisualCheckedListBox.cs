@@ -337,39 +337,7 @@
 
         #endregion
 
-        #region Events
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _itemNormal = theme.ListItemSettings.Item;
-                _itemAlternate = theme.ListItemSettings.ItemAlternate;
-                _itemSelected = theme.ListItemSettings.ItemSelected;
-
-                _backColorState = new ColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type4,
-                        Disabled = theme.BackgroundSettings.Type1
-                    };
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -402,6 +370,10 @@
             _checkedListBox.Location = GetInternalControlLocation(_border);
             _checkedListBox.Size = GetInternalControlSize(Size, _border);
         }
+
+        #endregion
+
+        #region Methods
 
         private void CheckedListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -483,6 +455,38 @@
         private void CheckedListBox_MeasureItem(object sender, MeasureItemEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _itemNormal = theme.ListItemSettings.Item;
+                _itemAlternate = theme.ListItemSettings.ItemAlternate;
+                _itemSelected = theme.ListItemSettings.ItemSelected;
+
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

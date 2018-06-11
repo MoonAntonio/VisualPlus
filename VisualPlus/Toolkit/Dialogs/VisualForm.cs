@@ -135,6 +135,10 @@
             MouseMessageFilter.MouseMove += OnGlobalMouseMove;
         }
 
+        #endregion
+
+        #region Events
+
         [Category(EventCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
@@ -142,6 +146,10 @@
         [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
+
+        #endregion
+
+        #region Enumerators
 
         public enum ResizeDirection
         {
@@ -482,35 +490,7 @@
 
         #endregion
 
-        #region Events
-
-        /// <summary>Creates a copy of the current object.</summary>
-        /// <returns>The <see cref="object" />.</returns>
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _styleManager = new StyleManager(theme);
-
-                _background = theme.OtherSettings.FormBackground;
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-                ForeColor = theme.TextSetting.Enabled;
-                Font = theme.TextSetting.Font;
-                _windowBarColor = theme.OtherSettings.FormWindowBar;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void CreateHandle()
         {
@@ -674,14 +654,6 @@
             }
         }
 
-        /// <summary>Invokes the theme changed event.</summary>
-        /// <param name="e">The event args.</param>
-        protected virtual void OnThemeChanged(ThemeEventArgs e)
-        {
-            Invalidate();
-            ThemeChanged?.Invoke(e);
-        }
-
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -764,6 +736,18 @@
                 _headerMouseDown = false;
             }
         }
+
+        /// <summary>Invokes the theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            Invalidate();
+            ThemeChanged?.Invoke(e);
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Snap the position to edge.</summary>
         /// <param name="position">The position.</param>
@@ -937,19 +921,43 @@
             }
         }
 
-        #endregion
+        /// <summary>Creates a copy of the current object.</summary>
+        /// <returns>The <see cref="object" />.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
-        #region Methods
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _styleManager = new StyleManager(theme);
+
+                _background = theme.OtherSettings.FormBackground;
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+                ForeColor = theme.TextSetting.Enabled;
+                Font = theme.TextSetting.Font;
+                _windowBarColor = theme.OtherSettings.FormWindowBar;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
 
         private class MouseMessageFilter : IMessageFilter
         {
-            #region Constructors
+            #region Events
 
             public static event MouseEventHandler MouseMove;
 
             #endregion
 
-            #region Events
+            #region Methods
 
             public bool PreFilterMessage(ref Message m)
             {

@@ -15,7 +15,7 @@
 
     public sealed class VisualToggleRenderer
     {
-        #region Events
+        #region Methods
 
         /// <summary>Draws a check box control in the specified state and with the specified text.</summary>
         /// <param name="graphics">The graphics to draw on.</param>

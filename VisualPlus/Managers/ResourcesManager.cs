@@ -15,7 +15,25 @@
 
     internal class ResourcesManager
     {
-        #region Events
+        #region Methods
+
+        /// <summary>Loads the assembly file.</summary>
+        /// <param name="file">The file path.</param>
+        /// <returns>The <see cref="Assembly" />.</returns>
+        private static Assembly LoadAssembly(string file)
+        {
+            if (string.IsNullOrEmpty(file))
+            {
+                VisualExceptionDialog.Show(new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(file)));
+            }
+
+            if (!File.Exists(file))
+            {
+                VisualExceptionDialog.Show(new NoNullAllowedException(ExceptionMessenger.FileNotFound(file)));
+            }
+
+            return Assembly.LoadFile(file);
+        }
 
         /// <summary>Retrieve the resource names from the file.</summary>
         /// <param name="file">The file path.</param>
@@ -58,24 +76,6 @@
             }
 
             return null;
-        }
-
-        /// <summary>Loads the assembly file.</summary>
-        /// <param name="file">The file path.</param>
-        /// <returns>The <see cref="Assembly" />.</returns>
-        private static Assembly LoadAssembly(string file)
-        {
-            if (string.IsNullOrEmpty(file))
-            {
-                VisualExceptionDialog.Show(new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(file)));
-            }
-
-            if (!File.Exists(file))
-            {
-                VisualExceptionDialog.Show(new NoNullAllowedException(ExceptionMessenger.FileNotFound(file)));
-            }
-
-            return Assembly.LoadFile(file);
         }
 
         #endregion

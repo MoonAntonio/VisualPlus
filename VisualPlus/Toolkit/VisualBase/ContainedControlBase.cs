@@ -18,7 +18,7 @@
     [ComVisible(true)]
     public abstract class ContainedControlBase : VisualStyleBase
     {
-        #region Events
+        #region Overrides
 
         protected override void OnEnter(EventArgs e)
         {
@@ -49,6 +49,10 @@
         protected override void OnMouseLeave(EventArgs e)
         {
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Gets the internal control location.</summary>
         /// <param name="shape">The shape of the container control.</param>

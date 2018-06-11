@@ -128,9 +128,21 @@
             ConfigureDimensions();
         }
 
+        #endregion
+
+        #region Delegates
+
         public delegate void ValueChangedEventHandler(object Sender);
 
+        #endregion
+
+        #region Events
+
         public event ValueChangedEventHandler ValueChanged;
+
+        #endregion
+
+        #region Enumerators
 
         public enum PointerStyle
         {
@@ -652,7 +664,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override void Dispose(bool disposing)
         {
@@ -838,6 +850,10 @@
         {
             // Empty To avoid Flickring due do background Drawing.
         }
+
+        #endregion
+
+        #region Methods
 
         private void ConfigureDimensions()
         {

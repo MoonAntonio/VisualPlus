@@ -8,7 +8,7 @@
 
     public static class BitmapExtension
     {
-        #region Events
+        #region Methods
 
         /// <summary>Filter the bitmap with GrayScale.</summary>
         /// <param name="bitmap">The bitmap.</param>

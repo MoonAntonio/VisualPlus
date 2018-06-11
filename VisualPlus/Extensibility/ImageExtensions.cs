@@ -11,7 +11,7 @@
 
     public static class ImageExtensions
     {
-        #region Events
+        #region Methods
 
         /// <summary>Creates a Base64 string value from the image.</summary>
         /// <param name="image">The image.</param>

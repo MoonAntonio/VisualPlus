@@ -9,7 +9,7 @@
 
     internal class VisualToolTipDesigner : ComponentDesigner
     {
-        #region Events
+        #region Overrides
 
         protected override void PreFilterProperties(IDictionary properties)
         {

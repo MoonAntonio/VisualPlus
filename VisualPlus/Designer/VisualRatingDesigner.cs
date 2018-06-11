@@ -9,7 +9,7 @@
 
     internal class VisualRatingDesigner : ControlDesigner
     {
-        #region Events
+        #region Overrides
 
         protected override void PreFilterProperties(IDictionary properties)
         {

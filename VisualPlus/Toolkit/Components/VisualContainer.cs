@@ -93,27 +93,7 @@
 
         #endregion
 
-        #region Events
-
-        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
-        /// <param name="control">The control.</param>
-        public void Show(Control control)
-        {
-            if (control == null)
-            {
-                throw new ArgumentNullException(nameof(control));
-            }
-
-            Show(control, control.ClientRectangle);
-        }
-
-        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
-        /// <param name="form">The form.</param>
-        /// <param name="point">The point.</param>
-        public void Show(Form form, Point point)
-        {
-            Show(form, new Rectangle(point, new Size(0, 0)));
-        }
+        #region Overrides
 
         protected override void OnOpened(EventArgs e)
         {
@@ -170,6 +150,10 @@
             Opacity = opacity;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
         /// <param name="control">The control.</param>
         /// <param name="area">The area.</param>
@@ -196,6 +180,26 @@
             location = control.PointToClient(location);
 
             Show(control, location, ToolStripDropDownDirection.BelowRight);
+        }
+
+        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
+        /// <param name="control">The control.</param>
+        public void Show(Control control)
+        {
+            if (control == null)
+            {
+                throw new ArgumentNullException(nameof(control));
+            }
+
+            Show(control, control.ClientRectangle);
+        }
+
+        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
+        /// <param name="form">The form.</param>
+        /// <param name="point">The point.</param>
+        public void Show(Form form, Point point)
+        {
+            Show(form, new Rectangle(point, new Size(0, 0)));
         }
 
         #endregion

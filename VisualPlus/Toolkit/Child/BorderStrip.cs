@@ -68,7 +68,7 @@
 
         #endregion
 
-        #region Methods
+        #region Overrides
 
         /// <summary>Cleanup any resources being used.</summary>
         /// <param name="disposing">Indicates whether the method call comes from a <see cref="Dispose" /> method or a finalizer.</param>
@@ -135,6 +135,10 @@
 
             base.OnPaint(e);
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Required method for Designer support. Do not modify contents of this method with the code editor.</summary>
         private void InitializeComponent()

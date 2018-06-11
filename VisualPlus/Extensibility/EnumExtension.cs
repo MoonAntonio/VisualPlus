@@ -12,7 +12,7 @@ namespace VisualPlus.Extensibility
 
     public static class EnumExtension
     {
-        #region Events
+        #region Methods
 
         /// <summary>Returns the count length.</summary>
         /// <param name="enumerator">The enumerator.</param>

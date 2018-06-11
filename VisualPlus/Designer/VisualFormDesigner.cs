@@ -9,7 +9,7 @@
 
     internal class VisualFormDesigner : DocumentDesigner
     {
-        #region Events
+        #region Overrides
 
         protected override void PreFilterProperties(IDictionary properties)
         {

@@ -14,7 +14,7 @@
 
     public sealed class FontManager
     {
-        #region Events
+        #region Methods
 
         /// <summary>Construct a font from a bytes array.</summary>
         /// <param name="bytes">The bytes array.</param>

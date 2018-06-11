@@ -67,6 +67,10 @@
             EndPoint = 1.0F;
         }
 
+        #endregion
+
+        #region Events
+
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event GradientAngleChangedEventHandler AngleChanged;
@@ -187,7 +191,70 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
+
+        protected virtual void OnAngleChanged()
+        {
+            InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
+            AngleChanged?.Invoke();
+        }
+
+        protected virtual void OnColorsChanged()
+        {
+            InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
+            ColorsChanged?.Invoke();
+        }
+
+        protected virtual void OnPositionsChanged()
+        {
+            InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
+            PositionsChanged?.Invoke();
+        }
+
+        protected virtual void OnRectangleChanged()
+        {
+            InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
+            RectangleChanged?.Invoke();
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>Initializes a new instance of the <see cref="Gradient" /> component.</summary>
+        /// <param name="angle">The angle.</param>
+        /// <param name="colors">The colors.</param>
+        /// <param name="offsets">The offsets.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        private void InitializeGradient(float angle, Color[] colors, float[] offsets, Rectangle rectangle)
+        {
+            if (colors.IsNullOrEmpty() || (colors.Length < 2))
+            {
+                throw new ArgumentNullException(nameof(colors), @"You must specify at least 2 different colors.");
+            }
+
+            if (offsets.IsNullOrEmpty() || (offsets.Length < 2))
+            {
+                throw new ArgumentNullException(nameof(offsets), @"You must specify at least 2 offsets.");
+            }
+
+            if (colors.Length != offsets.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(colors), @"The amount of colors must be equal to the amount of offsets.");
+            }
+
+            if ((rectangle.Size.Width < 1) || (rectangle.Size.Height < 1))
+            {
+                throw new ArgumentOutOfRangeException(nameof(rectangle.Size), @"The rectangle must have a minimum size of (width: 1, height: 1).");
+            }
+
+            _angle = angle;
+            _colors = colors;
+            _locations = SortPositions(offsets);
+            _rectangle = rectangle;
+
+            Brush = CreateBrush(_angle, _colors, _locations, _rectangle);
+        }
 
         /// <summary>Creates a gradient brush.</summary>
         /// <param name="gradient">The gradient.</param>
@@ -264,71 +331,12 @@
 
         public static float StartPoint;
 
-        protected virtual void OnAngleChanged()
-        {
-            InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
-            AngleChanged?.Invoke();
-        }
-
-        protected virtual void OnColorsChanged()
-        {
-            InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
-            ColorsChanged?.Invoke();
-        }
-
-        protected virtual void OnPositionsChanged()
-        {
-            InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
-            PositionsChanged?.Invoke();
-        }
-
-        protected virtual void OnRectangleChanged()
-        {
-            InitializeGradient(_angle, _colors, SortPositions(_locations), _rectangle);
-            RectangleChanged?.Invoke();
-        }
-
-        /// <summary>Initializes a new instance of the <see cref="Gradient" /> component.</summary>
-        /// <param name="angle">The angle.</param>
-        /// <param name="colors">The colors.</param>
-        /// <param name="offsets">The offsets.</param>
-        /// <param name="rectangle">The rectangle.</param>
-        private void InitializeGradient(float angle, Color[] colors, float[] offsets, Rectangle rectangle)
-        {
-            if (colors.IsNullOrEmpty() || (colors.Length < 2))
-            {
-                throw new ArgumentNullException(nameof(colors), @"You must specify at least 2 different colors.");
-            }
-
-            if (offsets.IsNullOrEmpty() || (offsets.Length < 2))
-            {
-                throw new ArgumentNullException(nameof(offsets), @"You must specify at least 2 offsets.");
-            }
-
-            if (colors.Length != offsets.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(colors), @"The amount of colors must be equal to the amount of offsets.");
-            }
-
-            if ((rectangle.Size.Width < 1) || (rectangle.Size.Height < 1))
-            {
-                throw new ArgumentOutOfRangeException(nameof(rectangle.Size), @"The rectangle must have a minimum size of (width: 1, height: 1).");
-            }
-
-            _angle = angle;
-            _colors = colors;
-            _locations = SortPositions(offsets);
-            _rectangle = rectangle;
-
-            Brush = CreateBrush(_angle, _colors, _locations, _rectangle);
-        }
-
         #endregion
     }
 
     public class GradientConverter : ExpandableObjectConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

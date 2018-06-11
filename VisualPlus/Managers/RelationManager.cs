@@ -10,7 +10,7 @@
 
     public sealed class RelationManager
     {
-        #region Events
+        #region Methods
 
         /// <summary>Draws the text image relation.</summary>
         /// <param name="graphics">The graphics.</param>

@@ -135,9 +135,17 @@
             UpdateTheme(styleManager.Theme);
         }
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        #endregion
+
+        #region Events
+
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
+
+        #endregion
+
+        #region Enumerators
 
         public enum ValueDivisor
         {
@@ -711,137 +719,7 @@
 
         #endregion
 
-        #region Events
-
-        /// <summary>Call the Decrement() method to decrease the value displayed by an integer you specify.</summary>
-        /// <param name="value">The value to decrement.</param>
-        public void Decrement(int value)
-        {
-            if (Value > Minimum)
-            {
-                Value -= value;
-                if (Value < Minimum)
-                {
-                    Value = Minimum;
-                }
-            }
-            else
-            {
-                Value = Minimum;
-            }
-
-            Invalidate();
-        }
-
-        /// <summary>Get's the formatted progress value.</summary>
-        /// <returns>Formatted progress value.</returns>
-        public string GetFormattedProgressValue()
-        {
-            var value = (float)(Value / (double)_dividedValue);
-            string formattedString = $"{Prefix}{value}{Suffix}";
-
-            return formattedString;
-        }
-
-        /// <summary>Call the Increment() method to increase the value displayed by an integer you specify.</summary>
-        /// <param name="value">The value to increment.</param>
-        public void Increment(int value)
-        {
-            if (Value < Maximum)
-            {
-                Value += value;
-                if (Value > Maximum)
-                {
-                    Value = Maximum;
-                }
-            }
-            else
-            {
-                Value = Maximum;
-            }
-
-            Invalidate();
-        }
-
-        /// <summary>Sets a new range value.</summary>
-        /// <param name="minimumValue">The minimum.</param>
-        /// <param name="maximumValue">The maximum.</param>
-        public new void SetRange(int minimumValue, int maximumValue)
-        {
-            Minimum = minimumValue;
-
-            if (Minimum > Value)
-            {
-                Value = Minimum;
-            }
-
-            Maximum = maximumValue;
-
-            if (Maximum < Value)
-            {
-                Value = Maximum;
-            }
-
-            if (Maximum < Minimum)
-            {
-                Minimum = Maximum;
-            }
-
-            Invalidate();
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _trackerTextColor = theme.TextSetting.Enabled;
-                _textDisabledColor = theme.TextSetting.Disabled;
-                _progressColor = theme.OtherSettings.Progress;
-
-                _buttonControlColorState = new ControlColorState
-                    {
-                        Enabled = theme.ColorStateSettings.Enabled,
-                        Disabled = theme.ColorStateSettings.Disabled,
-                        Hover = theme.ColorStateSettings.Hover,
-                        Pressed = theme.ColorStateSettings.Pressed
-                    };
-
-                _trackBarColor = new ColorState
-                    {
-                        Enabled = theme.OtherSettings.ProgressBackground,
-                        Disabled = theme.OtherSettings.ProgressDisabled
-                    };
-
-                _hatch.BackColor = Color.FromArgb(0, theme.OtherSettings.HatchBackColor);
-                _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
-
-                _tickColor = theme.OtherSettings.Line;
-
-                _trackerBorder.Color = theme.BorderSettings.Normal;
-                _trackerBorder.HoverColor = theme.BorderSettings.Hover;
-
-                _trackBarBorder.Color = theme.BorderSettings.Normal;
-                _trackBarBorder.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-                _textFont = theme.TextSetting.Font;
-                _trackerFont = theme.TextSetting.Font;
-
-                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
-                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
@@ -1073,14 +951,6 @@
             Invalidate();
         }
 
-        /// <summary>Invokes the theme changed event.</summary>
-        /// <param name="e">The event args.</param>
-        protected virtual void OnThemeChanged(ThemeEventArgs e)
-        {
-            ThemeChanged?.Invoke(e);
-            Invalidate();
-        }
-
         protected override void OnValueChanged(EventArgs e)
         {
             Invalidate();
@@ -1148,6 +1018,18 @@
 
             return result;
         }
+
+        /// <summary>Invokes the theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            ThemeChanged?.Invoke(e);
+            Invalidate();
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Configures the tick style.</summary>
         /// <param name="graphics">Graphics input.</param>
@@ -1741,6 +1623,136 @@
                     TickManager.DrawTickTextLine(graphics, _foreColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation, _textFont);
                 }
             }
+        }
+
+        /// <summary>Call the Decrement() method to decrease the value displayed by an integer you specify.</summary>
+        /// <param name="value">The value to decrement.</param>
+        public void Decrement(int value)
+        {
+            if (Value > Minimum)
+            {
+                Value -= value;
+                if (Value < Minimum)
+                {
+                    Value = Minimum;
+                }
+            }
+            else
+            {
+                Value = Minimum;
+            }
+
+            Invalidate();
+        }
+
+        /// <summary>Get's the formatted progress value.</summary>
+        /// <returns>Formatted progress value.</returns>
+        public string GetFormattedProgressValue()
+        {
+            var value = (float)(Value / (double)_dividedValue);
+            string formattedString = $"{Prefix}{value}{Suffix}";
+
+            return formattedString;
+        }
+
+        /// <summary>Call the Increment() method to increase the value displayed by an integer you specify.</summary>
+        /// <param name="value">The value to increment.</param>
+        public void Increment(int value)
+        {
+            if (Value < Maximum)
+            {
+                Value += value;
+                if (Value > Maximum)
+                {
+                    Value = Maximum;
+                }
+            }
+            else
+            {
+                Value = Maximum;
+            }
+
+            Invalidate();
+        }
+
+        /// <summary>Sets a new range value.</summary>
+        /// <param name="minimumValue">The minimum.</param>
+        /// <param name="maximumValue">The maximum.</param>
+        public new void SetRange(int minimumValue, int maximumValue)
+        {
+            Minimum = minimumValue;
+
+            if (Minimum > Value)
+            {
+                Value = Minimum;
+            }
+
+            Maximum = maximumValue;
+
+            if (Maximum < Value)
+            {
+                Value = Maximum;
+            }
+
+            if (Maximum < Minimum)
+            {
+                Minimum = Maximum;
+            }
+
+            Invalidate();
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _trackerTextColor = theme.TextSetting.Enabled;
+                _textDisabledColor = theme.TextSetting.Disabled;
+                _progressColor = theme.OtherSettings.Progress;
+
+                _buttonControlColorState = new ControlColorState
+                    {
+                        Enabled = theme.ColorStateSettings.Enabled,
+                        Disabled = theme.ColorStateSettings.Disabled,
+                        Hover = theme.ColorStateSettings.Hover,
+                        Pressed = theme.ColorStateSettings.Pressed
+                    };
+
+                _trackBarColor = new ColorState
+                    {
+                        Enabled = theme.OtherSettings.ProgressBackground,
+                        Disabled = theme.OtherSettings.ProgressDisabled
+                    };
+
+                _hatch.BackColor = Color.FromArgb(0, theme.OtherSettings.HatchBackColor);
+                _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
+
+                _tickColor = theme.OtherSettings.Line;
+
+                _trackerBorder.Color = theme.BorderSettings.Normal;
+                _trackerBorder.HoverColor = theme.BorderSettings.Hover;
+
+                _trackBarBorder.Color = theme.BorderSettings.Normal;
+                _trackBarBorder.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+                _textFont = theme.TextSetting.Font;
+                _trackerFont = theme.TextSetting.Font;
+
+                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
+                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

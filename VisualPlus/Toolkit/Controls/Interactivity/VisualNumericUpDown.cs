@@ -82,6 +82,10 @@
             UpdateTheme(ThemeManager.Theme);
         }
 
+        #endregion
+
+        #region Events
+
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ValueChangedEventHandler ValueChanged;
@@ -297,56 +301,7 @@
 
         #endregion
 
-        #region Events
-
-        public void Decrement(int value)
-        {
-            _value -= value;
-            OnValueChanged(new ValueChangedEventArgs(_value));
-            Invalidate();
-        }
-
-        public void Increment(int value)
-        {
-            _value += value;
-            OnValueChanged(new ValueChangedEventArgs(_value));
-            Invalidate();
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _borderEdge.BackColor = theme.BorderSettings.Normal;
-                _borderButtons.BackColor = theme.OtherSettings.Line;
-
-                _buttonForeColor = theme.OtherSettings.LightText;
-                _buttonFont = new Font(theme.TextSetting.Font.FontFamily, 14, FontStyle.Bold);
-                _buttonColor = theme.BackgroundSettings.Type2;
-
-                _colorState = new ColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type2,
-                        Disabled = theme.BackgroundSettings.Type1
-                    };
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
@@ -610,6 +565,10 @@
             ValueChanged?.Invoke(e);
         }
 
+        #endregion
+
+        #region Methods
+
         private void DrawText(Graphics _graphics)
         {
             Rectangle textBoxRectangle = new Rectangle(6, 0, Width - 1, Height - 1);
@@ -619,6 +578,55 @@
                     LineAlignment = StringAlignment.Center
                 };
             _graphics.DrawString(Convert.ToString(Value), Font, new SolidBrush(ForeColor), textBoxRectangle, stringFormat);
+        }
+
+        public void Decrement(int value)
+        {
+            _value -= value;
+            OnValueChanged(new ValueChangedEventArgs(_value));
+            Invalidate();
+        }
+
+        public void Increment(int value)
+        {
+            _value += value;
+            OnValueChanged(new ValueChangedEventArgs(_value));
+            Invalidate();
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _borderEdge.BackColor = theme.BorderSettings.Normal;
+                _borderButtons.BackColor = theme.OtherSettings.Line;
+
+                _buttonForeColor = theme.OtherSettings.LightText;
+                _buttonFont = new Font(theme.TextSetting.Font.FontFamily, 14, FontStyle.Bold);
+                _buttonColor = theme.BackgroundSettings.Type2;
+
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type2,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

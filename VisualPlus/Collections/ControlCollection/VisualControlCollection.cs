@@ -20,7 +20,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         /// <summary>Add a control to the collection.</summary>
         /// <param name="control">The control.</param>

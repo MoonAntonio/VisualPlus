@@ -76,6 +76,10 @@
             ConstructShape(shapeType, color, rounding, thickness, visible);
         }
 
+        #endregion
+
+        #region Events
+
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event BorderColorChangedEventHandler ColorChanged;
@@ -197,7 +201,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         /// <summary>Constructs the shape.</summary>
         /// <param name="shapeType">The shape type.</param>
@@ -219,7 +223,7 @@
 
     public class ShapeConverter : ExpandableObjectConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

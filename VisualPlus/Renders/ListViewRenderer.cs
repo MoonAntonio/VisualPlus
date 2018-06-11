@@ -9,6 +9,7 @@
     using System.Drawing.Drawing2D;
     using System.Reflection;
     using System.Windows.Forms;
+    using System.Windows.Forms.VisualStyles;
 
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
@@ -17,6 +18,8 @@
     using VisualPlus.Toolkit.Child;
     using VisualPlus.Toolkit.Controls.DataManagement;
     using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
+
+    using ContentAlignment = System.Drawing.ContentAlignment;
 
     #endregion
 
@@ -159,14 +162,14 @@
                 // Checked
                 // graphicsCell.DrawImage(listView.ImageList.Images[1], tx, ty);
                 // graphicsCell.FillRectangle( Brushes.YellowGreen, tx, ty, checkBoxSize, checkBoxSize);
-                CheckBoxRenderer.DrawCheckBox(graphicsCell, _location, System.Windows.Forms.VisualStyles.CheckBoxState.CheckedNormal);
+                CheckBoxRenderer.DrawCheckBox(graphicsCell, _location, CheckBoxState.CheckedNormal);
             }
             else
             {
                 // Unchecked
                 // graphicsCell.DrawImage(listView.ImageList.Images[0], tx, ty);
                 // graphicsCell.FillRectangle( Brushes.Red, tx, ty, checkBoxSize, checkBoxSize);
-                CheckBoxRenderer.DrawCheckBox(graphicsCell, _location, System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal);
+                CheckBoxRenderer.DrawCheckBox(graphicsCell, _location, CheckBoxState.UncheckedNormal);
             }
 
             // Remove the width that we used for the graphic from the cell
@@ -301,7 +304,7 @@
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawGridLines", DebugTraceManager.DebugOutput.TraceListener);
 
             // int _startItem = vPanelScrollBar.Value;
-           // int _yCursor = rect.Y;
+            // int _yCursor = rect.Y;
             int _yCursor = listView.RowsInnerClientRect.Y;
             using (Pen _gridPen = new Pen(listView.GridColor))
             {

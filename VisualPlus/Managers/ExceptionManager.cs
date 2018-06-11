@@ -10,7 +10,7 @@
     [Description("The exception manager.")]
     public sealed class ExceptionManager
     {
-        #region Events
+        #region Methods
 
         /// <summary>Returns a bool indicating whether the value is in range.</summary>
         /// <param name="value">The main value.</param>

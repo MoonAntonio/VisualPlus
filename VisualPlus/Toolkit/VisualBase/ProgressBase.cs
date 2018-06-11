@@ -40,7 +40,11 @@
             _largeChange = 5;
         }
 
-        [Category(Localization.EventCategory.Action)]
+        #endregion
+
+        #region Events
+
+        [Category(EventCategory.Action)]
         [Description("Occurs when the value of the Value property changes.")]
         public event EventHandler ValueChanged;
 
@@ -165,7 +169,30 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
+            MouseState = MouseStates.Hover;
+            Invalidate();
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            MouseState = MouseStates.Normal;
+            Invalidate();
+        }
+
+        protected virtual void OnValueChanged(EventArgs e)
+        {
+            ValueChanged?.Invoke(this, e);
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Decrement from the value.</summary>
         /// <param name="value">Amount of value to decrement.</param>
@@ -238,25 +265,6 @@
                     OnValueChanged(EventArgs.Empty);
                 }
             }
-        }
-
-        protected override void OnMouseEnter(EventArgs e)
-        {
-            base.OnMouseEnter(e);
-            MouseState = MouseStates.Hover;
-            Invalidate();
-        }
-
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            base.OnMouseLeave(e);
-            MouseState = MouseStates.Normal;
-            Invalidate();
-        }
-
-        protected virtual void OnValueChanged(EventArgs e)
-        {
-            ValueChanged?.Invoke(this, e);
         }
 
         #endregion

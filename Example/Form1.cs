@@ -23,7 +23,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         private void HelpButton_Click(object sender, EventArgs e)
         {

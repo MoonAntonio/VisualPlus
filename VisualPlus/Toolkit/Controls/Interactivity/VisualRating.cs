@@ -70,11 +70,19 @@
             UpdateGraphicsBuffer();
         }
 
+        #endregion
+
+        #region Events
+
         [Description("Occurs when the star rating of the strip has changed (Typically by a click operation)")]
         public event EventHandler RatingChanged;
 
         [Description("Occurs when a different number of stars are illuminated (does not include mouseleave un-ilum)")]
         public event EventHandler StarsPanned;
+
+        #endregion
+
+        #region Enumerators
 
         public enum StarType
         {
@@ -430,7 +438,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override void OnMouseClick(MouseEventArgs e)
         {
@@ -490,6 +498,10 @@
             UpdateSize();
             UpdateGraphicsBuffer();
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Gets half of the detailed star polygon as a point[].</summary>
         /// <param name="rect">The rectangle.</param>

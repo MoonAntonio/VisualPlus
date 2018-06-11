@@ -41,7 +41,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         private static int _nextId = 1000;
 

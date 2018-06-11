@@ -9,7 +9,7 @@
 
     internal class VisualNumericUpDownDesigner : ControlDesigner
     {
-        #region Events
+        #region Overrides
 
         protected override void PreFilterProperties(IDictionary properties)
         {

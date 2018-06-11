@@ -8,7 +8,7 @@
 
     public static class PointExtension
     {
-        #region Events
+        #region Methods
 
         /// <summary>Returns the center point of the rectangle.</summary>
         /// <param name="rectangle">This rectangle.</param>

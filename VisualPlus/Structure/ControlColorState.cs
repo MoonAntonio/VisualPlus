@@ -51,6 +51,10 @@ namespace VisualPlus.Structure
         {
         }
 
+        #endregion
+
+        #region Events
+
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event BackColorStateChangedEventHandler PressedColorChanged;
@@ -88,7 +92,43 @@ namespace VisualPlus.Structure
 
         #endregion
 
-        #region Events
+        #region Overrides
+
+        protected virtual void OnPressedColorChanged(ColorEventArgs e)
+        {
+            PressedColorChanged?.Invoke(e);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder _stringBuilder = new StringBuilder();
+            _stringBuilder.Append(GetType().Name);
+            _stringBuilder.Append(" [");
+
+            if (IsEmpty)
+            {
+                _stringBuilder.Append("IsEmpty");
+            }
+            else
+            {
+                _stringBuilder.Append("Disabled=");
+                _stringBuilder.Append(Disabled);
+                _stringBuilder.Append("Hover=");
+                _stringBuilder.Append(Hover);
+                _stringBuilder.Append("Normal=");
+                _stringBuilder.Append(Enabled);
+                _stringBuilder.Append("Pressed=");
+                _stringBuilder.Append(Pressed);
+            }
+
+            _stringBuilder.Append("]");
+
+            return _stringBuilder.ToString();
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Get the control back color state.</summary>
         /// <param name="controlColorState">The control color state.</param>
@@ -137,44 +177,12 @@ namespace VisualPlus.Structure
             return _color;
         }
 
-        public override string ToString()
-        {
-            StringBuilder _stringBuilder = new StringBuilder();
-            _stringBuilder.Append(GetType().Name);
-            _stringBuilder.Append(" [");
-
-            if (IsEmpty)
-            {
-                _stringBuilder.Append("IsEmpty");
-            }
-            else
-            {
-                _stringBuilder.Append("Disabled=");
-                _stringBuilder.Append(Disabled);
-                _stringBuilder.Append("Hover=");
-                _stringBuilder.Append(Hover);
-                _stringBuilder.Append("Normal=");
-                _stringBuilder.Append(Enabled);
-                _stringBuilder.Append("Pressed=");
-                _stringBuilder.Append(Pressed);
-            }
-
-            _stringBuilder.Append("]");
-
-            return _stringBuilder.ToString();
-        }
-
-        protected virtual void OnPressedColorChanged(ColorEventArgs e)
-        {
-            PressedColorChanged?.Invoke(e);
-        }
-
         #endregion
     }
 
     public class ControlColorStateConverter : ExpandableObjectConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

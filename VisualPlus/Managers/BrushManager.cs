@@ -9,7 +9,7 @@
 
     public sealed class BrushManager
     {
-        #region Events
+        #region Methods
 
         /// <summary>Creates a glow brush from the specified graphics path.</summary>
         /// <param name="centerColor">The center color of path gradient.</param>

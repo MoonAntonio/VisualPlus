@@ -11,7 +11,7 @@ namespace VisualPlus.Native
     [SuppressUnmanagedCodeSecurity]
     internal static class Dwmapi
     {
-        #region Events
+        #region Methods
 
         [Description("This function returns true if Aero (DWM Composition) is enabled. Generally used with the DwmExtendFrameIntoClientArea function.")]
         [DllImport("dwmapi.dll", CharSet = CharSet.Auto)]

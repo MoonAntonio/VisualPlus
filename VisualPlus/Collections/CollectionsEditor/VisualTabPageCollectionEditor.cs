@@ -22,7 +22,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override Type CreateCollectionItemType()
         {

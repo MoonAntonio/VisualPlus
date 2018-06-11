@@ -8,7 +8,7 @@
 
     public static class ColorExtension
     {
-        #region Events
+        #region Methods
 
         /// <summary>Converts the string HTML to a <see cref="Color" />.</summary>
         /// <param name="color">The color.</param>

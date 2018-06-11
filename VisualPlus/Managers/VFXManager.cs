@@ -55,9 +55,17 @@ namespace VisualPlus.Managers
             _animationTimer.Tick += AnimationTimerOnTick;
         }
 
+        #endregion
+
+        #region Delegates
+
         public delegate void AnimationFinished(object sender);
 
         public delegate void AnimationProgress(object sender);
+
+        #endregion
+
+        #region Events
 
         public event AnimationFinished OnAnimationFinished;
 
@@ -79,7 +87,140 @@ namespace VisualPlus.Managers
 
         #endregion
 
-        #region Events
+        #region Methods
+
+        private void AnimationTimerOnTick(object sender, EventArgs eventArgs)
+        {
+            for (var i = 0; i < _effectsProgression.Count; i++)
+            {
+                UpdateProgress(i);
+
+                if (!Singular)
+                {
+                    if ((_animationDirections[i] == AnimationDirection.InOutIn) && (_effectsProgression[i] == MaxValue))
+                    {
+                        _animationDirections[i] = AnimationDirection.InOutOut;
+                    }
+                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingIn) && (_effectsProgression[i] == MinValue))
+                    {
+                        _animationDirections[i] = AnimationDirection.InOutRepeatingOut;
+                    }
+                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingOut) && (_effectsProgression[i] == MinValue))
+                    {
+                        _animationDirections[i] = AnimationDirection.InOutRepeatingIn;
+                    }
+                    else if (((_animationDirections[i] == AnimationDirection.In) && (_effectsProgression[i] == MaxValue))
+                             || ((_animationDirections[i] == AnimationDirection.Out) && (_effectsProgression[i] == MinValue))
+                             || ((_animationDirections[i] == AnimationDirection.InOutOut) && (_effectsProgression[i] == MinValue)))
+                    {
+                        _effectsProgression.RemoveAt(i);
+                        _effectsSources.RemoveAt(i);
+                        _animationDirections.RemoveAt(i);
+                        _effectsData.RemoveAt(i);
+                    }
+                }
+                else
+                {
+                    if ((_animationDirections[i] == AnimationDirection.InOutIn) && (_effectsProgression[i] == MaxValue))
+                    {
+                        _animationDirections[i] = AnimationDirection.InOutOut;
+                    }
+                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingIn) && (_effectsProgression[i] == MaxValue))
+                    {
+                        _animationDirections[i] = AnimationDirection.InOutRepeatingOut;
+                    }
+                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingOut) && (_effectsProgression[i] == MinValue))
+                    {
+                        _animationDirections[i] = AnimationDirection.InOutRepeatingIn;
+                    }
+                }
+            }
+
+            OnAnimationProgress?.Invoke(this);
+        }
+
+        private void DecrementProgress(int index)
+        {
+            _effectsProgression[index] -= (_animationDirections[index] == AnimationDirection.InOutOut)
+                                          || (_animationDirections[index] == AnimationDirection.InOutRepeatingOut)
+                                              ? SecondaryIncrement
+                                              : Increment;
+            if (_effectsProgression[index] < MinValue)
+            {
+                _effectsProgression[index] = MinValue;
+
+                for (var i = 0; i < GetAnimationCount(); i++)
+                {
+                    if (_animationDirections[i] == AnimationDirection.InOutIn)
+                    {
+                        return;
+                    }
+
+                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingIn)
+                    {
+                        return;
+                    }
+
+                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingOut)
+                    {
+                        return;
+                    }
+
+                    if ((_animationDirections[i] == AnimationDirection.InOutOut) && (_effectsProgression[i] != MinValue))
+                    {
+                        return;
+                    }
+
+                    if ((_animationDirections[i] == AnimationDirection.Out) && (_effectsProgression[i] != MinValue))
+                    {
+                        return;
+                    }
+                }
+
+                _animationTimer.Stop();
+                OnAnimationFinished?.Invoke(this);
+            }
+        }
+
+        private void IncrementProgress(int index)
+        {
+            _effectsProgression[index] += Increment;
+            if (_effectsProgression[index] > MaxValue)
+            {
+                _effectsProgression[index] = MaxValue;
+
+                for (var i = 0; i < GetAnimationCount(); i++)
+                {
+                    if (_animationDirections[i] == AnimationDirection.InOutIn)
+                    {
+                        return;
+                    }
+
+                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingIn)
+                    {
+                        return;
+                    }
+
+                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingOut)
+                    {
+                        return;
+                    }
+
+                    if ((_animationDirections[i] == AnimationDirection.InOutOut) && (_effectsProgression[i] != MaxValue))
+                    {
+                        return;
+                    }
+
+                    if ((_animationDirections[i] == AnimationDirection.In) && (_effectsProgression[i] != MaxValue))
+                    {
+                        return;
+                    }
+                }
+
+                _animationTimer.Stop();
+                OnAnimationFinished?.Invoke(this);
+            }
+        }
 
         public int GetAnimationCount()
         {
@@ -329,145 +470,12 @@ namespace VisualPlus.Managers
         private const double MaxValue = 1.00;
         private const double MinValue = 0.00;
 
-        private void AnimationTimerOnTick(object sender, EventArgs eventArgs)
-        {
-            for (var i = 0; i < _effectsProgression.Count; i++)
-            {
-                UpdateProgress(i);
-
-                if (!Singular)
-                {
-                    if ((_animationDirections[i] == AnimationDirection.InOutIn) && (_effectsProgression[i] == MaxValue))
-                    {
-                        _animationDirections[i] = AnimationDirection.InOutOut;
-                    }
-                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingIn) && (_effectsProgression[i] == MinValue))
-                    {
-                        _animationDirections[i] = AnimationDirection.InOutRepeatingOut;
-                    }
-                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingOut) && (_effectsProgression[i] == MinValue))
-                    {
-                        _animationDirections[i] = AnimationDirection.InOutRepeatingIn;
-                    }
-                    else if (((_animationDirections[i] == AnimationDirection.In) && (_effectsProgression[i] == MaxValue))
-                             || ((_animationDirections[i] == AnimationDirection.Out) && (_effectsProgression[i] == MinValue))
-                             || ((_animationDirections[i] == AnimationDirection.InOutOut) && (_effectsProgression[i] == MinValue)))
-                    {
-                        _effectsProgression.RemoveAt(i);
-                        _effectsSources.RemoveAt(i);
-                        _animationDirections.RemoveAt(i);
-                        _effectsData.RemoveAt(i);
-                    }
-                }
-                else
-                {
-                    if ((_animationDirections[i] == AnimationDirection.InOutIn) && (_effectsProgression[i] == MaxValue))
-                    {
-                        _animationDirections[i] = AnimationDirection.InOutOut;
-                    }
-                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingIn) && (_effectsProgression[i] == MaxValue))
-                    {
-                        _animationDirections[i] = AnimationDirection.InOutRepeatingOut;
-                    }
-                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingOut) && (_effectsProgression[i] == MinValue))
-                    {
-                        _animationDirections[i] = AnimationDirection.InOutRepeatingIn;
-                    }
-                }
-            }
-
-            OnAnimationProgress?.Invoke(this);
-        }
-
-        private void DecrementProgress(int index)
-        {
-            _effectsProgression[index] -= (_animationDirections[index] == AnimationDirection.InOutOut)
-                                          || (_animationDirections[index] == AnimationDirection.InOutRepeatingOut)
-                                              ? SecondaryIncrement
-                                              : Increment;
-            if (_effectsProgression[index] < MinValue)
-            {
-                _effectsProgression[index] = MinValue;
-
-                for (var i = 0; i < GetAnimationCount(); i++)
-                {
-                    if (_animationDirections[i] == AnimationDirection.InOutIn)
-                    {
-                        return;
-                    }
-
-                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingIn)
-                    {
-                        return;
-                    }
-
-                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingOut)
-                    {
-                        return;
-                    }
-
-                    if ((_animationDirections[i] == AnimationDirection.InOutOut) && (_effectsProgression[i] != MinValue))
-                    {
-                        return;
-                    }
-
-                    if ((_animationDirections[i] == AnimationDirection.Out) && (_effectsProgression[i] != MinValue))
-                    {
-                        return;
-                    }
-                }
-
-                _animationTimer.Stop();
-                OnAnimationFinished?.Invoke(this);
-            }
-        }
-
-        private void IncrementProgress(int index)
-        {
-            _effectsProgression[index] += Increment;
-            if (_effectsProgression[index] > MaxValue)
-            {
-                _effectsProgression[index] = MaxValue;
-
-                for (var i = 0; i < GetAnimationCount(); i++)
-                {
-                    if (_animationDirections[i] == AnimationDirection.InOutIn)
-                    {
-                        return;
-                    }
-
-                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingIn)
-                    {
-                        return;
-                    }
-
-                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingOut)
-                    {
-                        return;
-                    }
-
-                    if ((_animationDirections[i] == AnimationDirection.InOutOut) && (_effectsProgression[i] != MaxValue))
-                    {
-                        return;
-                    }
-
-                    if ((_animationDirections[i] == AnimationDirection.In) && (_effectsProgression[i] != MaxValue))
-                    {
-                        return;
-                    }
-                }
-
-                _animationTimer.Stop();
-                OnAnimationFinished?.Invoke(this);
-            }
-        }
-
         #endregion
     }
 
     public class AnimationLinear
     {
-        #region Events
+        #region Methods
 
         public static double CalculateProgress(double progress)
         {
@@ -479,7 +487,12 @@ namespace VisualPlus.Managers
 
     public class AnimationEaseInOut
     {
-        #region Events
+        #region Methods
+
+        private static double EaseInOut(double s)
+        {
+            return s - Math.Sin((s * 2 * Pi) / (2 * Pi));
+        }
 
         public static double CalculateProgress(double progress)
         {
@@ -489,17 +502,12 @@ namespace VisualPlus.Managers
         public static double Pi = Math.PI;
         public static double PiHalf = Math.PI / 2;
 
-        private static double EaseInOut(double s)
-        {
-            return s - Math.Sin((s * 2 * Pi) / (2 * Pi));
-        }
-
         #endregion
     }
 
     public static class AnimationEaseOut
     {
-        #region Events
+        #region Methods
 
         public static double CalculateProgress(double progress)
         {
@@ -511,7 +519,7 @@ namespace VisualPlus.Managers
 
     public static class AnimationCustomQuadratic
     {
-        #region Events
+        #region Methods
 
         public static double CalculateProgress(double progress)
         {

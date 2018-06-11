@@ -49,11 +49,15 @@
             Initialize();
         }
 
-        [Category(Localization.EventCategory.Mouse)]
+        #endregion
+
+        #region Events
+
+        [Category(EventCategory.Mouse)]
         [Description("Occours when the MouseState of the control has changed.")]
         public event MouseStateChangedEventHandler MouseStateChanged;
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
 
@@ -130,7 +134,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         /// <summary>Invokes the mouse state changed event.</summary>
         /// <param name="e">The event args.</param>
@@ -147,6 +151,10 @@
             ThemeChanged?.Invoke(e);
             Invalidate();
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Initialize the base.</summary>
         private void Initialize()

@@ -50,6 +50,10 @@
             Brush = new SolidBrush(inactiveColor);
         }
 
+        #endregion
+
+        #region Events
+
         [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the active color property has changed.")]
         public event WatermarkActiveColorChangedEventHandler ActiveColorChanged;
@@ -161,7 +165,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         public static void DrawWatermark(Graphics graphics, Rectangle textBoxRectangle, StringFormat stringFormat, Watermark watermark)
         {
@@ -176,7 +180,7 @@
 
     public class WatermarkConverter : ExpandableObjectConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

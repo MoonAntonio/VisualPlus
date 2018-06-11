@@ -11,7 +11,7 @@
 
     internal static class Program
     {
-        #region Events
+        #region Methods
 
         /// <summary>The main entry point for the application.</summary>
         [STAThread]

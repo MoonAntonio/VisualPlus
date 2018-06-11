@@ -63,7 +63,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override void OnBackColorChanged(EventArgs e)
         {

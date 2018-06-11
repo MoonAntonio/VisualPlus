@@ -81,7 +81,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override void OnPaint(PaintEventArgs e)
         {

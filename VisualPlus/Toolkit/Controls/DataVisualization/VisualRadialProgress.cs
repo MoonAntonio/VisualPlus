@@ -414,40 +414,28 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
-        public void UpdateTheme(Theme theme)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            try
-            {
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+            base.OnPaint(e);
+            Graphics graphics = e.Graphics;
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            DrawCircles(graphics);
+            DrawImage(graphics);
+            DrawText(graphics);
+        }
 
-                Font = theme.TextSetting.Font; // TODO: 16F - Bold
-                _subscriptFont = theme.TextSetting.Font; // TODO: - Bold
-                _superscriptFont = theme.TextSetting.Font; // TODO: - Bold
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            UpdateSize();
+        }
 
-                _superscriptColor = theme.TextSetting.SuperscriptColor;
-                _subscriptColor = theme.TextSetting.SubscriptColor;
-
-                _colorState = new ControlColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type1,
-                        Disabled = theme.BackgroundSettings.Type1
-                    };
-
-                _backCircleColor = theme.OtherSettings.BackCircle;
-                _foreCircleColor = theme.OtherSettings.ForeCircle;
-                _progressColor = theme.OtherSettings.Progress;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            UpdateSize();
         }
 
         protected void DrawCircles(Graphics graphics)
@@ -520,31 +508,47 @@
             graphics.DrawString(_value, Font, new SolidBrush(ForeColor), _textPoint);
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            Graphics graphics = e.Graphics;
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            DrawCircles(graphics);
-            DrawImage(graphics);
-            DrawText(graphics);
-        }
+        #endregion
 
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            UpdateSize();
-        }
-
-        protected override void OnSizeChanged(EventArgs e)
-        {
-            base.OnSizeChanged(e);
-            UpdateSize();
-        }
+        #region Methods
 
         private void UpdateSize()
         {
             Size = new Size(Math.Max(Width, Height), Math.Max(Width, Height));
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font; // TODO: 16F - Bold
+                _subscriptFont = theme.TextSetting.Font; // TODO: - Bold
+                _superscriptFont = theme.TextSetting.Font; // TODO: - Bold
+
+                _superscriptColor = theme.TextSetting.SuperscriptColor;
+                _subscriptColor = theme.TextSetting.SubscriptColor;
+
+                _colorState = new ControlColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type1,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+
+                _backCircleColor = theme.OtherSettings.BackCircle;
+                _foreCircleColor = theme.OtherSettings.ForeCircle;
+                _progressColor = theme.OtherSettings.Progress;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

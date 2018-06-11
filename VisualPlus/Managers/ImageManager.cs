@@ -15,7 +15,7 @@
     [Description("The image manager.")]
     public sealed class ImageManager
     {
-        #region Events
+        #region Methods
 
         /// <summary>Creates a gradient bitmap.</summary>
         /// <param name="size">The size of the gradient.</param>

@@ -16,7 +16,7 @@
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class VisualControlBase : Control, ICloneable
     {
-        #region Events
+        #region Methods
 
         /// <summary>Creates a copy of the current object.</summary>
         /// <returns>The <see cref="object" />.</returns>

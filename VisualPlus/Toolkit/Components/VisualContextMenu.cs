@@ -48,7 +48,15 @@
             ConfigureStyleManager();
         }
 
+        #endregion
+
+        #region Delegates
+
         public delegate void ClickedEventHandler(object sender);
+
+        #endregion
+
+        #region Events
 
         public event ClickedEventHandler Clicked;
 
@@ -217,7 +225,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override void OnItemClicked(ToolStripItemClickedEventArgs e)
         {
@@ -249,17 +257,9 @@
             Invalidate();
         }
 
-        private static bool _arrowVisible = Settings.DefaultValue.TextVisible;
-        private static Color _backgroundColor;
-        private static Color _itemHoverColor;
-        private static Color _selectedItemBackColor;
+        #endregion
 
-        private static Color arrowColor;
-        private static Color arrowDisabledColor;
-        private static Border border;
-        private static Font contextMenuFont;
-        private static Color foreColor;
-        private static Color textDisabledColor;
+        #region Methods
 
         private void ConfigureStyleManager()
         {
@@ -283,13 +283,21 @@
             _itemHoverColor = styleManager.Theme.BorderSettings.Hover;
         }
 
-        #endregion
+        private static bool _arrowVisible = Settings.DefaultValue.TextVisible;
+        private static Color _backgroundColor;
+        private static Color _itemHoverColor;
+        private static Color _selectedItemBackColor;
 
-        #region Methods
+        private static Color arrowColor;
+        private static Color arrowDisabledColor;
+        private static Border border;
+        private static Font contextMenuFont;
+        private static Color foreColor;
+        private static Color textDisabledColor;
 
         public sealed class VisualToolStripRender : ToolStripProfessionalRenderer
         {
-            #region Events
+            #region Overrides
 
             /// <summary>Renders the arrow.</summary>
             /// <param name="e">The tool strip render event args.</param>

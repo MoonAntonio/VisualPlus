@@ -60,6 +60,10 @@
             UpdateTheme(ThemeManager.Theme);
         }
 
+        #endregion
+
+        #region Enumerators
+
         public enum GroupBoxStyle
         {
             /// <summary>The default.</summary>
@@ -230,34 +234,7 @@
 
         #endregion
 
-        #region Events
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _borderEdge.BackColor = theme.OtherSettings.Line;
-
-                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
-                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -333,6 +310,10 @@
             base.OnPaintBackground(e);
             e.Graphics.Clear(BackColor);
         }
+
+        #endregion
+
+        #region Methods
 
         private Rectangle ConfigureStyleBox(Size textArea)
         {
@@ -421,6 +402,33 @@
             }
 
             return new Rectangle(titlePoint, titleSize);
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _borderEdge.BackColor = theme.OtherSettings.Line;
+
+                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
+                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

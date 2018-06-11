@@ -12,7 +12,7 @@
     [Description("The math manager.")]
     public sealed class MathManager
     {
-        #region Events
+        #region Methods
 
         /// <summary>Converts a degree to a radian.</summary>
         /// <param name="angle">The angle.</param>

@@ -11,7 +11,7 @@
 
     public sealed class VisualBadgeRenderer
     {
-        #region Events
+        #region Methods
 
         /// <summary>Draws the badge.</summary>
         /// <param name="graphics">The graphics to draw on.</param>

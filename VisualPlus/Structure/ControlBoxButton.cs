@@ -53,6 +53,10 @@
             _offsetLocation = new Point(0, 0);
         }
 
+        #endregion
+
+        #region Enumerators
+
         public enum ControlBoxType
         {
             /// <summary>The default.</summary>
@@ -158,7 +162,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override void OnMouseDown(MouseEventArgs e)
         {

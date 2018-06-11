@@ -48,7 +48,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         public void UpdateTheme(Theme theme)
         {

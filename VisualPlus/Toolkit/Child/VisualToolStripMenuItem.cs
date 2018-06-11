@@ -27,7 +27,7 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
 
         protected override ToolStripDropDown CreateDefaultDropDown()
         {

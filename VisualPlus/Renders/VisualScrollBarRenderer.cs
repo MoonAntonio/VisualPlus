@@ -16,7 +16,38 @@
 
     public sealed class VisualScrollBarRenderer
     {
-        #region Events
+        #region Methods
+
+        /// <summary>Adjusts the thumb grip according to the specified <see cref="Orientation" />.</summary>
+        /// <param name="rectangle">The rectangle to adjust.</param>
+        /// <param name="orientation">The scrollbar orientation.</param>
+        /// <param name="image">The grip image.</param>
+        /// <returns>The adjusted rectangle.</returns>
+        /// <remarks>Also rotates the grip image if necessary.</remarks>
+        private static Rectangle AdjustThumbGrip(Rectangle rectangle, Orientation orientation, Image image)
+        {
+            Rectangle _rectangle = rectangle;
+
+            _rectangle.Inflate(-1, -1);
+
+            if (orientation == Orientation.Vertical)
+            {
+                _rectangle.X += 3;
+                _rectangle.Y += (_rectangle.Height / 2) - (image.Height / 2);
+            }
+            else
+            {
+                image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+
+                _rectangle.X += (_rectangle.Width / 2) - (image.Width / 2);
+                _rectangle.Y += 3;
+            }
+
+            _rectangle.Width = image.Width;
+            _rectangle.Height = image.Height;
+
+            return _rectangle;
+        }
 
         /// <summary>Draws an arrow button.</summary>
         /// <param name="graphics">The <see cref="Graphics" /> used to paint.</param>
@@ -148,37 +179,6 @@
             }
 
             return _image;
-        }
-
-        /// <summary>Adjusts the thumb grip according to the specified <see cref="Orientation" />.</summary>
-        /// <param name="rectangle">The rectangle to adjust.</param>
-        /// <param name="orientation">The scrollbar orientation.</param>
-        /// <param name="image">The grip image.</param>
-        /// <returns>The adjusted rectangle.</returns>
-        /// <remarks>Also rotates the grip image if necessary.</remarks>
-        private static Rectangle AdjustThumbGrip(Rectangle rectangle, Orientation orientation, Image image)
-        {
-            Rectangle _rectangle = rectangle;
-
-            _rectangle.Inflate(-1, -1);
-
-            if (orientation == Orientation.Vertical)
-            {
-                _rectangle.X += 3;
-                _rectangle.Y += (_rectangle.Height / 2) - (image.Height / 2);
-            }
-            else
-            {
-                image.RotateFlip(RotateFlipType.Rotate90FlipNone);
-
-                _rectangle.X += (_rectangle.Width / 2) - (image.Width / 2);
-                _rectangle.Y += 3;
-            }
-
-            _rectangle.Width = image.Width;
-            _rectangle.Height = image.Height;
-
-            return _rectangle;
         }
 
         #endregion

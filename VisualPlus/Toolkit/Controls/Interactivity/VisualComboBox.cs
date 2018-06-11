@@ -107,9 +107,17 @@
             UpdateTheme(_styleManager.Theme);
         }
 
-        [Category(Localization.EventCategory.PropertyChanged)]
+        #endregion
+
+        #region Events
+
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
+
+        #endregion
+
+        #region Enumerators
 
         public enum ButtonStyles
         {
@@ -563,43 +571,7 @@
 
         #endregion
 
-        #region Events
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                _textStyle.Enabled = theme.TextSetting.Enabled;
-                _textStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _borderEdge.BackColor = theme.OtherSettings.Line;
-
-                _backColorState = new ColorState
-                    {
-                        Enabled = theme.OtherSettings.BoxEnabled,
-                        Disabled = theme.OtherSettings.BoxDisabled
-                    };
-
-                _buttonColor = theme.OtherSettings.FlatControlEnabled;
-
-                _menuTextColor = theme.TextSetting.Enabled;
-                _menuItemNormal = theme.ListItemSettings.Item;
-                _menuItemHover = theme.ListItemSettings.ItemHover;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
@@ -748,6 +720,10 @@
             Invalidate();
         }
 
+        #endregion
+
+        #region Methods
+
         private void ConfigureSeparator(Rectangle rectangle)
         {
             if (!_borderEdge.Visible)
@@ -850,6 +826,42 @@
                 };
 
             Watermark.DrawWatermark(graphics, rectangle, _stringFormat, _watermark);
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                _textStyle.Enabled = theme.TextSetting.Enabled;
+                _textStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _borderEdge.BackColor = theme.OtherSettings.Line;
+
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.OtherSettings.BoxEnabled,
+                        Disabled = theme.OtherSettings.BoxDisabled
+                    };
+
+                _buttonColor = theme.OtherSettings.FlatControlEnabled;
+
+                _menuTextColor = theme.TextSetting.Enabled;
+                _menuItemNormal = theme.ListItemSettings.Item;
+                _menuItemHover = theme.ListItemSettings.ItemHover;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

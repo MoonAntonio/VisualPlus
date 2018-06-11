@@ -15,7 +15,7 @@
 
     public sealed class VisualControlRenderer
     {
-        #region Events
+        #region Methods
 
         /// <summary>Draws a button control.</summary>
         /// <param name="graphics">The graphics to draw on.</param>

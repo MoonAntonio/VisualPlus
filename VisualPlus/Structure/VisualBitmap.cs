@@ -128,7 +128,7 @@
 
         #endregion
 
-        #region Events
+        #region Methods
 
         /// <summary>Draws the bitmap image.</summary>
         /// <param name="graphics">Graphics controller.</param>
@@ -171,7 +171,7 @@
 
     public class VisualBitmapConverter : ExpandableObjectConverter
     {
-        #region Events
+        #region Overrides
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {

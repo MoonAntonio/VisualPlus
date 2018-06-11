@@ -9,7 +9,7 @@
 
     public class ExceptionMessenger
     {
-        #region Events
+        #region Methods
 
         /// <summary>Create file not found string.</summary>
         /// <param name="path">The package path.</param>

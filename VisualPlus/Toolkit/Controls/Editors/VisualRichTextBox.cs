@@ -79,9 +79,13 @@
             UpdateTheme(ThemeManager.Theme);
         }
 
+        #endregion
+
+        #region Events
+
         [Browsable(true)]
         [Description(EventDescription.TextChanged)]
-        [Category(Localization.EventCategory.PropertyChanged)]
+        [Category(EventCategory.PropertyChanged)]
         public new event EventHandler TextChanged
         {
             add
@@ -303,7 +307,42 @@
 
         #endregion
 
-        #region Events
+        #region Overrides
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
+
+            if (_richTextBox.BackColor != _backColor)
+            {
+                _richTextBox.BackColor = _backColor;
+            }
+
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(Parent.BackColor);
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            _richTextBox.Location = GetInternalControlLocation(_border);
+            _richTextBox.Size = GetInternalControlSize(Size, _border);
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>Appends text to the current text of a rich text box.</summary>
         /// <param name="text">The text to append to the current contents of the text box.</param>
@@ -603,37 +642,6 @@
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
-
-            if (_richTextBox.BackColor != _backColor)
-            {
-                _richTextBox.BackColor = _backColor;
-            }
-
-            e.Graphics.SetClip(ControlGraphicsPath);
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
-            e.Graphics.ResetClip();
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(Parent.BackColor);
-        }
-
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            _richTextBox.Location = GetInternalControlLocation(_border);
-            _richTextBox.Size = GetInternalControlSize(Size, _border);
         }
 
         #endregion

@@ -194,76 +194,7 @@
 
         #endregion
 
-        #region Events
-
-        public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
-        {
-            _effectsManager = new VFXManager(false)
-                {
-                    Increment = effectIncrement[0],
-                    EffectType = effectType[0]
-                };
-
-            _hoverEffectsManager = new VFXManager
-                {
-                    Increment = effectIncrement[1],
-                    EffectType = effectType[1]
-                };
-
-            _hoverEffectsManager.OnAnimationProgress += sender => Invalidate();
-            _effectsManager.OnAnimationProgress += sender => Invalidate();
-        }
-
-        public void DrawAnimation(Graphics graphics)
-        {
-            if (!_effectsManager.IsAnimating() || !_animation)
-            {
-                return;
-            }
-
-            graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            for (var i = 0; i < _effectsManager.GetAnimationCount(); i++)
-            {
-                double _value = _effectsManager.GetProgress(i);
-                Point _source = _effectsManager.GetSource(i);
-
-                using (Brush _rippleBrush = new SolidBrush(Color.FromArgb((int)(101 - (_value * 100)), Color.Black)))
-                {
-                    var _rippleSize = (int)(_value * Width * 2);
-                    graphics.SetClip(ControlGraphicsPath);
-                    graphics.FillEllipse(_rippleBrush, new Rectangle(_source.X - (_rippleSize / 2), _source.Y - (_rippleSize / 2), _rippleSize, _rippleSize));
-                }
-            }
-
-            graphics.SmoothingMode = SmoothingMode.None;
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _backColorState.Enabled = theme.ColorStateSettings.Enabled;
-                _backColorState.Disabled = theme.ColorStateSettings.Disabled;
-                _backColorState.Hover = theme.ColorStateSettings.Hover;
-                _backColorState.Pressed = theme.ColorStateSettings.Pressed;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
+        #region Overrides
 
         protected override void OnCreateControl()
         {
@@ -373,6 +304,79 @@
         {
             base.OnPaintBackground(e);
             e.Graphics.Clear(BackColor);
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
+        {
+            _effectsManager = new VFXManager(false)
+                {
+                    Increment = effectIncrement[0],
+                    EffectType = effectType[0]
+                };
+
+            _hoverEffectsManager = new VFXManager
+                {
+                    Increment = effectIncrement[1],
+                    EffectType = effectType[1]
+                };
+
+            _hoverEffectsManager.OnAnimationProgress += sender => Invalidate();
+            _effectsManager.OnAnimationProgress += sender => Invalidate();
+        }
+
+        public void DrawAnimation(Graphics graphics)
+        {
+            if (!_effectsManager.IsAnimating() || !_animation)
+            {
+                return;
+            }
+
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            for (var i = 0; i < _effectsManager.GetAnimationCount(); i++)
+            {
+                double _value = _effectsManager.GetProgress(i);
+                Point _source = _effectsManager.GetSource(i);
+
+                using (Brush _rippleBrush = new SolidBrush(Color.FromArgb((int)(101 - (_value * 100)), Color.Black)))
+                {
+                    var _rippleSize = (int)(_value * Width * 2);
+                    graphics.SetClip(ControlGraphicsPath);
+                    graphics.FillEllipse(_rippleBrush, new Rectangle(_source.X - (_rippleSize / 2), _source.Y - (_rippleSize / 2), _rippleSize, _rippleSize));
+                }
+            }
+
+            graphics.SmoothingMode = SmoothingMode.None;
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _backColorState.Enabled = theme.ColorStateSettings.Enabled;
+                _backColorState.Disabled = theme.ColorStateSettings.Disabled;
+                _backColorState.Hover = theme.ColorStateSettings.Hover;
+                _backColorState.Pressed = theme.ColorStateSettings.Pressed;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

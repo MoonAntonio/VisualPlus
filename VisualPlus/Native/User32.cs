@@ -10,14 +10,13 @@ namespace VisualPlus.Native
 
     using VisualPlus.Managers;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Controls.DataManagement;
 
     #endregion
 
     [SuppressUnmanagedCodeSecurity]
     internal static class User32
     {
-        #region Events
+        #region Methods
 
         [Description("Retrieves the cursor position in screen coordinates.")]
         [DllImport("user32.dll", SetLastError = true)]
