@@ -5,6 +5,7 @@
     using System;
 
     using VisualPlus.EventArgs;
+    using VisualPlus.Toolkit.Child;
 
     #endregion
 
@@ -25,4 +26,6 @@
     public delegate void ValueChangedEventHandler(ValueChangedEventArgs e);
 
     public delegate void ListViewChangedEventHandler(object source, ListViewChangedEventArgs e);
+
+    public delegate void VisualItemCheckedEventHandler(VisualListViewItem item);
 }

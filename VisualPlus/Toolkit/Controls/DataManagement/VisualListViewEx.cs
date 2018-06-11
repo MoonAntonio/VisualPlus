@@ -191,74 +191,74 @@
             SuspendLayout();
 
             _horizontalScrollBar = new ManagedHScrollBar
-            {
-                Anchor = AnchorStyles.None,
-                CausesValidation = false,
-                Location = new Point(24, 0),
-                MHeight = 16,
-                MWidth = 120,
-                Name = "hPanelScrollBar",
-                Size = new Size(120, 16),
-                Parent = this
-            };
+                {
+                    Anchor = AnchorStyles.None,
+                    CausesValidation = false,
+                    Location = new Point(24, 0),
+                    MHeight = 16,
+                    MWidth = 120,
+                    Name = "hPanelScrollBar",
+                    Size = new Size(120, 16),
+                    Parent = this
+                };
             _horizontalScrollBar.Scroll += OnScroll;
             _horizontalScrollBar.Scroll += HorizontalPanelScrollBar_Scroll;
             Controls.Add(_horizontalScrollBar);
 
             _verticalScrollBar = new ManagedVScrollBar
-            {
-                Anchor = AnchorStyles.None,
-                CausesValidation = false,
-                Location = new Point(0, 12),
-                MHeight = 120,
-                MWidth = 16,
-                Name = "vPanelScrollBar",
-                Size = new Size(16, 120),
-                Parent = this
-            };
+                {
+                    Anchor = AnchorStyles.None,
+                    CausesValidation = false,
+                    Location = new Point(0, 12),
+                    MHeight = 120,
+                    MWidth = 16,
+                    Name = "vPanelScrollBar",
+                    Size = new Size(16, 120),
+                    Parent = this
+                };
             _verticalScrollBar.Scroll += OnScroll;
             _verticalScrollBar.Scroll += VerticalPanelScrollBar_Scroll;
             Controls.Add(_verticalScrollBar);
 
             _horizontalTopBorderStrip = new BorderStrip
-            {
-                Parent = this,
-                BorderType = BorderStrip.BorderTypes.Top,
-                Visible = false
-            };
+                {
+                    Parent = this,
+                    BorderType = BorderStrip.BorderTypes.Top,
+                    Visible = false
+                };
             _horizontalTopBorderStrip.BringToFront();
 
             _horizontalBottomBorderStrip = new BorderStrip
-            {
-                Parent = this,
-                BorderType = BorderStrip.BorderTypes.Bottom,
-                Visible = true
-            };
+                {
+                    Parent = this,
+                    BorderType = BorderStrip.BorderTypes.Bottom,
+                    Visible = true
+                };
             _horizontalBottomBorderStrip.BringToFront();
 
             _verticalLeftBorderStrip = new BorderStrip
-            {
-                BorderType = BorderStrip.BorderTypes.Left,
-                Parent = this,
-                Visible = true
-            };
+                {
+                    BorderType = BorderStrip.BorderTypes.Left,
+                    Parent = this,
+                    Visible = true
+                };
             _verticalLeftBorderStrip.BringToFront();
 
             _verticalRightBorderStrip = new BorderStrip
-            {
-                BorderType = BorderStrip.BorderTypes.Right,
-                Parent = this,
-                Visible = true
-            };
+                {
+                    BorderType = BorderStrip.BorderTypes.Right,
+                    Parent = this,
+                    Visible = true
+                };
             _verticalRightBorderStrip.BringToFront();
 
             _cornerBox = new BorderStrip
-            {
-                BackColor = SystemColors.Control,
-                BorderType = BorderStrip.BorderTypes.Square,
-                Visible = false,
-                Parent = this
-            };
+                {
+                    BackColor = SystemColors.Control,
+                    BorderType = BorderStrip.BorderTypes.Square,
+                    Visible = false,
+                    Parent = this
+                };
             _cornerBox.BringToFront();
 
             Size = new Size(121, 97);
@@ -296,6 +296,14 @@
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ListViewChangedEventHandler ItemChangedEvent;
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ItemCheckEventHandler ItemCheck;
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event VisualItemCheckedEventHandler ItemChecked;
 
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
@@ -1522,7 +1530,7 @@
                 _state = ListStates.None;
 
                 bool _checkBoxClicked;
-                
+
                 if (_columns[_column].CheckBox)
                 {
                     // Using MouseEvent.Location.Y instead of cellY since it's for the column.
@@ -1600,11 +1608,15 @@
                         if (_items[_item].SubItems[_column].Checked)
                         {
                             _items[_item].SubItems[_column].Checked = false;
+                            ItemCheck?.Invoke(this, new ItemCheckEventArgs(_item, CheckState.Unchecked, CheckState.Checked));
                         }
                         else
                         {
                             _items[_item].SubItems[_column].Checked = true;
+                            ItemCheck?.Invoke(this, new ItemCheckEventArgs(_item, CheckState.Checked, CheckState.Unchecked));
                         }
+
+                        ItemChecked?.Invoke(_items[_item]);
                     }
                 }
 
@@ -2217,18 +2229,18 @@
                 _pointLocalMouse = new Point(9999, 9999);
             }
 
-            int nItem;
-            int nColumn;
-            var nCellX = 0;
-            var nCellY = 0;
-            ListStates eState;
-            ListViewRegion listRegion;
-            InterpretCoordinates(_pointLocalMouse.X, _pointLocalMouse.Y, out listRegion, out nCellX, out nCellY, out nItem, out nColumn, out eState);
+            int _item;
+            int _column;
+            var _cellX = 0;
+            var _cellY = 0;
+            ListStates _listStates;
+            ListViewRegion _listRegion;
+            InterpretCoordinates(_pointLocalMouse.X, _pointLocalMouse.Y, out _listRegion, out _cellX, out _cellY, out _item, out _column, out _listStates);
 
-            if ((_pointLocalMouse == _lastHoverSpot) && !_hoverLive && (listRegion != ListViewRegion.NonClient))
+            if ((_pointLocalMouse == _lastHoverSpot) && !_hoverLive && (_listRegion != ListViewRegion.NonClient))
             {
                 Debug.WriteLine("VisualListView::HoverTimer-Firing");
-                HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverStart, nItem, nColumn, listRegion));
+                HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverStart, _item, _column, _listRegion));
                 _hoverLive = true;
             }
             else if (_hoverLive && (_pointLocalMouse != _lastHoverSpot))
@@ -2272,13 +2284,13 @@
                 }
             }
 
-            // FIX: Invalidates list view on items changed.
+            // Fixes: Invalidates list view on items changed.
             Invalidate();
         }
 
         private void OnMouseDownFromSubItem(object sender, MouseEventArgs e)
         {
-            DebugTraceManager.WriteDebug("OnMouseDownFromSubItem", DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("OnMouseDown::SubItem", DebugTraceManager.DebugOutput.TraceListener);
 
             Point _clientPoint = PointToClient(new Point(MousePosition.X, MousePosition.Y));
             e = new MouseEventArgs(e.Button, e.Clicks, _clientPoint.X, _clientPoint.Y, e.Delta);
@@ -2585,12 +2597,12 @@
         /// <param name="_cellY">The cell y.</param>
         /// <param name="_itemIndex">The item.</param>
         /// <param name="columnIndex">The column.</param>
-        /// <param name="nState">The state.</param>
-        public void InterpretCoordinates(int _screenX, int _screenY, out ListViewRegion listRegion, out int _cellX, out int _cellY, out int _itemIndex, out int columnIndex, out ListStates nState)
+        /// <param name="_listStates">The state.</param>
+        public void InterpretCoordinates(int _screenX, int _screenY, out ListViewRegion listRegion, out int _cellX, out int _cellY, out int _itemIndex, out int columnIndex, out ListStates _listStates)
         {
             DebugTraceManager.WriteDebug("VisualListView::Interpret Coordinates", DebugTraceManager.DebugOutput.TraceListener);
 
-            nState = ListStates.None;
+            _listStates = ListStates.None;
             columnIndex = 0;
             _itemIndex = 0;
             _cellX = 0;
@@ -2610,7 +2622,7 @@
 
                 if ((_screenX > _currentX) && (_screenX < (_currentX + _column.Width) - ListViewConstants.RESIZE_ARROW_PADDING))
                 {
-                    nState = ListStates.ColumnSelect;
+                    _listStates = ListStates.ColumnSelect;
                     break;
                 }
 
@@ -2621,7 +2633,7 @@
                     {
                         if (AllowColumnResize)
                         {
-                            nState = ListStates.ColumnResizing;
+                            _listStates = ListStates.ColumnResizing;
                         }
 
                         return;
@@ -2648,12 +2660,12 @@
 
                 if ((_itemIndex >= _items.Count) || (_itemIndex > _verticalScrollBar.Value + VisibleRowsCount))
                 {
-                    nState = ListStates.None;
+                    _listStates = ListStates.None;
                     listRegion = ListViewRegion.NonClient;
                 }
                 else
                 {
-                    nState = ListStates.Selecting;
+                    _listStates = ListStates.Selecting;
 
                     // Handle where FullRowSelect is OFF and we click on the second part of a spanned column
                     for (int nSubIndex = 0; nSubIndex < Columns.Count; nSubIndex++)
