@@ -5,7 +5,7 @@
     using System;
     using System.Windows.Forms;
 
-    using UnitTests.Tests;
+    using UnitTests.Forms;
 
     #endregion
 
@@ -19,7 +19,7 @@
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VisualListViewTest());
+            Application.Run(new UnitTestManager());
         }
 
         #endregion
