@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.Dialogs
+﻿namespace VisualPlus.UITypeEditors
 {
     #region Namespace
 

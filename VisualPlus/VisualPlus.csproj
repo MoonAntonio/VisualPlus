@@ -205,7 +205,7 @@
     <Compile Include="ActionList\VisualComboBoxActionList.cs" />
     <Compile Include="Designer\VisualComboBoxDesigner.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualControlBox.cs" />
-    <Compile Include="Toolkit\Dialogs\ThemesEditor.cs" />
+    <Compile Include="UITypeEditors\ThemesEditor.cs" />
     <Compile Include="Toolkit\Dialogs\VisualExceptionDialog.cs">
       <SubType>Form</SubType>
     </Compile>

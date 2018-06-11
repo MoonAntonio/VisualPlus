@@ -25,6 +25,7 @@
     using VisualPlus.Toolkit.Controls.Layout;
     using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.TypeConverters;
+    using VisualPlus.UITypeEditors;
 
     #endregion
 
