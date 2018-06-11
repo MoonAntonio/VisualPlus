@@ -39,7 +39,7 @@
     // [Designer(typeof(VisualListViewAdvDesigner))]
     [ToolboxBitmap(typeof(VisualListViewAdvanced), "VisualListView.bmp")]
     [ToolboxItem(true)]
-    public partial class VisualListViewAdvanced : VisualStyleBase
+    public partial class VisualListViewAdvanced : VisualControlBase
     {
         #region Variables
 
@@ -471,6 +471,48 @@
             }
         }
 
+        /// <summary>Gets the indexes of the currently checked items in the control.</summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<int> CheckedIndicies
+        {
+            get
+            {
+                var _checkedItems = new List<int>();
+
+                for (var i = 0; i < _items.Count; i++)
+                {
+                    if (_items[i].SubItems[0].Checked)
+                    {
+                        _checkedItems.Add(i);
+                    }
+                }
+
+                return _checkedItems;
+            }
+        }
+
+        /// <summary>Gets the currently checked items in the control.</summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public List<VisualListViewItem> CheckedItems
+        {
+            get
+            {
+                var _checkedItems = new List<VisualListViewItem>();
+
+                foreach (VisualListViewItem _item in _items)
+                {
+                    if (_item.SubItems[0].Checked)
+                    {
+                        _checkedItems.Add(_item);
+                    }
+                }
+
+                return _checkedItems;
+            }
+        }
+
         [Category(PropertyCategory.Behavior)]
         [Description("The columns shown in Details view.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -812,6 +854,20 @@
             }
         }
 
+        [Browsable(false)]
+        public ManagedHScrollBar HorizontalScrollBar
+        {
+            get
+            {
+                return _horizontalScrollBar;
+            }
+
+            set
+            {
+                _horizontalScrollBar = value;
+            }
+        }
+
         [Description("Currently Focused Column")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
@@ -876,6 +932,11 @@
                         _hotColumnIndex = -1;
                         _hotItemIndex = value;
 
+                        if (_hotItemIndex > 0)
+                        {
+                            HoveredItem = _items[_hotItemIndex];
+                        }
+
                         DebugTraceManager.WriteDebug("Calling Invalidate From HotItemIndex", DebugTraceManager.DebugOutput.TraceListener);
                         Invalidate(true);
                     }
@@ -914,6 +975,9 @@
                 _hotTrackingColor = value;
             }
         }
+
+        [Browsable(false)]
+        public VisualListViewItem HoveredItem { get; private set; }
 
         [Description("Enabling hover events slows the control some but allows you to be informed when a user has hovered over an item.")]
         [Category(EventCategory.Behavior)]
@@ -1289,6 +1353,43 @@
             get
             {
                 return _themesAvailable;
+            }
+        }
+
+        [Browsable(false)]
+        [Description("Gets or sets the first visible item in the control.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public VisualListViewItem TopItem
+        {
+            get
+            {
+                if (_items.Count <= 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _items[0];
+                }
+            }
+
+            set
+            {
+                _items[0] = value;
+            }
+        }
+
+        [Browsable(false)]
+        public ManagedVScrollBar VerticalScrollBar
+        {
+            get
+            {
+                return _verticalScrollBar;
+            }
+
+            set
+            {
+                _verticalScrollBar = value;
             }
         }
 

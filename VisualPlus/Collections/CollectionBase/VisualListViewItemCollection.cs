@@ -8,6 +8,7 @@
     using System.ComponentModel;
     using System.Linq;
 
+    using VisualPlus.Attributes;
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
@@ -364,6 +365,35 @@
             return List.Cast<VisualListViewItem>().Any(_item => _item.Name == key);
         }
 
+        /// <summary>Determines whether the specified item is located in the collection.</summary>
+        /// <param name="value">A <see cref="VisualListViewItem" /> representing the item to locate in the collection.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        [Test]
+        public bool ContainsItem(VisualListViewItem value)
+        {
+            foreach (VisualListViewItem _item in List)
+            {
+                var _subItemFlag = true;
+                for (var i = 0; i < _item.SubItems.Count; i++)
+                {
+                    string _subItem1 = _item.SubItems[i].Text;
+                    string _subItem2 = value.SubItems[i].Text;
+
+                    if (_subItem1 != _subItem2)
+                    {
+                        _subItemFlag = false;
+                    }
+                }
+
+                if (_subItemFlag)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         /// <summary>Copies the entire collection into an existing array at a specified location within the array.</summary>
         /// <param name="destination">An <see cref="Array" /> representing the array to copy the contents of the collection to.</param>
         /// <param name="index">The location within the destination array to copy the items from the collection to.</param>
@@ -382,7 +412,7 @@
         public VisualListViewItem[] Find(string key, bool searchAllSubItems)
         {
             ArrayList _foundItems = FindInternal(key, searchAllSubItems, this, new ArrayList());
-            VisualListViewItem[] _stronglyTypedFoundItems = new VisualListViewItem[_foundItems.Count];
+            var _stronglyTypedFoundItems = new VisualListViewItem[_foundItems.Count];
             _foundItems.CopyTo(_stronglyTypedFoundItems, 0);
             return _stronglyTypedFoundItems;
         }

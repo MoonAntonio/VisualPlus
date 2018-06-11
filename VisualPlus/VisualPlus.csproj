@@ -49,6 +49,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\Test.cs" />
     <Compile Include="Collections\CollectionsEditor\VisualListViewSubItemCollectionEditor.cs" />
     <Compile Include="Collections\CollectionsEditor\VisualListViewItemCollectionEditor.cs" />
     <Compile Include="Collections\ControlCollection\ReadOnlyControlCollection.cs" />

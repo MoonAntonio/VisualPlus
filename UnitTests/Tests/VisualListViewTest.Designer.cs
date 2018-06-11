@@ -112,7 +112,6 @@
             this.visualListViewAdvanced1.ItemHeight = 17;
             this.visualListViewAdvanced1.ItemWordWrap = false;
             this.visualListViewAdvanced1.Location = new System.Drawing.Point(0, 80);
-            this.visualListViewAdvanced1.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.visualListViewAdvanced1.MultiSelect = true;
             this.visualListViewAdvanced1.Name = "visualListViewAdvanced1";
             this.visualListViewAdvanced1.Selectable = true;
@@ -128,7 +127,6 @@
             textStyle1.Enabled = System.Drawing.Color.Empty;
             textStyle1.Hover = System.Drawing.Color.Empty;
             textStyle1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.visualListViewAdvanced1.TextStyle = textStyle1;
             // 
             // BtnRemove
             // 
