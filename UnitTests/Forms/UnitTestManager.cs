@@ -3,14 +3,18 @@
     #region Namespace
 
     using System;
+    using System.Diagnostics;
     using System.Windows.Forms;
 
     using UnitTests.Tests;
 
+    using VisualPlus.EventArgs;
+    using VisualPlus.Toolkit.Dialogs;
+
     #endregion
 
     /// <summary>The test manager.</summary>
-    public partial class UnitTestManager : Form
+    public partial class UnitTestManager : VisualForm
     {
         #region Variables
 
@@ -23,6 +27,7 @@
         public UnitTestManager()
         {
             InitializeComponent();
+            _visualControlBox.HelpClick += VisualControlBox_HelpClick;
         }
 
         #endregion
@@ -43,7 +48,7 @@
 
         #region Methods
 
-        private void BtnOpen_Click(object sender, EventArgs e)
+        private void BtnRunTest_Click(object sender, EventArgs e)
         {
             Form _formToOpen;
 
@@ -72,7 +77,7 @@
 
         private void ListBoxTests_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _unitTest = (UnitTests)listBoxTests.SelectedIndex;
+            _unitTest = (UnitTests)visualListBoxTests.SelectedIndex;
         }
 
         private void TestManager_Load(object sender, EventArgs e)
@@ -80,12 +85,19 @@
             _unitTest = UnitTests.VisualListViewAdvanced;
 
             Array _tests = typeof(UnitTests).GetEnumValues();
+            visualLabelTestsCount.Text = $@"Tests Count: {_tests.Length}";
+
             foreach (object test in _tests)
             {
-                listBoxTests.Items.Add(test);
+                visualListBoxTests.Items.Add(test);
             }
 
-            listBoxTests.SelectedIndex = 0;
+            visualListBoxTests.SelectedIndex = 0;
+        }
+
+        private void VisualControlBox_HelpClick(ControlBoxEventArgs e)
+        {
+            Process.Start("https://darkbyte7.github.io/VisualPlus/");
         }
 
         #endregion

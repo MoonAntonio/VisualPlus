@@ -32,13 +32,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VisualListViewTest));
+            VisualPlus.Structure.TextStyle textStyle1 = new VisualPlus.Structure.TextStyle();
+            VisualPlus.Structure.TextStyle textStyle2 = new VisualPlus.Structure.TextStyle();
+            VisualPlus.Structure.TextStyle textStyle3 = new VisualPlus.Structure.TextStyle();
             VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn1 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
             VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn2 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
             VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn3 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
             VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn4 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VisualListViewTest));
-            VisualPlus.Structure.TextStyle textStyle1 = new VisualPlus.Structure.TextStyle();
-            VisualPlus.Structure.TextStyle textStyle2 = new VisualPlus.Structure.TextStyle();
+            VisualPlus.Structure.TextStyle textStyle4 = new VisualPlus.Structure.TextStyle();
+            VisualPlus.Structure.TextStyle textStyle5 = new VisualPlus.Structure.TextStyle();
+            VisualPlus.Structure.Border border1 = new VisualPlus.Structure.Border();
             this.visualListViewAdvanced1 = new VisualPlus.Toolkit.Controls.DataManagement.VisualListViewAdvanced();
             this.imageListColumns = new System.Windows.Forms.ImageList(this.components);
             this.imageListItems = new System.Windows.Forms.ImageList(this.components);
@@ -46,11 +50,95 @@
             this.BtnAdd = new VisualPlus.Toolkit.Controls.Interactivity.VisualButton();
             this.SuspendLayout();
             // 
+            // _visualControlBox
+            // 
+            // 
+            // 
+            // 
+            this._visualControlBox.HelpButton.BackColorState.Disabled = System.Drawing.Color.Transparent;
+            this._visualControlBox.HelpButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
+            this._visualControlBox.HelpButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
+            this._visualControlBox.HelpButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this._visualControlBox.HelpButton.BoxType = VisualPlus.Structure.ControlBoxButton.ControlBoxType.Default;
+            this._visualControlBox.HelpButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this._visualControlBox.HelpButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this._visualControlBox.HelpButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this._visualControlBox.HelpButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this._visualControlBox.HelpButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            this._visualControlBox.HelpButton.Location = new System.Drawing.Point(0, 0);
+            this._visualControlBox.HelpButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this._visualControlBox.HelpButton.Name = "";
+            this._visualControlBox.HelpButton.OffsetLocation = new System.Drawing.Point(0, 1);
+            this._visualControlBox.HelpButton.Size = new System.Drawing.Size(24, 25);
+            this._visualControlBox.HelpButton.TabIndex = 0;
+            this._visualControlBox.HelpButton.Text = "s";
+            textStyle1.Disabled = System.Drawing.Color.Empty;
+            textStyle1.Enabled = System.Drawing.Color.Empty;
+            textStyle1.Hover = System.Drawing.Color.Empty;
+            textStyle1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this._visualControlBox.HelpButton.TextStyle = textStyle1;
+            this._visualControlBox.HelpButton.Visible = false;
+            this._visualControlBox.Location = new System.Drawing.Point(462, 4);
+            // 
+            // 
+            // 
+            this._visualControlBox.MaximizeButton.BackColorState.Disabled = System.Drawing.Color.Transparent;
+            this._visualControlBox.MaximizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
+            this._visualControlBox.MaximizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
+            this._visualControlBox.MaximizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this._visualControlBox.MaximizeButton.BoxType = VisualPlus.Structure.ControlBoxButton.ControlBoxType.Default;
+            this._visualControlBox.MaximizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this._visualControlBox.MaximizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this._visualControlBox.MaximizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this._visualControlBox.MaximizeButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this._visualControlBox.MaximizeButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
+            this._visualControlBox.MaximizeButton.Location = new System.Drawing.Point(24, 0);
+            this._visualControlBox.MaximizeButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this._visualControlBox.MaximizeButton.Name = "";
+            this._visualControlBox.MaximizeButton.OffsetLocation = new System.Drawing.Point(1, 1);
+            this._visualControlBox.MaximizeButton.Size = new System.Drawing.Size(24, 25);
+            this._visualControlBox.MaximizeButton.TabIndex = 2;
+            this._visualControlBox.MaximizeButton.Text = "1";
+            textStyle2.Disabled = System.Drawing.Color.Empty;
+            textStyle2.Enabled = System.Drawing.Color.Empty;
+            textStyle2.Hover = System.Drawing.Color.Empty;
+            textStyle2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this._visualControlBox.MaximizeButton.TextStyle = textStyle2;
+            // 
+            // 
+            // 
+            this._visualControlBox.MinimizeButton.BackColorState.Disabled = System.Drawing.Color.Transparent;
+            this._visualControlBox.MinimizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
+            this._visualControlBox.MinimizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
+            this._visualControlBox.MinimizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this._visualControlBox.MinimizeButton.BoxType = VisualPlus.Structure.ControlBoxButton.ControlBoxType.Default;
+            this._visualControlBox.MinimizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this._visualControlBox.MinimizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this._visualControlBox.MinimizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this._visualControlBox.MinimizeButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this._visualControlBox.MinimizeButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
+            this._visualControlBox.MinimizeButton.Location = new System.Drawing.Point(0, 0);
+            this._visualControlBox.MinimizeButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this._visualControlBox.MinimizeButton.Name = "";
+            this._visualControlBox.MinimizeButton.OffsetLocation = new System.Drawing.Point(2, 0);
+            this._visualControlBox.MinimizeButton.Size = new System.Drawing.Size(24, 25);
+            this._visualControlBox.MinimizeButton.TabIndex = 1;
+            this._visualControlBox.MinimizeButton.Text = "0";
+            textStyle3.Disabled = System.Drawing.Color.Empty;
+            textStyle3.Enabled = System.Drawing.Color.Empty;
+            textStyle3.Hover = System.Drawing.Color.Empty;
+            textStyle3.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this._visualControlBox.MinimizeButton.TextStyle = textStyle3;
+            this._visualControlBox.Size = new System.Drawing.Size(72, 25);
+            // 
             // visualListViewAdvanced1
             // 
             this.visualListViewAdvanced1.AllowColumnResize = true;
             this.visualListViewAdvanced1.AlternateBackground = System.Drawing.Color.DarkGreen;
             this.visualListViewAdvanced1.AlternatingColors = false;
+            this.visualListViewAdvanced1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.visualListViewAdvanced1.AutoHeight = true;
             this.visualListViewAdvanced1.BackColor = System.Drawing.Color.White;
             this.visualListViewAdvanced1.BackgroundStretchToFit = true;
@@ -97,7 +185,6 @@
             this.visualListViewAdvanced1.DisplayTextColor = System.Drawing.Color.DimGray;
             this.visualListViewAdvanced1.DisplayTextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.visualListViewAdvanced1.DisplayTextOnEmpty = true;
-            this.visualListViewAdvanced1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.visualListViewAdvanced1.FullRowSelect = true;
             this.visualListViewAdvanced1.GridColor = System.Drawing.Color.LightGray;
             this.visualListViewAdvanced1.GridLines = VisualPlus.Enumerators.GridLines.Both;
@@ -113,16 +200,16 @@
             this.visualListViewAdvanced1.HoverTime = 1;
             this.visualListViewAdvanced1.ImageListColumns = this.imageListColumns;
             this.visualListViewAdvanced1.ImageListItems = this.imageListItems;
-            this.visualListViewAdvanced1.ItemHeight = 17;
+            this.visualListViewAdvanced1.ItemHeight = 20;
             this.visualListViewAdvanced1.ItemWordWrap = false;
-            this.visualListViewAdvanced1.Location = new System.Drawing.Point(0, 80);
+            this.visualListViewAdvanced1.Location = new System.Drawing.Point(13, 75);
             this.visualListViewAdvanced1.MultiSelect = true;
             this.visualListViewAdvanced1.Name = "visualListViewAdvanced1";
             this.visualListViewAdvanced1.Selectable = true;
             this.visualListViewAdvanced1.SelectedTextColor = System.Drawing.Color.White;
             this.visualListViewAdvanced1.SelectionColor = System.Drawing.Color.CornflowerBlue;
             this.visualListViewAdvanced1.ShowFocusRect = false;
-            this.visualListViewAdvanced1.Size = new System.Drawing.Size(482, 231);
+            this.visualListViewAdvanced1.Size = new System.Drawing.Size(511, 259);
             this.visualListViewAdvanced1.SortType = VisualPlus.Enumerators.SortTypes.InsertionSort;
             this.visualListViewAdvanced1.SuperFlatHeaderColor = System.Drawing.Color.White;
             this.visualListViewAdvanced1.TabIndex = 0;
@@ -160,20 +247,20 @@
             this.BtnRemove.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.BtnRemove.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.BtnRemove.Image = null;
-            this.BtnRemove.Location = new System.Drawing.Point(158, 12);
+            this.BtnRemove.Location = new System.Drawing.Point(109, 38);
             this.BtnRemove.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.BtnRemove.Name = "BtnRemove";
-            this.BtnRemove.Size = new System.Drawing.Size(140, 45);
+            this.BtnRemove.Size = new System.Drawing.Size(90, 31);
             this.BtnRemove.TabIndex = 3;
             this.BtnRemove.Text = "Remove";
             this.BtnRemove.TextAlignment = System.Drawing.StringAlignment.Center;
             this.BtnRemove.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.BtnRemove.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            textStyle1.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            textStyle1.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            textStyle1.Hover = System.Drawing.Color.Empty;
-            textStyle1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.BtnRemove.TextStyle = textStyle1;
+            textStyle4.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            textStyle4.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            textStyle4.Hover = System.Drawing.Color.Empty;
+            textStyle4.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.BtnRemove.TextStyle = textStyle4;
             this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // BtnAdd
@@ -192,33 +279,59 @@
             this.BtnAdd.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.BtnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.BtnAdd.Image = null;
-            this.BtnAdd.Location = new System.Drawing.Point(12, 12);
+            this.BtnAdd.Location = new System.Drawing.Point(13, 38);
             this.BtnAdd.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(140, 45);
+            this.BtnAdd.Size = new System.Drawing.Size(90, 31);
             this.BtnAdd.TabIndex = 2;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.TextAlignment = System.Drawing.StringAlignment.Center;
             this.BtnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.BtnAdd.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            textStyle2.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            textStyle2.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            textStyle2.Hover = System.Drawing.Color.Empty;
-            textStyle2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.BtnAdd.TextStyle = textStyle2;
+            textStyle5.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            textStyle5.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            textStyle5.Hover = System.Drawing.Color.Empty;
+            textStyle5.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.BtnAdd.TextStyle = textStyle5;
             this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // VisualListViewTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 311);
+            this.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.Border.HoverVisible = true;
+            this.Border.Rounding = 6;
+            this.Border.Thickness = 3;
+            this.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
+            this.Border.Visible = true;
+            this.ClientSize = new System.Drawing.Size(538, 348);
             this.Controls.Add(this.visualListViewAdvanced1);
             this.Controls.Add(this.BtnRemove);
             this.Controls.Add(this.BtnAdd);
+            border1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            border1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            border1.HoverVisible = false;
+            border1.Rounding = 6;
+            border1.Thickness = 1;
+            border1.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            border1.Visible = false;
+            this.Image.Border = border1;
+            this.Image.Image = ((System.Drawing.Bitmap)(resources.GetObject("resource.Image3")));
+            this.Image.Point = new System.Drawing.Point(5, 7);
+            this.Image.Size = new System.Drawing.Size(16, 16);
+            this.Image.Visible = true;
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
             this.Name = "VisualListViewTest";
-            this.Text = "VisualListView Test";
+            this.Text = "VisualListView Extended Test";
+            this.TextRectangle = new System.Drawing.Rectangle(193, 7, 153, 13);
             this.Load += new System.EventHandler(this.VisualListViewTest_Load);
+            this.Controls.SetChildIndex(this.BtnAdd, 0);
+            this.Controls.SetChildIndex(this.BtnRemove, 0);
+            this.Controls.SetChildIndex(this.visualListViewAdvanced1, 0);
+            this.Controls.SetChildIndex(this._visualControlBox, 0);
             this.ResumeLayout(false);
 
         }

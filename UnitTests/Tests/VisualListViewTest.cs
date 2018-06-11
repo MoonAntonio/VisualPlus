@@ -9,11 +9,12 @@
     using VisualPlus.EventArgs;
     using VisualPlus.Toolkit.Child;
     using VisualPlus.Toolkit.Controls.DataVisualization;
+    using VisualPlus.Toolkit.Dialogs;
 
     #endregion
 
     /// <summary>The visual list view test.</summary>
-    public partial class VisualListViewTest : Form
+    public partial class VisualListViewTest : VisualForm
     {
         #region Constructors
 
