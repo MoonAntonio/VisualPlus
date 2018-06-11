@@ -43,7 +43,7 @@
             VisualPlus.Structure.TextStyle textStyle4 = new VisualPlus.Structure.TextStyle();
             VisualPlus.Structure.TextStyle textStyle5 = new VisualPlus.Structure.TextStyle();
             VisualPlus.Structure.Border border1 = new VisualPlus.Structure.Border();
-            this.visualListViewAdvanced1 = new VisualPlus.Toolkit.Controls.DataManagement.VisualListViewAdvanced();
+            this.visualListViewExTest = new VisualPlus.Toolkit.Controls.DataManagement.VisualListViewEx();
             this.imageListColumns = new System.Windows.Forms.ImageList(this.components);
             this.imageListItems = new System.Windows.Forms.ImageList(this.components);
             this.BtnRemove = new VisualPlus.Toolkit.Controls.Interactivity.VisualButton();
@@ -131,18 +131,18 @@
             this._visualControlBox.MinimizeButton.TextStyle = textStyle3;
             this._visualControlBox.Size = new System.Drawing.Size(72, 25);
             // 
-            // visualListViewAdvanced1
+            // visualListViewExTest
             // 
-            this.visualListViewAdvanced1.AllowColumnResize = true;
-            this.visualListViewAdvanced1.AlternateBackground = System.Drawing.Color.DarkGreen;
-            this.visualListViewAdvanced1.AlternatingColors = false;
-            this.visualListViewAdvanced1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.visualListViewExTest.AllowColumnResize = true;
+            this.visualListViewExTest.AlternateBackground = System.Drawing.Color.DarkGreen;
+            this.visualListViewExTest.AlternatingColors = false;
+            this.visualListViewExTest.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.visualListViewAdvanced1.AutoHeight = true;
-            this.visualListViewAdvanced1.BackColor = System.Drawing.Color.White;
-            this.visualListViewAdvanced1.BackgroundStretchToFit = true;
-            this.visualListViewAdvanced1.BorderVisible = false;
+            this.visualListViewExTest.AutoHeight = true;
+            this.visualListViewExTest.BackColor = System.Drawing.Color.White;
+            this.visualListViewExTest.BackgroundStretchToFit = true;
+            this.visualListViewExTest.BorderVisible = false;
             visualListViewColumn1.CheckBoxes = true;
             visualListViewColumn1.EmbeddedType = VisualPlus.Enumerators.LVActivatedEmbeddedTypes.None;
             visualListViewColumn1.ImageIndex = -1;
@@ -175,45 +175,45 @@
             visualListViewColumn4.Text = "Progress";
             visualListViewColumn4.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             visualListViewColumn4.Width = 100;
-            this.visualListViewAdvanced1.Columns.AddRange(new VisualPlus.Toolkit.Child.VisualListViewColumn[] {
+            this.visualListViewExTest.Columns.AddRange(new VisualPlus.Toolkit.Child.VisualListViewColumn[] {
             visualListViewColumn1,
             visualListViewColumn2,
             visualListViewColumn3,
             visualListViewColumn4});
-            this.visualListViewAdvanced1.ControlStyle = VisualPlus.Enumerators.LVControlStyles.SuperFlat;
-            this.visualListViewAdvanced1.DisplayText = "The list is empty.";
-            this.visualListViewAdvanced1.DisplayTextColor = System.Drawing.Color.DimGray;
-            this.visualListViewAdvanced1.DisplayTextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.visualListViewAdvanced1.DisplayTextOnEmpty = true;
-            this.visualListViewAdvanced1.FullRowSelect = true;
-            this.visualListViewAdvanced1.GridColor = System.Drawing.Color.LightGray;
-            this.visualListViewAdvanced1.GridLines = VisualPlus.Enumerators.GridLines.Both;
-            this.visualListViewAdvanced1.GridLineStyle = VisualPlus.Enumerators.GridLineStyle.Solid;
-            this.visualListViewAdvanced1.GridTypes = VisualPlus.Enumerators.GridTypes.Normal;
-            this.visualListViewAdvanced1.HeaderHeight = 22;
-            this.visualListViewAdvanced1.HeaderVisible = true;
-            this.visualListViewAdvanced1.HeaderWordWrap = false;
-            this.visualListViewAdvanced1.HotColumnTracking = true;
-            this.visualListViewAdvanced1.HotItemTracking = true;
-            this.visualListViewAdvanced1.HotTrackingColor = System.Drawing.Color.LightGray;
-            this.visualListViewAdvanced1.HoverEvents = false;
-            this.visualListViewAdvanced1.HoverTime = 1;
-            this.visualListViewAdvanced1.ImageListColumns = this.imageListColumns;
-            this.visualListViewAdvanced1.ImageListItems = this.imageListItems;
-            this.visualListViewAdvanced1.ItemHeight = 20;
-            this.visualListViewAdvanced1.ItemWordWrap = false;
-            this.visualListViewAdvanced1.Location = new System.Drawing.Point(13, 75);
-            this.visualListViewAdvanced1.MultiSelect = true;
-            this.visualListViewAdvanced1.Name = "visualListViewAdvanced1";
-            this.visualListViewAdvanced1.Selectable = true;
-            this.visualListViewAdvanced1.SelectedTextColor = System.Drawing.Color.White;
-            this.visualListViewAdvanced1.SelectionColor = System.Drawing.Color.CornflowerBlue;
-            this.visualListViewAdvanced1.ShowFocusRect = false;
-            this.visualListViewAdvanced1.Size = new System.Drawing.Size(511, 259);
-            this.visualListViewAdvanced1.SortType = VisualPlus.Enumerators.SortTypes.InsertionSort;
-            this.visualListViewAdvanced1.SuperFlatHeaderColor = System.Drawing.Color.White;
-            this.visualListViewAdvanced1.TabIndex = 0;
-            this.visualListViewAdvanced1.Text = "visualListViewAdvanced1";
+            this.visualListViewExTest.ControlStyle = VisualPlus.Enumerators.LVControlStyles.SuperFlat;
+            this.visualListViewExTest.DisplayText = "The list is empty.";
+            this.visualListViewExTest.DisplayTextColor = System.Drawing.Color.DimGray;
+            this.visualListViewExTest.DisplayTextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.visualListViewExTest.DisplayTextOnEmpty = true;
+            this.visualListViewExTest.FullRowSelect = true;
+            this.visualListViewExTest.GridColor = System.Drawing.Color.LightGray;
+            this.visualListViewExTest.GridLines = VisualPlus.Enumerators.GridLines.Both;
+            this.visualListViewExTest.GridLineStyle = VisualPlus.Enumerators.GridLineStyle.Solid;
+            this.visualListViewExTest.GridTypes = VisualPlus.Enumerators.GridTypes.Normal;
+            this.visualListViewExTest.HeaderHeight = 22;
+            this.visualListViewExTest.HeaderVisible = true;
+            this.visualListViewExTest.HeaderWordWrap = false;
+            this.visualListViewExTest.HotColumnTracking = true;
+            this.visualListViewExTest.HotItemTracking = true;
+            this.visualListViewExTest.HotTrackingColor = System.Drawing.Color.LightGray;
+            this.visualListViewExTest.HoverEvents = false;
+            this.visualListViewExTest.HoverTime = 1;
+            this.visualListViewExTest.ImageListColumns = this.imageListColumns;
+            this.visualListViewExTest.ImageListItems = this.imageListItems;
+            this.visualListViewExTest.ItemHeight = 20;
+            this.visualListViewExTest.ItemWordWrap = false;
+            this.visualListViewExTest.Location = new System.Drawing.Point(13, 75);
+            this.visualListViewExTest.MultiSelect = true;
+            this.visualListViewExTest.Name = "visualListViewExTest";
+            this.visualListViewExTest.Selectable = true;
+            this.visualListViewExTest.SelectedTextColor = System.Drawing.Color.White;
+            this.visualListViewExTest.SelectionColor = System.Drawing.Color.CornflowerBlue;
+            this.visualListViewExTest.ShowFocusRect = false;
+            this.visualListViewExTest.Size = new System.Drawing.Size(511, 259);
+            this.visualListViewExTest.SortType = VisualPlus.Enumerators.SortTypes.InsertionSort;
+            this.visualListViewExTest.SuperFlatHeaderColor = System.Drawing.Color.White;
+            this.visualListViewExTest.TabIndex = 0;
+            this.visualListViewExTest.Text = "visualListViewAdvanced1";
             // 
             // imageListColumns
             // 
@@ -307,7 +307,7 @@
             this.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
             this.Border.Visible = true;
             this.ClientSize = new System.Drawing.Size(538, 348);
-            this.Controls.Add(this.visualListViewAdvanced1);
+            this.Controls.Add(this.visualListViewExTest);
             this.Controls.Add(this.BtnRemove);
             this.Controls.Add(this.BtnAdd);
             border1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
@@ -330,7 +330,7 @@
             this.Load += new System.EventHandler(this.VisualListViewTest_Load);
             this.Controls.SetChildIndex(this.BtnAdd, 0);
             this.Controls.SetChildIndex(this.BtnRemove, 0);
-            this.Controls.SetChildIndex(this.visualListViewAdvanced1, 0);
+            this.Controls.SetChildIndex(this.visualListViewExTest, 0);
             this.Controls.SetChildIndex(this._visualControlBox, 0);
             this.ResumeLayout(false);
 
@@ -338,7 +338,7 @@
 
         #endregion
 
-        private VisualListViewAdvanced visualListViewAdvanced1;
+        private VisualListViewEx visualListViewExTest;
         private VisualPlus.Toolkit.Controls.Interactivity.VisualButton BtnAdd;
         private VisualPlus.Toolkit.Controls.Interactivity.VisualButton BtnRemove;
         private System.Windows.Forms.ImageList imageListColumns;

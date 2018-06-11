@@ -18,7 +18,7 @@ namespace VisualPlus.ActionList
     {
         #region Variables
 
-        private VisualListViewAdvanced _control;
+        private VisualListViewEx _control;
         private DesignerActionUIService _designerService;
 
         private bool _dockState;
@@ -30,7 +30,7 @@ namespace VisualPlus.ActionList
 
         public VisualListViewAdvActionList(IComponent component) : base(component)
         {
-            _control = (VisualListViewAdvanced)component;
+            _control = (VisualListViewEx)component;
             _designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
 
             _dockText = "Dock in Parent Container.";

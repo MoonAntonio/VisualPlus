@@ -18,7 +18,7 @@
 
         private Container _components;
         private VisualListViewItem _item;
-        private VisualListViewAdvanced _owner;
+        private VisualListViewEx _owner;
         private VisualListViewSubItem _subItem;
 
         #endregion
@@ -48,7 +48,7 @@
             }
         }
 
-        public VisualListViewAdvanced ListView
+        public VisualListViewEx ListView
         {
             get
             {
@@ -128,7 +128,7 @@
             KeyPress += GLTextBox_KeyPress;
         }
 
-        public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewAdvanced listView)
+        public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewEx listView)
         {
             // populate this control however you wish with item
             // set the styles you want for this

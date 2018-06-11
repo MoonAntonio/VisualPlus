@@ -29,7 +29,7 @@
         private ColumnStates _columnState;
         private int _imageIndex;
         private SortDirections _lastSortDirection;
-        private VisualListViewAdvanced _listView;
+        private VisualListViewEx _listView;
         private string _name;
         private bool _numericSort;
         private object _tag;
@@ -206,7 +206,7 @@
         [Browsable(false)]
         [Description(PropertyDescription.Parent)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public VisualListViewAdvanced ListView
+        public VisualListViewEx ListView
         {
             get
             {

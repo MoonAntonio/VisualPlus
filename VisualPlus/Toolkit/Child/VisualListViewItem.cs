@@ -31,7 +31,7 @@
         private Color _foreColor;
         private ImageList _imageList;
         private int _lastIndex;
-        private VisualListViewAdvanced _listView;
+        private VisualListViewEx _listView;
         private Color _rowBorderColor;
         private int _rowBorderSize;
         private bool _selected;
@@ -48,7 +48,7 @@
             _selected = false;
             _tag = null;
             _foreColor = Color.Black;
-            _listView = new VisualListViewAdvanced();
+            _listView = new VisualListViewEx();
             _rowBorderColor = Color.Black;
             _rowBorderSize = 0;
             _backColor = Color.White;
@@ -72,7 +72,7 @@
         /// <param name="subItems">The array of type <see cref="VisualListViewSubItem" /> that represents the subitems of the item.</param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewAdvanced" /> that contains the item.
+        ///     <see cref="VisualListViewEx" /> that contains the item.
         /// </param>
         public VisualListViewItem(VisualListViewSubItem[] subItems, int imageIndex) : this()
         {
@@ -92,7 +92,7 @@
         /// </param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewAdvanced" /> that contains the item.
+        ///     <see cref="VisualListViewEx" /> that contains the item.
         /// </param>
         public VisualListViewItem(VisualListViewSubItemCollection subItems, int imageIndex) : this()
         {
@@ -109,7 +109,7 @@
         /// <param name="text">The text to display for the item. This should not exceed 259 characters.</param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewAdvanced" /> that contains the item.
+        ///     <see cref="VisualListViewEx" /> that contains the item.
         /// </param>
         public VisualListViewItem(string text, int imageIndex) : this()
         {
@@ -133,7 +133,7 @@
         /// <param name="items">An array of string that represent the subitems of the new item.</param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewAdvanced" /> that contains the item.
+        ///     <see cref="VisualListViewEx" /> that contains the item.
         /// </param>
         public VisualListViewItem(string[] items, int imageIndex) : this()
         {
@@ -152,7 +152,7 @@
         /// <param name="items">An array of string that represent the subitems of the new item.</param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewAdvanced" /> that contains the item.
+        ///     <see cref="VisualListViewEx" /> that contains the item.
         /// </param>
         /// <param name="foreColor">A <see cref="Color" /> that represents the foreground color of the item.</param>
         /// <param name="backColor">A <see cref="Color" /> that represents the background color of the item.</param>
@@ -345,7 +345,7 @@
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public VisualListViewAdvanced ListView
+        public VisualListViewEx ListView
         {
             get
             {
@@ -542,7 +542,7 @@
             return _listViewItem;
         }
 
-        /// <summary>Removes the item from its associated <see cref="VisualListViewAdvanced" /> control.</summary>
+        /// <summary>Removes the item from its associated <see cref="VisualListViewEx" /> control.</summary>
         public virtual void Remove()
         {
             _listView?.Items.Remove(this);

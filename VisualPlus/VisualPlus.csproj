@@ -176,7 +176,7 @@
     <Compile Include="Enumerators\LVControlStyles.cs" />
     <Compile Include="Enumerators\GridLines.cs" />
     <Compile Include="Enumerators\SortTypes.cs" />
-    <Compile Include="Toolkit\Controls\DataManagement\VisualListViewAdvanced.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\VisualListViewEx.cs" />
     <Compile Include="Toolkit\Child\VisualListViewColumn.cs" />
     <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\LVMergeSort.cs" />
     <Compile Include="Collections\CollectionBase\VisualListViewSubItemCollection.cs" />

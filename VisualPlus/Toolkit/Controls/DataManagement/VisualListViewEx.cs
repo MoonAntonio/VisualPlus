@@ -36,9 +36,9 @@
     [Description("The Visual ListView")]
 
     // [Designer(typeof(VisualListViewAdvDesigner))]
-    [ToolboxBitmap(typeof(VisualListViewAdvanced), "VisualListView.bmp")]
+    [ToolboxBitmap(typeof(VisualListViewEx), "VisualListView.bmp")]
     [ToolboxItem(true)]
-    public partial class VisualListViewAdvanced : VisualControlBase
+    public partial class VisualListViewEx : VisualControlBase
     {
         #region Variables
 
@@ -111,8 +111,8 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualListViewAdvanced" /> class.</summary>
-        public VisualListViewAdvanced()
+        /// <summary>Initializes a new instance of the <see cref="VisualListViewEx" /> class.</summary>
+        public VisualListViewEx()
         {
             DebugTraceManager.WriteDebug("VisualListView::Constructor", DebugTraceManager.DebugOutput.TraceListener);
 

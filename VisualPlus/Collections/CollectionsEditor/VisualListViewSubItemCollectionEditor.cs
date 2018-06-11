@@ -54,7 +54,7 @@
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider isp, object value)
         {
-            VisualListViewAdvanced originalControl = (VisualListViewAdvanced)context.Instance;
+            VisualListViewEx originalControl = (VisualListViewEx)context.Instance;
 
             object returnObject = base.EditValue(context, isp, value);
 

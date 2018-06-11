@@ -12,7 +12,7 @@
 
         VisualListViewItem Item { get; set; }
 
-        VisualListViewAdvanced ListView { get; set; }
+        VisualListViewEx ListView { get; set; }
 
         VisualListViewSubItem SubItem { get; set; }
 
@@ -25,7 +25,7 @@
         /// <param name="subItem">The sub item.</param>
         /// <param name="listView">The list view.</param>
         /// <returns>The <see cref="bool" />.</returns>
-        bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewAdvanced listView);
+        bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewEx listView);
 
         /// <summary>The return text string.</summary>
         /// <returns>The <see cref="string" />.</returns>

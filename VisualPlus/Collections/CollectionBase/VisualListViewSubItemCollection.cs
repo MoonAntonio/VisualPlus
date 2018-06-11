@@ -25,7 +25,7 @@
         #region Variables
 
         private int _lastAccessedIndex;
-        private VisualListViewAdvanced _listView;
+        private VisualListViewEx _listView;
         private VisualListViewItem _owner;
 
         #endregion
@@ -101,7 +101,7 @@
         [Browsable(false)]
         [Description(PropertyDescription.Parent)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public VisualListViewAdvanced ListView
+        public VisualListViewEx ListView
         {
             get
             {

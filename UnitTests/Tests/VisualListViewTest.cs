@@ -22,9 +22,8 @@
         {
             InitializeComponent();
 
-            visualListViewAdvanced1.DisplayText = "No tasks in the current view." + Environment.NewLine + Environment.NewLine + "Click 'Add' to create a new task.";
-
-            visualListViewAdvanced1.SelectedIndexChanged += VisualListViewAdvanced1_SelectedIndexChanged;
+            visualListViewExTest.DisplayText = "No tasks in the current view." + Environment.NewLine + Environment.NewLine + "Click 'Add' to create a new task.";
+            visualListViewExTest.SelectedIndexChanged += VisualListViewAdvanced1_SelectedIndexChanged;
         }
 
         #endregion
@@ -67,24 +66,24 @@
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             VisualListViewItem _listViewItem = GenerateItem();
-            visualListViewAdvanced1.Items.Add(_listViewItem);
+            visualListViewExTest.Items.Add(_listViewItem);
         }
 
         private void BtnRemove_Click(object sender, EventArgs e)
         {
-            foreach (VisualListViewItem _selectedItem in visualListViewAdvanced1.SelectedItems)
+            foreach (VisualListViewItem _selectedItem in visualListViewExTest.SelectedItems)
             {
-                visualListViewAdvanced1.Items.Remove(_selectedItem);
+                visualListViewExTest.Items.Remove(_selectedItem);
             }
         }
 
         private void VisualListViewAdvanced1_SelectedIndexChanged(object source, ListViewClickEventArgs e)
         {
-            int _columnIndex = visualListViewAdvanced1.ColumnIndex;
+            int _columnIndex = visualListViewExTest.ColumnIndex;
             int _rowIndex = e.ItemIndex;
-            string _column = visualListViewAdvanced1.Columns[_columnIndex].Text;
-            string _rowItem = visualListViewAdvanced1.Items[_rowIndex].Text;
-            string _rowSub = visualListViewAdvanced1.Items[_rowIndex].SubItems[_columnIndex].Text;
+            string _column = visualListViewExTest.Columns[_columnIndex].Text;
+            string _rowItem = visualListViewExTest.Items[_rowIndex].Text;
+            string _rowSub = visualListViewExTest.Items[_rowIndex].SubItems[_columnIndex].Text;
 
             StringBuilder _selectedIndex = new StringBuilder();
             _selectedIndex.AppendLine($"Column: [{_columnIndex}] - Text: {_column}");
@@ -99,15 +98,15 @@
             for (var i = 0; i < 5; i++)
             {
                 VisualListViewItem _listViewItem = GenerateItem();
-                visualListViewAdvanced1.Items.Add(_listViewItem);
+                visualListViewExTest.Items.Add(_listViewItem);
             }
 
-            visualListViewAdvanced1.Items[1].Selected = true;
+            visualListViewExTest.Items[1].Selected = true;
 
-            visualListViewAdvanced1.Columns[0].ImageIndex = 0;
-            visualListViewAdvanced1.Columns[1].ImageIndex = 1;
-            visualListViewAdvanced1.Columns[2].ImageIndex = 2;
-            visualListViewAdvanced1.Columns[3].ImageIndex = 3;
+            visualListViewExTest.Columns[0].ImageIndex = 0;
+            visualListViewExTest.Columns[1].ImageIndex = 1;
+            visualListViewExTest.Columns[2].ImageIndex = 2;
+            visualListViewExTest.Columns[3].ImageIndex = 3;
         }
 
         #endregion

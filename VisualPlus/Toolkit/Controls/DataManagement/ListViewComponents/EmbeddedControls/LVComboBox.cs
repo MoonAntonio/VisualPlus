@@ -18,7 +18,7 @@
 
         private Container _components;
         private VisualListViewItem _item;
-        private VisualListViewAdvanced _owner;
+        private VisualListViewEx _owner;
         private VisualListViewSubItem _subItem;
 
         #endregion
@@ -48,7 +48,7 @@
             }
         }
 
-        public VisualListViewAdvanced ListView
+        public VisualListViewEx ListView
         {
             get
             {
@@ -120,7 +120,7 @@
             _components = new Container();
         }
 
-        public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewAdvanced listView)
+        public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewEx listView)
         {
             _item = item;
             _subItem = subItem;

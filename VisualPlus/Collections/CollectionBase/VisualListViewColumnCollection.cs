@@ -23,15 +23,15 @@
     {
         #region Variables
 
-        private VisualListViewAdvanced _listView;
+        private VisualListViewEx _listView;
 
         #endregion
 
         #region Constructors
 
         /// <summary>Initializes a new instance of the <see cref="VisualListViewColumnCollection" /> class.</summary>
-        /// <param name="owner">The <see cref="VisualListViewAdvanced" /> parent control.</param>
-        public VisualListViewColumnCollection(VisualListViewAdvanced owner)
+        /// <param name="owner">The <see cref="VisualListViewEx" /> parent control.</param>
+        public VisualListViewColumnCollection(VisualListViewEx owner)
         {
             _listView = owner;
         }
@@ -50,7 +50,7 @@
 
         [Browsable(false)]
         [Description(PropertyDescription.Parent)]
-        public VisualListViewAdvanced ListView
+        public VisualListViewEx ListView
         {
             get
             {

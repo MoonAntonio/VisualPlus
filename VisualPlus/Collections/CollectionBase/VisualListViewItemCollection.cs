@@ -24,7 +24,7 @@
     {
         #region Variables
 
-        private VisualListViewAdvanced _listView;
+        private VisualListViewEx _listView;
         private bool _suspendEvents;
 
         #endregion
@@ -33,7 +33,7 @@
 
         /// <summary>Initializes a new instance of the <see cref="VisualListViewItemCollection" /> class.</summary>
         /// <param name="owner">The new Parent.</param>
-        public VisualListViewItemCollection(VisualListViewAdvanced owner)
+        public VisualListViewItemCollection(VisualListViewEx owner)
         {
             ListView = owner;
         }
@@ -52,7 +52,7 @@
 
         [Browsable(false)]
         [Description(PropertyDescription.Parent)]
-        public VisualListViewAdvanced ListView
+        public VisualListViewEx ListView
         {
             get
             {
