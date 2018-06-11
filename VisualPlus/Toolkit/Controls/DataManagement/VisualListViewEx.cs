@@ -77,6 +77,7 @@
         private int _hotItemIndex;
         private bool _hotItemTracking;
         private Color _hotTrackingColor;
+        private VisualListViewItem _hoveredItem;
         private bool _hoverEvents;
         private bool _hoverLive;
         private int _hoverTime;
@@ -148,7 +149,7 @@
             _multiSelect = false;
             _hotItemTracking = true;
             _hotColumnTracking = true;
-
+            _hoveredItem = null;
             _displayTextOnEmpty = true;
             _displayTextColor = Color.DimGray;
             _displayText = "The list is empty.";
@@ -304,6 +305,10 @@
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event VisualItemCheckedEventHandler ItemChecked;
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event VisualItemCheckedEventHandler ItemMouseHover;
 
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
@@ -950,11 +955,6 @@
                         _hotColumnIndex = -1;
                         _hotItemIndex = value;
 
-                        if (_hotItemIndex > 0)
-                        {
-                            HoveredItem = _items[_hotItemIndex];
-                        }
-
                         DebugTraceManager.WriteDebug("Calling Invalidate From HotItemIndex", DebugTraceManager.DebugOutput.TraceListener);
                         Invalidate(true);
                     }
@@ -994,8 +994,15 @@
             }
         }
 
+        /// <summary>Gets the currently hovered item.</summary>
         [Browsable(false)]
-        public VisualListViewItem HoveredItem { get; private set; }
+        public VisualListViewItem HoveredItem
+        {
+            get
+            {
+                return _hoveredItem;
+            }
+        }
 
         [Description("Enabling hover events slows the control some but allows you to be informed when a user has hovered over an item.")]
         [Category(EventCategory.Behavior)]
@@ -1571,7 +1578,6 @@
 
                 ColumnClickedEvent?.Invoke(this, new ListViewClickEventArgs(_item, _column)); // fire the column clicked event
 
-                // Invalidate();
                 base.OnMouseDown(e);
                 return;
             }
@@ -1697,7 +1703,7 @@
         {
             // This is the HEADER hot state
             _columns.ClearHotStates();
-            HotItemIndex = -1;
+            _hotItemIndex = -1;
             _hotColumnIndex = -1;
 
             base.OnMouseLeave(e);
@@ -1734,13 +1740,16 @@
                 ListViewRegion _listRegion;
                 InterpretCoordinates(e.X, e.Y, out _listRegion, out _cellX, out _cellY, out _item, out _columnIndexer, out _listStates);
 
-                // Update the column index
+                // Update the column index.
                 _columnIndex = _columnIndexer;
+
+                // Update the hovered item.
+                _hoveredItem = _items[_item];
+                ItemMouseHover?.Invoke(_items[_item]);
 
                 if (_listStates == ListStates.ColumnResizing)
                 {
                     Cursor.Current = Cursors.VSplit;
-
                     OnMove(e);
                     return;
                 }
@@ -2652,11 +2661,10 @@
                 _hotColumnIndex = -1;
 
                 _itemIndex = ((_screenY - RowsInnerClientRect.Y) / ItemHeight) + _verticalScrollBar.Value;
-
-                // get inner cell Y
-                _cellY = (_screenY - RowsInnerClientRect.Y) % ItemHeight;
-
                 HotItemIndex = _itemIndex;
+
+                // Get inner cell Y
+                _cellY = (_screenY - RowsInnerClientRect.Y) % ItemHeight;
 
                 if ((_itemIndex >= _items.Count) || (_itemIndex > _verticalScrollBar.Value + VisibleRowsCount))
                 {
@@ -2685,7 +2693,7 @@
                     listRegion = ListViewRegion.Header;
 
                     // In the header.
-                    HotItemIndex = -1;
+                    _hotItemIndex = -1;
                     _hotColumnIndex = columnIndex;
 
                     if ((columnIndex > -1) && (columnIndex < Columns.Count) && !Columns.AnyPressed())
