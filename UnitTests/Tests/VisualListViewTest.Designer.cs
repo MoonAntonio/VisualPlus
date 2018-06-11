@@ -36,10 +36,12 @@
             VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn2 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
             VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn3 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
             VisualPlus.Toolkit.Child.VisualListViewColumn visualListViewColumn4 = new VisualPlus.Toolkit.Child.VisualListViewColumn();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VisualListViewTest));
             VisualPlus.Structure.TextStyle textStyle1 = new VisualPlus.Structure.TextStyle();
             VisualPlus.Structure.TextStyle textStyle2 = new VisualPlus.Structure.TextStyle();
-            VisualPlus.Structure.TextStyle textStyle3 = new VisualPlus.Structure.TextStyle();
             this.visualListViewAdvanced1 = new VisualPlus.Toolkit.Controls.DataManagement.VisualListViewAdvanced();
+            this.imageListColumns = new System.Windows.Forms.ImageList(this.components);
+            this.imageListItems = new System.Windows.Forms.ImageList(this.components);
             this.BtnRemove = new VisualPlus.Toolkit.Controls.Interactivity.VisualButton();
             this.BtnAdd = new VisualPlus.Toolkit.Controls.Interactivity.VisualButton();
             this.SuspendLayout();
@@ -59,7 +61,7 @@
             visualListViewColumn1.Name = "VisualListViewColumn1";
             visualListViewColumn1.NumericSort = false;
             visualListViewColumn1.Text = "Title";
-            visualListViewColumn1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            visualListViewColumn1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             visualListViewColumn1.Width = 100;
             visualListViewColumn2.CheckBoxes = false;
             visualListViewColumn2.EmbeddedType = VisualPlus.Enumerators.LVActivatedEmbeddedTypes.TextBox;
@@ -109,6 +111,8 @@
             this.visualListViewAdvanced1.HotTrackingColor = System.Drawing.Color.LightGray;
             this.visualListViewAdvanced1.HoverEvents = false;
             this.visualListViewAdvanced1.HoverTime = 1;
+            this.visualListViewAdvanced1.ImageListColumns = this.imageListColumns;
+            this.visualListViewAdvanced1.ImageListItems = this.imageListItems;
             this.visualListViewAdvanced1.ItemHeight = 17;
             this.visualListViewAdvanced1.ItemWordWrap = false;
             this.visualListViewAdvanced1.Location = new System.Drawing.Point(0, 80);
@@ -123,10 +127,22 @@
             this.visualListViewAdvanced1.SuperFlatHeaderColor = System.Drawing.Color.White;
             this.visualListViewAdvanced1.TabIndex = 0;
             this.visualListViewAdvanced1.Text = "visualListViewAdvanced1";
-            textStyle1.Disabled = System.Drawing.Color.Empty;
-            textStyle1.Enabled = System.Drawing.Color.Empty;
-            textStyle1.Hover = System.Drawing.Color.Empty;
-            textStyle1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            // 
+            // imageListColumns
+            // 
+            this.imageListColumns.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListColumns.ImageStream")));
+            this.imageListColumns.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListColumns.Images.SetKeyName(0, "title_window.png");
+            this.imageListColumns.Images.SetKeyName(1, "layout_content.png");
+            this.imageListColumns.Images.SetKeyName(2, "date.png");
+            this.imageListColumns.Images.SetKeyName(3, "progressbar.png");
+            // 
+            // imageListItems
+            // 
+            this.imageListItems.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListItems.ImageStream")));
+            this.imageListItems.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListItems.Images.SetKeyName(0, "tick_red.png");
+            this.imageListItems.Images.SetKeyName(1, "tick_green.png");
             // 
             // BtnRemove
             // 
@@ -153,11 +169,11 @@
             this.BtnRemove.TextAlignment = System.Drawing.StringAlignment.Center;
             this.BtnRemove.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.BtnRemove.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            textStyle2.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            textStyle2.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            textStyle2.Hover = System.Drawing.Color.Empty;
-            textStyle2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.BtnRemove.TextStyle = textStyle2;
+            textStyle1.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            textStyle1.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            textStyle1.Hover = System.Drawing.Color.Empty;
+            textStyle1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.BtnRemove.TextStyle = textStyle1;
             this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // BtnAdd
@@ -185,11 +201,11 @@
             this.BtnAdd.TextAlignment = System.Drawing.StringAlignment.Center;
             this.BtnAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.BtnAdd.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            textStyle3.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            textStyle3.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            textStyle3.Hover = System.Drawing.Color.Empty;
-            textStyle3.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.BtnAdd.TextStyle = textStyle3;
+            textStyle2.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            textStyle2.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            textStyle2.Hover = System.Drawing.Color.Empty;
+            textStyle2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.BtnAdd.TextStyle = textStyle2;
             this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // VisualListViewTest
@@ -212,5 +228,7 @@
         private VisualListViewAdvanced visualListViewAdvanced1;
         private VisualPlus.Toolkit.Controls.Interactivity.VisualButton BtnAdd;
         private VisualPlus.Toolkit.Controls.Interactivity.VisualButton BtnRemove;
+        private System.Windows.Forms.ImageList imageListColumns;
+        private System.Windows.Forms.ImageList imageListItems;
     }
 }

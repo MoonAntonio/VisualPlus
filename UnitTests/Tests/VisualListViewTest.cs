@@ -35,7 +35,12 @@
         private static VisualListViewItem GenerateItem()
         {
             VisualListViewItem _item = new VisualListViewItem(@"Item: " + new Random().Next(0, 1000));
-            _item.SubItems[0].CheckBox = true;
+            _item.CheckBox = true;
+
+            Random _imageIndexRandomize = new Random();
+            int _randomImageIndex = _imageIndexRandomize.Next(2);
+
+            _item.ImageIndex = _randomImageIndex;
 
             VisualListViewSubItem _content = new VisualListViewSubItem(@"Sub-Content: " + new Random().Next(0, 1000));
             VisualListViewSubItem _date = new VisualListViewSubItem(DateTime.Now.ToLongDateString());
@@ -93,6 +98,18 @@
             }
 
             visualListViewAdvanced1.Items[1].Selected = true;
+
+            visualListViewAdvanced1.Columns[0].ImageIndex = 0;
+            visualListViewAdvanced1.Columns[1].ImageIndex = 1;
+            visualListViewAdvanced1.Columns[2].ImageIndex = 2;
+            visualListViewAdvanced1.Columns[3].ImageIndex = 3;
+
+            visualListViewAdvanced1.Items[0].ImageIndex = 0;
+
+            //visualListViewAdvanced1.Items[0].SubItems[0].ImageIndex = 0;
+            //visualListViewAdvanced1.Items[1].SubItems[0].ImageIndex = 1;
+            //visualListViewAdvanced1.Items[2].SubItems[0].ImageIndex = 2;
+            //visualListViewAdvanced1.Items[3].SubItems[0].ImageIndex = 3;
         }
 
         #endregion

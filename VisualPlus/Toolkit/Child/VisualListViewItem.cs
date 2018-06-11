@@ -29,7 +29,6 @@
         private Color _backColor;
         private Font _font;
         private Color _foreColor;
-        private int _imageIndex;
         private ImageList _imageList;
         private int _lastIndex;
         private VisualListViewAdvanced _listView;
@@ -54,7 +53,6 @@
             _rowBorderSize = 0;
             _backColor = Color.White;
             _font = SystemFonts.DefaultFont;
-            _imageIndex = -1;
             _imageList = new ImageList();
             _lastIndex = -1;
 
@@ -78,7 +76,7 @@
         /// </param>
         public VisualListViewItem(VisualListViewSubItem[] subItems, int imageIndex) : this()
         {
-            _imageIndex = imageIndex;
+            _subItemCollection[0].ImageIndex = imageIndex;
 
             foreach (VisualListViewSubItem subItem in subItems)
             {
@@ -98,7 +96,7 @@
         /// </param>
         public VisualListViewItem(VisualListViewSubItemCollection subItems, int imageIndex) : this()
         {
-            _imageIndex = imageIndex;
+            _subItemCollection[0].ImageIndex = imageIndex;
 
             foreach (VisualListViewSubItem subItem in subItems)
             {
@@ -115,7 +113,7 @@
         /// </param>
         public VisualListViewItem(string text, int imageIndex) : this()
         {
-            _imageIndex = imageIndex;
+            _subItemCollection[0].ImageIndex = imageIndex;
             _subItemCollection[0].Text = text;
         }
 
@@ -139,7 +137,7 @@
         /// </param>
         public VisualListViewItem(string[] items, int imageIndex) : this()
         {
-            _imageIndex = imageIndex;
+            _subItemCollection[0].ImageIndex = imageIndex;
 
             if ((items != null) && (items.Length > 0))
             {
@@ -212,6 +210,38 @@
             }
         }
 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description(PropertyDescription.Toggle)]
+        public bool CheckBox
+        {
+            get
+            {
+                return _subItemCollection[0].CheckBox;
+            }
+
+            set
+            {
+                _subItemCollection[0].CheckBox = value;
+            }
+        }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description(PropertyDescription.Toggle)]
+        public bool Checked
+        {
+            get
+            {
+                return _subItemCollection[0].Checked;
+            }
+
+            set
+            {
+                _subItemCollection[0].Checked = value;
+            }
+        }
+
         [Browsable(true)]
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Font)]
@@ -277,22 +307,17 @@
         {
             get
             {
-                if ((_imageIndex != -1) && (_imageList != null) && (_imageIndex >= _imageList.Images.Count))
+                if ((_subItemCollection[0].ImageIndex != -1) && (_imageList != null) && (_subItemCollection[0].ImageIndex >= _imageList.Images.Count))
                 {
                     return _imageList.Images.Count - 1;
                 }
 
-                return _imageIndex;
+                return _subItemCollection[0].ImageIndex;
             }
 
             set
             {
-                if (value < -1)
-                {
-                    throw new ArgumentOutOfRangeException("ImageIndex");
-                }
-
-                _imageIndex = value;
+                _subItemCollection[0].ImageIndex = value;
 
                 if ((_listView != null) && _listView.IsHandleCreated)
                 {
@@ -493,7 +518,7 @@
 
             if (_clonedType == typeof(VisualListViewItem))
             {
-                _listViewItem = new VisualListViewItem(_clonedSubItemCollection, _imageIndex);
+                _listViewItem = new VisualListViewItem(_clonedSubItemCollection, _subItemCollection[0].ImageIndex);
             }
             else
             {
@@ -502,7 +527,7 @@
 
             _listViewItem = new VisualListViewItem(_clonedSubItemCollection, -1)
                 {
-                    ImageIndex = _imageIndex,
+                    ImageIndex = _subItemCollection[0].ImageIndex,
                     Tag = _tag,
                     BackColor = _backColor,
                     ForeColor = _foreColor,

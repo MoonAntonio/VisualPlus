@@ -235,9 +235,9 @@
             }
 
             // if there is an image, this routine will RETURN with exactly the space left for everything else after the image is drawn (or not drawn due to lack of space)
-            if ((column.ImageIndex > -1) && (listView.ImageList != null) && (column.ImageIndex < listView.ImageList.Images.Count))
+            if ((column.ImageIndex > -1) && (listView.ImageListColumns != null) && (column.ImageIndex < listView.ImageListColumns.Images.Count))
             {
-                rectColumn = DrawCellGraphic(graphicsColumn, rectColumn, listView.ImageList.Images[column.ImageIndex], HorizontalAlignment.Left, listView.CellPaddingSize, listView);
+                rectColumn = DrawCellGraphic(graphicsColumn, rectColumn, listView.ImageListColumns.Images[column.ImageIndex], HorizontalAlignment.Left, listView.CellPaddingSize, listView);
             }
 
             DrawCellText(graphicsColumn, rectColumn, column.Text, listView.Font, column.TextAlignment, listView.ForeColor, false, listView);
@@ -619,9 +619,9 @@
                 }
 
                 // if there is an image, this routine will RETURN with exactly the space left for everything else after the image is drawn (or not drawn due to lack of space)
-                if ((subItem.ImageIndex > -1) && (listView.ImageList != null) && (subItem.ImageIndex < listView.ImageList.Images.Count))
+                if ((subItem.ImageIndex > -1) && (listView.ImageListItems != null) && (subItem.ImageIndex < listView.ImageListItems.Images.Count))
                 {
-                    rectSubItem = DrawCellGraphic(graphicsSubItem, rectSubItem, listView.ImageList.Images[subItem.ImageIndex], subItem.ImageAlignment, cellPaddingSize, listView);
+                    rectSubItem = DrawCellGraphic(graphicsSubItem, rectSubItem, listView.ImageListItems.Images[subItem.ImageIndex], subItem.ImageAlignment, cellPaddingSize, listView);
                 }
 
                 // deal with text color in a box on whether it is selected or not

@@ -9,7 +9,6 @@
     using System.Diagnostics;
     using System.Drawing;
     using System.Drawing.Design;
-    using System.Resources;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
@@ -80,7 +79,8 @@
         private bool _hoverEvents;
         private bool _hoverLive;
         private int _hoverTime;
-        private ImageList _imageList;
+        private ImageList _imageListColumns;
+        private ImageList _imageListItems;
         private int _itemHeight;
         private VisualListViewItemCollection _items;
         private bool _itemWordWrap;
@@ -95,8 +95,10 @@
         private int _resizeColumnNumber;
         private bool _selectable;
         private Color _selectedTextColor;
+
         private bool _showFocusRect;
-        private ImageList _smallImageList;
+
+        // private ImageList _smallImageList;
         private SortTypes _sortType;
         private ListStates _state;
         private IntPtr _theme;
@@ -106,7 +108,6 @@
         private BorderStrip _verticalLeftBorderStrip;
         private BorderStrip _verticalRightBorderStrip;
         private ManagedVScrollBar _verticalScrollBar;
-        private ImageList imageList1;
 
         #endregion
 
@@ -1040,16 +1041,33 @@
         [Description("ImageList to be used in listview.")]
         [Category(EventCategory.Behavior)]
         [Browsable(true)]
-        public ImageList ImageList
+        public ImageList ImageListColumns
         {
             get
             {
-                return _imageList;
+                return _imageListColumns;
             }
 
             set
             {
-                _imageList = value;
+                _imageListColumns = value;
+            }
+        }
+
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Description("ImageList to be used in listview.")]
+        [Category(EventCategory.Behavior)]
+        [Browsable(true)]
+        public ImageList ImageListItems
+        {
+            get
+            {
+                return _imageListItems;
+            }
+
+            set
+            {
+                _imageListItems = value;
             }
         }
 
@@ -2066,7 +2084,7 @@
 
                     if (_column != null)
                     {
-                        if (_smallImageList == null)
+                        if (_imageListColumns == null)
                         {
                             return 2;
                         }
@@ -2189,13 +2207,6 @@
             }
 
             _components = new Container();
-            ResourceManager resources = new ResourceManager(typeof(VisualListViewAdvanced));
-            imageList1 = new ImageList(_components);
-            imageList1.ImageSize = new Size(13, 13);
-
-            // TODO: Fix missing resource stream object.
-            // imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
         }
 
         /// <summary>The item has changed event.</summary>
