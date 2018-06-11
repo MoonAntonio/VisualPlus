@@ -80,9 +80,9 @@
             _unitTest = UnitTests.VisualListViewAdvanced;
 
             Array _tests = typeof(UnitTests).GetEnumValues();
-            foreach (object obj in _tests)
+            foreach (object test in _tests)
             {
-                listBoxTests.Items.Add(obj);
+                listBoxTests.Items.Add(test);
             }
 
             listBoxTests.SelectedIndex = 0;

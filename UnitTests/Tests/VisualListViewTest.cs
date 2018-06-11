@@ -34,13 +34,14 @@
         /// <returns>The <see cref="VisualListViewItem" />.</returns>
         private static VisualListViewItem GenerateItem()
         {
-            VisualListViewItem _item = new VisualListViewItem(@"Item: " + new Random().Next(0, 1000));
-            _item.CheckBox = true;
-
             Random _imageIndexRandomize = new Random();
             int _randomImageIndex = _imageIndexRandomize.Next(2);
 
-            _item.ImageIndex = _randomImageIndex;
+            VisualListViewItem _item = new VisualListViewItem(@"Item: " + new Random().Next(0, 1000))
+                {
+                    CheckBox = true,
+                    ImageIndex = _randomImageIndex
+                };
 
             VisualListViewSubItem _content = new VisualListViewSubItem(@"Sub-Content: " + new Random().Next(0, 1000));
             VisualListViewSubItem _date = new VisualListViewSubItem(DateTime.Now.ToLongDateString());
@@ -78,15 +79,18 @@
 
         private void VisualListViewAdvanced1_SelectedIndexChanged(object source, ListViewClickEventArgs e)
         {
-            // Test index content
+            int _columnIndex = visualListViewAdvanced1.ColumnIndex;
             int _rowIndex = e.ItemIndex;
-            string _row = visualListViewAdvanced1.Items[_rowIndex].SubItems[1].Text;
+            string _column = visualListViewAdvanced1.Columns[_columnIndex].Text;
+            string _rowItem = visualListViewAdvanced1.Items[_rowIndex].Text;
+            string _rowSub = visualListViewAdvanced1.Items[_rowIndex].SubItems[_columnIndex].Text;
 
             StringBuilder _selectedIndex = new StringBuilder();
-            _selectedIndex.AppendLine("Row: " + _rowIndex);
-            _selectedIndex.AppendLine("Content: " + _row);
-
-            // MessageBox.Show(_selectedIndex.ToString(), Application.ProductName);
+            _selectedIndex.AppendLine($"Column: [{_columnIndex}] - Text: {_column}");
+            _selectedIndex.AppendLine($"Row: [{_rowIndex}] - Text: {_rowItem}");
+            _selectedIndex.AppendLine(Environment.NewLine);
+            _selectedIndex.AppendLine($"Cell: Text: {_rowSub}");
+            MessageBox.Show(_selectedIndex.ToString(), Application.ProductName);
         }
 
         private void VisualListViewTest_Load(object sender, EventArgs e)
@@ -103,13 +107,6 @@
             visualListViewAdvanced1.Columns[1].ImageIndex = 1;
             visualListViewAdvanced1.Columns[2].ImageIndex = 2;
             visualListViewAdvanced1.Columns[3].ImageIndex = 3;
-
-            visualListViewAdvanced1.Items[0].ImageIndex = 0;
-
-            //visualListViewAdvanced1.Items[0].SubItems[0].ImageIndex = 0;
-            //visualListViewAdvanced1.Items[1].SubItems[0].ImageIndex = 1;
-            //visualListViewAdvanced1.Items[2].SubItems[0].ImageIndex = 2;
-            //visualListViewAdvanced1.Items[3].SubItems[0].ImageIndex = 3;
         }
 
         #endregion

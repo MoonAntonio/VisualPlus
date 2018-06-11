@@ -52,6 +52,7 @@
         private Color _colorGridColor;
         private Color _colorSelectionColor;
         private Color _colorSuperFlatHeaderColor;
+        private int _columnIndex;
         private VisualListViewColumnCollection _columns;
         private IContainer _components;
         private LVControlStyles _controlStyle;
@@ -95,10 +96,7 @@
         private int _resizeColumnNumber;
         private bool _selectable;
         private Color _selectedTextColor;
-
         private bool _showFocusRect;
-
-        // private ImageList _smallImageList;
         private SortTypes _sortType;
         private ListStates _state;
         private IntPtr _theme;
@@ -139,6 +137,7 @@
             _hoverTime = 1;
             _hotItemIndex = -1;
             _hotColumnIndex = -1;
+            _columnIndex = 0;
             _headerHeight = 22;
             _theme = IntPtr.Zero;
             _hotTrackingColor = Color.LightGray;
@@ -511,6 +510,16 @@
                 }
 
                 return _checkedItems;
+            }
+        }
+
+        /// <summary>Gets the current column index.</summary>
+        [Browsable(false)]
+        public int ColumnIndex
+        {
+            get
+            {
+                return _columnIndex;
             }
         }
 
@@ -1461,24 +1470,22 @@
 
         protected override void OnDoubleClick(EventArgs e)
         {
-            DebugTraceManager.WriteDebug("VisualListView.OnDoubleClick", DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("VisualListView::OnDoubleClick", DebugTraceManager.DebugOutput.TraceListener);
 
-            Point pointLocalMouse = PointToClient(Cursor.Position);
+            Point _pointerLocation = PointToClient(Cursor.Position);
 
-            // Debug.WriteLine( "Double Click Called" );
-            // Debug.WriteLine( "At Cords X " + pointLocalMouse.X.ToString() + " Y " + pointLocalMouse .Y.ToString() );
             int _item;
-            int _column;
+            int _columnIndexer;
             int _cellX;
             int _cellY;
             ListStates _liveStates;
             ListViewRegion _listViewRegion;
-            InterpretCoordinates(pointLocalMouse.X, pointLocalMouse.Y, out _listViewRegion, out _cellX, out _cellY, out _item, out _column, out _liveStates);
+            InterpretCoordinates(_pointerLocation.X, _pointerLocation.Y, out _listViewRegion, out _cellX, out _cellY, out _item, out _columnIndexer, out _liveStates);
 
             // Debug.WriteLine( "listRegion " + listRegion.ToString() );
-            if ((_listViewRegion == ListViewRegion.Client) && (_column < _columns.Count))
+            if ((_listViewRegion == ListViewRegion.Client) && (_columnIndexer < _columns.Count))
             {
-                ActivateEmbeddedControl(_column, _items[_item], _items[_item].SubItems[_column]);
+                ActivateEmbeddedControl(_columnIndexer, _items[_item], _items[_item].SubItems[_columnIndexer]);
             }
 
             base.OnDoubleClick(e);
@@ -1652,36 +1659,39 @@
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            DebugTraceManager.WriteDebug("VisualListView_MouseMove", DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("VisualListView::MouseMove", DebugTraceManager.DebugOutput.TraceListener);
 
             try
             {
                 if (_state == ListStates.ColumnResizing)
                 {
                     Cursor.Current = Cursors.VSplit;
+                    int _width = e.X - _pointColumnResizeAnchor.X;
 
-                    int nWidth;
-                    nWidth = e.X - _pointColumnResizeAnchor.X;
-
-                    if (nWidth <= ListViewConstants.MINIMUM_COLUMN_SIZE)
+                    if (_width <= ListViewConstants.MINIMUM_COLUMN_SIZE)
                     {
-                        nWidth = ListViewConstants.MINIMUM_COLUMN_SIZE;
+                        _width = ListViewConstants.MINIMUM_COLUMN_SIZE;
                     }
 
-                    VisualListViewColumn col;
-                    col = Columns[_resizeColumnNumber];
-                    col.Width = nWidth;
+                    VisualListViewColumn _column = Columns[_resizeColumnNumber];
+                    _column.Width = _width;
 
                     OnMove(e);
                     return;
                 }
 
-                int nItem = 0, nColumn = 0, nCellX = 0, nCellY = 0;
-                ListStates eState;
-                ListViewRegion listRegion;
-                InterpretCoordinates(e.X, e.Y, out listRegion, out nCellX, out nCellY, out nItem, out nColumn, out eState);
+                var _item = 0;
+                int _columnIndexer;
+                var _cellX = 0;
+                var _cellY = 0;
+                ListStates _listStates;
+                ListViewRegion _listRegion;
+                InterpretCoordinates(e.X, e.Y, out _listRegion, out _cellX, out _cellY, out _item, out _columnIndexer, out _listStates);
 
-                if (eState == ListStates.ColumnResizing)
+                // Update the column index
+                _columnIndex = _columnIndexer;
+
+                if (_listStates == ListStates.ColumnResizing)
                 {
                     Cursor.Current = Cursors.VSplit;
 
@@ -2639,10 +2649,10 @@
 
                     if ((columnIndex > -1) && (columnIndex < Columns.Count) && !Columns.AnyPressed())
                     {
-                        if (Columns[columnIndex].State == ColumnStates.None)
+                        if (_columns[columnIndex].State == ColumnStates.None)
                         {
-                            Columns.ClearHotStates();
-                            Columns[columnIndex].State = ColumnStates.Hot;
+                            _columns.ClearHotStates();
+                            _columns[columnIndex].State = ColumnStates.Hot;
                         }
                     }
                 }
