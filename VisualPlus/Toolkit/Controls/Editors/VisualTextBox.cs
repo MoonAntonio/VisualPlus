@@ -653,6 +653,17 @@
             }
         }
 
+        /// <summary>Gets the length of text in the control.</summary>
+        /// <returns>The number of characters contained in the text of the control.</returns>
+        [Browsable(false)]
+        public int TextLength
+        {
+            get
+            {
+                return _textBox.TextLength;
+            }
+        }
+
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
@@ -920,6 +931,157 @@
 
         #region Methods
 
+        /// <summary>Appends text to the current text of a rich text box.</summary>
+        /// <param name="text">The text to append to the current contents of the text box.</param>
+        public void AppendText(string text)
+        {
+            _textBox.AppendText(text);
+        }
+
+        /// <summary>Clears all text from the text box control.</summary>
+        public void Clear()
+        {
+            _textBox.Clear();
+        }
+
+        /// <summary>Clears information about the most recent operation from the undo buffer of the rich text box.</summary>
+        public void ClearUndo()
+        {
+            _textBox.ClearUndo();
+        }
+
+        /// <summary>Copies the current selection in the text box to the Clipboard.</summary>
+        public void Copy()
+        {
+            _textBox.Copy();
+        }
+
+        /// <summary>Moves the current selection in the text box to the Clipboard.</summary>
+        public void Cut()
+        {
+            _textBox.Cut();
+        }
+
+        /// <summary>
+        ///     Specifies that the value of the SelectionLength property is zero so that no characters are selected in the
+        ///     control.
+        /// </summary>
+        public void DeselectAll()
+        {
+            _textBox.DeselectAll();
+        }
+
+        /// <summary>Retrieves the character that is closest to the specified location within the control.</summary>
+        /// <param name="pt">The location from which to seek the nearest character.</param>
+        /// <returns>The character at the specified location.</returns>
+        public int GetCharFromPosition(Point pt)
+        {
+            return _textBox.GetCharFromPosition(pt);
+        }
+
+        /// <summary>Retrieves the index of the character nearest to the specified location.</summary>
+        /// <param name="pt">The location to search.</param>
+        /// <returns>The zero-based character index at the specified location.</returns>
+        public int GetCharIndexFromPosition(Point pt)
+        {
+            return _textBox.GetCharIndexFromPosition(pt);
+        }
+
+        /// <summary>Retrieves the index of the first character of a given line.</summary>
+        /// <param name="lineNumber">The line for which to get the index of its first character.</param>
+        /// <returns>The zero-based character index in the specified line.</returns>
+        public int GetFirstCharIndexFromLine(int lineNumber)
+        {
+            return _textBox.GetFirstCharIndexFromLine(lineNumber);
+        }
+
+        /// <summary>Retrieves the index of the first character of the current line.</summary>
+        /// <returns>The zero-based character index in the current line.</returns>
+        public int GetFirstCharIndexOfCurrentLine()
+        {
+            return _textBox.GetFirstCharIndexOfCurrentLine();
+        }
+
+        /// <summary>Retrieves the line number from the specified character position within the text of the RichTextBox control.</summary>
+        /// <param name="index">The character index position to search.</param>
+        /// <returns>The zero-based line number in which the character index is located.</returns>
+        public int GetLineFromCharIndex(int index)
+        {
+            return _textBox.GetLineFromCharIndex(index);
+        }
+
+        /// <summary>Retrieves the location within the control at the specified character index.</summary>
+        /// <param name="index">The index of the character for which to retrieve the location.</param>
+        /// <returns>The location of the specified character.</returns>
+        public Point GetPositionFromCharIndex(int index)
+        {
+            return _textBox.GetPositionFromCharIndex(index);
+        }
+
+        /// <summary>Replaces the current selection in the text box with the contents of the Clipboard.</summary>
+        public void Paste()
+        {
+            _textBox.Paste();
+        }
+
+        /// <summary>Scrolls the contents of the control to the current caret position.</summary>
+        public void ScrollToCaret()
+        {
+            _textBox.ScrollToCaret();
+        }
+
+        /// <summary>Selects a range of text in the control.</summary>
+        /// <param name="start">The position of the first character in the current text selection within the text box.</param>
+        /// <param name="length">The number of characters to select.</param>
+        public void Select(int start, int length)
+        {
+            _textBox.Select(start, length);
+        }
+
+        /// <summary>Selects all text in the control.</summary>
+        public void SelectAll()
+        {
+            _textBox.SelectAll();
+        }
+
+        /// <summary>Undoes the last edit operation in the text box.</summary>
+        public void Undo()
+        {
+            _textBox.Undo();
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _buttonColorState = new ControlColorState();
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type2
+                    };
+
+                _borderButton.BackColor = theme.OtherSettings.Line;
+                _borderImage.BackColor = theme.OtherSettings.Line;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
         private static string RemoveLineBreaks(string text)
         {
             return text.Replace(Environment.NewLine, " ");
@@ -1113,157 +1275,6 @@
 
             // Draws the string on the panel
             e.Graphics.DrawString(_watermark.Text, _watermark.Font, _watermark.Brush, new PointF(0F, 0F));
-        }
-
-        /// <summary>Appends text to the current text of a rich text box.</summary>
-        /// <param name="text">The text to append to the current contents of the text box.</param>
-        public void AppendText(string text)
-        {
-            _textBox.AppendText(text);
-        }
-
-        /// <summary>Clears all text from the text box control.</summary>
-        public void Clear()
-        {
-            _textBox.Clear();
-        }
-
-        /// <summary>Clears information about the most recent operation from the undo buffer of the rich text box.</summary>
-        public void ClearUndo()
-        {
-            _textBox.ClearUndo();
-        }
-
-        /// <summary>Copies the current selection in the text box to the Clipboard.</summary>
-        public void Copy()
-        {
-            _textBox.Copy();
-        }
-
-        /// <summary>Moves the current selection in the text box to the Clipboard.</summary>
-        public void Cut()
-        {
-            _textBox.Cut();
-        }
-
-        /// <summary>
-        ///     Specifies that the value of the SelectionLength property is zero so that no characters are selected in the
-        ///     control.
-        /// </summary>
-        public void DeselectAll()
-        {
-            _textBox.DeselectAll();
-        }
-
-        /// <summary>Retrieves the character that is closest to the specified location within the control.</summary>
-        /// <param name="pt">The location from which to seek the nearest character.</param>
-        /// <returns>The character at the specified location.</returns>
-        public int GetCharFromPosition(Point pt)
-        {
-            return _textBox.GetCharFromPosition(pt);
-        }
-
-        /// <summary>Retrieves the index of the character nearest to the specified location.</summary>
-        /// <param name="pt">The location to search.</param>
-        /// <returns>The zero-based character index at the specified location.</returns>
-        public int GetCharIndexFromPosition(Point pt)
-        {
-            return _textBox.GetCharIndexFromPosition(pt);
-        }
-
-        /// <summary>Retrieves the index of the first character of a given line.</summary>
-        /// <param name="lineNumber">The line for which to get the index of its first character.</param>
-        /// <returns>The zero-based character index in the specified line.</returns>
-        public int GetFirstCharIndexFromLine(int lineNumber)
-        {
-            return _textBox.GetFirstCharIndexFromLine(lineNumber);
-        }
-
-        /// <summary>Retrieves the index of the first character of the current line.</summary>
-        /// <returns>The zero-based character index in the current line.</returns>
-        public int GetFirstCharIndexOfCurrentLine()
-        {
-            return _textBox.GetFirstCharIndexOfCurrentLine();
-        }
-
-        /// <summary>Retrieves the line number from the specified character position within the text of the RichTextBox control.</summary>
-        /// <param name="index">The character index position to search.</param>
-        /// <returns>The zero-based line number in which the character index is located.</returns>
-        public int GetLineFromCharIndex(int index)
-        {
-            return _textBox.GetLineFromCharIndex(index);
-        }
-
-        /// <summary>Retrieves the location within the control at the specified character index.</summary>
-        /// <param name="index">The index of the character for which to retrieve the location.</param>
-        /// <returns>The location of the specified character.</returns>
-        public Point GetPositionFromCharIndex(int index)
-        {
-            return _textBox.GetPositionFromCharIndex(index);
-        }
-
-        /// <summary>Replaces the current selection in the text box with the contents of the Clipboard.</summary>
-        public void Paste()
-        {
-            _textBox.Paste();
-        }
-
-        /// <summary>Scrolls the contents of the control to the current caret position.</summary>
-        public void ScrollToCaret()
-        {
-            _textBox.ScrollToCaret();
-        }
-
-        /// <summary>Selects a range of text in the control.</summary>
-        /// <param name="start">The position of the first character in the current text selection within the text box.</param>
-        /// <param name="length">The number of characters to select.</param>
-        public void Select(int start, int length)
-        {
-            _textBox.Select(start, length);
-        }
-
-        /// <summary>Selects all text in the control.</summary>
-        public void SelectAll()
-        {
-            _textBox.SelectAll();
-        }
-
-        /// <summary>Undoes the last edit operation in the text box.</summary>
-        public void Undo()
-        {
-            _textBox.Undo();
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _buttonColorState = new ControlColorState();
-                _backColorState = new ColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type4,
-                        Disabled = theme.BackgroundSettings.Type2
-                    };
-
-                _borderButton.BackColor = theme.OtherSettings.Line;
-                _borderImage.BackColor = theme.OtherSettings.Line;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion
