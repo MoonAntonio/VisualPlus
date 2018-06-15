@@ -20,6 +20,7 @@
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.Dialogs;
+    using VisualPlus.TypeConverters;
 
     #endregion
 
@@ -538,7 +539,9 @@
         [Browsable(false)]
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.TextStyle)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         public TextStyle TextStyle
         {
             get

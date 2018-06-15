@@ -2,11 +2,15 @@
 {
     #region Namespace
 
+    using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Text;
 
+    using VisualPlus.TypeConverters;
+
     #endregion
 
+    [TypeConverter(typeof(BasicSettingsTypeConverter))]
     public class TextStyle
     {
         #region Variables
@@ -21,6 +25,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="TextStyle"/> class.</summary>
         public TextStyle()
         {
             _disabled = Color.Empty;
@@ -70,6 +75,21 @@
             set
             {
                 _hover = value;
+            }
+        }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public StringFormat StringFormat
+        {
+            get
+            {
+                return _stringFormat;
+            }
+
+            set
+            {
+                _stringFormat = value;
             }
         }
 

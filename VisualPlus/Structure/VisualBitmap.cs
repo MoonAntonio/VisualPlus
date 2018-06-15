@@ -53,6 +53,9 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
+        [TypeConverter(typeof(BorderConverter))]
+        [Category(PropertyCategory.Appearance)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Border Border
         {
             get

@@ -60,7 +60,6 @@
         public const string ShowSelectionMargin = "Gets or sets a value indicating whether a selection margin is displayed in the text field.";
         public const string Size = "Gets or sets the size in pixels.";
         public const string SmallChange = "Gets or sets the small change value.";
-
         public const string SortDirection = "Gets or sets the sort direction";
         public const string Spacing = "The spacing between two components.";
         public const string StartIndex = "Gets or sets the starting index.";
