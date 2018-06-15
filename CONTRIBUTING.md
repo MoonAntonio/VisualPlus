@@ -25,11 +25,11 @@ The more information you can provide, the more likely someone will be successful
 
 Please include the following with each issue. 
 
-* Describe the bug
-* Reproducible steps (1... 2... 3...) and what you expected versus what you actually saw.
-* Expected behaviour
+* Describe the bug.
+* Reproducible steps (1... 2... 3...).
+* Expected behaviour.
 * Screenshots, animations, or a link to a video if applicable to explain your problem.
-* Version of VisualPlus
+* Version of VisualPlus.
 * A code snippet that demonstrates the issue or a link to a code repository we can easily pull down onto our machine to recreate the issue. 
 
 > **Note:** Because we need to copy and paste the code snippet, including a code snippet as a media file (i.e. .gif) is not sufficient. 
