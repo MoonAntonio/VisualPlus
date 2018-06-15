@@ -18,7 +18,7 @@
         {
             InitializeComponent();
 
-            _visualControlBox.HelpButton.Click += HelpButton_Click;
+            ControlBox.HelpButton.Click += HelpButton_Click;
         }
 
         #endregion

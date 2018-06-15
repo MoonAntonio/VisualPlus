@@ -44,12 +44,6 @@
     {
         #region Variables
 
-        protected VisualControlBox _visualControlBox;
-
-        #endregion
-
-        #region Variables
-
         private readonly Cursor[] _resizeCursors;
         private readonly Dictionary<int, int> _resizedLocationsCommand;
         private Color _background;
@@ -130,9 +124,9 @@
 
             _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
 
-            _visualControlBox = new VisualControlBox();
-            Controls.Add(_visualControlBox);
-            _visualControlBox.Location = new Point(Width - _visualControlBox.Width - 16, _border.Thickness);
+            VisualControlBox = new VisualControlBox();
+            Controls.Add(VisualControlBox);
+            VisualControlBox.Location = new Point(Width - VisualControlBox.Width - 16, _border.Thickness);
 
             _textRectangle = new Rectangle(0, 7, 0, 0);
             UpdateTheme(_styleManager.Theme);
@@ -156,12 +150,12 @@
         {
             add
             {
-                _visualControlBox.CloseClick += value;
+                VisualControlBox.CloseClick += value;
             }
 
             remove
             {
-                _visualControlBox.CloseClick -= value;
+                VisualControlBox.CloseClick -= value;
             }
         }
 
@@ -171,12 +165,12 @@
         {
             add
             {
-                _visualControlBox.HelpClick += value;
+                VisualControlBox.HelpClick += value;
             }
 
             remove
             {
-                _visualControlBox.HelpClick -= value;
+                VisualControlBox.HelpClick -= value;
             }
         }
 
@@ -186,12 +180,12 @@
         {
             add
             {
-                _visualControlBox.MaximizeClick += value;
+                VisualControlBox.MaximizeClick += value;
             }
 
             remove
             {
-                _visualControlBox.MaximizeClick -= value;
+                VisualControlBox.MaximizeClick -= value;
             }
         }
 
@@ -201,12 +195,12 @@
         {
             add
             {
-                _visualControlBox.MinimizeClick += value;
+                VisualControlBox.MinimizeClick += value;
             }
 
             remove
             {
-                _visualControlBox.MinimizeClick -= value;
+                VisualControlBox.MinimizeClick -= value;
             }
         }
 
@@ -216,12 +210,12 @@
         {
             add
             {
-                _visualControlBox.RestoredFormWindow += value;
+                VisualControlBox.RestoredFormWindow += value;
             }
 
             remove
             {
-                _visualControlBox.RestoredFormWindow -= value;
+                VisualControlBox.RestoredFormWindow -= value;
             }
         }
 
@@ -304,12 +298,12 @@
         {
             get
             {
-                return _visualControlBox;
+                return VisualControlBox;
             }
 
             set
             {
-                _visualControlBox = value;
+                VisualControlBox = value;
             }
         }
 
@@ -334,12 +328,12 @@
         {
             get
             {
-                return _visualControlBox.HelpButton.Visible;
+                return VisualControlBox.HelpButton.Visible;
             }
 
             set
             {
-                _visualControlBox.HelpButton.Visible = value;
+                VisualControlBox.HelpButton.Visible = value;
             }
         }
 
@@ -413,12 +407,12 @@
         {
             get
             {
-                return _visualControlBox.MaximizeButton.Visible;
+                return VisualControlBox.MaximizeButton.Visible;
             }
 
             set
             {
-                _visualControlBox.MaximizeButton.Visible = value;
+                VisualControlBox.MaximizeButton.Visible = value;
             }
         }
 
@@ -428,12 +422,12 @@
         {
             get
             {
-                return _visualControlBox.MinimizeButton.Visible;
+                return VisualControlBox.MinimizeButton.Visible;
             }
 
             set
             {
-                _visualControlBox.MinimizeButton.Visible = value;
+                VisualControlBox.MinimizeButton.Visible = value;
             }
         }
 
@@ -569,6 +563,11 @@
                 return _parameter;
             }
         }
+
+        /// <summary>The <see cref="VisualControlBox" /> of the <see cref="VisualForm" />.</summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        protected VisualControlBox VisualControlBox { get; set; }
 
         #endregion
 
@@ -831,6 +830,34 @@
 
         #region Methods
 
+        /// <summary>Creates a copy of the current object.</summary>
+        /// <returns>The <see cref="object" />.</returns>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _styleManager = new StyleManager(theme);
+
+                _background = theme.OtherSettings.FormBackground;
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+                ForeColor = theme.TextSetting.Enabled;
+                Font = theme.TextSetting.Font;
+                _windowBarColor = theme.OtherSettings.FormWindowBar;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
         /// <summary>Snap the position to edge.</summary>
         /// <param name="position">The position.</param>
         /// <param name="edge">The edge.</param>
@@ -876,7 +903,7 @@
 
                     case Alignment.TextAlignment.Right:
                         {
-                            _titleLocation = new Point(Width - _border.Thickness - _textSize.Width - _visualControlBox.Width - 1, _textRectangle.Y);
+                            _titleLocation = new Point(Width - _border.Thickness - _textSize.Width - VisualControlBox.Width - 1, _textRectangle.Y);
                             break;
                         }
 
@@ -1013,34 +1040,6 @@
             {
                 User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, _resizeDirection, 0);
             }
-        }
-
-        /// <summary>Creates a copy of the current object.</summary>
-        /// <returns>The <see cref="object" />.</returns>
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _styleManager = new StyleManager(theme);
-
-                _background = theme.OtherSettings.FormBackground;
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-                ForeColor = theme.TextSetting.Enabled;
-                Font = theme.TextSetting.Font;
-                _windowBarColor = theme.OtherSettings.FormWindowBar;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         private class MouseMessageFilter : IMessageFilter

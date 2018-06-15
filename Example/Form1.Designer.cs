@@ -36,85 +36,85 @@
             VisualPlus.Structure.Border border1 = new VisualPlus.Structure.Border();
             this.SuspendLayout();
             // 
-            // _visualControlBox
+            // VisualControlBox
             // 
             // 
             // 
             // 
-            this._visualControlBox.HelpButton.BackColorState.Disabled = System.Drawing.Color.Transparent;
-            this._visualControlBox.HelpButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
-            this._visualControlBox.HelpButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
-            this._visualControlBox.HelpButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this._visualControlBox.HelpButton.BoxType = VisualPlus.Structure.ControlBoxButton.ControlBoxType.Default;
-            this._visualControlBox.HelpButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this._visualControlBox.HelpButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this._visualControlBox.HelpButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this._visualControlBox.HelpButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this._visualControlBox.HelpButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
-            this._visualControlBox.HelpButton.Location = new System.Drawing.Point(0, 0);
-            this._visualControlBox.HelpButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
-            this._visualControlBox.HelpButton.Name = "";
-            this._visualControlBox.HelpButton.OffsetLocation = new System.Drawing.Point(0, 1);
-            this._visualControlBox.HelpButton.Size = new System.Drawing.Size(24, 25);
-            this._visualControlBox.HelpButton.TabIndex = 0;
-            this._visualControlBox.HelpButton.Text = "s";
+            this.VisualControlBox.HelpButton.BackColorState.Disabled = System.Drawing.Color.Transparent;
+            this.VisualControlBox.HelpButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
+            this.VisualControlBox.HelpButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
+            this.VisualControlBox.HelpButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.VisualControlBox.HelpButton.BoxType = VisualPlus.Structure.ControlBoxButton.ControlBoxType.Default;
+            this.VisualControlBox.HelpButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.VisualControlBox.HelpButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.VisualControlBox.HelpButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.VisualControlBox.HelpButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.VisualControlBox.HelpButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            this.VisualControlBox.HelpButton.Location = new System.Drawing.Point(0, 0);
+            this.VisualControlBox.HelpButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.VisualControlBox.HelpButton.Name = "";
+            this.VisualControlBox.HelpButton.OffsetLocation = new System.Drawing.Point(0, 1);
+            this.VisualControlBox.HelpButton.Size = new System.Drawing.Size(24, 25);
+            this.VisualControlBox.HelpButton.TabIndex = 0;
+            this.VisualControlBox.HelpButton.Text = "s";
             textStyle1.Disabled = System.Drawing.Color.Empty;
             textStyle1.Enabled = System.Drawing.Color.Empty;
             textStyle1.Hover = System.Drawing.Color.Empty;
             textStyle1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this._visualControlBox.HelpButton.TextStyle = textStyle1;
-            this._visualControlBox.Location = new System.Drawing.Point(457, 4);
+            this.VisualControlBox.HelpButton.TextStyle = textStyle1;
+            this.VisualControlBox.Location = new System.Drawing.Point(457, 4);
             // 
             // 
             // 
-            this._visualControlBox.MaximizeButton.BackColorState.Disabled = System.Drawing.Color.Transparent;
-            this._visualControlBox.MaximizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
-            this._visualControlBox.MaximizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
-            this._visualControlBox.MaximizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this._visualControlBox.MaximizeButton.BoxType = VisualPlus.Structure.ControlBoxButton.ControlBoxType.Default;
-            this._visualControlBox.MaximizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this._visualControlBox.MaximizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this._visualControlBox.MaximizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this._visualControlBox.MaximizeButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this._visualControlBox.MaximizeButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
-            this._visualControlBox.MaximizeButton.Location = new System.Drawing.Point(48, 0);
-            this._visualControlBox.MaximizeButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
-            this._visualControlBox.MaximizeButton.Name = "";
-            this._visualControlBox.MaximizeButton.OffsetLocation = new System.Drawing.Point(1, 1);
-            this._visualControlBox.MaximizeButton.Size = new System.Drawing.Size(24, 25);
-            this._visualControlBox.MaximizeButton.TabIndex = 2;
-            this._visualControlBox.MaximizeButton.Text = "1";
+            this.VisualControlBox.MaximizeButton.BackColorState.Disabled = System.Drawing.Color.Transparent;
+            this.VisualControlBox.MaximizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
+            this.VisualControlBox.MaximizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
+            this.VisualControlBox.MaximizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.VisualControlBox.MaximizeButton.BoxType = VisualPlus.Structure.ControlBoxButton.ControlBoxType.Default;
+            this.VisualControlBox.MaximizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.VisualControlBox.MaximizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.VisualControlBox.MaximizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.VisualControlBox.MaximizeButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.VisualControlBox.MaximizeButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
+            this.VisualControlBox.MaximizeButton.Location = new System.Drawing.Point(48, 0);
+            this.VisualControlBox.MaximizeButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.VisualControlBox.MaximizeButton.Name = "";
+            this.VisualControlBox.MaximizeButton.OffsetLocation = new System.Drawing.Point(1, 1);
+            this.VisualControlBox.MaximizeButton.Size = new System.Drawing.Size(24, 25);
+            this.VisualControlBox.MaximizeButton.TabIndex = 2;
+            this.VisualControlBox.MaximizeButton.Text = "1";
             textStyle2.Disabled = System.Drawing.Color.Empty;
             textStyle2.Enabled = System.Drawing.Color.Empty;
             textStyle2.Hover = System.Drawing.Color.Empty;
             textStyle2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this._visualControlBox.MaximizeButton.TextStyle = textStyle2;
+            this.VisualControlBox.MaximizeButton.TextStyle = textStyle2;
             // 
             // 
             // 
-            this._visualControlBox.MinimizeButton.BackColorState.Disabled = System.Drawing.Color.Transparent;
-            this._visualControlBox.MinimizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
-            this._visualControlBox.MinimizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
-            this._visualControlBox.MinimizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this._visualControlBox.MinimizeButton.BoxType = VisualPlus.Structure.ControlBoxButton.ControlBoxType.Default;
-            this._visualControlBox.MinimizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this._visualControlBox.MinimizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this._visualControlBox.MinimizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this._visualControlBox.MinimizeButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this._visualControlBox.MinimizeButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
-            this._visualControlBox.MinimizeButton.Location = new System.Drawing.Point(24, 0);
-            this._visualControlBox.MinimizeButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
-            this._visualControlBox.MinimizeButton.Name = "";
-            this._visualControlBox.MinimizeButton.OffsetLocation = new System.Drawing.Point(2, 0);
-            this._visualControlBox.MinimizeButton.Size = new System.Drawing.Size(24, 25);
-            this._visualControlBox.MinimizeButton.TabIndex = 1;
-            this._visualControlBox.MinimizeButton.Text = "0";
+            this.VisualControlBox.MinimizeButton.BackColorState.Disabled = System.Drawing.Color.Transparent;
+            this.VisualControlBox.MinimizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
+            this.VisualControlBox.MinimizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
+            this.VisualControlBox.MinimizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.VisualControlBox.MinimizeButton.BoxType = VisualPlus.Structure.ControlBoxButton.ControlBoxType.Default;
+            this.VisualControlBox.MinimizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.VisualControlBox.MinimizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.VisualControlBox.MinimizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.VisualControlBox.MinimizeButton.ForeColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.VisualControlBox.MinimizeButton.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
+            this.VisualControlBox.MinimizeButton.Location = new System.Drawing.Point(24, 0);
+            this.VisualControlBox.MinimizeButton.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.VisualControlBox.MinimizeButton.Name = "";
+            this.VisualControlBox.MinimizeButton.OffsetLocation = new System.Drawing.Point(2, 0);
+            this.VisualControlBox.MinimizeButton.Size = new System.Drawing.Size(24, 25);
+            this.VisualControlBox.MinimizeButton.TabIndex = 1;
+            this.VisualControlBox.MinimizeButton.Text = "0";
             textStyle3.Disabled = System.Drawing.Color.Empty;
             textStyle3.Enabled = System.Drawing.Color.Empty;
             textStyle3.Hover = System.Drawing.Color.Empty;
             textStyle3.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this._visualControlBox.MinimizeButton.TextStyle = textStyle3;
-            this._visualControlBox.Size = new System.Drawing.Size(96, 25);
+            this.VisualControlBox.MinimizeButton.TextStyle = textStyle3;
+            this.VisualControlBox.Size = new System.Drawing.Size(96, 25);
             // 
             // Form1
             // 
