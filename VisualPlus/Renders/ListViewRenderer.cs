@@ -263,12 +263,12 @@
             if (listView.ControlStyle == LVControlStyles.SuperFlat)
             {
                 SolidBrush brush = new SolidBrush(listView.SuperFlatHeaderColor);
-                graphicHeader.FillRectangle(brush, listView.HeaderRect);
+                graphicHeader.FillRectangle(brush, listView.HeaderRectangle);
                 brush.Dispose();
             }
             else
             {
-                graphicHeader.FillRectangle(SystemBrushes.Control, listView.HeaderRect);
+                graphicHeader.FillRectangle(SystemBrushes.Control, listView.HeaderRectangle);
             }
 
             if (listView.Columns.Count <= 0)
@@ -277,7 +277,7 @@
             }
 
             // Draw vertical lines first, then horizontal lines
-            int _currentX = -hPanelScrollBar.Value + listView.HeaderRect.X;
+            int _currentX = -hPanelScrollBar.Value + listView.HeaderRectangle.X;
             foreach (VisualListViewColumn column in listView.Columns)
             {
                 // cull columns that won't be drawn first
@@ -287,14 +287,14 @@
                     continue; // skip this column, its not being drawn
                 }
 
-                if (_currentX > listView.HeaderRect.Right)
+                if (_currentX > listView.HeaderRectangle.Right)
                 {
                     return; // were past the end of the visible column, stop drawing
                 }
 
                 if (column.Width > 0)
                 {
-                    DrawColumnHeader(graphicHeader, new Rectangle(_currentX, listView.HeaderRect.Y, column.Width, listView.HeaderHeight), column, theme, listView);
+                    DrawColumnHeader(graphicHeader, new Rectangle(_currentX, listView.HeaderRectangle.Y, column.Width, listView.HeaderHeight), column, theme, listView);
                 }
 
                 _currentX += column.Width; // move the parser
@@ -487,7 +487,7 @@
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawRows", DebugTraceManager.DebugOutput.TraceListener);
 
             SolidBrush brush = new SolidBrush(listView.BackColor);
-            graphicsRows.FillRectangle(brush, listView.RowsClientRect);
+            graphicsRows.FillRectangle(brush, listView.RowsClientRectangle);
             brush.Dispose();
 
             // if they have a background image, then display it
@@ -514,7 +514,7 @@
                 nStartItem = 0;
             }
 
-            Rectangle rectRow = listView.RowsRect;
+            Rectangle rectRow = listView.RowsRectangle;
             rectRow.Height = listView.ItemHeight;
 
             /* Draw Rows */

@@ -572,11 +572,10 @@
             }
         }
 
-        [Description("Number of items/rows.")]
-        [Category(EventCategory.Behavior)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>Gets the number of elements contained in the <see cref="CollectionBase"/> instance.</summary>
         [Browsable(false)]
         [DefaultValue(0)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Count
         {
             get
@@ -585,9 +584,9 @@
             }
         }
 
-        [Description(PropertyDescription.Text)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
         public string DisplayText
         {
             get
@@ -602,9 +601,9 @@
             }
         }
 
-        [Description(PropertyDescription.Color)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color DisplayTextColor
         {
             get
@@ -619,9 +618,9 @@
             }
         }
 
-        [Description(PropertyDescription.Font)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font DisplayTextFont
         {
             get
@@ -636,9 +635,9 @@
             }
         }
 
-        [Description(PropertyDescription.Toggle)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Toggle)]
         public bool DisplayTextOnEmpty
         {
             get
@@ -653,14 +652,14 @@
             }
         }
 
-        [Description("Currently focused item.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>The currently focused item.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public VisualListViewItem FocusedItem
         {
             get
             {
-                // need to make sure focused item actually exists
+                // Verify the focused item exists.
                 if ((_focusedItem != null) && (_items.FindItemIndex(_focusedItem) < 0))
                 {
                     _focusedItem = null; // even though there is a focused item, it doesn't actually exist anymore
@@ -823,10 +822,10 @@
             }
         }
 
-        [Description(PropertyDescription.Rectangle)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>The header rectangle.</summary>
         [Browsable(false)]
-        public Rectangle HeaderRect
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Rectangle HeaderRectangle
         {
             get
             {
@@ -891,9 +890,9 @@
             }
         }
 
-        [Description("Currently Focused Column")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>The current hovering column.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int HotColumnIndex
         {
             get
@@ -996,6 +995,7 @@
 
         /// <summary>Gets the currently hovered item.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public VisualListViewItem HoveredItem
         {
             get
@@ -1200,62 +1200,70 @@
             }
         }
 
-        [Description("The rectangle of the client inside parent control")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>The rectangle of the client inside the parent control.</summary>
         [Browsable(false)]
-        public Rectangle RowsClientRect
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Rectangle RowsClientRectangle
         {
             get
             {
-                int tmpY = HeaderHeight + BorderPadding; // size of the header and the top border
+                // The size of the header and the top border.
+                int _yHeaderHeight = HeaderHeight + BorderPadding;
+                
+                // Total header height size including borders.
+                int _totalHeaderHeight = Height - HeaderHeight - (BorderPadding * 2);
 
-                int tmpHeight = Height - HeaderHeight - (BorderPadding * 2);
-
-                return new Rectangle(BorderPadding, tmpY, Width - (BorderPadding * 2), tmpHeight);
+                return new Rectangle(BorderPadding, _yHeaderHeight, Width - (BorderPadding * 2), _totalHeaderHeight);
             }
         }
 
-        [Description("The inner rectangle of the client inside parent control taking scroll bars into account.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>The inner rectangle of the client inside parent control including scroll bars.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Rectangle RowsInnerClientRect
         {
             get
             {
-                Rectangle innerRect = RowsClientRect;
+                // The horizontal bar crosses vertical plane and vice versa.
+                Rectangle _innerRectangle = RowsClientRectangle;
+                
+                // The width of the vertical scroll bar.
+                _innerRectangle.Width -= _verticalScrollBar.MWidth;
 
-                innerRect.Width -= _verticalScrollBar.MWidth; // horizontal bar crosses vertical plane and vice versa
-                innerRect.Height -= _horizontalScrollBar.MHeight;
+                // The height of the horizontal scroll bar.
+                _innerRectangle.Height -= _horizontalScrollBar.MHeight;
 
-                if (innerRect.Width < 0)
+                if (_innerRectangle.Width < 0)
                 {
-                    innerRect.Width = 0;
+                    _innerRectangle.Width = 0;
                 }
 
-                if (innerRect.Height < 0)
+                if (_innerRectangle.Height < 0)
                 {
-                    innerRect.Height = 0;
+                    _innerRectangle.Height = 0;
                 }
 
-                return innerRect;
+                return _innerRectangle;
             }
         }
 
-        [Description("Full Sized rectangle of all columns total width.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>The full sized rectangle of all the columns total width.</summary>
         [Browsable(false)]
-        public Rectangle RowsRect
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Rectangle RowsRectangle
         {
             get
             {
-                Rectangle rect = new Rectangle();
+                Rectangle _rowsRect = new Rectangle
+                    {
+                        X = -_horizontalScrollBar.Value + BorderPadding,
+                        Y = HeaderHeight + BorderPadding,
+                        Width = _columns.Width,
+                        Height = VisibleRowsCount * _itemHeight
+                    };
 
-                rect.X = -_horizontalScrollBar.Value + BorderPadding;
-                rect.Y = HeaderHeight + BorderPadding;
-                rect.Width = Columns.Width;
-                rect.Height = VisibleRowsCount * ItemHeight;
 
-                return rect;
+                return _rowsRect;
             }
         }
 
@@ -1600,17 +1608,13 @@
             if (_liveStates == ListStates.Selecting)
             {
                 // Control based multi select ------------------------------------------------------------
-
                 // Whatever else this does, it needs to first check to see if the state of the checkbox is changing
                 if ((_column < _columns.Count) && _columns[_column].CheckBoxes)
                 {
-                    // there is a checkbox on this control, lets see if the click came in the region
-                    if ((_cellX > CellPaddingSize) &&
-                        (_cellX < CellPaddingSize + ListViewConstants.CHECKBOX_SIZE) &&
-                        (_cellY > CellPaddingSize) &&
-                        (_cellY < CellPaddingSize + ListViewConstants.CHECKBOX_SIZE))
+                    // Verify if clicked on the checkbox region in this control.
+                    if ((_cellX > CellPaddingSize) && (_cellX < CellPaddingSize + ListViewConstants.CHECKBOX_SIZE) && (_cellY > CellPaddingSize) && (_cellY < CellPaddingSize + ListViewConstants.CHECKBOX_SIZE))
                     {
-                        // toggle the checkbox
+                        // Toggle the checkbox.
                         if (_items[_item].SubItems[_column].Checked)
                         {
                             _items[_item].SubItems[_column].Checked = false;
@@ -1627,8 +1631,7 @@
                 }
 
                 _state = ListStates.Selecting;
-
-                FocusedItem = Items[_item];
+                _focusedItem = _items[_item];
 
                 if (((ModifierKeys & Keys.Control) == Keys.Control) && MultiSelect)
                 {
@@ -1797,17 +1800,18 @@
             RecalculateScroll();
 
             Graphics _graphics = e.Graphics;
-            int _insideWidth = Columns.Width > HeaderRect.Width ? Columns.Width : HeaderRect.Width;
+            int _insideWidth = _columns.Width > HeaderRectangle.Width ? _columns.Width : HeaderRectangle.Width;
 
             if (HeaderVisible)
             {
-                _graphics.SetClip(HeaderRect);
-                ListViewRenderer.DrawColumnHeader(_graphics, new Size(HeaderRect.Width, HeaderRect.Height), this, _horizontalScrollBar, _theme);
+                _graphics.SetClip(HeaderRectangle);
+                ListViewRenderer.DrawColumnHeader(_graphics, new Size(HeaderRectangle.Width, HeaderRectangle.Height), this, _horizontalScrollBar, _theme);
             }
 
             _graphics.SetClip(RowsInnerClientRect);
             ListViewRenderer.DrawRows(_graphics, this, _verticalScrollBar, _horizontalScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
 
+            // Update embedded controls.
             foreach (Control control in _liveControls)
             {
                 control.Visible = false;
@@ -1842,18 +1846,17 @@
                     return true;
                 }
 
-                // Debug.WriteLine("---");
-                // Debug.WriteLine( ModifierKeys.ToString() );
                 Debug.WriteLine(_keyCode.ToString());
 
-                if ((FocusedItem != null) && (Count > 0) && Selectable)
+                if ((_focusedItem != null) && (Count > 0) && Selectable)
                 {
-                    int _itemIndex = _items.FindItemIndex(FocusedItem);
+                    int _itemIndex = _items.FindItemIndex(_focusedItem);
                     int _previousIndex = _itemIndex;
 
                     if (_itemIndex < 0)
                     {
-                        return true; // this can't move
+                        // This can't move.
+                        return true;
                     }
 
                     if ((_keyCode == Keys.A) && ((ModifierKeys & Keys.Control) == Keys.Control))
@@ -1868,8 +1871,9 @@
 
                     if (_keyCode == Keys.Escape)
                     {
-                        _items.ClearSelection(); // clear selections
-                        FocusedItem = null;
+                        // Clear selections.
+                        _items.ClearSelection();
+                        _focusedItem = null;
 
                         return base.PreProcessMessage(ref msg);
                     }
@@ -1989,7 +1993,7 @@
                         }
 
                         // Bypass FocusedItem property, we always want to invalidate from this point
-                        FocusedItem = Items[_itemIndex];
+                        _focusedItem = Items[_itemIndex];
                     }
                 }
                 else
@@ -2205,7 +2209,7 @@
         {
             if ((_items.Count <= 0) && _displayTextOnEmpty)
             {
-                Rectangle _layoutRectangle = new Rectangle(0, 0, RowsClientRect.Width, RowsClientRect.Height);
+                Rectangle _layoutRectangle = new Rectangle(0, 0, RowsClientRectangle.Width, RowsClientRectangle.Height);
                 GraphicsManager.DrawText(graphics, _displayText, _displayTextFont, _displayTextColor, _layoutRectangle);
             }
         }
@@ -2688,7 +2692,7 @@
             }
             else
             {
-                if ((_screenY >= HeaderRect.Y) && (_screenY < HeaderRect.Bottom))
+                if ((_screenY >= HeaderRectangle.Y) && (_screenY < HeaderRectangle.Bottom))
                 {
                     listRegion = ListViewRegion.Header;
 
