@@ -62,6 +62,7 @@
         private Font _displayTextFont;
         private bool _displayTextOnEmpty;
         private VisualListViewItem _focusedItem;
+        private int _focusedItemIndex;
         private bool _fullRowSelect;
         private GridLines _gridLines;
         private GridLineStyle _gridLineStyle;
@@ -97,7 +98,7 @@
         private int _resizeColumnNumber;
         private bool _selectable;
         private Color _selectedTextColor;
-        private bool _showFocusRect;
+        private bool _showFocusRectangle;
         private SortTypes _sortType;
         private ListStates _state;
         private IntPtr _theme;
@@ -138,7 +139,7 @@
             _hoverTime = 1;
             _hotItemIndex = -1;
             _hotColumnIndex = -1;
-            _columnIndex = 0;
+            _columnIndex = -1;
             _headerHeight = 22;
             _theme = IntPtr.Zero;
             _hotTrackingColor = Color.LightGray;
@@ -154,7 +155,13 @@
             _displayTextColor = Color.DimGray;
             _displayText = "The list is empty.";
             _displayTextFont = DefaultFont;
+            _showFocusRectangle = false;
+            _focusedItem = null;
+            _focusedItemIndex = -1;
 
+            _imageListColumns = null;
+            _imageListItems = null;
+            
             _columns = new VisualListViewColumnCollection(this);
             _columns.ChangedEvent += Columns_Changed;
 
@@ -186,8 +193,6 @@
                 ControlStyles.Selectable |
                 ControlStyles.UserMouse,
                 true);
-
-            BackColor = SystemColors.ControlLightLight;
 
             SuspendLayout();
 
@@ -318,8 +323,8 @@
 
         #region Properties
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Control ActivatedEmbeddedControl
         {
             get
@@ -333,10 +338,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Toggle)]
-        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public bool AllowColumnResize
         {
             get
@@ -350,10 +355,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Color)]
-        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Color)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public Color AlternateBackground
         {
             get
@@ -372,10 +377,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Toggle)]
-        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public bool AlternatingColors
         {
             get
@@ -394,10 +399,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Toggle)]
-        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public bool AutoHeight
         {
             get
@@ -415,10 +420,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Toggle)]
-        [Category(EventCategory.Behavior)]
         [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public bool BackgroundStretchToFit
         {
             get
@@ -432,11 +437,11 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Size)]
-        [Category(EventCategory.Appearance)]
         [Browsable(false)]
+        [Category(EventCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public int BorderPadding
         {
             get
@@ -452,9 +457,9 @@
             }
         }
 
-        [Description(PropertyDescription.Toggle)]
-        [Category(EventCategory.Appearance)]
         [Browsable(true)]
+        [Category(EventCategory.Appearance)]
+        [Description(PropertyDescription.Toggle)]
         public bool BorderVisible
         {
             get
@@ -473,9 +478,9 @@
             }
         }
 
-        [Description(PropertyDescription.Size)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>The cell padding size.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int CellPaddingSize
         {
             get
@@ -536,11 +541,11 @@
             }
         }
 
+        [Browsable(true)]
         [Category(PropertyCategory.Behavior)]
         [Description("The columns shown in Details view.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Editor(typeof(VisualListViewColumnCollectionEditor), typeof(UITypeEditor))]
-        [Browsable(true)]
         public VisualListViewColumnCollection Columns
         {
             get
@@ -549,10 +554,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("The control theme.")]
-        [Category(EventCategory.Behavior)]
         [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description("The control theme.")]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public LVControlStyles ControlStyle
         {
             get
@@ -572,7 +577,7 @@
             }
         }
 
-        /// <summary>Gets the number of elements contained in the <see cref="CollectionBase"/> instance.</summary>
+        /// <summary>Gets the number of elements contained in the <see cref="CollectionBase" /> instance.</summary>
         [Browsable(false)]
         [DefaultValue(0)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -684,10 +689,20 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Toggle)]
-        [Category(PropertyCategory.Behavior)]
+        /// <summary>Gets the current focused item index.</summary>
+        [Browsable(false)]
+        public int FocusedItemIndex
+        {
+            get
+            {
+                return _focusedItemIndex;
+            }
+        }
+
         [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public bool FullRowSelect
         {
             get
@@ -701,10 +716,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Color)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public Color GridColor
         {
             get
@@ -724,10 +739,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Whether or not to draw gridlines.")]
-        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description("Whether or not to draw gridlines.")]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public GridLines GridLines
         {
             get
@@ -747,10 +762,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Whether or not to draw gridlines style.")]
-        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description("Whether or not to draw gridlines style.")]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public GridLineStyle GridLineStyle
         {
             get
@@ -770,10 +785,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Whether or not to draw grid types.")]
-        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description("Whether or not to draw grid types.")]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public GridTypes GridTypes
         {
             get
@@ -793,10 +808,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Size)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public int HeaderHeight
         {
             get
@@ -876,7 +891,9 @@
             }
         }
 
+        /// <summary>The horizontal scroll bar control.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ManagedHScrollBar HorizontalScrollBar
         {
             get
@@ -919,9 +936,9 @@
             }
         }
 
-        [Description(PropertyDescription.Toggle)]
-        [Category(EventCategory.Behavior)]
         [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool HotColumnTracking
         {
             get
@@ -935,9 +952,9 @@
             }
         }
 
-        [Description("Currently Focused Item")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>The currently hovered item index.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int HotItemIndex
         {
             get
@@ -961,9 +978,9 @@
             }
         }
 
-        [Description(PropertyDescription.Toggle)]
-        [Category(EventCategory.Behavior)]
         [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool HotItemTracking
         {
             get
@@ -977,9 +994,9 @@
             }
         }
 
-        [Description(PropertyDescription.Color)]
-        [Category(EventCategory.Appearance)]
         [Browsable(true)]
+        [Category(EventCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color HotTrackingColor
         {
             get
@@ -1038,9 +1055,9 @@
             }
         }
 
-        [Description("Amount of time in seconds a user hovers before hover event is fired. Can NOT be zero.")]
-        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description("Amount of time in seconds a user hovers before hover event is fired. Can NOT be zero.")]
         public int HoverTime
         {
             get
@@ -1061,10 +1078,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("ImageList to be used in listview.")]
-        [Category(EventCategory.Behavior)]
         [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description("ImageList to be used in listview.")]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public ImageList ImageListColumns
         {
             get
@@ -1078,10 +1095,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("ImageList to be used in listview.")]
-        [Category(EventCategory.Behavior)]
         [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description("ImageList to be used in listview.")]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public ImageList ImageListItems
         {
             get
@@ -1095,10 +1112,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Size)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public int ItemHeight
         {
             get
@@ -1209,7 +1226,7 @@
             {
                 // The size of the header and the top border.
                 int _yHeaderHeight = HeaderHeight + BorderPadding;
-                
+
                 // Total header height size including borders.
                 int _totalHeaderHeight = Height - HeaderHeight - (BorderPadding * 2);
 
@@ -1226,7 +1243,7 @@
             {
                 // The horizontal bar crosses vertical plane and vice versa.
                 Rectangle _innerRectangle = RowsClientRectangle;
-                
+
                 // The width of the vertical scroll bar.
                 _innerRectangle.Width -= _verticalScrollBar.MWidth;
 
@@ -1262,15 +1279,14 @@
                         Height = VisibleRowsCount * _itemHeight
                     };
 
-
                 return _rowsRect;
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Toggle)]
-        [Category(EventCategory.Behavior)]
         [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public bool Selectable
         {
             get
@@ -1306,10 +1322,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Color)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public Color SelectedTextColor
         {
             get
@@ -1323,10 +1339,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Color)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public Color SelectionColor
         {
             get
@@ -1340,26 +1356,26 @@
             }
         }
 
-        [Description(PropertyDescription.Toggle)]
-        [Category(PropertyCategory.Behavior)]
         [Browsable(true)]
-        public bool ShowFocusRect
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        public bool ShowFocusRectangle
         {
             get
             {
-                return _showFocusRect;
+                return _showFocusRectangle;
             }
 
             set
             {
-                _showFocusRect = value;
+                _showFocusRectangle = value;
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description("Type of sorting algorithm used.")]
-        [Category(EventCategory.Behavior)]
         [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description("Type of sorting algorithm used.")]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public SortTypes SortType
         {
             get
@@ -1373,10 +1389,10 @@
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Color)]
-        [Category(PropertyCategory.Appearance)]
         [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public Color SuperFlatHeaderColor
         {
             get
@@ -1395,9 +1411,9 @@
             }
         }
 
+        [Browsable(false)]
         [Description(PropertyDescription.Toggle)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [Browsable(false)]
         public bool ThemesAvailable
         {
             get
@@ -1406,8 +1422,8 @@
             }
         }
 
+        /// <summary>Gets or sets the first visible item in the control.</summary>
         [Browsable(false)]
-        [Description("Gets or sets the first visible item in the control.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public VisualListViewItem TopItem
         {
@@ -1429,7 +1445,20 @@
             }
         }
 
+        /// <summary>Retrieve the total height of all the rows combined.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int TotalRowsHeight
+        {
+            get
+            {
+                return ItemHeight * _items.Count;
+            }
+        }
+
+        /// <summary>The vertical scroll bar control.</summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ManagedVScrollBar VerticalScrollBar
         {
             get
@@ -1443,25 +1472,14 @@
             }
         }
 
-        [Description("Number of rows currently visible in inner rect.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <summary>The amount of rows currently visible in the <see cref="RowsInnerClientRect" />.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int VisibleRowsCount
         {
             get
             {
                 return RowsInnerClientRect.Height / ItemHeight;
-            }
-        }
-
-        [Description("Calculates total height of all rows combined.")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [Browsable(false)]
-        protected int TotalRowHeight
-        {
-            get
-            {
-                return ItemHeight * _items.Count;
             }
         }
 
@@ -1524,13 +1542,13 @@
         {
             DebugTraceManager.WriteDebug("OnMouseDown", DebugTraceManager.DebugOutput.TraceListener);
 
-            int _item;
+            int _itemIndex;
             int _column;
             int _cellX;
             int _cellY;
             ListStates _liveStates;
             ListViewRegion _listViewRegion;
-            InterpretCoordinates(e.X, e.Y, out _listViewRegion, out _cellX, out _cellY, out _item, out _column, out _liveStates);
+            InterpretCoordinates(e.X, e.Y, out _listViewRegion, out _cellX, out _cellY, out _itemIndex, out _column, out _liveStates);
 
             if (e.Button == MouseButtons.Right)
             {
@@ -1584,7 +1602,7 @@
                     }
                 }
 
-                ColumnClickedEvent?.Invoke(this, new ListViewClickEventArgs(_item, _column)); // fire the column clicked event
+                ColumnClickedEvent?.Invoke(this, new ListViewClickEventArgs(_itemIndex, _column)); // fire the column clicked event
 
                 base.OnMouseDown(e);
                 return;
@@ -1615,35 +1633,36 @@
                     if ((_cellX > CellPaddingSize) && (_cellX < CellPaddingSize + ListViewConstants.CHECKBOX_SIZE) && (_cellY > CellPaddingSize) && (_cellY < CellPaddingSize + ListViewConstants.CHECKBOX_SIZE))
                     {
                         // Toggle the checkbox.
-                        if (_items[_item].SubItems[_column].Checked)
+                        if (_items[_itemIndex].SubItems[_column].Checked)
                         {
-                            _items[_item].SubItems[_column].Checked = false;
-                            ItemCheck?.Invoke(this, new ItemCheckEventArgs(_item, CheckState.Unchecked, CheckState.Checked));
+                            _items[_itemIndex].SubItems[_column].Checked = false;
+                            ItemCheck?.Invoke(this, new ItemCheckEventArgs(_itemIndex, CheckState.Unchecked, CheckState.Checked));
                         }
                         else
                         {
-                            _items[_item].SubItems[_column].Checked = true;
-                            ItemCheck?.Invoke(this, new ItemCheckEventArgs(_item, CheckState.Checked, CheckState.Unchecked));
+                            _items[_itemIndex].SubItems[_column].Checked = true;
+                            ItemCheck?.Invoke(this, new ItemCheckEventArgs(_itemIndex, CheckState.Checked, CheckState.Unchecked));
                         }
 
-                        ItemChecked?.Invoke(_items[_item]);
+                        ItemChecked?.Invoke(_items[_itemIndex]);
                     }
                 }
 
                 _state = ListStates.Selecting;
-                _focusedItem = _items[_item];
+                _focusedItemIndex = _itemIndex;
+                _focusedItem = _items[_itemIndex];
 
                 if (((ModifierKeys & Keys.Control) == Keys.Control) && MultiSelect)
                 {
-                    _lastSelectionIndex = _item;
+                    _lastSelectionIndex = _itemIndex;
 
-                    if (_items[_item].Selected)
+                    if (_items[_itemIndex].Selected)
                     {
-                        _items[_item].Selected = false;
+                        _items[_itemIndex].Selected = false;
                     }
                     else
                     {
-                        _items[_item].Selected = true;
+                        _items[_itemIndex].Selected = true;
                     }
 
                     base.OnMouseDown(e);
@@ -1661,17 +1680,17 @@
                         do
                         {
                             _items[index].Selected = true;
-                            if (index > _item)
+                            if (index > _itemIndex)
                             {
                                 index--;
                             }
 
-                            if (index < _item)
+                            if (index < _itemIndex)
                             {
                                 index++;
                             }
                         }
-                        while (index != _item);
+                        while (index != _itemIndex);
 
                         _items[index].Selected = true;
                     }
@@ -1681,7 +1700,7 @@
                 }
 
                 // Normal single select -----------------------------------------------------------
-                _items.ClearSelection(_items[_item]);
+                _items.ClearSelection(_items[_itemIndex]);
 
                 // Following two if statements deal ONLY with non multi=select where a single sub item is being selected
                 if ((_lastSelectionIndex < Count) && (_lastSubSelectionIndex < _columns.Count))
@@ -1689,14 +1708,14 @@
                     _items[_lastSelectionIndex].SubItems[_lastSubSelectionIndex].Selected = false;
                 }
 
-                if ((_fullRowSelect == false) && (_item < Count) && (_column < _columns.Count))
+                if ((_fullRowSelect == false) && (_itemIndex < Count) && (_column < _columns.Count))
                 {
-                    _items[_item].SubItems[_column].Selected = true;
+                    _items[_itemIndex].SubItems[_column].Selected = true;
                 }
 
-                _lastSelectionIndex = _item;
+                _lastSelectionIndex = _itemIndex;
                 _lastSubSelectionIndex = _column;
-                _items[_item].Selected = true;
+                _items[_itemIndex].Selected = true;
             }
 
             base.OnMouseDown(e);
@@ -1735,20 +1754,20 @@
                     return;
                 }
 
-                var _item = 0;
+                int _itemIndex;
                 int _columnIndexer;
                 var _cellX = 0;
                 var _cellY = 0;
                 ListStates _listStates;
                 ListViewRegion _listRegion;
-                InterpretCoordinates(e.X, e.Y, out _listRegion, out _cellX, out _cellY, out _item, out _columnIndexer, out _listStates);
+                InterpretCoordinates(e.X, e.Y, out _listRegion, out _cellX, out _cellY, out _itemIndex, out _columnIndexer, out _listStates);
 
                 // Update the column index.
                 _columnIndex = _columnIndexer;
 
                 // Update the hovered item.
-                _hoveredItem = _items[_item];
-                ItemMouseHover?.Invoke(_items[_item]);
+                _hoveredItem = _items[_itemIndex];
+                ItemMouseHover?.Invoke(_items[_itemIndex]);
 
                 if (_listStates == ListStates.ColumnResizing)
                 {
@@ -1873,6 +1892,7 @@
                     {
                         // Clear selections.
                         _items.ClearSelection();
+                        _focusedItemIndex = -1;
                         _focusedItem = null;
 
                         return base.PreProcessMessage(ref msg);
@@ -1993,6 +2013,7 @@
                         }
 
                         // Bypass FocusedItem property, we always want to invalidate from this point
+                        _focusedItemIndex = _itemIndex;
                         _focusedItem = Items[_itemIndex];
                     }
                 }
@@ -2062,457 +2083,57 @@
 
         #region Methods
 
-        /// <summary>Instance the activated embedded control for this item/column.</summary>
-        /// <param name="columnIndex">The column index.</param>
-        /// <param name="item">The item.</param>
-        /// <param name="subItem">The sub item.</param>
-        private void ActivateEmbeddedControl(int columnIndex, VisualListViewItem item, VisualListViewSubItem subItem)
+        /// <summary>Sort a column. Set to virtual so you can write your own sorting.</summary>
+        /// <param name="column">The column.</param>
+        public virtual void SortColumn(int column)
         {
-            if (_activatedEmbeddedControl != null)
-            {
-                _activatedEmbeddedControl.Dispose();
-                _activatedEmbeddedControl = null;
-            }
+            Debug.WriteLine("Column sorting called.");
 
-            if (_columns[columnIndex].EmbeddedControlTemplate == null)
+            if (Count < 2)
             {
+                // nothing to sort
                 return;
             }
 
-            Type _type = _columns[columnIndex].EmbeddedControlTemplate.GetType();
-            Control _control = (Control)Activator.CreateInstance(_type);
-            ILVEmbeddedControl _iEmbeddedControl = (ILVEmbeddedControl)_control;
-
-            if (_iEmbeddedControl == null)
+            if (SortType == SortTypes.InsertionSort)
             {
-                throw new Exception(@"Control does not implement the GLEmbeddedControl interface, can't start");
+                LVQuickSort sorter = new LVQuickSort();
+
+                sorter.NumericCompare = Columns[column].NumericSort;
+                sorter.SortDirection = Columns[column].LastSortState;
+                sorter.SortColumn = column;
+                sorter.LVInsertionSort(Items, 0, _items.Count - 1);
+            }
+            else if (SortType == SortTypes.MergeSort)
+            {
+                // this.SortIndex = nColumn;
+                LVMergeSort mergesort = new LVMergeSort();
+
+                mergesort.NumericCompare = Columns[column].NumericSort;
+                mergesort.SortDirection = Columns[column].LastSortState;
+                mergesort.SortColumn = column;
+                mergesort.Sort(Items, 0, _items.Count - 1);
+            }
+            else if (SortType == SortTypes.QuickSort)
+            {
+                LVQuickSort sorter = new LVQuickSort();
+
+                sorter.NumericCompare = Columns[column].NumericSort;
+                sorter.SortDirection = Columns[column].LastSortState;
+                sorter.SortColumn = column;
+                sorter.Sort(Items); // .QuickSort( Items, 0, Items.Count-1 );
             }
 
-            _iEmbeddedControl.LVEmbeddedControlLoad(item, subItem, this);
-
-            _control.KeyPress += TextBox_KeyPress;
-
-            _control.Parent = this;
-            ActivatedEmbeddedControl = _control;
-            if (_activatedEmbeddedControl != null)
+            if (Columns[column].LastSortState == SortDirections.Descending)
             {
-                int _yOffset = (subItem.LastCellRect.Height - _activatedEmbeddedControl.Bounds.Height) / 2;
-            }
-
-            Rectangle _controlBounds;
-
-            if (GridLineStyle == GridLineStyle.None)
-            {
-                // Add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
-                _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 1, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 2);
-            }
-            else
-            {
-                // Add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
-                _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 2, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 3);
-            }
-
-            // control.Bounds = subItem.LastCellRect; //new Rectangle( subItem.LastCellRect.X, subItem.LastCellRect.Y + nYOffset, subItem.LastCellRect.Width, subItem.LastCellRect.Height );
-            _control.Bounds = _controlBounds;
-
-            _control.Show();
-            _control.Focus();
-        }
-
-        /// <summary>Determines if themes are available.</summary>
-        /// <returns>The <see cref="bool" />.</returns>
-        private bool AreThemesAvailable()
-        {
-            DebugTraceManager.WriteDebug("AreThemesAvailable", DebugTraceManager.DebugOutput.TraceListener);
-
-            // IntPtr hTheme = IntPtr.Zero;
-            try
-            {
-                if ((Uxtheme.IsThemeActive() == 1) && (_theme == IntPtr.Zero))
-                {
-                    _theme = Uxtheme.OpenThemeData(_theme, "HEADER");
-
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.ToString());
-            }
-
-            return false;
-        }
-
-        private int CompensateColumnHeaderResize(int columnIndex, bool columnResizeCancelled)
-        {
-            if ((_controlStyle == LVControlStyles.Normal) && !columnResizeCancelled && (_items.Count > 0))
-            {
-                // The user resized the first column
-                if (columnIndex == 0)
-                {
-                    VisualListViewColumn _column = (_columns != null) && (_columns.Count > 0) ? _columns[0] : null;
-
-                    if (_column != null)
-                    {
-                        if (_imageListColumns == null)
-                        {
-                            return 2;
-                        }
-                        else
-                        {
-                            // If the list-view contains an item w/ a non-negative ImageIndex then we don't need to add extra padding.
-                            bool _addPadding = true;
-
-                            for (var i = 0; i < _items.Count; i++)
-                            {
-                                if (_items[i].ImageIndex > -1)
-                                {
-                                    _addPadding = false;
-                                }
-                            }
-
-                            if (_addPadding)
-                            {
-                                // 18 = 16 + 2;
-                                // 16 = size of small image list.
-                                // 2 is the padding we add when there is no small image list.
-                                return 18;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return 0;
-        }
-
-        /// <summary>Destroy activated embedded control exists, remove and unload it.</summary>
-        private void DestroyActivatedEmbedded()
-        {
-            if (_activatedEmbeddedControl != null)
-            {
-                ILVEmbeddedControl control = (ILVEmbeddedControl)_activatedEmbeddedControl;
-                control.LVEmbeddedControlUnload();
-
-                // must do this because the unload may call the changed callback from the items which would call this routine a second time
-                if (_activatedEmbeddedControl != null)
-                {
-                    _activatedEmbeddedControl.Dispose();
-                    _activatedEmbeddedControl = null;
-                }
-            }
-        }
-
-        /// <summary>Draws the display text.</summary>
-        /// <param name="graphics">The specified graphics to draw on.</param>
-        private void DrawDisplayText(Graphics graphics)
-        {
-            if ((_items.Count <= 0) && _displayTextOnEmpty)
-            {
-                Rectangle _layoutRectangle = new Rectangle(0, 0, RowsClientRectangle.Width, RowsClientRectangle.Height);
-                GraphicsManager.DrawText(graphics, _displayText, _displayTextFont, _displayTextColor, _layoutRectangle);
-            }
-        }
-
-        /// <summary>Handle horizontal scroll bar movement.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void HorizontalPanelScrollBar_Scroll(object sender, ScrollEventArgs e)
-        {
-            DebugTraceManager.WriteDebug("hPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
-
-            // this.Focus();
-            DebugTraceManager.WriteDebug("Calling Invalidate From hPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
-
-            Invalidate();
-        }
-
-        /// <summary>Timer handler. This mostly deals with the hover technology with events firing.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void HoverTimer_TimerTick(object sender, EventArgs e)
-        {
-            Point _pointLocalMouse;
-            if (Cursor != null)
-            {
-                _pointLocalMouse = PointToClient(Cursor.Position);
+                Columns[column].LastSortState = SortDirections.Ascending;
             }
             else
             {
-                _pointLocalMouse = new Point(9999, 9999);
+                Columns[column].LastSortState = SortDirections.Descending;
             }
 
-            int _item;
-            int _column;
-            var _cellX = 0;
-            var _cellY = 0;
-            ListStates _listStates;
-            ListViewRegion _listRegion;
-            InterpretCoordinates(_pointLocalMouse.X, _pointLocalMouse.Y, out _listRegion, out _cellX, out _cellY, out _item, out _column, out _listStates);
-
-            if ((_pointLocalMouse == _lastHoverSpot) && !_hoverLive && (_listRegion != ListViewRegion.NonClient))
-            {
-                Debug.WriteLine("VisualListView::HoverTimer-Firing");
-                HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverStart, _item, _column, _listRegion));
-                _hoverLive = true;
-            }
-            else if (_hoverLive && (_pointLocalMouse != _lastHoverSpot))
-            {
-                Debug.WriteLine("VisualListView::HoverTimer-Canceling");
-                HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverEnd, -1, -1, ListViewRegion.NonClient));
-                _hoverLive = false;
-            }
-
-            _lastHoverSpot = _pointLocalMouse;
-        }
-
-        private void InitializeComponent()
-        {
-            if (ControlStyle == LVControlStyles.XP)
-            {
-                Application.EnableVisualStyles();
-            }
-
-            _components = new Container();
-        }
-
-        /// <summary>The item has changed event.</summary>
-        /// <param name="source">The source.</param>
-        /// <param name="e">The event args.</param>
-        private void Items_Changed(object source, ListViewChangedEventArgs e)
-        {
-            DebugTraceManager.WriteDebug("VisualListView::Items_Changed", DebugTraceManager.DebugOutput.TraceListener);
-
-            DestroyActivatedEmbedded();
-
-            ItemChangedEvent?.Invoke(this, e);
-
-            // Invalidate if an item that is within the visible area has changed
-            if (e.Item != null)
-            {
-                if (IsItemVisible(e.Item))
-                {
-                    DebugTraceManager.WriteDebug("Calling Invalidate From Items_Changed", DebugTraceManager.DebugOutput.TraceListener);
-                    Invalidate();
-                }
-            }
-
-            // Fixes: Invalidates list view on items changed.
-            Invalidate();
-        }
-
-        private void OnMouseDownFromSubItem(object sender, MouseEventArgs e)
-        {
-            DebugTraceManager.WriteDebug("OnMouseDown::SubItem", DebugTraceManager.DebugOutput.TraceListener);
-
-            Point _clientPoint = PointToClient(new Point(MousePosition.X, MousePosition.Y));
-            e = new MouseEventArgs(e.Button, e.Clicks, _clientPoint.X, _clientPoint.Y, e.Delta);
-            OnMouseDown(e);
-        }
-
-        private void OnScroll(object sender, ScrollEventArgs e)
-        {
-            DebugTraceManager.WriteDebug("Calling Invalidate From OnScroll", DebugTraceManager.DebugOutput.TraceListener);
-
-            DestroyActivatedEmbedded();
-
-            Invalidate();
-        }
-
-        /// <summary>Recalculate scroll bars and control size.</summary>
-        private void RecalculateScroll()
-        {
-            DebugTraceManager.WriteDebug("VisualListView::RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
-
-            var _exitCode = 0;
-            bool _bSbChanged;
-            do
-            {
-                // this loop is to handle changes and re-changes that happen when one or the other changes
-                DebugTraceManager.WriteDebug("Begin scrollbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
-                _bSbChanged = false;
-
-                if ((_columns.Width > RowsInnerClientRect.Width) && (_horizontalScrollBar.Visible == false))
-                {
-                    // total width of all the rows is less than the visible rect
-                    _horizontalScrollBar.MVisible = true;
-                    _horizontalScrollBar.Value = 0;
-                    _bSbChanged = true;
-
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
-                    Invalidate();
-                    DebugTraceManager.WriteDebug("showing hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
-                }
-
-                if ((_columns.Width <= RowsInnerClientRect.Width) && _horizontalScrollBar.Visible)
-                {
-                    // total width of all the rows is less than the visible rect
-                    _horizontalScrollBar.MVisible = false;
-                    _horizontalScrollBar.Value = 0;
-                    _bSbChanged = true;
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
-                    Invalidate();
-                    DebugTraceManager.WriteDebug("hiding hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
-                }
-
-                if ((TotalRowHeight > RowsInnerClientRect.Height) && (_verticalScrollBar.Visible == false))
-                {
-                    // total height of all the rows is greater than the visible rect
-                    _verticalScrollBar.MVisible = true;
-                    _horizontalScrollBar.Value = 0;
-                    _bSbChanged = true;
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
-                    Invalidate();
-                    DebugTraceManager.WriteDebug("showing vScrollbar", DebugTraceManager.DebugOutput.TraceListener);
-                }
-
-                if ((TotalRowHeight <= RowsInnerClientRect.Height) && _verticalScrollBar.Visible)
-                {
-                    // total height of all rows is less than the visible rect
-                    _verticalScrollBar.MVisible = false;
-                    _verticalScrollBar.Value = 0;
-                    _bSbChanged = true;
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
-                    Invalidate();
-                    DebugTraceManager.WriteDebug("hiding vScrollbar", DebugTraceManager.DebugOutput.TraceListener);
-                }
-
-                DebugTraceManager.WriteDebug("End scrollbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
-
-                if (++_exitCode > 4)
-                {
-                    break;
-                }
-            }
-            while (_bSbChanged);
-
-            Rectangle _rectangleClient = RowsInnerClientRect;
-
-            if (_verticalScrollBar.Visible)
-            {
-                _verticalScrollBar.MTop = _rectangleClient.Y;
-                _verticalScrollBar.MLeft = _rectangleClient.Right;
-                _verticalScrollBar.MHeight = _rectangleClient.Height;
-                _verticalScrollBar.MLargeChange = VisibleRowsCount;
-                _verticalScrollBar.MMaximum = Count - 1;
-
-                if (_verticalScrollBar.Value + VisibleRowsCount > Count)
-                {
-                    // catch all to make sure the scrollbar isn't going farther than visible items
-                    DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
-                    _verticalScrollBar.Value = Count - VisibleRowsCount; // an item got deleted underneath somehow and scroll value is larger than can be displayed
-                }
-            }
-
-            if (_horizontalScrollBar.Visible)
-            {
-                _horizontalScrollBar.MLeft = _rectangleClient.Left;
-                _horizontalScrollBar.MTop = _rectangleClient.Bottom;
-                _horizontalScrollBar.MWidth = _rectangleClient.Width;
-
-                _horizontalScrollBar.MLargeChange = _rectangleClient.Width; // this re-all is the size we want to move
-                _horizontalScrollBar.MMaximum = Columns.Width;
-
-                if (_horizontalScrollBar.Value + _horizontalScrollBar.LargeChange > _horizontalScrollBar.Maximum)
-                {
-                    DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
-                    _horizontalScrollBar.Value = _horizontalScrollBar.Maximum - _horizontalScrollBar.LargeChange;
-                }
-            }
-
-            if (BorderPadding > 0)
-            {
-                _horizontalBottomBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Bottom - BorderPadding, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
-                _horizontalTopBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Top, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
-                _verticalLeftBorderStrip.Bounds = new Rectangle(0, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
-                _verticalRightBorderStrip.Bounds = new Rectangle(ClientRectangle.Right - BorderPadding, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
-            }
-            else
-            {
-                if (_horizontalBottomBorderStrip.Visible)
-                {
-                    _horizontalBottomBorderStrip.Visible = false;
-                }
-
-                if (_horizontalTopBorderStrip.Visible)
-                {
-                    _horizontalTopBorderStrip.Visible = false;
-                }
-
-                if (_verticalLeftBorderStrip.Visible)
-                {
-                    _verticalLeftBorderStrip.Visible = false;
-                }
-
-                if (_verticalRightBorderStrip.Visible)
-                {
-                    _verticalRightBorderStrip.Visible = false;
-                }
-            }
-
-            if (_horizontalScrollBar.Visible && _verticalScrollBar.Visible)
-            {
-                if (!_cornerBox.Visible)
-                {
-                    _cornerBox.Visible = true;
-                }
-
-                _cornerBox.Bounds = new Rectangle(_horizontalScrollBar.Right, _verticalScrollBar.Bottom, _verticalScrollBar.Width, _horizontalScrollBar.Height);
-            }
-            else
-            {
-                if (_cornerBox.Visible)
-                {
-                    _cornerBox.Visible = false;
-                }
-            }
-        }
-
-        /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
-        /// <param name="columnIndex">The zero-based index of the column to resize.</param>
-        /// <param name="width">The width of the column.</param>
-        private void SetColumnWidth(int columnIndex, int width)
-        {
-            if (IsHandleCreated)
-            {
-                _columns[columnIndex].Width = width;
-            }
-        }
-
-        /// <summary>Check for return (if we get it, deactivate).</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar == (char)Keys.Return) || (e.KeyChar == (char)Keys.Escape))
-            {
-                DestroyActivatedEmbedded();
-            }
-        }
-
-        /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
-        /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
-        private void UpdateColumnWidths(ColumnHeaderAutoResizeStyle headerAutoResize)
-        {
-            if (_columns != null)
-            {
-                for (var i = 0; i < _columns.Count; i++)
-                {
-                    SetColumnWidth(i, headerAutoResize);
-                }
-            }
-        }
-
-        /// <summary>Handle vertical scroll bar movement.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void VerticalPanelScrollBar_Scroll(object sender, ScrollEventArgs e)
-        {
-            DebugTraceManager.WriteDebug("vPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
-
-            // this.Focus();
-            DebugTraceManager.WriteDebug("Calling Invalidate From vPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
-            Invalidate();
+            // Items.Sort();
         }
 
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
@@ -2731,59 +2352,6 @@
             return false;
         }
 
-        /// <summary>Sort a column. Set to virtual so you can write your own sorting.</summary>
-        /// <param name="column">The column.</param>
-        public virtual void SortColumn(int column)
-        {
-            Debug.WriteLine("Column sorting called.");
-
-            if (Count < 2)
-            {
-                // nothing to sort
-                return;
-            }
-
-            if (SortType == SortTypes.InsertionSort)
-            {
-                LVQuickSort sorter = new LVQuickSort();
-
-                sorter.NumericCompare = Columns[column].NumericSort;
-                sorter.SortDirection = Columns[column].LastSortState;
-                sorter.SortColumn = column;
-                sorter.LVInsertionSort(Items, 0, _items.Count - 1);
-            }
-            else if (SortType == SortTypes.MergeSort)
-            {
-                // this.SortIndex = nColumn;
-                LVMergeSort mergesort = new LVMergeSort();
-
-                mergesort.NumericCompare = Columns[column].NumericSort;
-                mergesort.SortDirection = Columns[column].LastSortState;
-                mergesort.SortColumn = column;
-                mergesort.Sort(Items, 0, _items.Count - 1);
-            }
-            else if (SortType == SortTypes.QuickSort)
-            {
-                LVQuickSort sorter = new LVQuickSort();
-
-                sorter.NumericCompare = Columns[column].NumericSort;
-                sorter.SortDirection = Columns[column].LastSortState;
-                sorter.SortColumn = column;
-                sorter.Sort(Items); // .QuickSort( Items, 0, Items.Count-1 );
-            }
-
-            if (Columns[column].LastSortState == SortDirections.Descending)
-            {
-                Columns[column].LastSortState = SortDirections.Ascending;
-            }
-            else
-            {
-                Columns[column].LastSortState = SortDirections.Descending;
-            }
-
-            // Items.Sort();
-        }
-
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
         /// <param name="columnIndex">The zero-based index of the column to resize.</param>
         /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
@@ -2843,6 +2411,461 @@
                     _columns[columnIndex].Width = _newWidth;
                 }
             }
+        }
+
+        /// <summary>Instance the activated embedded control for this item/column.</summary>
+        /// <param name="columnIndex">The column index.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="subItem">The sub item.</param>
+        private void ActivateEmbeddedControl(int columnIndex, VisualListViewItem item, VisualListViewSubItem subItem)
+        {
+            if (_activatedEmbeddedControl != null)
+            {
+                _activatedEmbeddedControl.Dispose();
+                _activatedEmbeddedControl = null;
+            }
+
+            if (_columns[columnIndex].EmbeddedControlTemplate == null)
+            {
+                return;
+            }
+
+            Type _type = _columns[columnIndex].EmbeddedControlTemplate.GetType();
+            Control _control = (Control)Activator.CreateInstance(_type);
+            ILVEmbeddedControl _iEmbeddedControl = (ILVEmbeddedControl)_control;
+
+            if (_iEmbeddedControl == null)
+            {
+                throw new Exception(@"Control does not implement the GLEmbeddedControl interface, can't start");
+            }
+
+            _iEmbeddedControl.LVEmbeddedControlLoad(item, subItem, this);
+
+            _control.KeyPress += TextBox_KeyPress;
+
+            _control.Parent = this;
+            ActivatedEmbeddedControl = _control;
+            if (_activatedEmbeddedControl != null)
+            {
+                int _yOffset = (subItem.LastCellRect.Height - _activatedEmbeddedControl.Bounds.Height) / 2;
+            }
+
+            Rectangle _controlBounds;
+
+            if (GridLineStyle == GridLineStyle.None)
+            {
+                // Add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
+                _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 1, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 2);
+            }
+            else
+            {
+                // Add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
+                _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 2, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 3);
+            }
+
+            // control.Bounds = subItem.LastCellRect; //new Rectangle( subItem.LastCellRect.X, subItem.LastCellRect.Y + nYOffset, subItem.LastCellRect.Width, subItem.LastCellRect.Height );
+            _control.Bounds = _controlBounds;
+
+            _control.Show();
+            _control.Focus();
+        }
+
+        /// <summary>Determines if themes are available.</summary>
+        /// <returns>The <see cref="bool" />.</returns>
+        private bool AreThemesAvailable()
+        {
+            DebugTraceManager.WriteDebug("AreThemesAvailable", DebugTraceManager.DebugOutput.TraceListener);
+
+            // IntPtr hTheme = IntPtr.Zero;
+            try
+            {
+                if ((Uxtheme.IsThemeActive() == 1) && (_theme == IntPtr.Zero))
+                {
+                    _theme = Uxtheme.OpenThemeData(_theme, "HEADER");
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+
+            return false;
+        }
+
+        private int CompensateColumnHeaderResize(int columnIndex, bool columnResizeCancelled)
+        {
+            if ((_controlStyle == LVControlStyles.Normal) && !columnResizeCancelled && (_items.Count > 0))
+            {
+                // The user resized the first column
+                if (columnIndex == 0)
+                {
+                    VisualListViewColumn _column = (_columns != null) && (_columns.Count > 0) ? _columns[0] : null;
+
+                    if (_column != null)
+                    {
+                        if (_imageListColumns == null)
+                        {
+                            return 2;
+                        }
+                        else
+                        {
+                            // If the list-view contains an item w/ a non-negative ImageIndex then we don't need to add extra padding.
+                            bool _addPadding = true;
+
+                            for (var i = 0; i < _items.Count; i++)
+                            {
+                                if (_items[i].ImageIndex > -1)
+                                {
+                                    _addPadding = false;
+                                }
+                            }
+
+                            if (_addPadding)
+                            {
+                                // 18 = 16 + 2;
+                                // 16 = size of small image list.
+                                // 2 is the padding we add when there is no small image list.
+                                return 18;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        /// <summary>Destroy activated embedded control exists, remove and unload it.</summary>
+        private void DestroyActivatedEmbedded()
+        {
+            if (_activatedEmbeddedControl != null)
+            {
+                ILVEmbeddedControl control = (ILVEmbeddedControl)_activatedEmbeddedControl;
+                control.LVEmbeddedControlUnload();
+
+                // must do this because the unload may call the changed callback from the items which would call this routine a second time
+                if (_activatedEmbeddedControl != null)
+                {
+                    _activatedEmbeddedControl.Dispose();
+                    _activatedEmbeddedControl = null;
+                }
+            }
+        }
+
+        /// <summary>Draws the display text.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        private void DrawDisplayText(Graphics graphics)
+        {
+            if ((_items.Count <= 0) && _displayTextOnEmpty)
+            {
+                Rectangle _layoutRectangle = new Rectangle(0, 0, RowsClientRectangle.Width, RowsClientRectangle.Height);
+                GraphicsManager.DrawText(graphics, _displayText, _displayTextFont, _displayTextColor, _layoutRectangle);
+            }
+        }
+
+        /// <summary>Handle horizontal scroll bar movement.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        private void HorizontalPanelScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            DebugTraceManager.WriteDebug("hPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
+
+            // this.Focus();
+            DebugTraceManager.WriteDebug("Calling Invalidate From hPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
+
+            Invalidate();
+        }
+
+        /// <summary>Timer handler. This mostly deals with the hover technology with events firing.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        private void HoverTimer_TimerTick(object sender, EventArgs e)
+        {
+            Point _pointLocalMouse;
+            if (Cursor != null)
+            {
+                _pointLocalMouse = PointToClient(Cursor.Position);
+            }
+            else
+            {
+                _pointLocalMouse = new Point(9999, 9999);
+            }
+
+            int _item;
+            int _column;
+            var _cellX = 0;
+            var _cellY = 0;
+            ListStates _listStates;
+            ListViewRegion _listRegion;
+            InterpretCoordinates(_pointLocalMouse.X, _pointLocalMouse.Y, out _listRegion, out _cellX, out _cellY, out _item, out _column, out _listStates);
+
+            if ((_pointLocalMouse == _lastHoverSpot) && !_hoverLive && (_listRegion != ListViewRegion.NonClient))
+            {
+                Debug.WriteLine("VisualListView::HoverTimer-Firing");
+                HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverStart, _item, _column, _listRegion));
+                _hoverLive = true;
+            }
+            else if (_hoverLive && (_pointLocalMouse != _lastHoverSpot))
+            {
+                Debug.WriteLine("VisualListView::HoverTimer-Canceling");
+                HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverEnd, -1, -1, ListViewRegion.NonClient));
+                _hoverLive = false;
+            }
+
+            _lastHoverSpot = _pointLocalMouse;
+        }
+
+        private void InitializeComponent()
+        {
+            BackColor = SystemColors.ControlLightLight;
+
+            if (ControlStyle == LVControlStyles.XP)
+            {
+                Application.EnableVisualStyles();
+            }
+
+            _components = new Container();
+        }
+
+        /// <summary>The item has changed event.</summary>
+        /// <param name="source">The source.</param>
+        /// <param name="e">The event args.</param>
+        private void Items_Changed(object source, ListViewChangedEventArgs e)
+        {
+            DebugTraceManager.WriteDebug("VisualListView::Items_Changed", DebugTraceManager.DebugOutput.TraceListener);
+
+            DestroyActivatedEmbedded();
+
+            ItemChangedEvent?.Invoke(this, e);
+
+            // Invalidate if an item that is within the visible area has changed
+            if (e.Item != null)
+            {
+                if (IsItemVisible(e.Item))
+                {
+                    DebugTraceManager.WriteDebug("Calling Invalidate From Items_Changed", DebugTraceManager.DebugOutput.TraceListener);
+                    Invalidate();
+                }
+            }
+
+            // Fixes: Invalidates list view on items changed.
+            Invalidate();
+        }
+
+        private void OnMouseDownFromSubItem(object sender, MouseEventArgs e)
+        {
+            DebugTraceManager.WriteDebug("OnMouseDown::SubItem", DebugTraceManager.DebugOutput.TraceListener);
+
+            Point _clientPoint = PointToClient(new Point(MousePosition.X, MousePosition.Y));
+            e = new MouseEventArgs(e.Button, e.Clicks, _clientPoint.X, _clientPoint.Y, e.Delta);
+            OnMouseDown(e);
+        }
+
+        private void OnScroll(object sender, ScrollEventArgs e)
+        {
+            DebugTraceManager.WriteDebug("Calling Invalidate From OnScroll", DebugTraceManager.DebugOutput.TraceListener);
+
+            DestroyActivatedEmbedded();
+
+            Invalidate();
+        }
+
+        /// <summary>Recalculate scroll bars and control size.</summary>
+        private void RecalculateScroll()
+        {
+            DebugTraceManager.WriteDebug("VisualListView::RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+
+            var _exitCode = 0;
+            bool _bSbChanged;
+            do
+            {
+                // this loop is to handle changes and re-changes that happen when one or the other changes
+                DebugTraceManager.WriteDebug("Begin scrollbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
+                _bSbChanged = false;
+
+                if ((_columns.Width > RowsInnerClientRect.Width) && (_horizontalScrollBar.Visible == false))
+                {
+                    // total width of all the rows is less than the visible rect
+                    _horizontalScrollBar.MVisible = true;
+                    _horizontalScrollBar.Value = 0;
+                    _bSbChanged = true;
+
+                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    Invalidate();
+                    DebugTraceManager.WriteDebug("showing hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                }
+
+                if ((_columns.Width <= RowsInnerClientRect.Width) && _horizontalScrollBar.Visible)
+                {
+                    // total width of all the rows is less than the visible rect
+                    _horizontalScrollBar.MVisible = false;
+                    _horizontalScrollBar.Value = 0;
+                    _bSbChanged = true;
+                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    Invalidate();
+                    DebugTraceManager.WriteDebug("hiding hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                }
+
+                if ((TotalRowsHeight > RowsInnerClientRect.Height) && (_verticalScrollBar.Visible == false))
+                {
+                    // total height of all the rows is greater than the visible rect
+                    _verticalScrollBar.MVisible = true;
+                    _horizontalScrollBar.Value = 0;
+                    _bSbChanged = true;
+                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    Invalidate();
+                    DebugTraceManager.WriteDebug("showing vScrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                }
+
+                if ((TotalRowsHeight <= RowsInnerClientRect.Height) && _verticalScrollBar.Visible)
+                {
+                    // total height of all rows is less than the visible rect
+                    _verticalScrollBar.MVisible = false;
+                    _verticalScrollBar.Value = 0;
+                    _bSbChanged = true;
+                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    Invalidate();
+                    DebugTraceManager.WriteDebug("hiding vScrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                }
+
+                DebugTraceManager.WriteDebug("End scrollbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
+
+                if (++_exitCode > 4)
+                {
+                    break;
+                }
+            }
+            while (_bSbChanged);
+
+            Rectangle _rectangleClient = RowsInnerClientRect;
+
+            if (_verticalScrollBar.Visible)
+            {
+                _verticalScrollBar.MTop = _rectangleClient.Y;
+                _verticalScrollBar.MLeft = _rectangleClient.Right;
+                _verticalScrollBar.MHeight = _rectangleClient.Height;
+                _verticalScrollBar.MLargeChange = VisibleRowsCount;
+                _verticalScrollBar.MMaximum = Count - 1;
+
+                if (_verticalScrollBar.Value + VisibleRowsCount > Count)
+                {
+                    // catch all to make sure the scrollbar isn't going farther than visible items
+                    DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
+                    _verticalScrollBar.Value = Count - VisibleRowsCount; // an item got deleted underneath somehow and scroll value is larger than can be displayed
+                }
+            }
+
+            if (_horizontalScrollBar.Visible)
+            {
+                _horizontalScrollBar.MLeft = _rectangleClient.Left;
+                _horizontalScrollBar.MTop = _rectangleClient.Bottom;
+                _horizontalScrollBar.MWidth = _rectangleClient.Width;
+
+                _horizontalScrollBar.MLargeChange = _rectangleClient.Width; // this re-all is the size we want to move
+                _horizontalScrollBar.MMaximum = Columns.Width;
+
+                if (_horizontalScrollBar.Value + _horizontalScrollBar.LargeChange > _horizontalScrollBar.Maximum)
+                {
+                    DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
+                    _horizontalScrollBar.Value = _horizontalScrollBar.Maximum - _horizontalScrollBar.LargeChange;
+                }
+            }
+
+            if (BorderPadding > 0)
+            {
+                _horizontalBottomBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Bottom - BorderPadding, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
+                _horizontalTopBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Top, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
+                _verticalLeftBorderStrip.Bounds = new Rectangle(0, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
+                _verticalRightBorderStrip.Bounds = new Rectangle(ClientRectangle.Right - BorderPadding, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
+            }
+            else
+            {
+                if (_horizontalBottomBorderStrip.Visible)
+                {
+                    _horizontalBottomBorderStrip.Visible = false;
+                }
+
+                if (_horizontalTopBorderStrip.Visible)
+                {
+                    _horizontalTopBorderStrip.Visible = false;
+                }
+
+                if (_verticalLeftBorderStrip.Visible)
+                {
+                    _verticalLeftBorderStrip.Visible = false;
+                }
+
+                if (_verticalRightBorderStrip.Visible)
+                {
+                    _verticalRightBorderStrip.Visible = false;
+                }
+            }
+
+            if (_horizontalScrollBar.Visible && _verticalScrollBar.Visible)
+            {
+                if (!_cornerBox.Visible)
+                {
+                    _cornerBox.Visible = true;
+                }
+
+                _cornerBox.Bounds = new Rectangle(_horizontalScrollBar.Right, _verticalScrollBar.Bottom, _verticalScrollBar.Width, _horizontalScrollBar.Height);
+            }
+            else
+            {
+                if (_cornerBox.Visible)
+                {
+                    _cornerBox.Visible = false;
+                }
+            }
+        }
+
+        /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
+        /// <param name="columnIndex">The zero-based index of the column to resize.</param>
+        /// <param name="width">The width of the column.</param>
+        private void SetColumnWidth(int columnIndex, int width)
+        {
+            if (IsHandleCreated)
+            {
+                _columns[columnIndex].Width = width;
+            }
+        }
+
+        /// <summary>Check for return (if we get it, deactivate).</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar == (char)Keys.Return) || (e.KeyChar == (char)Keys.Escape))
+            {
+                DestroyActivatedEmbedded();
+            }
+        }
+
+        /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
+        /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
+        private void UpdateColumnWidths(ColumnHeaderAutoResizeStyle headerAutoResize)
+        {
+            if (_columns != null)
+            {
+                for (var i = 0; i < _columns.Count; i++)
+                {
+                    SetColumnWidth(i, headerAutoResize);
+                }
+            }
+        }
+
+        /// <summary>Handle vertical scroll bar movement.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        private void VerticalPanelScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            DebugTraceManager.WriteDebug("vPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
+
+            // this.Focus();
+            DebugTraceManager.WriteDebug("Calling Invalidate From vPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
+            Invalidate();
         }
 
         #endregion

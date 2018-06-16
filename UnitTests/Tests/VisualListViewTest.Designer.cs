@@ -80,7 +80,7 @@
             this.visualListViewExTest.Selectable = true;
             this.visualListViewExTest.SelectedTextColor = System.Drawing.Color.White;
             this.visualListViewExTest.SelectionColor = System.Drawing.Color.CornflowerBlue;
-            this.visualListViewExTest.ShowFocusRect = false;
+            this.visualListViewExTest.ShowFocusRectangle = false;
             this.visualListViewExTest.Size = new System.Drawing.Size(511, 259);
             this.visualListViewExTest.SortType = VisualPlus.Enumerators.SortTypes.InsertionSort;
             this.visualListViewExTest.SuperFlatHeaderColor = System.Drawing.Color.White;

@@ -466,7 +466,7 @@
             // Make sure anything can even be selected before drawing selection rects
             if (listView.Selectable)
             {
-                if (listView.ShowFocusRect && (listView.FocusedItem == item))
+                if (listView.ShowFocusRectangle && (listView.FocusedItem == item))
                 {
                     // Deal with focus rect
                     ControlPaint.DrawFocusRectangle(graphicsRow, new Rectangle(listView.RowsInnerClientRect.X + 1, rectRow.Y, listView.RowsInnerClientRect.Width - 1, rectRow.Height));
