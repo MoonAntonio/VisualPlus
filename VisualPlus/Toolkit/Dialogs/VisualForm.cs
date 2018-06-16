@@ -481,6 +481,20 @@
             }
         }
 
+        public new string Text
+        {
+            get
+            {
+                return base.Text;
+            }
+
+            set
+            {
+                base.Text = value;
+                Invalidate();
+            }
+        }
+
         [Category(PropertyCategory.Layout)]
         [Description(PropertyDescription.Rectangle)]
         public Rectangle TextRectangle
