@@ -310,11 +310,10 @@
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawGridLines", DebugTraceManager.DebugOutput.TraceListener);
 
-            // int _startItem = vPanelScrollBar.Value;
-            // int _yCursor = rect.Y;
             int _yCursor = listView.RowsInnerClientRect.Y;
             using (Pen _gridPen = new Pen(listView.GridColor))
             {
+                // Determine the grid line style.
                 if (listView.GridLineStyle == GridLineStyle.Dashed)
                 {
                     _gridPen.DashStyle = DashStyle.Dash;
@@ -328,6 +327,7 @@
                     _gridPen.DashStyle = DashStyle.Solid;
                 }
 
+                // Draw horizontal grid lines.
                 if ((listView.GridLines == GridLines.Both) || (listView.GridLines == GridLines.Horizontal))
                 {
                     int _rowsToDraw = listView.VisibleRowsCount + 1;
@@ -343,17 +343,20 @@
                     {
                         _yCursor += listView.ItemHeight;
 
-                        // draw horizontal line
+                        // Draw horizontal line.
                         rowsDC.DrawLine(_gridPen, 0, _yCursor, listView.RowsInnerClientRect.Width, _yCursor);
                     }
                 }
 
+                // Draw vertical grid lines.
                 if ((listView.GridLines == GridLines.Both) || (listView.GridLines == GridLines.Vertical))
                 {
                     int _xCursor = -hPanelScrollBar.Value;
                     for (var column = 0; column < listView.Columns.Count; column++)
                     {
                         _xCursor += listView.Columns[column].Width;
+
+                        // Draw vertical line.
                         rowsDC.DrawLine(_gridPen, _xCursor + 1, listView.RowsInnerClientRect.Y, _xCursor + 1, listView.RowsInnerClientRect.Bottom); // draw vertical line
                     }
                 }
@@ -486,9 +489,10 @@
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawRows", DebugTraceManager.DebugOutput.TraceListener);
 
-            SolidBrush brush = new SolidBrush(listView.BackColor);
-            graphicsRows.FillRectangle(brush, listView.RowsClientRectangle);
-            brush.Dispose();
+            using (SolidBrush brush = new SolidBrush(listView.BackColor))
+            {
+                graphicsRows.FillRectangle(brush, listView.RowsClientRectangle);
+            }
 
             // if they have a background image, then display it
             if (listView.BackgroundImage != null)
@@ -503,44 +507,46 @@
                 }
             }
 
-            // determine start item based on whether or not we have a vertical scrollbar present
-            int nStartItem; // which item to start with in this visible pane
+            // Determine start item based on whether or not we have a vertical scrollbar present.
+            // Which item to start with in this visible view.
+            int _startItem; 
             if (vPanelScrollBar.Visible)
             {
-                nStartItem = vPanelScrollBar.Value;
+                _startItem = vPanelScrollBar.Value;
             }
             else
             {
-                nStartItem = 0;
+                _startItem = 0;
             }
 
-            Rectangle rectRow = listView.RowsRectangle;
-            rectRow.Height = listView.ItemHeight;
+            Rectangle _rectangleRow = listView.RowsRectangle;
+            _rectangleRow.Height = listView.ItemHeight;
 
-            /* Draw Rows */
-            for (var item = 0; (item < listView.VisibleRowsCount + 1) && (item + nStartItem < listView.Items.Count); item++)
+            // Draw rows.
+            for (var item = 0; (item < listView.VisibleRowsCount + 1) && (item + _startItem < listView.Items.Count); item++)
             {
-                DrawRow(graphicsRows, rectRow, listView.Items[item + nStartItem], item + nStartItem, listView, hPanelScrollBar, _newLiveControls, _liveControls, checkBoxSize);
-                rectRow.Y += listView.ItemHeight;
+                DrawRow(graphicsRows, _rectangleRow, listView.Items[item + _startItem], item + _startItem, listView, hPanelScrollBar, _newLiveControls, _liveControls, checkBoxSize);
+                _rectangleRow.Y += listView.ItemHeight;
             }
 
             if (listView.GridLineStyle != GridLineStyle.None)
             {
+                // TODO: DrawGridLines also vertical when sub-items exist.
                 DrawGridLines(graphicsRows, vPanelScrollBar, hPanelScrollBar, listView);
             }
 
-            // draw hot tracking column overlay
+            // Draw hot tracking column overlay.
             if (listView.HotColumnTracking && (listView.HotColumnIndex != -1) && (listView.HotColumnIndex < listView.Columns.Count))
             {
-                int nXCursor = -hPanelScrollBar.Value;
-                for (int nColumnIndex = 0; nColumnIndex < listView.HotColumnIndex; nColumnIndex++)
+                int _xCursor = -hPanelScrollBar.Value;
+                for (var _columnIndex = 0; _columnIndex < listView.HotColumnIndex; _columnIndex++)
                 {
-                    nXCursor += listView.Columns[nColumnIndex].Width;
+                    _xCursor += listView.Columns[_columnIndex].Width;
                 }
 
                 using (Brush hotBrush = new SolidBrush(Color.FromArgb(75, listView.HotTrackingColor.R, listView.HotTrackingColor.G, listView.HotTrackingColor.B)))
                 {
-                    graphicsRows.FillRectangle(hotBrush, nXCursor, listView.RowsInnerClientRect.Y, listView.Columns[listView.HotColumnIndex].Width + 1, listView.RowsInnerClientRect.Height - 1);
+                    graphicsRows.FillRectangle(hotBrush, _xCursor, listView.RowsInnerClientRect.Y, listView.Columns[listView.HotColumnIndex].Width + 1, listView.RowsInnerClientRect.Height - 1);
                 }
             }
         }
