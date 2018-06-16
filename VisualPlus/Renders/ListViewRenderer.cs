@@ -38,37 +38,38 @@
         /// <returns>Returns the area of the cell that is left for you to put anything else on.</returns>
         public static Rectangle DrawCellGraphic(Graphics graphicsCell, Rectangle rectCell, Image img, HorizontalAlignment alignment, int cellPaddingSize, VisualListViewEx listView)
         {
-            int th;
-            int ty;
-            int tw;
-            int tx;
+            int _cellY;
+            int _cellX;
 
-            th = img.Height + (cellPaddingSize * 2);
-            tw = img.Width + (cellPaddingSize * 2);
-            listView.MaxHeight = th; // this will only set if auto-size is true
+            int _cellHeight = img.Height + (cellPaddingSize * 2);
+            int _cellWidth = img.Width + (cellPaddingSize * 2);
 
-            if ((tw > rectCell.Width) || (th > rectCell.Height))
+            // This will only set if auto-size is true.
+            listView.MaxHeight = _cellHeight;
+
+            if ((_cellWidth > rectCell.Width) || (_cellHeight > rectCell.Height))
             {
-                return rectCell; // not enough room to draw the image, bail out
+                // Not enough room to draw the image, bail out.
+                return rectCell;
             }
 
             if (alignment == HorizontalAlignment.Left)
             {
-                ty = rectCell.Y + cellPaddingSize + ((rectCell.Height - th) / 2);
-                tx = rectCell.X + cellPaddingSize;
+                _cellY = rectCell.Y + cellPaddingSize + ((rectCell.Height - _cellHeight) / 2);
+                _cellX = rectCell.X + cellPaddingSize;
 
-                graphicsCell.DrawImage(img, tx, ty);
+                graphicsCell.DrawImage(img, _cellX, _cellY);
 
-                // remove the width that we used for the graphic from the cell
+                // Remove the width that we used for the graphic from the cell.
                 rectCell.Width -= img.Width + (cellPaddingSize * 2);
-                rectCell.X += tw;
+                rectCell.X += _cellWidth;
             }
             else if (alignment == HorizontalAlignment.Center)
             {
-                ty = rectCell.Y + cellPaddingSize + ((rectCell.Height - th) / 2);
-                tx = rectCell.X + cellPaddingSize + ((rectCell.Width - tw) / 2);
+                _cellY = rectCell.Y + cellPaddingSize + ((rectCell.Height - _cellHeight) / 2);
+                _cellX = rectCell.X + cellPaddingSize + ((rectCell.Width - _cellWidth) / 2);
 
-                graphicsCell.DrawImage(img, tx, ty);
+                graphicsCell.DrawImage(img, _cellX, _cellY);
 
                 // remove the width that we used for the graphic from the cell
                 // rectCell.Width -= (img.Width + (CellPaddingSize*2));
@@ -77,13 +78,13 @@
             }
             else if (alignment == HorizontalAlignment.Right)
             {
-                ty = rectCell.Y + cellPaddingSize + ((rectCell.Height - th) / 2);
-                tx = rectCell.Right - tw;
+                _cellY = rectCell.Y + cellPaddingSize + ((rectCell.Height - _cellHeight) / 2);
+                _cellX = rectCell.Right - _cellWidth;
 
-                graphicsCell.DrawImage(img, tx, ty);
+                graphicsCell.DrawImage(img, _cellX, _cellY);
 
-                // remove the width that we used for the graphic from the cell
-                rectCell.Width -= tw;
+                // Remove the width that we used for the graphic from the cell.
+                rectCell.Width -= _cellWidth;
             }
 
             return rectCell;
@@ -180,91 +181,93 @@
             return rectCell;
         }
 
-        /// <summary>Draw column in header control.</summary>
+        /// <summary>Draw the column header.</summary>
         /// <param name="graphicsColumn">The graphics column.</param>
-        /// <param name="rectColumn">The rectangle column.</param>
+        /// <param name="columnRectangle">The rectangle column.</param>
         /// <param name="column">The column.</param>
-        /// <param name="theme">The _theme.</param>
+        /// <param name="theme">The theme.</param>
         /// <param name="listView">The list View.</param>
-        public static void DrawColumnHeader(Graphics graphicsColumn, Rectangle rectColumn, VisualListViewColumn column, IntPtr theme, VisualListViewEx listView)
+        public static void DrawColumnHeader(Graphics graphicsColumn, Rectangle columnRectangle, VisualListViewColumn column, IntPtr theme, VisualListViewEx listView)
         {
-            DebugTraceManager.WriteDebug("ListViewRenderer::DrawColumnHeader - Name: " + column.Name, DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("ListViewRenderer::DrawColumnHeader - Text: " + column.Text, DebugTraceManager.DebugOutput.TraceListener);
 
             if (listView.ControlStyle == LVControlStyles.SuperFlat)
             {
-                SolidBrush brush = new SolidBrush(listView.SuperFlatHeaderColor);
-                graphicsColumn.FillRectangle(brush, rectColumn);
-                brush.Dispose();
+                using (SolidBrush _columnRectangleBrush = new SolidBrush(listView.SuperFlatHeaderColor))
+                {
+                    graphicsColumn.FillRectangle(_columnRectangleBrush, columnRectangle);
+                }
             }
             else if ((listView.ControlStyle == LVControlStyles.XP) && listView.ThemesAvailable)
             {
-                // this is really the only thing we care about for themeing right now inside the control
+                // This is really the only thing we care about for theme right now inside the control.
                 IntPtr hDC = graphicsColumn.GetHdc();
 
-                RECT colrect = new RECT(rectColumn.X, rectColumn.Y, rectColumn.Right, rectColumn.Bottom);
-                RECT cliprect = new RECT(rectColumn.X, rectColumn.Y, rectColumn.Right, rectColumn.Bottom);
+                RECT _columnRect = new RECT(columnRectangle.X, columnRectangle.Y, columnRectangle.Right, columnRectangle.Bottom);
+                RECT _clipRect = new RECT(columnRectangle.X, columnRectangle.Y, columnRectangle.Right, columnRectangle.Bottom);
 
                 if (column.State == ColumnStates.None)
                 {
-                    // Debug.WriteLine( "Normal" );
-                    Uxtheme.DrawThemeBackground(theme, hDC, 1, 1, ref colrect, ref cliprect);
+                    // Normal.
+                    Uxtheme.DrawThemeBackground(theme, hDC, 1, 1, ref _columnRect, ref _clipRect);
                 }
                 else if (column.State == ColumnStates.Pressed)
                 {
-                    // Debug.WriteLine( "Pressed" );
-                    Uxtheme.DrawThemeBackground(theme, hDC, 1, 3, ref colrect, ref cliprect);
+                    // Pressed
+                    Uxtheme.DrawThemeBackground(theme, hDC, 1, 3, ref _columnRect, ref _clipRect);
                 }
                 else if (column.State == ColumnStates.Hot)
                 {
-                    // Debug.WriteLine( "Hot" );
-                    Uxtheme.DrawThemeBackground(theme, hDC, 1, 2, ref colrect, ref cliprect);
+                    // Hover
+                    Uxtheme.DrawThemeBackground(theme, hDC, 1, 2, ref _columnRect, ref _clipRect);
                 }
 
                 graphicsColumn.ReleaseHdc(hDC);
             }
             else
             {
-                // normal state
+                // Normal state.
                 if (column.State != ColumnStates.Pressed)
                 {
-                    ControlPaint.DrawButton(graphicsColumn, rectColumn, ButtonState.Normal);
+                    ControlPaint.DrawButton(graphicsColumn, columnRectangle, ButtonState.Normal);
                 }
                 else
                 {
-                    ControlPaint.DrawButton(graphicsColumn, rectColumn, ButtonState.Pushed);
+                    ControlPaint.DrawButton(graphicsColumn, columnRectangle, ButtonState.Pushed);
                 }
             }
 
-            // Check if we need checkboxes in this column
+            // Check if we need checkboxes in this column.
             if (column.CheckBox)
             {
-                rectColumn = DrawCheckBox(graphicsColumn, rectColumn, column.Checked, ListViewConstants.CHECKBOX_SIZE, listView);
+                columnRectangle = DrawCheckBox(graphicsColumn, columnRectangle, column.Checked, ListViewConstants.CHECKBOX_SIZE, listView);
             }
 
-            // if there is an image, this routine will RETURN with exactly the space left for everything else after the image is drawn (or not drawn due to lack of space)
+            // If there is an image, this routine will RETURN with exactly the space left for everything else after the image is drawn (or not drawn due to lack of space).
             if ((column.ImageIndex > -1) && (listView.ImageListColumns != null) && (column.ImageIndex < listView.ImageListColumns.Images.Count))
             {
-                rectColumn = DrawCellGraphic(graphicsColumn, rectColumn, listView.ImageListColumns.Images[column.ImageIndex], HorizontalAlignment.Left, listView.CellPaddingSize, listView);
+                columnRectangle = DrawCellGraphic(graphicsColumn, columnRectangle, listView.ImageListColumns.Images[column.ImageIndex], HorizontalAlignment.Left, listView.CellPaddingSize, listView);
             }
 
-            DrawCellText(graphicsColumn, rectColumn, column.Text, listView.Font, column.TextAlignment, listView.ForeColor, false, listView);
+            DrawCellText(graphicsColumn, columnRectangle, column.Text, listView.Font, column.TextAlignment, listView.ForeColor, false, listView);
         }
 
-        /// <summary>Draw the column header.</summary>
+        /// <summary>Draw the column headers.</summary>
         /// <param name="graphicHeader">The graphics header.</param>
         /// <param name="sizeHeader">The size header.</param>
         /// <param name="listView">The list View.</param>
         /// <param name="hPanelScrollBar">The h Panel Scroll Bar.</param>
         /// <param name="theme">The theme.</param>
-        public static void DrawColumnHeader(Graphics graphicHeader, Size sizeHeader, VisualListViewEx listView, ManagedHScrollBar hPanelScrollBar, IntPtr theme)
+        public static void DrawColumnHeaders(Graphics graphicHeader, Size sizeHeader, VisualListViewEx listView, ManagedHScrollBar hPanelScrollBar, IntPtr theme)
         {
-            DebugTraceManager.WriteDebug("ListViewRenderer::DrawHeader", DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("ListViewRenderer::DrawColumnHeaders - Count: " + listView.Columns.Count, DebugTraceManager.DebugOutput.TraceListener);
 
+            // Draw the column header background.
             if (listView.ControlStyle == LVControlStyles.SuperFlat)
             {
-                SolidBrush brush = new SolidBrush(listView.SuperFlatHeaderColor);
-                graphicHeader.FillRectangle(brush, listView.HeaderRectangle);
-                brush.Dispose();
+                SolidBrush _headerRectangleBrush = new SolidBrush(listView.SuperFlatHeaderColor);
+                graphicHeader.FillRectangle(_headerRectangleBrush, listView.HeaderRectangle);
+                _headerRectangleBrush.Dispose();
             }
             else
             {
@@ -276,20 +279,23 @@
                 return;
             }
 
-            // Draw vertical lines first, then horizontal lines
+            // Draw vertical lines first then horizontal lines.
             int _currentX = -hPanelScrollBar.Value + listView.HeaderRectangle.X;
             foreach (VisualListViewColumn column in listView.Columns)
             {
-                // cull columns that won't be drawn first
+                // Cull columns that won't be drawn first.
                 if (_currentX + column.Width < 0)
                 {
                     _currentX += column.Width;
-                    continue; // skip this column, its not being drawn
+
+                    // Skip this column, its not being drawn.
+                    continue;
                 }
 
                 if (_currentX > listView.HeaderRectangle.Right)
                 {
-                    return; // were past the end of the visible column, stop drawing
+                    // Were past the end of the visible column, stop drawing.
+                    return;
                 }
 
                 if (column.Width > 0)
@@ -297,7 +303,8 @@
                     DrawColumnHeader(graphicHeader, new Rectangle(_currentX, listView.HeaderRectangle.Y, column.Width, listView.HeaderHeight), column, theme, listView);
                 }
 
-                _currentX += column.Width; // move the parser
+                // Move the parser.
+                _currentX += column.Width;
             }
         }
 
@@ -428,10 +435,10 @@
                 }
             }
 
-            int xCursor = -hPanelScrollBar.Value + listView.BorderPadding;
+            int _xCursor = -hPanelScrollBar.Value + listView.BorderPadding;
             for (var subItemIndex = 0; subItemIndex < listView.Columns.Count; subItemIndex++)
             {
-                Rectangle _subItemRectangle = new Rectangle(xCursor, rectRow.Y, listView.Columns[subItemIndex].Width, rectRow.Height);
+                Rectangle _subItemRectangle = new Rectangle(_xCursor, rectRow.Y, listView.Columns[subItemIndex].Width, rectRow.Height);
 
                 // Avoid drawing items that are not in the visible region
                 if ((_subItemRectangle.Right < 0) || (_subItemRectangle.Left > listView.RowsInnerClientRect.Right))
@@ -443,7 +450,7 @@
                     DrawSubItem(graphicsRow, _subItemRectangle, item, item.SubItems[subItemIndex], subItemIndex, listView.Font, listView, _newLiveControls, _liveControls, listView.CellPaddingSize, checkBoxSize);
                 }
 
-                xCursor += listView.Columns[subItemIndex].Width;
+                _xCursor += listView.Columns[subItemIndex].Width;
             }
 
             // Post draw for focus rect and hot tracking
@@ -489,12 +496,12 @@
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawRows", DebugTraceManager.DebugOutput.TraceListener);
 
-            using (SolidBrush brush = new SolidBrush(listView.BackColor))
+            using (SolidBrush _clientRowsViewBrush = new SolidBrush(listView.BackColor))
             {
-                graphicsRows.FillRectangle(brush, listView.RowsClientRectangle);
+                graphicsRows.FillRectangle(_clientRowsViewBrush, listView.RowsClientRectangle);
             }
 
-            // if they have a background image, then display it
+            // Draw background image.
             if (listView.BackgroundImage != null)
             {
                 if (listView.BackgroundStretchToFit)
@@ -507,9 +514,8 @@
                 }
             }
 
-            // Determine start item based on whether or not we have a vertical scrollbar present.
-            // Which item to start with in this visible view.
-            int _startItem; 
+            // Determine start item based on whether or not we have a vertical scrollbar present. Which item to start with in this visible view.
+            int _startItem;
             if (vPanelScrollBar.Visible)
             {
                 _startItem = vPanelScrollBar.Value;
@@ -616,7 +622,7 @@
             }
             else
             {
-                // If the sub item color is not the same as the back color fo the control, AND the item is not selected, then color this sub item background
+                // If the sub item color is not the same as the back color fo the control, AND the item is not selected, then color this sub item background.
                 if ((subItem.BackColor.ToArgb() != listView.BackColor.ToArgb()) && !item.Selected && (subItem.BackColor != Color.White))
                 {
                     using (SolidBrush _backColorBrush = new SolidBrush(subItem.BackColor))
@@ -625,19 +631,19 @@
                     }
                 }
 
-                // Check if we need checkboxes in this column
+                // Check if we need checkboxes in this column.
                 if (listView.Columns[column].CheckBoxes && subItem.CheckBox)
                 {
                     rectSubItem = DrawCheckBox(graphicsSubItem, rectSubItem, subItem.Checked, checkBoxSize, listView);
                 }
 
-                // if there is an image, this routine will RETURN with exactly the space left for everything else after the image is drawn (or not drawn due to lack of space)
+                // If there is an image, this routine will RETURN with exactly the space left for everything else after the image is drawn (or not drawn due to lack of space).
                 if ((subItem.ImageIndex > -1) && (listView.ImageListItems != null) && (subItem.ImageIndex < listView.ImageListItems.Images.Count))
                 {
                     rectSubItem = DrawCellGraphic(graphicsSubItem, rectSubItem, listView.ImageListItems.Images[subItem.ImageIndex], subItem.ImageAlignment, cellPaddingSize, listView);
                 }
 
-                // deal with text color in a box on whether it is selected or not
+                // Deal with text color in a box on whether it is selected or not.
                 Color textColor;
                 if (item.Selected && listView.Selectable)
                 {

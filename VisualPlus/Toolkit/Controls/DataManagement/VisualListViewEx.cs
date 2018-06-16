@@ -1825,7 +1825,7 @@
             if (HeaderVisible)
             {
                 _graphics.SetClip(HeaderRectangle);
-                ListViewRenderer.DrawColumnHeader(_graphics, new Size(HeaderRectangle.Width, HeaderRectangle.Height), this, _horizontalScrollBar, _theme);
+                ListViewRenderer.DrawColumnHeaders(_graphics, new Size(HeaderRectangle.Width, HeaderRectangle.Height), this, _horizontalScrollBar, _theme);
             }
 
             _graphics.SetClip(RowsInnerClientRect);
