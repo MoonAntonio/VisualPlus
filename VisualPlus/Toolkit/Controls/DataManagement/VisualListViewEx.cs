@@ -1276,10 +1276,21 @@
                         X = -_horizontalScrollBar.Value + BorderPadding,
                         Y = HeaderHeight + BorderPadding,
                         Width = _columns.Width,
-                        Height = VisibleRowsCount * _itemHeight
+                        Height = RowsVisible * _itemHeight
                     };
 
                 return _rowsRect;
+            }
+        }
+
+        /// <summary>The amount of rows currently visible in the <see cref="RowsInnerClientRect" />.</summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int RowsVisible
+        {
+            get
+            {
+                return RowsInnerClientRect.Height / ItemHeight;
             }
         }
 
@@ -1470,17 +1481,6 @@
             set
             {
                 _verticalScrollBar = value;
-            }
-        }
-
-        /// <summary>The amount of rows currently visible in the <see cref="RowsInnerClientRect" />.</summary>
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int VisibleRowsCount
-        {
-            get
-            {
-                return RowsInnerClientRect.Height / ItemHeight;
             }
         }
 
@@ -1910,11 +1910,11 @@
                     }
                     else if (_keyCode == Keys.PageDown)
                     {
-                        _itemIndex += VisibleRowsCount;
+                        _itemIndex += RowsVisible;
                     }
                     else if (_keyCode == Keys.PageUp)
                     {
-                        _itemIndex -= VisibleRowsCount;
+                        _itemIndex -= RowsVisible;
                     }
                     else if (_keyCode == Keys.Home)
                     {
@@ -1958,9 +1958,9 @@
                         _verticalScrollBar.Value = _itemIndex;
                     }
 
-                    if (_itemIndex > _verticalScrollBar.Value + (VisibleRowsCount - 1))
+                    if (_itemIndex > _verticalScrollBar.Value + (RowsVisible - 1))
                     {
-                        _verticalScrollBar.Value = _itemIndex - (VisibleRowsCount - 1);
+                        _verticalScrollBar.Value = _itemIndex - (RowsVisible - 1);
                     }
 
                     if (_previousIndex != _itemIndex)
@@ -2034,11 +2034,11 @@
                     }
                     else if (_keyCode == Keys.PageDown)
                     {
-                        _moveIndex += VisibleRowsCount;
+                        _moveIndex += RowsVisible;
                     }
                     else if (_keyCode == Keys.PageUp)
                     {
-                        _moveIndex -= VisibleRowsCount;
+                        _moveIndex -= RowsVisible;
                     }
                     else if (_keyCode == Keys.Home)
                     {
@@ -2046,16 +2046,16 @@
                     }
                     else if (_keyCode == Keys.End)
                     {
-                        _moveIndex = Count - VisibleRowsCount;
+                        _moveIndex = Count - RowsVisible;
                     }
                     else
                     {
                         return base.PreProcessMessage(ref msg);
                     }
 
-                    if (_moveIndex > Count - VisibleRowsCount)
+                    if (_moveIndex > Count - RowsVisible)
                     {
-                        _moveIndex = Count - VisibleRowsCount;
+                        _moveIndex = Count - RowsVisible;
                     }
 
                     if (_moveIndex < 0)
@@ -2292,7 +2292,7 @@
                 // Get inner cell Y
                 _cellY = (_screenY - RowsInnerClientRect.Y) % ItemHeight;
 
-                if ((_itemIndex >= _items.Count) || (_itemIndex > _verticalScrollBar.Value + VisibleRowsCount))
+                if ((_itemIndex >= _items.Count) || (_itemIndex > _verticalScrollBar.Value + RowsVisible))
                 {
                     _listStates = ListStates.None;
                     listRegion = ListViewRegion.NonClient;
@@ -2343,9 +2343,8 @@
         /// <returns>The <see cref="bool" />.</returns>
         public bool IsItemVisible(VisualListViewItem item)
         {
-            // TODO: change this to only walk to visible items list
             int _itemIndex = _items.FindItemIndex(item);
-            if ((_itemIndex >= _verticalScrollBar.Value) && (_itemIndex < _verticalScrollBar.Value + VisibleRowsCount))
+            if ((_itemIndex >= _verticalScrollBar.Value) && (_itemIndex < _verticalScrollBar.Value + RowsVisible))
             {
                 return true;
             }
@@ -2747,14 +2746,14 @@
                 _verticalScrollBar.MTop = _rectangleClient.Y;
                 _verticalScrollBar.MLeft = _rectangleClient.Right;
                 _verticalScrollBar.MHeight = _rectangleClient.Height;
-                _verticalScrollBar.MLargeChange = VisibleRowsCount;
+                _verticalScrollBar.MLargeChange = RowsVisible;
                 _verticalScrollBar.MMaximum = Count - 1;
 
-                if (_verticalScrollBar.Value + VisibleRowsCount > Count)
+                if (_verticalScrollBar.Value + RowsVisible > Count)
                 {
                     // catch all to make sure the scrollbar isn't going farther than visible items
                     DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
-                    _verticalScrollBar.Value = Count - VisibleRowsCount; // an item got deleted underneath somehow and scroll value is larger than can be displayed
+                    _verticalScrollBar.Value = Count - RowsVisible; // an item got deleted underneath somehow and scroll value is larger than can be displayed
                 }
             }
 

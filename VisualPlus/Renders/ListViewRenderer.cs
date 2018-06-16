@@ -337,10 +337,10 @@
                 // Draw horizontal grid lines.
                 if ((listView.GridLines == GridLines.Both) || (listView.GridLines == GridLines.Horizontal))
                 {
-                    int _rowsToDraw = listView.VisibleRowsCount + 1;
+                    int _rowsToDraw = listView.RowsVisible + 1;
                     if (listView.GridTypes == GridTypes.Exists)
                     {
-                        if (listView.VisibleRowsCount > listView.Count)
+                        if (listView.RowsVisible > listView.Count)
                         {
                             _rowsToDraw = listView.Count;
                         }
@@ -529,7 +529,7 @@
             _rectangleRow.Height = listView.ItemHeight;
 
             // Draw rows.
-            for (var item = 0; (item < listView.VisibleRowsCount + 1) && (item + _startItem < listView.Items.Count); item++)
+            for (var item = 0; (item < listView.RowsVisible + 1) && (item + _startItem < listView.Items.Count); item++)
             {
                 DrawRow(graphicsRows, _rectangleRow, listView.Items[item + _startItem], item + _startItem, listView, hPanelScrollBar, _newLiveControls, _liveControls, checkBoxSize);
                 _rectangleRow.Y += listView.ItemHeight;

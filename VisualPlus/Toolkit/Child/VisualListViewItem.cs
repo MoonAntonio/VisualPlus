@@ -307,22 +307,29 @@
         {
             get
             {
-                if ((_subItemCollection[0].ImageIndex != -1) && (_imageList != null) && (_subItemCollection[0].ImageIndex >= _imageList.Images.Count))
-                {
-                    return _imageList.Images.Count - 1;
-                }
-
                 return _subItemCollection[0].ImageIndex;
             }
 
             set
             {
                 _subItemCollection[0].ImageIndex = value;
+            }
+        }
 
-                if ((_listView != null) && _listView.IsHandleCreated)
-                {
-                    // listView.SetItemImage(Index, ImageIndexer.ActualIndex);
-                }
+        [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description("ImageList to be used for sub items.")]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        public ImageList ImageList
+        {
+            get
+            {
+                return _imageList;
+            }
+
+            set
+            {
+                _imageList = value;
             }
         }
 
@@ -333,7 +340,6 @@
             {
                 if (_listView != null)
                 {
-                    // _lastIndex = _listView.GetDisplayIndex(this, _lastIndex);
                     return _lastIndex;
                 }
                 else
@@ -525,20 +531,19 @@
                 _listViewItem = (VisualListViewItem)Activator.CreateInstance(_clonedType);
             }
 
-            _listViewItem = new VisualListViewItem(_clonedSubItemCollection, -1)
-                {
-                    ImageIndex = _subItemCollection[0].ImageIndex,
-                    Tag = _tag,
-                    BackColor = _backColor,
-                    ForeColor = _foreColor,
-                    Font = _font,
-                    Text = Text
-                };
+            _listViewItem.SubItems.Clear();
+            foreach (VisualListViewSubItem subItem in _clonedSubItemCollection)
+            {
+                _listViewItem.SubItems.Add(subItem);
+            }
 
-            // if (!string.IsNullOrEmpty(_imageKey))
-            // {
-            // _listViewItem.ImageIndexer.Key = _imageKey;
-            // }
+            _listViewItem.Checked = _subItemCollection[0].Checked;
+            _listViewItem.ImageIndex = _subItemCollection[0].ImageIndex;
+            _listViewItem.Tag = _tag;
+            _listViewItem.BackColor = _backColor;
+            _listViewItem.ForeColor = _foreColor;
+            _listViewItem.Font = _font;
+            _listViewItem.Text = Text;
             return _listViewItem;
         }
 

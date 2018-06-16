@@ -80,7 +80,6 @@
             this.visualListViewExTest.Selectable = true;
             this.visualListViewExTest.SelectedTextColor = System.Drawing.Color.White;
             this.visualListViewExTest.SelectionColor = System.Drawing.Color.CornflowerBlue;
-            this.visualListViewExTest.ShowFocusRectangle = false;
             this.visualListViewExTest.Size = new System.Drawing.Size(511, 259);
             this.visualListViewExTest.SortType = VisualPlus.Enumerators.SortTypes.InsertionSort;
             this.visualListViewExTest.SuperFlatHeaderColor = System.Drawing.Color.White;
@@ -282,7 +281,7 @@
             this.MinimizeBox = true;
             this.Name = "VisualListViewTest";
             this.Text = "VisualListView Extended Test";
-            this.TextRectangle = new System.Drawing.Rectangle(190, 7, 158, 14);
+            this.TextRectangle = new System.Drawing.Rectangle(193, 7, 153, 14);
             this.Load += new System.EventHandler(this.VisualListViewTest_Load);
             this.ResumeLayout(false);
 
