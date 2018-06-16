@@ -161,7 +161,7 @@
 
             _imageListColumns = null;
             _imageListItems = null;
-            
+
             _columns = new VisualListViewColumnCollection(this);
             _columns.ChangedEvent += Columns_Changed;
 
@@ -1359,6 +1359,7 @@
         [Browsable(true)]
         [Category(PropertyCategory.Behavior)]
         [Description(PropertyDescription.Toggle)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool ShowFocusRectangle
         {
             get
@@ -1650,7 +1651,7 @@
 
                 _state = ListStates.Selecting;
                 _focusedItemIndex = _itemIndex;
-                _focusedItem = _items[_itemIndex];
+                FocusedItem = _items[_itemIndex];
 
                 if (((ModifierKeys & Keys.Control) == Keys.Control) && MultiSelect)
                 {
@@ -2014,7 +2015,7 @@
 
                         // Bypass FocusedItem property, we always want to invalidate from this point
                         _focusedItemIndex = _itemIndex;
-                        _focusedItem = Items[_itemIndex];
+                        FocusedItem = Items[_itemIndex];
                     }
                 }
                 else
