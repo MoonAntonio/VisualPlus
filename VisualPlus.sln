@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualPlus", "VisualPlus\Vi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{058F9732-2E2A-469C-8AB1-8ADF024C0D03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThemeBuilder", "ThemeBuilder\ThemeBuilder.csproj", "{E875F0FB-9ACD-4AFE-BD5D-FE130E95CB3C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F5712892-4BFC-428D-8E79-D09EFC42AB1A} = {F5712892-4BFC-428D-8E79-D09EFC42AB1A}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +26,10 @@ Global
 		{058F9732-2E2A-469C-8AB1-8ADF024C0D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{058F9732-2E2A-469C-8AB1-8ADF024C0D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{058F9732-2E2A-469C-8AB1-8ADF024C0D03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E875F0FB-9ACD-4AFE-BD5D-FE130E95CB3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E875F0FB-9ACD-4AFE-BD5D-FE130E95CB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E875F0FB-9ACD-4AFE-BD5D-FE130E95CB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E875F0FB-9ACD-4AFE-BD5D-FE130E95CB3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
