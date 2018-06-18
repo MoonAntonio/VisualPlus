@@ -39,7 +39,7 @@ namespace UnitTests.Forms
         private enum UnitTests
         {
             /// <summary>The VisualForm.</summary>
-            VisualForm = 0,
+            VisualFormTest = 0,
 
             /// <summary>The list view advanced.</summary>
             VisualListViewExtended = 1
@@ -61,9 +61,9 @@ namespace UnitTests.Forms
                         break;
                     }
 
-                case UnitTests.VisualForm:
+                case UnitTests.VisualFormTest:
                     {
-                        _formToOpen = new VisualForm("Empty VisualForm");
+                        _formToOpen = new FormTest();
                         break;
                     }
 
