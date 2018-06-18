@@ -1,16 +1,16 @@
+#region Namespace
+
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Drawing.Design;
+using System.Windows.Forms;
+
+using VisualPlus.Toolkit.Controls.DataManagement;
+
+#endregion
+
 namespace VisualPlus.ActionList
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.ComponentModel.Design;
-    using System.Drawing.Design;
-    using System.Windows.Forms;
-
-    using VisualPlus.Toolkit.Controls.DataManagement;
-
-    #endregion
-
     internal class VisualListBoxActionList : DesignerActionList
     {
         #region Variables

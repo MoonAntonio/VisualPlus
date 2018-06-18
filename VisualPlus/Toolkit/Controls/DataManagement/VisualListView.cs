@@ -1,28 +1,28 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Designer;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.Drawing.Drawing2D;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [Obsolete]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
@@ -701,14 +701,14 @@
             DoubleBuffered = true;
         }
 
-        protected override void OnEnter(EventArgs e)
+        protected override void OnEnter(System.EventArgs e)
         {
             base.OnEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnLeave(EventArgs e)
+        protected override void OnLeave(System.EventArgs e)
         {
             base.OnLeave(e);
             MouseState = MouseStates.Normal;
@@ -741,7 +741,7 @@
             e.Graphics.Clear(Parent.BackColor);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
             _listView.Location = GetInternalControlLocation(_border);
@@ -751,6 +751,75 @@
         #endregion
 
         #region Methods
+
+        /// <summary>Determines whether the item is in the collection.</summary>
+        /// <param name="listViewItem">The list view item.</param>
+        /// <param name="listView">The list view.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool IsItemInCollection(ListViewItem listViewItem, VisualListView listView)
+        {
+            foreach (ListViewItem _item in listView.Items)
+            {
+                var _subItemFlag = true;
+                for (var i = 0; i < _item.SubItems.Count; i++)
+                {
+                    string _subItem1 = _item.SubItems[i].Text;
+                    string _subItem2 = listViewItem.SubItems[i].Text;
+
+                    if (_subItem1 != _subItem2)
+                    {
+                        _subItemFlag = false;
+                    }
+                }
+
+                if (_subItemFlag)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+                _headerFont = ThemeManager.Theme.TextSetting.Font;
+
+                foreach (ListViewItem _item in Items)
+                {
+                    _item.BackColor = theme.ListItemSettings.Item;
+                }
+
+                _itemSelected = theme.ListItemSettings.ItemSelected;
+                _itemHover = theme.ListItemSettings.ItemHover;
+
+                _columnHeaderColor = theme.OtherSettings.ColumnHeader;
+                _headerText = theme.OtherSettings.ColumnText;
+
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
 
         private static StringFormat GetStringFormat()
         {
@@ -884,75 +953,6 @@
 
             _graphics.Dispose();
             _bitmap.Dispose();
-        }
-
-        /// <summary>Determines whether the item is in the collection.</summary>
-        /// <param name="listViewItem">The list view item.</param>
-        /// <param name="listView">The list view.</param>
-        /// <returns>The <see cref="bool" />.</returns>
-        public static bool IsItemInCollection(ListViewItem listViewItem, VisualListView listView)
-        {
-            foreach (ListViewItem _item in listView.Items)
-            {
-                var _subItemFlag = true;
-                for (var i = 0; i < _item.SubItems.Count; i++)
-                {
-                    string _subItem1 = _item.SubItems[i].Text;
-                    string _subItem2 = listViewItem.SubItems[i].Text;
-
-                    if (_subItem1 != _subItem2)
-                    {
-                        _subItemFlag = false;
-                    }
-                }
-
-                if (_subItemFlag)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-                _headerFont = ThemeManager.Theme.TextSetting.Font;
-
-                foreach (ListViewItem _item in Items)
-                {
-                    _item.BackColor = theme.ListItemSettings.Item;
-                }
-
-                _itemSelected = theme.ListItemSettings.ItemSelected;
-                _itemHover = theme.ListItemSettings.ItemHover;
-
-                _columnHeaderColor = theme.OtherSettings.ColumnHeader;
-                _headerText = theme.OtherSettings.ColumnText;
-
-                _colorState = new ColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type4,
-                        Disabled = theme.BackgroundSettings.Type1
-                    };
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

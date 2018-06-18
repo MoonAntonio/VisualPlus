@@ -1,33 +1,33 @@
-﻿namespace VisualPlus.Toolkit.Dialogs
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Constants;
+using VisualPlus.Delegates;
+using VisualPlus.Designer;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Native;
+using VisualPlus.Properties;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.Controls.Interactivity;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Dialogs
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.Design;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Constants;
-    using VisualPlus.Delegates;
-    using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Native;
-    using VisualPlus.Properties;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.Controls.Interactivity;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DesignTimeVisible(false)]
@@ -594,13 +594,13 @@
             DoubleBuffered = true;
         }
 
-        protected override void OnActivated(EventArgs e)
+        protected override void OnActivated(System.EventArgs e)
         {
             base.OnActivated(e);
             State = MouseStates.Hover;
         }
 
-        protected override void OnDeactivate(EventArgs e)
+        protected override void OnDeactivate(System.EventArgs e)
         {
             base.OnDeactivate(e);
             State = MouseStates.Normal;
@@ -718,7 +718,7 @@
             }
         }
 
-        protected override void OnResizeEnd(EventArgs e)
+        protected override void OnResizeEnd(System.EventArgs e)
         {
             base.OnResizeEnd(e);
 

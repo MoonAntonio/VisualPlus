@@ -1,29 +1,29 @@
-﻿namespace VisualPlus.Toolkit.Controls.Navigation
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Linq;
+using System.Windows.Forms;
+
+using VisualPlus.Collections.CollectionsEditor;
+using VisualPlus.Designer;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.Dialogs;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Navigation
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Linq;
-    using System.Windows.Forms;
-
-    using VisualPlus.Collections.CollectionsEditor;
-    using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Child;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.Dialogs;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(VisualTabControl), "VisualTabControl.bmp")]
     [DefaultEvent("SelectedIndexChanged")]
@@ -421,21 +421,21 @@
             GraphicsManager.SetControlBackColor(e.Control, Parent.BackColor, true);
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             base.OnMouseEnter(e);
             State = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             _mouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             State = MouseStates.Normal;
             if (TabPages.Cast<VisualTabPage>().Any(Tab => Tab.DisplayRectangle.Contains(_mouseLocation)))
@@ -480,6 +480,23 @@
         #endregion
 
         #region Methods
+
+        /// <summary>Swaps the tab pages.</summary>
+        /// <param name="tabPage1">The tab page.</param>
+        /// <param name="tabPage2">The other tab page.</param>
+        public void SwapTabPages(TabPage tabPage1, TabPage tabPage2)
+        {
+            if (!TabPages.Contains(tabPage1) || !TabPages.Contains(tabPage2))
+            {
+                throw new ArgumentException(@"TabPages must be in the TabControls TabPageCollection.");
+            }
+
+            int _index1 = TabPages.IndexOf(tabPage1);
+            int _index2 = TabPages.IndexOf(tabPage2);
+
+            TabPages[_index1] = tabPage2;
+            TabPages[_index2] = tabPage1;
+        }
 
         /// <summary>Draws the header background.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
@@ -821,23 +838,6 @@
                         throw new ArgumentOutOfRangeException();
                     }
             }
-        }
-
-        /// <summary>Swaps the tab pages.</summary>
-        /// <param name="tabPage1">The tab page.</param>
-        /// <param name="tabPage2">The other tab page.</param>
-        public void SwapTabPages(TabPage tabPage1, TabPage tabPage2)
-        {
-            if (!TabPages.Contains(tabPage1) || !TabPages.Contains(tabPage2))
-            {
-                throw new ArgumentException(@"TabPages must be in the TabControls TabPageCollection.");
-            }
-
-            int _index1 = TabPages.IndexOf(tabPage1);
-            int _index2 = TabPages.IndexOf(tabPage2);
-
-            TabPages[_index1] = tabPage2;
-            TabPages[_index2] = tabPage1;
         }
 
         #endregion

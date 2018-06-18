@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Diagnostics;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Diagnostics;
-
-    #endregion
-
     /// <summary>Contains the global identifier for the object.</summary>
     public class GlobalId
     {

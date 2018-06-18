@@ -1,16 +1,16 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+using System.Data;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Text;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-    using System.Data;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Reflection;
-    using System.Text;
-
-    #endregion
-
     public class DebugTraceManager
     {
         #region Enumerators
@@ -30,57 +30,6 @@
         #endregion
 
         #region Methods
-
-        /// <summary>Write the debug text to the output.</summary>
-        /// <param name="text">The text to write.</param>
-        /// <param name="output">The output method to use.</param>
-        private static void WriteLog(string text, DebugOutput output = DebugOutput.Both)
-        {
-            string _formattedText = FormattedText(text);
-            string _folderName = Assembly.GetExecutingAssembly().GetName().Name + "-Logs";
-            string _executingAssembly = Assembly.GetExecutingAssembly().Location;
-            string _directory = Path.GetDirectoryName(_executingAssembly);
-            string _fileName = Settings.DebugLogFile;
-            string _folderDirectory = _directory + @"\" + _folderName + @"\";
-            string _output = _folderDirectory + _fileName;
-
-            if (string.IsNullOrEmpty(_folderName))
-            {
-                throw new ArgumentNullException("FolderName { " + _folderName + " }");
-            }
-
-            if (!Directory.Exists(_folderDirectory))
-            {
-                Directory.CreateDirectory(_folderDirectory);
-            }
-
-            switch (output)
-            {
-                case DebugOutput.File:
-                    {
-                        WriteToFile(_output, _formattedText);
-                        break;
-                    }
-
-                case DebugOutput.TraceListener:
-                    {
-                        WriteToTraceListener(_formattedText);
-                        break;
-                    }
-
-                case DebugOutput.Both:
-                    {
-                        WriteToFile(_output, _formattedText);
-                        WriteToTraceListener(_formattedText);
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(output), output, null);
-                    }
-            }
-        }
 
         /// <summary>Create an entry exception.</summary>
         /// <param name="exception">The exception.</param>
@@ -167,6 +116,57 @@
         public static void WriteToTraceListener(string text)
         {
             Debug.WriteLine(text);
+        }
+
+        /// <summary>Write the debug text to the output.</summary>
+        /// <param name="text">The text to write.</param>
+        /// <param name="output">The output method to use.</param>
+        private static void WriteLog(string text, DebugOutput output = DebugOutput.Both)
+        {
+            string _formattedText = FormattedText(text);
+            string _folderName = Assembly.GetExecutingAssembly().GetName().Name + "-Logs";
+            string _executingAssembly = Assembly.GetExecutingAssembly().Location;
+            string _directory = Path.GetDirectoryName(_executingAssembly);
+            string _fileName = Settings.DebugLogFile;
+            string _folderDirectory = _directory + @"\" + _folderName + @"\";
+            string _output = _folderDirectory + _fileName;
+
+            if (string.IsNullOrEmpty(_folderName))
+            {
+                throw new ArgumentNullException("FolderName { " + _folderName + " }");
+            }
+
+            if (!Directory.Exists(_folderDirectory))
+            {
+                Directory.CreateDirectory(_folderDirectory);
+            }
+
+            switch (output)
+            {
+                case DebugOutput.File:
+                    {
+                        WriteToFile(_output, _formattedText);
+                        break;
+                    }
+
+                case DebugOutput.TraceListener:
+                    {
+                        WriteToTraceListener(_formattedText);
+                        break;
+                    }
+
+                case DebugOutput.Both:
+                    {
+                        WriteToFile(_output, _formattedText);
+                        WriteToTraceListener(_formattedText);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(output), output, null);
+                    }
+            }
         }
 
         #endregion

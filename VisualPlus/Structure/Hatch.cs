@@ -1,19 +1,19 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
+using VisualPlus.Localization;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-
-    using VisualPlus.Localization;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [TypeConverter(typeof(HatchConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]

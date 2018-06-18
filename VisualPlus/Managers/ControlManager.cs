@@ -1,18 +1,18 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+
+using VisualPlus.Native;
+using VisualPlus.Toolkit.Controls.Interactivity;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Linq;
-    using System.Windows.Forms;
-
-    using VisualPlus.Native;
-    using VisualPlus.Toolkit.Controls.Interactivity;
-
-    #endregion
-
     [Description("The control manager.")]
     public sealed class ControlManager
     {
@@ -41,15 +41,6 @@
         #endregion
 
         #region Methods
-
-        /// <summary>Gets the control type.</summary>
-        /// <typeparam name="T">The type.</typeparam>
-        /// <param name="controlName">The control name.</param>
-        /// <returns>The control type.</returns>
-        private static T ControlType<T>(string controlName)
-        {
-            return (T)Activator.CreateInstance(Type.GetType(controlName));
-        }
 
         /// <summary>Centers the control inside the parent control.</summary>
         /// <param name="control">The control to center.</param>
@@ -97,6 +88,15 @@
         {
             Type _methodType = objectToCheck.GetType();
             return _methodType.GetMethod(methodName) != null;
+        }
+
+        /// <summary>Gets the control type.</summary>
+        /// <typeparam name="T">The type.</typeparam>
+        /// <param name="controlName">The control name.</param>
+        /// <returns>The control type.</returns>
+        private static T ControlType<T>(string controlName)
+        {
+            return (T)Activator.CreateInstance(Type.GetType(controlName));
         }
 
         #endregion

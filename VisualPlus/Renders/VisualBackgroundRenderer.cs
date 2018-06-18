@@ -1,49 +1,19 @@
-﻿namespace VisualPlus.Renders
+﻿#region Namespace
+
+using System.Drawing;
+using System.Drawing.Drawing2D;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Managers;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Renders
 {
-    #region Namespace
-
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Managers;
-    using VisualPlus.Structure;
-
-    #endregion
-
     public sealed class VisualBackgroundRenderer
     {
         #region Methods
-
-        /// <summary>Fills the background graphics path.</summary>
-        /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="background">The background color.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
-        /// <param name="border">The border type.</param>
-        /// <returns>The <see cref="GraphicsPath" />.</returns>
-        private static GraphicsPath FillBackgroundPath(Graphics graphics, Color background, Rectangle rectangle, Shape border)
-        {
-            GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
-            graphics.SetClip(backgroundPath);
-            graphics.FillRectangle(new SolidBrush(background), rectangle);
-            graphics.ResetClip();
-            return backgroundPath;
-        }
-
-        /// <summary>Fills the background graphics path.</summary>
-        /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="background">The background color.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
-        /// <param name="rounding">The amount of rounding.</param>
-        /// <returns>The <see cref="GraphicsPath" />.</returns>
-        private static GraphicsPath FillBackgroundPath(Graphics graphics, Color background, Rectangle rectangle, int rounding)
-        {
-            GraphicsPath backgroundPath = GraphicsManager.DrawRoundedRectangle(rectangle, rounding);
-            graphics.SetClip(backgroundPath);
-            graphics.FillRectangle(new SolidBrush(background), rectangle);
-            graphics.ResetClip();
-            return backgroundPath;
-        }
 
         /// <summary>Draws a background with a color filled rectangle and the specified background image.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
@@ -180,6 +150,36 @@
         public static void FillBackground(Graphics graphics, GraphicsPath graphicsPath, Brush brush)
         {
             graphics.FillPath(brush, graphicsPath);
+        }
+
+        /// <summary>Fills the background graphics path.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="background">The background color.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        /// <param name="border">The border type.</param>
+        /// <returns>The <see cref="GraphicsPath" />.</returns>
+        private static GraphicsPath FillBackgroundPath(Graphics graphics, Color background, Rectangle rectangle, Shape border)
+        {
+            GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
+            graphics.SetClip(backgroundPath);
+            graphics.FillRectangle(new SolidBrush(background), rectangle);
+            graphics.ResetClip();
+            return backgroundPath;
+        }
+
+        /// <summary>Fills the background graphics path.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="background">The background color.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        /// <param name="rounding">The amount of rounding.</param>
+        /// <returns>The <see cref="GraphicsPath" />.</returns>
+        private static GraphicsPath FillBackgroundPath(Graphics graphics, Color background, Rectangle rectangle, int rounding)
+        {
+            GraphicsPath backgroundPath = GraphicsManager.DrawRoundedRectangle(rectangle, rounding);
+            graphics.SetClip(backgroundPath);
+            graphics.FillRectangle(new SolidBrush(background), rectangle);
+            graphics.ResetClip();
+            return backgroundPath;
         }
 
         #endregion

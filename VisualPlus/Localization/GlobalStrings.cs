@@ -1,13 +1,13 @@
-﻿namespace VisualPlus.Localization
+﻿#region Namespace
+
+using System.ComponentModel;
+
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Localization
 {
-    #region Namespace
-
-    using System.ComponentModel;
-
-    using VisualPlus.Structure;
-
-    #endregion
-
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class GlobalStrings : GlobalId
     {

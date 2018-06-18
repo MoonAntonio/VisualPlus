@@ -1,13 +1,13 @@
-﻿namespace VisualPlus.Collections.ControlCollection
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Collections.ControlCollection
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Windows.Forms;
-
-    #endregion
-
     public class ReadOnlyControlCollection : VisualControlCollection
     {
         #region Variables

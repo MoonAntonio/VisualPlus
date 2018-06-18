@@ -1,21 +1,21 @@
-﻿namespace VisualPlus.Toolkit.Child
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Text;
+using System.Windows.Forms;
+
+using VisualPlus.Designer;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Child
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Text;
-    using System.Windows.Forms;
-
-    using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [Designer(typeof(VisualTabPageDesigner))]
     [ToolboxItem(false)]
     public class VisualTabPage : TabPage
@@ -339,17 +339,6 @@
 
         #region Methods
 
-        /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
-        private void InitializeComponent()
-        {
-            components = new Container();
-            Disposed += VisualTabPage_Disposed;
-        }
-
-        private void VisualTabPage_Disposed(object sender, EventArgs e)
-        {
-        }
-
         /// <summary>Updates the properties after an Invalidate.</summary>
         public void UpdateProperties()
         {
@@ -361,6 +350,17 @@
             {
                 throw new Exception(e.StackTrace);
             }
+        }
+
+        /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
+        private void InitializeComponent()
+        {
+            components = new Container();
+            Disposed += VisualTabPage_Disposed;
+        }
+
+        private void VisualTabPage_Disposed(object sender, System.EventArgs e)
+        {
         }
 
         #endregion

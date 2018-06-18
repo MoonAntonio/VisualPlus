@@ -1,34 +1,34 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Design;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Managers;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Controls.DataManagement;
+using VisualPlus.Toolkit.Controls.DataVisualization;
+using VisualPlus.Toolkit.Controls.Editors;
+using VisualPlus.Toolkit.Controls.Interactivity;
+using VisualPlus.Toolkit.Controls.Layout;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.TypeConverters;
+using VisualPlus.UITypeEditors;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Windows.Forms;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Managers;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Controls.DataManagement;
-    using VisualPlus.Toolkit.Controls.DataVisualization;
-    using VisualPlus.Toolkit.Controls.Editors;
-    using VisualPlus.Toolkit.Controls.Interactivity;
-    using VisualPlus.Toolkit.Controls.Layout;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.TypeConverters;
-    using VisualPlus.UITypeEditors;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(StyleManager), "StyleManager.bmp")]
     [Description("The style manager component enables you to manage the control themes.")]
@@ -285,73 +285,6 @@
 
         #region Methods
 
-        /// <summary>Updates the supported controls style.</summary>
-        /// <param name="control">The control.</param>
-        /// <param name="theme">The theme.</param>
-        private static void UpdateControl(Control control, Theme theme)
-        {
-            (control as VisualButton)?.UpdateTheme(theme);
-
-            (control as VisualListBox)?.UpdateTheme(theme);
-
-            (control as VisualGroupBox)?.UpdateTheme(theme);
-
-            (control as VisualRichTextBox)?.UpdateTheme(theme);
-
-            (control as VisualListView)?.UpdateTheme(theme);
-
-            (control as VisualRadialProgress)?.UpdateTheme(theme);
-
-            (control as VisualGauge)?.UpdateTheme(theme);
-
-            (control as VisualProgressBar)?.UpdateTheme(theme);
-
-            (control as VisualTextBox)?.UpdateTheme(theme);
-
-            (control as VisualCheckBox)?.UpdateTheme(theme);
-
-            (control as VisualCheckedListBox)?.UpdateTheme(theme);
-
-            (control as VisualComboBox)?.UpdateTheme(theme);
-
-            (control as VisualLabel)?.UpdateTheme(theme);
-
-            (control as VisualNumericUpDown)?.UpdateTheme(theme);
-
-            (control as VisualRadioButton)?.UpdateTheme(theme);
-
-            (control as VisualScrollBar)?.UpdateTheme(theme);
-
-            (control as VisualToggle)?.UpdateTheme(theme);
-
-            (control as VisualTrackBar)?.UpdateTheme(theme);
-
-            (control as VisualPanel)?.UpdateTheme(theme);
-
-            (control as VisualSeparator)?.UpdateTheme(theme);
-        }
-
-        /// <summary>Creates a default theme file in the templates folder.</summary>
-        private void ConstructDefaultThemeFile()
-        {
-            string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
-
-            if (File.Exists(_defaultThemePath))
-            {
-                return;
-            }
-
-            Theme _defaultTheme = new Theme(Themes.Visual);
-            string _text = _defaultTheme.RawTheme;
-
-            if (!Directory.Exists(Settings.TemplatesFolder))
-            {
-                Directory.CreateDirectory(Settings.TemplatesFolder);
-            }
-
-            File.WriteAllText(_defaultThemePath, _text);
-        }
-
         /// <summary>Opens the templates directory in the windows explorer.</summary>
         public static void OpenTemplatesDirectory()
         {
@@ -438,6 +371,73 @@
             }
 
             OnThemeChanged(new ThemeEventArgs(_theme));
+        }
+
+        /// <summary>Updates the supported controls style.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="theme">The theme.</param>
+        private static void UpdateControl(Control control, Theme theme)
+        {
+            (control as VisualButton)?.UpdateTheme(theme);
+
+            (control as VisualListBox)?.UpdateTheme(theme);
+
+            (control as VisualGroupBox)?.UpdateTheme(theme);
+
+            (control as VisualRichTextBox)?.UpdateTheme(theme);
+
+            (control as VisualListView)?.UpdateTheme(theme);
+
+            (control as VisualRadialProgress)?.UpdateTheme(theme);
+
+            (control as VisualGauge)?.UpdateTheme(theme);
+
+            (control as VisualProgressBar)?.UpdateTheme(theme);
+
+            (control as VisualTextBox)?.UpdateTheme(theme);
+
+            (control as VisualCheckBox)?.UpdateTheme(theme);
+
+            (control as VisualCheckedListBox)?.UpdateTheme(theme);
+
+            (control as VisualComboBox)?.UpdateTheme(theme);
+
+            (control as VisualLabel)?.UpdateTheme(theme);
+
+            (control as VisualNumericUpDown)?.UpdateTheme(theme);
+
+            (control as VisualRadioButton)?.UpdateTheme(theme);
+
+            (control as VisualScrollBar)?.UpdateTheme(theme);
+
+            (control as VisualToggle)?.UpdateTheme(theme);
+
+            (control as VisualTrackBar)?.UpdateTheme(theme);
+
+            (control as VisualPanel)?.UpdateTheme(theme);
+
+            (control as VisualSeparator)?.UpdateTheme(theme);
+        }
+
+        /// <summary>Creates a default theme file in the templates folder.</summary>
+        private void ConstructDefaultThemeFile()
+        {
+            string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
+
+            if (File.Exists(_defaultThemePath))
+            {
+                return;
+            }
+
+            Theme _defaultTheme = new Theme(Themes.Visual);
+            string _text = _defaultTheme.RawTheme;
+
+            if (!Directory.Exists(Settings.TemplatesFolder))
+            {
+                Directory.CreateDirectory(Settings.TemplatesFolder);
+            }
+
+            File.WriteAllText(_defaultThemePath, _text);
         }
 
         #endregion

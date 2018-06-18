@@ -1,26 +1,26 @@
-﻿namespace VisualPlus.Collections.CollectionBase
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+
+using VisualPlus.Attributes;
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Extensibility;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataManagement;
+
+#endregion
+
+namespace VisualPlus.Collections.CollectionBase
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-
-    using VisualPlus.Attributes;
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Extensibility;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Child;
-    using VisualPlus.Toolkit.Controls.DataManagement;
-
-    #endregion
-
-    public class VisualListViewItemCollection : CollectionBase, ICloneable, IList
+    public class VisualListViewItemCollection : System.Collections.CollectionBase, ICloneable, IList
     {
         #region Variables
 
@@ -182,45 +182,6 @@
 
         #region Methods
 
-        /// <summary>Searches for controls by their name property, builds an array list.</summary>
-        /// <param name="key">The key name to search for.</param>
-        /// <param name="searchAllSubItems">Search all subitems.</param>
-        /// <param name="listViewItems">The listViewItems collections.</param>
-        /// <param name="foundItems">The found items array.</param>
-        /// <returns>The <see cref="ArrayList" />.</returns>
-        private static ArrayList FindInternal(string key, bool searchAllSubItems, VisualListViewItemCollection listViewItems, ArrayList foundItems)
-        {
-            if ((listViewItems == null) || (foundItems == null))
-            {
-                return null;
-            }
-
-            for (var i = 0; i < listViewItems.Count; i++)
-            {
-                if (TextManager.SafeCompareStrings(listViewItems[i].Name, key, true))
-                {
-                    foundItems.Add(listViewItems[i]);
-                }
-                else
-                {
-                    if (searchAllSubItems)
-                    {
-                        // Start from 1, as we've already compare subitems[0].
-                        for (var j = 1; j < listViewItems[i].SubItems.Count; j++)
-                        {
-                            if (TextManager.SafeCompareStrings(listViewItems[i].SubItems[j].Name, key, true))
-                            {
-                                foundItems.Add(listViewItems[i]);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return foundItems;
-        }
-
         /// <summary>Creates an item with the specified text and adds it to the collection.</summary>
         /// <param name="text">The text to display for the item.</param>
         /// <returns>The <see cref="VisualListViewItem" />.</returns>
@@ -273,6 +234,71 @@
 
             Add(_item);
             return _item;
+        }
+
+        /// <summary>Retrieves the index of the item with the specified key.</summary>
+        /// <param name="key">The name of the item to find in the collection.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        public virtual int IndexOfKey(string key)
+        {
+            for (var index = 0; index < List.Count; index++)
+            {
+                VisualListViewItem _item = (VisualListViewItem)List[index];
+                if (key == _item.Name)
+                {
+                    return index;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>Creates a new item and inserts it into the collection at the specified index.</summary>
+        /// <param name="index">The zero-based index location where the item is inserted.</param>
+        /// <param name="key">The name of the item.</param>
+        /// <param name="text">The text to display for the item.</param>
+        /// <param name="imageIndex">The index of the image to display for the item.</param>
+        /// <returns>The <see cref="VisualListViewItem" />.</returns>
+        public virtual VisualListViewItem Insert(int index, string key, string text, int imageIndex)
+        {
+            VisualListViewItem _item = new VisualListViewItem
+                {
+                    Name = key,
+                    Text = text,
+                    ImageIndex = imageIndex
+                };
+
+            return Insert(index, _item);
+        }
+
+        /// <summary>Removes the specified item from the collection.</summary>
+        /// <param name="item">The <see cref="VisualListViewItem" /> representing the item to remove from the collection.</param>
+        public virtual void Remove(VisualListViewItem item)
+        {
+            List.Remove(item);
+            ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.ItemCollectionChanged, null, null, null));
+        }
+
+        /// <summary>Removes the item at the specified index within the collection.</summary>
+        /// <param name="index">The zero-based index of the item to remove.</param>
+        public new virtual void RemoveAt(int index)
+        {
+            if (List.IsValidIndex(index))
+            {
+                List.RemoveAt(index);
+                ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.ItemCollectionChanged, null, null, null));
+            }
+        }
+
+        /// <summary>Removes the item with the specified key from the collection.</summary>
+        /// <param name="key">The name of the item to remove from the collection.</param>
+        public virtual void RemoveByKey(string key)
+        {
+            int _index = IndexOfKey(key);
+            if (List.IsValidIndex(_index))
+            {
+                RemoveAt(_index);
+            }
         }
 
         /// <summary>Adds an array of <see cref="VisualListViewItem" /> objects to the collection.</summary>
@@ -487,23 +513,6 @@
             return List.IndexOf(item);
         }
 
-        /// <summary>Retrieves the index of the item with the specified key.</summary>
-        /// <param name="key">The name of the item to find in the collection.</param>
-        /// <returns>The <see cref="int" />.</returns>
-        public virtual int IndexOfKey(string key)
-        {
-            for (var index = 0; index < List.Count; index++)
-            {
-                VisualListViewItem _item = (VisualListViewItem)List[index];
-                if (key == _item.Name)
-                {
-                    return index;
-                }
-            }
-
-            return -1;
-        }
-
         /// <summary>Creates a new item and inserts it into the collection at the specified index.</summary>
         /// <param name="index">The zero-based index location where the item is inserted.</param>
         /// <param name="text">The text to display for the item.</param>
@@ -527,24 +536,6 @@
         {
             VisualListViewItem _item = new VisualListViewItem
                 {
-                    Text = text,
-                    ImageIndex = imageIndex
-                };
-
-            return Insert(index, _item);
-        }
-
-        /// <summary>Creates a new item and inserts it into the collection at the specified index.</summary>
-        /// <param name="index">The zero-based index location where the item is inserted.</param>
-        /// <param name="key">The name of the item.</param>
-        /// <param name="text">The text to display for the item.</param>
-        /// <param name="imageIndex">The index of the image to display for the item.</param>
-        /// <returns>The <see cref="VisualListViewItem" />.</returns>
-        public virtual VisualListViewItem Insert(int index, string key, string text, int imageIndex)
-        {
-            VisualListViewItem _item = new VisualListViewItem
-                {
-                    Name = key,
                     Text = text,
                     ImageIndex = imageIndex
                 };
@@ -592,34 +583,43 @@
             }
         }
 
-        /// <summary>Removes the specified item from the collection.</summary>
-        /// <param name="item">The <see cref="VisualListViewItem" /> representing the item to remove from the collection.</param>
-        public virtual void Remove(VisualListViewItem item)
+        /// <summary>Searches for controls by their name property, builds an array list.</summary>
+        /// <param name="key">The key name to search for.</param>
+        /// <param name="searchAllSubItems">Search all subitems.</param>
+        /// <param name="listViewItems">The listViewItems collections.</param>
+        /// <param name="foundItems">The found items array.</param>
+        /// <returns>The <see cref="ArrayList" />.</returns>
+        private static ArrayList FindInternal(string key, bool searchAllSubItems, VisualListViewItemCollection listViewItems, ArrayList foundItems)
         {
-            List.Remove(item);
-            ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.ItemCollectionChanged, null, null, null));
-        }
-
-        /// <summary>Removes the item at the specified index within the collection.</summary>
-        /// <param name="index">The zero-based index of the item to remove.</param>
-        public new virtual void RemoveAt(int index)
-        {
-            if (List.IsValidIndex(index))
+            if ((listViewItems == null) || (foundItems == null))
             {
-                List.RemoveAt(index);
-                ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.ItemCollectionChanged, null, null, null));
+                return null;
             }
-        }
 
-        /// <summary>Removes the item with the specified key from the collection.</summary>
-        /// <param name="key">The name of the item to remove from the collection.</param>
-        public virtual void RemoveByKey(string key)
-        {
-            int _index = IndexOfKey(key);
-            if (List.IsValidIndex(_index))
+            for (var i = 0; i < listViewItems.Count; i++)
             {
-                RemoveAt(_index);
+                if (TextManager.SafeCompareStrings(listViewItems[i].Name, key, true))
+                {
+                    foundItems.Add(listViewItems[i]);
+                }
+                else
+                {
+                    if (searchAllSubItems)
+                    {
+                        // Start from 1, as we've already compare subitems[0].
+                        for (var j = 1; j < listViewItems[i].SubItems.Count; j++)
+                        {
+                            if (TextManager.SafeCompareStrings(listViewItems[i].SubItems[j].Name, key, true))
+                            {
+                                foundItems.Add(listViewItems[i]);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
+
+            return foundItems;
         }
 
         #endregion

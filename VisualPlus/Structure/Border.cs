@@ -1,20 +1,20 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
+using VisualPlus.Delegates;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [TypeConverter(typeof(BorderConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]

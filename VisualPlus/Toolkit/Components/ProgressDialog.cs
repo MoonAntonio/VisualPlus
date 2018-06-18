@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System;
+using System.Runtime.InteropServices;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.Runtime.InteropServices;
-
-    #endregion
-
     public class ProgressDialog
     {
         #region Variables

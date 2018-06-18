@@ -1,25 +1,25 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Delegates;
+using VisualPlus.Designer;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.TypeConverters;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Designer;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.Toolkit.VisualBase;
-    using VisualPlus.TypeConverters;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("Click")]
@@ -166,7 +166,7 @@
 
         #region Overrides
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
 
@@ -183,7 +183,7 @@
         /// <summary>The OnCloseClick.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void OnCloseClick(object sender, EventArgs e)
+        protected virtual void OnCloseClick(object sender, System.EventArgs e)
         {
             CloseClick?.Invoke(new ControlBoxEventArgs(ParentForm));
             ParentForm.Close();
@@ -192,7 +192,7 @@
         /// <summary>The OnCloseClick.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void OnHelpClick(object sender, EventArgs e)
+        protected virtual void OnHelpClick(object sender, System.EventArgs e)
         {
             HelpClick?.Invoke(new ControlBoxEventArgs(ParentForm));
         }
@@ -200,7 +200,7 @@
         /// <summary>The OnMaximizeClick.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void OnMaximizeClick(object sender, EventArgs e)
+        protected virtual void OnMaximizeClick(object sender, System.EventArgs e)
         {
             if (ParentForm.WindowState == FormWindowState.Normal)
             {
@@ -227,7 +227,7 @@
         /// <summary>The OnMinimizeClick.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void OnMinimizeClick(object sender, EventArgs e)
+        protected virtual void OnMinimizeClick(object sender, System.EventArgs e)
         {
             ParentForm.WindowState = FormWindowState.Minimized;
             MinimizeClick?.Invoke(new ControlBoxEventArgs(ParentForm));
@@ -237,7 +237,91 @@
 
         #region Methods
 
-        private void Button_VisibleChanged(object sender, EventArgs e)
+        /// <summary>Automatically places the <see cref="VisualControlBox" /> on the <see cref="Form" /> corner location.</summary>
+        /// <param name="spacing">The spacing.</param>
+        public void AutoPlaceOnForm(int spacing)
+        {
+            Location = new Point(((ParentForm.Location.X + ParentForm.Width) - Width) + spacing, 0);
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _closeButton.BackColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.CloseButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.CloseButtonBack.Enabled,
+                        Hover = theme.OtherSettings.CloseButtonBack.Hover,
+                        Pressed = theme.OtherSettings.CloseButtonBack.Pressed
+                    };
+
+                _closeButton.ForeColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.CloseButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.CloseButtonFore.Enabled,
+                        Hover = theme.OtherSettings.CloseButtonFore.Hover,
+                        Pressed = theme.OtherSettings.CloseButtonFore.Pressed
+                    };
+
+                _maximizeButton.BackColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.MaximizeButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.MaximizeButtonBack.Enabled,
+                        Hover = theme.OtherSettings.MaximizeButtonBack.Hover,
+                        Pressed = theme.OtherSettings.MaximizeButtonBack.Pressed
+                    };
+
+                _maximizeButton.ForeColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.MaximizeButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.MaximizeButtonFore.Enabled,
+                        Hover = theme.OtherSettings.MaximizeButtonFore.Hover,
+                        Pressed = theme.OtherSettings.MaximizeButtonFore.Pressed
+                    };
+
+                _minimizeButton.BackColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.MinimizeButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.MinimizeButtonBack.Enabled,
+                        Hover = theme.OtherSettings.MinimizeButtonBack.Hover,
+                        Pressed = theme.OtherSettings.MinimizeButtonBack.Pressed
+                    };
+
+                _minimizeButton.ForeColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.MinimizeButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.MinimizeButtonFore.Enabled,
+                        Hover = theme.OtherSettings.MinimizeButtonFore.Hover,
+                        Pressed = theme.OtherSettings.MinimizeButtonFore.Pressed
+                    };
+
+                _helpButton.BackColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.HelpButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.HelpButtonBack.Enabled,
+                        Hover = theme.OtherSettings.HelpButtonBack.Hover,
+                        Pressed = theme.OtherSettings.HelpButtonBack.Pressed
+                    };
+
+                _helpButton.ForeColorState = new ControlColorState
+                    {
+                        Disabled = theme.OtherSettings.HelpButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.HelpButtonFore.Enabled,
+                        Hover = theme.OtherSettings.HelpButtonFore.Hover,
+                        Pressed = theme.OtherSettings.HelpButtonFore.Pressed
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
+        private void Button_VisibleChanged(object sender, System.EventArgs e)
         {
             if (_helpButton.Visible)
             {
@@ -266,7 +350,7 @@
                 _closeButton.Location = new Point(_minimizeButton.Right, 0);
             }
 
-            OnResize(new EventArgs());
+            OnResize(new System.EventArgs());
         }
 
         /// <summary>Retrieves the adjusted <see cref="Control" />-<see cref="Size" />.</summary>
@@ -372,90 +456,6 @@
             Controls.Add(_minimizeButton);
             Controls.Add(_maximizeButton);
             Controls.Add(_closeButton);
-        }
-
-        /// <summary>Automatically places the <see cref="VisualControlBox" /> on the <see cref="Form" /> corner location.</summary>
-        /// <param name="spacing">The spacing.</param>
-        public void AutoPlaceOnForm(int spacing)
-        {
-            Location = new Point(((ParentForm.Location.X + ParentForm.Width) - Width) + spacing, 0);
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _closeButton.BackColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.CloseButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.CloseButtonBack.Enabled,
-                        Hover = theme.OtherSettings.CloseButtonBack.Hover,
-                        Pressed = theme.OtherSettings.CloseButtonBack.Pressed
-                    };
-
-                _closeButton.ForeColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.CloseButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.CloseButtonFore.Enabled,
-                        Hover = theme.OtherSettings.CloseButtonFore.Hover,
-                        Pressed = theme.OtherSettings.CloseButtonFore.Pressed
-                    };
-
-                _maximizeButton.BackColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.MaximizeButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.MaximizeButtonBack.Enabled,
-                        Hover = theme.OtherSettings.MaximizeButtonBack.Hover,
-                        Pressed = theme.OtherSettings.MaximizeButtonBack.Pressed
-                    };
-
-                _maximizeButton.ForeColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.MaximizeButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.MaximizeButtonFore.Enabled,
-                        Hover = theme.OtherSettings.MaximizeButtonFore.Hover,
-                        Pressed = theme.OtherSettings.MaximizeButtonFore.Pressed
-                    };
-
-                _minimizeButton.BackColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.MinimizeButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.MinimizeButtonBack.Enabled,
-                        Hover = theme.OtherSettings.MinimizeButtonBack.Hover,
-                        Pressed = theme.OtherSettings.MinimizeButtonBack.Pressed
-                    };
-
-                _minimizeButton.ForeColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.MinimizeButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.MinimizeButtonFore.Enabled,
-                        Hover = theme.OtherSettings.MinimizeButtonFore.Hover,
-                        Pressed = theme.OtherSettings.MinimizeButtonFore.Pressed
-                    };
-
-                _helpButton.BackColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.HelpButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.HelpButtonBack.Enabled,
-                        Hover = theme.OtherSettings.HelpButtonBack.Hover,
-                        Pressed = theme.OtherSettings.HelpButtonBack.Pressed
-                    };
-
-                _helpButton.ForeColorState = new ControlColorState
-                    {
-                        Disabled = theme.OtherSettings.HelpButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.HelpButtonFore.Enabled,
-                        Hover = theme.OtherSettings.HelpButtonFore.Hover,
-                        Pressed = theme.OtherSettings.HelpButtonFore.Pressed
-                    };
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

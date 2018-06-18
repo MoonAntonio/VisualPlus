@@ -1,22 +1,22 @@
-﻿namespace VisualPlus.Designer
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.Windows.Forms.Design;
+
+using VisualPlus.EventArgs;
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.Navigation;
+
+#endregion
+
+namespace VisualPlus.Designer
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.ComponentModel;
-    using System.ComponentModel.Design;
-    using System.Drawing;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-    using System.Windows.Forms.Design;
-
-    using VisualPlus.EventArgs;
-    using VisualPlus.Toolkit.Child;
-    using VisualPlus.Toolkit.Controls.Navigation;
-
-    #endregion
-
     internal class VisualTabControlDesigner : ParentControlDesigner
     {
         #region Variables
@@ -227,7 +227,7 @@
 
         #region Methods
 
-        private void OnAddPage(object sender, EventArgs e)
+        private void OnAddPage(object sender, System.EventArgs e)
         {
             VisualTabControl _parentalControl = (VisualTabControl)Control;
             Control.ControlCollection _controlCollection = _parentalControl.Controls;
@@ -244,7 +244,7 @@
             SetVerbs();
         }
 
-        private void OnInsertPage(object sender, EventArgs e)
+        private void OnInsertPage(object sender, System.EventArgs e)
         {
             VisualTabControl _parentalControl = (VisualTabControl)Control;
             Control.ControlCollection _controlCollection = _parentalControl.Controls;
@@ -279,7 +279,7 @@
             SetVerbs();
         }
 
-        private void OnRemovePage(object sender, EventArgs e)
+        private void OnRemovePage(object sender, System.EventArgs e)
         {
             VisualTabControl _parentalControl = (VisualTabControl)Control;
             Control.ControlCollection _controlCollection = _parentalControl.Controls;

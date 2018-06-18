@@ -1,16 +1,16 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
+﻿#region Namespace
+
+using System;
+using System.Diagnostics;
+
+using VisualPlus.Collections.CollectionBase;
+using VisualPlus.Enumerators;
+using VisualPlus.Toolkit.Child;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
 {
-    #region Namespace
-
-    using System;
-    using System.Diagnostics;
-
-    using VisualPlus.Collections.CollectionBase;
-    using VisualPlus.Enumerators;
-    using VisualPlus.Toolkit.Child;
-
-    #endregion
-
     internal class LVQuickSort
     {
         #region Variables
@@ -96,72 +96,6 @@
         #endregion
 
         #region Methods
-
-        /// <summary>Compare items.</summary>
-        /// <param name="item1">Item 1.</param>
-        /// <param name="item2">Item 2.</param>
-        /// <param name="direction">The direction.</param>
-        /// <returns>The <see cref="bool" />.</returns>
-        private bool CompareItems(VisualListViewItem item1, VisualListViewItem item2, CompareDirection direction)
-        {
-            bool dir = false;
-
-            if (direction == CompareDirection.GreaterThan)
-            {
-                dir = true;
-            }
-
-            if (SortDirection == SortDirections.Ascending)
-            {
-                dir = !dir;
-            }
-
-            if (!NumericCompare)
-            {
-                if (dir)
-                {
-                    return string.Compare(item1.SubItems[SortColumn].Text, item2.SubItems[SortColumn].Text, StringComparison.Ordinal) < 0;
-                }
-                else
-                {
-                    return string.Compare(item1.SubItems[SortColumn].Text, item2.SubItems[SortColumn].Text, StringComparison.Ordinal) > 0;
-                }
-            }
-            else
-            {
-                try
-                {
-                    double n1 = double.Parse(item1.SubItems[SortColumn].Text);
-                    double n2 = double.Parse(item2.SubItems[SortColumn].Text);
-
-                    if (dir)
-                    {
-                        return n1 < n2;
-                    }
-                    else
-                    {
-                        return n1 > n2;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.ToString());
-                    return false;
-                }
-            }
-        }
-
-        /// <summary>Swap items.</summary>
-        /// <param name="items">The items.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="w">The w.</param>
-        private void Swap(VisualListViewItemCollection items, int x, int w)
-        {
-            VisualListViewItem _tempItem;
-            _tempItem = items[x];
-            items[x] = items[x];
-            items[w] = _tempItem;
-        }
 
         /// <summary>The list-view insertion sort.</summary>
         /// <param name="items">The items.</param>
@@ -259,6 +193,72 @@
         {
             QuickSort(items, 0, items.Count - 1);
             LVInsertionSort(items, 0, items.Count - 1);
+        }
+
+        /// <summary>Compare items.</summary>
+        /// <param name="item1">Item 1.</param>
+        /// <param name="item2">Item 2.</param>
+        /// <param name="direction">The direction.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        private bool CompareItems(VisualListViewItem item1, VisualListViewItem item2, CompareDirection direction)
+        {
+            bool dir = false;
+
+            if (direction == CompareDirection.GreaterThan)
+            {
+                dir = true;
+            }
+
+            if (SortDirection == SortDirections.Ascending)
+            {
+                dir = !dir;
+            }
+
+            if (!NumericCompare)
+            {
+                if (dir)
+                {
+                    return string.Compare(item1.SubItems[SortColumn].Text, item2.SubItems[SortColumn].Text, StringComparison.Ordinal) < 0;
+                }
+                else
+                {
+                    return string.Compare(item1.SubItems[SortColumn].Text, item2.SubItems[SortColumn].Text, StringComparison.Ordinal) > 0;
+                }
+            }
+            else
+            {
+                try
+                {
+                    double n1 = double.Parse(item1.SubItems[SortColumn].Text);
+                    double n2 = double.Parse(item2.SubItems[SortColumn].Text);
+
+                    if (dir)
+                    {
+                        return n1 < n2;
+                    }
+                    else
+                    {
+                        return n1 > n2;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.ToString());
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>Swap items.</summary>
+        /// <param name="items">The items.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="w">The w.</param>
+        private void Swap(VisualListViewItemCollection items, int x, int w)
+        {
+            VisualListViewItem _tempItem;
+            _tempItem = items[x];
+            items[x] = items[x];
+            items[w] = _tempItem;
         }
 
         #endregion

@@ -1,28 +1,28 @@
-﻿namespace VisualPlus.Toolkit.Controls.Editors
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Designer;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Editors
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.Drawing.Drawing2D;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("TextChanged")]
@@ -709,7 +709,7 @@
             AutoSize = true;
         }
 
-        protected override void OnEnter(EventArgs e)
+        protected override void OnEnter(System.EventArgs e)
         {
             base.OnEnter(e);
 
@@ -727,7 +727,7 @@
             }
         }
 
-        protected override void OnGotFocus(EventArgs e)
+        protected override void OnGotFocus(System.EventArgs e)
         {
             base.OnGotFocus(e);
             _textBox.Focus();
@@ -745,7 +745,7 @@
             }
         }
 
-        protected override void OnLeave(EventArgs e)
+        protected override void OnLeave(System.EventArgs e)
         {
             base.OnLeave(e);
 
@@ -796,7 +796,7 @@
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
 
@@ -895,7 +895,7 @@
             e.Graphics.Clear(BackColor);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
 
@@ -1193,12 +1193,12 @@
             }
         }
 
-        private void OnEnter(object sender, EventArgs e)
+        private void OnEnter(object sender, System.EventArgs e)
         {
             MouseState = MouseStates.Hover;
         }
 
-        private void OnLeave(object sender, EventArgs e)
+        private void OnLeave(object sender, System.EventArgs e)
         {
             if (!_textBox.Focused)
             {
@@ -1232,12 +1232,12 @@
             }
         }
 
-        private void TextBox_SizeChanged(object sender, EventArgs e)
+        private void TextBox_SizeChanged(object sender, System.EventArgs e)
         {
             _textWidth = _textBox.Width;
         }
 
-        private void TextBox_TextChanged(object sender, EventArgs e)
+        private void TextBox_TextChanged(object sender, System.EventArgs e)
         {
             if (_watermark.Visible)
             {
@@ -1255,7 +1255,7 @@
             }
         }
 
-        private void WaterMarkContainer_Click(object sender, EventArgs e)
+        private void WaterMarkContainer_Click(object sender, System.EventArgs e)
         {
             _textBox.Focus();
         }

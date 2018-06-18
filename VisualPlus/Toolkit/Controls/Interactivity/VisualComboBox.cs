@@ -1,29 +1,29 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.TypeConverters;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Linq;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.TypeConverters;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
@@ -608,7 +608,7 @@
             // e.DrawFocusRectangle();
         }
 
-        protected override void OnEnter(EventArgs e)
+        protected override void OnEnter(System.EventArgs e)
         {
             base.OnEnter(e);
             _watermark.Brush = new SolidBrush(_watermark.ActiveColor);
@@ -616,7 +616,7 @@
             Invalidate();
         }
 
-        protected override void OnLeave(EventArgs e)
+        protected override void OnLeave(System.EventArgs e)
         {
             base.OnLeave(e);
             _watermark.Brush = new SolidBrush(_watermark.InactiveColor);
@@ -624,7 +624,7 @@
             Invalidate();
         }
 
-        protected override void OnLostFocus(EventArgs e)
+        protected override void OnLostFocus(System.EventArgs e)
         {
             SuspendLayout();
             Update();
@@ -653,14 +653,14 @@
             Invalidate();
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             _mouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             _mouseState = MouseStates.Normal;
@@ -710,7 +710,7 @@
             e.Graphics.Clear(BackColor);
         }
 
-        protected override void OnSelectionChangeCommitted(EventArgs e)
+        protected override void OnSelectionChangeCommitted(System.EventArgs e)
         {
             OnLostFocus(e);
         }
@@ -726,6 +726,42 @@
         #endregion
 
         #region Methods
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                _textStyle.Enabled = theme.TextSetting.Enabled;
+                _textStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _borderEdge.BackColor = theme.OtherSettings.Line;
+
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.OtherSettings.BoxEnabled,
+                        Disabled = theme.OtherSettings.BoxDisabled
+                    };
+
+                _buttonColor = theme.OtherSettings.FlatControlEnabled;
+
+                _menuTextColor = theme.TextSetting.Enabled;
+                _menuItemNormal = theme.ListItemSettings.Item;
+                _menuItemHover = theme.ListItemSettings.ItemHover;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
 
         private void ConfigureSeparator(Rectangle rectangle)
         {
@@ -829,42 +865,6 @@
                 };
 
             Watermark.DrawWatermark(graphics, rectangle, _stringFormat, _watermark);
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                _textStyle.Enabled = theme.TextSetting.Enabled;
-                _textStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _borderEdge.BackColor = theme.OtherSettings.Line;
-
-                _backColorState = new ColorState
-                    {
-                        Enabled = theme.OtherSettings.BoxEnabled,
-                        Disabled = theme.OtherSettings.BoxDisabled
-                    };
-
-                _buttonColor = theme.OtherSettings.FlatControlEnabled;
-
-                _menuTextColor = theme.TextSetting.Enabled;
-                _menuItemNormal = theme.ListItemSettings.Item;
-                _menuItemHover = theme.ListItemSettings.ItemHover;
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

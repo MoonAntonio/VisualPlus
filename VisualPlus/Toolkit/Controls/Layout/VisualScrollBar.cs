@@ -1,26 +1,26 @@
-﻿namespace VisualPlus.Toolkit.Controls.Layout
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Delegates;
+using VisualPlus.Designer;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Native;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Layout
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Native;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("Scroll")]
@@ -602,7 +602,7 @@
             ContextMenuStrip = _contextMenu;
         }
 
-        protected override void OnEnabledChanged(EventArgs e)
+        protected override void OnEnabledChanged(System.EventArgs e)
         {
             base.OnEnabledChanged(e);
 
@@ -640,7 +640,7 @@
                     _thumbPosition = _orientation == Orientation.Vertical ? _mouseLocation.Y - _thumbRectangle.Y : _mouseLocation.X - _thumbRectangle.X;
                     _thumbState = MouseStates.Down;
                     Invalidate(_thumbRectangle);
-                    OnThumbClicked(EventArgs.Empty);
+                    OnThumbClicked(System.EventArgs.Empty);
                 }
                 else if (_topArrowRectangle.Contains(_mouseLocation))
                 {
@@ -648,7 +648,7 @@
                     _buttonTopState = MouseStates.Down;
                     Invalidate(_topArrowRectangle);
                     ProgressThumb(true);
-                    OnButtonTopClicked(EventArgs.Empty);
+                    OnButtonTopClicked(System.EventArgs.Empty);
                 }
                 else if (_bottomArrowRectangle.Contains(_mouseLocation))
                 {
@@ -656,7 +656,7 @@
                     _buttonBottomState = MouseStates.Down;
                     Invalidate(_bottomArrowRectangle);
                     ProgressThumb(true);
-                    OnButtonBottomClicked(EventArgs.Empty);
+                    OnButtonBottomClicked(System.EventArgs.Empty);
                 }
                 else
                 {
@@ -680,7 +680,7 @@
             }
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             base.OnMouseEnter(e);
             _buttonTopState = MouseStates.Hover;
@@ -689,14 +689,14 @@
             Invalidate();
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
@@ -888,7 +888,7 @@
             e.Graphics.Clear(BackColor);
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        protected override void OnSizeChanged(System.EventArgs e)
         {
             base.OnSizeChanged(e);
             ConfigureScrollBar();
@@ -992,12 +992,12 @@
             }
         }
 
-        protected virtual void OnButtonBottomClicked(EventArgs e)
+        protected virtual void OnButtonBottomClicked(System.EventArgs e)
         {
             ButtonBottomClicked?.Invoke(e);
         }
 
-        protected virtual void OnButtonTopClicked(EventArgs e)
+        protected virtual void OnButtonTopClicked(System.EventArgs e)
         {
             ButtonTopClicked?.Invoke(e);
         }
@@ -1009,7 +1009,7 @@
             Scroll?.Invoke(this, e);
         }
 
-        protected virtual void OnThumbClicked(EventArgs e)
+        protected virtual void OnThumbClicked(System.EventArgs e)
         {
             ThumbClicked?.Invoke(e);
         }
@@ -1018,10 +1018,65 @@
 
         #region Methods
 
+        /// <summary>Prevents the drawing of the control until <see cref="EndUpdate" /> is called.</summary>
+        public void BeginUpdate()
+        {
+            User32.SendMessage(Handle, WM_SETREDRAW, false, 0);
+            _inUpdate = true;
+        }
+
+        /// <summary>Ends the updating process and the control can draw itself again.</summary>
+        public void EndUpdate()
+        {
+            User32.SendMessage(Handle, WM_SETREDRAW, true, 0);
+            _inUpdate = false;
+            ConfigureScrollBar();
+            Refresh();
+        }
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                _buttonBorder.Color = theme.BorderSettings.Normal;
+                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
+
+                _thumbBorder.Color = theme.BorderSettings.Normal;
+                _thumbBorder.HoverColor = theme.BorderSettings.Hover;
+
+                _backColorState.Disabled = theme.OtherSettings.ScrollBar.Disabled;
+                _backColorState.Enabled = theme.OtherSettings.ScrollBar.Enabled;
+
+                _thumbColorState.Disabled = theme.OtherSettings.ScrollThumb.Enabled;
+                _thumbColorState.Enabled = theme.OtherSettings.ScrollThumb.Disabled;
+                _thumbColorState.Hover = theme.OtherSettings.ScrollThumb.Hover;
+                _thumbColorState.Pressed = theme.OtherSettings.ScrollThumb.Pressed;
+
+                _buttonColorState.Disabled = theme.OtherSettings.ScrollButton.Enabled;
+                _buttonColorState.Enabled = theme.OtherSettings.ScrollButton.Disabled;
+                _buttonColorState.Hover = theme.OtherSettings.ScrollButton.Hover;
+                _buttonColorState.Pressed = theme.OtherSettings.ScrollButton.Pressed;
+
+                _trackPressed = Color.FromArgb(10, 0, 0, 0);
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
+        private const int WM_SETREDRAW = 11;
+
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void BottomClick(object sender, EventArgs e)
+        private void BottomClick(object sender, System.EventArgs e)
         {
             Value = _maximum;
         }
@@ -1367,7 +1422,7 @@
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void LargeDownClick(object sender, EventArgs e)
+        private void LargeDownClick(object sender, System.EventArgs e)
         {
             Value = GetValue(false, false);
         }
@@ -1375,7 +1430,7 @@
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void LargeUpClick(object sender, EventArgs e)
+        private void LargeUpClick(object sender, System.EventArgs e)
         {
             Value = GetValue(false, true);
         }
@@ -1471,7 +1526,7 @@
         /// <summary>Handles the updating of the thumb.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">An object that contains the event data.</param>
-        private void ProgressTimerTick(object sender, EventArgs e)
+        private void ProgressTimerTick(object sender, System.EventArgs e)
         {
             ProgressThumb(true);
         }
@@ -1502,7 +1557,7 @@
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void ScrollHereClick(object sender, EventArgs e)
+        private void ScrollHereClick(object sender, System.EventArgs e)
         {
             int _thumbSize;
             int _thumbLocation;
@@ -1549,7 +1604,7 @@
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void SmallDownClick(object sender, EventArgs e)
+        private void SmallDownClick(object sender, System.EventArgs e)
         {
             Value = GetValue(true, false);
         }
@@ -1557,7 +1612,7 @@
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void SmallUpClick(object sender, EventArgs e)
+        private void SmallUpClick(object sender, System.EventArgs e)
         {
             Value = GetValue(true, true);
         }
@@ -1571,65 +1626,10 @@
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void TopClick(object sender, EventArgs e)
+        private void TopClick(object sender, System.EventArgs e)
         {
             Value = _minimum;
         }
-
-        /// <summary>Prevents the drawing of the control until <see cref="EndUpdate" /> is called.</summary>
-        public void BeginUpdate()
-        {
-            User32.SendMessage(Handle, WM_SETREDRAW, false, 0);
-            _inUpdate = true;
-        }
-
-        /// <summary>Ends the updating process and the control can draw itself again.</summary>
-        public void EndUpdate()
-        {
-            User32.SendMessage(Handle, WM_SETREDRAW, true, 0);
-            _inUpdate = false;
-            ConfigureScrollBar();
-            Refresh();
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                _buttonBorder.Color = theme.BorderSettings.Normal;
-                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
-
-                _thumbBorder.Color = theme.BorderSettings.Normal;
-                _thumbBorder.HoverColor = theme.BorderSettings.Hover;
-
-                _backColorState.Disabled = theme.OtherSettings.ScrollBar.Disabled;
-                _backColorState.Enabled = theme.OtherSettings.ScrollBar.Enabled;
-
-                _thumbColorState.Disabled = theme.OtherSettings.ScrollThumb.Enabled;
-                _thumbColorState.Enabled = theme.OtherSettings.ScrollThumb.Disabled;
-                _thumbColorState.Hover = theme.OtherSettings.ScrollThumb.Hover;
-                _thumbColorState.Pressed = theme.OtherSettings.ScrollThumb.Pressed;
-
-                _buttonColorState.Disabled = theme.OtherSettings.ScrollButton.Enabled;
-                _buttonColorState.Enabled = theme.OtherSettings.ScrollButton.Disabled;
-                _buttonColorState.Hover = theme.OtherSettings.ScrollButton.Hover;
-                _buttonColorState.Pressed = theme.OtherSettings.ScrollButton.Pressed;
-
-                _trackPressed = Color.FromArgb(10, 0, 0, 0);
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
-        }
-
-        private const int WM_SETREDRAW = 11;
 
         #endregion
     }

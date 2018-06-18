@@ -1,24 +1,24 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Xml.Linq;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Extensibility;
+using VisualPlus.Managers;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.TypeConverters;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Drawing;
-    using System.IO;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using System.Xml.Linq;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Extensibility;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.TypeConverters;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The theme structure.")]
@@ -227,6 +227,47 @@
 
         #region Methods
 
+        /// <summary>Loads the <see cref="Theme" /> from the file path.</summary>
+        /// <param name="filePath">The file path.</param>
+        public void Load(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(filePath));
+            }
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException(ExceptionMessenger.FileNotFound(filePath));
+            }
+
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    XDocument _themeDocument = XDocument.Load(filePath);
+                    _rawTheme = File.ReadAllText(filePath);
+                    Deserialize(_themeDocument);
+                }
+                else
+                {
+                    VisualExceptionDialog.Show(new FileNotFoundException(ExceptionMessenger.FileNotFound(filePath)));
+                }
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+        }
+
+        /// <summary>Saves the theme to a file.</summary>
+        /// <param name="filePath">The file path.</param>
+        public void Save(string filePath)
+        {
+            XDocument _theme = XDocument.Parse(_rawTheme);
+            _theme.Save(filePath);
+        }
+
         /// <summary>Resolves to default family if font can't be resolved.</summary>
         /// <param name="fontName">The font name.</param>
         /// <param name="defaultFontName">The default font name.</param>
@@ -386,47 +427,6 @@
             {
                 VisualExceptionDialog.Show(e);
             }
-        }
-
-        /// <summary>Loads the <see cref="Theme" /> from the file path.</summary>
-        /// <param name="filePath">The file path.</param>
-        public void Load(string filePath)
-        {
-            if (string.IsNullOrEmpty(filePath))
-            {
-                throw new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(filePath));
-            }
-
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException(ExceptionMessenger.FileNotFound(filePath));
-            }
-
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    XDocument _themeDocument = XDocument.Load(filePath);
-                    _rawTheme = File.ReadAllText(filePath);
-                    Deserialize(_themeDocument);
-                }
-                else
-                {
-                    VisualExceptionDialog.Show(new FileNotFoundException(ExceptionMessenger.FileNotFound(filePath)));
-                }
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-        }
-
-        /// <summary>Saves the theme to a file.</summary>
-        /// <param name="filePath">The file path.</param>
-        public void Save(string filePath)
-        {
-            XDocument _theme = XDocument.Parse(_rawTheme);
-            _theme.Save(filePath);
         }
 
         #endregion

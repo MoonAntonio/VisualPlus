@@ -1,15 +1,15 @@
-﻿namespace VisualPlus.Designer
+﻿#region Namespace
+
+using System.Collections;
+using System.ComponentModel.Design;
+using System.Windows.Forms.Design;
+
+using VisualPlus.ActionList;
+
+#endregion
+
+namespace VisualPlus.Designer
 {
-    #region Namespace
-
-    using System.Collections;
-    using System.ComponentModel.Design;
-    using System.Windows.Forms.Design;
-
-    using VisualPlus.ActionList;
-
-    #endregion
-
     internal class VisualComboBoxDesigner : ControlDesigner
     {
         #region Variables

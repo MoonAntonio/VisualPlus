@@ -1,18 +1,18 @@
-﻿namespace VisualPlus.Renders
+﻿#region Namespace
+
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Managers;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Renders
 {
-    #region Namespace
-
-    using System;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Managers;
-    using VisualPlus.Structure;
-
-    #endregion
-
     public sealed class VisualControlRenderer
     {
         #region Methods

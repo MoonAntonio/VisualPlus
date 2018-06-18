@@ -1,26 +1,26 @@
-﻿namespace VisualPlus.Collections.CollectionBase
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Extensibility;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataManagement;
+
+#endregion
+
+namespace VisualPlus.Collections.CollectionBase
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Linq;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Extensibility;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Child;
-    using VisualPlus.Toolkit.Controls.DataManagement;
-
-    #endregion
-
-    public class VisualListViewSubItemCollection : CollectionBase, ICloneable, IList
+    public class VisualListViewSubItemCollection : System.Collections.CollectionBase, ICloneable, IList
     {
         #region Variables
 
@@ -237,6 +237,69 @@
 
         #region Methods
 
+        /// <summary>Retrieves the index of the item with the specified key.</summary>
+        /// <param name="key">The name of the item to find in the collection.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        public virtual int IndexOfKey(string key)
+        {
+            // Step 0 - Argument validation.
+            if (string.IsNullOrEmpty(key))
+            {
+                return -1;
+            }
+
+            // Step 1 - Check the last cached item.
+            if (List.IsValidIndex(_lastAccessedIndex))
+            {
+                if (TextManager.SafeCompareStrings(this[_lastAccessedIndex].Name, key, true))
+                {
+                    return _lastAccessedIndex;
+                }
+            }
+
+            // Step 2 - Search for the item.
+            for (var i = 0; i < List.Count; i++)
+            {
+                if (TextManager.SafeCompareStrings(this[i].Name, key, true))
+                {
+                    _lastAccessedIndex = i;
+                    return i;
+                }
+            }
+
+            _lastAccessedIndex = -1;
+            return -1;
+        }
+
+        /// <summary>Removes the specified item from the collection.</summary>
+        /// <param name="item">The <see cref="VisualListViewSubItem" /> representing the item to remove from the collection.</param>
+        public virtual void Remove(VisualListViewSubItem item)
+        {
+            RemoveByKey(item.Name);
+        }
+
+        /// <summary>Removes the item at the specified index within the collection.</summary>
+        /// <param name="index">The zero-based index of the item to remove.</param>
+        public new virtual void RemoveAt(int index)
+        {
+            if (List.IsValidIndex(index))
+            {
+                List.RemoveAt(index);
+                ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.SubItemCollectionChanged, null, null, null));
+            }
+        }
+
+        /// <summary>Removes the item with the specified key from the collection.</summary>
+        /// <param name="key">The name of the item to remove from the collection.</param>
+        public virtual void RemoveByKey(string key)
+        {
+            int _index = IndexOfKey(key);
+            if (List.IsValidIndex(_index))
+            {
+                RemoveAt(_index);
+            }
+        }
+
         /// <summary>Adds a subitem to the collection with the specified text.</summary>
         /// <param name="text">The text to display.</param>
         /// <returns>The <see cref="VisualListViewSubItem" /> that was added to the collection.</returns>
@@ -409,40 +472,6 @@
             return -1;
         }
 
-        /// <summary>Retrieves the index of the item with the specified key.</summary>
-        /// <param name="key">The name of the item to find in the collection.</param>
-        /// <returns>The <see cref="int" />.</returns>
-        public virtual int IndexOfKey(string key)
-        {
-            // Step 0 - Argument validation.
-            if (string.IsNullOrEmpty(key))
-            {
-                return -1;
-            }
-
-            // Step 1 - Check the last cached item.
-            if (List.IsValidIndex(_lastAccessedIndex))
-            {
-                if (TextManager.SafeCompareStrings(this[_lastAccessedIndex].Name, key, true))
-                {
-                    return _lastAccessedIndex;
-                }
-            }
-
-            // Step 2 - Search for the item.
-            for (var i = 0; i < List.Count; i++)
-            {
-                if (TextManager.SafeCompareStrings(this[i].Name, key, true))
-                {
-                    _lastAccessedIndex = i;
-                    return i;
-                }
-            }
-
-            _lastAccessedIndex = -1;
-            return -1;
-        }
-
         /// <summary>Creates a new item and inserts it into the collection at the specified index.</summary>
         /// <param name="index">The zero-based index location where the item is inserted.</param>
         /// <param name="text">The text to display for the item.</param>
@@ -477,35 +506,6 @@
 
             ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.SubItemCollectionChanged, null, null, null));
             return item;
-        }
-
-        /// <summary>Removes the specified item from the collection.</summary>
-        /// <param name="item">The <see cref="VisualListViewSubItem" /> representing the item to remove from the collection.</param>
-        public virtual void Remove(VisualListViewSubItem item)
-        {
-            RemoveByKey(item.Name);
-        }
-
-        /// <summary>Removes the item at the specified index within the collection.</summary>
-        /// <param name="index">The zero-based index of the item to remove.</param>
-        public new virtual void RemoveAt(int index)
-        {
-            if (List.IsValidIndex(index))
-            {
-                List.RemoveAt(index);
-                ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.SubItemCollectionChanged, null, null, null));
-            }
-        }
-
-        /// <summary>Removes the item with the specified key from the collection.</summary>
-        /// <param name="key">The name of the item to remove from the collection.</param>
-        public virtual void RemoveByKey(string key)
-        {
-            int _index = IndexOfKey(key);
-            if (List.IsValidIndex(_index))
-            {
-                RemoveAt(_index);
-            }
         }
 
         /// <summary>The sub item has changed.</summary>

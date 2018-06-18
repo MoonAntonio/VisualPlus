@@ -1,26 +1,26 @@
+#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Designer;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
 namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("ToggleChanged")]
@@ -283,7 +283,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Overrides
 
-        protected override void OnHandleCreated(EventArgs e)
+        protected override void OnHandleCreated(System.EventArgs e)
         {
             base.OnHandleCreated(e);
             _animationTimer.Start();
@@ -296,14 +296,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Invalidate();
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             base.OnMouseEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
@@ -357,10 +357,49 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Methods
 
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                _buttonBorder.Color = theme.BorderSettings.Normal;
+                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _controlColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type2,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+
+                _buttonColorState = new ControlColorState
+                    {
+                        Enabled = theme.ColorStateSettings.Enabled,
+                        Disabled = theme.ColorStateSettings.Disabled,
+                        Hover = theme.ColorStateSettings.Hover,
+                        Pressed = theme.ColorStateSettings.Pressed
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
         /// <summary>Create a slide animation when toggled.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void AnimationTimerTick(object sender, EventArgs e)
+        private void AnimationTimerTick(object sender, System.EventArgs e)
         {
             if (Toggle)
             {
@@ -442,45 +481,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 new SolidBrush(_foreColor),
                 textBoxRectangle,
                 stringFormat);
-        }
-
-        public void UpdateTheme(Theme theme)
-        {
-            try
-            {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-
-                _buttonBorder.Color = theme.BorderSettings.Normal;
-                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
-
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
-
-                _controlColorState = new ColorState
-                    {
-                        Enabled = theme.BackgroundSettings.Type2,
-                        Disabled = theme.BackgroundSettings.Type1
-                    };
-
-                _buttonColorState = new ControlColorState
-                    {
-                        Enabled = theme.ColorStateSettings.Enabled,
-                        Disabled = theme.ColorStateSettings.Disabled,
-                        Hover = theme.ColorStateSettings.Hover,
-                        Pressed = theme.ColorStateSettings.Pressed
-                    };
-            }
-            catch (Exception e)
-            {
-                VisualExceptionDialog.Show(e);
-            }
-
-            Invalidate();
-            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

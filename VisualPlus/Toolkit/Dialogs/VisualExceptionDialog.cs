@@ -1,17 +1,17 @@
-﻿namespace VisualPlus.Toolkit.Dialogs
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Dialogs
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.IO;
-    using System.Runtime.InteropServices;
-    using System.Text;
-    using System.Windows.Forms;
-
-    #endregion
-
     /// <summary>The <see cref="VisualExceptionDialog" />.</summary>
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
@@ -91,6 +91,54 @@
 
         #region Methods
 
+        /// <summary>Show the exception dialog.</summary>
+        /// <param name="exception">The exception.</param>
+        /// <param name="caption">The caption.</param>
+        /// <param name="dialogWindow">The dialog Window.</param>
+        public static void Show(Exception exception, string caption = "Exception Dialog", bool dialogWindow = true)
+        {
+            BackgroundWorker _backgroundWorkerShow = new BackgroundWorker();
+            _backgroundWorkerShow.DoWork += BackgroundWorker_DoShowWork(exception, caption, dialogWindow);
+            _backgroundWorkerShow.RunWorkerAsync();
+        }
+
+        /// <summary>Copy the log to the clipboard.</summary>
+        public void CopyLogToClipboard()
+        {
+            Clipboard.SetText(CreateLog());
+        }
+
+        /// <summary>Create a log entry.</summary>
+        /// <returns>
+        ///     <see cref="string" />
+        /// </returns>
+        public string CreateLog()
+        {
+            StringBuilder _log = new StringBuilder();
+            _log.AppendLine("Message:");
+            _log.AppendLine(_exception.Message);
+            _log.Append(Environment.NewLine);
+            _log.AppendLine("Type:");
+            _log.AppendLine(_exception.GetType().FullName);
+            _log.Append(Environment.NewLine);
+            _log.AppendLine("Stack Trace:");
+            _log.AppendLine(_exception.StackTrace);
+
+            _log.Append(Environment.NewLine);
+            _log.AppendLine("Help Link: " + _exception.HelpLink);
+            _log.AppendLine("Source: " + _exception.Source);
+            _log.AppendLine("Target Site: " + _exception.TargetSite);
+
+            return _log.ToString();
+        }
+
+        /// <summary>Saves the log to a file.</summary>
+        /// <param name="filePath">The file Path.</param>
+        public void SaveLog(string filePath)
+        {
+            File.WriteAllText(filePath, CreateLog());
+        }
+
         /// <summary>Display the <see cref="VisualExceptionDialog" />.</summary>
         /// <param name="exception">The exception.</param>
         /// <param name="caption">The caption.</param>
@@ -118,7 +166,7 @@
         /// <summary>The Copy button is clicked.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event.</param>
-        private void CopyButton_Click(object sender, EventArgs e)
+        private void CopyButton_Click(object sender, System.EventArgs e)
         {
             CopyLogToClipboard();
         }
@@ -287,7 +335,7 @@
         /// <summary>The OK button is clicked.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event.</param>
-        private void OkButton_Click(object sender, EventArgs e)
+        private void OkButton_Click(object sender, System.EventArgs e)
         {
             Close();
         }
@@ -295,7 +343,7 @@
         /// <summary>The Copy button is clicked.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event.</param>
-        private void SaveButton_Click(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, System.EventArgs e)
         {
             SaveFileDialog _saveFileDialog = new SaveFileDialog();
             _saveFileDialog.Title = @"Save exception log...";
@@ -305,54 +353,6 @@
             {
                 SaveLog(_saveFileDialog.FileName);
             }
-        }
-
-        /// <summary>Show the exception dialog.</summary>
-        /// <param name="exception">The exception.</param>
-        /// <param name="caption">The caption.</param>
-        /// <param name="dialogWindow">The dialog Window.</param>
-        public static void Show(Exception exception, string caption = "Exception Dialog", bool dialogWindow = true)
-        {
-            BackgroundWorker _backgroundWorkerShow = new BackgroundWorker();
-            _backgroundWorkerShow.DoWork += BackgroundWorker_DoShowWork(exception, caption, dialogWindow);
-            _backgroundWorkerShow.RunWorkerAsync();
-        }
-
-        /// <summary>Copy the log to the clipboard.</summary>
-        public void CopyLogToClipboard()
-        {
-            Clipboard.SetText(CreateLog());
-        }
-
-        /// <summary>Create a log entry.</summary>
-        /// <returns>
-        ///     <see cref="string" />
-        /// </returns>
-        public string CreateLog()
-        {
-            StringBuilder _log = new StringBuilder();
-            _log.AppendLine("Message:");
-            _log.AppendLine(_exception.Message);
-            _log.Append(Environment.NewLine);
-            _log.AppendLine("Type:");
-            _log.AppendLine(_exception.GetType().FullName);
-            _log.Append(Environment.NewLine);
-            _log.AppendLine("Stack Trace:");
-            _log.AppendLine(_exception.StackTrace);
-
-            _log.Append(Environment.NewLine);
-            _log.AppendLine("Help Link: " + _exception.HelpLink);
-            _log.AppendLine("Source: " + _exception.Source);
-            _log.AppendLine("Target Site: " + _exception.TargetSite);
-
-            return _log.ToString();
-        }
-
-        /// <summary>Saves the log to a file.</summary>
-        /// <param name="filePath">The file Path.</param>
-        public void SaveLog(string filePath)
-        {
-            File.WriteAllText(filePath, CreateLog());
         }
 
         #endregion

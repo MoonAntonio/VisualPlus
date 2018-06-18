@@ -1,25 +1,25 @@
-﻿namespace VisualPlus.Collections.CollectionBase
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Extensibility;
+using VisualPlus.Localization;
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataManagement;
+
+#endregion
+
+namespace VisualPlus.Collections.CollectionBase
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Linq;
-    using System.Windows.Forms;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Extensibility;
-    using VisualPlus.Localization;
-    using VisualPlus.Toolkit.Child;
-    using VisualPlus.Toolkit.Controls.DataManagement;
-
-    #endregion
-
-    public class VisualListViewColumnCollection : CollectionBase, ICloneable, IList
+    public class VisualListViewColumnCollection : System.Collections.CollectionBase, ICloneable, IList
     {
         #region Variables
 
@@ -297,6 +297,60 @@
             }
         }
 
+        /// <summary>Return the index, within the collection, of the specified column header.</summary>
+        /// <param name="value">A <see cref="VisualListViewColumn" /> representing the column header to locate in the collection.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        public virtual int IndexOf(VisualListViewColumn value)
+        {
+            return List.IndexOf(value);
+        }
+
+        /// <summary>Determines the index for a column with the specified key.</summary>
+        /// <param name="key">The name of the column to retrieve the index for.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        public virtual int IndexOfKey(string key)
+        {
+            for (var index = 0; index < List.Count; index++)
+            {
+                VisualListViewColumn _column = (VisualListViewColumn)List[index];
+                if (key == _column.Name)
+                {
+                    return index;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>Removes the specified column header from the collection.</summary>
+        /// <param name="column">A <see cref="VisualListViewColumn" /> representing the item to remove from the collection.</param>
+        public virtual void Remove(VisualListViewColumn column)
+        {
+            RemoveByKey(column.Name);
+        }
+
+        /// <summary>Removes the item at the specified index within the collection.</summary>
+        /// <param name="index">The zero-based index of the item to remove.</param>
+        public new virtual void RemoveAt(int index)
+        {
+            if (List.IsValidIndex(index))
+            {
+                List.RemoveAt(index);
+                ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.ColumnCollectionChanged, null, null, null));
+            }
+        }
+
+        /// <summary>Removes the column with the specified key from the collection.</summary>
+        /// <param name="key">The name of the column to remove from the collection.</param>
+        public virtual void RemoveByKey(string key)
+        {
+            int _index = IndexOfKey(key);
+            if (List.IsValidIndex(_index))
+            {
+                RemoveAt(_index);
+            }
+        }
+
         /// <summary>Creates a shallow copy of the current object.</summary>
         /// <returns>The <see cref="object" />.</returns>
         public object Clone()
@@ -358,31 +412,6 @@
             }
 
             return _spanSize;
-        }
-
-        /// <summary>Return the index, within the collection, of the specified column header.</summary>
-        /// <param name="value">A <see cref="VisualListViewColumn" /> representing the column header to locate in the collection.</param>
-        /// <returns>The <see cref="int" />.</returns>
-        public virtual int IndexOf(VisualListViewColumn value)
-        {
-            return List.IndexOf(value);
-        }
-
-        /// <summary>Determines the index for a column with the specified key.</summary>
-        /// <param name="key">The name of the column to retrieve the index for.</param>
-        /// <returns>The <see cref="int" />.</returns>
-        public virtual int IndexOfKey(string key)
-        {
-            for (var index = 0; index < List.Count; index++)
-            {
-                VisualListViewColumn _column = (VisualListViewColumn)List[index];
-                if (key == _column.Name)
-                {
-                    return index;
-                }
-            }
-
-            return -1;
         }
 
         /// <summary>Inserts an existing column header into the collection at the specified index.</summary>
@@ -536,35 +565,6 @@
                 };
 
             Insert(index, _column);
-        }
-
-        /// <summary>Removes the specified column header from the collection.</summary>
-        /// <param name="column">A <see cref="VisualListViewColumn" /> representing the item to remove from the collection.</param>
-        public virtual void Remove(VisualListViewColumn column)
-        {
-            RemoveByKey(column.Name);
-        }
-
-        /// <summary>Removes the item at the specified index within the collection.</summary>
-        /// <param name="index">The zero-based index of the item to remove.</param>
-        public new virtual void RemoveAt(int index)
-        {
-            if (List.IsValidIndex(index))
-            {
-                List.RemoveAt(index);
-                ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.ColumnCollectionChanged, null, null, null));
-            }
-        }
-
-        /// <summary>Removes the column with the specified key from the collection.</summary>
-        /// <param name="key">The name of the column to remove from the collection.</param>
-        public virtual void RemoveByKey(string key)
-        {
-            int _index = IndexOfKey(key);
-            if (List.IsValidIndex(_index))
-            {
-                RemoveAt(_index);
-            }
         }
 
         #endregion

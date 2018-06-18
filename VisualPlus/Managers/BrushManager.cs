@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System.Drawing;
+using System.Drawing.Drawing2D;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-
-    #endregion
-
     public sealed class BrushManager
     {
         #region Methods

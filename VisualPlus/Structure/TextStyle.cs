@@ -1,15 +1,15 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Text;
+
+using VisualPlus.TypeConverters;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Text;
-
-    using VisualPlus.TypeConverters;
-
-    #endregion
-
     [TypeConverter(typeof(BasicSettingsTypeConverter))]
     public class TextStyle
     {
@@ -25,7 +25,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="TextStyle"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="TextStyle" /> class.</summary>
         public TextStyle()
         {
             _disabled = Color.Empty;

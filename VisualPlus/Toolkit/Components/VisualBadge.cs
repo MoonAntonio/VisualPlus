@@ -1,19 +1,19 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(VisualBadge), "VisualBadge.bmp")]
     [Description("The VisualPlus badge component enables controls to have a badge with text displayed.")]
@@ -381,6 +381,16 @@
 
         #region Methods
 
+        /// <summary>Sets the click action for the <see cref="VisualBadge" />.</summary>
+        /// <param name="action">The click action to set.</param>
+        public void SetClickAction(Action<Control> action)
+        {
+            if (_label != null)
+            {
+                _clickEvent = action;
+            }
+        }
+
         /// <summary>Attach the <see cref="VisualBadge" /> to the control.</summary>
         private void Attach()
         {
@@ -410,7 +420,7 @@
         /// <summary>On label click.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void OnLabel_Click(object sender, EventArgs e)
+        private void OnLabel_Click(object sender, System.EventArgs e)
         {
             _clickEvent?.Invoke(_label);
         }
@@ -430,16 +440,6 @@
             if (_label != null)
             {
                 _control.Controls.Remove(_label);
-            }
-        }
-
-        /// <summary>Sets the click action for the <see cref="VisualBadge" />.</summary>
-        /// <param name="action">The click action to set.</param>
-        public void SetClickAction(Action<Control> action)
-        {
-            if (_label != null)
-            {
-                _clickEvent = action;
             }
         }
 

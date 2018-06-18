@@ -1,18 +1,18 @@
-﻿namespace UnitTests.Forms
+﻿#region Namespace
+
+using System;
+using System.Diagnostics;
+using System.Windows.Forms;
+
+using UnitTests.Tests;
+
+using VisualPlus.EventArgs;
+using VisualPlus.Toolkit.Dialogs;
+
+#endregion
+
+namespace UnitTests.Forms
 {
-    #region Namespace
-
-    using System;
-    using System.Diagnostics;
-    using System.Windows.Forms;
-
-    using UnitTests.Tests;
-
-    using VisualPlus.EventArgs;
-    using VisualPlus.Toolkit.Dialogs;
-
-    #endregion
-
     /// <summary>The test manager.</summary>
     public partial class UnitTestManager : VisualForm
     {

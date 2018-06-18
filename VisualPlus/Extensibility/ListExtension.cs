@@ -1,11 +1,11 @@
-﻿namespace VisualPlus.Extensibility
+﻿#region Namespace
+
+using System.Collections;
+
+#endregion
+
+namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System.Collections;
-
-    #endregion
-
     public static class ListExtension
     {
         #region Methods

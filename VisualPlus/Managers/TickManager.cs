@@ -1,53 +1,19 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Text;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Text;
-    using System.Windows.Forms;
-
-    #endregion
-
     [Description("The tick manager.")]
     public sealed class TickManager
     {
         #region Methods
-
-        /// <summary>Calculate the frequency length.</summary>
-        /// <param name="orientation">The orientation.</param>
-        /// <param name="rectangle">The rectangle.</param>
-        /// <param name="frequency">The frequency.</param>
-        /// <param name="minimum">The minimum.</param>
-        /// <param name="maximum">The maximum.</param>
-        /// <returns>The <see cref="float" />.</returns>
-        private static float GetFrequencyLength(Orientation orientation, RectangleF rectangle, int frequency, int minimum, int maximum)
-        {
-            float _length;
-
-            switch (orientation)
-            {
-                case Orientation.Horizontal:
-                    {
-                        _length = (rectangle.Width * frequency) / (maximum - minimum);
-                        break;
-                    }
-
-                case Orientation.Vertical:
-                    {
-                        _length = (rectangle.Height * frequency) / (maximum - minimum);
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
-                    }
-            }
-
-            return _length;
-        }
 
         /// <summary>Draws the tick line.</summary>
         /// <param name="graphics">Graphics controller.</param>
@@ -177,6 +143,40 @@
                         throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
                     }
             }
+        }
+
+        /// <summary>Calculate the frequency length.</summary>
+        /// <param name="orientation">The orientation.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="frequency">The frequency.</param>
+        /// <param name="minimum">The minimum.</param>
+        /// <param name="maximum">The maximum.</param>
+        /// <returns>The <see cref="float" />.</returns>
+        private static float GetFrequencyLength(Orientation orientation, RectangleF rectangle, int frequency, int minimum, int maximum)
+        {
+            float _length;
+
+            switch (orientation)
+            {
+                case Orientation.Horizontal:
+                    {
+                        _length = (rectangle.Width * frequency) / (maximum - minimum);
+                        break;
+                    }
+
+                case Orientation.Vertical:
+                    {
+                        _length = (rectangle.Height * frequency) / (maximum - minimum);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
+                    }
+            }
+
+            return _length;
         }
 
         #endregion

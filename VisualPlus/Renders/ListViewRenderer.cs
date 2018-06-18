@@ -1,29 +1,29 @@
-﻿namespace VisualPlus.Renders
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Reflection;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+
+using VisualPlus.Constants;
+using VisualPlus.Enumerators;
+using VisualPlus.Managers;
+using VisualPlus.Native;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataManagement;
+using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
+
+using ContentAlignment = System.Drawing.ContentAlignment;
+
+#endregion
+
+namespace VisualPlus.Renders
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.Diagnostics;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Reflection;
-    using System.Windows.Forms;
-    using System.Windows.Forms.VisualStyles;
-
-    using VisualPlus.Constants;
-    using VisualPlus.Enumerators;
-    using VisualPlus.Managers;
-    using VisualPlus.Native;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Child;
-    using VisualPlus.Toolkit.Controls.DataManagement;
-    using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
-
-    using ContentAlignment = System.Drawing.ContentAlignment;
-
-    #endregion
-
     public static class ListViewRenderer
     {
         #region Methods

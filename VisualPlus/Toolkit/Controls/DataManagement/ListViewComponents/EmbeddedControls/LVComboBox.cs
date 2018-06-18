@@ -1,16 +1,15 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.EmbeddedControls
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows.Forms;
+
+using VisualPlus.Toolkit.Child;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.EmbeddedControls
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Windows.Forms;
-
-    using VisualPlus.Toolkit.Child;
-
-    #endregion
-
     [ToolboxItem(false)]
     public class LVComboBox : ComboBox, ILVEmbeddedControl
     {
@@ -90,13 +89,13 @@
             base.Dispose(disposing);
         }
 
-        protected override void OnGotFocus(EventArgs e)
+        protected override void OnGotFocus(System.EventArgs e)
         {
             Debug.WriteLine("LVTextBox::Got Focus");
             base.OnGotFocus(e);
         }
 
-        protected override void OnLostFocus(EventArgs e)
+        protected override void OnLostFocus(System.EventArgs e)
         {
             Debug.WriteLine("LVTextBox::Lost Focus");
             base.OnLostFocus(e);
@@ -113,12 +112,6 @@
         #endregion
 
         #region Methods
-
-        /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
-        private void InitializeComponent()
-        {
-            _components = new Container();
-        }
 
         public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewEx listView)
         {
@@ -144,6 +137,12 @@
         {
             // take information from control and return it to the item
             _subItem.Text = Text;
+        }
+
+        /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
+        private void InitializeComponent()
+        {
+            _components = new Container();
         }
 
         #endregion

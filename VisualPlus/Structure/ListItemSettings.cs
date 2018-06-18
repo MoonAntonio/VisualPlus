@@ -1,11 +1,11 @@
+#region Namespace
+
+using System.Drawing;
+
+#endregion
+
 namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System.Drawing;
-
-    #endregion
-
     public class ListItemSettings
     {
         #region Properties

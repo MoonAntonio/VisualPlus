@@ -1,14 +1,12 @@
-﻿namespace VisualPlus.EventArgs
+﻿#region Namespace
+
+using VisualPlus.Enumerators;
+
+#endregion
+
+namespace VisualPlus.EventArgs
 {
-    #region Namespace
-
-    using System;
-
-    using VisualPlus.Enumerators;
-
-    #endregion
-
-    public class ListViewHoverEventArgs : EventArgs
+    public class ListViewHoverEventArgs : System.EventArgs
     {
         #region Variables
 

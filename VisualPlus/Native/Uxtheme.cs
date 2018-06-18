@@ -1,16 +1,16 @@
-﻿namespace VisualPlus.Native
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Security;
+
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Native
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.InteropServices;
-    using System.Security;
-
-    using VisualPlus.Structure;
-
-    #endregion
-
     [SuppressUnmanagedCodeSecurity]
     internal static class Uxtheme
     {

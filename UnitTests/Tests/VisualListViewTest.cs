@@ -1,20 +1,20 @@
-﻿namespace UnitTests.Tests
+﻿#region Namespace
+
+using System;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataVisualization;
+using VisualPlus.Toolkit.Dialogs;
+
+#endregion
+
+namespace UnitTests.Tests
 {
-    #region Namespace
-
-    using System;
-    using System.Drawing;
-    using System.Text;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Toolkit.Child;
-    using VisualPlus.Toolkit.Controls.DataVisualization;
-    using VisualPlus.Toolkit.Dialogs;
-
-    #endregion
-
     /// <summary>The visual list view test.</summary>
     public partial class VisualListViewTest : VisualForm
     {

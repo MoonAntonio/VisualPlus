@@ -1,14 +1,14 @@
-﻿namespace VisualPlus.Extensibility
+﻿#region Namespace
+
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
+
+#endregion
+
+namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.IO;
-
-    #endregion
-
     public static class ImageExtensions
     {
         #region Methods

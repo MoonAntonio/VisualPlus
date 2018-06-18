@@ -1,21 +1,20 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Localization;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization;
-    using VisualPlus.Structure;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("Opening")]
@@ -243,7 +242,7 @@
             }
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             Cursor = Cursors.Hand;
@@ -260,6 +259,18 @@
         #endregion
 
         #region Methods
+
+        private static bool _arrowVisible = Settings.DefaultValue.TextVisible;
+        private static Color _backgroundColor;
+        private static Color _itemHoverColor;
+        private static Color _selectedItemBackColor;
+
+        private static Color arrowColor;
+        private static Color arrowDisabledColor;
+        private static Border border;
+        private static Font contextMenuFont;
+        private static Color foreColor;
+        private static Color textDisabledColor;
 
         private void ConfigureStyleManager()
         {
@@ -282,18 +293,6 @@
             _selectedItemBackColor = styleManager.Theme.ListItemSettings.ItemHover;
             _itemHoverColor = styleManager.Theme.BorderSettings.Hover;
         }
-
-        private static bool _arrowVisible = Settings.DefaultValue.TextVisible;
-        private static Color _backgroundColor;
-        private static Color _itemHoverColor;
-        private static Color _selectedItemBackColor;
-
-        private static Color arrowColor;
-        private static Color arrowDisabledColor;
-        private static Border border;
-        private static Font contextMenuFont;
-        private static Color foreColor;
-        private static Color textDisabledColor;
 
         public sealed class VisualToolStripRender : ToolStripProfessionalRenderer
         {

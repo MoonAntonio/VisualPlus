@@ -1,15 +1,15 @@
-﻿namespace VisualPlus.Collections.CollectionsEditor
+﻿#region Namespace
+
+using System;
+using System.ComponentModel.Design;
+using System.Windows.Forms;
+
+using VisualPlus.Toolkit.Child;
+
+#endregion
+
+namespace VisualPlus.Collections.CollectionsEditor
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel.Design;
-    using System.Windows.Forms;
-
-    using VisualPlus.Toolkit.Child;
-
-    #endregion
-
     internal class VisualTabPageCollectionEditor : CollectionEditor
     {
         #region Constructors

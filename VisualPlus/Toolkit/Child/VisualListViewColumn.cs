@@ -1,23 +1,23 @@
-﻿namespace VisualPlus.Toolkit.Child
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Toolkit.Controls.DataManagement;
+using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.EmbeddedControls;
+using VisualPlus.TypeConverters;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Child
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Toolkit.Controls.DataManagement;
-    using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.EmbeddedControls;
-    using VisualPlus.TypeConverters;
-
-    #endregion
-
     [DesignTimeVisible(true)]
     [TypeConverter(typeof(VisualListViewColumnConverter))]
     public class VisualListViewColumn : ICloneable
@@ -29,6 +29,8 @@
         private bool _checkBoxes;
         private bool _checked;
         private ColumnStates _columnState;
+        private Control _embeddedControlTemplate;
+        private LVActivatedEmbeddedTypes _embeddedType;
         private int _imageIndex;
         private SortDirections _lastSortDirection;
         private VisualListViewEx _listView;
@@ -38,8 +40,6 @@
         private string _text;
         private ContentAlignment _textAlignment;
         private int _width;
-        private Control _embeddedControlTemplate;
-        private LVActivatedEmbeddedTypes _embeddedType;
 
         #endregion
 

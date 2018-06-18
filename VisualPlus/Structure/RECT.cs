@@ -1,13 +1,13 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System.Drawing;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System.Drawing;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-
-    #endregion
-
     [StructLayout(LayoutKind.Explicit)]
     public struct RECT
     {

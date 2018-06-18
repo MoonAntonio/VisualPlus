@@ -1,13 +1,12 @@
-﻿namespace VisualPlus.EventArgs
+﻿#region Namespace
+
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.EventArgs
 {
-    #region Namespace
-
-    using System;
-    using System.Windows.Forms;
-
-    #endregion
-
-    public class CursorChangedEventArgs : EventArgs
+    public class CursorChangedEventArgs : System.EventArgs
     {
         #region Variables
 

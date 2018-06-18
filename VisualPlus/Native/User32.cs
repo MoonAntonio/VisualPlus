@@ -1,18 +1,18 @@
+#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Security;
+
+using VisualPlus.Managers;
+using VisualPlus.Structure;
+
+#endregion
+
 namespace VisualPlus.Native
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Runtime.InteropServices;
-    using System.Security;
-
-    using VisualPlus.Managers;
-    using VisualPlus.Structure;
-
-    #endregion
-
     [SuppressUnmanagedCodeSecurity]
     internal static class User32
     {

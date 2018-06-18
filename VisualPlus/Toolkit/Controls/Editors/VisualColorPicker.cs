@@ -1,27 +1,27 @@
-﻿namespace VisualPlus.Toolkit.Controls.Editors
+﻿#region Namespace
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Editors
 {
-    #region Namespace
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Imaging;
-    using System.Runtime.InteropServices;
-    using System.Text;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("ColorChanged")]
@@ -179,7 +179,7 @@
                 if (Color != value)
                 {
                     _color = value;
-                    OnColorChanged(EventArgs.Empty);
+                    OnColorChanged(System.EventArgs.Empty);
                 }
             }
         }
@@ -206,7 +206,7 @@
                 if (ColorStep != value)
                 {
                     _colorStep = value;
-                    OnColorStepChanged(EventArgs.Empty);
+                    OnColorStepChanged(System.EventArgs.Empty);
                 }
             }
         }
@@ -245,7 +245,7 @@
                 {
                     management = value;
 
-                    OnHslColorChanged(EventArgs.Empty);
+                    OnHslColorChanged(System.EventArgs.Empty);
                 }
             }
         }
@@ -269,7 +269,7 @@
                 if (LargeChange != value)
                 {
                     _largeChange = value;
-                    OnLargeChangeChanged(EventArgs.Empty);
+                    OnLargeChangeChanged(System.EventArgs.Empty);
                 }
             }
         }
@@ -338,7 +338,7 @@
                 if (SelectionSize != value)
                 {
                     _selectionSize = value;
-                    OnSelectionSizeChanged(EventArgs.Empty);
+                    OnSelectionSizeChanged(System.EventArgs.Empty);
                 }
             }
         }
@@ -362,7 +362,7 @@
                 if (SmallChange != value)
                 {
                     _smallChange = value;
-                    OnSmallChangeChanged(EventArgs.Empty);
+                    OnSmallChangeChanged(System.EventArgs.Empty);
                 }
             }
         }
@@ -431,7 +431,7 @@
             }
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             // base.OnMouseEnter(e);
 
@@ -451,7 +451,7 @@
             }
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             // base.OnMouseLeave(e);
 
@@ -573,13 +573,13 @@
             }
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
             RefreshWheel();
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        protected override void OnSizeChanged(System.EventArgs e)
         {
             base.OnSizeChanged(e);
             UpdateLinearGradientBrushes();
@@ -760,7 +760,7 @@
 
         /// <summary>Raises the <see cref="ColorChanged" /> event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnColorChanged(EventArgs e)
+        private void OnColorChanged(System.EventArgs e)
         {
             if (!LockUpdates)
             {
@@ -774,7 +774,7 @@
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnColorStepChanged(EventArgs e)
+        private void OnColorStepChanged(System.EventArgs e)
         {
             RefreshWheel();
             EventHandler handler = (EventHandler)Events[EventColorStepChanged];
@@ -783,7 +783,7 @@
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnHslColorChanged(EventArgs e)
+        private void OnHslColorChanged(System.EventArgs e)
         {
             if (!LockUpdates)
             {
@@ -797,7 +797,7 @@
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnLargeChangeChanged(EventArgs e)
+        private void OnLargeChangeChanged(System.EventArgs e)
         {
             EventHandler handler = (EventHandler)Events[EventLargeChangeChanged];
             handler?.Invoke(this, e);
@@ -805,7 +805,7 @@
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnSelectionSizeChanged(EventArgs e)
+        private void OnSelectionSizeChanged(System.EventArgs e)
         {
             SelectionGlyph?.Dispose();
             SelectionGlyph = CreateSelectionGlyph();
@@ -816,7 +816,7 @@
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnSmallChangeChanged(EventArgs e)
+        private void OnSmallChangeChanged(System.EventArgs e)
         {
             EventHandler handler = (EventHandler)Events[EventSmallChangeChanged];
             handler?.Invoke(this, e);

@@ -1,18 +1,18 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Globalization;
+
+using VisualPlus.Localization;
+using VisualPlus.Renders;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Globalization;
-
-    using VisualPlus.Localization;
-    using VisualPlus.Renders;
-
-    #endregion
-
     [Description("The VisualBitmap")]
     [TypeConverter(typeof(VisualBitmapConverter))]
     public class VisualBitmap

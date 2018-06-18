@@ -1,14 +1,12 @@
-﻿namespace VisualPlus.EventArgs
+﻿#region Namespace
+
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.EventArgs
 {
-    #region Namespace
-
-    using System;
-
-    using VisualPlus.Structure;
-
-    #endregion
-
-    public class ThemeEventArgs : EventArgs
+    public class ThemeEventArgs : System.EventArgs
     {
         #region Variables
 

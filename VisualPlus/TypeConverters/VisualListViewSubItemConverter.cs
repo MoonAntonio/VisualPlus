@@ -1,17 +1,17 @@
-﻿namespace VisualPlus.TypeConverters
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.ComponentModel.Design.Serialization;
+using System.Globalization;
+using System.Reflection;
+
+using VisualPlus.Toolkit.Child;
+
+#endregion
+
+namespace VisualPlus.TypeConverters
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.Design.Serialization;
-    using System.Globalization;
-    using System.Reflection;
-
-    using VisualPlus.Toolkit.Child;
-
-    #endregion
-
     public class VisualListViewSubItemConverter : TypeConverter
     {
         #region Overrides

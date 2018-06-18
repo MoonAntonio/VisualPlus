@@ -1,11 +1,11 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
+﻿#region Namespace
+
+using VisualPlus.Toolkit.Child;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
 {
-    #region Namespace
-
-    using VisualPlus.Toolkit.Child;
-
-    #endregion
-
     public interface ILVEmbeddedControl
     {
         #region Properties

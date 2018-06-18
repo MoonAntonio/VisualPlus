@@ -1,24 +1,24 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataVisualization
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Designer;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataVisualization
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Designer;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("Click")]
@@ -426,13 +426,13 @@
             DrawText(graphics);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
             UpdateSize();
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        protected override void OnSizeChanged(System.EventArgs e)
         {
             base.OnSizeChanged(e);
             UpdateSize();
@@ -512,11 +512,6 @@
 
         #region Methods
 
-        private void UpdateSize()
-        {
-            Size = new Size(Math.Max(Width, Height), Math.Max(Width, Height));
-        }
-
         public void UpdateTheme(Theme theme)
         {
             try
@@ -549,6 +544,11 @@
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
+        private void UpdateSize()
+        {
+            Size = new Size(Math.Max(Width, Height), Math.Max(Width, Height));
         }
 
         #endregion

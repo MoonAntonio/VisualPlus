@@ -1,15 +1,15 @@
+#region Namespace
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
+
+#endregion
+
 namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Reflection;
-
-    #endregion
-
     public static class EnumExtension
     {
         #region Methods

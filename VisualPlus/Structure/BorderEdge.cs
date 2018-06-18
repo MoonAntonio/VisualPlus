@@ -1,17 +1,17 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Localization;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Localization;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DefaultEvent("Paint")]
     [DefaultProperty("Orientation")]

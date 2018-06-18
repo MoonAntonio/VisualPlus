@@ -1,15 +1,15 @@
+#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Text;
+
+#endregion
+
 namespace VisualPlus.Native
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.InteropServices;
-    using System.Security;
-    using System.Text;
-
-    #endregion
-
     [SuppressUnmanagedCodeSecurity]
     internal static class Shlwapi
     {

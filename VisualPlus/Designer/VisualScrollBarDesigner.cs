@@ -1,14 +1,14 @@
-﻿namespace VisualPlus.Designer
+﻿#region Namespace
+
+using System.Collections;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Windows.Forms.Design;
+
+#endregion
+
+namespace VisualPlus.Designer
 {
-    #region Namespace
-
-    using System.Collections;
-    using System.ComponentModel;
-    using System.Windows.Forms;
-    using System.Windows.Forms.Design;
-
-    #endregion
-
     internal class VisualScrollBarDesigner : ControlDesigner
     {
         #region Properties

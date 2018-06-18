@@ -1,14 +1,13 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Windows.Forms;
-
-    #endregion
-
     [ToolboxItem(false)]
     public class ManagedVScrollBar : VScrollBar
     {
@@ -139,16 +138,16 @@
 
         #region Methods
 
+        public void ReflectFocus(object source, System.EventArgs e)
+        {
+            Debug.WriteLine("ManagedVScrollBar::Focus called");
+            Parent.Focus();
+        }
+
         private void InitializeComponent()
         {
             TabStop = false;
             GotFocus += ReflectFocus;
-        }
-
-        public void ReflectFocus(object source, EventArgs e)
-        {
-            Debug.WriteLine("ManagedVScrollBar::Focus called");
-            Parent.Focus();
         }
 
         #endregion

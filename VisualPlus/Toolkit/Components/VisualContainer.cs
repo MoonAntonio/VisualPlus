@@ -1,15 +1,15 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Threading;
-    using System.Windows.Forms;
-
-    #endregion
-
     [ToolboxItem(false)]
     [Description("The Visual Container Component")]
     public class VisualContainer : ToolStripDropDown
@@ -95,7 +95,7 @@
 
         #region Overrides
 
-        protected override void OnOpened(EventArgs e)
+        protected override void OnOpened(System.EventArgs e)
         {
             _userControl.Focus();
             base.OnOpened(e);
@@ -156,6 +156,26 @@
 
         /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
         /// <param name="control">The control.</param>
+        public void Show(Control control)
+        {
+            if (control == null)
+            {
+                throw new ArgumentNullException(nameof(control));
+            }
+
+            Show(control, control.ClientRectangle);
+        }
+
+        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
+        /// <param name="form">The form.</param>
+        /// <param name="point">The point.</param>
+        public void Show(Form form, Point point)
+        {
+            Show(form, new Rectangle(point, new Size(0, 0)));
+        }
+
+        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
+        /// <param name="control">The control.</param>
         /// <param name="area">The area.</param>
         private void Show(Control control, Rectangle area)
         {
@@ -180,26 +200,6 @@
             location = control.PointToClient(location);
 
             Show(control, location, ToolStripDropDownDirection.BelowRight);
-        }
-
-        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
-        /// <param name="control">The control.</param>
-        public void Show(Control control)
-        {
-            if (control == null)
-            {
-                throw new ArgumentNullException(nameof(control));
-            }
-
-            Show(control, control.ClientRectangle);
-        }
-
-        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
-        /// <param name="form">The form.</param>
-        /// <param name="point">The point.</param>
-        public void Show(Form form, Point point)
-        {
-            Show(form, new Rectangle(point, new Size(0, 0)));
         }
 
         #endregion

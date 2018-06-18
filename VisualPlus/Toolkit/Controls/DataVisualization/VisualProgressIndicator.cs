@@ -1,21 +1,21 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataVisualization
+﻿#region Namespace
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Designer;
+using VisualPlus.Localization;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataVisualization
 {
-    #region Namespace
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Designer;
-    using VisualPlus.Localization;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("Click")]
@@ -176,13 +176,13 @@
 
         #region Overrides
 
-        protected override void OnEnabledChanged(EventArgs e)
+        protected override void OnEnabledChanged(System.EventArgs e)
         {
             base.OnEnabledChanged(e);
             animationSpeed.Enabled = Enabled;
         }
 
-        protected override void OnHandleCreated(EventArgs e)
+        protected override void OnHandleCreated(System.EventArgs e)
         {
             base.OnHandleCreated(e);
             animationSpeed.Tick += AnimationSpeedTick;
@@ -215,7 +215,7 @@
             buffGraphics.Render(e.Graphics);
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        protected override void OnSizeChanged(System.EventArgs e)
         {
             base.OnSizeChanged(e);
             SetStandardSize();
@@ -233,7 +233,7 @@
             return length;
         }
 
-        private void AnimationSpeedTick(object sender, EventArgs e)
+        private void AnimationSpeedTick(object sender, System.EventArgs e)
         {
             if (indicatorIndex.Equals(0))
             {

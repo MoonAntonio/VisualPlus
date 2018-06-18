@@ -1,17 +1,17 @@
-﻿namespace VisualPlus.Extensibility
+﻿#region Namespace
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.Linq;
-    using System.Windows.Forms;
-
-    #endregion
-
     public static class Extensions
     {
         #region Properties

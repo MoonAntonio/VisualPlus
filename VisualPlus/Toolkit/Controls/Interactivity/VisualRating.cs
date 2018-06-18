@@ -1,20 +1,20 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Designer;
+using VisualPlus.Localization;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Designer;
-    using VisualPlus.Localization;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("RatingChanged")]
@@ -453,7 +453,7 @@
             }
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             if (_value > 0)
@@ -493,7 +493,7 @@
             _bufferedGraphics.Render(e.Graphics);
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        protected override void OnSizeChanged(System.EventArgs e)
         {
             UpdateSize();
             UpdateGraphicsBuffer();
@@ -767,12 +767,12 @@
 
         private void OnRatingChanged()
         {
-            RatingChanged?.Invoke(this, EventArgs.Empty);
+            RatingChanged?.Invoke(this, System.EventArgs.Empty);
         }
 
         private void OnStarsPanned()
         {
-            StarsPanned?.Invoke(this, EventArgs.Empty);
+            StarsPanned?.Invoke(this, System.EventArgs.Empty);
         }
 
         private void SetPenBrushDefaults()

@@ -1,14 +1,14 @@
-﻿namespace VisualPlus.Toolkit.Child
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Child
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    #endregion
-
     internal class BorderStrip : Control
     {
         #region Variables

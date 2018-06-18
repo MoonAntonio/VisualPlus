@@ -1,19 +1,19 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Constants;
+using VisualPlus.Localization;
+using VisualPlus.Native;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Constants;
-    using VisualPlus.Localization;
-    using VisualPlus.Native;
-    using VisualPlus.Structure;
-
-    #endregion
-
     [Obsolete]
     [ToolboxItem(false)]
     public class ListViewEx : ListView

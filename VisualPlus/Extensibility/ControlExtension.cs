@@ -1,13 +1,13 @@
-﻿namespace VisualPlus.Extensibility
+﻿#region Namespace
+
+using System.Windows.Forms;
+
+using VisualPlus.Managers;
+
+#endregion
+
+namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System.Windows.Forms;
-
-    using VisualPlus.Managers;
-
-    #endregion
-
     public static class ControlExtension
     {
         #region Methods

@@ -1,14 +1,14 @@
-﻿namespace ThemeBuilder
+﻿#region Namespace
+
+using System;
+using System.Windows.Forms;
+
+using ThemeBuilder.Forms;
+
+#endregion
+
+namespace ThemeBuilder
 {
-    #region Namespace
-
-    using System;
-    using System.Windows.Forms;
-
-    using ThemeBuilder.Forms;
-
-    #endregion
-
     internal static class Program
     {
         #region Methods

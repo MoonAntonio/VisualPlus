@@ -1,16 +1,15 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.EmbeddedControls
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows.Forms;
+
+using VisualPlus.Toolkit.Child;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.EmbeddedControls
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Windows.Forms;
-
-    using VisualPlus.Toolkit.Child;
-
-    #endregion
-
     [ToolboxItem(false)]
     public class LVTextBox : TextBox, ILVEmbeddedControl
     {
@@ -90,14 +89,14 @@
             base.Dispose(disposing);
         }
 
-        protected override void OnGotFocus(EventArgs e)
+        protected override void OnGotFocus(System.EventArgs e)
         {
             Debug.WriteLine("LVTextBox::Got Focus");
 
             base.OnGotFocus(e);
         }
 
-        protected override void OnLostFocus(EventArgs e)
+        protected override void OnLostFocus(System.EventArgs e)
         {
             Debug.WriteLine("LVTextBox::Lost Focus");
 
@@ -115,18 +114,6 @@
         #endregion
 
         #region Methods
-
-        private void GLTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Debug.WriteLine("LVTextBox::KeyPress edit control");
-        }
-
-        /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
-        private void InitializeComponent()
-        {
-            _components = new Container();
-            KeyPress += GLTextBox_KeyPress;
-        }
 
         public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewEx listView)
         {
@@ -153,6 +140,18 @@
         {
             // take information from control and return it to the item
             _subItem.Text = Text;
+        }
+
+        private void GLTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Debug.WriteLine("LVTextBox::KeyPress edit control");
+        }
+
+        /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
+        private void InitializeComponent()
+        {
+            _components = new Container();
+            KeyPress += GLTextBox_KeyPress;
         }
 
         #endregion

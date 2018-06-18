@@ -1,19 +1,18 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Managers;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.Design;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Managers;
-    using VisualPlus.Structure;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -65,7 +64,7 @@
 
         #region Overrides
 
-        protected override void OnBackColorChanged(EventArgs e)
+        protected override void OnBackColorChanged(System.EventArgs e)
         {
             base.OnBackColorChanged(e);
             GraphicsManager.ApplyContainerBackColorChange(this, BackColorState.Enabled);
@@ -81,14 +80,14 @@
             GraphicsManager.SetControlBackColor(e.Control, Parent.BackColor, true);
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;

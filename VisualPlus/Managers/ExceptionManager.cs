@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-
-    #endregion
-
     [Description("The exception manager.")]
     public sealed class ExceptionManager
     {

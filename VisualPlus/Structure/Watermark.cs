@@ -1,18 +1,18 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+
+using VisualPlus.Delegates;
+using VisualPlus.Localization;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Localization;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [Description("The watermark")]
     [TypeConverter(typeof(WatermarkConverter))]
     public class Watermark

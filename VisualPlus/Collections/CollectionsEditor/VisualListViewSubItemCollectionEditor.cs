@@ -1,16 +1,16 @@
-﻿namespace VisualPlus.Collections.CollectionsEditor
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataManagement;
+
+#endregion
+
+namespace VisualPlus.Collections.CollectionsEditor
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.Design;
-
-    using VisualPlus.Toolkit.Child;
-    using VisualPlus.Toolkit.Controls.DataManagement;
-
-    #endregion
-
     internal class VisualListViewSubItemCollectionEditor : CollectionEditor
     {
         #region Variables

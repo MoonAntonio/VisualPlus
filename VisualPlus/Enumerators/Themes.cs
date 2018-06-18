@@ -1,11 +1,11 @@
-﻿namespace VisualPlus.Enumerators
+﻿#region Namespace
+
+using System.ComponentModel;
+
+#endregion
+
+namespace VisualPlus.Enumerators
 {
-    #region Namespace
-
-    using System.ComponentModel;
-
-    #endregion
-
     public enum Themes
     {
         // Note: If you implement more styles or your own styles, just add enumeration here.

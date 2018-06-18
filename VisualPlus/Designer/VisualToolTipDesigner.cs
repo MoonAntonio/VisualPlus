@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Designer
+﻿#region Namespace
+
+using System.Collections;
+using System.ComponentModel.Design;
+
+#endregion
+
+namespace VisualPlus.Designer
 {
-    #region Namespace
-
-    using System.Collections;
-    using System.ComponentModel.Design;
-
-    #endregion
-
     internal class VisualToolTipDesigner : ComponentDesigner
     {
         #region Overrides

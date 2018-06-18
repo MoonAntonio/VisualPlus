@@ -1,14 +1,14 @@
+#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Security;
+
+#endregion
+
 namespace VisualPlus.Native
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.InteropServices;
-    using System.Security;
-
-    #endregion
-
     [SuppressUnmanagedCodeSecurity]
     internal static class Gdi32
     {

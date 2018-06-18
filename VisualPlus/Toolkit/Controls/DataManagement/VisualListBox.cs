@@ -1,27 +1,27 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Designer;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.Drawing.Drawing2D;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Designer;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.Dialogs;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
@@ -307,7 +307,7 @@
             set
             {
                 _listBox.FormattingEnabled = value;
-                OnFormattingEnabledChanged(EventArgs.Empty);
+                OnFormattingEnabledChanged(System.EventArgs.Empty);
             }
         }
 
@@ -615,7 +615,7 @@
 
         #region Overrides
 
-        protected override void OnClick(EventArgs e)
+        protected override void OnClick(System.EventArgs e)
         {
             base.OnClick(e);
             Invalidate();
@@ -652,19 +652,19 @@
             e.Graphics.Clear(Parent.BackColor);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
             _listBox.Location = GetInternalControlLocation(_border);
             _listBox.Size = GetInternalControlSize(Size, _border);
         }
 
-        protected virtual void OnDataSourceChanged(EventArgs e)
+        protected virtual void OnDataSourceChanged(System.EventArgs e)
         {
             DataSourceChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnDisplayMemberChanged(EventArgs e)
+        protected virtual void OnDisplayMemberChanged(System.EventArgs e)
         {
             DisplayMemberChanged?.Invoke(this, e);
         }
@@ -674,32 +674,32 @@
             Format?.Invoke(this, e);
         }
 
-        protected virtual void OnFormatInfoChanged(EventArgs e)
+        protected virtual void OnFormatInfoChanged(System.EventArgs e)
         {
             FormatInfoChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnFormatStringChanged(EventArgs e)
+        protected virtual void OnFormatStringChanged(System.EventArgs e)
         {
             FormatStringChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnFormattingEnabledChanged(EventArgs e)
+        protected virtual void OnFormattingEnabledChanged(System.EventArgs e)
         {
             FormattingEnabledChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnSelectedIndexChanged(EventArgs e)
+        protected virtual void OnSelectedIndexChanged(System.EventArgs e)
         {
             SelectedIndexChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnSelectedValueChanged(EventArgs e)
+        protected virtual void OnSelectedValueChanged(System.EventArgs e)
         {
             SelectedValueChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnValueMemberChanged(EventArgs e)
+        protected virtual void OnValueMemberChanged(System.EventArgs e)
         {
             ValueMemberChanged?.Invoke(this, e);
         }
@@ -707,200 +707,6 @@
         #endregion
 
         #region Methods
-
-        private void ListBox_DataSourceChanged(object sender, EventArgs e)
-        {
-            OnDataSourceChanged(e);
-        }
-
-        private void ListBox_DisplayMemberChanged(object sender, EventArgs e)
-        {
-            OnDisplayMemberChanged(e);
-        }
-
-        private void ListBox_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            // We cannot do anything with an invalid index
-            if (e.Index < 0)
-            {
-                return;
-            }
-
-            Graphics graphics = e.Graphics;
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.TextRenderingHint = TextStyle.TextRenderingHint;
-
-            // Draw the background of the ListBox control for each item.
-            e.DrawBackground();
-
-            bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
-
-            if (e.Index > -1)
-            {
-                Color color;
-
-                if (_alternateColors)
-                {
-                    if (isSelected)
-                    {
-                        color = _itemSelected;
-                    }
-                    else
-                    {
-                        if (e.Index % 2 == 0)
-                        {
-                            color = _itemNormal;
-                        }
-                        else
-                        {
-                            color = _itemAlternate;
-                        }
-                    }
-                }
-                else
-                {
-                    if (isSelected)
-                    {
-                        color = _itemSelected;
-                    }
-                    else
-                    {
-                        color = _itemNormal;
-                    }
-                }
-
-                // Background item brush
-                SolidBrush backgroundBrush = new SolidBrush(color);
-
-                // Text color brush
-                SolidBrush textBrush = new SolidBrush(e.ForeColor);
-
-                // Draw the background
-                e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
-
-                // Draw the text
-                Point _location;
-
-                if (_imageList != null)
-                {
-                    e.Graphics.DrawImage(_imageList.Images[e.Index], e.Bounds.X, (e.Bounds.Y + (e.Bounds.Height / 2)) - (_imageList.ImageSize.Height / 2), _imageList.ImageSize.Width, _imageList.ImageSize.Height);
-
-                    _location = new Point(e.Bounds.X + _imageList.ImageSize.Width, e.Bounds.Y);
-                }
-                else
-                {
-                    _location = new Point(e.Bounds.X, e.Bounds.Y);
-                }
-
-                StringFormat _stringFormat = new StringFormat
-                        {
-                           LineAlignment = _itemLineAlignment 
-                        };
-
-                e.Graphics.DrawString(GetItemText(Items[e.Index]), Font, new SolidBrush(ForeColor), new Rectangle(_location, e.Bounds.Size), _stringFormat);
-                backgroundBrush.Dispose();
-                textBrush.Dispose();
-            }
-        }
-
-        private void ListBox_Format(object sender, ListControlConvertEventArgs e)
-        {
-            OnFormat(e);
-        }
-
-        private void ListBox_FormatInfoChanged(object sender, EventArgs e)
-        {
-            OnFormatInfoChanged(e);
-        }
-
-        private void ListBox_FormatStringChanged(object sender, EventArgs e)
-        {
-            OnFormatStringChanged(e);
-        }
-
-        private void ListBox_GotFocus(object sender, EventArgs e)
-        {
-            _listBox.Invalidate();
-            OnGotFocus(e);
-        }
-
-        private void ListBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            _listBox.Invalidate();
-            OnKeyDown(e);
-        }
-
-        private void ListBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            OnKeyPress(e);
-        }
-
-        private void ListBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            OnKeyUp(e);
-        }
-
-        private void ListBox_LostFocus(object sender, EventArgs e)
-        {
-            _listBox.Invalidate();
-            OnLostFocus(e);
-        }
-
-        private void ListBox_MeasureItem(object sender, MeasureItemEventArgs e)
-        {
-            if (_listBox.DrawMode == DrawMode.OwnerDrawFixed)
-            {
-                e.ItemHeight = ItemHeight;
-            }
-            else
-            {
-                int _textHeight = GraphicsManager.MeasureText(Items[e.Index].ToString(), Font, e.Graphics).Height;
-
-                if (_imageList != null)
-                {
-                    e.ItemHeight = _imageList.ImageSize.Height > _textHeight ? _imageList.ImageSize.Height : _textHeight;
-                }
-                else
-                {
-                    e.ItemHeight = _textHeight;
-                }
-            }
-        }
-
-        private void ListBox_MouseDown(object sender, EventArgs e)
-        {
-            _listBox.Invalidate();
-        }
-
-        private void ListBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            OnPreviewKeyDown(e);
-        }
-
-        private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            OnSelectedIndexChanged(e);
-        }
-
-        private void ListBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            OnSelectedValueChanged(e);
-        }
-
-        private void ListBox_Validated(object sender, EventArgs e)
-        {
-            OnValidated(e);
-        }
-
-        private void ListBox_Validating(object sender, CancelEventArgs e)
-        {
-            OnValidating(e);
-        }
-
-        private void ListBox_ValueMemberChanged(object sender, EventArgs e)
-        {
-            OnValueMemberChanged(e);
-        }
 
         /// <summary>
         ///     Maintains performance while items are added to the ListBox one at a time by preventing the control from
@@ -1073,6 +879,200 @@
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
+        private void ListBox_DataSourceChanged(object sender, System.EventArgs e)
+        {
+            OnDataSourceChanged(e);
+        }
+
+        private void ListBox_DisplayMemberChanged(object sender, System.EventArgs e)
+        {
+            OnDisplayMemberChanged(e);
+        }
+
+        private void ListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            // We cannot do anything with an invalid index
+            if (e.Index < 0)
+            {
+                return;
+            }
+
+            Graphics graphics = e.Graphics;
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.TextRenderingHint = TextStyle.TextRenderingHint;
+
+            // Draw the background of the ListBox control for each item.
+            e.DrawBackground();
+
+            bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+
+            if (e.Index > -1)
+            {
+                Color color;
+
+                if (_alternateColors)
+                {
+                    if (isSelected)
+                    {
+                        color = _itemSelected;
+                    }
+                    else
+                    {
+                        if (e.Index % 2 == 0)
+                        {
+                            color = _itemNormal;
+                        }
+                        else
+                        {
+                            color = _itemAlternate;
+                        }
+                    }
+                }
+                else
+                {
+                    if (isSelected)
+                    {
+                        color = _itemSelected;
+                    }
+                    else
+                    {
+                        color = _itemNormal;
+                    }
+                }
+
+                // Background item brush
+                SolidBrush backgroundBrush = new SolidBrush(color);
+
+                // Text color brush
+                SolidBrush textBrush = new SolidBrush(e.ForeColor);
+
+                // Draw the background
+                e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+
+                // Draw the text
+                Point _location;
+
+                if (_imageList != null)
+                {
+                    e.Graphics.DrawImage(_imageList.Images[e.Index], e.Bounds.X, (e.Bounds.Y + (e.Bounds.Height / 2)) - (_imageList.ImageSize.Height / 2), _imageList.ImageSize.Width, _imageList.ImageSize.Height);
+
+                    _location = new Point(e.Bounds.X + _imageList.ImageSize.Width, e.Bounds.Y);
+                }
+                else
+                {
+                    _location = new Point(e.Bounds.X, e.Bounds.Y);
+                }
+
+                StringFormat _stringFormat = new StringFormat
+                        {
+                           LineAlignment = _itemLineAlignment 
+                        };
+
+                e.Graphics.DrawString(GetItemText(Items[e.Index]), Font, new SolidBrush(ForeColor), new Rectangle(_location, e.Bounds.Size), _stringFormat);
+                backgroundBrush.Dispose();
+                textBrush.Dispose();
+            }
+        }
+
+        private void ListBox_Format(object sender, ListControlConvertEventArgs e)
+        {
+            OnFormat(e);
+        }
+
+        private void ListBox_FormatInfoChanged(object sender, System.EventArgs e)
+        {
+            OnFormatInfoChanged(e);
+        }
+
+        private void ListBox_FormatStringChanged(object sender, System.EventArgs e)
+        {
+            OnFormatStringChanged(e);
+        }
+
+        private void ListBox_GotFocus(object sender, System.EventArgs e)
+        {
+            _listBox.Invalidate();
+            OnGotFocus(e);
+        }
+
+        private void ListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            _listBox.Invalidate();
+            OnKeyDown(e);
+        }
+
+        private void ListBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OnKeyPress(e);
+        }
+
+        private void ListBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            OnKeyUp(e);
+        }
+
+        private void ListBox_LostFocus(object sender, System.EventArgs e)
+        {
+            _listBox.Invalidate();
+            OnLostFocus(e);
+        }
+
+        private void ListBox_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (_listBox.DrawMode == DrawMode.OwnerDrawFixed)
+            {
+                e.ItemHeight = ItemHeight;
+            }
+            else
+            {
+                int _textHeight = GraphicsManager.MeasureText(Items[e.Index].ToString(), Font, e.Graphics).Height;
+
+                if (_imageList != null)
+                {
+                    e.ItemHeight = _imageList.ImageSize.Height > _textHeight ? _imageList.ImageSize.Height : _textHeight;
+                }
+                else
+                {
+                    e.ItemHeight = _textHeight;
+                }
+            }
+        }
+
+        private void ListBox_MouseDown(object sender, System.EventArgs e)
+        {
+            _listBox.Invalidate();
+        }
+
+        private void ListBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            OnPreviewKeyDown(e);
+        }
+
+        private void ListBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            OnSelectedIndexChanged(e);
+        }
+
+        private void ListBox_SelectedValueChanged(object sender, System.EventArgs e)
+        {
+            OnSelectedValueChanged(e);
+        }
+
+        private void ListBox_Validated(object sender, System.EventArgs e)
+        {
+            OnValidated(e);
+        }
+
+        private void ListBox_Validating(object sender, CancelEventArgs e)
+        {
+            OnValidating(e);
+        }
+
+        private void ListBox_ValueMemberChanged(object sender, System.EventArgs e)
+        {
+            OnValueMemberChanged(e);
         }
 
         #endregion

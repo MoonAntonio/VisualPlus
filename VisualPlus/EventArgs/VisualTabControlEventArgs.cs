@@ -1,13 +1,12 @@
-﻿namespace VisualPlus.EventArgs
+﻿#region Namespace
+
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.EventArgs
 {
-    #region Namespace
-
-    using System;
-    using System.Windows.Forms;
-
-    #endregion
-
-    public class VisualTabControlEventArgs : EventArgs
+    public class VisualTabControlEventArgs : System.EventArgs
     {
         #region Variables
 

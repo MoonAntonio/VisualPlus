@@ -1,14 +1,14 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Globalization;
-    using System.Linq;
-
-    #endregion
-
     [Description("The math manager.")]
     public sealed class MathManager
     {

@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Collections.ControlCollection
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Collections.ControlCollection
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Windows.Forms;
-
-    #endregion
-
     /// <summary>The base class for specific control collections.</summary>
     public class VisualControlCollection : Control.ControlCollection
     {

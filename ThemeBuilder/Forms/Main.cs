@@ -1,14 +1,14 @@
-﻿namespace ThemeBuilder.Forms
+﻿#region Namespace
+
+using System.Diagnostics;
+
+using VisualPlus.EventArgs;
+using VisualPlus.Toolkit.Dialogs;
+
+#endregion
+
+namespace ThemeBuilder.Forms
 {
-    #region Namespace
-
-    using System.Diagnostics;
-
-    using VisualPlus.EventArgs;
-    using VisualPlus.Toolkit.Dialogs;
-
-    #endregion
-
     /// <summary>The main.</summary>
     public partial class Main : VisualForm
     {

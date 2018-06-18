@@ -1,12 +1,6 @@
 ﻿namespace VisualPlus.EventArgs
 {
-    #region Namespace
-
-    using System;
-
-    #endregion
-
-    public class ValueChangedEventArgs : EventArgs
+    public class ValueChangedEventArgs : System.EventArgs
     {
         #region Variables
 

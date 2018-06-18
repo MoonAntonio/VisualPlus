@@ -1,20 +1,20 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Localization;
+using VisualPlus.Renders;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-    using System.IO;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization;
-    using VisualPlus.Renders;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [Description("The check style structure.")]
     [TypeConverter(typeof(CheckStyleConverter))]
     public class CheckStyle

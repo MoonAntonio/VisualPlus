@@ -1,15 +1,15 @@
-﻿namespace VisualPlus.TypeConverters
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Globalization;
+
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.TypeConverters
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Globalization;
-
-    using VisualPlus.Structure;
-
-    #endregion
-
     public class BasicSettingsTypeConverter : ExpandableObjectConverter
     {
         #region Overrides

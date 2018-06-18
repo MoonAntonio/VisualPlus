@@ -1,12 +1,6 @@
 ﻿namespace VisualPlus.EventArgs
 {
-    #region Namespace
-
-    using System;
-
-    #endregion
-
-    public class ListViewClickEventArgs : EventArgs
+    public class ListViewClickEventArgs : System.EventArgs
     {
         #region Variables
 

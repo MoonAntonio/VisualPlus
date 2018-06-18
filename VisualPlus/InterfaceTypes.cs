@@ -1,17 +1,17 @@
+#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Localization;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
 namespace VisualPlus
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Drawing;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     /// <summary>The IThemeManager.</summary>
     public interface IThemeManager
     {

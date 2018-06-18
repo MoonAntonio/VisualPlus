@@ -1,17 +1,17 @@
-﻿namespace VisualPlus.Extensibility
+﻿#region Namespace
+
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Windows.Forms;
-
-    #endregion
-
     public static class StringExtension
     {
         #region Methods

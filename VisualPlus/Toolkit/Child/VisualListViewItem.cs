@@ -1,25 +1,25 @@
-﻿namespace VisualPlus.Toolkit.Child
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Windows.Forms;
+
+using VisualPlus.Collections.CollectionBase;
+using VisualPlus.Collections.CollectionsEditor;
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Toolkit.Controls.DataManagement;
+using VisualPlus.TypeConverters;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Child
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.Windows.Forms;
-
-    using VisualPlus.Collections.CollectionBase;
-    using VisualPlus.Collections.CollectionsEditor;
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Controls.DataManagement;
-    using VisualPlus.TypeConverters;
-
-    #endregion
-
     [DesignTimeVisible(true)]
     [TypeConverter(typeof(VisualListViewItemConverter))]
     public class VisualListViewItem : ICloneable

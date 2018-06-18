@@ -1,18 +1,18 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
+using VisualPlus.Native;
+using VisualPlus.Toolkit.Controls.DataVisualization;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Native;
-    using VisualPlus.Toolkit.Controls.DataVisualization;
-
-    #endregion
-
     [Description("The graphics manager.")]
     public sealed class GraphicsManager
     {

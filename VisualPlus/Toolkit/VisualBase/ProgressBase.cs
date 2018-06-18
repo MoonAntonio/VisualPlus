@@ -1,16 +1,16 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Localization;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.InteropServices;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -162,7 +162,7 @@
                     }
 
                     _value = value;
-                    OnValueChanged(EventArgs.Empty);
+                    OnValueChanged(System.EventArgs.Empty);
                 }
             }
         }
@@ -171,21 +171,21 @@
 
         #region Overrides
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             base.OnMouseEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
             Invalidate();
         }
 
-        protected virtual void OnValueChanged(EventArgs e)
+        protected virtual void OnValueChanged(System.EventArgs e)
         {
             ValueChanged?.Invoke(this, e);
         }
@@ -262,7 +262,7 @@
 
                 if (beforeValue != _value)
                 {
-                    OnValueChanged(EventArgs.Empty);
+                    OnValueChanged(System.EventArgs.Empty);
                 }
             }
         }

@@ -1,14 +1,14 @@
-﻿namespace UnitTests
+﻿#region Namespace
+
+using System;
+using System.Windows.Forms;
+
+using UnitTests.Forms;
+
+#endregion
+
+namespace UnitTests
 {
-    #region Namespace
-
-    using System;
-    using System.Windows.Forms;
-
-    using UnitTests.Forms;
-
-    #endregion
-
     internal static class Program
     {
         #region Methods

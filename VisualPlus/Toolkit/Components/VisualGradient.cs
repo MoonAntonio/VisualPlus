@@ -1,17 +1,16 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(VisualGradient), "VisualGradient.bmp")]
     [Description("The VisualPlus gradient component can be used to apply gradient backgrounds on controls.")]
@@ -289,7 +288,7 @@
             GraphicsManager.ApplyGradientBackground(_control, _gradientSize, _topLeft, _topRight, _bottomLeft, _bottomRight);
         }
 
-        private void Control_Resize(object sender, EventArgs e)
+        private void Control_Resize(object sender, System.EventArgs e)
         {
             Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
             ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);

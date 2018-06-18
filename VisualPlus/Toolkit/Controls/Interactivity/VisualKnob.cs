@@ -1,23 +1,23 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Windows.Forms;
+
+using VisualPlus.Enumerators;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(VisualKnob), "VisualKnob.bmp")]
     [DefaultEvent("Click")]
@@ -721,14 +721,14 @@
             }
         }
 
-        protected override void OnLeave(EventArgs e)
+        protected override void OnLeave(System.EventArgs e)
         {
             // unselect the control (remove dotted border)
             _focused = false;
             _rotating = false;
             Invalidate();
 
-            base.OnLeave(new EventArgs());
+            base.OnLeave(new System.EventArgs());
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -754,14 +754,14 @@
             }
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             base.OnMouseEnter(e);
             State = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             State = MouseStates.Normal;
@@ -1281,7 +1281,7 @@
             _scale = new Gradient(scaleColor, gradientPosition, ClientRectangle);
         }
 
-        private void KnobControl_Resize(object sender, EventArgs e)
+        private void KnobControl_Resize(object sender, System.EventArgs e)
         {
             ConfigureDimensions();
 

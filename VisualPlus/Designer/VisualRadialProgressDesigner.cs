@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Designer
+﻿#region Namespace
+
+using System.Collections;
+using System.Windows.Forms.Design;
+
+#endregion
+
+namespace VisualPlus.Designer
 {
-    #region Namespace
-
-    using System.Collections;
-    using System.Windows.Forms.Design;
-
-    #endregion
-
     internal class VisualRadialProgressDesigner : ControlDesigner
     {
         #region Overrides

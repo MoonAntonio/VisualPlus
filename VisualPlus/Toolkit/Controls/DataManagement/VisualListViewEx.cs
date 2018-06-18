@@ -1,33 +1,33 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Collections.CollectionBase;
+using VisualPlus.Collections.CollectionsEditor;
+using VisualPlus.Constants;
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Native;
+using VisualPlus.Renders;
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Collections.CollectionBase;
-    using VisualPlus.Collections.CollectionsEditor;
-    using VisualPlus.Constants;
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Native;
-    using VisualPlus.Renders;
-    using VisualPlus.Toolkit.Child;
-    using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     /// <summary>The visual list view.</summary>
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
@@ -1510,7 +1510,7 @@
             base.Dispose(disposing);
         }
 
-        protected override void OnDoubleClick(EventArgs e)
+        protected override void OnDoubleClick(System.EventArgs e)
         {
             DebugTraceManager.WriteDebug("VisualListView::OnDoubleClick", DebugTraceManager.DebugOutput.TraceListener);
 
@@ -1533,7 +1533,7 @@
             base.OnDoubleClick(e);
         }
 
-        protected override void OnGotFocus(EventArgs e)
+        protected override void OnGotFocus(System.EventArgs e)
         {
             DestroyActivatedEmbedded();
             base.OnGotFocus(e);
@@ -1722,7 +1722,7 @@
             base.OnMouseDown(e);
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             // This is the HEADER hot state
             _columns.ClearHotStates();
@@ -1846,7 +1846,7 @@
             base.OnPaint(e);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             DebugTraceManager.WriteDebug("OnResize - Calling Invalidate From OnResize", DebugTraceManager.DebugOutput.TraceListener);
             Invalidate();
@@ -2581,7 +2581,7 @@
         /// <summary>Timer handler. This mostly deals with the hover technology with events firing.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void HoverTimer_TimerTick(object sender, EventArgs e)
+        private void HoverTimer_TimerTick(object sender, System.EventArgs e)
         {
             Point _pointLocalMouse;
             if (Cursor != null)

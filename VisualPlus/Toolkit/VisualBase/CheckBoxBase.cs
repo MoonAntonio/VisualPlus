@@ -1,17 +1,17 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.EventArgs;
+using VisualPlus.Localization;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -61,7 +61,7 @@
                         OnToggleChanged(new ToggleEventArgs(Toggle));
                     }
 
-                    OnCheckStateChanged(EventArgs.Empty);
+                    OnCheckStateChanged(System.EventArgs.Empty);
 
                     // Repaint
                     Invalidate();
@@ -93,7 +93,7 @@
 
         #region Overrides
 
-        protected override void OnClick(EventArgs e)
+        protected override void OnClick(System.EventArgs e)
         {
             switch (CheckState)
             {
@@ -128,11 +128,11 @@
         {
             base.OnToggleChanged(e);
             _checkState = Checked ? CheckState.Checked : CheckState.Unchecked;
-            OnCheckStateChanged(EventArgs.Empty);
+            OnCheckStateChanged(System.EventArgs.Empty);
             Invalidate();
         }
 
-        protected virtual void OnCheckStateChanged(EventArgs e)
+        protected virtual void OnCheckStateChanged(System.EventArgs e)
         {
             CheckStateChanged?.Invoke(this, e);
         }

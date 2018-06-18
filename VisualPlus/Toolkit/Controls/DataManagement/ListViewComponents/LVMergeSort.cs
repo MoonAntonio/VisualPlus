@@ -1,16 +1,16 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
+﻿#region Namespace
+
+using System;
+using System.Diagnostics;
+
+using VisualPlus.Collections.CollectionBase;
+using VisualPlus.Enumerators;
+using VisualPlus.Toolkit.Child;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
 {
-    #region Namespace
-
-    using System;
-    using System.Diagnostics;
-
-    using VisualPlus.Collections.CollectionBase;
-    using VisualPlus.Enumerators;
-    using VisualPlus.Toolkit.Child;
-
-    #endregion
-
     internal class LVMergeSort
     {
         #region Variables
@@ -94,6 +94,53 @@
 
         #region Methods
 
+        /// <summary>The sort.</summary>
+        /// <param name="items">The items.</param>
+        /// <param name="low_0">The low.</param>
+        /// <param name="high_0">The high.</param>
+        public void Sort(VisualListViewItemCollection items, int low_0, int high_0)
+        {
+            int lo = low_0;
+            int hi = high_0;
+            if (lo >= hi)
+            {
+                return;
+            }
+
+            int mid = (lo + hi) / 2;
+
+            Sort(items, lo, mid);
+            Sort(items, mid + 1, hi);
+
+            int end_lo = mid;
+            int start_hi = mid + 1;
+            while ((lo <= end_lo) && (start_hi <= hi))
+            {
+                if (StopRequested)
+                {
+                    return;
+                }
+
+                if (CompareItems(items[lo], items[start_hi], CompareDirection.LessThan))
+                {
+                    lo++;
+                }
+                else
+                {
+                    VisualListViewItem visualListViewItem = items[start_hi];
+                    for (int k = start_hi - 1; k >= lo; k--)
+                    {
+                        items[k + 1] = items[k];
+                    }
+
+                    items[lo] = visualListViewItem;
+                    lo++;
+                    end_lo++;
+                    start_hi++;
+                }
+            }
+        }
+
         /// <summary>Compare items using the compare direction.</summary>
         /// <param name="item1">The item 1.</param>
         /// <param name="item2">The item 2.</param>
@@ -145,53 +192,6 @@
                     // no numeric value (bad bad)
                     Debug.WriteLine(ex.ToString());
                     return false;
-                }
-            }
-        }
-
-        /// <summary>The sort.</summary>
-        /// <param name="items">The items.</param>
-        /// <param name="low_0">The low.</param>
-        /// <param name="high_0">The high.</param>
-        public void Sort(VisualListViewItemCollection items, int low_0, int high_0)
-        {
-            int lo = low_0;
-            int hi = high_0;
-            if (lo >= hi)
-            {
-                return;
-            }
-
-            int mid = (lo + hi) / 2;
-
-            Sort(items, lo, mid);
-            Sort(items, mid + 1, hi);
-
-            int end_lo = mid;
-            int start_hi = mid + 1;
-            while ((lo <= end_lo) && (start_hi <= hi))
-            {
-                if (StopRequested)
-                {
-                    return;
-                }
-
-                if (CompareItems(items[lo], items[start_hi], CompareDirection.LessThan))
-                {
-                    lo++;
-                }
-                else
-                {
-                    VisualListViewItem visualListViewItem = items[start_hi];
-                    for (int k = start_hi - 1; k >= lo; k--)
-                    {
-                        items[k + 1] = items[k];
-                    }
-
-                    items[lo] = visualListViewItem;
-                    lo++;
-                    end_lo++;
-                    start_hi++;
                 }
             }
         }

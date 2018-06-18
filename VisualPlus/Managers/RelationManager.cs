@@ -1,13 +1,13 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    #endregion
-
     public sealed class RelationManager
     {
         #region Methods

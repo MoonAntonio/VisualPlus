@@ -1,24 +1,23 @@
+#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Extensibility;
+using VisualPlus.Localization;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+
+#endregion
+
 namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Extensibility;
-    using VisualPlus.Localization;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -278,14 +277,14 @@ namespace VisualPlus.Toolkit.VisualBase
             Invalidate();
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
@@ -349,20 +348,6 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Methods
 
-        private void AutoFit(Size textSize)
-        {
-            if (GraphicsManager.TextLargerThanRectangle(textSize, _box))
-            {
-                IsBoxLarger = false;
-                Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, textSize.Height);
-            }
-            else
-            {
-                IsBoxLarger = true;
-                Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, _box.Height);
-            }
-        }
-
         public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
         {
             VFXManager effectsManager = new VFXManager
@@ -403,6 +388,20 @@ namespace VisualPlus.Toolkit.VisualBase
                     graphics.FillPath(animationBrush, _path);
                     animationBrush.Dispose();
                 }
+            }
+        }
+
+        private void AutoFit(Size textSize)
+        {
+            if (GraphicsManager.TextLargerThanRectangle(textSize, _box))
+            {
+                IsBoxLarger = false;
+                Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, textSize.Height);
+            }
+            else
+            {
+                IsBoxLarger = true;
+                Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, _box.Height);
             }
         }
 
