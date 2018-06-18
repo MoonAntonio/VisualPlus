@@ -5,7 +5,7 @@ using System.ComponentModel.Design;
 using System.Drawing.Design;
 using System.Windows.Forms;
 
-using VisualPlus.Collections.CollectionBase;
+using VisualPlus.Collections.CollectionsBase;
 using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Localization;
 using VisualPlus.Toolkit.Controls.DataManagement;

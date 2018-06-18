@@ -161,7 +161,7 @@
     <Compile Include="Toolkit\Child\BorderStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Collections\CollectionBase\VisualListViewColumnCollection.cs" />
+    <Compile Include="Collections\CollectionsBase\VisualListViewColumnCollection.cs" />
     <Compile Include="Enumerators\ListStates.cs" />
     <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\EmbeddedControls\LVComboBox.cs">
       <SubType>Component</SubType>
@@ -179,9 +179,9 @@
     <Compile Include="Toolkit\Controls\DataManagement\VisualListViewEx.cs" />
     <Compile Include="Toolkit\Child\VisualListViewColumn.cs" />
     <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\LVMergeSort.cs" />
-    <Compile Include="Collections\CollectionBase\VisualListViewSubItemCollection.cs" />
+    <Compile Include="Collections\CollectionsBase\VisualListViewSubItemCollection.cs" />
     <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\ILVEmbeddedControl.cs" />
-    <Compile Include="Collections\CollectionBase\VisualListViewItemCollection.cs" />
+    <Compile Include="Collections\CollectionsBase\VisualListViewItemCollection.cs" />
     <Compile Include="TypeConverters\VisualListViewColumnConverter.cs" />
     <Compile Include="TypeConverters\VisualListViewSubItemConverter.cs" />
     <Compile Include="TypeConverters\VisualListViewItemConverter.cs" />

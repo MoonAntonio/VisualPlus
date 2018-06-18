@@ -3,7 +3,7 @@
 using System;
 using System.Diagnostics;
 
-using VisualPlus.Collections.CollectionBase;
+using VisualPlus.Collections.CollectionsBase;
 using VisualPlus.Enumerators;
 using VisualPlus.Toolkit.Child;
 

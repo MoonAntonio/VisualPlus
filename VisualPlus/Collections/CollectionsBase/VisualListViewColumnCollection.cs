@@ -17,9 +17,9 @@ using VisualPlus.Toolkit.Controls.DataManagement;
 
 #endregion
 
-namespace VisualPlus.Collections.CollectionBase
+namespace VisualPlus.Collections.CollectionsBase
 {
-    public class VisualListViewColumnCollection : System.Collections.CollectionBase, ICloneable, IList
+    public class VisualListViewColumnCollection : CollectionBase, ICloneable, IList
     {
         #region Variables
 

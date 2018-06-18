@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
 
-using VisualPlus.Collections.CollectionBase;
+using VisualPlus.Collections.CollectionsBase;
 using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
