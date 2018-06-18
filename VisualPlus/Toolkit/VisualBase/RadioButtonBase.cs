@@ -1,10 +1,11 @@
 ﻿#region Namespace
 
+using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Toolkit.Controls.Interactivity;
 
 #endregion
@@ -19,7 +20,7 @@ namespace VisualPlus.Toolkit.VisualBase
     {
         #region Overrides
 
-        protected override void OnClick(System.EventArgs e)
+        protected override void OnClick(EventArgs e)
         {
             if (!Checked)
             {

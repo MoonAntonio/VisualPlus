@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using VisualPlus.Designer;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
@@ -240,7 +240,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Invalidate();
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;

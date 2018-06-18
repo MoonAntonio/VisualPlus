@@ -95,7 +95,7 @@ namespace VisualPlus.Toolkit.Components
 
         #region Overrides
 
-        protected override void OnOpened(System.EventArgs e)
+        protected override void OnOpened(EventArgs e)
         {
             _userControl.Focus();
             base.OnOpened(e);

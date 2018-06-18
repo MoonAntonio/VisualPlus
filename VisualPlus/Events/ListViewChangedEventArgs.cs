@@ -1,13 +1,15 @@
 ﻿#region Namespace
 
+using System;
+
 using VisualPlus.Enumerators;
 using VisualPlus.Toolkit.Child;
 
 #endregion
 
-namespace VisualPlus.EventArgs
+namespace VisualPlus.Events
 {
-    public class ListViewChangedEventArgs : System.EventArgs
+    public class ListViewChangedEventArgs : EventArgs
     {
         #region Variables
 

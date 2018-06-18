@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Designer;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
@@ -364,7 +364,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             e.Graphics.Clear(BackColor);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             _checkedListBox.Location = GetInternalControlLocation(_border);

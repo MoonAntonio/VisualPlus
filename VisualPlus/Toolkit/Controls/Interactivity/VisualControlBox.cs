@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using VisualPlus.Delegates;
 using VisualPlus.Designer;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Dialogs;
@@ -166,7 +166,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Overrides
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
 
@@ -183,7 +183,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         /// <summary>The OnCloseClick.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void OnCloseClick(object sender, System.EventArgs e)
+        protected virtual void OnCloseClick(object sender, EventArgs e)
         {
             CloseClick?.Invoke(new ControlBoxEventArgs(ParentForm));
             ParentForm.Close();
@@ -192,7 +192,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         /// <summary>The OnCloseClick.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void OnHelpClick(object sender, System.EventArgs e)
+        protected virtual void OnHelpClick(object sender, EventArgs e)
         {
             HelpClick?.Invoke(new ControlBoxEventArgs(ParentForm));
         }
@@ -200,7 +200,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         /// <summary>The OnMaximizeClick.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void OnMaximizeClick(object sender, System.EventArgs e)
+        protected virtual void OnMaximizeClick(object sender, EventArgs e)
         {
             if (ParentForm.WindowState == FormWindowState.Normal)
             {
@@ -227,7 +227,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         /// <summary>The OnMinimizeClick.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void OnMinimizeClick(object sender, System.EventArgs e)
+        protected virtual void OnMinimizeClick(object sender, EventArgs e)
         {
             ParentForm.WindowState = FormWindowState.Minimized;
             MinimizeClick?.Invoke(new ControlBoxEventArgs(ParentForm));
@@ -321,7 +321,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             OnThemeChanged(new ThemeEventArgs(theme));
         }
 
-        private void Button_VisibleChanged(object sender, System.EventArgs e)
+        private void Button_VisibleChanged(object sender, EventArgs e)
         {
             if (_helpButton.Visible)
             {
@@ -350,7 +350,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 _closeButton.Location = new Point(_minimizeButton.Right, 0);
             }
 
-            OnResize(new System.EventArgs());
+            OnResize(new EventArgs());
         }
 
         /// <summary>Retrieves the adjusted <see cref="Control" />-<see cref="Size" />.</summary>

@@ -1,13 +1,14 @@
 ﻿#region Namespace
 
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 #endregion
 
-namespace VisualPlus.EventArgs
+namespace VisualPlus.Events
 {
-    public class DragControlEventArgs : System.EventArgs
+    public class DragControlEventArgs : EventArgs
     {
         #region Variables
 

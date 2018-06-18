@@ -1,12 +1,14 @@
 ﻿#region Namespace
 
+using System;
+
 using VisualPlus.Enumerators;
 
 #endregion
 
-namespace VisualPlus.EventArgs
+namespace VisualPlus.Events
 {
-    public class MouseStateEventArgs : System.EventArgs
+    public class MouseStateEventArgs : EventArgs
     {
         #region Variables
 

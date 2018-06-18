@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -19,33 +20,33 @@ namespace VisualPlus.Toolkit.VisualBase
     {
         #region Overrides
 
-        protected override void OnEnter(System.EventArgs e)
+        protected override void OnEnter(EventArgs e)
         {
             base.OnEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnGotFocus(System.EventArgs e)
+        protected override void OnGotFocus(EventArgs e)
         {
             base.OnGotFocus(e);
             MouseState = MouseStates.Hover;
         }
 
-        protected override void OnLeave(System.EventArgs e)
+        protected override void OnLeave(EventArgs e)
         {
             base.OnLeave(e);
             MouseState = MouseStates.Normal;
             Invalidate();
         }
 
-        protected override void OnLostFocus(System.EventArgs e)
+        protected override void OnLostFocus(EventArgs e)
         {
             base.OnLostFocus(e);
             MouseState = MouseStates.Normal;
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
         }
 

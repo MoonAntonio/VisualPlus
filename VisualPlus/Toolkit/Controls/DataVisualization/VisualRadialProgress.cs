@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Designer;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
@@ -426,13 +426,13 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             DrawText(graphics);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             UpdateSize();
         }
 
-        protected override void OnSizeChanged(System.EventArgs e)
+        protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
             UpdateSize();

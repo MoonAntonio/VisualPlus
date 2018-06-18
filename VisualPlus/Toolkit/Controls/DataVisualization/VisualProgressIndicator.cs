@@ -176,13 +176,13 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Overrides
 
-        protected override void OnEnabledChanged(System.EventArgs e)
+        protected override void OnEnabledChanged(EventArgs e)
         {
             base.OnEnabledChanged(e);
             animationSpeed.Enabled = Enabled;
         }
 
-        protected override void OnHandleCreated(System.EventArgs e)
+        protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
             animationSpeed.Tick += AnimationSpeedTick;
@@ -215,7 +215,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             buffGraphics.Render(e.Graphics);
         }
 
-        protected override void OnSizeChanged(System.EventArgs e)
+        protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
             SetStandardSize();
@@ -233,7 +233,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             return length;
         }
 
-        private void AnimationSpeedTick(object sender, System.EventArgs e)
+        private void AnimationSpeedTick(object sender, EventArgs e)
         {
             if (indicatorIndex.Equals(0))
             {

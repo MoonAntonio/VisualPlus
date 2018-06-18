@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -242,7 +243,7 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             Cursor = Cursors.Hand;

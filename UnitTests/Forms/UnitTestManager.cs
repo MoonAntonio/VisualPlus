@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 using UnitTests.Tests;
 
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Toolkit.Dialogs;
 
 #endregion

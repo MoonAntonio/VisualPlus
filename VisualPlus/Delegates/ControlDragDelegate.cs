@@ -1,6 +1,6 @@
 ﻿#region Namespace
 
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 
 #endregion
 

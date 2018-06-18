@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -288,7 +289,7 @@ namespace VisualPlus.Toolkit.Components
             GraphicsManager.ApplyGradientBackground(_control, _gradientSize, _topLeft, _topRight, _bottomLeft, _bottomRight);
         }
 
-        private void Control_Resize(object sender, System.EventArgs e)
+        private void Control_Resize(object sender, EventArgs e)
         {
             Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
             ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);

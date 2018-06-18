@@ -179,7 +179,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 if (Color != value)
                 {
                     _color = value;
-                    OnColorChanged(System.EventArgs.Empty);
+                    OnColorChanged(EventArgs.Empty);
                 }
             }
         }
@@ -206,7 +206,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 if (ColorStep != value)
                 {
                     _colorStep = value;
-                    OnColorStepChanged(System.EventArgs.Empty);
+                    OnColorStepChanged(EventArgs.Empty);
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 {
                     management = value;
 
-                    OnHslColorChanged(System.EventArgs.Empty);
+                    OnHslColorChanged(EventArgs.Empty);
                 }
             }
         }
@@ -269,7 +269,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 if (LargeChange != value)
                 {
                     _largeChange = value;
-                    OnLargeChangeChanged(System.EventArgs.Empty);
+                    OnLargeChangeChanged(EventArgs.Empty);
                 }
             }
         }
@@ -338,7 +338,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 if (SelectionSize != value)
                 {
                     _selectionSize = value;
-                    OnSelectionSizeChanged(System.EventArgs.Empty);
+                    OnSelectionSizeChanged(EventArgs.Empty);
                 }
             }
         }
@@ -362,7 +362,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 if (SmallChange != value)
                 {
                     _smallChange = value;
-                    OnSmallChangeChanged(System.EventArgs.Empty);
+                    OnSmallChangeChanged(EventArgs.Empty);
                 }
             }
         }
@@ -431,7 +431,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             // base.OnMouseEnter(e);
 
@@ -451,7 +451,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             // base.OnMouseLeave(e);
 
@@ -573,13 +573,13 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             RefreshWheel();
         }
 
-        protected override void OnSizeChanged(System.EventArgs e)
+        protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
             UpdateLinearGradientBrushes();
@@ -760,7 +760,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         /// <summary>Raises the <see cref="ColorChanged" /> event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnColorChanged(System.EventArgs e)
+        private void OnColorChanged(EventArgs e)
         {
             if (!LockUpdates)
             {
@@ -774,7 +774,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnColorStepChanged(System.EventArgs e)
+        private void OnColorStepChanged(EventArgs e)
         {
             RefreshWheel();
             EventHandler handler = (EventHandler)Events[EventColorStepChanged];
@@ -783,7 +783,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnHslColorChanged(System.EventArgs e)
+        private void OnHslColorChanged(EventArgs e)
         {
             if (!LockUpdates)
             {
@@ -797,7 +797,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnLargeChangeChanged(System.EventArgs e)
+        private void OnLargeChangeChanged(EventArgs e)
         {
             EventHandler handler = (EventHandler)Events[EventLargeChangeChanged];
             handler?.Invoke(this, e);
@@ -805,7 +805,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnSelectionSizeChanged(System.EventArgs e)
+        private void OnSelectionSizeChanged(EventArgs e)
         {
             SelectionGlyph?.Dispose();
             SelectionGlyph = CreateSelectionGlyph();
@@ -816,7 +816,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnSmallChangeChanged(System.EventArgs e)
+        private void OnSmallChangeChanged(EventArgs e)
         {
             EventHandler handler = (EventHandler)Events[EventSmallChangeChanged];
             handler?.Invoke(this, e);

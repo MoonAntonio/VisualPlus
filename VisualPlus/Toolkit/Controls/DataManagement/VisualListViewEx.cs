@@ -15,7 +15,7 @@ using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Constants;
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Native;
@@ -1510,7 +1510,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             base.Dispose(disposing);
         }
 
-        protected override void OnDoubleClick(System.EventArgs e)
+        protected override void OnDoubleClick(EventArgs e)
         {
             DebugTraceManager.WriteDebug("VisualListView::OnDoubleClick", DebugTraceManager.DebugOutput.TraceListener);
 
@@ -1533,7 +1533,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             base.OnDoubleClick(e);
         }
 
-        protected override void OnGotFocus(System.EventArgs e)
+        protected override void OnGotFocus(EventArgs e)
         {
             DestroyActivatedEmbedded();
             base.OnGotFocus(e);
@@ -1722,7 +1722,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             base.OnMouseDown(e);
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             // This is the HEADER hot state
             _columns.ClearHotStates();
@@ -1846,7 +1846,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             base.OnPaint(e);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             DebugTraceManager.WriteDebug("OnResize - Calling Invalidate From OnResize", DebugTraceManager.DebugOutput.TraceListener);
             Invalidate();
@@ -2581,7 +2581,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>Timer handler. This mostly deals with the hover technology with events firing.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void HoverTimer_TimerTick(object sender, System.EventArgs e)
+        private void HoverTimer_TimerTick(object sender, EventArgs e)
         {
             Point _pointLocalMouse;
             if (Cursor != null)

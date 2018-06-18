@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
@@ -199,7 +199,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _labelProgress.Text = Value + @"%";
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
 

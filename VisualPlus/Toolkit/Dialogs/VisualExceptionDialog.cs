@@ -166,7 +166,7 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>The Copy button is clicked.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event.</param>
-        private void CopyButton_Click(object sender, System.EventArgs e)
+        private void CopyButton_Click(object sender, EventArgs e)
         {
             CopyLogToClipboard();
         }
@@ -335,7 +335,7 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>The OK button is clicked.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event.</param>
-        private void OkButton_Click(object sender, System.EventArgs e)
+        private void OkButton_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -343,7 +343,7 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>The Copy button is clicked.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event.</param>
-        private void SaveButton_Click(object sender, System.EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             SaveFileDialog _saveFileDialog = new SaveFileDialog();
             _saveFileDialog.Title = @"Save exception log...";

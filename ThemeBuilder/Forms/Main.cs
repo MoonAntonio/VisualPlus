@@ -2,7 +2,7 @@
 
 using System.Diagnostics;
 
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Toolkit.Dialogs;
 
 #endregion

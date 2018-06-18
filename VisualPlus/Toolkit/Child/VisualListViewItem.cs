@@ -10,7 +10,7 @@ using VisualPlus.Collections.CollectionBase;
 using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Toolkit.Controls.DataManagement;

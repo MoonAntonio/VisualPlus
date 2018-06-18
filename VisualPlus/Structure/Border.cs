@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 
 using VisualPlus.Delegates;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Toolkit.Components;
 

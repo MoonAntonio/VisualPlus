@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using VisualPlus.Delegates;
 using VisualPlus.Designer;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
@@ -814,21 +814,21 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             OnEnter(e);
             _mouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             Cursor = _orientation == Orientation.Vertical ? Cursors.SizeNS : Cursors.SizeWE;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             OnLeave(e);
             _mouseState = MouseStates.Normal;
@@ -943,18 +943,18 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             DrawText(graphics, _progressValue);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             Invalidate();
         }
 
-        protected override void OnScroll(System.EventArgs e)
+        protected override void OnScroll(EventArgs e)
         {
             base.OnScroll(e);
             Invalidate();
         }
 
-        protected override void OnValueChanged(System.EventArgs e)
+        protected override void OnValueChanged(EventArgs e)
         {
             Invalidate();
         }

@@ -420,7 +420,7 @@ namespace VisualPlus.Toolkit.Components
         /// <summary>On label click.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void OnLabel_Click(object sender, System.EventArgs e)
+        private void OnLabel_Click(object sender, EventArgs e)
         {
             _clickEvent?.Invoke(_label);
         }

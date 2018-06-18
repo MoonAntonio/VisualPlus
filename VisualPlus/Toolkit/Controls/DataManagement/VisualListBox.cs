@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Designer;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
@@ -307,7 +307,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             set
             {
                 _listBox.FormattingEnabled = value;
-                OnFormattingEnabledChanged(System.EventArgs.Empty);
+                OnFormattingEnabledChanged(EventArgs.Empty);
             }
         }
 
@@ -615,7 +615,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         #region Overrides
 
-        protected override void OnClick(System.EventArgs e)
+        protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
             Invalidate();
@@ -652,19 +652,19 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             e.Graphics.Clear(Parent.BackColor);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             _listBox.Location = GetInternalControlLocation(_border);
             _listBox.Size = GetInternalControlSize(Size, _border);
         }
 
-        protected virtual void OnDataSourceChanged(System.EventArgs e)
+        protected virtual void OnDataSourceChanged(EventArgs e)
         {
             DataSourceChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnDisplayMemberChanged(System.EventArgs e)
+        protected virtual void OnDisplayMemberChanged(EventArgs e)
         {
             DisplayMemberChanged?.Invoke(this, e);
         }
@@ -674,32 +674,32 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             Format?.Invoke(this, e);
         }
 
-        protected virtual void OnFormatInfoChanged(System.EventArgs e)
+        protected virtual void OnFormatInfoChanged(EventArgs e)
         {
             FormatInfoChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnFormatStringChanged(System.EventArgs e)
+        protected virtual void OnFormatStringChanged(EventArgs e)
         {
             FormatStringChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnFormattingEnabledChanged(System.EventArgs e)
+        protected virtual void OnFormattingEnabledChanged(EventArgs e)
         {
             FormattingEnabledChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnSelectedIndexChanged(System.EventArgs e)
+        protected virtual void OnSelectedIndexChanged(EventArgs e)
         {
             SelectedIndexChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnSelectedValueChanged(System.EventArgs e)
+        protected virtual void OnSelectedValueChanged(EventArgs e)
         {
             SelectedValueChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnValueMemberChanged(System.EventArgs e)
+        protected virtual void OnValueMemberChanged(EventArgs e)
         {
             ValueMemberChanged?.Invoke(this, e);
         }
@@ -881,12 +881,12 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             OnThemeChanged(new ThemeEventArgs(theme));
         }
 
-        private void ListBox_DataSourceChanged(object sender, System.EventArgs e)
+        private void ListBox_DataSourceChanged(object sender, EventArgs e)
         {
             OnDataSourceChanged(e);
         }
 
-        private void ListBox_DisplayMemberChanged(object sender, System.EventArgs e)
+        private void ListBox_DisplayMemberChanged(object sender, EventArgs e)
         {
             OnDisplayMemberChanged(e);
         }
@@ -981,17 +981,17 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             OnFormat(e);
         }
 
-        private void ListBox_FormatInfoChanged(object sender, System.EventArgs e)
+        private void ListBox_FormatInfoChanged(object sender, EventArgs e)
         {
             OnFormatInfoChanged(e);
         }
 
-        private void ListBox_FormatStringChanged(object sender, System.EventArgs e)
+        private void ListBox_FormatStringChanged(object sender, EventArgs e)
         {
             OnFormatStringChanged(e);
         }
 
-        private void ListBox_GotFocus(object sender, System.EventArgs e)
+        private void ListBox_GotFocus(object sender, EventArgs e)
         {
             _listBox.Invalidate();
             OnGotFocus(e);
@@ -1013,7 +1013,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             OnKeyUp(e);
         }
 
-        private void ListBox_LostFocus(object sender, System.EventArgs e)
+        private void ListBox_LostFocus(object sender, EventArgs e)
         {
             _listBox.Invalidate();
             OnLostFocus(e);
@@ -1040,7 +1040,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
-        private void ListBox_MouseDown(object sender, System.EventArgs e)
+        private void ListBox_MouseDown(object sender, EventArgs e)
         {
             _listBox.Invalidate();
         }
@@ -1050,17 +1050,17 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             OnPreviewKeyDown(e);
         }
 
-        private void ListBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             OnSelectedIndexChanged(e);
         }
 
-        private void ListBox_SelectedValueChanged(object sender, System.EventArgs e)
+        private void ListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             OnSelectedValueChanged(e);
         }
 
-        private void ListBox_Validated(object sender, System.EventArgs e)
+        private void ListBox_Validated(object sender, EventArgs e)
         {
             OnValidated(e);
         }
@@ -1070,7 +1070,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             OnValidating(e);
         }
 
-        private void ListBox_ValueMemberChanged(object sender, System.EventArgs e)
+        private void ListBox_ValueMemberChanged(object sender, EventArgs e)
         {
             OnValueMemberChanged(e);
         }

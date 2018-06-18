@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using VisualPlus.Delegates;
 using VisualPlus.Designer;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Native;
 using VisualPlus.Renders;
@@ -602,7 +602,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             ContextMenuStrip = _contextMenu;
         }
 
-        protected override void OnEnabledChanged(System.EventArgs e)
+        protected override void OnEnabledChanged(EventArgs e)
         {
             base.OnEnabledChanged(e);
 
@@ -640,7 +640,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                     _thumbPosition = _orientation == Orientation.Vertical ? _mouseLocation.Y - _thumbRectangle.Y : _mouseLocation.X - _thumbRectangle.X;
                     _thumbState = MouseStates.Down;
                     Invalidate(_thumbRectangle);
-                    OnThumbClicked(System.EventArgs.Empty);
+                    OnThumbClicked(EventArgs.Empty);
                 }
                 else if (_topArrowRectangle.Contains(_mouseLocation))
                 {
@@ -648,7 +648,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                     _buttonTopState = MouseStates.Down;
                     Invalidate(_topArrowRectangle);
                     ProgressThumb(true);
-                    OnButtonTopClicked(System.EventArgs.Empty);
+                    OnButtonTopClicked(EventArgs.Empty);
                 }
                 else if (_bottomArrowRectangle.Contains(_mouseLocation))
                 {
@@ -656,7 +656,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                     _buttonBottomState = MouseStates.Down;
                     Invalidate(_bottomArrowRectangle);
                     ProgressThumb(true);
-                    OnButtonBottomClicked(System.EventArgs.Empty);
+                    OnButtonBottomClicked(EventArgs.Empty);
                 }
                 else
                 {
@@ -680,7 +680,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
             _buttonTopState = MouseStates.Hover;
@@ -689,14 +689,14 @@ namespace VisualPlus.Toolkit.Controls.Layout
             Invalidate();
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
@@ -888,7 +888,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             e.Graphics.Clear(BackColor);
         }
 
-        protected override void OnSizeChanged(System.EventArgs e)
+        protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
             ConfigureScrollBar();
@@ -992,12 +992,12 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        protected virtual void OnButtonBottomClicked(System.EventArgs e)
+        protected virtual void OnButtonBottomClicked(EventArgs e)
         {
             ButtonBottomClicked?.Invoke(e);
         }
 
-        protected virtual void OnButtonTopClicked(System.EventArgs e)
+        protected virtual void OnButtonTopClicked(EventArgs e)
         {
             ButtonTopClicked?.Invoke(e);
         }
@@ -1009,7 +1009,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             Scroll?.Invoke(this, e);
         }
 
-        protected virtual void OnThumbClicked(System.EventArgs e)
+        protected virtual void OnThumbClicked(EventArgs e)
         {
             ThumbClicked?.Invoke(e);
         }
@@ -1076,7 +1076,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void BottomClick(object sender, System.EventArgs e)
+        private void BottomClick(object sender, EventArgs e)
         {
             Value = _maximum;
         }
@@ -1422,7 +1422,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void LargeDownClick(object sender, System.EventArgs e)
+        private void LargeDownClick(object sender, EventArgs e)
         {
             Value = GetValue(false, false);
         }
@@ -1430,7 +1430,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void LargeUpClick(object sender, System.EventArgs e)
+        private void LargeUpClick(object sender, EventArgs e)
         {
             Value = GetValue(false, true);
         }
@@ -1526,7 +1526,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
         /// <summary>Handles the updating of the thumb.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">An object that contains the event data.</param>
-        private void ProgressTimerTick(object sender, System.EventArgs e)
+        private void ProgressTimerTick(object sender, EventArgs e)
         {
             ProgressThumb(true);
         }
@@ -1557,7 +1557,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void ScrollHereClick(object sender, System.EventArgs e)
+        private void ScrollHereClick(object sender, EventArgs e)
         {
             int _thumbSize;
             int _thumbLocation;
@@ -1604,7 +1604,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void SmallDownClick(object sender, System.EventArgs e)
+        private void SmallDownClick(object sender, EventArgs e)
         {
             Value = GetValue(true, false);
         }
@@ -1612,7 +1612,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void SmallUpClick(object sender, System.EventArgs e)
+        private void SmallUpClick(object sender, EventArgs e)
         {
             Value = GetValue(true, true);
         }
@@ -1626,7 +1626,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
         /// <summary>Context menu handler.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void TopClick(object sender, System.EventArgs e)
+        private void TopClick(object sender, EventArgs e)
         {
             Value = _minimum;
         }

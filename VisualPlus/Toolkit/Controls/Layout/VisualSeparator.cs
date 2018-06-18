@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Designer;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Dialogs;
@@ -201,7 +201,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
 

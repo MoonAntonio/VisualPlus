@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 using VisualPlus.Designer;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
@@ -701,14 +701,14 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             DoubleBuffered = true;
         }
 
-        protected override void OnEnter(System.EventArgs e)
+        protected override void OnEnter(EventArgs e)
         {
             base.OnEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnLeave(System.EventArgs e)
+        protected override void OnLeave(EventArgs e)
         {
             base.OnLeave(e);
             MouseState = MouseStates.Normal;
@@ -741,7 +741,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             e.Graphics.Clear(Parent.BackColor);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             _listView.Location = GetInternalControlLocation(_border);

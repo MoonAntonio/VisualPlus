@@ -1,40 +1,42 @@
 ﻿#region Namespace
 
-using System.Drawing;
+using System;
+
+using VisualPlus.Structure;
 
 #endregion
 
-namespace VisualPlus.EventArgs
+namespace VisualPlus.Events
 {
-    public class ColorEventArgs : System.EventArgs
+    public class ThemeEventArgs : EventArgs
     {
         #region Variables
 
-        private Color _color;
+        private Theme _theme;
 
         #endregion
 
         #region Constructors
 
-        public ColorEventArgs(Color color)
+        public ThemeEventArgs(Theme theme)
         {
-            _color = color;
+            _theme = theme;
         }
 
         #endregion
 
         #region Properties
 
-        public Color Color
+        public Theme Theme
         {
             get
             {
-                return _color;
+                return _theme;
             }
 
             set
             {
-                _color = value;
+                _theme = value;
             }
         }
 

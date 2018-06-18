@@ -1,13 +1,15 @@
 ﻿#region Namespace
 
-using VisualPlus.EventArgs;
+using System;
+
+using VisualPlus.Events;
 using VisualPlus.Toolkit.Child;
 
 #endregion
 
 namespace VisualPlus.Delegates
 {
-    public delegate void ElementClickedEventHandler(System.EventArgs e);
+    public delegate void ElementClickedEventHandler(EventArgs e);
 
     public delegate void ForeColorDisabledChangedEventHandler(ColorEventArgs e);
 

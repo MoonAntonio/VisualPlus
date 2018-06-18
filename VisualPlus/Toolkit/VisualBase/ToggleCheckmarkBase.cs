@@ -1,5 +1,6 @@
 #region Namespace
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -7,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Extensibility;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
@@ -277,14 +278,14 @@ namespace VisualPlus.Toolkit.VisualBase
             Invalidate();
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;

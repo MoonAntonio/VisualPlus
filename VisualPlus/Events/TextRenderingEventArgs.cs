@@ -1,12 +1,13 @@
 ﻿#region Namespace
 
+using System;
 using System.Drawing.Text;
 
 #endregion
 
-namespace VisualPlus.EventArgs
+namespace VisualPlus.Events
 {
-    public class TextRenderingEventArgs : System.EventArgs
+    public class TextRenderingEventArgs : EventArgs
     {
         #region Variables
 

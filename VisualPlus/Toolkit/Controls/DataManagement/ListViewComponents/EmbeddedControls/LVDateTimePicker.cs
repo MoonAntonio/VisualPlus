@@ -91,13 +91,13 @@ namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.Embedded
             base.Dispose(disposing);
         }
 
-        protected override void OnGotFocus(System.EventArgs e)
+        protected override void OnGotFocus(EventArgs e)
         {
             Debug.WriteLine("LVTextBox::Got Focus");
             base.OnGotFocus(e);
         }
 
-        protected override void OnLostFocus(System.EventArgs e)
+        protected override void OnLostFocus(EventArgs e)
         {
             Debug.WriteLine("LVTextBox::Lost Focus");
             base.OnLostFocus(e);

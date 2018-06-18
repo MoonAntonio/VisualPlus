@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -38,7 +39,7 @@ namespace VisualPlus.Toolkit.Components
 
         #region Overrides
 
-        protected override void OnClick(System.EventArgs e)
+        protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
 

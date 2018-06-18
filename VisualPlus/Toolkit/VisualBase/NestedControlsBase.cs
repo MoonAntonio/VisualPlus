@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
@@ -64,7 +65,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Overrides
 
-        protected override void OnBackColorChanged(System.EventArgs e)
+        protected override void OnBackColorChanged(EventArgs e)
         {
             base.OnBackColorChanged(e);
             GraphicsManager.ApplyContainerBackColorChange(this, BackColorState.Enabled);
@@ -80,14 +81,14 @@ namespace VisualPlus.Toolkit.VisualBase
             GraphicsManager.SetControlBackColor(e.Control, Parent.BackColor, true);
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;

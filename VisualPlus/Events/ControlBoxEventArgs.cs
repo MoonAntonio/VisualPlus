@@ -1,12 +1,13 @@
 #region Namespace
 
+using System;
 using System.Windows.Forms;
 
 #endregion
 
-namespace VisualPlus.EventArgs
+namespace VisualPlus.Events
 {
-    public class ControlBoxEventArgs : System.EventArgs
+    public class ControlBoxEventArgs : EventArgs
     {
         #region Variables
 

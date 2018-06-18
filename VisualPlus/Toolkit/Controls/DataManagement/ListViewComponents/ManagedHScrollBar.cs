@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -138,7 +139,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
 
         #region Methods
 
-        public void ReflectFocus(object source, System.EventArgs e)
+        public void ReflectFocus(object source, EventArgs e)
         {
             Debug.WriteLine("ManagedHScrollbar::Focus called");
             Parent.Focus();

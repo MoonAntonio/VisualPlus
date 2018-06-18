@@ -453,7 +453,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             if (_value > 0)
@@ -493,7 +493,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _bufferedGraphics.Render(e.Graphics);
         }
 
-        protected override void OnSizeChanged(System.EventArgs e)
+        protected override void OnSizeChanged(EventArgs e)
         {
             UpdateSize();
             UpdateGraphicsBuffer();
@@ -767,12 +767,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         private void OnRatingChanged()
         {
-            RatingChanged?.Invoke(this, System.EventArgs.Empty);
+            RatingChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnStarsPanned()
         {
-            StarsPanned?.Invoke(this, System.EventArgs.Empty);
+            StarsPanned?.Invoke(this, EventArgs.Empty);
         }
 
         private void SetPenBrushDefaults()

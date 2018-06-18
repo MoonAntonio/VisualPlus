@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 
 #endregion
@@ -61,7 +61,7 @@ namespace VisualPlus.Toolkit.VisualBase
                         OnToggleChanged(new ToggleEventArgs(Toggle));
                     }
 
-                    OnCheckStateChanged(System.EventArgs.Empty);
+                    OnCheckStateChanged(EventArgs.Empty);
 
                     // Repaint
                     Invalidate();
@@ -93,7 +93,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Overrides
 
-        protected override void OnClick(System.EventArgs e)
+        protected override void OnClick(EventArgs e)
         {
             switch (CheckState)
             {
@@ -128,11 +128,11 @@ namespace VisualPlus.Toolkit.VisualBase
         {
             base.OnToggleChanged(e);
             _checkState = Checked ? CheckState.Checked : CheckState.Unchecked;
-            OnCheckStateChanged(System.EventArgs.Empty);
+            OnCheckStateChanged(EventArgs.Empty);
             Invalidate();
         }
 
-        protected virtual void OnCheckStateChanged(System.EventArgs e)
+        protected virtual void OnCheckStateChanged(EventArgs e)
         {
             CheckStateChanged?.Invoke(this, e);
         }

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using VisualPlus.Designer;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
@@ -283,7 +283,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Overrides
 
-        protected override void OnHandleCreated(System.EventArgs e)
+        protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
             _animationTimer.Start();
@@ -296,14 +296,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Invalidate();
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
@@ -399,7 +399,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         /// <summary>Create a slide animation when toggled.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void AnimationTimerTick(object sender, System.EventArgs e)
+        private void AnimationTimerTick(object sender, EventArgs e)
         {
             if (Toggle)
             {

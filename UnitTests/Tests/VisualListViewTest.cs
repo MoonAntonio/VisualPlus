@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Controls.DataVisualization;
 using VisualPlus.Toolkit.Dialogs;

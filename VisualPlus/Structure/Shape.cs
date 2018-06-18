@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Toolkit.Components;

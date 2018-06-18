@@ -721,14 +721,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        protected override void OnLeave(System.EventArgs e)
+        protected override void OnLeave(EventArgs e)
         {
             // unselect the control (remove dotted border)
             _focused = false;
             _rotating = false;
             Invalidate();
 
-            base.OnLeave(new System.EventArgs());
+            base.OnLeave(new EventArgs());
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -754,14 +754,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
             State = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             State = MouseStates.Normal;
@@ -1281,7 +1281,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _scale = new Gradient(scaleColor, gradientPosition, ClientRectangle);
         }
 
-        private void KnobControl_Resize(object sender, System.EventArgs e)
+        private void KnobControl_Resize(object sender, EventArgs e)
         {
             ConfigureDimensions();
 

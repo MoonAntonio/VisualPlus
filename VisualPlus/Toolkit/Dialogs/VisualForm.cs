@@ -14,7 +14,7 @@ using VisualPlus.Constants;
 using VisualPlus.Delegates;
 using VisualPlus.Designer;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Native;
@@ -594,13 +594,13 @@ namespace VisualPlus.Toolkit.Dialogs
             DoubleBuffered = true;
         }
 
-        protected override void OnActivated(System.EventArgs e)
+        protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
             State = MouseStates.Hover;
         }
 
-        protected override void OnDeactivate(System.EventArgs e)
+        protected override void OnDeactivate(EventArgs e)
         {
             base.OnDeactivate(e);
             State = MouseStates.Normal;
@@ -718,7 +718,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
-        protected override void OnResizeEnd(System.EventArgs e)
+        protected override void OnResizeEnd(EventArgs e)
         {
             base.OnResizeEnd(e);
 

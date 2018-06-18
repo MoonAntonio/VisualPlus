@@ -421,21 +421,21 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             GraphicsManager.SetControlBackColor(e.Control, Parent.BackColor, true);
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
             State = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             _mouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             State = MouseStates.Normal;
             if (TabPages.Cast<VisualTabPage>().Any(Tab => Tab.DisplayRectangle.Contains(_mouseLocation)))

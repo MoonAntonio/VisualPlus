@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Controls.DataManagement;

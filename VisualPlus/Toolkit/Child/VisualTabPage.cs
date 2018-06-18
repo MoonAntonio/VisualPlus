@@ -359,7 +359,7 @@ namespace VisualPlus.Toolkit.Child
             Disposed += VisualTabPage_Disposed;
         }
 
-        private void VisualTabPage_Disposed(object sender, System.EventArgs e)
+        private void VisualTabPage_Disposed(object sender, EventArgs e)
         {
         }
 

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
@@ -608,7 +608,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             // e.DrawFocusRectangle();
         }
 
-        protected override void OnEnter(System.EventArgs e)
+        protected override void OnEnter(EventArgs e)
         {
             base.OnEnter(e);
             _watermark.Brush = new SolidBrush(_watermark.ActiveColor);
@@ -616,7 +616,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Invalidate();
         }
 
-        protected override void OnLeave(System.EventArgs e)
+        protected override void OnLeave(EventArgs e)
         {
             base.OnLeave(e);
             _watermark.Brush = new SolidBrush(_watermark.InactiveColor);
@@ -624,7 +624,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Invalidate();
         }
 
-        protected override void OnLostFocus(System.EventArgs e)
+        protected override void OnLostFocus(EventArgs e)
         {
             SuspendLayout();
             Update();
@@ -653,14 +653,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Invalidate();
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             _mouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             _mouseState = MouseStates.Normal;
@@ -710,7 +710,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             e.Graphics.Clear(BackColor);
         }
 
-        protected override void OnSelectionChangeCommitted(System.EventArgs e)
+        protected override void OnSelectionChangeCommitted(EventArgs e)
         {
             OnLostFocus(e);
         }

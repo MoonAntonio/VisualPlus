@@ -162,7 +162,7 @@ namespace VisualPlus.Toolkit.VisualBase
                     }
 
                     _value = value;
-                    OnValueChanged(System.EventArgs.Empty);
+                    OnValueChanged(EventArgs.Empty);
                 }
             }
         }
@@ -171,21 +171,21 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Overrides
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
             Invalidate();
         }
 
-        protected virtual void OnValueChanged(System.EventArgs e)
+        protected virtual void OnValueChanged(EventArgs e)
         {
             ValueChanged?.Invoke(this, e);
         }
@@ -262,7 +262,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
                 if (beforeValue != _value)
                 {
-                    OnValueChanged(System.EventArgs.Empty);
+                    OnValueChanged(EventArgs.Empty);
                 }
             }
         }

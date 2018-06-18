@@ -171,7 +171,7 @@ namespace VisualPlus.Structure
             Focus();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             Cursor = Cursors.Default;

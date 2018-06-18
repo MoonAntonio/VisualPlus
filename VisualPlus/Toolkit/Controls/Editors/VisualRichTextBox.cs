@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Designer;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
@@ -333,7 +333,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             e.Graphics.Clear(Parent.BackColor);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             _richTextBox.Location = GetInternalControlLocation(_border);

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using VisualPlus.Designer;
 using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
@@ -709,7 +709,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             AutoSize = true;
         }
 
-        protected override void OnEnter(System.EventArgs e)
+        protected override void OnEnter(EventArgs e)
         {
             base.OnEnter(e);
 
@@ -727,7 +727,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        protected override void OnGotFocus(System.EventArgs e)
+        protected override void OnGotFocus(EventArgs e)
         {
             base.OnGotFocus(e);
             _textBox.Focus();
@@ -745,7 +745,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        protected override void OnLeave(System.EventArgs e)
+        protected override void OnLeave(EventArgs e)
         {
             base.OnLeave(e);
 
@@ -796,7 +796,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
 
@@ -895,7 +895,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             e.Graphics.Clear(BackColor);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
 
@@ -1193,12 +1193,12 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        private void OnEnter(object sender, System.EventArgs e)
+        private void OnEnter(object sender, EventArgs e)
         {
             MouseState = MouseStates.Hover;
         }
 
-        private void OnLeave(object sender, System.EventArgs e)
+        private void OnLeave(object sender, EventArgs e)
         {
             if (!_textBox.Focused)
             {
@@ -1232,12 +1232,12 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        private void TextBox_SizeChanged(object sender, System.EventArgs e)
+        private void TextBox_SizeChanged(object sender, EventArgs e)
         {
             _textWidth = _textBox.Width;
         }
 
-        private void TextBox_TextChanged(object sender, System.EventArgs e)
+        private void TextBox_TextChanged(object sender, EventArgs e)
         {
             if (_watermark.Visible)
             {
@@ -1255,7 +1255,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        private void WaterMarkContainer_Click(object sender, System.EventArgs e)
+        private void WaterMarkContainer_Click(object sender, EventArgs e)
         {
             _textBox.Focus();
         }
