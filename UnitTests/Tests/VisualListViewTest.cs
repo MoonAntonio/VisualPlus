@@ -156,7 +156,7 @@ namespace UnitTests.Tests
             visualListViewExTest.Columns.Add(_date);
             visualListViewExTest.Columns.Add(_progress);
 
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < 15; i++)
             {
                 VisualListViewItem _listViewItem = GenerateItem();
                 visualListViewExTest.Items.Add(_listViewItem);
