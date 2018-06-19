@@ -1557,10 +1557,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 return;
             }
 
-            // -----------------------------------------------------------------------------------------
+            // Column selected.
             if (_liveStates == ListStates.ColumnSelect)
             {
-                // Column select
+                // Reset state.
                 _state = ListStates.None;
 
                 bool _checkBoxClicked;
@@ -1609,7 +1609,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 return;
             }
 
-            // ---Resizing -----------------------------------------------------------------------------------
+            // Resizing column.
             if (_liveStates == ListStates.ColumnResizing)
             {
                 // resizing
@@ -1623,10 +1623,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 return;
             }
 
-            // ---Items --------------------------------------------------------------------------------------
+            // Items selected.
             if (_liveStates == ListStates.Selecting)
             {
-                // Control based multi select ------------------------------------------------------------
+                // Control based multi select
                 // Whatever else this does, it needs to first check to see if the state of the checkbox is changing
                 if ((_column < _columns.Count) && _columns[_column].CheckBoxes)
                 {
@@ -1883,7 +1883,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     {
                         for (var index = 0; index < _items.Count; index++)
                         {
-                            Items[index].Selected = true;
+                            _items[index].Selected = true;
                         }
 
                         return base.PreProcessMessage(ref msg);
@@ -1969,8 +1969,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                         {
                             // No control no shift
                             _lastSelectionIndex = _itemIndex;
-                            Items[_itemIndex].Selected = true;
-                            _items.ClearSelection(Items[_itemIndex]);
+                            _items[_itemIndex].Selected = true;
+                            _items.ClearSelection(_items[_itemIndex]);
                         }
                         else if ((ModifierKeys & Keys.Shift) == Keys.Shift)
                         {
@@ -1980,7 +1980,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                             // Gotta catch when the multi select is NOT set
                             if (!MultiSelect)
                             {
-                                Items[_itemIndex].Selected = !Items[_itemIndex].Selected;
+                                _items[_itemIndex].Selected = !_items[_itemIndex].Selected;
                             }
                             else
                             {
@@ -1990,7 +1990,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                                     int index = _lastSelectionIndex;
                                     do
                                     {
-                                        Items[index].Selected = true;
+                                        _items[index].Selected = true;
                                         if (index > _itemIndex)
                                         {
                                             index--;
@@ -2003,7 +2003,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                                     }
                                     while (index != _itemIndex);
 
-                                    Items[index].Selected = true;
+                                    _items[index].Selected = true;
                                 }
                             }
                         }
@@ -2015,7 +2015,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                         // Bypass FocusedItem property, we always want to invalidate from this point
                         _focusedItemIndex = _itemIndex;
-                        FocusedItem = Items[_itemIndex];
+                        FocusedItem = _items[_itemIndex];
                     }
                 }
                 else
@@ -2225,50 +2225,50 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         ///     Interpret mouse coordinates, Do NOT put anything functional in this routine. It is ONLY for analyzing the
         ///     mouse coordinates.
         /// </summary>
-        /// <param name="_screenX">The screen x.</param>
-        /// <param name="_screenY">The screen y.</param>
+        /// <param name="screenX">The screen x.</param>
+        /// <param name="screenY">The screen y.</param>
         /// <param name="listRegion">The list region.</param>
-        /// <param name="_cellX">The cell x.</param>
-        /// <param name="_cellY">The cell y.</param>
-        /// <param name="_itemIndex">The item.</param>
+        /// <param name="cellX">The cell x.</param>
+        /// <param name="cellY">The cell y.</param>
+        /// <param name="itemIndex">The item.</param>
         /// <param name="columnIndex">The column.</param>
-        /// <param name="_listStates">The state.</param>
-        public void InterpretCoordinates(int _screenX, int _screenY, out ListViewRegion listRegion, out int _cellX, out int _cellY, out int _itemIndex, out int columnIndex, out ListStates _listStates)
+        /// <param name="listStates">The state.</param>
+        public void InterpretCoordinates(int screenX, int screenY, out ListViewRegion listRegion, out int cellX, out int cellY, out int itemIndex, out int columnIndex, out ListStates listStates)
         {
             DebugTraceManager.WriteDebug("VisualListView::Interpret Coordinates", DebugTraceManager.DebugOutput.TraceListener);
 
-            _listStates = ListStates.None;
+            listStates = ListStates.None;
             columnIndex = 0;
-            _itemIndex = 0;
-            _cellX = 0;
-            _cellY = 0;
+            itemIndex = 0;
+            cellX = 0;
+            cellY = 0;
 
             listRegion = ListViewRegion.NonClient;
 
             // Calculate horizontal subitem
             int _currentX = -_horizontalScrollBar.Value; // offset the starting point by the current scroll point
 
-            for (columnIndex = 0; columnIndex < Columns.Count; columnIndex++)
+            for (columnIndex = 0; columnIndex < _columns.Count; columnIndex++)
             {
-                VisualListViewColumn _column = Columns[columnIndex];
+                VisualListViewColumn _column = _columns[columnIndex];
 
                 // Find the inner X for the cell
-                _cellX = _screenX - _currentX;
+                cellX = screenX - _currentX;
 
-                if ((_screenX > _currentX) && (_screenX < (_currentX + _column.Width) - ListViewConstants.RESIZE_ARROW_PADDING))
+                if ((screenX > _currentX) && (screenX < (_currentX + _column.Width) - ListViewConstants.RESIZE_ARROW_PADDING))
                 {
-                    _listStates = ListStates.ColumnSelect;
+                    listStates = ListStates.ColumnSelect;
                     break;
                 }
 
-                if ((_screenX >= (_currentX + _column.Width) - ListViewConstants.RESIZE_ARROW_PADDING) && (_screenX <= _currentX + _column.Width + ListViewConstants.RESIZE_ARROW_PADDING))
+                if ((screenX >= (_currentX + _column.Width) - ListViewConstants.RESIZE_ARROW_PADDING) && (screenX <= _currentX + _column.Width + ListViewConstants.RESIZE_ARROW_PADDING))
                 {
                     // Check see if this is a 0 length column (which we skip to next on) or if this is the last column (which we can't skip)
-                    if ((columnIndex + 1 == Columns.Count) || (Columns[columnIndex + 1].Width != 0))
+                    if ((columnIndex + 1 == _columns.Count) || (_columns[columnIndex + 1].Width != 0))
                     {
                         if (AllowColumnResize)
                         {
-                            _listStates = ListStates.ColumnResizing;
+                            listStates = ListStates.ColumnResizing;
                         }
 
                         return;
@@ -2278,7 +2278,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _currentX += _column.Width;
             }
 
-            if ((_screenY >= RowsInnerClientRect.Y) && (_screenY < RowsInnerClientRect.Bottom))
+            if ((screenY >= RowsInnerClientRect.Y) && (screenY < RowsInnerClientRect.Bottom))
             {
                 // We are in the client area
                 listRegion = ListViewRegion.Client;
@@ -2286,20 +2286,20 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _columns.ClearHotStates();
                 _hotColumnIndex = -1;
 
-                _itemIndex = ((_screenY - RowsInnerClientRect.Y) / ItemHeight) + _verticalScrollBar.Value;
-                HotItemIndex = _itemIndex;
+                itemIndex = ((screenY - RowsInnerClientRect.Y) / ItemHeight) + _verticalScrollBar.Value;
+                HotItemIndex = itemIndex;
 
                 // Get inner cell Y
-                _cellY = (_screenY - RowsInnerClientRect.Y) % ItemHeight;
+                cellY = (screenY - RowsInnerClientRect.Y) % ItemHeight;
 
-                if ((_itemIndex >= _items.Count) || (_itemIndex > _verticalScrollBar.Value + RowsVisible))
+                if ((itemIndex >= _items.Count) || (itemIndex > _verticalScrollBar.Value + RowsVisible))
                 {
-                    _listStates = ListStates.None;
+                    listStates = ListStates.None;
                     listRegion = ListViewRegion.NonClient;
                 }
                 else
                 {
-                    _listStates = ListStates.Selecting;
+                    listStates = ListStates.Selecting;
 
                     // Handle where FullRowSelect is OFF and we click on the second part of a spanned column
                     for (int nSubIndex = 0; nSubIndex < Columns.Count; nSubIndex++)
@@ -2314,7 +2314,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
             else
             {
-                if ((_screenY >= HeaderRectangle.Y) && (_screenY < HeaderRectangle.Bottom))
+                if ((screenY >= HeaderRectangle.Y) && (screenY < HeaderRectangle.Bottom))
                 {
                     listRegion = ListViewRegion.Header;
 
