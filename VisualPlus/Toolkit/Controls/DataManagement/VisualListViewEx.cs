@@ -319,6 +319,40 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
+        public event ScrollEventHandler Scroll;
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ScrollEventHandler ScrollHorizontal
+        {
+            add
+            {
+                _horizontalScrollBar.Scroll += value;
+            }
+
+            remove
+            {
+                _horizontalScrollBar.Scroll -= value;
+            }
+        }
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ScrollEventHandler ScrollVertical
+        {
+            add
+            {
+                _verticalScrollBar.Scroll += value;
+            }
+
+            remove
+            {
+                _verticalScrollBar.Scroll -= value;
+            }
+        }
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event ClickedEventHandler SelectedIndexChanged;
 
         #endregion
@@ -2696,6 +2730,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             DestroyActivatedEmbedded();
 
             Invalidate();
+
+            Scroll?.Invoke(sender, e);
         }
 
         /// <summary>Recalculate scroll bars and control size.</summary>
