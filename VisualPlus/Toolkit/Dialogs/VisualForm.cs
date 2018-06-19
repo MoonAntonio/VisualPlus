@@ -105,7 +105,7 @@ namespace VisualPlus.Toolkit.Dialogs
                 };
 
             _dropShadow = true;
-
+            _headerMouseDown = false;
             FormBorderStyle = FormBorderStyle.None;
             _magnetic = false;
             _magneticRadius = 100;
@@ -126,7 +126,7 @@ namespace VisualPlus.Toolkit.Dialogs
 
             VisualControlBox = new VisualControlBox();
             Controls.Add(VisualControlBox);
-            VisualControlBox.Location = new Point(Width - VisualControlBox.Width - 16, _border.Thickness);
+            VisualControlBox.Location = new Point(Width - VisualControlBox.Width - 16, _border.Thickness + 1);
 
             _textRectangle = new Rectangle(0, 7, 0, 0);
             UpdateTheme(_styleManager.Theme);
@@ -222,6 +222,10 @@ namespace VisualPlus.Toolkit.Dialogs
         [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event EventHandler WindowTitleClicked;
 
         #endregion
 
@@ -590,7 +594,6 @@ namespace VisualPlus.Toolkit.Dialogs
         protected override void CreateHandle()
         {
             base.CreateHandle();
-
             DoubleBuffered = true;
         }
 
@@ -613,6 +616,7 @@ namespace VisualPlus.Toolkit.Dialogs
                 return;
             }
 
+            // Resize window on left mouse button hold.
             if ((e.Button == MouseButtons.Left) && !_maximized)
             {
                 ResizeForm(_resizeDir);
@@ -781,6 +785,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
             else if ((m.Msg == FormConstants.WM_LBUTTONDOWN) && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
+                // Clicked in window title bar.
                 if (!_maximized)
                 {
                     User32.ReleaseCapture();
@@ -790,6 +795,8 @@ namespace VisualPlus.Toolkit.Dialogs
                 {
                     _headerMouseDown = true;
                 }
+
+                WindowTitleClicked?.Invoke(this, new EventArgs());
             }
             else if (m.Msg == FormConstants.WM_RBUTTONDOWN)
             {

@@ -39,10 +39,13 @@ namespace UnitTests.Forms
         private enum UnitTests
         {
             /// <summary>The VisualForm.</summary>
-            VisualFormTest = 0,
+            VisualFormEmpty = 0,
+
+            /// <summary>The VisualForm.</summary>
+            VisualFormTest = 1,
 
             /// <summary>The list view advanced.</summary>
-            VisualListViewExtended = 1
+            VisualListViewExtended = 2
         }
 
         #endregion
@@ -55,15 +58,21 @@ namespace UnitTests.Forms
 
             switch (_unitTest)
             {
-                case UnitTests.VisualListViewExtended:
+                case UnitTests.VisualFormEmpty:
                     {
-                        _formToOpen = new VisualListViewTest();
+                        _formToOpen = new VisualForm();
                         break;
                     }
 
                 case UnitTests.VisualFormTest:
                     {
                         _formToOpen = new FormTest();
+                        break;
+                    }
+
+                case UnitTests.VisualListViewExtended:
+                    {
+                        _formToOpen = new VisualListViewTest();
                         break;
                     }
 
