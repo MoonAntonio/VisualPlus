@@ -8,7 +8,7 @@
         /// <summary>The pressed state.</summary>
         Pressed,
 
-        /// <summary>The hot state.</summary>
-        Hot
+        /// <summary>The hover state.</summary>
+        Hover
     }
 }

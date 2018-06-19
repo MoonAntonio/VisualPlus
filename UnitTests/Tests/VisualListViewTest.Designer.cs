@@ -65,9 +65,9 @@
             this.visualListViewExTest.HeaderHeight = 22;
             this.visualListViewExTest.HeaderVisible = true;
             this.visualListViewExTest.HeaderWordWrap = false;
-            this.visualListViewExTest.HotColumnTracking = true;
-            this.visualListViewExTest.HotItemTracking = true;
-            this.visualListViewExTest.HotTrackingColor = System.Drawing.Color.LightGray;
+            this.visualListViewExTest.HoverColumnTracking = true;
+            this.visualListViewExTest.HoverItemTracking = true;
+            this.visualListViewExTest.HoverTrackingColor = System.Drawing.Color.LightGray;
             this.visualListViewExTest.HoverEvents = false;
             this.visualListViewExTest.HoverTime = 1;
             this.visualListViewExTest.ImageListColumns = this.imageListColumns;

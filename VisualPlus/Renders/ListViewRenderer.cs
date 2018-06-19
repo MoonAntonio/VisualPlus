@@ -216,7 +216,7 @@ namespace VisualPlus.Renders
                     // Pressed
                     Uxtheme.DrawThemeBackground(theme, hDC, 1, 3, ref _columnRect, ref _clipRect);
                 }
-                else if (column.State == ColumnStates.Hot)
+                else if (column.State == ColumnStates.Hover)
                 {
                     // Hover
                     Uxtheme.DrawThemeBackground(theme, hDC, 1, 2, ref _columnRect, ref _clipRect);
@@ -454,10 +454,10 @@ namespace VisualPlus.Renders
             }
 
             // Post draw for focus rect and hot tracking
-            if ((itemIndex == listView.HotItemIndex) && listView.HotItemTracking)
+            if ((itemIndex == listView.HoverItemIndex) && listView.HoverItemTracking)
             {
                 // handle hot tracking of items
-                Color transparentColor = Color.FromArgb(75, listView.HotTrackingColor.R, listView.HotTrackingColor.G, listView.HotTrackingColor.B); // 182, 189, 210 );
+                Color transparentColor = Color.FromArgb(75, listView.HoverTrackingColor.R, listView.HoverTrackingColor.G, listView.HoverTrackingColor.B); // 182, 189, 210 );
                 using (Brush hotBrush = new SolidBrush(transparentColor))
                 {
                     graphicsRow.FillRectangle(hotBrush, listView.RowsInnerClientRect.X, rectRow.Y, listView.RowsInnerClientRect.Width, rectRow.Height);
@@ -542,17 +542,17 @@ namespace VisualPlus.Renders
             }
 
             // Draw hot tracking column overlay.
-            if (listView.HotColumnTracking && (listView.HotColumnIndex != -1) && (listView.HotColumnIndex < listView.Columns.Count))
+            if (listView.HoverColumnTracking && (listView.HoverColumnIndex != -1) && (listView.HoverColumnIndex < listView.Columns.Count))
             {
                 int _xCursor = -hPanelScrollBar.Value;
-                for (var _columnIndex = 0; _columnIndex < listView.HotColumnIndex; _columnIndex++)
+                for (var _columnIndex = 0; _columnIndex < listView.HoverColumnIndex; _columnIndex++)
                 {
                     _xCursor += listView.Columns[_columnIndex].Width;
                 }
 
-                using (Brush hotBrush = new SolidBrush(Color.FromArgb(75, listView.HotTrackingColor.R, listView.HotTrackingColor.G, listView.HotTrackingColor.B)))
+                using (Brush hotBrush = new SolidBrush(Color.FromArgb(75, listView.HoverTrackingColor.R, listView.HoverTrackingColor.G, listView.HoverTrackingColor.B)))
                 {
-                    graphicsRows.FillRectangle(hotBrush, _xCursor, listView.RowsInnerClientRect.Y, listView.Columns[listView.HotColumnIndex].Width + 1, listView.RowsInnerClientRect.Height - 1);
+                    graphicsRows.FillRectangle(hotBrush, _xCursor, listView.RowsInnerClientRect.Y, listView.Columns[listView.HoverColumnIndex].Width + 1, listView.RowsInnerClientRect.Height - 1);
                 }
             }
         }

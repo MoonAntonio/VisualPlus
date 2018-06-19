@@ -281,7 +281,7 @@ namespace VisualPlus.Collections.CollectionsBase
         {
             foreach (VisualListViewColumn _column in List)
             {
-                if (_column.State == ColumnStates.Hot)
+                if (_column.State == ColumnStates.Hover)
                 {
                     _column.State = ColumnStates.None;
                 }

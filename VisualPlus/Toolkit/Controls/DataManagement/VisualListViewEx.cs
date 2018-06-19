@@ -74,14 +74,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private ManagedHScrollBar _horizontalScrollBar;
         private BorderStrip _horizontalTopBorderStrip;
         private int _hotColumnIndex;
-        private bool _hotColumnTracking;
-        private int _hotItemIndex;
-        private bool _hotItemTracking;
-        private Color _hotTrackingColor;
+        private bool _hoverColumnTracking;
+        private VisualListViewColumn _hoveredColumn;
         private VisualListViewItem _hoveredItem;
         private bool _hoverEvents;
+        private int _hoverItemIndex;
+        private bool _hoverItemTracking;
         private bool _hoverLive;
         private int _hoverTime;
+        private Color _hoverTrackingColor;
         private ImageList _imageListColumns;
         private ImageList _imageListItems;
         private int _itemHeight;
@@ -137,20 +138,21 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _state = ListStates.None;
             _itemHeight = 18;
             _hoverTime = 1;
-            _hotItemIndex = -1;
+            _hoverItemIndex = -1;
             _hotColumnIndex = -1;
             _columnIndex = -1;
             _headerHeight = 22;
             _theme = IntPtr.Zero;
-            _hotTrackingColor = Color.LightGray;
+            _hoverTrackingColor = Color.LightGray;
             _gridType = GridTypes.Normal;
             _gridLineStyle = GridLineStyle.Solid;
             _gridLines = GridLines.Both;
             _controlStyle = LVControlStyles.SuperFlat;
             _multiSelect = false;
-            _hotItemTracking = true;
-            _hotColumnTracking = true;
+            _hoverItemTracking = true;
+            _hoverColumnTracking = true;
             _hoveredItem = null;
+            _hoveredColumn = null;
             _displayTextOnEmpty = true;
             _displayTextColor = Color.DimGray;
             _displayText = "The list is empty.";
@@ -910,7 +912,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>The current hovering column.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int HotColumnIndex
+        public int HoverColumnIndex
         {
             get
             {
@@ -919,11 +921,11 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             set
             {
-                if (_hotColumnTracking)
+                if (_hoverColumnTracking)
                 {
                     if (_hotColumnIndex != value)
                     {
-                        _hotItemIndex = -1;
+                        _hoverItemIndex = -1;
                         _hotColumnIndex = value;
 
                         if (!DesignMode)
@@ -939,74 +941,27 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Browsable(true)]
         [Category(EventCategory.Behavior)]
         [Description(PropertyDescription.Toggle)]
-        public bool HotColumnTracking
+        public bool HoverColumnTracking
         {
             get
             {
-                return _hotColumnTracking;
+                return _hoverColumnTracking;
             }
 
             set
             {
-                _hotColumnTracking = value;
+                _hoverColumnTracking = value;
             }
         }
 
-        /// <summary>The currently hovered item index.</summary>
+        /// <summary>Gets the currently hovered column.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int HotItemIndex
+        public VisualListViewColumn HoveredColumn
         {
             get
             {
-                return _hotItemIndex;
-            }
-
-            set
-            {
-                if (_hotItemTracking)
-                {
-                    if (_hotItemIndex != value)
-                    {
-                        _hotColumnIndex = -1;
-                        _hotItemIndex = value;
-
-                        DebugTraceManager.WriteDebug("Calling Invalidate From HotItemIndex", DebugTraceManager.DebugOutput.TraceListener);
-                        Invalidate(true);
-                    }
-                }
-            }
-        }
-
-        [Browsable(true)]
-        [Category(EventCategory.Behavior)]
-        [Description(PropertyDescription.Toggle)]
-        public bool HotItemTracking
-        {
-            get
-            {
-                return _hotItemTracking;
-            }
-
-            set
-            {
-                _hotItemTracking = value;
-            }
-        }
-
-        [Browsable(true)]
-        [Category(EventCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        public Color HotTrackingColor
-        {
-            get
-            {
-                return _hotTrackingColor;
-            }
-
-            set
-            {
-                _hotTrackingColor = value;
+                return _hoveredColumn;
             }
         }
 
@@ -1055,6 +1010,48 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
+        /// <summary>The currently hovered item index.</summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int HoverItemIndex
+        {
+            get
+            {
+                return _hoverItemIndex;
+            }
+
+            set
+            {
+                if (_hoverItemTracking)
+                {
+                    if (_hoverItemIndex != value)
+                    {
+                        _hotColumnIndex = -1;
+                        _hoverItemIndex = value;
+
+                        DebugTraceManager.WriteDebug("Calling Invalidate From HotItemIndex", DebugTraceManager.DebugOutput.TraceListener);
+                        Invalidate(true);
+                    }
+                }
+            }
+        }
+
+        [Browsable(true)]
+        [Category(EventCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        public bool HoverItemTracking
+        {
+            get
+            {
+                return _hoverItemTracking;
+            }
+
+            set
+            {
+                _hoverItemTracking = value;
+            }
+        }
+
         [Browsable(true)]
         [Category(PropertyCategory.Behavior)]
         [Description("Amount of time in seconds a user hovers before hover event is fired. Can NOT be zero.")]
@@ -1075,6 +1072,22 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 {
                     _hoverTime = value;
                 }
+            }
+        }
+
+        [Browsable(true)]
+        [Category(EventCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color HoverTrackingColor
+        {
+            get
+            {
+                return _hoverTrackingColor;
+            }
+
+            set
+            {
+                _hoverTrackingColor = value;
             }
         }
 
@@ -1726,7 +1739,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         {
             // This is the HEADER hot state
             _columns.ClearHotStates();
-            _hotItemIndex = -1;
+            _hoverItemIndex = -1;
             _hotColumnIndex = -1;
 
             base.OnMouseLeave(e);
@@ -1767,15 +1780,20 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 if (_columns.Count > _columnIndexer)
                 {
                     _columnIndex = _columnIndexer;
+                    _hoveredColumn = _columns[_columnIndex];
                 }
                 else
                 {
                     // Outside of columns bounds.
                     _columnIndex = -1;
+                    _hoveredColumn = null;
                 }
 
                 // Update the hovered item.
+
+                // Test if out of bounds hover item.
                 _hoveredItem = _items[_itemIndex];
+
                 ItemMouseHover?.Invoke(_items[_itemIndex]);
 
                 if (_listStates == ListStates.ColumnResizing)
@@ -2295,7 +2313,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _hotColumnIndex = -1;
 
                 itemIndex = ((screenY - RowsInnerClientRect.Y) / ItemHeight) + _verticalScrollBar.Value;
-                HotItemIndex = itemIndex;
+                HoverItemIndex = itemIndex;
 
                 // Get inner cell Y
                 cellY = (screenY - RowsInnerClientRect.Y) % ItemHeight;
@@ -2327,7 +2345,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     listRegion = ListViewRegion.Header;
 
                     // In the header.
-                    _hotItemIndex = -1;
+                    _hoverItemIndex = -1;
                     _hotColumnIndex = columnIndex;
 
                     if ((columnIndex > -1) && (columnIndex < Columns.Count) && !Columns.AnyPressed())
@@ -2335,7 +2353,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                         if (_columns[columnIndex].State == ColumnStates.None)
                         {
                             _columns.ClearHotStates();
-                            _columns[columnIndex].State = ColumnStates.Hot;
+                            _columns[columnIndex].State = ColumnStates.Hover;
                         }
                     }
                 }
