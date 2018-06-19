@@ -1748,7 +1748,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                         _width = ListViewConstants.MINIMUM_COLUMN_SIZE;
                     }
 
-                    VisualListViewColumn _column = Columns[_resizeColumnNumber];
+                    VisualListViewColumn _column = _columns[_resizeColumnNumber];
                     _column.Width = _width;
 
                     OnMove(e);
@@ -1764,7 +1764,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 InterpretCoordinates(e.X, e.Y, out _listRegion, out _cellX, out _cellY, out _itemIndex, out _columnIndexer, out _listStates);
 
                 // Update the column index.
-                _columnIndex = _columnIndexer;
+                if (_columns.Count > _columnIndexer)
+                {
+                    _columnIndex = _columnIndexer;
+                }
+                else
+                {
+                    // Outside of columns bounds.
+                    _columnIndex = -1;
+                }
 
                 // Update the hovered item.
                 _hoveredItem = _items[_itemIndex];
@@ -1789,18 +1797,18 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            DebugTraceManager.WriteDebug("MouseUp", DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("VisualListView::MouseUp", DebugTraceManager.DebugOutput.TraceListener);
 
             Cursor.Current = Cursors.Arrow;
             Columns.ClearStates();
 
-            var nItem = 0;
-            var nColumn = 0;
-            var nCellX = 0;
-            var nCellY = 0;
-            ListStates eState;
+            var item = 0;
+            var column = 0;
+            var cellX = 0;
+            var cellY = 0;
+            ListStates listStates;
             ListViewRegion listRegion;
-            InterpretCoordinates(e.X, e.Y, out listRegion, out nCellX, out nCellY, out nItem, out nColumn, out eState);
+            InterpretCoordinates(e.X, e.Y, out listRegion, out cellX, out cellY, out item, out column, out listStates);
 
             _state = ListStates.None;
 
@@ -2302,11 +2310,11 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     listStates = ListStates.Selecting;
 
                     // Handle where FullRowSelect is OFF and we click on the second part of a spanned column
-                    for (int nSubIndex = 0; nSubIndex < Columns.Count; nSubIndex++)
+                    for (var subIndex = 0; subIndex < Columns.Count; subIndex++)
                     {
-                        if (nSubIndex >= columnIndex)
+                        if (subIndex >= columnIndex)
                         {
-                            columnIndex = nSubIndex;
+                            columnIndex = subIndex;
                             return;
                         }
                     }

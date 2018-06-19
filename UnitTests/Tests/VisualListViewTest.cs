@@ -98,7 +98,18 @@ namespace UnitTests.Tests
 
         private void VisualListViewAdvanced1_SelectedIndexChanged(object source, ListViewClickEventArgs e)
         {
-            int _columnIndex = visualListViewExTest.ColumnIndex;
+            int _columnIndex;
+
+            if (visualListViewExTest.ColumnIndex == -1)
+            {
+                // Clicked outside of column bounds.
+                return;
+            }
+            else
+            {
+                _columnIndex = visualListViewExTest.ColumnIndex;
+            }
+
             int _rowIndex = e.ItemIndex;
             string _column = visualListViewExTest.Columns[_columnIndex].Text;
             string _rowItem = visualListViewExTest.Items[_rowIndex].Text;
