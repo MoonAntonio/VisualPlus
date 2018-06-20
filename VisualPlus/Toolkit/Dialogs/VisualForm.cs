@@ -556,20 +556,6 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
-        public new string Text
-        {
-            get
-            {
-                return base.Text;
-            }
-
-            set
-            {
-                base.Text = value;
-                Invalidate();
-            }
-        }
-
         [Category(PropertyCategory.Layout)]
         [Description(PropertyDescription.Rectangle)]
         public Rectangle TextRectangle
@@ -858,6 +844,14 @@ namespace VisualPlus.Toolkit.Dialogs
             {
                 Top = _screen.WorkingArea.Bottom - Height;
             }
+        }
+
+        protected override void OnTextChanged(EventArgs e)
+        {
+            base.OnTextChanged(e);
+
+            // Repaint the text on change.
+            Invalidate();
         }
 
         protected override void WndProc(ref Message m)
