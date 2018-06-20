@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+using VisualPlus.Constants;
 using VisualPlus.Delegates;
 using VisualPlus.Designer;
 using VisualPlus.Events;
@@ -78,6 +79,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
         public event ControlBoxEventHandler MaximizeClick;
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
+        public event ControlBoxEventHandler MaximizedClick;
 
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
@@ -153,6 +158,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         /// <summary>Gets the parent form.</summary>
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Form ParentForm
         {
@@ -180,16 +186,15 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        /// <summary>The OnCloseClick.</summary>
+        /// <summary>The close button click.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
         protected virtual void OnCloseClick(object sender, EventArgs e)
         {
-            CloseClick?.Invoke(new ControlBoxEventArgs(ParentForm));
-            ParentForm.Close();
+            CloseForm(ParentForm);
         }
 
-        /// <summary>The OnCloseClick.</summary>
+        /// <summary>The help button click.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
         protected virtual void OnHelpClick(object sender, EventArgs e)
@@ -197,51 +202,159 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             HelpClick?.Invoke(new ControlBoxEventArgs(ParentForm));
         }
 
-        /// <summary>The OnMaximizeClick.</summary>
+        /// <summary>The maximize button click.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
         protected virtual void OnMaximizeClick(object sender, EventArgs e)
         {
+            MaximizeClick?.Invoke(new ControlBoxEventArgs(ParentForm));
+
             if (ParentForm.WindowState == FormWindowState.Normal)
             {
-                if (_maximizeButton.BoxType == ControlBoxButton.ControlBoxType.Default)
-                {
-                    _maximizeButton.Text = @"2";
-                }
-
-                ParentForm.WindowState = FormWindowState.Maximized;
-                MaximizeClick?.Invoke(new ControlBoxEventArgs(ParentForm));
+                MaximizeForm(ParentForm);
             }
             else
             {
-                if (_maximizeButton.BoxType == ControlBoxButton.ControlBoxType.Default)
-                {
-                    _maximizeButton.Text = @"1";
-                }
-
-                ParentForm.WindowState = FormWindowState.Normal;
-                RestoredFormWindow?.Invoke(new ControlBoxEventArgs(ParentForm));
+                RestoreFormWindow(ParentForm);
             }
         }
 
-        /// <summary>The OnMinimizeClick.</summary>
+        /// <summary>Occurs when the form is maximized.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnMaximizedClick(ControlBoxEventArgs e)
+        {
+            MaximizedClick?.Invoke(e);
+        }
+
+        /// <summary>The minimize button click.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
         protected virtual void OnMinimizeClick(object sender, EventArgs e)
         {
-            ParentForm.WindowState = FormWindowState.Minimized;
-            MinimizeClick?.Invoke(new ControlBoxEventArgs(ParentForm));
+            MinimizeForm(ParentForm);
         }
 
         #endregion
 
         #region Methods
 
+        /// <summary>Toggles the form window state.</summary>
+        /// <param name="windowState">The form window state.</param>
+        /// <returns>The <see cref="FormWindowState" />.</returns>
+        public static FormWindowState ToggleFormWindowState(FormWindowState windowState)
+        {
+            return windowState == FormWindowState.Normal ? FormWindowState.Maximized : FormWindowState.Normal;
+        }
+
         /// <summary>Automatically places the <see cref="VisualControlBox" /> on the <see cref="Form" /> corner location.</summary>
         /// <param name="spacing">The spacing.</param>
         public void AutoPlaceOnForm(int spacing)
         {
             Location = new Point(((ParentForm.Location.X + ParentForm.Width) - Width) + spacing, 0);
+        }
+
+        /// <summary>Closes the form.</summary>
+        /// <param name="form">The form.</param>
+        public void CloseForm(Form form)
+        {
+            if (form == null)
+            {
+                form = ParentForm;
+            }
+
+            CloseClick?.Invoke(new ControlBoxEventArgs(form));
+            form.Close();
+        }
+
+        /// <summary>Maximizes the form.</summary>
+        /// <param name="form">The form.</param>
+        public void MaximizeForm(Form form)
+        {
+            if (form == null)
+            {
+                form = ParentForm;
+            }
+
+            if (form.WindowState == FormWindowState.Normal)
+            {
+                if (form is VisualForm visualForm)
+                {
+                    if (!visualForm.MaximizeBox)
+                    {
+                        // Disabled maximizing.
+                        return;
+                    }
+                }
+                else
+                {
+                    if (!form.MaximizeBox)
+                    {
+                        // Disabled maximizing.
+                        return;
+                    }
+                }
+
+                if (_maximizeButton.BoxType == ControlBoxButton.ControlBoxType.Default)
+                {
+                    _maximizeButton.Text = ControlBoxConstants.RestoreText;
+                }
+
+                form.WindowState = ToggleFormWindowState(form.WindowState);
+                MaximizeButton.Invalidate();
+                OnMaximizedClick(new ControlBoxEventArgs(form));
+            }
+        }
+
+        /// <summary>Minimizes the form.</summary>
+        /// <param name="form">The form.</param>
+        public void MinimizeForm(Form form)
+        {
+            if (form == null)
+            {
+                form = ParentForm;
+            }
+
+            form.WindowState = FormWindowState.Minimized;
+            MinimizeClick?.Invoke(new ControlBoxEventArgs(form));
+        }
+
+        /// <summary>Restores the form window.</summary>
+        /// <param name="form">The form.</param>
+        public void RestoreFormWindow(Form form)
+        {
+            if (form == null)
+            {
+                form = ParentForm;
+            }
+
+            if (form.WindowState == FormWindowState.Maximized)
+            {
+                if (form is VisualForm visualForm)
+                {
+                    if (!visualForm.MaximizeBox)
+                    {
+                        // Disabled restoring form.
+                        return;
+                    }
+                }
+                else
+                {
+                    if (!form.MaximizeBox)
+                    {
+                        // Disabled restoring form.
+                        return;
+                    }
+                }
+
+                if (_maximizeButton.BoxType == ControlBoxButton.ControlBoxType.Default)
+                {
+                    _maximizeButton.Text = ControlBoxConstants.MaximizeText;
+                }
+
+                form.WindowState = ToggleFormWindowState(form.WindowState);
+                Invalidate();
+                RestoredFormWindow?.Invoke(new ControlBoxEventArgs(form));
+            }
         }
 
         public void UpdateTheme(Theme theme)
@@ -410,7 +523,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 {
                     Location = new Point(0, 0),
                     Size = _buttonSize,
-                    Text = @"s",
+                    Text = ControlBoxConstants.HelpText,
                     OffsetLocation = new Point(0, 1)
                 };
 
@@ -421,7 +534,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 {
                     Location = new Point(_buttonSize.Width, 0),
                     Size = _buttonSize,
-                    Text = @"0",
+                    Text = ControlBoxConstants.MinimizeText,
                     OffsetLocation = new Point(2, 0)
                 };
 
@@ -432,7 +545,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 {
                     Location = new Point(_buttonSize.Width * 2, 0),
                     Size = _buttonSize,
-                    Text = @"1",
+                    Text = ControlBoxConstants.MaximizeText,
                     OffsetLocation = new Point(1, 1)
                 };
 
@@ -443,7 +556,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 {
                     Location = new Point(_buttonSize.Width * 3, 0),
                     Size = _buttonSize,
-                    Text = @"r",
+                    Text = ControlBoxConstants.CloseText,
                     OffsetLocation = new Point(1, 2)
                 };
 

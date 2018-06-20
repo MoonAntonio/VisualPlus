@@ -27,7 +27,6 @@ namespace UnitTests.Forms
         public UnitTestManager()
         {
             InitializeComponent();
-
             HelpButtonClicked += VisualControlBox_HelpClick;
         }
 
@@ -60,7 +59,7 @@ namespace UnitTests.Forms
             {
                 case UnitTests.VisualFormEmpty:
                     {
-                        _formToOpen = new VisualForm();
+                        _formToOpen = new VisualForm(Application.ProductName);
                         break;
                     }
 

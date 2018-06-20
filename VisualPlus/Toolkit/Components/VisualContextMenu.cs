@@ -35,11 +35,7 @@ namespace VisualPlus.Toolkit.Components
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the
-        ///     <see cref="T:VisualPlus.Toolkit.Components.VisualContextMenuStrip" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the<see cref="VisualContextMenu" /> class.</summary>
         public VisualContextMenu()
         {
             styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
@@ -146,6 +142,9 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
+        [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public new Color ForeColor
         {
             get
@@ -158,21 +157,6 @@ namespace VisualPlus.Toolkit.Components
                 base.ForeColor = value;
                 foreColor = value;
                 Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        public Color ItemHoverColor
-        {
-            get
-            {
-                return _itemHoverColor;
-            }
-
-            set
-            {
-                _itemHoverColor = value;
             }
         }
 
@@ -223,6 +207,21 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color TextHoverColor
+        {
+            get
+            {
+                return _textHoverColor;
+            }
+
+            set
+            {
+                _textHoverColor = value;
+            }
+        }
+
         #endregion
 
         #region Overrides
@@ -241,19 +240,19 @@ namespace VisualPlus.Toolkit.Components
                     Clicked?.Invoke(this);
                 }
             }
+
+            base.OnItemClicked(e);
         }
 
         protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
-            Cursor = Cursors.Hand;
             Invalidate();
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
-            Cursor = Cursors.Hand;
             Invalidate();
         }
 
@@ -263,9 +262,8 @@ namespace VisualPlus.Toolkit.Components
 
         private static bool _arrowVisible = Settings.DefaultValue.TextVisible;
         private static Color _backgroundColor;
-        private static Color _itemHoverColor;
         private static Color _selectedItemBackColor;
-
+        private static Color _textHoverColor;
         private static Color arrowColor;
         private static Color arrowDisabledColor;
         private static Border border;
@@ -292,7 +290,7 @@ namespace VisualPlus.Toolkit.Components
 
             _backgroundColor = styleManager.Theme.BackgroundSettings.Type1;
             _selectedItemBackColor = styleManager.Theme.ListItemSettings.ItemHover;
-            _itemHoverColor = styleManager.Theme.BorderSettings.Hover;
+            _textHoverColor = styleManager.Theme.TextSetting.Enabled;
         }
 
         public sealed class VisualToolStripRender : ToolStripProfessionalRenderer
@@ -337,7 +335,7 @@ namespace VisualPlus.Toolkit.Components
                 e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
                 Rectangle _itemTextRectangle = new Rectangle(25, e.Item.ContentRectangle.Y, e.Item.ContentRectangle.Width - (24 + 16), e.Item.ContentRectangle.Height - 4);
 
-                Color _itemTextColor = e.Item.Enabled ? e.Item.Selected ? _itemHoverColor : foreColor : textDisabledColor;
+                Color _itemTextColor = e.Item.Enabled ? e.Item.Selected ? _textHoverColor : foreColor : textDisabledColor;
 
                 StringFormat _stringFormat = new StringFormat
                     {

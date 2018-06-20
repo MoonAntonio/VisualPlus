@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 #endregion
@@ -122,6 +123,15 @@ namespace VisualPlus.Extensibility
             {
                 p.ScrollControlIntoView(c);
             }
+        }
+
+        /// <summary>Returns the size of the structure.</summary>
+        /// <typeparam name="T">The type.</typeparam>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="uint" />.</returns>
+        public static uint SizeOf<T>(this T value) where T : struct
+        {
+            return (uint)Marshal.SizeOf(typeof(T));
         }
 
         #endregion

@@ -48,6 +48,8 @@ namespace VisualPlus.Toolkit.Dialogs
         private readonly Dictionary<int, int> _resizedLocationsCommand;
         private Color _background;
         private Border _border;
+        private VisualContextMenu _contextMenuStrip;
+        private bool _defaultContextTitle;
         private bool _dropShadow;
         private bool _headerMouseDown;
         private bool _magnetic;
@@ -63,6 +65,7 @@ namespace VisualPlus.Toolkit.Dialogs
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
+        private VisualContextMenu _windowContextMenuStripTitle;
 
         #endregion
 
@@ -129,6 +132,13 @@ namespace VisualPlus.Toolkit.Dialogs
             VisualControlBox.Location = new Point(Width - VisualControlBox.Width - 16, _border.Thickness + 1);
 
             _textRectangle = new Rectangle(0, 7, 0, 0);
+
+            _contextMenuStrip = null;
+            _windowContextMenuStripTitle = null;
+            _defaultContextTitle = true;
+
+            UpdateContextMenuStripTitle();
+
             UpdateTheme(_styleManager.Theme);
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
@@ -225,6 +235,10 @@ namespace VisualPlus.Toolkit.Dialogs
 
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
+        public event EventHandler WindowContextMenuOpened;
+
+        [Category(EventCategory.PropertyChanged)]
+        [Description(EventDescription.PropertyEventChanged)]
         public event EventHandler WindowTitleClicked;
 
         #endregion
@@ -295,6 +309,23 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description("Gets or sets the ContextMenuStrip associated with this control.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public new VisualContextMenu ContextMenuStrip
+        {
+            get
+            {
+                return _contextMenuStrip;
+            }
+
+            set
+            {
+                _contextMenuStrip = value;
+            }
+        }
+
         [TypeConverter(typeof(VisualControlBoxConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
@@ -308,6 +339,23 @@ namespace VisualPlus.Toolkit.Dialogs
             set
             {
                 VisualControlBox = value;
+                UpdateContextMenuStripTitle();
+            }
+        }
+
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public bool DefaultContextTitle
+        {
+            get
+            {
+                return _defaultContextTitle;
+            }
+
+            set
+            {
+                _defaultContextTitle = value;
             }
         }
 
@@ -417,6 +465,7 @@ namespace VisualPlus.Toolkit.Dialogs
             set
             {
                 VisualControlBox.MaximizeButton.Visible = value;
+                UpdateContextMenuStripTitle();
             }
         }
 
@@ -432,6 +481,7 @@ namespace VisualPlus.Toolkit.Dialogs
             set
             {
                 VisualControlBox.MinimizeButton.Visible = value;
+                UpdateContextMenuStripTitle();
             }
         }
 
@@ -560,6 +610,23 @@ namespace VisualPlus.Toolkit.Dialogs
             {
                 _windowBarHeight = value;
                 Invalidate();
+            }
+        }
+
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description("Gets or sets the window ContextMenuStrip title associated with this control.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public VisualContextMenu WindowContextMenuStripTitle
+        {
+            get
+            {
+                return _windowContextMenuStripTitle;
+            }
+
+            set
+            {
+                _windowContextMenuStripTitle = value;
             }
         }
 
@@ -694,6 +761,8 @@ namespace VisualPlus.Toolkit.Dialogs
 
             try
             {
+                UpdateContextMenuStripTitle();
+
                 Graphics graphics = e.Graphics;
                 graphics.Clear(BackColor);
 
@@ -755,6 +824,7 @@ namespace VisualPlus.Toolkit.Dialogs
 
         protected override void WndProc(ref Message m)
         {
+            // FIX: Refactor to decrease complexity.
             base.WndProc(ref m);
             if (DesignMode || IsDisposed)
             {
@@ -785,7 +855,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
             else if ((m.Msg == FormConstants.WM_LBUTTONDOWN) && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
-                // Clicked in window title bar.
+                // Left-clicked in window title bar.
                 if (!_maximized)
                 {
                     User32.ReleaseCapture();
@@ -798,17 +868,69 @@ namespace VisualPlus.Toolkit.Dialogs
 
                 WindowTitleClicked?.Invoke(this, new EventArgs());
             }
+            else if ((m.Msg == FormConstants.WM_RBUTTONDOWN) && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
+            {
+                // Right-clicked in the window title bar.
+                if (!_maximized)
+                {
+                    User32.ReleaseCapture();
+                    User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, FormConstants.HT_CAPTION, 0);
+                }
+                else
+                {
+                    _headerMouseDown = true;
+                }
+
+                // Show the window title bar menu strip.
+                if (_windowContextMenuStripTitle != null)
+                {
+                    _windowContextMenuStripTitle.Show(Cursor.Position);
+                    WindowContextMenuOpened?.Invoke(this, new EventArgs());
+                }
+            }
             else if (m.Msg == FormConstants.WM_RBUTTONDOWN)
             {
+                // Right-clicked on form.
                 Point cursorPos = PointToClient(Cursor.Position);
 
+                // Right-clicked on the window title bar.
                 if (_titleBarRectangle.Contains(cursorPos))
                 {
-                    // Show default system menu when right clicking title bar
-                    int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), FormConstants.TPM_LEFTALIGN | FormConstants.TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
+                    // Retrieves the system menu.
+                    // IntPtr systemMenu = User32.GetSystemMenu(Handle, false);
 
-                    // Pass the command as a WM_SYSCOMMAND message
-                    User32.SendMessage(Handle, FormConstants.WM_SYSCOMMAND, id, 0);
+                    // Show default system menu when right clicking title bar.
+                    // int menuId = User32.TrackPopupMenuEx(systemMenu, FormConstants.TPM_LEFTALIGN | FormConstants.TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
+
+                    // Pass the command as a WM_SYSCOMMAND message.
+                    // User32.SendMessage(Handle, FormConstants.WM_SYSCOMMAND, menuId, 0);
+                }
+                else
+                {
+                    // Right-clicked outside the window title bar.
+                    _contextMenuStrip?.Show(this, PointToClient(Cursor.Position));
+                }
+            }
+            else if (m.Msg == FormConstants.WM_NCLBUTTONDOWN)
+            {
+                // This re-enables resizing by letting the application know when the
+                // user is trying to resize a side. This is disabled by default when using WS_SYSMENU.
+                if (!Sizable)
+                {
+                    return;
+                }
+
+                byte bFlag = 0;
+
+                // Get which side to resize from
+                if (_resizedLocationsCommand.ContainsKey((int)m.WParam))
+                {
+                    bFlag = (byte)_resizedLocationsCommand[(int)m.WParam];
+                }
+
+                if (bFlag != 0)
+                {
+                    User32.SendMessage(Handle, FormConstants.WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
                 }
             }
             else if (m.Msg == FormConstants.WM_NCLBUTTONDOWN)
@@ -1061,6 +1183,19 @@ namespace VisualPlus.Toolkit.Dialogs
             {
                 User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, _resizeDirection, 0);
             }
+        }
+
+        /// <summary>Update the context menu strip title.</summary>
+        private void UpdateContextMenuStripTitle()
+        {
+            if (!_defaultContextTitle)
+            {
+                return;
+            }
+
+            // Override the window context menu title with the default.
+            VisualContextMenu _defaultWindowContextMenuTitle = FormManager.WindowContextMenu(this);
+            _windowContextMenuStripTitle = _defaultWindowContextMenuTitle;
         }
 
         private class MouseMessageFilter : IMessageFilter
