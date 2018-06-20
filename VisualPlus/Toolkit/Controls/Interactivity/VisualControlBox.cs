@@ -353,6 +353,11 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         /// <param name="form">The form.</param>
         public void ToggleWindowState(Form form)
         {
+            if (form == null)
+            {
+                form = ParentForm;
+            }
+
             if (form is VisualForm visualForm)
             {
                 if (!visualForm.TitleToggleWindowState)
