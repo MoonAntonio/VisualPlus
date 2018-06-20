@@ -56,6 +56,7 @@ namespace VisualPlus.Toolkit.Dialogs
         private int _magneticRadius;
         private bool _maximized;
         private MouseStates _mouseState;
+        private bool _moveable;
         private Size _previousSize;
         private ResizeDirection _resizeDir;
         private StyleManager _styleManager;
@@ -119,6 +120,7 @@ namespace VisualPlus.Toolkit.Dialogs
             TransparencyKey = Color.Fuchsia;
             _windowBarHeight = 30;
             _previousSize = Size.Empty;
+            _moveable = true;
             _titleBarRectangle = new Rectangle(0, 0, Width, _windowBarHeight);
 
             _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16))
@@ -486,6 +488,22 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        public bool Moveable
+        {
+            get
+            {
+                return _moveable;
+            }
+
+            set
+            {
+                _moveable = value;
+            }
+        }
+
         [Category(PropertyCategory.WindowStyle)]
         [Description(PropertyDescription.ShowIcon)]
         public new bool ShowIcon
@@ -501,6 +519,8 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool Sizable { get; set; }
 
         [Category(PropertyCategory.Appearance)]
@@ -851,6 +871,7 @@ namespace VisualPlus.Toolkit.Dialogs
 
             if ((m.Msg == FormConstants.WM_MOUSEMOVE) && _maximized && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
+                // Fix: Not being called.
                 if (_headerMouseDown)
                 {
                     _maximized = false;
@@ -873,15 +894,16 @@ namespace VisualPlus.Toolkit.Dialogs
             }
             else if ((m.Msg == FormConstants.WM_LBUTTONDOWN) && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
+                _headerMouseDown = true;
+
                 // Left-clicked in window title bar.
                 if (!_maximized)
                 {
-                    User32.ReleaseCapture();
-                    User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, FormConstants.HT_CAPTION, 0);
-                }
-                else
-                {
-                    _headerMouseDown = true;
+                    if (_moveable)
+                    {
+                        User32.ReleaseCapture();
+                        User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, FormConstants.HT_CAPTION, 0);
+                    }
                 }
 
                 WindowTitleClicked?.Invoke(this, new EventArgs());
@@ -893,10 +915,6 @@ namespace VisualPlus.Toolkit.Dialogs
                 {
                     User32.ReleaseCapture();
                     User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, FormConstants.HT_CAPTION, 0);
-                }
-                else
-                {
-                    _headerMouseDown = true;
                 }
 
                 // Show the window title bar menu strip.

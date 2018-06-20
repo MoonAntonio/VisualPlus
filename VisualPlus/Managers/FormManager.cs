@@ -29,6 +29,58 @@ namespace VisualPlus.Managers
             return bitmap;
         }
 
+        /// <summary>Prepares the form for moving.</summary>
+        /// <param name="form">The form.</param>
+        public static void Move(Form form)
+        {
+            var defaultWindowHeight = 15;
+            Point center = new Point(form.Width / 2, defaultWindowHeight);
+
+            if (form is VisualForm visualForm)
+            {
+                if (visualForm.Moveable)
+                {
+                    center = new Point(visualForm.Width / 2, visualForm.WindowBarHeight / 2);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            Cursor.Position = form.PointToScreen(center);
+        }
+
+        /// <summary>Move the cursor to the form edge for sizing.</summary>
+        /// <param name="form">The form.</param>
+        public static void Sizing(Form form)
+        {
+            if (form.FormBorderStyle == FormBorderStyle.Fixed3D)
+            {
+                return;
+            }
+
+            if (form.FormBorderStyle == FormBorderStyle.FixedDialog)
+            {
+                return;
+            }
+
+            if (form.FormBorderStyle == FormBorderStyle.FixedToolWindow)
+            {
+                return;
+            }
+
+            if (form is VisualForm visualForm)
+            {
+                if (!visualForm.Sizable)
+                {
+                    return;
+                }
+            }
+
+            Cursor.Position = form.PointToScreen(new Point(form.Width - 1, form.Height - 1));
+        }
+
         /// <summary>Creates a default window context menu.</summary>
         /// <param name="form">The form.</param>
         /// <returns>The <see cref="VisualContextMenu" />.</returns>
@@ -52,11 +104,15 @@ namespace VisualPlus.Managers
 
             _restore.Image = DrawControlBoxIcon(new Size(20, 20), ControlBoxConstants.RestoreText);
 
-            ToolStripMenuItem _move = new ToolStripMenuItem("Move", null);
-            _move.Enabled = false;
+            ToolStripMenuItem _move = new ToolStripMenuItem("Move", null, (sender, args) => Move(form))
+                    {
+                       Enabled = form.Moveable 
+                    };
 
-            ToolStripMenuItem _size = new ToolStripMenuItem("Size", null);
-            _size.Enabled = false;
+            ToolStripMenuItem _size = new ToolStripMenuItem("Size", null, (sender, args) => Sizing(form))
+                    {
+                       Enabled = form.Sizable 
+                    };
 
             ToolStripMenuItem _minimize = new ToolStripMenuItem("Minimize", null, (sender, args) => form.ControlBox.MinimizeForm(form));
 
@@ -86,9 +142,13 @@ namespace VisualPlus.Managers
 
             ToolStripSeparator _separator = new ToolStripSeparator();
 
-            ToolStripMenuItem _close = new ToolStripMenuItem("Close", null, (sender, args) => form.ControlBox.CloseForm(form));
-            _close.Image = DrawControlBoxIcon(new Size(20, 20), ControlBoxConstants.CloseText);
+            ToolStripMenuItem _close = new ToolStripMenuItem("Close", null, (sender, args) => form.ControlBox.CloseForm(form))
+                {
+                    Image = DrawControlBoxIcon(new Size(20, 20), ControlBoxConstants.CloseText)
+                };
 
+            // Fix: shortcut keys drawing.
+            // _close.ShortcutKeys = Keys.Alt | Keys.F4;
             _contextMenu.Items.Add(_restore);
             _contextMenu.Items.Add(_move);
             _contextMenu.Items.Add(_size);
