@@ -110,6 +110,7 @@ namespace VisualPlus.Toolkit.Dialogs
             _dropShadow = true;
             _headerMouseDown = false;
             FormBorderStyle = FormBorderStyle.None;
+            TitleToggleWindowState = true;
             _magnetic = false;
             _magneticRadius = 100;
             Padding = new Padding(0, 0, 0, 0);
@@ -581,6 +582,12 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public bool TitleToggleWindowState { get; set; }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color WindowBarColor
@@ -674,6 +681,17 @@ namespace VisualPlus.Toolkit.Dialogs
         {
             base.OnDeactivate(e);
             State = MouseStates.Normal;
+        }
+
+        protected override void OnMouseDoubleClick(MouseEventArgs e)
+        {
+            // Toggle window state.
+            if (_titleBarRectangle.Contains(e.Location))
+            {
+                ControlBox.ToggleWindowState(this);
+            }
+
+            base.OnMouseDoubleClick(e);
         }
 
         protected override void OnMouseDown(MouseEventArgs e)

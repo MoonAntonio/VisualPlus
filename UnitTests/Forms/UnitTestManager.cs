@@ -53,8 +53,8 @@ namespace UnitTests.Forms
 
         private void BtnRunTest_Click(object sender, EventArgs e)
         {
-            Form _formToOpen;
-
+            VisualForm _formToOpen;
+            
             switch (_unitTest)
             {
                 case UnitTests.VisualFormEmpty:

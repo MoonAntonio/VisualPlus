@@ -208,15 +208,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         protected virtual void OnMaximizeClick(object sender, EventArgs e)
         {
             MaximizeClick?.Invoke(new ControlBoxEventArgs(ParentForm));
-
-            if (ParentForm.WindowState == FormWindowState.Normal)
-            {
-                MaximizeForm(ParentForm);
-            }
-            else
-            {
-                RestoreFormWindow(ParentForm);
-            }
+            ToggleWindowState(null);
         }
 
         /// <summary>Occurs when the form is maximized.</summary>
@@ -354,6 +346,28 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 form.WindowState = ToggleFormWindowState(form.WindowState);
                 Invalidate();
                 RestoredFormWindow?.Invoke(new ControlBoxEventArgs(form));
+            }
+        }
+
+        /// <summary>Toggle the window state between maximized and restored form.</summary>
+        /// <param name="form">The form.</param>
+        public void ToggleWindowState(Form form)
+        {
+            if (form is VisualForm visualForm)
+            {
+                if (!visualForm.TitleToggleWindowState)
+                {
+                    return;
+                }
+            }
+
+            if (form.WindowState == FormWindowState.Normal)
+            {
+                MaximizeForm(form);
+            }
+            else
+            {
+                RestoreFormWindow(form);
             }
         }
 
