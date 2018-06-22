@@ -18,7 +18,6 @@ using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.Dialogs;
 
 #endregion
 
@@ -625,7 +624,7 @@ namespace VisualPlus.Toolkit.Controls.Navigation
                 }
                 catch (Exception e)
                 {
-                    VisualExceptionDialog.Show(e);
+                    DebugTraceManager.WriteDebug(e, DebugTraceManager.DebugOutput.TraceListener);
                 }
             }
         }
@@ -787,7 +786,7 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                DebugTraceManager.WriteDebug(e, DebugTraceManager.DebugOutput.TraceListener);
             }
         }
 

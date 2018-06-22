@@ -2,7 +2,6 @@
 
 using System;
 using System.ComponentModel.Design;
-using System.Windows.Forms;
 
 using VisualPlus.Toolkit.Child;
 
@@ -31,7 +30,8 @@ namespace VisualPlus.Collections.CollectionsEditor
 
         protected override Type[] CreateNewItemTypes()
         {
-            return new[] { typeof(TabPage), typeof(VisualTabPage) };
+            // return new[] { typeof(TabPage), typeof(VisualTabPage) };
+            return new[] { typeof(VisualTabPage) };
         }
 
         #endregion
