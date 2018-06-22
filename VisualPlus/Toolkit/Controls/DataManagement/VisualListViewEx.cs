@@ -1930,6 +1930,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         {
             DebugTraceManager.WriteDebug("VisualListView::Paint", DebugTraceManager.DebugOutput.TraceListener);
 
+            // TODO: Allow rounded type.
             _border.Type = ShapeType.Rectangle;
 
             if (!DesignMode && _updating)
