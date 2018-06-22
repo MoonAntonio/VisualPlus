@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Design;
+using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -20,8 +21,10 @@ using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Native;
 using VisualPlus.Renders;
+using VisualPlus.Structure;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
+using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -38,7 +41,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
     // [Designer(typeof(VisualListViewAdvDesigner))]
     [ToolboxBitmap(typeof(VisualListViewEx), "VisualListView.bmp")]
     [ToolboxItem(true)]
-    public partial class VisualListViewEx : VisualControlBase
+    public partial class VisualListViewEx : VisualStyleBase
     {
         #region Variables
 
@@ -47,10 +50,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private bool _alternatingColors;
         private bool _autoHeight;
         private bool _backgroundStretchToFit;
-        private bool _borderVisible;
+        private Border _border;
         private Color _colorAlternateBackground;
         private Color _colorGridColor;
-        private Color _colorSelectionColor;
+        private ColorState _colorState;
         private Color _colorSuperFlatHeaderColor;
         private int _columnIndex;
         private VisualListViewColumnCollection _columns;
@@ -70,9 +73,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private int _headerHeight;
         private bool _headerVisible;
         private bool _headerWordWrap;
-        private BorderStrip _horizontalBottomBorderStrip;
         private ManagedHScrollBar _horizontalScrollBar;
-        private BorderStrip _horizontalTopBorderStrip;
         private int _hotColumnIndex;
         private bool _hoverColumnTracking;
         private VisualListViewColumn _hoveredColumn;
@@ -87,6 +88,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private ImageList _imageListItems;
         private int _itemHeight;
         private VisualListViewItemCollection _items;
+        private Color _itemSelectedColor;
+        private Color _itemSelectedTextColor;
         private bool _itemWordWrap;
         private Point _lastHoverSpot;
         private int _lastSelectionIndex;
@@ -98,7 +101,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private Point _pointColumnResizeAnchor;
         private int _resizeColumnNumber;
         private bool _selectable;
-        private Color _selectedTextColor;
         private bool _showFocusRectangle;
         private SortTypes _sortType;
         private ListStates _state;
@@ -106,8 +108,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private bool _themesAvailable;
         private Timer _timer;
         private bool _updating;
-        private BorderStrip _verticalLeftBorderStrip;
-        private BorderStrip _verticalRightBorderStrip;
         private ManagedVScrollBar _verticalScrollBar;
 
         #endregion
@@ -126,14 +126,13 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _fullRowSelect = true;
             _headerVisible = true;
             _selectable = true;
-            _borderVisible = false;
             _colorAlternateBackground = Color.DarkGreen;
             _colorGridColor = Color.LightGray;
-            _colorSelectionColor = Color.DarkBlue;
+            _itemSelectedColor = Color.DarkBlue;
             _colorSuperFlatHeaderColor = Color.White;
             _newLiveControls = new ArrayList();
             _sortType = SortTypes.InsertionSort;
-            _selectedTextColor = Color.White;
+            _itemSelectedTextColor = Color.White;
             _lastHoverSpot = new Point(0, 0);
             _state = ListStates.None;
             _itemHeight = 18;
@@ -189,7 +188,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             SetStyle(
                 ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.ResizeRedraw |
-                ControlStyles.Opaque |
                 ControlStyles.UserPaint |
                 ControlStyles.DoubleBuffer |
                 ControlStyles.Selectable |
@@ -197,6 +195,11 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 true);
 
             SuspendLayout();
+
+            _border = new Border
+                    {
+                       Type = ShapeType.Rectangle 
+                    };
 
             _horizontalScrollBar = new ManagedHScrollBar
                 {
@@ -228,38 +231,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _verticalScrollBar.Scroll += VerticalPanelScrollBar_Scroll;
             Controls.Add(_verticalScrollBar);
 
-            _horizontalTopBorderStrip = new BorderStrip
-                {
-                    Parent = this,
-                    BorderType = BorderStrip.BorderTypes.Top,
-                    Visible = false
-                };
-            _horizontalTopBorderStrip.BringToFront();
-
-            _horizontalBottomBorderStrip = new BorderStrip
-                {
-                    Parent = this,
-                    BorderType = BorderStrip.BorderTypes.Bottom,
-                    Visible = true
-                };
-            _horizontalBottomBorderStrip.BringToFront();
-
-            _verticalLeftBorderStrip = new BorderStrip
-                {
-                    BorderType = BorderStrip.BorderTypes.Left,
-                    Parent = this,
-                    Visible = true
-                };
-            _verticalLeftBorderStrip.BringToFront();
-
-            _verticalRightBorderStrip = new BorderStrip
-                {
-                    BorderType = BorderStrip.BorderTypes.Right,
-                    Parent = this,
-                    Visible = true
-                };
-            _verticalRightBorderStrip.BringToFront();
-
             _cornerBox = new BorderStrip
                 {
                     BackColor = SystemColors.Control,
@@ -269,7 +240,14 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 };
             _cornerBox.BringToFront();
 
+            _colorState = new ColorState
+                    {
+                       Enabled = ThemeManager.Theme.BackgroundSettings.Type4 
+                    };
+
             Size = new Size(121, 97);
+            UpdateTheme(ThemeManager.Theme);
+
             ResumeLayout(false);
         }
 
@@ -456,6 +434,33 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
+        [TypeConverter(typeof(ColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(PropertyCategory.Appearance)]
+        public ColorState BackColorState
+        {
+            get
+            {
+                return _colorState;
+            }
+
+            set
+            {
+                if (value == _colorState)
+                {
+                    return;
+                }
+
+                _colorState = value;
+
+                if (DesignMode && (Parent != null))
+                {
+                    DebugTraceManager.WriteDebug("Calling Invalidate from BackColorState property.", DebugTraceManager.DebugOutput.TraceListener);
+                    Parent.Invalidate(true);
+                }
+            }
+        }
+
         [Browsable(true)]
         [Category(EventCategory.Behavior)]
         [Description(PropertyDescription.Toggle)]
@@ -473,42 +478,28 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
-        [Browsable(false)]
-        [Category(EventCategory.Appearance)]
-        [Description(PropertyDescription.Size)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public int BorderPadding
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(PropertyCategory.Appearance)]
+        public Border Border
         {
             get
             {
-                if (BorderVisible)
-                {
-                    return 2;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
-
-        [Browsable(true)]
-        [Category(EventCategory.Appearance)]
-        [Description(PropertyDescription.Toggle)]
-        public bool BorderVisible
-        {
-            get
-            {
-                return _borderVisible;
+                return _border;
             }
 
             set
             {
-                _borderVisible = value;
+                if (value == _border)
+                {
+                    return;
+                }
+
+                _border = value;
 
                 if (DesignMode && (Parent != null))
                 {
+                    DebugTraceManager.WriteDebug("Calling Invalidate from Border property.", DebugTraceManager.DebugOutput.TraceListener);
                     Parent.Invalidate(true);
                 }
             }
@@ -608,6 +599,60 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 if (DesignMode && (Parent != null))
                 {
                     DebugTraceManager.WriteDebug("Calling Invalidate from ControlStyle Property", DebugTraceManager.DebugOutput.TraceListener);
+                    Parent.Invalidate(true);
+                }
+            }
+        }
+
+        /// <summary>Gets or sets the corner box properties.</summary>
+        [Browsable(false)]
+        public BorderStrip CornerBox
+        {
+            get
+            {
+                return _cornerBox;
+            }
+
+            set
+            {
+                if (value == _cornerBox)
+                {
+                    return;
+                }
+
+                _cornerBox = value;
+
+                if (DesignMode && (Parent != null))
+                {
+                    DebugTraceManager.WriteDebug("Calling Invalidate from CornerBox property.", DebugTraceManager.DebugOutput.TraceListener);
+                    Parent.Invalidate(true);
+                }
+            }
+        }
+
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Color)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        public Color CornerBoxColor
+        {
+            get
+            {
+                return _cornerBox.BackColor;
+            }
+
+            set
+            {
+                if (value == _cornerBox.BackColor)
+                {
+                    return;
+                }
+
+                _cornerBox.BackColor = value;
+
+                if (DesignMode && (Parent != null))
+                {
+                    DebugTraceManager.WriteDebug("Calling Invalidate from CornerBoxColor property.", DebugTraceManager.DebugOutput.TraceListener);
                     Parent.Invalidate(true);
                 }
             }
@@ -880,7 +925,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         {
             get
             {
-                return new Rectangle(BorderPadding, BorderPadding, Width - (BorderPadding * 2), HeaderHeight);
+                return new Rectangle(_border.Thickness, _border.Thickness, Width - (_border.Thickness * 2), HeaderHeight);
             }
         }
 
@@ -1194,6 +1239,40 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
+        [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        public Color ItemSelectedColor
+        {
+            get
+            {
+                return _itemSelectedColor;
+            }
+
+            set
+            {
+                _itemSelectedColor = value;
+            }
+        }
+
+        [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        public Color ItemSelectedTextColor
+        {
+            get
+            {
+                return _itemSelectedTextColor;
+            }
+
+            set
+            {
+                _itemSelectedTextColor = value;
+            }
+        }
+
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(PropertyDescription.Toggle)]
         [Category(PropertyCategory.Behavior)]
@@ -1272,12 +1351,12 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             get
             {
                 // The size of the header and the top border.
-                int _yHeaderHeight = HeaderHeight + BorderPadding;
+                int _yHeaderHeight = HeaderHeight + _border.Thickness;
 
                 // Total header height size including borders.
-                int _totalHeaderHeight = Height - HeaderHeight - (BorderPadding * 2);
+                int _totalHeaderHeight = Height - HeaderHeight - (_border.Thickness * 2);
 
-                return new Rectangle(BorderPadding, _yHeaderHeight, Width - (BorderPadding * 2), _totalHeaderHeight);
+                return new Rectangle(_border.Thickness, _yHeaderHeight, Width - (_border.Thickness * 2), _totalHeaderHeight);
             }
         }
 
@@ -1320,8 +1399,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             {
                 Rectangle _rowsRect = new Rectangle
                     {
-                        X = -_horizontalScrollBar.Value + BorderPadding,
-                        Y = HeaderHeight + BorderPadding,
+                        X = -_horizontalScrollBar.Value + _border.Thickness,
+                        Y = HeaderHeight + _border.Thickness,
                         Width = _columns.Width,
                         Height = RowsVisible * _itemHeight
                     };
@@ -1377,40 +1456,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             get
             {
                 return _items.SelectedItems;
-            }
-        }
-
-        [Browsable(true)]
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public Color SelectedTextColor
-        {
-            get
-            {
-                return _selectedTextColor;
-            }
-
-            set
-            {
-                _selectedTextColor = value;
-            }
-        }
-
-        [Browsable(true)]
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public Color SelectionColor
-        {
-            get
-            {
-                return _colorSelectionColor;
-            }
-
-            set
-            {
-                _colorSelectionColor = value;
             }
         }
 
@@ -1580,10 +1625,24 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             base.OnDoubleClick(e);
         }
 
+        protected override void OnEnter(EventArgs e)
+        {
+            base.OnEnter(e);
+            MouseState = MouseStates.Hover;
+            Invalidate();
+        }
+
         protected override void OnGotFocus(EventArgs e)
         {
             DestroyActivatedEmbedded();
             base.OnGotFocus(e);
+        }
+
+        protected override void OnLeave(EventArgs e)
+        {
+            base.OnLeave(e);
+            MouseState = MouseStates.Normal;
+            Invalidate();
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -1871,6 +1930,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         {
             DebugTraceManager.WriteDebug("VisualListView::Paint", DebugTraceManager.DebugOutput.TraceListener);
 
+            _border.Type = ShapeType.Rectangle;
+
             if (!DesignMode && _updating)
             {
                 return;
@@ -1880,6 +1941,9 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             RecalculateScroll();
 
             Graphics _graphics = e.Graphics;
+            _graphics.SmoothingMode = SmoothingMode.HighQuality;
+            _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
+
             int _insideWidth = _columns.Width > HeaderRectangle.Width ? _columns.Width : HeaderRectangle.Width;
 
             if (HeaderVisible)
@@ -1889,7 +1953,9 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
 
             _graphics.SetClip(RowsInnerClientRect);
-            ListViewRenderer.DrawRows(_graphics, this, _verticalScrollBar, _horizontalScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
+
+            Color backColorState = ColorState.BackColorState(_colorState, Enabled, MouseState);
+            ListViewRenderer.DrawRows(_graphics, this, backColorState, _verticalScrollBar, _horizontalScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
 
             // Update embedded controls.
             foreach (Control control in _liveControls)
@@ -1901,8 +1967,11 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _newLiveControls = new ArrayList();
 
             DrawDisplayText(_graphics);
-            _graphics.SetClip(ClientRectangle);
 
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(ClientRectangle, _border);
+
+            _graphics.SetClip(ClientRectangle);
+            VisualBorderRenderer.DrawBorderStyle(_graphics, _border, ControlGraphicsPath, MouseState);
             base.OnPaint(e);
         }
 
@@ -2160,8 +2229,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             {
                 LVQuickSort sorter = new LVQuickSort();
 
-                sorter.NumericCompare = Columns[column].NumericSort;
-                sorter.SortDirection = Columns[column].LastSortState;
+                sorter.NumericCompare = _columns[column].NumericSort;
+                sorter.SortDirection = _columns[column].LastSortState;
                 sorter.SortColumn = column;
                 sorter.LVInsertionSort(Items, 0, _items.Count - 1);
             }
@@ -2170,8 +2239,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 // this.SortIndex = nColumn;
                 LVMergeSort mergesort = new LVMergeSort();
 
-                mergesort.NumericCompare = Columns[column].NumericSort;
-                mergesort.SortDirection = Columns[column].LastSortState;
+                mergesort.NumericCompare = _columns[column].NumericSort;
+                mergesort.SortDirection = _columns[column].LastSortState;
                 mergesort.SortColumn = column;
                 mergesort.Sort(Items, 0, _items.Count - 1);
             }
@@ -2179,19 +2248,19 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             {
                 LVQuickSort sorter = new LVQuickSort();
 
-                sorter.NumericCompare = Columns[column].NumericSort;
-                sorter.SortDirection = Columns[column].LastSortState;
+                sorter.NumericCompare = _columns[column].NumericSort;
+                sorter.SortDirection = _columns[column].LastSortState;
                 sorter.SortColumn = column;
                 sorter.Sort(Items); // .QuickSort( Items, 0, Items.Count-1 );
             }
 
-            if (Columns[column].LastSortState == SortDirections.Descending)
+            if (_columns[column].LastSortState == SortDirections.Descending)
             {
-                Columns[column].LastSortState = SortDirections.Ascending;
+                _columns[column].LastSortState = SortDirections.Ascending;
             }
             else
             {
-                Columns[column].LastSortState = SortDirections.Descending;
+                _columns[column].LastSortState = SortDirections.Descending;
             }
 
             // Items.Sort();
@@ -2412,6 +2481,49 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             return false;
         }
 
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _colorAlternateBackground = theme.ListItemSettings.ItemAlternate;
+                _colorGridColor = theme.OtherSettings.Line;
+
+                _hoverTrackingColor = theme.ListItemSettings.ItemHover;
+                _itemSelectedColor = theme.ListItemSettings.ItemSelected;
+
+                _colorSuperFlatHeaderColor = theme.OtherSettings.ColumnHeader;
+
+                _itemSelectedTextColor = theme.TextSetting.Enabled;
+
+                _displayTextColor = theme.TextSetting.Disabled;
+                _displayTextFont = theme.TextSetting.Font;
+
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+
+                _cornerBox.BackColor = theme.BackgroundSettings.Type4;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
+
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
         /// <param name="columnIndex">The zero-based index of the column to resize.</param>
         /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
@@ -2502,7 +2614,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _iEmbeddedControl.LVEmbeddedControlLoad(item, subItem, this);
 
             _control.KeyPress += TextBox_KeyPress;
-
             _control.Parent = this;
             ActivatedEmbeddedControl = _control;
             if (_activatedEmbeddedControl != null)
@@ -2523,9 +2634,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 2, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 3);
             }
 
-            // control.Bounds = subItem.LastCellRect; //new Rectangle( subItem.LastCellRect.X, subItem.LastCellRect.Y + nYOffset, subItem.LastCellRect.Width, subItem.LastCellRect.Height );
             _control.Bounds = _controlBounds;
-
             _control.Show();
             _control.Focus();
         }
@@ -2605,7 +2714,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 ILVEmbeddedControl control = (ILVEmbeddedControl)_activatedEmbeddedControl;
                 control.LVEmbeddedControlUnload();
 
-                // must do this because the unload may call the changed callback from the items which would call this routine a second time
+                // Must do this because the unload may call the changed callback from the items which would call this routine a second time
                 if (_activatedEmbeddedControl != null)
                 {
                     _activatedEmbeddedControl.Dispose();
@@ -2677,16 +2786,16 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _lastHoverSpot = _pointLocalMouse;
         }
 
+        /// <summary>Initializes the component.</summary>
         private void InitializeComponent()
         {
-            BackColor = SystemColors.ControlLightLight;
-
             if (ControlStyle == LVControlStyles.XP)
             {
                 Application.EnableVisualStyles();
             }
 
             _components = new Container();
+            DoubleBuffered = true;
         }
 
         /// <summary>The item has changed event.</summary>
@@ -2835,36 +2944,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 }
             }
 
-            if (BorderPadding > 0)
-            {
-                _horizontalBottomBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Bottom - BorderPadding, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
-                _horizontalTopBorderStrip.Bounds = new Rectangle(0, ClientRectangle.Top, ClientRectangle.Width, BorderPadding); // horizontal bottom picture box
-                _verticalLeftBorderStrip.Bounds = new Rectangle(0, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
-                _verticalRightBorderStrip.Bounds = new Rectangle(ClientRectangle.Right - BorderPadding, 0, BorderPadding, ClientRectangle.Height); // horizontal bottom picture box
-            }
-            else
-            {
-                if (_horizontalBottomBorderStrip.Visible)
-                {
-                    _horizontalBottomBorderStrip.Visible = false;
-                }
-
-                if (_horizontalTopBorderStrip.Visible)
-                {
-                    _horizontalTopBorderStrip.Visible = false;
-                }
-
-                if (_verticalLeftBorderStrip.Visible)
-                {
-                    _verticalLeftBorderStrip.Visible = false;
-                }
-
-                if (_verticalRightBorderStrip.Visible)
-                {
-                    _verticalRightBorderStrip.Visible = false;
-                }
-            }
-
             if (_horizontalScrollBar.Visible && _verticalScrollBar.Visible)
             {
                 if (!_cornerBox.Visible)
@@ -2927,7 +3006,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             // this.Focus();
             DebugTraceManager.WriteDebug("Calling Invalidate From vPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
-            Invalidate();
+            Parent.Invalidate(true);
         }
 
         #endregion

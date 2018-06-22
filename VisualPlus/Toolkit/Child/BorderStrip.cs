@@ -9,7 +9,8 @@ using System.Windows.Forms;
 
 namespace VisualPlus.Toolkit.Child
 {
-    internal class BorderStrip : Control
+    [ToolboxItem(false)]
+    public class BorderStrip : Control
     {
         #region Variables
 

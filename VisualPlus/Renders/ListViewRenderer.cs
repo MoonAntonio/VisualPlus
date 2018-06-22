@@ -17,6 +17,7 @@ using VisualPlus.Structure;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Controls.DataManagement;
 using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
+using VisualPlus.Toolkit.VisualBase;
 
 using ContentAlignment = System.Drawing.ContentAlignment;
 
@@ -388,7 +389,7 @@ namespace VisualPlus.Renders
             // this can all be overridden by the sub item background property make sure anything can even be selected before drawing selection rectangles
             if (item.Selected && listView.Selectable)
             {
-                using (SolidBrush _brushBackground = new SolidBrush(Color.FromArgb(255, listView.SelectionColor.R, listView.SelectionColor.G, listView.SelectionColor.B)))
+                using (SolidBrush _brushBackground = new SolidBrush(Color.FromArgb(255, listView.ItemSelectedColor.R, listView.ItemSelectedColor.G, listView.ItemSelectedColor.B)))
                 {
                     if (!listView.FullRowSelect)
                     {
@@ -435,7 +436,7 @@ namespace VisualPlus.Renders
                 }
             }
 
-            int _xCursor = -hPanelScrollBar.Value + listView.BorderPadding;
+            int _xCursor = -hPanelScrollBar.Value + listView.Border.Thickness;
             for (var subItemIndex = 0; subItemIndex < listView.Columns.Count; subItemIndex++)
             {
                 Rectangle _subItemRectangle = new Rectangle(_xCursor, rectRow.Y, listView.Columns[subItemIndex].Width, rectRow.Height);
@@ -487,16 +488,17 @@ namespace VisualPlus.Renders
         /// <summary>Draw client rows of list control.</summary>
         /// <param name="graphicsRows">The graphics row.</param>
         /// <param name="listView">The list View.</param>
+        /// <param name="backColor">The back Color.</param>
         /// <param name="vPanelScrollBar">The v Panel Scroll Bar.</param>
         /// <param name="hPanelScrollBar">The h Panel Scroll Bar.</param>
         /// <param name="_newLiveControls">The new Live Controls.</param>
         /// <param name="_liveControls">The live Controls.</param>
         /// <param name="checkBoxSize">The check Box Size.</param>
-        public static void DrawRows(Graphics graphicsRows, VisualListViewEx listView, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
+        public static void DrawRows(Graphics graphicsRows, VisualListViewEx listView, Color backColor, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawRows", DebugTraceManager.DebugOutput.TraceListener);
 
-            using (SolidBrush _clientRowsViewBrush = new SolidBrush(listView.BackColor))
+            using (SolidBrush _clientRowsViewBrush = new SolidBrush(backColor))
             {
                 graphicsRows.FillRectangle(_clientRowsViewBrush, listView.RowsClientRectangle);
             }
@@ -583,12 +585,14 @@ namespace VisualPlus.Renders
                 {
                     _control.Parent = listView;
                 }
+                
+                // Update the control BackColor to the current list view BackColorState.
+                if (_control is VisualControlBase visualControlBase)
+                {
+                    visualControlBase.BackColor = ColorState.BackColorState(listView.BackColorState, listView.Enabled, listView.MouseState);
+                }
 
-                Rectangle _subItemRectangle = new Rectangle(
-                    _controlRectangle.X,
-                    _controlRectangle.Y + 1,
-                    _controlRectangle.Width,
-                    _controlRectangle.Height - 1);
+                Rectangle _subItemRectangle = new Rectangle(_controlRectangle.X, _controlRectangle.Y + 1, _controlRectangle.Width, _controlRectangle.Height - 1);
 
                 // Type _type = _control.GetType();
                 PropertyInfo _propertyInfo = _control.GetType().GetProperty("PreferredHeight");
@@ -647,7 +651,7 @@ namespace VisualPlus.Renders
                 Color textColor;
                 if (item.Selected && listView.Selectable)
                 {
-                    textColor = listView.SelectedTextColor;
+                    textColor = listView.ItemSelectedTextColor;
                 }
                 else
                 {
