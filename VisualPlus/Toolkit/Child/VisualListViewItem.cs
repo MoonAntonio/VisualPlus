@@ -2,12 +2,12 @@
 
 using System;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
 
 using VisualPlus.Collections.CollectionsBase;
-using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
@@ -439,10 +439,12 @@ namespace VisualPlus.Toolkit.Child
             }
         }
 
+        // Fix: Throws unable to cast error on custom collection editor.
+        // [Editor(typeof(VisualListViewSubItemCollectionEditor), typeof(UITypeEditor))]
         [Browsable(true)]
         [Category(PropertyCategory.Data)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        // [Editor(typeof(VisualListViewSubItemCollectionEditor), typeof(UITypeEditor))]
+        [Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
         public VisualListViewSubItemCollection SubItems
         {
             get
