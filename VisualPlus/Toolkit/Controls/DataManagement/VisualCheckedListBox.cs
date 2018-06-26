@@ -22,6 +22,7 @@ using VisualPlus.Toolkit.VisualBase;
 
 namespace VisualPlus.Toolkit.Controls.DataManagement
 {
+    [Obsolete]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
