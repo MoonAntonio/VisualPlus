@@ -15,6 +15,7 @@ using VisualPlus.Collections.CollectionsBase;
 using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Constants;
 using VisualPlus.Delegates;
+using VisualPlus.Designer;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
@@ -37,11 +38,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [Description("The Visual ListView")]
-
-    // [Designer(typeof(VisualListViewAdvDesigner))]
+    [Designer(typeof(VisualListViewAdvDesigner))]
     [ToolboxBitmap(typeof(VisualListViewEx), "VisualListView.bmp")]
     [ToolboxItem(true)]
-    public partial class VisualListViewEx : VisualStyleBase
+    public class VisualListViewEx : VisualStyleBase, IThemeSupport
     {
         #region Variables
 
