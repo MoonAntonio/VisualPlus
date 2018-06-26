@@ -442,7 +442,7 @@ namespace VisualPlus.Toolkit.Child
         [Browsable(true)]
         [Category(PropertyCategory.Data)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Editor(typeof(VisualListViewSubItemCollectionEditor), typeof(UITypeEditor))]
+        // [Editor(typeof(VisualListViewSubItemCollectionEditor), typeof(UITypeEditor))]
         public VisualListViewSubItemCollection SubItems
         {
             get

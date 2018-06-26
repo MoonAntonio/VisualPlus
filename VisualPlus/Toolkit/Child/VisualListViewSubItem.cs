@@ -128,7 +128,7 @@ namespace VisualPlus.Toolkit.Child
             }
         }
 
-        [Browsable(false)]
+        [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description(PropertyDescription.Toggle)]
         public bool CheckBox
@@ -148,7 +148,7 @@ namespace VisualPlus.Toolkit.Child
             }
         }
 
-        [Browsable(false)]
+        [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description(PropertyDescription.Toggle)]
         public bool Checked

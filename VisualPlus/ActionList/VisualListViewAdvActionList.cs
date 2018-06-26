@@ -68,9 +68,9 @@ namespace VisualPlus.ActionList
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
                 {
-                    new DesignerActionPropertyItem("Items", "Edit Items..."),
                     new DesignerActionPropertyItem("Columns", "Edit Columns..."),
-                    
+                    new DesignerActionPropertyItem("Items", "Edit Items..."),
+
                     // new DesignerActionPropertyItem("Groups", "Edit Groups..."),
                     new DesignerActionMethodItem(this, "DockContainer", _dockText)
                 };

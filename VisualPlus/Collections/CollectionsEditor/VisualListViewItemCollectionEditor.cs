@@ -31,6 +31,11 @@ namespace VisualPlus.Collections.CollectionsEditor
 
         #region Overrides
 
+        protected override Type CreateCollectionItemType()
+        {
+            return typeof(VisualListViewItem);
+        }
+
         protected override object CreateInstance(Type itemType)
         {
             object[] _items;
@@ -50,6 +55,11 @@ namespace VisualPlus.Collections.CollectionsEditor
             ((VisualListViewItem)_item).Text = _itemName;
 
             return _item;
+        }
+
+        protected override Type[] CreateNewItemTypes()
+        {
+            return new[] { typeof(VisualListViewItem) };
         }
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider isp, object value)
