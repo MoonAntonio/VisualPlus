@@ -48,7 +48,7 @@ namespace VisualPlus.Toolkit.Dialogs
         private readonly Dictionary<int, int> _resizedLocationsCommand;
         private Color _background;
         private Border _border;
-        private VisualContextMenu _contextMenuStrip;
+        private ContextMenuStrip _contextMenuStrip;
         private bool _defaultContextTitle;
         private bool _dropShadow;
         private bool _headerMouseDown;
@@ -66,7 +66,7 @@ namespace VisualPlus.Toolkit.Dialogs
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
-        private VisualContextMenu _windowContextMenuStripTitle;
+        private ContextMenuStrip _windowContextMenuStripTitle;
 
         #endregion
 
@@ -316,7 +316,7 @@ namespace VisualPlus.Toolkit.Dialogs
         [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets the ContextMenuStrip associated with this control.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public new VisualContextMenu ContextMenuStrip
+        public new ContextMenuStrip ContextMenuStrip
         {
             get
             {
@@ -630,7 +630,7 @@ namespace VisualPlus.Toolkit.Dialogs
         [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets the window ContextMenuStrip title associated with this control.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public VisualContextMenu WindowContextMenuStripTitle
+        public ContextMenuStrip WindowContextMenuStripTitle
         {
             get
             {
@@ -1224,7 +1224,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
 
             // Override the window context menu title with the default.
-            VisualContextMenu _defaultWindowContextMenuTitle = FormManager.WindowContextMenu(this);
+            ContextMenuStrip _defaultWindowContextMenuTitle = FormManager.WindowContextMenu(this);
             _windowContextMenuStripTitle = _defaultWindowContextMenuTitle;
         }
 

@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using VisualPlus.Constants;
-using VisualPlus.Toolkit.Components;
 using VisualPlus.Toolkit.Dialogs;
 
 #endregion
@@ -83,10 +82,10 @@ namespace VisualPlus.Managers
 
         /// <summary>Creates a default window context menu.</summary>
         /// <param name="form">The form.</param>
-        /// <returns>The <see cref="VisualContextMenu" />.</returns>
-        public static VisualContextMenu WindowContextMenu(VisualForm form)
+        /// <returns>The <see cref="ContextMenuStrip" />.</returns>
+        public static ContextMenuStrip WindowContextMenu(VisualForm form)
         {
-            VisualContextMenu _contextMenu = new VisualContextMenu
+            ContextMenuStrip _contextMenu = new ContextMenuStrip
                     {
                        Name = Application.ProductName 
                     };
@@ -143,12 +142,11 @@ namespace VisualPlus.Managers
             ToolStripSeparator _separator = new ToolStripSeparator();
 
             ToolStripMenuItem _close = new ToolStripMenuItem("Close", null, (sender, args) => form.ControlBox.CloseForm(form))
-                {
-                    Image = DrawControlBoxIcon(new Size(20, 20), ControlBoxConstants.CloseText)
-                };
+                    {
+                       Image = DrawControlBoxIcon(new Size(20, 20), ControlBoxConstants.CloseText) 
+                    };
 
-            // Fix: shortcut keys drawing.
-            // _close.ShortcutKeys = Keys.Alt | Keys.F4;
+            _close.ShortcutKeys = Keys.Alt | Keys.F4;
             _contextMenu.Items.Add(_restore);
             _contextMenu.Items.Add(_move);
             _contextMenu.Items.Add(_size);
