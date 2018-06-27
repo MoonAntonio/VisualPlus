@@ -192,9 +192,22 @@ namespace VisualPlus.Renders
 
             if (listView.ControlStyle == LVControlStyles.SuperFlat)
             {
-                using (SolidBrush _columnRectangleBrush = new SolidBrush(listView.SuperFlatHeaderColor))
+                SolidBrush columnRectangleBrush;
+
+                if (column.State == ColumnStates.None)
                 {
-                    graphicsColumn.FillRectangle(_columnRectangleBrush, columnRectangle);
+                    columnRectangleBrush = new SolidBrush(listView.ColumnColorState.Enabled);
+                    graphicsColumn.FillRectangle(columnRectangleBrush, columnRectangle);
+                }
+                else if (column.State == ColumnStates.Pressed)
+                {
+                    columnRectangleBrush = new SolidBrush(listView.ColumnColorState.Pressed);
+                    graphicsColumn.FillRectangle(columnRectangleBrush, columnRectangle);
+                }
+                else if (column.State == ColumnStates.Hover)
+                {
+                    columnRectangleBrush = new SolidBrush(listView.ColumnColorState.Hover);
+                    graphicsColumn.FillRectangle(columnRectangleBrush, columnRectangle);
                 }
             }
             else if ((listView.ControlStyle == LVControlStyles.XP) && listView.ThemesAvailable)
@@ -264,7 +277,7 @@ namespace VisualPlus.Renders
             // Draw the column header background.
             if (listView.ControlStyle == LVControlStyles.SuperFlat)
             {
-                SolidBrush _headerRectangleBrush = new SolidBrush(listView.SuperFlatHeaderColor);
+                SolidBrush _headerRectangleBrush = new SolidBrush(listView.ColumnColorState.Enabled);
                 graphicHeader.FillRectangle(_headerRectangleBrush, listView.HeaderRectangle);
                 _headerRectangleBrush.Dispose();
             }
@@ -527,7 +540,7 @@ namespace VisualPlus.Renders
 
             Rectangle _rectangleRow = listView.RowsRectangle;
             _rectangleRow.Height = listView.ItemHeight;
-          
+
             // Draw rows.
             for (var item = 0; (item < listView.RowsVisible + 1) && (item + _startItem < listView.Items.Count); item++)
             {
@@ -583,7 +596,7 @@ namespace VisualPlus.Renders
                 {
                     _control.Parent = listView;
                 }
-                
+
                 // Update the control BackColor to the current list view BackColorState.
                 if (_control is VisualControlBase visualControlBase)
                 {

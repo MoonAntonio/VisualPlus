@@ -94,7 +94,6 @@
             this.visualListViewExTest.Selectable = true;
             this.visualListViewExTest.Size = new System.Drawing.Size(511, 259);
             this.visualListViewExTest.SortType = VisualPlus.Enumerators.SortTypes.InsertionSort;
-            this.visualListViewExTest.SuperFlatHeaderColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.visualListViewExTest.TabIndex = 0;
             this.visualListViewExTest.Text = "visualListViewAdvanced1";
             this.visualListViewExTest.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));

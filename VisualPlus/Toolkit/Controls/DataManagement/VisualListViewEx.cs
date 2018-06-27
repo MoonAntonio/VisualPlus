@@ -54,9 +54,9 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private Color _colorAlternateBackground;
         private Color _colorGridColor;
         private ColorState _colorState;
-        private Color _colorSuperFlatHeaderColor;
         private int _columnIndex;
         private VisualListViewColumnCollection _columns;
+        private ControlColorState _columnColorState;
         private IContainer _components;
         private LVControlStyles _controlStyle;
         private BorderStrip _cornerBox;
@@ -119,6 +119,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         {
             DebugTraceManager.WriteDebug("VisualListView::Constructor", DebugTraceManager.DebugOutput.TraceListener);
 
+            _columnColorState = new ControlColorState();
             _liveControls = new ArrayList();
             _allowColumnResize = true;
             _autoHeight = true;
@@ -126,10 +127,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _fullRowSelect = true;
             _headerVisible = true;
             _selectable = true;
-            _colorAlternateBackground = Color.DarkGreen;
-            _colorGridColor = Color.LightGray;
-            _itemSelectedColor = Color.DarkBlue;
-            _colorSuperFlatHeaderColor = Color.White;
             _newLiveControls = new ArrayList();
             _sortType = SortTypes.InsertionSort;
             _itemSelectedTextColor = Color.White;
@@ -142,7 +139,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _columnIndex = -1;
             _headerHeight = 22;
             _theme = IntPtr.Zero;
-            _hoverTrackingColor = Color.LightGray;
             _gridType = GridTypes.Normal;
             _gridLineStyle = GridLineStyle.Solid;
             _gridLines = GridLines.Both;
@@ -153,7 +149,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _hoveredItem = null;
             _hoveredColumn = null;
             _displayTextOnEmpty = true;
-            _displayTextColor = Color.DimGray;
             _displayText = "The list is empty.";
             _displayTextFont = DefaultFont;
             _showFocusRectangle = false;
@@ -555,6 +550,34 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 }
 
                 return _checkedItems;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [TypeConverter(typeof(ColorStateConverter))]
+        public ControlColorState ColumnColorState
+        {
+            get
+            {
+                return _columnColorState;
+            }
+
+            set
+            {
+                if (value == _columnColorState)
+                {
+                    return;
+                }
+
+                _columnColorState = value;
+
+                if (DesignMode && (Parent != null))
+                {
+                    DebugTraceManager.WriteDebug("Calling Invalidate from ColumnColorState property.", DebugTraceManager.DebugOutput.TraceListener);
+                    Parent.Invalidate(true);
+                }
             }
         }
 
@@ -1490,28 +1513,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             set
             {
                 _sortType = value;
-            }
-        }
-
-        [Browsable(true)]
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public Color SuperFlatHeaderColor
-        {
-            get
-            {
-                return _colorSuperFlatHeaderColor;
-            }
-
-            set
-            {
-                _colorSuperFlatHeaderColor = value;
-
-                if (DesignMode && (Parent != null))
-                {
-                    Parent.Invalidate(true);
-                }
             }
         }
 
@@ -2498,10 +2499,13 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _colorAlternateBackground = theme.ListItemSettings.ItemAlternate;
                 _colorGridColor = theme.OtherSettings.Line;
 
+                _columnColorState.Enabled = theme.OtherSettings.ColumnHeader;
+                _columnColorState.Disabled = theme.OtherSettings.ColumnHeader;
+                _columnColorState.Hover = theme.ListItemSettings.ItemHover;
+                _columnColorState.Pressed = theme.OtherSettings.ColumnHeader;
+
                 _hoverTrackingColor = theme.ListItemSettings.ItemHover;
                 _itemSelectedColor = theme.ListItemSettings.ItemSelected;
-
-                _colorSuperFlatHeaderColor = theme.OtherSettings.ColumnHeader;
 
                 _itemSelectedTextColor = theme.TextSetting.Enabled;
 
