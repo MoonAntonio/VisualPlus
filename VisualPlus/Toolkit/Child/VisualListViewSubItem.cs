@@ -1,6 +1,5 @@
 ﻿#region Namespace
 
-using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -21,13 +20,14 @@ namespace VisualPlus.Toolkit.Child
 {
     [DesignTimeVisible(true)]
     [TypeConverter(typeof(VisualListViewSubItemConverter))]
-    public class VisualListViewSubItem : ICloneable
+    public class VisualListViewSubItem
     {
         #region Variables
 
         private Color _backColor;
         private bool _checkBox;
         private bool _checked;
+        private Control _embeddedControl;
         private Hashtable _embeddedControlProperties;
         private Font _font;
         private bool _forceText;
@@ -41,7 +41,6 @@ namespace VisualPlus.Toolkit.Child
         private bool _selected;
         private object _tag;
         private string _text;
-        private Control embeddedControl;
 
         #endregion
 
@@ -56,7 +55,7 @@ namespace VisualPlus.Toolkit.Child
             _selected = false;
             _tag = null;
             _forceText = false;
-            embeddedControl = null;
+            _embeddedControl = null;
             _listView = null;
             _checked = false;
             _checkBox = false;
@@ -66,6 +65,7 @@ namespace VisualPlus.Toolkit.Child
             _font = SystemFonts.DefaultFont;
             _owner = null;
             _text = string.Empty;
+            _name = string.Empty;
         }
 
         /// <summary>Initializes a new instance of the <see cref="VisualListViewSubItem" /> class.</summary>
@@ -174,15 +174,15 @@ namespace VisualPlus.Toolkit.Child
         {
             get
             {
-                return embeddedControl;
+                return _embeddedControl;
             }
 
             set
             {
-                if (embeddedControl != value)
+                if (_embeddedControl != value)
                 {
-                    embeddedControl = value;
-                    embeddedControl.Visible = false;
+                    _embeddedControl = value;
+                    _embeddedControl.Visible = false;
                 }
             }
         }
@@ -401,11 +401,11 @@ namespace VisualPlus.Toolkit.Child
             {
                 if ((_listView != null) && (_listView.ActivatedEmbeddedControl != null))
                 {
-                    ILVEmbeddedControl _embeddedControl = (ILVEmbeddedControl)_listView.ActivatedEmbeddedControl;
-                    if ((_embeddedControl != null) && (_embeddedControl.SubItem == this))
+                    ILVEmbeddedControl _iLvEmbeddedControl = (ILVEmbeddedControl)_listView.ActivatedEmbeddedControl;
+                    if ((_iLvEmbeddedControl != null) && (_iLvEmbeddedControl.SubItem == this))
                     {
-                        Debug.WriteLine(_embeddedControl.LVEmbeddedControlReturnText());
-                        return _embeddedControl.LVEmbeddedControlReturnText();
+                        Debug.WriteLine(_iLvEmbeddedControl.LVEmbeddedControlReturnText());
+                        return _iLvEmbeddedControl.LVEmbeddedControlReturnText();
                     }
                 }
 
@@ -417,8 +417,6 @@ namespace VisualPlus.Toolkit.Child
                 if (_text != value)
                 {
                     _text = value;
-
-                    // _owner?.UpdateSubItems(-1);
                     ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.SubItemChanged, null, null, this));
                 }
             }
@@ -431,15 +429,6 @@ namespace VisualPlus.Toolkit.Child
         public override string ToString()
         {
             return GetType().Name + ": {" + _text + "}";
-        }
-
-        #endregion
-
-        #region Methods
-
-        public object Clone()
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

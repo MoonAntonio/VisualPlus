@@ -19,8 +19,6 @@ using VisualPlus.Toolkit.Controls.DataManagement;
 using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
 using VisualPlus.Toolkit.VisualBase;
 
-using ContentAlignment = System.Drawing.ContentAlignment;
-
 #endregion
 
 namespace VisualPlus.Renders
@@ -100,7 +98,7 @@ namespace VisualPlus.Renders
         /// <param name="textColor">The text color.</param>
         /// <param name="selected">The selected toggle.</param>
         /// <param name="listView">The list View.</param>
-        public static void DrawCellText(Graphics graphics, Rectangle rectangle, string cellText, Font font, ContentAlignment alignment, Color textColor, bool selected, VisualListViewEx listView)
+        public static void DrawCellText(Graphics graphics, Rectangle rectangle, string cellText, Font font, System.Drawing.ContentAlignment alignment, Color textColor, bool selected, VisualListViewEx listView)
         {
             int _interiorWidth = rectangle.Width - (listView.CellPaddingSize * 2);
 
@@ -529,7 +527,7 @@ namespace VisualPlus.Renders
 
             Rectangle _rectangleRow = listView.RowsRectangle;
             _rectangleRow.Height = listView.ItemHeight;
-
+          
             // Draw rows.
             for (var item = 0; (item < listView.RowsVisible + 1) && (item + _startItem < listView.Items.Count); item++)
             {
