@@ -34,7 +34,7 @@ namespace VisualPlus.Toolkit.Child
         private Color _foreColor;
         private HorizontalAlignment _imageAlignment;
         private int _imageIndex;
-        private Rectangle _lastCellRect;
+        private Rectangle lastCellRectangle;
         private VisualListViewEx _listView;
         private string _name;
         private VisualListViewItem _owner;
@@ -60,7 +60,7 @@ namespace VisualPlus.Toolkit.Child
             _checked = false;
             _checkBox = false;
             _embeddedControlProperties = null;
-            _lastCellRect = new Rectangle(0, 0, 0, 0);
+            lastCellRectangle = new Rectangle(0, 0, 0, 0);
             _foreColor = Color.Black;
             _font = SystemFonts.DefaultFont;
             _owner = null;
@@ -297,18 +297,19 @@ namespace VisualPlus.Toolkit.Child
             }
         }
 
+        /// <summary>The last rectangle that text was drawn into.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Rectangle LastCellRect
+        public Rectangle LastCellRectangle
         {
             get
             {
-                return _lastCellRect;
+                return lastCellRectangle;
             }
 
             set
             {
-                _lastCellRect = value;
+                lastCellRectangle = value;
             }
         }
 
@@ -329,6 +330,7 @@ namespace VisualPlus.Toolkit.Child
 
         [Browsable(true)]
         [Category(PropertyCategory.Design)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Name
         {
             get
@@ -346,6 +348,8 @@ namespace VisualPlus.Toolkit.Child
             }
         }
 
+        /// <summary>The owner control.</summary>
+        [Browsable(false)]
         public VisualListViewItem Owner
         {
             get

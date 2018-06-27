@@ -52,6 +52,7 @@ namespace VisualPlus.Collections.CollectionsBase
 
         [Browsable(false)]
         [Description(PropertyDescription.Parent)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public VisualListViewEx ListView
         {
             get
@@ -139,6 +140,7 @@ namespace VisualPlus.Collections.CollectionsBase
         /// <summary>Gets or sets the item at the specified index within the collection.</summary>
         /// <param name="index">The index of the item in the collection to get or set.</param>
         /// <returns>The <see cref="VisualListViewItem" />.</returns>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public virtual VisualListViewItem this[int index]
         {
             get

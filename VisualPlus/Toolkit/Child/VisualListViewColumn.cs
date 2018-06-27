@@ -55,7 +55,7 @@ namespace VisualPlus.Toolkit.Child
             _imageIndex = -1;
             _lastSortDirection = SortDirections.Descending;
             _textAlignment = ContentAlignment.MiddleLeft;
-            _width = 100;
+            _width = 150;
             _tag = null;
             _listView = null;
             _numericSort = false;

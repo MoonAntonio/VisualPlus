@@ -180,12 +180,12 @@ namespace VisualPlus.Collections.CollectionsBase
 
                 while (List.Count <= index)
                 {
-                    VisualListViewSubItem newitem = new VisualListViewSubItem();
-                    newitem.ChangedEvent += SubItem_Changed;
-                    newitem.ListView = ListView;
+                    VisualListViewSubItem newItem = new VisualListViewSubItem();
+                    newItem.ChangedEvent += SubItem_Changed;
+                    newItem.ListView = _listView;
 
-                    // newitem.Control = Parent.Columns[ nItemIndex ]
-                    List.Add(newitem); // if the index doesn't yet exist, fill in the subitems till it does
+                    // If the index doesn't yet exist, fill in the subitems till it does.
+                    List.Add(newItem);
 
                     if (bailOut++ > 25)
                     {
@@ -504,7 +504,7 @@ namespace VisualPlus.Collections.CollectionsBase
                 List.Insert(index, item);
             }
 
-            ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.SubItemCollectionChanged, null, null, null));
+            ChangedEvent?.Invoke(this, new ListViewChangedEventArgs(ListViewChangedTypes.SubItemCollectionChanged, null, null, item));
             return item;
         }
 

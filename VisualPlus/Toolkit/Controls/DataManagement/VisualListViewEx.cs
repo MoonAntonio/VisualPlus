@@ -2623,7 +2623,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             ActivatedEmbeddedControl = _control;
             if (_activatedEmbeddedControl != null)
             {
-                int _yOffset = (subItem.LastCellRect.Height - _activatedEmbeddedControl.Bounds.Height) / 2;
+                int _yOffset = (subItem.LastCellRectangle.Height - _activatedEmbeddedControl.Bounds.Height) / 2;
             }
 
             Rectangle _controlBounds;
@@ -2631,12 +2631,12 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             if (GridLineStyle == GridLineStyle.None)
             {
                 // Add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
-                _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 1, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 2);
+                _controlBounds = new Rectangle(subItem.LastCellRectangle.X + 1, subItem.LastCellRectangle.Y + 1, subItem.LastCellRectangle.Width - 3, subItem.LastCellRectangle.Height - 2);
             }
             else
             {
                 // Add 1 to x to give border, add 2 to Y because to account for possible grid that you must cover up
-                _controlBounds = new Rectangle(subItem.LastCellRect.X + 1, subItem.LastCellRect.Y + 2, subItem.LastCellRect.Width - 3, subItem.LastCellRect.Height - 3);
+                _controlBounds = new Rectangle(subItem.LastCellRectangle.X + 1, subItem.LastCellRectangle.Y + 2, subItem.LastCellRectangle.Width - 3, subItem.LastCellRectangle.Height - 3);
             }
 
             _control.Bounds = _controlBounds;

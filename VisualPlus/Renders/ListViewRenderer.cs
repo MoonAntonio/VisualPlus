@@ -19,6 +19,8 @@ using VisualPlus.Toolkit.Controls.DataManagement;
 using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
 using VisualPlus.Toolkit.VisualBase;
 
+using ContentAlignment = System.Drawing.ContentAlignment;
+
 #endregion
 
 namespace VisualPlus.Renders
@@ -98,7 +100,7 @@ namespace VisualPlus.Renders
         /// <param name="textColor">The text color.</param>
         /// <param name="selected">The selected toggle.</param>
         /// <param name="listView">The list View.</param>
-        public static void DrawCellText(Graphics graphics, Rectangle rectangle, string cellText, Font font, System.Drawing.ContentAlignment alignment, Color textColor, bool selected, VisualListViewEx listView)
+        public static void DrawCellText(Graphics graphics, Rectangle rectangle, string cellText, Font font, ContentAlignment alignment, Color textColor, bool selected, VisualListViewEx listView)
         {
             int _interiorWidth = rectangle.Width - (listView.CellPaddingSize * 2);
 
@@ -627,6 +629,7 @@ namespace VisualPlus.Renders
 
                 if (_control.Bounds.ToString() != _subItemRectangle.ToString())
                 {
+                    // Forces to invalidate.
                     _control.Bounds = _subItemRectangle;
                 }
 
@@ -678,7 +681,7 @@ namespace VisualPlus.Renders
                 }
 
                 DrawCellText(graphicsSubItem, rectSubItem, subItem.Text, font, listView.Columns[column].TextAlignment, textColor, item.Selected, listView);
-                subItem.LastCellRect = rectSubItem; // important to ONLY catch the area where the text is drawn
+                subItem.LastCellRectangle = rectSubItem; // important to ONLY catch the area where the text is drawn
             }
         }
 

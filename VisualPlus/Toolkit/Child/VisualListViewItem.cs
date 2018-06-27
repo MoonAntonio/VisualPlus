@@ -8,6 +8,7 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 
 using VisualPlus.Collections.CollectionsBase;
+using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
@@ -184,7 +185,7 @@ namespace VisualPlus.Toolkit.Child
         [Browsable(true)]
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color BackColor
         {
             get
@@ -211,8 +212,8 @@ namespace VisualPlus.Toolkit.Child
         }
 
         [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description(PropertyDescription.Toggle)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool CheckBox
         {
             get
@@ -227,8 +228,8 @@ namespace VisualPlus.Toolkit.Child
         }
 
         [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description(PropertyDescription.Toggle)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool Checked
         {
             get
@@ -245,7 +246,7 @@ namespace VisualPlus.Toolkit.Child
         [Browsable(true)]
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Font)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Font Font
         {
             get
@@ -274,7 +275,7 @@ namespace VisualPlus.Toolkit.Child
         [Browsable(true)]
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color ForeColor
         {
             get
@@ -320,6 +321,7 @@ namespace VisualPlus.Toolkit.Child
         [Category(EventCategory.Behavior)]
         [Description("ImageList to be used for sub items.")]
         [RefreshProperties(RefreshProperties.Repaint)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ImageList ImageList
         {
             get
@@ -475,7 +477,7 @@ namespace VisualPlus.Toolkit.Child
         [Browsable(true)]
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Text)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Text
         {
             get
