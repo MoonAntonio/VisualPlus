@@ -34,13 +34,13 @@ namespace VisualPlus.Toolkit.Child
         private Color _foreColor;
         private HorizontalAlignment _imageAlignment;
         private int _imageIndex;
-        private Rectangle lastCellRectangle;
         private VisualListViewEx _listView;
         private string _name;
         private VisualListViewItem _owner;
         private bool _selected;
         private object _tag;
         private string _text;
+        private Rectangle lastCellRectangle;
 
         #endregion
 
@@ -314,7 +314,7 @@ namespace VisualPlus.Toolkit.Child
         }
 
         [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public VisualListViewEx ListView
         {
             get
@@ -363,6 +363,7 @@ namespace VisualPlus.Toolkit.Child
             }
         }
 
+        /// <summary>Indicates when an item is selected.</summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Selected

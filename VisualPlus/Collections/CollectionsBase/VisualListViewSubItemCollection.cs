@@ -36,6 +36,7 @@ namespace VisualPlus.Collections.CollectionsBase
         public VisualListViewSubItemCollection()
         {
             _lastAccessedIndex = -1;
+            _listView = null;
             _owner = null;
         }
 

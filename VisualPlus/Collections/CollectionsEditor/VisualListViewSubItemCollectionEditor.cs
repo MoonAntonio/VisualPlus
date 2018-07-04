@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 
 using VisualPlus.Toolkit.Child;
-using VisualPlus.Toolkit.Controls.DataManagement;
 
 #endregion
 
@@ -64,11 +63,11 @@ namespace VisualPlus.Collections.CollectionsEditor
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider isp, object value)
         {
-            VisualListViewEx originalControl = (VisualListViewEx)context.Instance;
+            VisualListViewItem originalControl = (VisualListViewItem)context.Instance;
 
             object returnObject = base.EditValue(context, isp, value);
 
-            originalControl.Refresh();
+            originalControl.ListView.Refresh();
             return returnObject;
         }
 

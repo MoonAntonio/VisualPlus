@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Design;
@@ -54,9 +55,9 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private Color _colorAlternateBackground;
         private Color _colorGridColor;
         private ColorState _colorState;
+        private ControlColorState _columnColorState;
         private int _columnIndex;
         private VisualListViewColumnCollection _columns;
-        private ControlColorState _columnColorState;
         private IContainer _components;
         private LVControlStyles _controlStyle;
         private BorderStrip _cornerBox;
@@ -1252,7 +1253,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Category(PropertyCategory.Data)]
         [Description("The items in the collection.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Editor(typeof(VisualListViewItemCollectionEditor), typeof(UITypeEditor))]
+        [Editor(typeof(CollectionEditor), typeof(UITypeEditor))]
         [Browsable(true)]
         public VisualListViewItemCollection Items
         {
@@ -1760,7 +1761,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _focusedItemIndex = _itemIndex;
                 FocusedItem = _items[_itemIndex];
 
-                if (((ModifierKeys & Keys.Control) == Keys.Control) && MultiSelect)
+                if (((ModifierKeys & Keys.Control) == Keys.Control) && _multiSelect)
                 {
                     _lastSelectionIndex = _itemIndex;
 
@@ -1778,7 +1779,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 }
 
                 // Shift based multi row select -------------------------------------------------------
-                if (((ModifierKeys & Keys.Shift) == Keys.Shift) && MultiSelect)
+                if (((ModifierKeys & Keys.Shift) == Keys.Shift) && _multiSelect)
                 {
                     _items.ClearSelection();
                     if (_lastSelectionIndex >= 0)
@@ -2057,7 +2058,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     }
                     else if (_keyCode == Keys.Space)
                     {
-                        if (!MultiSelect)
+                        if (!_multiSelect)
                         {
                             _items.ClearSelection(_items[_itemIndex]);
                         }
@@ -2109,7 +2110,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                             _items.ClearSelection();
 
                             // Gotta catch when the multi select is NOT set
-                            if (!MultiSelect)
+                            if (!_multiSelect)
                             {
                                 _items[_itemIndex].Selected = !_items[_itemIndex].Selected;
                             }
@@ -2940,7 +2941,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _horizontalScrollBar.MWidth = _rectangleClient.Width;
 
                 _horizontalScrollBar.MLargeChange = _rectangleClient.Width; // this re-all is the size we want to move
-                _horizontalScrollBar.MMaximum = Columns.Width;
+                _horizontalScrollBar.MMaximum = _columns.Width;
 
                 if (_horizontalScrollBar.Value + _horizontalScrollBar.LargeChange > _horizontalScrollBar.Maximum)
                 {

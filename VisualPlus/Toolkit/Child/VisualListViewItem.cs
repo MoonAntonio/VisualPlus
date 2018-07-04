@@ -8,7 +8,6 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 
 using VisualPlus.Collections.CollectionsBase;
-using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
@@ -201,13 +200,13 @@ namespace VisualPlus.Toolkit.Child
                 }
                 else
                 {
-                    return _subItemCollection[0].BackColor;
+                    return _backColor;
                 }
             }
 
             set
             {
-                _subItemCollection[0].BackColor = value;
+                _backColor = value;
             }
         }
 
@@ -291,13 +290,13 @@ namespace VisualPlus.Toolkit.Child
                 }
                 else
                 {
-                    return _subItemCollection[0].ForeColor;
+                    return _foreColor;
                 }
             }
 
             set
             {
-                _subItemCollection[0].ForeColor = value;
+                _foreColor = value;
             }
         }
 
@@ -385,7 +384,7 @@ namespace VisualPlus.Toolkit.Child
         }
 
         [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color RowBorderColor
         {
             get
@@ -400,7 +399,7 @@ namespace VisualPlus.Toolkit.Child
         }
 
         [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int RowBorderSize
         {
             get
@@ -474,10 +473,10 @@ namespace VisualPlus.Toolkit.Child
             }
         }
 
-        [Browsable(true)]
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Text)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        // [Browsable(false)]
+        // [Category(PropertyCategory.Appearance)]
+        // [Description(PropertyDescription.Text)]
+        // [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Text
         {
             get

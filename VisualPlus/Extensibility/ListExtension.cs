@@ -18,7 +18,7 @@ namespace VisualPlus.Extensibility
             return list.Count + 1;
         }
 
-        /// <summary>Determines if the index is valid for the collection..</summary>
+        /// <summary>Determines if the index is valid for the collection.</summary>
         /// <param name="list">The list.</param>
         /// <param name="index">The zero-based index of the item.</param>
         /// <returns>The <see cref="bool" />.</returns>
