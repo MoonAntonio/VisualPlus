@@ -1,6 +1,6 @@
 ﻿namespace UnitTests.Tests
 {
-    partial class FormTest
+    partial class VisualControlBoxTest
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTest));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VisualControlBoxTest));
             this.TControlBox = new VisualPlus.Toolkit.Controls.Interactivity.VisualToggle();
             this.LControlBoxToggle = new VisualPlus.Toolkit.Controls.Interactivity.VisualLabel();
             this.LMinimzeBox = new VisualPlus.Toolkit.Controls.Interactivity.VisualLabel();
@@ -176,7 +176,7 @@
             this.TMaximize.Type = VisualPlus.Toolkit.Controls.Interactivity.VisualToggle.ToggleTypes.YesNo;
             this.TMaximize.ToggleChanged += new VisualPlus.Delegates.ToggleChangedEventHandler(this.TMaximize_ToggleChanged);
             // 
-            // FormTest
+            // VisualControlBoxTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -217,7 +217,7 @@
             this.ControlBox.HelpButton.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.HelpButton.TextStyle.Hover = System.Drawing.Color.Empty;
             this.ControlBox.HelpButton.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.ControlBox.Location = new System.Drawing.Point(239, 3);
+            this.ControlBox.Location = new System.Drawing.Point(239, 4);
             // 
             // 
             // 
@@ -292,9 +292,9 @@
             this.Image.Visible = true;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
-            this.Name = "FormTest";
-            this.Text = "FormTest";
-            this.TextRectangle = new System.Drawing.Rectangle(143, 7, 52, 14);
+            this.Name = "VisualControlBoxTest";
+            this.Text = "VisualControlBox Test";
+            this.TextRectangle = new System.Drawing.Rectangle(110, 7, 118, 14);
             this.ResumeLayout(false);
 
         }

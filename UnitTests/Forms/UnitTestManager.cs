@@ -38,10 +38,10 @@ namespace UnitTests.Forms
         private enum UnitTests
         {
             /// <summary>The VisualForm.</summary>
-            VisualFormEmpty = 0,
+            VisualForm = 0,
 
-            /// <summary>The VisualForm.</summary>
-            VisualFormTest = 1,
+            /// <summary>The VisualControlBox.</summary>
+            VisualControlBox = 1,
 
             /// <summary>The list view.</summary>
             VisualListView = 2
@@ -57,15 +57,15 @@ namespace UnitTests.Forms
             
             switch (_unitTest)
             {
-                case UnitTests.VisualFormEmpty:
+                case UnitTests.VisualForm:
                     {
-                        _formToOpen = new VisualForm(Application.ProductName);
+                        _formToOpen = new VisualForm($@"{nameof(VisualForm)} Test");
                         break;
                     }
 
-                case UnitTests.VisualFormTest:
+                case UnitTests.VisualControlBox:
                     {
-                        _formToOpen = new FormTest();
+                        _formToOpen = new VisualControlBoxTest();
                         break;
                     }
 

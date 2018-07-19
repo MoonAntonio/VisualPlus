@@ -8,11 +8,11 @@ using VisualPlus.Toolkit.Dialogs;
 namespace UnitTests.Tests
 {
     /// <summary>The form test.</summary>
-    public partial class FormTest : VisualForm
+    public partial class VisualControlBoxTest : VisualForm
     {
         #region Constructors
 
-        public FormTest()
+        public VisualControlBoxTest()
         {
             InitializeComponent();
         }

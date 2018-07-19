@@ -61,11 +61,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Tests\FormTest.cs">
+    <Compile Include="Tests\VisualControlBoxTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tests\FormTest.Designer.cs">
-      <DependentUpon>FormTest.cs</DependentUpon>
+    <Compile Include="Tests\VisualControlBoxTest.Designer.cs">
+      <DependentUpon>VisualControlBoxTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Tests\VisualListViewTest.cs">
       <SubType>Form</SubType>
@@ -89,8 +89,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tests\FormTest.resx">
-      <DependentUpon>FormTest.cs</DependentUpon>
+    <EmbeddedResource Include="Tests\VisualControlBoxTest.resx">
+      <DependentUpon>VisualControlBoxTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tests\VisualListViewTest.resx">
       <DependentUpon>VisualListViewTest.cs</DependentUpon>
