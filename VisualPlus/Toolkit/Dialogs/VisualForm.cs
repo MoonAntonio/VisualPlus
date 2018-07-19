@@ -1053,7 +1053,7 @@ namespace VisualPlus.Toolkit.Dialogs
         {
             try
             {
-                Size _textSize = GraphicsManager.MeasureTextRenderer(Text, Font);
+                Size _textSize = TextManager.MeasureTextRenderer(Text, Font);
 
                 // Fixes: Lower hanging characters like 'g'.
                 _textSize.Height = _textSize.Height + 1;

@@ -1133,7 +1133,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             _borderButton.Location = new Point(_buttonRectangle.X, _border.Thickness);
             _borderButton.Size = new Size(1, Height - _border.Thickness - 1);
 
-            Size textSize = GraphicsManager.MeasureText(_buttontext, _buttonFont, graphics);
+            Size textSize = TextManager.MeasureText(_buttontext, _buttonFont, graphics);
             graphics.SetClip(buttonPath);
             graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + _buttonIndent, (Height / 2) - (textSize.Height / 2)));
             graphics.ResetClip();
@@ -1185,11 +1185,11 @@ namespace VisualPlus.Toolkit.Controls.Editors
         {
             if (_textBox.TextLength > 0)
             {
-                return GraphicsManager.MeasureTextRenderer(Text, Font).Height;
+                return TextManager.MeasureTextRenderer(Text, Font).Height;
             }
             else
             {
-                return GraphicsManager.MeasureTextRenderer("Hello World.", Font).Height;
+                return TextManager.MeasureTextRenderer("Hello World.", Font).Height;
             }
         }
 

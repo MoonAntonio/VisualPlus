@@ -1027,7 +1027,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
             else
             {
-                int _textHeight = GraphicsManager.MeasureText(Items[e.Index].ToString(), Font, e.Graphics).Height;
+                int _textHeight = TextManager.MeasureText(Items[e.Index].ToString(), Font, e.Graphics).Height;
 
                 if (_imageList != null)
                 {

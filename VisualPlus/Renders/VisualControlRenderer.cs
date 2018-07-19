@@ -70,7 +70,7 @@ namespace VisualPlus.Renders
 
             int _xPosition;
             int _yPosition;
-            Size _textSize = GraphicsManager.MeasureText(text, font, graphics);
+            Size _textSize = TextManager.MeasureText(text, font, graphics);
 
             switch (stringFormat.Alignment)
             {

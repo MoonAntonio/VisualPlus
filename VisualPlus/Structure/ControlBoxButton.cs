@@ -216,7 +216,7 @@ namespace VisualPlus.Structure
                     case ControlBoxType.Default:
                         {
                             Font _specialFont = new Font("Marlett", 12);
-                            _stringSize = GraphicsManager.MeasureText(Text, _specialFont, _graphics);
+                            _stringSize = TextManager.MeasureText(Text, _specialFont, _graphics);
                             Point _location = new Point(((Width / 2) - (_stringSize.Width / 2)) + _offsetLocation.X, ((Height / 2) - (_stringSize.Height / 2)) + _offsetLocation.Y);
 
                             _graphics.DrawString(Text, _specialFont, new SolidBrush(_foreColor), _location);
@@ -232,7 +232,7 @@ namespace VisualPlus.Structure
 
                     case ControlBoxType.Text:
                         {
-                            _stringSize = GraphicsManager.MeasureText(Text, Font, _graphics);
+                            _stringSize = TextManager.MeasureText(Text, Font, _graphics);
                             Point _location = new Point(((Width / 2) - (_stringSize.Width / 2)) + _offsetLocation.X, ((Height / 2) - (_stringSize.Height / 2)) + _offsetLocation.Y);
 
                             _graphics.DrawString(Text, Font, new SolidBrush(_foreColor), _location);

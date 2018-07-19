@@ -330,7 +330,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
-            _textSize = GraphicsManager.MeasureText(Text, Font, _graphics);
+            _textSize = TextManager.MeasureText(Text, Font, _graphics);
             Point _textLocation = new Point(_box.Right + _boxSpacing, (ClientRectangle.Height / 2) - (_textSize.Height / 2));
             Color _textColor = Enabled ? ForeColor : TextStyle.Disabled;
 

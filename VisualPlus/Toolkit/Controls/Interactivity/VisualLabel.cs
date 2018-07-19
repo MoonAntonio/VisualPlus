@@ -348,7 +348,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
             if (_reflection && (_orientation == Orientation.Vertical))
             {
-                textBoxRectangle = new Rectangle(GraphicsManager.MeasureText(Text, Font, graphics).Height, 0, ClientRectangle.Width, ClientRectangle.Height);
+                textBoxRectangle = new Rectangle(TextManager.MeasureText(Text, Font, graphics).Height, 0, ClientRectangle.Width, ClientRectangle.Height);
             }
             else
             {
@@ -452,17 +452,17 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             {
                 case Orientation.Horizontal:
                     {
-                        imageGraphics.TranslateTransform(0, GraphicsManager.MeasureText(Text, Font, graphics).Height);
+                        imageGraphics.TranslateTransform(0, TextManager.MeasureText(Text, Font, graphics).Height);
                         imageGraphics.ScaleTransform(1, -1);
 
-                        reflectionLocation = new Point(0, textBoxRectangle.Y - (GraphicsManager.MeasureText(Text, Font, graphics).Height / 2) - _reflectionSpacing);
+                        reflectionLocation = new Point(0, textBoxRectangle.Y - (TextManager.MeasureText(Text, Font, graphics).Height / 2) - _reflectionSpacing);
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
                         imageGraphics.ScaleTransform(-1, 1);
-                        reflectionLocation = new Point((textBoxRectangle.X - (GraphicsManager.MeasureText(Text, Font, graphics).Width / 2)) + _reflectionSpacing, 0);
+                        reflectionLocation = new Point((textBoxRectangle.X - (TextManager.MeasureText(Text, Font, graphics).Width / 2)) + _reflectionSpacing, 0);
                         break;
                     }
 

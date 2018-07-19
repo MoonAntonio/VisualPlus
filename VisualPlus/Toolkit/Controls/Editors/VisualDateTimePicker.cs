@@ -507,7 +507,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                     }
                 }
 
-                Size textSize = GraphicsManager.MeasureText(Text, Font);
+                Size textSize = TextManager.MeasureText(Text, Font);
 
                 Rectangle textBoxRectangle = new Rectangle(2 + _check, (Height / 2) - (textSize.Height / 2), textSize.Width, textSize.Height);
                 TextRenderer.DrawText(e.Graphics, Text, Font, textBoxRectangle, ForeColor, TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
