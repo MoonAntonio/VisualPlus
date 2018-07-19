@@ -47,6 +47,19 @@ namespace VisualPlus.Collections.CollectionsBase
             _owner = owner;
         }
 
+        /// <summary>Initializes a new instance of the <see cref="VisualListViewSubItemCollection" /> class.</summary>
+        /// <param name="listView">The <see cref="VisualListViewEx" /> that owns the collection.</param>
+        public VisualListViewSubItemCollection(VisualListViewEx listView) : this()
+        {
+            _listView = listView;
+
+            // Iterate through each item and send them to the parent.
+            foreach (VisualListViewSubItem _subItem in List)
+            {
+                _subItem.ListView = _listView;
+            }
+        }
+
         #endregion
 
         #region Events

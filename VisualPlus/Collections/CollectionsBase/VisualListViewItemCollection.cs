@@ -32,10 +32,10 @@ namespace VisualPlus.Collections.CollectionsBase
         #region Constructors
 
         /// <summary>Initializes a new instance of the <see cref="VisualListViewItemCollection" /> class.</summary>
-        /// <param name="owner">The new Parent.</param>
-        public VisualListViewItemCollection(VisualListViewEx owner)
+        /// <param name="listView">The new Parent.</param>
+        public VisualListViewItemCollection(VisualListViewEx listView)
         {
-            ListView = owner;
+            ListView = listView;
         }
 
         #endregion

@@ -84,14 +84,16 @@ namespace UnitTests.Tests
         /// <summary>Generate the column.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="imageIndex">The image index.</param>
-        /// <returns>The <see cref="VisualListViewColumn" />.</returns>
-        private VisualListViewColumn GenerateColumn(string text, int imageIndex)
+        /// <param name="width">The width.</param>
+        /// <returns>The <see cref="VisualListViewColumn"/>.</returns>
+        private VisualListViewColumn GenerateColumn(string text, int imageIndex, int width)
         {
             VisualListViewColumn _column = new VisualListViewColumn(text)
                 {
                     TextAlignment = ContentAlignment.MiddleCenter,
-                    ImageIndex = imageIndex
-                };
+                    ImageIndex = imageIndex,
+                    Width = width
+            };
 
             return _column;
         }
@@ -139,17 +141,17 @@ namespace UnitTests.Tests
 
         private void VisualListViewTest_Load(object sender, EventArgs e)
         {
-            VisualListViewColumn _title = GenerateColumn("Title", 0);
+            VisualListViewColumn _title = GenerateColumn("Title", 0, 150);
             _title.CheckBox = true;
             _title.CheckBoxes = true;
 
-            VisualListViewColumn _content = GenerateColumn("Content", 1);
+            VisualListViewColumn _content = GenerateColumn("Content", 1, 150);
             _content.EmbeddedType = LVActivatedEmbeddedTypes.TextBox;
 
-            VisualListViewColumn _date = GenerateColumn("Date", 2);
+            VisualListViewColumn _date = GenerateColumn("Date", 2, 100);
             _date.EmbeddedType = LVActivatedEmbeddedTypes.DateTimePicker;
 
-            VisualListViewColumn _progress = GenerateColumn("Progress", 3);
+            VisualListViewColumn _progress = GenerateColumn("Progress", 3, 100);
 
             visualListViewExTest.Columns.Add(_title);
             visualListViewExTest.Columns.Add(_content);

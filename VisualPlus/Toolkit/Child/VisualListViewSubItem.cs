@@ -40,7 +40,7 @@ namespace VisualPlus.Toolkit.Child
         private bool _selected;
         private object _tag;
         private string _text;
-        private Rectangle lastCellRectangle;
+        private Rectangle _lastCellRectangle;
 
         #endregion
 
@@ -60,7 +60,7 @@ namespace VisualPlus.Toolkit.Child
             _checked = false;
             _checkBox = false;
             _embeddedControlProperties = null;
-            lastCellRectangle = new Rectangle(0, 0, 0, 0);
+            _lastCellRectangle = new Rectangle(0, 0, 0, 0);
             _foreColor = Color.Black;
             _font = SystemFonts.DefaultFont;
             _owner = null;
@@ -304,12 +304,12 @@ namespace VisualPlus.Toolkit.Child
         {
             get
             {
-                return lastCellRectangle;
+                return _lastCellRectangle;
             }
 
             set
             {
-                lastCellRectangle = value;
+                _lastCellRectangle = value;
             }
         }
 

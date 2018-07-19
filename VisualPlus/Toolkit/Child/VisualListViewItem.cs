@@ -3,6 +3,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
@@ -20,6 +21,7 @@ using VisualPlus.TypeConverters;
 
 namespace VisualPlus.Toolkit.Child
 {
+    [DebuggerStepThrough]
     [DesignTimeVisible(true)]
     [TypeConverter(typeof(VisualListViewItemConverter))]
     public class VisualListViewItem : ICloneable
@@ -48,7 +50,6 @@ namespace VisualPlus.Toolkit.Child
             _selected = false;
             _tag = null;
             _foreColor = Color.Black;
-            _listView = new VisualListViewEx();
             _rowBorderColor = Color.Black;
             _rowBorderSize = 0;
             _backColor = Color.White;
@@ -58,12 +59,27 @@ namespace VisualPlus.Toolkit.Child
 
             if (_listView != null)
             {
-                _subItemCollection = new VisualListViewSubItemCollection(this);
+                _subItemCollection = new VisualListViewSubItemCollection(_listView);
             }
             else
             {
                 _subItemCollection = new VisualListViewSubItemCollection();
             }
+
+            _subItemCollection.ChangedEvent += SubItemCollection_Changed;
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="VisualListViewItem" /> class.</summary>
+        /// <param name="listView">The list View.</param>
+        public VisualListViewItem(VisualListViewEx listView) : this()
+        {
+            _subItemCollection = new VisualListViewSubItemCollection(listView)
+                    {
+                       ListView = listView 
+                    };
+
+            _listView = listView;
+            _subItemCollection.ListView = _listView;
 
             _subItemCollection.ChangedEvent += SubItemCollection_Changed;
         }
@@ -561,7 +577,7 @@ namespace VisualPlus.Toolkit.Child
         /// <param name="e">The event args.</param>
         public void SubItemCollection_Changed(object source, ListViewChangedEventArgs e)
         {
-            DebugTraceManager.WriteDebug("VisualListView::SubItemCollection_Changed", DebugTraceManager.DebugOutput.TraceListener);
+            DebugTraceManager.WriteDebug("VisualListViewItem::SubItemCollection_Changed", DebugTraceManager.DebugOutput.TraceListener);
 
             if (ChangedEvent != null)
             {
@@ -569,7 +585,10 @@ namespace VisualPlus.Toolkit.Child
                 ChangedEvent(this, e);
             }
 
-            _listView.Invalidate();
+            if (_listView != null)
+            {
+                _listView.Invalidate();
+            }
         }
 
         #endregion
