@@ -2,7 +2,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Windows.Forms;
 
 using UnitTests.Tests;
 
@@ -54,7 +53,7 @@ namespace UnitTests.Forms
         private void BtnRunTest_Click(object sender, EventArgs e)
         {
             VisualForm _formToOpen;
-            
+
             switch (_unitTest)
             {
                 case UnitTests.VisualForm:
