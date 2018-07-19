@@ -23,15 +23,15 @@ namespace VisualPlus.Collections.CollectionsBase
     {
         #region Variables
 
-        private VisualListViewEx _listView;
+        private VisualListView _listView;
 
         #endregion
 
         #region Constructors
 
         /// <summary>Initializes a new instance of the <see cref="VisualListViewColumnCollection" /> class.</summary>
-        /// <param name="owner">The <see cref="VisualListViewEx" /> parent control.</param>
-        public VisualListViewColumnCollection(VisualListViewEx owner)
+        /// <param name="owner">The <see cref="VisualListView" /> parent control.</param>
+        public VisualListViewColumnCollection(VisualListView owner)
         {
             _listView = owner;
         }
@@ -50,7 +50,7 @@ namespace VisualPlus.Collections.CollectionsBase
 
         [Browsable(false)]
         [Description(PropertyDescription.Parent)]
-        public VisualListViewEx ListView
+        public VisualListView ListView
         {
             get
             {

@@ -37,7 +37,7 @@ namespace VisualPlus.Renders
         /// <param name="cellPaddingSize">The Cell Padding Size.</param>
         /// <param name="listView">The list View.</param>
         /// <returns>Returns the area of the cell that is left for you to put anything else on.</returns>
-        public static Rectangle DrawCellGraphic(Graphics graphicsCell, Rectangle rectCell, Image img, HorizontalAlignment alignment, int cellPaddingSize, VisualListViewEx listView)
+        public static Rectangle DrawCellGraphic(Graphics graphicsCell, Rectangle rectCell, Image img, HorizontalAlignment alignment, int cellPaddingSize, VisualListView listView)
         {
             int _cellY;
             int _cellX;
@@ -100,7 +100,7 @@ namespace VisualPlus.Renders
         /// <param name="textColor">The text color.</param>
         /// <param name="selected">The selected toggle.</param>
         /// <param name="listView">The list View.</param>
-        public static void DrawCellText(Graphics graphics, Rectangle rectangle, string cellText, Font font, ContentAlignment alignment, Color textColor, bool selected, VisualListViewEx listView)
+        public static void DrawCellText(Graphics graphics, Rectangle rectangle, string cellText, Font font, ContentAlignment alignment, Color textColor, bool selected, VisualListView listView)
         {
             int _interiorWidth = rectangle.Width - (listView.CellPaddingSize * 2);
 
@@ -144,7 +144,7 @@ namespace VisualPlus.Renders
         /// <param name="checkBoxSize">The check Box Size.</param>
         /// <param name="listView">The list View.</param>
         /// <returns>The <see cref="Rectangle" />.</returns>
-        public static Rectangle DrawCheckBox(Graphics graphicsCell, Rectangle rectCell, bool checkToggle, int checkBoxSize, VisualListViewEx listView)
+        public static Rectangle DrawCheckBox(Graphics graphicsCell, Rectangle rectCell, bool checkToggle, int checkBoxSize, VisualListView listView)
         {
             int th = checkBoxSize + (listView.CellPaddingSize * 2);
             int tw = checkBoxSize + (listView.CellPaddingSize * 2);
@@ -188,7 +188,7 @@ namespace VisualPlus.Renders
         /// <param name="column">The column.</param>
         /// <param name="theme">The theme.</param>
         /// <param name="listView">The list View.</param>
-        public static void DrawColumnHeader(Graphics graphicsColumn, Rectangle columnRectangle, VisualListViewColumn column, IntPtr theme, VisualListViewEx listView)
+        public static void DrawColumnHeader(Graphics graphicsColumn, Rectangle columnRectangle, VisualListViewColumn column, IntPtr theme, VisualListView listView)
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawColumnHeader - Text: " + column.Text, DebugTraceManager.DebugOutput.TraceListener);
 
@@ -272,7 +272,7 @@ namespace VisualPlus.Renders
         /// <param name="listView">The list View.</param>
         /// <param name="hPanelScrollBar">The h Panel Scroll Bar.</param>
         /// <param name="theme">The theme.</param>
-        public static void DrawColumnHeaders(Graphics graphicHeader, Size sizeHeader, VisualListViewEx listView, ManagedHScrollBar hPanelScrollBar, IntPtr theme)
+        public static void DrawColumnHeaders(Graphics graphicHeader, Size sizeHeader, VisualListView listView, ManagedHScrollBar hPanelScrollBar, IntPtr theme)
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawColumnHeaders - Count: " + listView.Columns.Count, DebugTraceManager.DebugOutput.TraceListener);
 
@@ -327,7 +327,7 @@ namespace VisualPlus.Renders
         /// <param name="vPanelScrollBar">The v Panel Scroll Bar.</param>
         /// <param name="hPanelScrollBar">The h Panel Scroll Bar.</param>
         /// <param name="listView">The list View.</param>
-        public static void DrawGridLines(Graphics rowsDC, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, VisualListViewEx listView)
+        public static void DrawGridLines(Graphics rowsDC, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, VisualListView listView)
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawGridLines", DebugTraceManager.DebugOutput.TraceListener);
 
@@ -394,7 +394,7 @@ namespace VisualPlus.Renders
         /// <param name="_newLiveControls">The _new Live Controls.</param>
         /// <param name="_liveControls">The _live Controls.</param>
         /// <param name="checkBoxSize">The check Box Size.</param>
-        public static void DrawRow(Graphics graphicsRow, Rectangle rectRow, VisualListViewItem item, int itemIndex, VisualListViewEx listView, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
+        public static void DrawRow(Graphics graphicsRow, Rectangle rectRow, VisualListViewItem item, int itemIndex, VisualListView listView, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawRow", DebugTraceManager.DebugOutput.TraceListener);
 
@@ -507,7 +507,7 @@ namespace VisualPlus.Renders
         /// <param name="_newLiveControls">The new Live Controls.</param>
         /// <param name="_liveControls">The live Controls.</param>
         /// <param name="checkBoxSize">The check Box Size.</param>
-        public static void DrawRows(Graphics graphicsRows, VisualListViewEx listView, Color backColor, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
+        public static void DrawRows(Graphics graphicsRows, VisualListView listView, Color backColor, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawRows", DebugTraceManager.DebugOutput.TraceListener);
 
@@ -584,7 +584,7 @@ namespace VisualPlus.Renders
         /// <param name="_liveControls">The _live Controls.</param>
         /// <param name="cellPaddingSize">The cell Padding Size.</param>
         /// <param name="checkBoxSize">The check Box Size.</param>
-        public static void DrawSubItem(Graphics graphicsSubItem, Rectangle rectSubItem, VisualListViewItem item, VisualListViewSubItem subItem, int column, Font font, VisualListViewEx listView, ArrayList _newLiveControls, ArrayList _liveControls, int cellPaddingSize, int checkBoxSize)
+        public static void DrawSubItem(Graphics graphicsSubItem, Rectangle rectSubItem, VisualListViewItem item, VisualListViewSubItem subItem, int column, Font font, VisualListView listView, ArrayList _newLiveControls, ArrayList _liveControls, int cellPaddingSize, int checkBoxSize)
         {
             DebugTraceManager.WriteDebug("ListViewRenderer::DrawSubItem Name: " + subItem.Name, DebugTraceManager.DebugOutput.TraceListener);
 

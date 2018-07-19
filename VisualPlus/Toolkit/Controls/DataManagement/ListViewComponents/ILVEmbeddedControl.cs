@@ -12,7 +12,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
 
         VisualListViewItem Item { get; set; }
 
-        VisualListViewEx ListView { get; set; }
+        VisualListView ListView { get; set; }
 
         VisualListViewSubItem SubItem { get; set; }
 
@@ -25,7 +25,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
         /// <param name="subItem">The sub item.</param>
         /// <param name="listView">The list view.</param>
         /// <returns>The <see cref="bool" />.</returns>
-        bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewEx listView);
+        bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListView listView);
 
         /// <summary>The return text string.</summary>
         /// <returns>The <see cref="string" />.</returns>

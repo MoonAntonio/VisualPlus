@@ -64,7 +64,7 @@ namespace VisualPlus.Collections.CollectionsEditor
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider isp, object value)
         {
-            VisualListViewEx originalControl = (VisualListViewEx)context.Instance;
+            VisualListView originalControl = (VisualListView)context.Instance;
 
             object returnObject = base.EditValue(context, isp, value);
 

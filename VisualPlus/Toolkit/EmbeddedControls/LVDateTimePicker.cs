@@ -3,30 +3,33 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows.Forms;
 
 using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataManagement;
+using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
 
 #endregion
 
-namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.EmbeddedControls
+namespace VisualPlus.Toolkit.EmbeddedControls
 {
     [ToolboxItem(false)]
-    public class LVComboBox : ComboBox, ILVEmbeddedControl
+    public class LVDateTimePicker : DateTimePicker, ILVEmbeddedControl
     {
         #region Variables
 
         private Container _components;
         private VisualListViewItem _item;
-        private VisualListViewEx _owner;
+        private VisualListView _owner;
         private VisualListViewSubItem _subItem;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="LVComboBox" /> class.</summary>
-        public LVComboBox()
+        /// <summary>Initializes a new instance of the <see cref="LVDateTimePicker" /> class.</summary>
+        public LVDateTimePicker()
         {
             InitializeComponent();
         }
@@ -48,7 +51,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.Embedded
             }
         }
 
-        public VisualListViewEx ListView
+        public VisualListView ListView
         {
             get
             {
@@ -114,17 +117,23 @@ namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.Embedded
 
         #region Methods
 
-        public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewEx listView)
+        public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListView listView)
         {
-            _item = item;
-            _subItem = subItem;
-            _owner = listView;
+            Format = DateTimePickerFormat.Long;
 
-            Text = _subItem.Text;
+            try
+            {
+                _item = item;
+                _subItem = subItem;
+                _owner = listView;
 
-            Items.Add("Item1");
-            Items.Add("Item2");
-            Items.Add("Item3");
+                Text = subItem.Text;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+                Text = DateTime.Now.ToString(CultureInfo.CurrentCulture);
+            }
 
             return true;
         }

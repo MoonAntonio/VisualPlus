@@ -15,6 +15,7 @@ namespace VisualPlus.Designer
         #region Variables
 
         private DesignerActionListCollection _actionListCollection;
+        private IDesignerHost _designerHost;
 
         #endregion
 
@@ -37,6 +38,20 @@ namespace VisualPlus.Designer
             }
         }
 
+        /// <summary>Provides an interface for managing designer transactions and components.</summary>
+        public IDesignerHost DesignerHost
+        {
+            get
+            {
+                if (_designerHost == null)
+                {
+                    _designerHost = (IDesignerHost)GetService(typeof(IDesignerHost));
+                }
+
+                return _designerHost;
+            }
+        }
+
         #endregion
 
         #region Overrides
@@ -47,24 +62,16 @@ namespace VisualPlus.Designer
             properties.Remove("Padding");
             properties.Remove("FlatAppearance");
             properties.Remove("FlatStyle");
-
             properties.Remove("AutoEllipsis");
             properties.Remove("UseCompatibleTextRendering");
-
             properties.Remove("Image");
             properties.Remove("ImageAlign");
             properties.Remove("ImageIndex");
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
             properties.Remove("TextImageRelation");
-
-            // properties.Remove("BackColor");
-            properties.Remove("BackgroundImage");
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
-
-            // properties.Remove("Font");
-            // properties.Remove("ForeColor");
             properties.Remove("RightToLeft");
             properties.Remove("View");
 

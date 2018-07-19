@@ -24,7 +24,7 @@ namespace VisualPlus.Collections.CollectionsBase
     {
         #region Variables
 
-        private VisualListViewEx _listView;
+        private VisualListView _listView;
         private bool _suspendEvents;
 
         #endregion
@@ -33,7 +33,7 @@ namespace VisualPlus.Collections.CollectionsBase
 
         /// <summary>Initializes a new instance of the <see cref="VisualListViewItemCollection" /> class.</summary>
         /// <param name="listView">The new Parent.</param>
-        public VisualListViewItemCollection(VisualListViewEx listView)
+        public VisualListViewItemCollection(VisualListView listView)
         {
             ListView = listView;
         }
@@ -53,7 +53,7 @@ namespace VisualPlus.Collections.CollectionsBase
         [Browsable(false)]
         [Description(PropertyDescription.Parent)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public VisualListViewEx ListView
+        public VisualListView ListView
         {
             get
             {

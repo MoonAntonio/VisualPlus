@@ -43,8 +43,8 @@ namespace UnitTests.Forms
             /// <summary>The VisualForm.</summary>
             VisualFormTest = 1,
 
-            /// <summary>The list view advanced.</summary>
-            VisualListViewExtended = 2
+            /// <summary>The list view.</summary>
+            VisualListView = 2
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace UnitTests.Forms
                         break;
                     }
 
-                case UnitTests.VisualListViewExtended:
+                case UnitTests.VisualListView:
                     {
                         _formToOpen = new VisualListViewTest();
                         break;
@@ -91,7 +91,7 @@ namespace UnitTests.Forms
 
         private void TestManager_Load(object sender, EventArgs e)
         {
-            _unitTest = UnitTests.VisualListViewExtended;
+            _unitTest = UnitTests.VisualListView;
 
             Array _tests = typeof(UnitTests).GetEnumValues();
             visualLabelTestsCount.Text = $@"Tests Count: {_tests.Length}";

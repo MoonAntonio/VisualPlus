@@ -33,73 +33,77 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VisualListViewTest));
-            this.visualListViewExTest = new VisualPlus.Toolkit.Controls.DataManagement.VisualListViewEx();
+            this.visualListView = new VisualPlus.Toolkit.Controls.DataManagement.VisualListView();
             this.imageListColumns = new System.Windows.Forms.ImageList(this.components);
             this.imageListItems = new System.Windows.Forms.ImageList(this.components);
             this.BtnRemove = new VisualPlus.Toolkit.Controls.Interactivity.VisualButton();
             this.BtnAdd = new VisualPlus.Toolkit.Controls.Interactivity.VisualButton();
             this.SuspendLayout();
             // 
-            // visualListViewExTest
+            // visualListView
             // 
-            this.visualListViewExTest.AllowColumnResize = true;
-            this.visualListViewExTest.AlternateBackground = System.Drawing.Color.DarkGreen;
-            this.visualListViewExTest.AlternatingColors = false;
-            this.visualListViewExTest.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.visualListView.AllowColumnResize = true;
+            this.visualListView.AlternateBackground = System.Drawing.Color.DarkGreen;
+            this.visualListView.AlternatingColors = false;
+            this.visualListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.visualListViewExTest.AutoHeight = true;
-            this.visualListViewExTest.BackColor = System.Drawing.SystemColors.Control;
-            this.visualListViewExTest.BackColorState.Disabled = System.Drawing.Color.Gainsboro;
-            this.visualListViewExTest.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
-            this.visualListViewExTest.BackgroundStretchToFit = true;
-            this.visualListViewExTest.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.visualListViewExTest.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
-            this.visualListViewExTest.Border.HoverVisible = true;
-            this.visualListViewExTest.Border.Rounding = 6;
-            this.visualListViewExTest.Border.Thickness = 1;
-            this.visualListViewExTest.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
-            this.visualListViewExTest.Border.Visible = true;
-            this.visualListViewExTest.ControlStyle = VisualPlus.Enumerators.LVControlStyles.SuperFlat;
-            this.visualListViewExTest.CornerBoxColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
-            this.visualListViewExTest.DisplayText = "The list is empty.";
-            this.visualListViewExTest.DisplayTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            this.visualListViewExTest.DisplayTextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.visualListViewExTest.DisplayTextOnEmpty = true;
-            this.visualListViewExTest.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.visualListViewExTest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.visualListViewExTest.FullRowSelect = true;
-            this.visualListViewExTest.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(222)))), ((int)(((byte)(220)))));
-            this.visualListViewExTest.GridLines = VisualPlus.Enumerators.GridLines.Both;
-            this.visualListViewExTest.GridLineStyle = VisualPlus.Enumerators.GridLineStyle.Solid;
-            this.visualListViewExTest.GridTypes = VisualPlus.Enumerators.GridTypes.Normal;
-            this.visualListViewExTest.HeaderHeight = 22;
-            this.visualListViewExTest.HeaderVisible = true;
-            this.visualListViewExTest.HeaderWordWrap = false;
-            this.visualListViewExTest.HoverColumnTracking = true;
-            this.visualListViewExTest.HoverEvents = true;
-            this.visualListViewExTest.HoverItemTracking = true;
-            this.visualListViewExTest.HoverTime = 1;
-            this.visualListViewExTest.HoverTrackingColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
-            this.visualListViewExTest.ImageListColumns = this.imageListColumns;
-            this.visualListViewExTest.ImageListItems = this.imageListItems;
-            this.visualListViewExTest.ItemHeight = 20;
-            this.visualListViewExTest.ItemSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
-            this.visualListViewExTest.ItemSelectedTextColor = System.Drawing.Color.Black;
-            this.visualListViewExTest.ItemWordWrap = false;
-            this.visualListViewExTest.Location = new System.Drawing.Point(13, 75);
-            this.visualListViewExTest.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
-            this.visualListViewExTest.MultiSelect = true;
-            this.visualListViewExTest.Name = "visualListViewExTest";
-            this.visualListViewExTest.Selectable = true;
-            this.visualListViewExTest.Size = new System.Drawing.Size(511, 259);
-            this.visualListViewExTest.SortType = VisualPlus.Enumerators.SortTypes.InsertionSort;
-            this.visualListViewExTest.TabIndex = 0;
-            this.visualListViewExTest.Text = "visualListViewAdvanced1";
-            this.visualListViewExTest.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            this.visualListViewExTest.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.visualListViewExTest.TextStyle.Hover = System.Drawing.Color.Empty;
-            this.visualListViewExTest.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.visualListView.AutoHeight = true;
+            this.visualListView.BackColor = System.Drawing.SystemColors.Control;
+            this.visualListView.BackColorState.Disabled = System.Drawing.Color.Gainsboro;
+            this.visualListView.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.visualListView.BackgroundStretchToFit = true;
+            this.visualListView.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.visualListView.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.visualListView.Border.HoverVisible = true;
+            this.visualListView.Border.Rounding = 6;
+            this.visualListView.Border.Thickness = 1;
+            this.visualListView.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
+            this.visualListView.Border.Visible = true;
+            this.visualListView.ColumnColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.visualListView.ColumnColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.visualListView.ColumnColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.visualListView.ColumnColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.visualListView.ControlStyle = VisualPlus.Enumerators.LVControlStyles.SuperFlat;
+            this.visualListView.CornerBoxColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.visualListView.DisplayText = "The list is empty.";
+            this.visualListView.DisplayTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.visualListView.DisplayTextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.visualListView.DisplayTextOnEmpty = true;
+            this.visualListView.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.visualListView.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualListView.FullRowSelect = true;
+            this.visualListView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(222)))), ((int)(((byte)(220)))));
+            this.visualListView.GridLines = VisualPlus.Enumerators.GridLines.Both;
+            this.visualListView.GridLineStyle = VisualPlus.Enumerators.GridLineStyle.Solid;
+            this.visualListView.GridTypes = VisualPlus.Enumerators.GridTypes.Normal;
+            this.visualListView.HeaderHeight = 22;
+            this.visualListView.HeaderVisible = true;
+            this.visualListView.HeaderWordWrap = false;
+            this.visualListView.HoverColumnTracking = true;
+            this.visualListView.HoverEvents = true;
+            this.visualListView.HoverItemTracking = true;
+            this.visualListView.HoverTime = 1;
+            this.visualListView.HoverTrackingColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.visualListView.ImageListColumns = this.imageListColumns;
+            this.visualListView.ImageListItems = this.imageListItems;
+            this.visualListView.ItemHeight = 20;
+            this.visualListView.ItemSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.visualListView.ItemSelectedTextColor = System.Drawing.Color.Black;
+            this.visualListView.ItemWordWrap = false;
+            this.visualListView.Location = new System.Drawing.Point(13, 75);
+            this.visualListView.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.visualListView.MultiSelect = true;
+            this.visualListView.Name = "visualListView";
+            this.visualListView.Selectable = true;
+            this.visualListView.Size = new System.Drawing.Size(511, 259);
+            this.visualListView.SortType = VisualPlus.Enumerators.SortTypes.InsertionSort;
+            this.visualListView.TabIndex = 0;
+            this.visualListView.Text = "visualListViewAdvanced1";
+            this.visualListView.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.visualListView.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualListView.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.visualListView.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // 
             // imageListColumns
             // 
@@ -278,7 +282,7 @@
             this.ControlBox.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.TextStyle.Hover = System.Drawing.Color.Empty;
             this.ControlBox.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.Controls.Add(this.visualListViewExTest);
+            this.Controls.Add(this.visualListView);
             this.Controls.Add(this.BtnRemove);
             this.Controls.Add(this.BtnAdd);
             this.Image.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
@@ -295,8 +299,8 @@
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.Name = "VisualListViewTest";
-            this.Text = "VisualListView Extended Test";
-            this.TextRectangle = new System.Drawing.Rectangle(193, 7, 153, 14);
+            this.Text = "VisualListView Test";
+            this.TextRectangle = new System.Drawing.Rectangle(218, 7, 102, 14);
             this.Load += new System.EventHandler(this.VisualListViewTest_Load);
             this.ResumeLayout(false);
 
@@ -304,7 +308,7 @@
 
         #endregion
 
-        private VisualListViewEx visualListViewExTest;
+        private VisualListView visualListView;
         private VisualPlus.Toolkit.Controls.Interactivity.VisualButton BtnAdd;
         private VisualPlus.Toolkit.Controls.Interactivity.VisualButton BtnRemove;
         private System.Windows.Forms.ImageList imageListColumns;

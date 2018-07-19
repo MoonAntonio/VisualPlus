@@ -24,10 +24,10 @@ namespace UnitTests.Tests
         {
             InitializeComponent();
 
-            visualListViewExTest.DisplayText = "No tasks in the current view." + Environment.NewLine + Environment.NewLine + "Click 'Add' to create a new task.";
-            visualListViewExTest.SelectedIndexChanged += VisualListViewAdvanced1_SelectedIndexChanged;
+            visualListView.DisplayText = "No tasks in the current view." + Environment.NewLine + Environment.NewLine + "Click 'Add' to create a new task.";
+            visualListView.SelectedIndexChanged += VisualListViewAdvanced1_SelectedIndexChanged;
 
-            visualListViewExTest.ColumnClickedEvent += VisualListViewExTest_ColumnClickedEvent;
+            visualListView.ColumnClickedEvent += VisualListViewColumnClickedEvent;
         }
 
         #endregion
@@ -70,14 +70,14 @@ namespace UnitTests.Tests
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             VisualListViewItem _listViewItem = GenerateItem();
-            visualListViewExTest.Items.Add(_listViewItem);
+            visualListView.Items.Add(_listViewItem);
         }
 
         private void BtnRemove_Click(object sender, EventArgs e)
         {
-            foreach (VisualListViewItem _selectedItem in visualListViewExTest.SelectedItems)
+            foreach (VisualListViewItem _selectedItem in visualListView.SelectedItems)
             {
-                visualListViewExTest.Items.Remove(_selectedItem);
+                visualListView.Items.Remove(_selectedItem);
             }
         }
 
@@ -102,23 +102,23 @@ namespace UnitTests.Tests
         {
             int _columnIndex;
 
-            if (visualListViewExTest.ColumnIndex == -1)
+            if (visualListView.ColumnIndex == -1)
             {
                 // Clicked outside of column bounds.
                 return;
             }
             else
             {
-                _columnIndex = visualListViewExTest.ColumnIndex;
+                _columnIndex = visualListView.ColumnIndex;
             }
 
             int _rowIndex = e.ItemIndex;
-            string _column = visualListViewExTest.Columns[_columnIndex].Text;
-            string _rowItem = visualListViewExTest.Items[_rowIndex].Text;
-            string _rowSub = visualListViewExTest.Items[_rowIndex].SubItems[_columnIndex].Text;
-            bool _rowChecked = visualListViewExTest.Items[_rowIndex].Checked;
-            bool _columnChecked = visualListViewExTest.Columns[_columnIndex].Checked;
-            bool _cellChecked = visualListViewExTest.Items[_rowIndex].SubItems[_columnIndex].Checked;
+            string _column = visualListView.Columns[_columnIndex].Text;
+            string _rowItem = visualListView.Items[_rowIndex].Text;
+            string _rowSub = visualListView.Items[_rowIndex].SubItems[_columnIndex].Text;
+            bool _rowChecked = visualListView.Items[_rowIndex].Checked;
+            bool _columnChecked = visualListView.Columns[_columnIndex].Checked;
+            bool _cellChecked = visualListView.Items[_rowIndex].SubItems[_columnIndex].Checked;
 
             StringBuilder _selectedIndex = new StringBuilder();
             _selectedIndex.AppendLine($"Column: [{_columnIndex}] - Text: {_column}, - Checked: {_columnChecked}");
@@ -128,13 +128,13 @@ namespace UnitTests.Tests
             MessageBox.Show(_selectedIndex.ToString(), Application.ProductName);
         }
 
-        private void VisualListViewExTest_ColumnClickedEvent(object source, ListViewClickEventArgs e)
+        private void VisualListViewColumnClickedEvent(object source, ListViewClickEventArgs e)
         {
             if (e.ColumnIndex == 0)
             {
-                foreach (VisualListViewItem _item in visualListViewExTest.Items)
+                foreach (VisualListViewItem _item in visualListView.Items)
                 {
-                    _item.Checked = visualListViewExTest.Columns[0].Checked;
+                    _item.Checked = visualListView.Columns[0].Checked;
                 }
             }
         }
@@ -153,18 +153,18 @@ namespace UnitTests.Tests
 
             VisualListViewColumn _progress = GenerateColumn("Progress", 3, 100);
 
-            visualListViewExTest.Columns.Add(_title);
-            visualListViewExTest.Columns.Add(_content);
-            visualListViewExTest.Columns.Add(_date);
-            visualListViewExTest.Columns.Add(_progress);
+            visualListView.Columns.Add(_title);
+            visualListView.Columns.Add(_content);
+            visualListView.Columns.Add(_date);
+            visualListView.Columns.Add(_progress);
 
             for (var i = 0; i < 15; i++)
             {
                 VisualListViewItem _listViewItem = GenerateItem();
-                visualListViewExTest.Items.Add(_listViewItem);
+                visualListView.Items.Add(_listViewItem);
             }
 
-            visualListViewExTest.Items[0].Selected = true;
+            visualListView.Items[0].Selected = true;
         }
 
         #endregion

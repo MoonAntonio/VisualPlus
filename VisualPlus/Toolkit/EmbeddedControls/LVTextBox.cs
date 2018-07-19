@@ -6,10 +6,12 @@ using System.Diagnostics;
 using System.Windows.Forms;
 
 using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataManagement;
+using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
 
 #endregion
 
-namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.EmbeddedControls
+namespace VisualPlus.Toolkit.EmbeddedControls
 {
     [ToolboxItem(false)]
     public class LVTextBox : TextBox, ILVEmbeddedControl
@@ -18,7 +20,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.Embedded
 
         private Container _components;
         private VisualListViewItem _item;
-        private VisualListViewEx _owner;
+        private VisualListView _owner;
         private VisualListViewSubItem _subItem;
 
         #endregion
@@ -48,7 +50,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.Embedded
             }
         }
 
-        public VisualListViewEx ListView
+        public VisualListView ListView
         {
             get
             {
@@ -116,7 +118,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.Embedded
 
         #region Methods
 
-        public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListViewEx listView)
+        public bool LVEmbeddedControlLoad(VisualListViewItem item, VisualListViewSubItem subItem, VisualListView listView)
         {
             // populate this control however you wish with item
             // set the styles you want for this

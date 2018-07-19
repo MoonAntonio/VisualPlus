@@ -33,7 +33,7 @@ namespace VisualPlus.Toolkit.Child
         private Color _foreColor;
         private ImageList _imageList;
         private int _lastIndex;
-        private VisualListViewEx _listView;
+        private VisualListView _listView;
         private Color _rowBorderColor;
         private int _rowBorderSize;
         private bool _selected;
@@ -71,7 +71,7 @@ namespace VisualPlus.Toolkit.Child
 
         /// <summary>Initializes a new instance of the <see cref="VisualListViewItem" /> class.</summary>
         /// <param name="listView">The list View.</param>
-        public VisualListViewItem(VisualListViewEx listView) : this()
+        public VisualListViewItem(VisualListView listView) : this()
         {
             _subItemCollection = new VisualListViewSubItemCollection(listView)
                     {
@@ -88,7 +88,7 @@ namespace VisualPlus.Toolkit.Child
         /// <param name="subItems">The array of type <see cref="VisualListViewSubItem" /> that represents the subitems of the item.</param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewEx" /> that contains the item.
+        ///     <see cref="VisualListView" /> that contains the item.
         /// </param>
         public VisualListViewItem(VisualListViewSubItem[] subItems, int imageIndex) : this()
         {
@@ -108,7 +108,7 @@ namespace VisualPlus.Toolkit.Child
         /// </param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewEx" /> that contains the item.
+        ///     <see cref="VisualListView" /> that contains the item.
         /// </param>
         public VisualListViewItem(VisualListViewSubItemCollection subItems, int imageIndex) : this()
         {
@@ -125,7 +125,7 @@ namespace VisualPlus.Toolkit.Child
         /// <param name="text">The text to display for the item. This should not exceed 259 characters.</param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewEx" /> that contains the item.
+        ///     <see cref="VisualListView" /> that contains the item.
         /// </param>
         public VisualListViewItem(string text, int imageIndex) : this()
         {
@@ -149,7 +149,7 @@ namespace VisualPlus.Toolkit.Child
         /// <param name="items">An array of string that represent the subitems of the new item.</param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewEx" /> that contains the item.
+        ///     <see cref="VisualListView" /> that contains the item.
         /// </param>
         public VisualListViewItem(string[] items, int imageIndex) : this()
         {
@@ -168,7 +168,7 @@ namespace VisualPlus.Toolkit.Child
         /// <param name="items">An array of string that represent the subitems of the new item.</param>
         /// <param name="imageIndex">
         ///     The zero-based index of the image within the <see cref="ImageList" /> associated with the
-        ///     <see cref="VisualListViewEx" /> that contains the item.
+        ///     <see cref="VisualListView" /> that contains the item.
         /// </param>
         /// <param name="foreColor">A <see cref="Color" /> that represents the foreground color of the item.</param>
         /// <param name="backColor">A <see cref="Color" /> that represents the background color of the item.</param>
@@ -368,7 +368,7 @@ namespace VisualPlus.Toolkit.Child
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public VisualListViewEx ListView
+        public VisualListView ListView
         {
             get
             {
@@ -566,7 +566,7 @@ namespace VisualPlus.Toolkit.Child
             return _listViewItem;
         }
 
-        /// <summary>Removes the item from its associated <see cref="VisualListViewEx" /> control.</summary>
+        /// <summary>Removes the item from its associated <see cref="VisualListView" /> control.</summary>
         public virtual void Remove()
         {
             _listView?.Items.Remove(this);

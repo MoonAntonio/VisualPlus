@@ -11,7 +11,7 @@ using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Toolkit.Controls.DataManagement;
-using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents.EmbeddedControls;
+using VisualPlus.Toolkit.EmbeddedControls;
 using VisualPlus.TypeConverters;
 
 #endregion
@@ -33,7 +33,7 @@ namespace VisualPlus.Toolkit.Child
         private LVActivatedEmbeddedTypes _embeddedType;
         private int _imageIndex;
         private SortDirections _lastSortDirection;
-        private VisualListViewEx _listView;
+        private VisualListView _listView;
         private string _name;
         private bool _numericSort;
         private object _tag;
@@ -245,7 +245,7 @@ namespace VisualPlus.Toolkit.Child
         [Browsable(false)]
         [Description(PropertyDescription.Parent)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public VisualListViewEx ListView
+        public VisualListView ListView
         {
             get
             {

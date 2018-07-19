@@ -60,10 +60,10 @@
     <Compile Include="Constants\FormConstants.cs" />
     <Compile Include="Delegates\ControlBoxDelegate.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
-    <Compile Include="ActionList\VisualListViewAdvActionList.cs" />
+    <Compile Include="ActionList\VisualListViewActionList.cs" />
     <Compile Include="Designer\VisualControlBoxButtonDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxDesigner.cs" />
-    <Compile Include="Designer\VisualListViewAdvDesigner.cs" />
+    <Compile Include="Designer\VisualListViewDesigner.cs" />
     <Compile Include="Designer\VisualScrollBarDesigner.cs" />
     <Compile Include="Enumerators\ColumnStates.cs" />
     <Compile Include="Enumerators\GridTypes.cs" />
@@ -148,7 +148,6 @@
     <Compile Include="Designer\VisualCheckedListBoxDesigner.cs" />
     <Compile Include="ActionList\VisualRichBoxActionList.cs" />
     <Compile Include="ActionList\VisualTextBoxActionList.cs" />
-    <Compile Include="ActionList\VisualListViewActionList.cs" />
     <Compile Include="ActionList\VisuaListBoxActionList.cs" />
     <Compile Include="Structure\Theme.cs" />
     <Compile Include="Toolkit\Child\VisualTabPage.cs">
@@ -165,20 +164,20 @@
     </Compile>
     <Compile Include="Collections\CollectionsBase\VisualListViewColumnCollection.cs" />
     <Compile Include="Enumerators\ListStates.cs" />
-    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\EmbeddedControls\LVComboBox.cs">
+    <Compile Include="Toolkit\EmbeddedControls\LVComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\EmbeddedControls\LVDateTimePicker.cs">
+    <Compile Include="Toolkit\EmbeddedControls\LVDateTimePicker.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\EmbeddedControls\LVTextBox.cs">
+    <Compile Include="Toolkit\EmbeddedControls\LVTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Enumerators\LVActivatedEmbeddedTypes.cs" />
     <Compile Include="Enumerators\LVControlStyles.cs" />
     <Compile Include="Enumerators\GridLines.cs" />
     <Compile Include="Enumerators\SortTypes.cs" />
-    <Compile Include="Toolkit\Controls\DataManagement\VisualListViewEx.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\VisualListView.cs" />
     <Compile Include="Toolkit\Child\VisualListViewColumn.cs" />
     <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\LVMergeSort.cs" />
     <Compile Include="Collections\CollectionsBase\VisualListViewSubItemCollection.cs" />
@@ -194,9 +193,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\ManagedVScrollBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Toolkit\Controls\DataManagement\ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Structure\ScrollInfo.cs" />
@@ -232,7 +228,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Controls\DataManagement\VisualListBox.cs" />
-    <Compile Include="Toolkit\Controls\DataManagement\VisualListView.cs" />
     <Compile Include="Toolkit\Controls\Layout\VisualScrollBar.cs" />
     <Compile Include="Toolkit\VisualBase\ToggleBase.cs" />
     <Compile Include="Toolkit\VisualBase\NestedControlsBase.cs" />
@@ -249,7 +244,6 @@
     <Compile Include="Designer\VisualLabelDesigner.cs" />
     <Compile Include="Designer\VisualRatingDesigner.cs" />
     <Compile Include="Designer\VisualListBoxDesigner.cs" />
-    <Compile Include="Designer\VisualListViewDesigner.cs" />
     <Compile Include="Designer\VisualToolTipDesigner.cs" />
     <Compile Include="Designer\VisualFormDesigner.cs" />
     <Compile Include="Designer\VisualTrackBarDesigner.cs" />

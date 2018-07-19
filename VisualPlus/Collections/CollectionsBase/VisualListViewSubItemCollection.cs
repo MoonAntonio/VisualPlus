@@ -25,7 +25,7 @@ namespace VisualPlus.Collections.CollectionsBase
         #region Variables
 
         private int _lastAccessedIndex;
-        private VisualListViewEx _listView;
+        private VisualListView _listView;
         private VisualListViewItem _owner;
 
         #endregion
@@ -48,8 +48,8 @@ namespace VisualPlus.Collections.CollectionsBase
         }
 
         /// <summary>Initializes a new instance of the <see cref="VisualListViewSubItemCollection" /> class.</summary>
-        /// <param name="listView">The <see cref="VisualListViewEx" /> that owns the collection.</param>
-        public VisualListViewSubItemCollection(VisualListViewEx listView) : this()
+        /// <param name="listView">The <see cref="VisualListView" /> that owns the collection.</param>
+        public VisualListViewSubItemCollection(VisualListView listView) : this()
         {
             _listView = listView;
 
@@ -115,7 +115,7 @@ namespace VisualPlus.Collections.CollectionsBase
         [Browsable(false)]
         [Description(PropertyDescription.Parent)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public VisualListViewEx ListView
+        public VisualListView ListView
         {
             get
             {
