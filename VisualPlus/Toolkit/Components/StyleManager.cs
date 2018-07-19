@@ -398,8 +398,6 @@ namespace VisualPlus.Toolkit.Components
 
             (control as VisualCheckBox)?.UpdateTheme(theme);
 
-            (control as VisualCheckedListBox)?.UpdateTheme(theme);
-
             (control as VisualComboBox)?.UpdateTheme(theme);
 
             (control as VisualLabel)?.UpdateTheme(theme);

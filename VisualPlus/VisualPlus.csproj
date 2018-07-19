@@ -144,8 +144,6 @@
     <Compile Include="Structure\ColorState.cs" />
     <Compile Include="Structure\Hatch.cs" />
     <Compile Include="Structure\TextStyle.cs" />
-    <Compile Include="ActionList\VisualCheckedListBoxActionList.cs" />
-    <Compile Include="Designer\VisualCheckedListBoxDesigner.cs" />
     <Compile Include="ActionList\VisualRichBoxActionList.cs" />
     <Compile Include="ActionList\VisualTextBoxActionList.cs" />
     <Compile Include="ActionList\VisuaListBoxActionList.cs" />
@@ -196,7 +194,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Structure\ScrollInfo.cs" />
-    <Compile Include="Toolkit\Controls\DataManagement\VisualCheckedListBox.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressStepper.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRangeBar.cs" />
@@ -371,7 +368,6 @@
     <EmbeddedResource Include="Toolkit\Controls\Interactivity\VisualToggle.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Toolkit\Controls\DataManagement\VisualCheckedListBox.bmp" />
     <EmbeddedResource Include="Toolkit\Controls\DataManagement\VisualListBox.bmp" />
     <EmbeddedResource Include="Toolkit\Controls\DataManagement\VisualListView.bmp" />
   </ItemGroup>
