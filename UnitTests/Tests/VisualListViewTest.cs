@@ -79,6 +79,11 @@ namespace UnitTests.Tests
             {
                 visualListView.Items.Remove(_selectedItem);
             }
+
+            foreach (VisualListViewItem checkedItem in visualListView.CheckedItems)
+            {
+                visualListView.Items.Remove(checkedItem);
+            }
         }
 
         /// <summary>Generate the column.</summary>
