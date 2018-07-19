@@ -61,6 +61,7 @@
     <Compile Include="Delegates\ControlBoxDelegate.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
     <Compile Include="ActionList\VisualListViewActionList.cs" />
+    <Compile Include="Designer\VisualDateTimePickerDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxButtonDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxDesigner.cs" />
     <Compile Include="Designer\VisualListViewDesigner.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Renders\VisualBackgroundRenderer.cs" />
     <Compile Include="Renders\VisualBadgeRenderer.cs" />
     <Compile Include="Renders\VisualBorderRenderer.cs" />
+    <Compile Include="Renders\VisualDateTimeRenderer.cs" />
     <Compile Include="Renders\VisualScrollBarRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
@@ -162,6 +164,9 @@
     </Compile>
     <Compile Include="Collections\CollectionsBase\VisualListViewColumnCollection.cs" />
     <Compile Include="Enumerators\ListStates.cs" />
+    <Compile Include="Toolkit\Controls\Editors\VisualDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Toolkit\EmbeddedControls\LVComboBox.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -380,6 +380,8 @@ namespace VisualPlus.Toolkit.Components
         {
             (control as VisualButton)?.UpdateTheme(theme);
 
+            (control as VisualDateTimePicker)?.UpdateTheme(theme);
+
             (control as VisualListBox)?.UpdateTheme(theme);
 
             (control as VisualGroupBox)?.UpdateTheme(theme);
