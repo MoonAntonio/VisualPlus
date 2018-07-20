@@ -8,19 +8,16 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
+using VisualPlus.Extensibility;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Controls.DataManagement;
-using VisualPlus.Toolkit.Controls.DataVisualization;
-using VisualPlus.Toolkit.Controls.Editors;
-using VisualPlus.Toolkit.Controls.Interactivity;
-using VisualPlus.Toolkit.Controls.Layout;
 using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.TypeConverters;
 using VisualPlus.UITypeEditors;
@@ -36,6 +33,7 @@ namespace VisualPlus.Toolkit.Components
     {
         #region Variables
 
+        private readonly string methodName;
         private string _customThemePath;
         private List<Form> _formCollection;
         private Theme _theme;
@@ -116,6 +114,7 @@ namespace VisualPlus.Toolkit.Components
 
                 _themeType = Settings.DefaultValue.DefaultStyle;
                 _theme = new Theme(_themeType);
+                methodName = "UpdateTheme";
             }
             catch (Exception e)
             {
@@ -341,10 +340,10 @@ namespace VisualPlus.Toolkit.Components
             _theme.Save(filePath);
         }
 
-        /// <summary>Updates all the <see cref="Control" />/s in the <see cref="Form" />.</summary>
+        /// <summary>Updates all the <see cref="Control" />/s and <see cref="Form" />/s.</summary>
         public void Update()
         {
-            if (_formCollection.Count == 0)
+            if (_formCollection.IsEmpty())
             {
                 return;
             }
@@ -356,67 +355,76 @@ namespace VisualPlus.Toolkit.Components
                     throw new ArgumentNullException(nameof(_form));
                 }
 
-                if (_form.Controls.Count == 0)
+                UpdateComponent(_form);
+
+                if (_form.Controls.IsEmpty())
                 {
                     return;
                 }
 
                 foreach (Control _control in _form.Controls)
                 {
-                    if (ControlManager.HasMethod(_control, "UpdateTheme"))
-                    {
-                        UpdateControl(_control, _theme);
-                    }
+                    UpdateComponent(_control);
                 }
             }
 
             OnThemeChanged(new ThemeEventArgs(_theme));
         }
 
-        /// <summary>Updates the supported controls style.</summary>
-        /// <param name="control">The control.</param>
-        /// <param name="theme">The theme.</param>
-        private static void UpdateControl(Control control, Theme theme)
+        /// <summary>Update the components theme.</summary>
+        /// <param name="component">The component to update.</param>
+        public void UpdateComponent(IDisposable component)
         {
-            (control as VisualButton)?.UpdateTheme(theme);
+            if (component is IThemeSupport)
+            {
+                foreach (Type registeredTypes in ControlManager.ThemeSupportedTypes())
+                {
+                    if (ControlManager.HasMethod(component, methodName))
+                    {
+                        switch (component)
+                        {
+                            case Form form:
+                                {
+                                    if (form.GetType().BaseType == registeredTypes)
+                                    {
+                                        if (registeredTypes != null)
+                                        {
+                                            InvokeThemeUpdate(form, registeredTypes);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Form not registered.
+                                    }
 
-            (control as VisualDateTimePicker)?.UpdateTheme(theme);
+                                    break;
+                                }
 
-            (control as VisualListBox)?.UpdateTheme(theme);
+                            case Control control:
+                                {
+                                    if (control.GetType() == registeredTypes)
+                                    {
+                                        InvokeThemeUpdate(control, registeredTypes);
+                                    }
+                                    else
+                                    {
+                                        // Control not registered.
+                                    }
 
-            (control as VisualGroupBox)?.UpdateTheme(theme);
-
-            (control as VisualRichTextBox)?.UpdateTheme(theme);
-
-            (control as VisualListView)?.UpdateTheme(theme);
-
-            (control as VisualRadialProgress)?.UpdateTheme(theme);
-
-            (control as VisualGauge)?.UpdateTheme(theme);
-
-            (control as VisualProgressBar)?.UpdateTheme(theme);
-
-            (control as VisualTextBox)?.UpdateTheme(theme);
-
-            (control as VisualCheckBox)?.UpdateTheme(theme);
-
-            (control as VisualComboBox)?.UpdateTheme(theme);
-
-            (control as VisualLabel)?.UpdateTheme(theme);
-
-            (control as VisualNumericUpDown)?.UpdateTheme(theme);
-
-            (control as VisualRadioButton)?.UpdateTheme(theme);
-
-            (control as VisualScrollBar)?.UpdateTheme(theme);
-
-            (control as VisualToggle)?.UpdateTheme(theme);
-
-            (control as VisualTrackBar)?.UpdateTheme(theme);
-
-            (control as VisualPanel)?.UpdateTheme(theme);
-
-            (control as VisualSeparator)?.UpdateTheme(theme);
+                                    break;
+                                }
+                        }
+                    }
+                    else
+                    {
+                        // The component does not contain method.
+                    }
+                }
+            }
+            else
+            {
+                // The component not supported.
+            }
         }
 
         /// <summary>Creates a default theme file in the templates folder.</summary>
@@ -438,6 +446,19 @@ namespace VisualPlus.Toolkit.Components
             }
 
             File.WriteAllText(_defaultThemePath, _text);
+        }
+
+        /// <summary>Invoke the theme update to the component.</summary>
+        /// <param name="component">The component.</param>
+        /// <param name="registeredType">The registered type.</param>
+        private void InvokeThemeUpdate(IDisposable component, Type registeredType)
+        {
+            MethodInfo method = registeredType.GetMethod(methodName);
+
+            if (method != null)
+            {
+                method.Invoke(component, new object[] { _theme });
+            }
         }
 
         #endregion

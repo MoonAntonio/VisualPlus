@@ -1,13 +1,19 @@
 ﻿#region Namespace
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 using VisualPlus.Native;
+using VisualPlus.Toolkit.Controls.DataManagement;
+using VisualPlus.Toolkit.Controls.DataVisualization;
+using VisualPlus.Toolkit.Controls.Editors;
 using VisualPlus.Toolkit.Controls.Interactivity;
+using VisualPlus.Toolkit.Controls.Layout;
+using VisualPlus.Toolkit.Dialogs;
 
 #endregion
 
@@ -90,13 +96,36 @@ namespace VisualPlus.Managers
             return _methodType.GetMethod(methodName) != null;
         }
 
-        /// <summary>Gets the control type.</summary>
-        /// <typeparam name="T">The type.</typeparam>
-        /// <param name="controlName">The control name.</param>
-        /// <returns>The control type.</returns>
-        private static T ControlType<T>(string controlName)
+        /// <summary>Retrieves the registered theme supported types.</summary>
+        /// <returns>The <see cref="Type" /> list.</returns>
+        public static List<Type> ThemeSupportedTypes()
         {
-            return (T)Activator.CreateInstance(Type.GetType(controlName));
+            var control = new List<Type>
+                {
+                    typeof(VisualButton),
+                    typeof(VisualCheckBox),
+                    typeof(VisualComboBox),
+                    typeof(VisualDateTimePicker),
+                    typeof(VisualForm),
+                    typeof(VisualGauge),
+                    typeof(VisualGroupBox),
+                    typeof(VisualLabel),
+                    typeof(VisualListBox),
+                    typeof(VisualListView),
+                    typeof(VisualNumericUpDown),
+                    typeof(VisualPanel),
+                    typeof(VisualProgressBar),
+                    typeof(VisualRadialProgress),
+                    typeof(VisualRadioButton),
+                    typeof(VisualRichTextBox),
+                    typeof(VisualScrollBar),
+                    typeof(VisualSeparator),
+                    typeof(VisualTextBox),
+                    typeof(VisualToggle),
+                    typeof(VisualTrackBar)
+                };
+
+            return control;
         }
 
         #endregion

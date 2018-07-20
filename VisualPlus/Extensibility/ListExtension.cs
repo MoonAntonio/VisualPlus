@@ -18,6 +18,19 @@ namespace VisualPlus.Extensibility
             return list.Count + 1;
         }
 
+        /// <summary>Determines if the list is empty.</summary>
+        /// <param name="list">The list.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool IsEmpty(this IList list)
+        {
+            if (list == null)
+            {
+                return true;
+            }
+
+            return list.Count <= 0;
+        }
+
         /// <summary>Determines if the index is valid for the collection.</summary>
         /// <param name="list">The list.</param>
         /// <param name="index">The zero-based index of the item.</param>
