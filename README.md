@@ -40,7 +40,7 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Submitting pull requests](https://github.com/DarkByte7/VisualPlus/compare)
 
 ## Feedback
-- Ask a question on [Discord](https://discord.gg/VmsWKKT).
+- Ask a question on [Discord](https://discord.gg/cUNEYJ4).
 - Request a new feature on [GitHub](https://github.com/DarkByte7/VisualPlus/blob/beta/CONTRIBUTE.md).
 - Vote for [popular feature requests](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue+label:feature-request+sort:reactions-B1-desc).
 - File a bug in [GitHub Issues](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue).
