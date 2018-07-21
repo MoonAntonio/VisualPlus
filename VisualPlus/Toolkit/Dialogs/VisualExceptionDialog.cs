@@ -25,31 +25,18 @@ namespace VisualPlus.Toolkit.Dialogs
         #region Variables
 
         private Button _copyButton;
-
         private Label _descriptionLabel;
-
         private Exception _exception;
-
         private int _imageSpacing;
-
         private Label _messageLabel;
-
         private TextBox _messageTextBox;
-
         private Button _okButton;
-
         private PictureBox _pictureBoxImage;
-
         private Button _saveButton;
-
         private Label _stackLabel;
-
         private TextBox _textBoxStack;
-
         private int _textHeight;
-
         private Label _typeLabel;
-
         private TextBox _typeTextBox;
 
         #endregion
