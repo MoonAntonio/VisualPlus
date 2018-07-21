@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://darkbyte7.github.io/VisualPlus/"><img alt="VisualPlus" width="100" heigth="100" src="http://i.imgur.com/KwWQDQZ.png"></a> 
+<a href="https://darkbyte7.github.io/VisualPlus/"><img alt="VisualPlus" width="100" heigth="100" src="http://i.imgur.com/KwWQDQZ.png"></a>
 </p >
 
 <h1  align="center">VisualPlus</h1>
