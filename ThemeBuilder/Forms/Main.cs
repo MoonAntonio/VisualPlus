@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
-using VisualPlus;
+using VisualPlus.Constants;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Structure;
@@ -134,7 +134,7 @@ namespace ThemeBuilder.Forms
 
         private void OpenTemplatesDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string path = Settings.TemplatesFolder;
+            string path = SettingConstants.TemplatesFolder;
 
             if (path.Length <= 0)
             {

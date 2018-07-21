@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 
+using VisualPlus.Constants;
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
@@ -136,7 +137,7 @@ namespace VisualPlus.Structure
                     return;
                 }
 
-                _rounding = ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumRounding, Settings.MaximumRounding, true);
+                _rounding = ExceptionManager.ArgumentOutOfRangeException(value, SettingConstants.MinimumRounding, SettingConstants.MaximumRounding, true);
                 RoundingChanged?.Invoke();
             }
         }
@@ -158,7 +159,7 @@ namespace VisualPlus.Structure
                     return;
                 }
 
-                _thickness = ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumBorderSize, Settings.MaximumBorderSize, true);
+                _thickness = ExceptionManager.ArgumentOutOfRangeException(value, SettingConstants.MinimumBorderSize, SettingConstants.MaximumBorderSize, true);
                 ThicknessChanged?.Invoke();
             }
         }

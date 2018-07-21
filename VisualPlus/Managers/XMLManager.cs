@@ -8,6 +8,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
+using VisualPlus.Constants;
 using VisualPlus.Enumerators;
 using VisualPlus.Extensibility;
 using VisualPlus.Structure;
@@ -29,7 +30,7 @@ namespace VisualPlus.Managers
 
             try
             {
-                string rawThemeResource = ResourcesManager.ReadResource(Assembly.GetExecutingAssembly().Location, $"{Settings.ThemeResourceLocation}{theme.ToString()}.xml");
+                string rawThemeResource = ResourcesManager.ReadResource(Assembly.GetExecutingAssembly().Location, $"{SettingConstants.ThemeResourceLocation}{theme.ToString()}.xml");
                 XDocument resourceDocumentTheme = XDocument.Parse(rawThemeResource);
                 _theme = Deserialize(resourceDocumentTheme);
             }

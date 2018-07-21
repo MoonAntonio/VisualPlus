@@ -9,6 +9,7 @@ using System.Drawing.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+using VisualPlus.Constants;
 using VisualPlus.Designer;
 using VisualPlus.Events;
 using VisualPlus.Localization;
@@ -280,7 +281,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     return;
                 }
 
-                shadowOpacity = ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumAlpha, Settings.MaximumAlpha, true);
+                shadowOpacity = ExceptionManager.ArgumentOutOfRangeException(value, SettingConstants.MinimumAlpha, SettingConstants.MaximumAlpha, true);
                 Invalidate();
             }
         }

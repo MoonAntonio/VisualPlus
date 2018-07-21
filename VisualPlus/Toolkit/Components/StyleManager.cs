@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
+using VisualPlus.Constants;
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
@@ -105,7 +106,7 @@ namespace VisualPlus.Toolkit.Components
 
                 if (_customThemePath == null)
                 {
-                    string _themePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
+                    string _themePath = SettingConstants.TemplatesFilePath;
                     _theme = new Theme(_themePath);
                     _customThemePath = _themePath;
                 }
@@ -288,7 +289,7 @@ namespace VisualPlus.Toolkit.Components
         /// <summary>Creates a default theme file in the templates folder.</summary>
         public static void GenerateDefaultThemeFile()
         {
-            string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
+            string _defaultThemePath = SettingConstants.TemplatesFilePath;
 
             if (File.Exists(_defaultThemePath))
             {
@@ -317,7 +318,7 @@ namespace VisualPlus.Toolkit.Components
         /// <summary>Opens the templates directory in the windows explorer.</summary>
         public static void OpenTemplatesDirectory()
         {
-            Process.Start(Settings.TemplatesFolder);
+            Process.Start(SettingConstants.TemplatesFolder);
         }
 
         /// <summary>Adds a form to the collection to manage.</summary>
@@ -461,13 +462,13 @@ namespace VisualPlus.Toolkit.Components
         private static void CreateDefaultThemeFile()
         {
             Theme _defaultTheme = new Theme(Themes.Visual);
-            string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
+            string _defaultThemePath = SettingConstants.TemplatesFilePath;
 
             string _text = _defaultTheme.RawTheme;
 
-            if (!Directory.Exists(Settings.TemplatesFolder))
+            if (!Directory.Exists(SettingConstants.TemplatesFolder))
             {
-                Directory.CreateDirectory(Settings.TemplatesFolder);
+                Directory.CreateDirectory(SettingConstants.TemplatesFolder);
             }
 
             File.WriteAllText(_defaultThemePath, _text);
