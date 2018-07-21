@@ -245,7 +245,6 @@
             this.Name = "UnitTestManager";
             this.Sizable = false;
             this.Text = "VisualPlus - UnitTest Manager";
-            this.TextRectangle = new System.Drawing.Rectangle(87, 7, 159, 14);
             this.Load += new System.EventHandler(this.TestManager_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

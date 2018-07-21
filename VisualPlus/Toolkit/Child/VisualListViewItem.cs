@@ -13,7 +13,7 @@ using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
-using VisualPlus.Managers;
+using VisualPlus.Structure;
 using VisualPlus.Toolkit.Controls.DataManagement;
 using VisualPlus.TypeConverters;
 
@@ -577,7 +577,7 @@ namespace VisualPlus.Toolkit.Child
         /// <param name="e">The event args.</param>
         public void SubItemCollection_Changed(object source, ListViewChangedEventArgs e)
         {
-            DebugTraceManager.WriteDebug("VisualListViewItem::SubItemCollection_Changed", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VisualListViewItem::SubItemCollection_Changed");
 
             if (ChangedEvent != null)
             {

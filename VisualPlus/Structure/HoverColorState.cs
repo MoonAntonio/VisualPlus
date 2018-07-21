@@ -47,6 +47,9 @@ namespace VisualPlus.Structure
         /// <summary>Initializes a new instance of the <see cref="HoverColorState" /> class.</summary>
         public HoverColorState()
         {
+            Disabled = Color.Empty;
+            Enabled = Color.Empty;
+            _hover = Color.Empty;
         }
 
         #endregion

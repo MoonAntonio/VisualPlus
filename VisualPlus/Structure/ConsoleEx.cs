@@ -7,28 +7,14 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
+using VisualPlus.Enumerators;
+
 #endregion
 
-namespace VisualPlus.Managers
+namespace VisualPlus.Structure
 {
-    public class DebugTraceManager
+    public static class ConsoleEx
     {
-        #region Enumerators
-
-        public enum DebugOutput
-        {
-            /// <summary>The file.</summary>
-            File = 0,
-
-            /// <summary>The trace listener.</summary>
-            TraceListener = 1,
-
-            /// <summary>To both.</summary>
-            Both = 2
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>Create an entry exception.</summary>
@@ -80,50 +66,79 @@ namespace VisualPlus.Managers
 
         /// <summary>Write the debug text to the output.</summary>
         /// <param name="text">The text to write.</param>
+        /// <param name="formatted">The toggle.</param>
         /// <param name="output">The output method to use.</param>
-        public static void WriteDebug(string text, DebugOutput output)
+        public static void WriteDebug(string text, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
         {
-            WriteLog(text, output);
+            WriteLog(text, formatted, output);
         }
 
         /// <summary>Write the debug text to the output.</summary>
         /// <param name="exception">The exception.</param>
         /// <param name="output">The output method to use.</param>
-        public static void WriteDebug(Exception exception, DebugOutput output)
+        public static void WriteDebug(Exception exception, DebugOutput output = DebugOutput.TraceListener)
         {
-            WriteLog(CreateException(exception), output);
+            WriteLog(CreateException(exception), false, output);
+        }
+
+        /// <summary>Write the debug text to console.</summary>
+        /// <param name="text">The text to write to the console.</param>
+        /// <param name="formatted">The toggle.</param>
+        public static void WriteToConsole(string text, bool formatted = true)
+        {
+            string formattedText = text;
+            if (formatted)
+            {
+                formattedText = FormattedText(text);
+            }
+
+            Console.WriteLine(formattedText);
         }
 
         /// <summary>Write the debug text to file.</summary>
         /// <param name="file">The file to output.</param>
         /// <param name="text">The text to write to the file.</param>
-        public static void WriteToFile(string file, string text)
+        /// <param name="formatted">The toggle.</param>
+        public static void WriteToFile(string file, string text, bool formatted = true)
         {
             try
             {
+                string formattedText = text;
+                if (formatted)
+                {
+                    formattedText = FormattedText(text);
+                }
+
                 StreamWriter _streamWriter = new StreamWriter(file, true);
-                _streamWriter.Write(text);
+                _streamWriter.Write(formattedText);
                 _streamWriter.Close();
             }
             catch (UnauthorizedAccessException)
             {
-                WriteDebug("UnauthorizedAccessException - Unable to access file!", DebugOutput.Both);
+                WriteDebug("UnauthorizedAccessException - Unable to access file!", true, DebugOutput.All);
             }
         }
 
         /// <summary>Write the debug text to file.</summary>
         /// <param name="text">The text to write to the file.</param>
-        public static void WriteToTraceListener(string text)
+        /// <param name="formatted">The toggle.</param>
+        public static void WriteToTraceListener(string text, bool formatted = true)
         {
-            Debug.WriteLine(text);
+            string formattedText = text;
+            if (formatted)
+            {
+                formattedText = FormattedText(text);
+            }
+
+            Debug.WriteLine(formattedText);
         }
 
         /// <summary>Write the debug text to the output.</summary>
         /// <param name="text">The text to write.</param>
+        /// <param name="formatted">The toggle.</param>
         /// <param name="output">The output method to use.</param>
-        private static void WriteLog(string text, DebugOutput output = DebugOutput.Both)
+        private static void WriteLog(string text, bool formatted = true, DebugOutput output = DebugOutput.All)
         {
-            string _formattedText = FormattedText(text);
             string _folderName = Assembly.GetExecutingAssembly().GetName().Name + "-Logs";
             string _executingAssembly = Assembly.GetExecutingAssembly().Location;
             string _directory = Path.GetDirectoryName(_executingAssembly);
@@ -143,22 +158,28 @@ namespace VisualPlus.Managers
 
             switch (output)
             {
+                case DebugOutput.Console:
+                    {
+                        WriteToConsole(text, formatted);
+                        break;
+                    }
+
                 case DebugOutput.File:
                     {
-                        WriteToFile(_output, _formattedText);
+                        WriteToFile(_output, text, formatted);
                         break;
                     }
 
                 case DebugOutput.TraceListener:
                     {
-                        WriteToTraceListener(_formattedText);
+                        WriteToTraceListener(text, formatted);
                         break;
                     }
 
-                case DebugOutput.Both:
+                case DebugOutput.All:
                     {
-                        WriteToFile(_output, _formattedText);
-                        WriteToTraceListener(_formattedText);
+                        WriteToFile(_output, text, formatted);
+                        WriteToTraceListener(text, formatted);
                         break;
                     }
 

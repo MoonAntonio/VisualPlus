@@ -516,26 +516,26 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         {
             try
             {
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font; // TODO: 16F - Bold
-                _subscriptFont = theme.TextSetting.Font; // TODO: - Bold
-                _superscriptFont = theme.TextSetting.Font; // TODO: - Bold
+                // Font = theme.ColorPalette.Font; // TODO: 16F - Bold
+                _subscriptFont = SystemFonts.DefaultFont; // TODO: - Bold
+                _superscriptFont = SystemFonts.DefaultFont; // TODO: - Bold
 
-                _superscriptColor = theme.TextSetting.SuperscriptColor;
-                _subscriptColor = theme.TextSetting.SubscriptColor;
+                _superscriptColor = theme.ColorPalette.SuperscriptColor;
+                _subscriptColor = theme.ColorPalette.SubscriptColor;
 
                 _colorState = new ControlColorState
                     {
-                        Enabled = theme.BackgroundSettings.Type1,
-                        Disabled = theme.BackgroundSettings.Type1
+                        Enabled = theme.ColorPalette.Type1,
+                        Disabled = theme.ColorPalette.Type1
                     };
 
-                _backCircleColor = theme.OtherSettings.BackCircle;
-                _foreCircleColor = theme.OtherSettings.ForeCircle;
-                _progressColor = theme.OtherSettings.Progress;
+                _backCircleColor = theme.ColorPalette.BackCircle;
+                _foreCircleColor = theme.ColorPalette.ForeCircle;
+                _progressColor = theme.ColorPalette.Progress;
             }
             catch (Exception e)
             {

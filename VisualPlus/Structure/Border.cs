@@ -51,7 +51,7 @@ namespace VisualPlus.Structure
         public Border()
         {
             StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-            ConstructBorder(styleManager.Theme.BorderSettings.Hover, true);
+            ConstructBorder(styleManager.Theme.ColorPalette.BorderHover, true);
         }
 
         #endregion

@@ -731,28 +731,27 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                _textStyle.Enabled = theme.TextSetting.Enabled;
-                _textStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                _textStyle.Enabled = theme.ColorPalette.TextEnabled;
+                _textStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
-
-                _borderEdge.BackColor = theme.OtherSettings.Line;
+                // Font = theme.ColorPalette.Font;
+                _borderEdge.BackColor = theme.ColorPalette.Line;
 
                 _backColorState = new ColorState
                     {
-                        Enabled = theme.OtherSettings.BoxEnabled,
-                        Disabled = theme.OtherSettings.BoxDisabled
+                        Enabled = theme.ColorPalette.BoxEnabled,
+                        Disabled = theme.ColorPalette.BoxDisabled
                     };
 
-                _buttonColor = theme.OtherSettings.FlatControlEnabled;
+                _buttonColor = theme.ColorPalette.FlatControlEnabled;
 
-                _menuTextColor = theme.TextSetting.Enabled;
-                _menuItemNormal = theme.ListItemSettings.Item;
-                _menuItemHover = theme.ListItemSettings.ItemHover;
+                _menuTextColor = theme.ColorPalette.TextEnabled;
+                _menuItemNormal = theme.ColorPalette.Item;
+                _menuItemHover = theme.ColorPalette.ItemHover;
             }
             catch (Exception e)
             {

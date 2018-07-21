@@ -294,7 +294,6 @@
             this.MinimizeBox = true;
             this.Name = "VisualControlBoxTest";
             this.Text = "VisualControlBox Test";
-            this.TextRectangle = new System.Drawing.Rectangle(110, 7, 118, 14);
             this.ResumeLayout(false);
 
         }

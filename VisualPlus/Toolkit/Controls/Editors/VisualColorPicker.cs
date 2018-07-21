@@ -76,7 +76,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.Selectable | ControlStyles.StandardClick | ControlStyles.StandardDoubleClick | ControlStyles.SupportsTransparentBackColor, true);
             styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-            _buttonColor = styleManager.Theme.ColorStateSettings.Enabled;
+            _buttonColor = styleManager.Theme.ColorPalette.Enabled;
             _pickType = PickerType.Rectangle;
             Color = Color.Black;
             ColorStep = 4;

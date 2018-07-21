@@ -46,6 +46,8 @@ namespace VisualPlus.Structure
         /// <summary>Initializes a new instance of the <see cref="ColorState" /> class.</summary>
         public ColorState()
         {
+            _disabled = Color.Empty;
+            _enabled = Color.Empty;
         }
 
         #endregion

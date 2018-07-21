@@ -319,19 +319,18 @@ namespace VisualPlus.Toolkit.Controls.Layout
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
+                // Font = theme.ColorPalette.Font;
+                _borderEdge.BackColor = theme.ColorPalette.Line;
 
-                _borderEdge.BackColor = theme.OtherSettings.Line;
-
-                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
-                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
+                BackColorState.Enabled = theme.ColorPalette.Enabled;
+                BackColorState.Disabled = theme.ColorPalette.Disabled;
             }
             catch (Exception e)
             {

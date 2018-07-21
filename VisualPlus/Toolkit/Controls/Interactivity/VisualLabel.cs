@@ -384,11 +384,11 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             try
             {
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
+                // Font = theme.ColorPalette.Font;
             }
             catch (Exception e)
             {

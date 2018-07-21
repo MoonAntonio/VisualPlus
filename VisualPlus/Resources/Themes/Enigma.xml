@@ -7,7 +7,6 @@
     </Information>
     <StyleTable>
         <Shared>
-            <MainColor>#ffC40D</MainColor>
             <LightText>#FF808080</LightText>
             <Line>#FFE0DEDC</Line>
             <Shadow>#FFFAF9F9</Shadow>

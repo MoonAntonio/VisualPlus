@@ -118,7 +118,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>Initializes a new instance of the <see cref="VisualListView" /> class.</summary>
         public VisualListView()
         {
-            DebugTraceManager.WriteDebug("VisualListView::Constructor", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VisualListView::Constructor");
 
             _columnColorState = new ControlColorState();
             _liveControls = new ArrayList();
@@ -238,7 +238,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             _colorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.BackgroundSettings.Type4 
+                       Enabled = ThemeManager.Theme.ColorPalette.Type4 
                     };
 
             Size = new Size(121, 97);
@@ -451,7 +451,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate from BackColorState property.", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate from BackColorState property.");
                     Parent.Invalidate(true);
                 }
             }
@@ -495,7 +495,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate from Border property.", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate from Border property.");
                     Parent.Invalidate(true);
                 }
             }
@@ -576,7 +576,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate from ColumnColorState property.", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate from ColumnColorState property.");
                     Parent.Invalidate(true);
                 }
             }
@@ -622,7 +622,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate from ControlStyle Property", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate from ControlStyle Property");
                     Parent.Invalidate(true);
                 }
             }
@@ -648,7 +648,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate from CornerBox property.", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate from CornerBox property.");
                     Parent.Invalidate(true);
                 }
             }
@@ -676,7 +676,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate from CornerBoxColor property.", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate from CornerBoxColor property.");
                     Parent.Invalidate(true);
                 }
             }
@@ -785,7 +785,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _focusedItem = value;
                     if (!DesignMode)
                     {
-                        DebugTraceManager.WriteDebug("Calling Invalidate From FocusedItem", DebugTraceManager.DebugOutput.TraceListener);
+                        ConsoleEx.WriteDebug("Calling Invalidate From FocusedItem");
                         Invalidate(true);
                     }
 
@@ -838,7 +838,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate From GridColor", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From GridColor");
                     Parent.Invalidate(true);
                 }
             }
@@ -861,7 +861,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate From GLGridLines", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From GLGridLines");
                     Parent.Invalidate(true);
                 }
             }
@@ -907,7 +907,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate From GLGridTypes", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From GLGridTypes");
                     Parent.Invalidate(true);
                 }
             }
@@ -936,7 +936,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _headerHeight = value;
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate From HeaderHeight", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From HeaderHeight");
                     Parent.Invalidate(true);
                 }
             }
@@ -1033,7 +1033,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                         if (!DesignMode)
                         {
-                            DebugTraceManager.WriteDebug("Calling Invalidate From HotColumnIndex", DebugTraceManager.DebugOutput.TraceListener);
+                            ConsoleEx.WriteDebug("Calling Invalidate From HotColumnIndex");
                             Invalidate(true);
                         }
                     }
@@ -1132,7 +1132,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                         _hotColumnIndex = -1;
                         _hoverItemIndex = value;
 
-                        DebugTraceManager.WriteDebug("Calling Invalidate From HotItemIndex", DebugTraceManager.DebugOutput.TraceListener);
+                        ConsoleEx.WriteDebug("Calling Invalidate From HotItemIndex");
                         Invalidate(true);
                     }
                 }
@@ -1244,7 +1244,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _itemHeight = value;
                 if (DesignMode && (Parent != null))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate From ItemHeight", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From ItemHeight");
                     Parent.Invalidate(true);
                 }
             }
@@ -1340,11 +1340,11 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                         if (!DesignMode)
                         {
-                            DebugTraceManager.WriteDebug("Calling Invalidate From MaxHeight", DebugTraceManager.DebugOutput.TraceListener);
+                            ConsoleEx.WriteDebug("Calling Invalidate From MaxHeight");
                             Invalidate(true);
                         }
 
-                        DebugTraceManager.WriteDebug("Item height set bigger", DebugTraceManager.DebugOutput.TraceListener);
+                        ConsoleEx.WriteDebug("Item height set bigger");
                     }
                 }
             }
@@ -1586,7 +1586,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="disposing">Indicates whether the method call comes from a <see cref="Dispose" /> method or a finalizer.</param>
         protected override void Dispose(bool disposing)
         {
-            DebugTraceManager.WriteDebug("Disposing VisualListViewAdvanced.", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("Disposing VisualListViewAdvanced.");
 
             if (_theme != IntPtr.Zero)
             {
@@ -1606,7 +1606,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnDoubleClick(EventArgs e)
         {
-            DebugTraceManager.WriteDebug("VisualListView::OnDoubleClick", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VisualListView::OnDoubleClick");
 
             Point _pointerLocation = PointToClient(Cursor.Position);
 
@@ -1649,7 +1649,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            DebugTraceManager.WriteDebug("OnMouseDown", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("OnMouseDown");
 
             int _itemIndex;
             int _column;
@@ -1842,7 +1842,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            DebugTraceManager.WriteDebug("VisualListView::MouseMove", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VisualListView::MouseMove");
 
             try
             {
@@ -1910,7 +1910,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            DebugTraceManager.WriteDebug("VisualListView::MouseUp", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VisualListView::MouseUp");
 
             Cursor.Current = Cursors.Arrow;
             Columns.ClearStates();
@@ -1930,7 +1930,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            DebugTraceManager.WriteDebug("VisualListView::Paint", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VisualListView::Paint");
 
             // TODO: Allow rounded type.
             _border.Type = ShapeType.Rectangle;
@@ -1980,13 +1980,13 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnResize(EventArgs e)
         {
-            DebugTraceManager.WriteDebug("OnResize - Calling Invalidate From OnResize", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("OnResize - Calling Invalidate From OnResize");
             Invalidate();
         }
 
         public override bool PreProcessMessage(ref Message msg)
         {
-            DebugTraceManager.WriteDebug("PreProcessMessage - Msg: " + msg, DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("PreProcessMessage - Msg: " + msg);
 
             if (msg.Msg == ListViewConstants.WM_KEYDOWN)
             {
@@ -2199,7 +2199,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     {
                         _verticalScrollBar.Value = _moveIndex;
 
-                        DebugTraceManager.WriteDebug("Calling Invalidate From PreProcessMessage", DebugTraceManager.DebugOutput.TraceListener);
+                        ConsoleEx.WriteDebug("Calling Invalidate From PreProcessMessage");
                         Invalidate();
                     }
                 }
@@ -2305,7 +2305,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="e">The event args.</param>
         public void Columns_Changed(object source, ListViewChangedEventArgs e)
         {
-            DebugTraceManager.WriteDebug("Columns_Changed", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("Columns_Changed");
 
             if (e.ChangedType != ListViewChangedTypes.ColumnStateChanged)
             {
@@ -2314,7 +2314,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             ColumnChangedEvent?.Invoke(this, e);
 
-            DebugTraceManager.WriteDebug("Calling Invalidate From Columns_Changed", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("Calling Invalidate From Columns_Changed");
             Invalidate();
         }
 
@@ -2330,7 +2330,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <returns>The <see cref="int" />.</returns>
         public int GetColumnScreenX(int column)
         {
-            DebugTraceManager.WriteDebug("Get Column Screen X", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("Get Column Screen X");
 
             if (column >= Columns.Count)
             {
@@ -2367,7 +2367,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="listStates">The state.</param>
         public void InterpretCoordinates(int screenX, int screenY, out ListViewRegion listRegion, out int cellX, out int cellY, out int itemIndex, out int columnIndex, out ListStates listStates)
         {
-            DebugTraceManager.WriteDebug("VisualListView::Interpret Coordinates", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VisualListView::Interpret Coordinates");
 
             listStates = ListStates.None;
             columnIndex = 0;
@@ -2488,38 +2488,37 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
+                // Font = theme.ColorPalette.Font;
+                _colorAlternateBackground = theme.ColorPalette.ItemAlternate;
+                _colorGridColor = theme.ColorPalette.Line;
 
-                _colorAlternateBackground = theme.ListItemSettings.ItemAlternate;
-                _colorGridColor = theme.OtherSettings.Line;
+                _columnColorState.Enabled = theme.ColorPalette.ColumnHeader;
+                _columnColorState.Disabled = theme.ColorPalette.ColumnHeader;
+                _columnColorState.Hover = theme.ColorPalette.ItemHover;
+                _columnColorState.Pressed = theme.ColorPalette.ColumnHeader;
 
-                _columnColorState.Enabled = theme.OtherSettings.ColumnHeader;
-                _columnColorState.Disabled = theme.OtherSettings.ColumnHeader;
-                _columnColorState.Hover = theme.ListItemSettings.ItemHover;
-                _columnColorState.Pressed = theme.OtherSettings.ColumnHeader;
+                _hoverTrackingColor = theme.ColorPalette.ItemHover;
+                _itemSelectedColor = theme.ColorPalette.ItemSelected;
 
-                _hoverTrackingColor = theme.ListItemSettings.ItemHover;
-                _itemSelectedColor = theme.ListItemSettings.ItemSelected;
+                _itemSelectedTextColor = theme.ColorPalette.TextEnabled;
 
-                _itemSelectedTextColor = theme.TextSetting.Enabled;
-
-                _displayTextColor = theme.TextSetting.Disabled;
-                _displayTextFont = theme.TextSetting.Font;
+                _displayTextColor = theme.ColorPalette.TextDisabled;
+                _displayTextFont = SystemFonts.DefaultFont;
 
                 _colorState = new ColorState
                     {
-                        Enabled = theme.BackgroundSettings.Type4,
-                        Disabled = theme.BackgroundSettings.Type1
+                        Enabled = theme.ColorPalette.Type4,
+                        Disabled = theme.ColorPalette.Type1
                     };
 
-                _cornerBox.BackColor = theme.BackgroundSettings.Type4;
+                _cornerBox.BackColor = theme.ColorPalette.Type4;
             }
             catch (Exception e)
             {
@@ -2649,7 +2648,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <returns>The <see cref="bool" />.</returns>
         private bool AreThemesAvailable()
         {
-            DebugTraceManager.WriteDebug("AreThemesAvailable", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("AreThemesAvailable");
 
             // IntPtr hTheme = IntPtr.Zero;
             try
@@ -2745,10 +2744,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="e">The event args.</param>
         private void HorizontalPanelScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
-            DebugTraceManager.WriteDebug("hPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("hPanelScrollBar_Scroll");
 
             // this.Focus();
-            DebugTraceManager.WriteDebug("Calling Invalidate From hPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("Calling Invalidate From hPanelScrollBar_Scroll");
 
             Invalidate();
         }
@@ -2809,7 +2808,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="e">The event args.</param>
         private void Items_Changed(object source, ListViewChangedEventArgs e)
         {
-            DebugTraceManager.WriteDebug("VisualListView::Items_Changed", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VisualListView::Items_Changed");
 
             DestroyActivatedEmbedded();
 
@@ -2820,7 +2819,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             {
                 if (IsItemVisible(e.Item))
                 {
-                    DebugTraceManager.WriteDebug("Calling Invalidate From Items_Changed", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From Items_Changed");
                     Invalidate();
                 }
             }
@@ -2831,7 +2830,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         private void OnMouseDownFromSubItem(object sender, MouseEventArgs e)
         {
-            DebugTraceManager.WriteDebug("OnMouseDown::SubItem", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("OnMouseDown::SubItem");
 
             Point _clientPoint = PointToClient(new Point(MousePosition.X, MousePosition.Y));
             e = new MouseEventArgs(e.Button, e.Clicks, _clientPoint.X, _clientPoint.Y, e.Delta);
@@ -2840,7 +2839,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         private void OnScroll(object sender, ScrollEventArgs e)
         {
-            DebugTraceManager.WriteDebug("Calling Invalidate From OnScroll", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("Calling Invalidate From OnScroll");
 
             DestroyActivatedEmbedded();
 
@@ -2852,14 +2851,14 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>Recalculate scroll bars and control size.</summary>
         private void RecalculateScroll()
         {
-            DebugTraceManager.WriteDebug("VisualListView::RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VisualListView::RecalculateScroll");
 
             var _exitCode = 0;
             bool _bSbChanged;
             do
             {
                 // this loop is to handle changes and re-changes that happen when one or the other changes
-                DebugTraceManager.WriteDebug("Begin scrollbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
+                ConsoleEx.WriteDebug("Begin scrollbar updates loop");
                 _bSbChanged = false;
 
                 if ((_columns.Width > RowsInnerClientRect.Width) && (_horizontalScrollBar.Visible == false))
@@ -2869,9 +2868,9 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
 
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From RecalculateScroll");
                     Invalidate();
-                    DebugTraceManager.WriteDebug("showing hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("showing hScrollbar");
                 }
 
                 if ((_columns.Width <= RowsInnerClientRect.Width) && _horizontalScrollBar.Visible)
@@ -2880,9 +2879,9 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _horizontalScrollBar.MVisible = false;
                     _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From RecalculateScroll");
                     Invalidate();
-                    DebugTraceManager.WriteDebug("hiding hScrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("hiding hScrollbar");
                 }
 
                 if ((TotalRowsHeight > RowsInnerClientRect.Height) && (_verticalScrollBar.Visible == false))
@@ -2891,9 +2890,9 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _verticalScrollBar.MVisible = true;
                     _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From RecalculateScroll");
                     Invalidate();
-                    DebugTraceManager.WriteDebug("showing vScrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("showing vScrollbar");
                 }
 
                 if ((TotalRowsHeight <= RowsInnerClientRect.Height) && _verticalScrollBar.Visible)
@@ -2902,12 +2901,12 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _verticalScrollBar.MVisible = false;
                     _verticalScrollBar.Value = 0;
                     _bSbChanged = true;
-                    DebugTraceManager.WriteDebug("Calling Invalidate From RecalculateScroll", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Calling Invalidate From RecalculateScroll");
                     Invalidate();
-                    DebugTraceManager.WriteDebug("hiding vScrollbar", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("hiding vScrollbar");
                 }
 
-                DebugTraceManager.WriteDebug("End scrollbar updates loop", DebugTraceManager.DebugOutput.TraceListener);
+                ConsoleEx.WriteDebug("End scrollbar updates loop");
 
                 if (++_exitCode > 4)
                 {
@@ -2929,7 +2928,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 if (_verticalScrollBar.Value + RowsVisible > Count)
                 {
                     // catch all to make sure the scrollbar isn't going farther than visible items
-                    DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Changing vPanel value");
                     _verticalScrollBar.Value = Count - RowsVisible; // an item got deleted underneath somehow and scroll value is larger than can be displayed
                 }
             }
@@ -2945,7 +2944,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (_horizontalScrollBar.Value + _horizontalScrollBar.LargeChange > _horizontalScrollBar.Maximum)
                 {
-                    DebugTraceManager.WriteDebug("Changing vPanel value", DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug("Changing vPanel value");
                     _horizontalScrollBar.Value = _horizontalScrollBar.Maximum - _horizontalScrollBar.LargeChange;
                 }
             }
@@ -3008,10 +3007,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="e">The event args.</param>
         private void VerticalPanelScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
-            DebugTraceManager.WriteDebug("vPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
-
             // this.Focus();
-            DebugTraceManager.WriteDebug("Calling Invalidate From vPanelScrollBar_Scroll", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("VPanelScrollBar_Scroll::Calling Invalidate From vPanelScrollBar_Scroll");
             Parent.Invalidate(true);
         }
 

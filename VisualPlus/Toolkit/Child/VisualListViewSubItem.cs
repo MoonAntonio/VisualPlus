@@ -34,13 +34,13 @@ namespace VisualPlus.Toolkit.Child
         private Color _foreColor;
         private HorizontalAlignment _imageAlignment;
         private int _imageIndex;
+        private Rectangle _lastCellRectangle;
         private VisualListView _listView;
         private string _name;
         private VisualListViewItem _owner;
         private bool _selected;
         private object _tag;
         private string _text;
-        private Rectangle _lastCellRectangle;
 
         #endregion
 

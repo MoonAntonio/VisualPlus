@@ -49,6 +49,10 @@ namespace VisualPlus.Structure
         /// <summary>Initializes a new instance of the <see cref="ControlColorState" /> class.</summary>
         public ControlColorState()
         {
+            Disabled = Color.Empty;
+            Enabled = Color.Empty;
+            Hover = Color.Empty;
+            _pressed = Color.Empty;
         }
 
         #endregion
@@ -134,9 +138,7 @@ namespace VisualPlus.Structure
         /// <param name="controlColorState">The control color state.</param>
         /// <param name="enabled">The enabled toggle.</param>
         /// <param name="mouseState">The mouse state.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color BackColorState(ControlColorState controlColorState, bool enabled, MouseStates mouseState)
         {
             Color _color;

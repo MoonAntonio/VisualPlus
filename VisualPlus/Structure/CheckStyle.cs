@@ -42,11 +42,13 @@ namespace VisualPlus.Structure
         {
             StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
-            _color = styleManager.Theme.OtherSettings.Progress;
+            _color = styleManager.Theme.ColorPalette.Progress;
 
             _autoSize = true;
             _character = '✔';
-            _characterFont = styleManager.Theme.TextSetting.Font;
+
+            // _characterFont = styleManager.Theme.ColorPalette.Font;
+            _characterFont = SystemFonts.DefaultFont;
             _checkType = CheckType.Character;
 
             _shapeRounding = Settings.DefaultValue.Rounding.BoxRounding;

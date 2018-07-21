@@ -82,12 +82,12 @@ namespace VisualPlus.Toolkit.Controls.Navigation
 
             _itemSize = new Size(100, 25);
             _tabMenu = Color.FromArgb(55, 61, 73);
-            _tabSelector = _styleManager.Theme.BackgroundSettings.Type4;
+            _tabSelector = _styleManager.Theme.ColorPalette.Type4;
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
             _separatorSpacing = 2;
             _separatorThickness = 2F;
-            _separator = _styleManager.Theme.OtherSettings.Line;
+            _separator = _styleManager.Theme.ColorPalette.Line;
             _selectorTypes = SelectorTypes.Arrow;
 
             Size = new Size(320, 160);
@@ -410,7 +410,9 @@ namespace VisualPlus.Toolkit.Controls.Navigation
 
             Appearance = TabAppearance.Normal;
             DoubleBuffered = true;
-            Font = _styleManager.Theme.TextSetting.Font;
+            Font = SystemFonts.DefaultFont;
+
+            // Font = _styleManager.Theme.ColorPalette.Font;
             MinimumSize = new Size(144, 85);
             SizeMode = TabSizeMode.Fixed;
         }
@@ -624,7 +626,7 @@ namespace VisualPlus.Toolkit.Controls.Navigation
                 }
                 catch (Exception e)
                 {
-                    DebugTraceManager.WriteDebug(e, DebugTraceManager.DebugOutput.TraceListener);
+                    ConsoleEx.WriteDebug(e);
                 }
             }
         }
@@ -786,7 +788,7 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             }
             catch (Exception e)
             {
-                DebugTraceManager.WriteDebug(e, DebugTraceManager.DebugOutput.TraceListener);
+                ConsoleEx.WriteDebug(e);
             }
         }
 

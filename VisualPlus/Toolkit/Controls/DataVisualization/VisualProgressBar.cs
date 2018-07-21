@@ -307,26 +307,25 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             {
                 _colorState = new ColorState
                     {
-                        Enabled = theme.OtherSettings.ProgressBackground,
-                        Disabled = theme.OtherSettings.ProgressDisabled
+                        Enabled = theme.ColorPalette.ProgressBackground,
+                        Disabled = theme.ColorPalette.ProgressDisabled
                     };
 
-                _hatch.BackColor = Color.FromArgb(0, theme.OtherSettings.HatchBackColor);
-                _hatch.ForeColor = Color.FromArgb(20, theme.OtherSettings.HatchForeColor);
+                _hatch.BackColor = Color.FromArgb(0, theme.ColorPalette.HatchBackColor);
+                _hatch.ForeColor = Color.FromArgb(20, theme.ColorPalette.HatchForeColor);
 
-                _progressColor = theme.OtherSettings.Progress;
+                _progressColor = theme.ColorPalette.Progress;
 
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
-
-                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
-                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
+                // Font = theme.ColorPalette.Font;
+                BackColorState.Enabled = theme.ColorPalette.Enabled;
+                BackColorState.Disabled = theme.ColorPalette.Disabled;
             }
             catch (Exception e)
             {

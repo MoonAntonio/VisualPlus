@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
@@ -70,6 +71,39 @@ namespace VisualPlus.Managers
         public static List<FontFamily> InstalledFonts()
         {
             return new InstalledFontCollection().Families.ToList();
+        }
+
+        /// <summary>Resolves to default family if font can't be resolved.</summary>
+        /// <param name="fontName">The font name.</param>
+        /// <param name="size">The font size.</param>
+        /// <param name="defaultFontName">The default font name.</param>
+        /// <returns>The <see cref="Font" />.</returns>
+        public static Font ResolveFontFamily(string fontName, float size = 8.25F, string defaultFontName = "Arial")
+        {
+            if (string.IsNullOrEmpty(fontName))
+            {
+                throw new NoNullAllowedException(nameof(fontName));
+            }
+
+            // The font range is between 1 - 1638.
+            if ((size <= 0) && (size > 1637))
+            {
+                throw new ArgumentOutOfRangeException(nameof(size));
+            }
+
+            if (string.IsNullOrEmpty(defaultFontName))
+            {
+                throw new NoNullAllowedException(nameof(fontName));
+            }
+
+            if (FontInstalled(fontName))
+            {
+                return new Font(new FontFamily(fontName), size);
+            }
+            else
+            {
+                return FontInstalled(defaultFontName) ? new Font(new FontFamily(defaultFontName), size) : new Font(SystemFonts.DefaultFont.FontFamily, size);
+            }
         }
 
         #endregion

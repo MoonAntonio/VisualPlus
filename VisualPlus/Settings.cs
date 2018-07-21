@@ -11,7 +11,7 @@ using VisualPlus.Enumerators;
 
 namespace VisualPlus
 {
-    internal class Settings
+    public class Settings
     {
         #region Variables
 
@@ -33,6 +33,7 @@ namespace VisualPlus
         #region Methods
 
         public const string DefaultCategoryText = "VisualExtension";
+        public const string ThemeResourceLocation = "VisualPlus.Resources.Themes.";
 
         public struct DefaultValue
         {

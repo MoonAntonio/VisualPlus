@@ -587,26 +587,27 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
+                // Font = theme.ColorPalette.Font;
+                _borderEdge.BackColor = theme.ColorPalette.BorderNormal;
+                _borderButtons.BackColor = theme.ColorPalette.Line;
 
-                _borderEdge.BackColor = theme.BorderSettings.Normal;
-                _borderButtons.BackColor = theme.OtherSettings.Line;
+                _buttonForeColor = theme.ColorPalette.LightText;
 
-                _buttonForeColor = theme.OtherSettings.LightText;
-                _buttonFont = new Font(theme.TextSetting.Font.FontFamily, 14, FontStyle.Bold);
-                _buttonColor = theme.BackgroundSettings.Type2;
+                // _buttonFont = new Font(theme.ColorPalette.Font.FontFamily, 14, FontStyle.Bold);
+                _buttonFont = new Font(SystemFonts.DefaultFont.FontFamily, 14, FontStyle.Bold);
+                _buttonColor = theme.ColorPalette.Type2;
 
                 _colorState = new ColorState
                     {
-                        Enabled = theme.BackgroundSettings.Type2,
-                        Disabled = theme.BackgroundSettings.Type1
+                        Enabled = theme.ColorPalette.Type2,
+                        Disabled = theme.ColorPalette.Type1
                     };
             }
             catch (Exception e)

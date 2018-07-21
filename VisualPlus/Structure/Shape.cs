@@ -41,10 +41,9 @@ namespace VisualPlus.Structure
         public Shape()
         {
             StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-            ConstructShape(ShapeType.Rounded, styleManager.Theme.BorderSettings.Normal, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
+            ConstructShape(ShapeType.Rounded, styleManager.Theme.ColorPalette.BorderNormal, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
         }
 
-        /// <inheritdoc />
         /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.Shape" /> class.</summary>
         /// <param name="shapeType">The shape type.</param>
         /// <param name="color">The color.</param>
@@ -54,7 +53,6 @@ namespace VisualPlus.Structure
             ConstructShape(shapeType, color, rounding, _thickness, _visible);
         }
 
-        /// <inheritdoc />
         /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.Shape" /> class.</summary>
         /// <param name="shapeType">The shape type.</param>
         /// <param name="color">The color.</param>

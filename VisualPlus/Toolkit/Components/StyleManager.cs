@@ -72,10 +72,10 @@ namespace VisualPlus.Toolkit.Components
         }
 
         /// <summary>Initializes a new instance of the <see cref="StyleManager" /> class.</summary>
-        /// <param name="theme">The style.</param>
-        public StyleManager(Themes theme) : this()
+        /// <param name="themes">The internal themes.</param>
+        public StyleManager(Themes themes) : this()
         {
-            _theme = new Theme(theme);
+            _theme = new Theme(themes);
         }
 
         /// <summary>Initializes a new instance of the <see cref="StyleManager" /> class.</summary>
@@ -101,7 +101,7 @@ namespace VisualPlus.Toolkit.Components
         {
             try
             {
-                ConstructDefaultThemeFile();
+                GenerateDefaultThemeFile();
 
                 if (_customThemePath == null)
                 {
@@ -212,7 +212,8 @@ namespace VisualPlus.Toolkit.Components
                 }
 
                 _theme = value;
-                _theme = new Theme(_themeType);
+
+                // _theme = new Theme(_themeType);
                 Update();
             }
         }
@@ -283,6 +284,35 @@ namespace VisualPlus.Toolkit.Components
         #endregion
 
         #region Methods
+
+        /// <summary>Creates a default theme file in the templates folder.</summary>
+        public static void GenerateDefaultThemeFile()
+        {
+            string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
+
+            if (File.Exists(_defaultThemePath))
+            {
+                FileInfo fileInfo = new FileInfo(_defaultThemePath);
+                DateTime lastModified = fileInfo.LastWriteTime;
+
+                // 24 Hours interval.
+                DateTime expiryDate = lastModified.AddDays(1);
+
+                if (DateTimeManager.DateExpired(expiryDate))
+                {
+                    CreateDefaultThemeFile();
+                }
+                else
+                {
+                    // Next update check within 24 hours.
+                }
+            }
+            else
+            {
+                // Create default theme file since none found.
+                CreateDefaultThemeFile();
+            }
+        }
 
         /// <summary>Opens the templates directory in the windows explorer.</summary>
         public static void OpenTemplatesDirectory()
@@ -427,17 +457,12 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
-        /// <summary>Creates a default theme file in the templates folder.</summary>
-        private void ConstructDefaultThemeFile()
+        /// <summary>Creates the default theme file.</summary>
+        private static void CreateDefaultThemeFile()
         {
+            Theme _defaultTheme = new Theme(Themes.Visual);
             string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
 
-            if (File.Exists(_defaultThemePath))
-            {
-                return;
-            }
-
-            Theme _defaultTheme = new Theme(Themes.Visual);
             string _text = _defaultTheme.RawTheme;
 
             if (!Directory.Exists(Settings.TemplatesFolder))

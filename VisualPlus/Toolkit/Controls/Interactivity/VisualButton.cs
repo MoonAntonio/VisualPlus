@@ -356,19 +356,18 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
-
-                _backColorState.Enabled = theme.ColorStateSettings.Enabled;
-                _backColorState.Disabled = theme.ColorStateSettings.Disabled;
-                _backColorState.Hover = theme.ColorStateSettings.Hover;
-                _backColorState.Pressed = theme.ColorStateSettings.Pressed;
+                // Font = theme.ColorPalette.Font;
+                _backColorState.Enabled = theme.ColorPalette.Enabled;
+                _backColorState.Disabled = theme.ColorPalette.Disabled;
+                _backColorState.Hover = theme.ColorPalette.Hover;
+                _backColorState.Pressed = theme.ColorPalette.Pressed;
             }
             catch (Exception e)
             {

@@ -7,142 +7,141 @@
     </Information>
     <StyleTable>
         <Shared>
-            <MainColor>#FFC40D</MainColor>
-            <LightText>#FF808080</LightText>
-            <Line>#FFE0DEDC</Line>
-            <Shadow>#FFFAF9F9</Shadow>
+            <LightText>#808080</LightText>
+            <Line>#E0DEDC</Line>
+            <Shadow>#FAF9F9</Shadow>
             <Background>
-                <Type1>#FFDCDCDC</Type1>
-                <Type2>#FFDCDCDC</Type2>
-                <Type3>#FF424041</Type3>
-                <Type4>#FFF1F4F9</Type4>
+                <Type1>#DCDCDC</Type1>
+                <Type2>#DCDCDC</Type2>
+                <Type3>#424041</Type3>
+                <Type4>#F1F4F9</Type4>
             </Background>
             <Border>
-                <Normal>#FFB4B4B4</Normal>
-                <Hover>#FF78B7E6</Hover>
+                <Normal>#B4B4B4</Normal>
+                <Hover>#78B7E6</Hover>
             </Border>
             <Box>
-                <Enabled>#FFE2E2E2</Enabled>
-                <Disabled>#FFF3F3F3</Disabled>
+                <Enabled>#E2E2E2</Enabled>
+                <Disabled>#F3F3F3</Disabled>
             </Box>
             <ColumnHeader>
-                <Header>#FFF3F3F3</Header>
-                <Text>#FF000000</Text>
+                <Header>#F3F3F3</Header>
+                <Text>#000000</Text>
             </ColumnHeader>
             <Control>
-                <Enabled>#FFE2E2E2</Enabled>
-                <Disabled>#FFF3F3F3</Disabled>
+                <Enabled>#E2E2E2</Enabled>
+                <Disabled>#F3F3F3</Disabled>
             </Control>
             <FlatControl>
-                <Enabled>#FF777776</Enabled>
-                <Disabled>#FFF3F3F3</Disabled>
+                <Enabled>#777776</Enabled>
+                <Disabled>#777776</Disabled>
             </FlatControl>
             <Font>
-                <FontFamily>Segoe UI</FontFamily>
-                <Enabled>#FF000000</Enabled>
-                <Disabled>#FF838181</Disabled>
-                <Selected>#FFD9DCE3</Selected>
+                <Enabled>#000000</Enabled>
+                <Disabled>#838181</Disabled>
+                <Hover>#000000</Hover>
+                <Selected>#D9DCE3</Selected>
                 <Subscript>#BC1708</Subscript>
                 <Superscript>#0924BC</Superscript>
             </Font>
             <ListItem>
-                <Normal>#FFDCDCDC</Normal>
-                <Hover>#FF78B7E6</Hover>
-                <Selected>#FF78B7E6</Selected>
+                <Normal>#DCDCDC</Normal>
+                <Hover>#78B7E6</Hover>
+                <Selected>#78B7E6</Selected>
                 <Alternate>#FFC40D</Alternate>
             </ListItem>
             <Hatch>
-                <BackColor>#FF000000</BackColor>
-                <ForeColor>#FF000000</ForeColor>
+                <BackColor>#000000</BackColor>
+                <ForeColor>#000000</ForeColor>
             </Hatch>
             <ProgressBar>
-                <Background>#FFE0DEDC</Background>
+                <Background>#E0DEDC</Background>
                 <Working>#2D882D</Working>
-                <Disabled>#FF838181</Disabled>
+                <Disabled>#838181</Disabled>
             </ProgressBar>
             <TabPage>
-                <Enabled>#FF373D49</Enabled>
-                <Disabled>#FF373D49</Disabled>
-                <Selected>#FF464C58</Selected>
-                <Hover>#FF232426</Hover>
+                <Enabled>#373D49</Enabled>
+                <Disabled>#373D49</Disabled>
+                <Selected>#464C58</Selected>
+                <Hover>#232426</Hover>
             </TabPage>
             <Watermark>
-                <Active>#FF808080</Active>
-                <Inactive>#FFD3D3D3</Inactive>
+                <Active>#808080</Active>
+                <Inactive>#D3D3D3</Inactive>
             </Watermark>
         </Shared>
         <Toolkit>
             <VisualButton>
-                <Enabled>#FFDCDCDC</Enabled>
-                <Disabled>#FFE0E0E0</Disabled>
-                <Hover>#FFE0E0E0</Hover>
-                <Pressed>#FFC0C0C0</Pressed>
+                <Enabled>#DCDCDC</Enabled>
+                <Disabled>#E0E0E0</Disabled>
+                <Hover>#E0E0E0</Hover>
+                <Pressed>#C0C0C0</Pressed>
             </VisualButton>
             <VisualControlBox>
                 <HelpButton>
                     <BackColorState>
                         <Disabled>#00FFFFFF</Disabled>
                         <Enabled>#00FFFFFF</Enabled>
-                        <Hover>#FFBEBABA</Hover>
-                        <Pressed>#FF696969</Pressed>
+                        <Hover>#BEBABA</Hover>
+                        <Pressed>#696969</Pressed>
                     </BackColorState>
                     <ForeColorState>
-                        <Disabled>#FF696969</Disabled>
-                        <Enabled>#FF808080</Enabled>
-                        <Hover>#FF808080</Hover>
-                        <Pressed>#FF808080</Pressed>
+                        <Disabled>#696969</Disabled>
+                        <Enabled>#808080</Enabled>
+                        <Hover>#808080</Hover>
+                        <Pressed>#808080</Pressed>
                     </ForeColorState>
                 </HelpButton>
                 <MinimizeButton>
                     <BackColorState>
                         <Disabled>#00FFFFFF</Disabled>
                         <Enabled>#00FFFFFF</Enabled>
-                        <Hover>#FFBEBABA</Hover>
-                        <Pressed>#FF696969</Pressed>
+                        <Hover>#BEBABA</Hover>
+                        <Pressed>#696969</Pressed>
                     </BackColorState>
                     <ForeColorState>
-                        <Disabled>#FF696969</Disabled>
-                        <Enabled>#FF808080</Enabled>
-                        <Hover>#FF808080</Hover>
-                        <Pressed>#FF808080</Pressed>
+                        <Disabled>#696969</Disabled>
+                        <Enabled>#808080</Enabled>
+                        <Hover>#808080</Hover>
+                        <Pressed>#808080</Pressed>
                     </ForeColorState>
                 </MinimizeButton>
                 <MaximizeButton>
                     <BackColorState>
                         <Disabled>#00FFFFFF</Disabled>
                         <Enabled>#00FFFFFF</Enabled>
-                        <Hover>#FFBEBABA</Hover>
-                        <Pressed>#FF696969</Pressed>
+                        <Hover>#BEBABA</Hover>
+                        <Pressed>#696969</Pressed>
                     </BackColorState>
                     <ForeColorState>
-                        <Disabled>#FF696969</Disabled>
-                        <Enabled>#FF808080</Enabled>
-                        <Hover>#FF808080</Hover>
-                        <Pressed>#FF808080</Pressed>
+                        <Disabled>#696969</Disabled>
+                        <Enabled>#808080</Enabled>
+                        <Hover>#808080</Hover>
+                        <Pressed>#808080</Pressed>
                     </ForeColorState>
                 </MaximizeButton>
                 <CloseButton>
                     <BackColorState>
                         <Disabled>#00FFFFFF</Disabled>
                         <Enabled>#00FFFFFF</Enabled>
-                        <Hover>#FFE81123</Hover>
-                        <Pressed>#FFF1707A</Pressed>
+                        <Hover>#E81123</Hover>
+                        <Pressed>#F1707A</Pressed>
                     </BackColorState>
                     <ForeColorState>
-                        <Disabled>#FF696969</Disabled>
-                        <Enabled>#FF696969</Enabled>
-                        <Hover>#FFFFFFFF</Hover>
-                        <Pressed>#FFFFFFFF</Pressed>
+                        <Disabled>#696969</Disabled>
+                        <Enabled>#696969</Enabled>
+                        <Hover>#FFFFFF</Hover>
+                        <Pressed>#FFFFFF</Pressed>
                     </ForeColorState>
                 </CloseButton>
             </VisualControlBox>
             <VisualForm>
-                <Background>#FFF1F4F9</Background>
+                <Background>#F1F4F9</Background>
                 <WindowBar>#FFDCDCDC</WindowBar>
             </VisualForm>
             <VisualRadialProgress>
-                <ForeCircle>#FFDCDCDC</ForeCircle>
-                <BackCircle>#FFDCDCDC</BackCircle>
+                <BackCircle>#DCDCDC</BackCircle>
+                <ForeCircle>#DCDCDC</ForeCircle>
             </VisualRadialProgress>
             <VisualScrollBar>
                 <Bar>
@@ -150,8 +149,8 @@
                     <Enabled>#FFDCDCDC</Enabled>
                 </Bar>
                 <Button>
-                    <Enabled>#FFDCDCDC</Enabled>
                     <Disabled>#FFE0E0E0</Disabled>
+                    <Enabled>#FFDCDCDC</Enabled>
                     <Hover>#FFE0E0E0</Hover>
                     <Pressed>#FFC0C0C0</Pressed>
                 </Button>

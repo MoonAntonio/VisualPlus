@@ -183,7 +183,7 @@ namespace VisualPlus.Toolkit.Components
                 {
                     ForeColor = Color.White,
                     Text = @"0",
-                    Font = styleManager.Theme.TextSetting.Font,
+                    Font = SystemFonts.DefaultFont,
                     Location = new Point(0, 0),
                     BackColor = Color.Transparent,
                     Size = new Size(25, 20)

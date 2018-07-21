@@ -41,9 +41,9 @@ namespace VisualPlus.Structure
         {
             StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
-            activeColor = styleManager.Theme.OtherSettings.WatermarkActive;
-            font = styleManager.Theme.TextSetting.Font;
-            inactiveColor = styleManager.Theme.OtherSettings.WatermarkInactive;
+            activeColor = styleManager.Theme.ColorPalette.WatermarkActive;
+            font = SystemFonts.DefaultFont;
+            inactiveColor = styleManager.Theme.ColorPalette.WatermarkInactive;
             text = Settings.DefaultValue.WatermarkText;
             visible = Settings.DefaultValue.WatermarkVisible;
 

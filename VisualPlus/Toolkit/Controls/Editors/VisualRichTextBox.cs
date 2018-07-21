@@ -57,7 +57,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _backColorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.BackgroundSettings.Type4 
+                       Enabled = ThemeManager.Theme.ColorPalette.Type4 
                     };
 
             _richTextBox = new RichTextBox
@@ -620,19 +620,18 @@ namespace VisualPlus.Toolkit.Controls.Editors
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
-
+                // Font = theme.ColorPalette.Font;
                 _backColorState = new ColorState
                     {
-                        Enabled = theme.BackgroundSettings.Type4,
-                        Disabled = theme.BackgroundSettings.Type1
+                        Enabled = theme.ColorPalette.Type4,
+                        Disabled = theme.ColorPalette.Type1
                     };
             }
             catch (Exception e)

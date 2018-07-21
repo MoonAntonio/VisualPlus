@@ -496,7 +496,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 if (ShowCheckBox)
                 {
                     _check = 15;
-               
+
                     if (Checked)
                     {
                         CheckBoxRenderer.DrawCheckBox(e.Graphics, checkBoxRectangle.Location, CheckBoxState.CheckedNormal);
@@ -577,17 +577,17 @@ namespace VisualPlus.Toolkit.Controls.Editors
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                _backColor.Enabled = theme.ColorStateSettings.Enabled;
-                _backColor.Disabled = theme.ColorStateSettings.Disabled;
+                _backColor.Enabled = theme.ColorPalette.Enabled;
+                _backColor.Disabled = theme.ColorPalette.Disabled;
 
-                ForeColor = theme.TextSetting.Enabled;
-                Font = theme.TextSetting.Font;
+                ForeColor = theme.ColorPalette.TextEnabled;
 
-                _arrowColor = theme.OtherSettings.FlatControlEnabled;
-                _arrowDisabledColor = theme.OtherSettings.FlatControlDisabled;
+                // Font = theme.ColorPalette.Font;
+                _arrowColor = theme.ColorPalette.FlatControlEnabled;
+                _arrowDisabledColor = theme.ColorPalette.FlatControlDisabled;
             }
             catch (Exception e)
             {

@@ -78,12 +78,12 @@ namespace VisualPlus.Toolkit.Components
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _text = "Enter your custom text here.";
             _icon = Resources.VisualPlus;
-            _background = styleManager.Theme.ColorStateSettings.Enabled;
-            _font = styleManager.Theme.TextSetting.Font;
+            _background = styleManager.Theme.ColorPalette.Enabled;
+            _font = SystemFonts.DefaultFont;
             _autoSize = true;
-            _foreColor = styleManager.Theme.TextSetting.Enabled;
-            _lineColor = styleManager.Theme.OtherSettings.Line;
-            _titleFont = styleManager.Theme.TextSetting.Font;
+            _foreColor = styleManager.Theme.ColorPalette.TextEnabled;
+            _lineColor = styleManager.Theme.ColorPalette.Line;
+            _titleFont = SystemFonts.DefaultFont;
 
             _border = new Border();
 

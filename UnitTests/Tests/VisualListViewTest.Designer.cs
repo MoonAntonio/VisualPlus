@@ -300,7 +300,6 @@
             this.MinimizeBox = true;
             this.Name = "VisualListViewTest";
             this.Text = "VisualListView Test";
-            this.TextRectangle = new System.Drawing.Rectangle(218, 7, 102, 14);
             this.Load += new System.EventHandler(this.VisualListViewTest_Load);
             this.ResumeLayout(false);
 

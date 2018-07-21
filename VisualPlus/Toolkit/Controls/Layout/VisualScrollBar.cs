@@ -1038,27 +1038,27 @@ namespace VisualPlus.Toolkit.Controls.Layout
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                _buttonBorder.Color = theme.BorderSettings.Normal;
-                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
+                _buttonBorder.Color = theme.ColorPalette.BorderNormal;
+                _buttonBorder.HoverColor = theme.ColorPalette.BorderHover;
 
-                _thumbBorder.Color = theme.BorderSettings.Normal;
-                _thumbBorder.HoverColor = theme.BorderSettings.Hover;
+                _thumbBorder.Color = theme.ColorPalette.BorderNormal;
+                _thumbBorder.HoverColor = theme.ColorPalette.BorderHover;
 
-                _backColorState.Disabled = theme.OtherSettings.ScrollBar.Disabled;
-                _backColorState.Enabled = theme.OtherSettings.ScrollBar.Enabled;
+                _backColorState.Disabled = theme.ColorPalette.ScrollBar.Disabled;
+                _backColorState.Enabled = theme.ColorPalette.ScrollBar.Enabled;
 
-                _thumbColorState.Disabled = theme.OtherSettings.ScrollThumb.Enabled;
-                _thumbColorState.Enabled = theme.OtherSettings.ScrollThumb.Disabled;
-                _thumbColorState.Hover = theme.OtherSettings.ScrollThumb.Hover;
-                _thumbColorState.Pressed = theme.OtherSettings.ScrollThumb.Pressed;
+                _thumbColorState.Disabled = theme.ColorPalette.ScrollThumb.Enabled;
+                _thumbColorState.Enabled = theme.ColorPalette.ScrollThumb.Disabled;
+                _thumbColorState.Hover = theme.ColorPalette.ScrollThumb.Hover;
+                _thumbColorState.Pressed = theme.ColorPalette.ScrollThumb.Pressed;
 
-                _buttonColorState.Disabled = theme.OtherSettings.ScrollButton.Enabled;
-                _buttonColorState.Enabled = theme.OtherSettings.ScrollButton.Disabled;
-                _buttonColorState.Hover = theme.OtherSettings.ScrollButton.Hover;
-                _buttonColorState.Pressed = theme.OtherSettings.ScrollButton.Pressed;
+                _buttonColorState.Disabled = theme.ColorPalette.ScrollButton.Enabled;
+                _buttonColorState.Enabled = theme.ColorPalette.ScrollButton.Disabled;
+                _buttonColorState.Hover = theme.ColorPalette.ScrollButton.Hover;
+                _buttonColorState.Pressed = theme.ColorPalette.ScrollButton.Pressed;
 
                 _trackPressed = Color.FromArgb(10, 0, 0, 0);
             }

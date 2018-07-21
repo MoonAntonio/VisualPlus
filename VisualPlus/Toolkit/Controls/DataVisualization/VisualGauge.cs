@@ -52,6 +52,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             Margin = new Padding(6);
             Size = new Size(174, 117);
 
+            Font = SystemFonts.DefaultFont;
             UpdateTheme(ThemeManager.Theme);
         }
 
@@ -216,19 +217,17 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         {
             try
             {
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
-
-                Font = theme.TextSetting.Font;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
                 _colorState = new ColorState
                     {
-                        Enabled = theme.BackgroundSettings.Type3,
-                        Disabled = theme.OtherSettings.ControlDisabled
+                        Enabled = theme.ColorPalette.Type3,
+                        Disabled = theme.ColorPalette.ControlDisabled
                     };
 
-                _progress = theme.OtherSettings.Progress;
+                _progress = theme.ColorPalette.Progress;
             }
             catch (Exception e)
             {

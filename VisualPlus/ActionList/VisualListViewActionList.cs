@@ -38,6 +38,7 @@ namespace VisualPlus.ActionList
 
         // FIX: Editor is causing drop-down error. Removing it prevents the columns from being filled with default data.
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+
         // [Editor(typeof(VisualListViewColumnCollectionEditor), typeof(UITypeEditor))]
         [Localizable(true)]
         [MergableProperty(false)]
@@ -51,6 +52,7 @@ namespace VisualPlus.ActionList
 
         // FIX: Editor is causing drop-down error. Removing it prevents the columns from being filled with default data.
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+
         // [Editor(typeof(VisualListViewItemCollectionEditor), typeof(UITypeEditor))]
         [Localizable(true)]
         [MergableProperty(false)]

@@ -382,66 +382,66 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             {
                 _closeButton.BackColorState = new ControlColorState
                     {
-                        Disabled = theme.OtherSettings.CloseButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.CloseButtonBack.Enabled,
-                        Hover = theme.OtherSettings.CloseButtonBack.Hover,
-                        Pressed = theme.OtherSettings.CloseButtonBack.Pressed
+                        Disabled = theme.ColorPalette.CloseButtonBack.Disabled,
+                        Enabled = theme.ColorPalette.CloseButtonBack.Enabled,
+                        Hover = theme.ColorPalette.CloseButtonBack.Hover,
+                        Pressed = theme.ColorPalette.CloseButtonBack.Pressed
                     };
 
                 _closeButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = theme.OtherSettings.CloseButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.CloseButtonFore.Enabled,
-                        Hover = theme.OtherSettings.CloseButtonFore.Hover,
-                        Pressed = theme.OtherSettings.CloseButtonFore.Pressed
+                        Disabled = theme.ColorPalette.CloseButtonFore.Disabled,
+                        Enabled = theme.ColorPalette.CloseButtonFore.Enabled,
+                        Hover = theme.ColorPalette.CloseButtonFore.Hover,
+                        Pressed = theme.ColorPalette.CloseButtonFore.Pressed
                     };
 
                 _maximizeButton.BackColorState = new ControlColorState
                     {
-                        Disabled = theme.OtherSettings.MaximizeButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.MaximizeButtonBack.Enabled,
-                        Hover = theme.OtherSettings.MaximizeButtonBack.Hover,
-                        Pressed = theme.OtherSettings.MaximizeButtonBack.Pressed
+                        Disabled = theme.ColorPalette.MaximizeButtonBack.Disabled,
+                        Enabled = theme.ColorPalette.MaximizeButtonBack.Enabled,
+                        Hover = theme.ColorPalette.MaximizeButtonBack.Hover,
+                        Pressed = theme.ColorPalette.MaximizeButtonBack.Pressed
                     };
 
                 _maximizeButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = theme.OtherSettings.MaximizeButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.MaximizeButtonFore.Enabled,
-                        Hover = theme.OtherSettings.MaximizeButtonFore.Hover,
-                        Pressed = theme.OtherSettings.MaximizeButtonFore.Pressed
+                        Disabled = theme.ColorPalette.MaximizeButtonFore.Disabled,
+                        Enabled = theme.ColorPalette.MaximizeButtonFore.Enabled,
+                        Hover = theme.ColorPalette.MaximizeButtonFore.Hover,
+                        Pressed = theme.ColorPalette.MaximizeButtonFore.Pressed
                     };
 
                 _minimizeButton.BackColorState = new ControlColorState
                     {
-                        Disabled = theme.OtherSettings.MinimizeButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.MinimizeButtonBack.Enabled,
-                        Hover = theme.OtherSettings.MinimizeButtonBack.Hover,
-                        Pressed = theme.OtherSettings.MinimizeButtonBack.Pressed
+                        Disabled = theme.ColorPalette.MinimizeButtonBack.Disabled,
+                        Enabled = theme.ColorPalette.MinimizeButtonBack.Enabled,
+                        Hover = theme.ColorPalette.MinimizeButtonBack.Hover,
+                        Pressed = theme.ColorPalette.MinimizeButtonBack.Pressed
                     };
 
                 _minimizeButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = theme.OtherSettings.MinimizeButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.MinimizeButtonFore.Enabled,
-                        Hover = theme.OtherSettings.MinimizeButtonFore.Hover,
-                        Pressed = theme.OtherSettings.MinimizeButtonFore.Pressed
+                        Disabled = theme.ColorPalette.MinimizeButtonFore.Disabled,
+                        Enabled = theme.ColorPalette.MinimizeButtonFore.Enabled,
+                        Hover = theme.ColorPalette.MinimizeButtonFore.Hover,
+                        Pressed = theme.ColorPalette.MinimizeButtonFore.Pressed
                     };
 
                 _helpButton.BackColorState = new ControlColorState
                     {
-                        Disabled = theme.OtherSettings.HelpButtonBack.Disabled,
-                        Enabled = theme.OtherSettings.HelpButtonBack.Enabled,
-                        Hover = theme.OtherSettings.HelpButtonBack.Hover,
-                        Pressed = theme.OtherSettings.HelpButtonBack.Pressed
+                        Disabled = theme.ColorPalette.HelpButtonBack.Disabled,
+                        Enabled = theme.ColorPalette.HelpButtonBack.Enabled,
+                        Hover = theme.ColorPalette.HelpButtonBack.Hover,
+                        Pressed = theme.ColorPalette.HelpButtonBack.Pressed
                     };
 
                 _helpButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = theme.OtherSettings.HelpButtonFore.Disabled,
-                        Enabled = theme.OtherSettings.HelpButtonFore.Enabled,
-                        Hover = theme.OtherSettings.HelpButtonFore.Hover,
-                        Pressed = theme.OtherSettings.HelpButtonFore.Pressed
+                        Disabled = theme.ColorPalette.HelpButtonFore.Disabled,
+                        Enabled = theme.ColorPalette.HelpButtonFore.Enabled,
+                        Hover = theme.ColorPalette.HelpButtonFore.Hover,
+                        Pressed = theme.ColorPalette.HelpButtonFore.Pressed
                     };
             }
             catch (Exception e)

@@ -4,8 +4,6 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 
-using VisualPlus.Structure;
-
 #endregion
 
 namespace VisualPlus.TypeConverters
@@ -33,11 +31,11 @@ namespace VisualPlus.TypeConverters
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            BorderSettings _borderSettings;
+            object objectSettings;
             object result;
 
             result = null;
-            _borderSettings = value as BorderSettings;
+            objectSettings = value;
 
             // if ((_borderSettings != null) && (destinationType == typeof(string)))
             // {

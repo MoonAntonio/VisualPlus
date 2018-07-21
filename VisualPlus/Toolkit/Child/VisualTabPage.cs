@@ -56,10 +56,10 @@ namespace VisualPlus.Toolkit.Child
             _textLineAlignment = StringAlignment.Center;
             _textAlignment = StringAlignment.Center;
 
-            BackColor = _styleManager.Theme.BackgroundSettings.Type4;
+            BackColor = _styleManager.Theme.ColorPalette.Type4;
             ForeColor = Color.FromArgb(174, 181, 187);
-            Font = _styleManager.Theme.TextSetting.Font;
 
+            // Font = _styleManager.Theme.ColorPalette.Font;
             _border = new Shape
                 {
                     Visible = false,
@@ -73,9 +73,9 @@ namespace VisualPlus.Toolkit.Child
 
             _headerImage = null;
 
-            _tabNormal = _styleManager.Theme.OtherSettings.TabPageEnabled;
-            _tabSelected = _styleManager.Theme.OtherSettings.TabPageSelected;
-            _tabHover = _styleManager.Theme.OtherSettings.TabPageHover;
+            _tabNormal = _styleManager.Theme.ColorPalette.TabPageEnabled;
+            _tabSelected = _styleManager.Theme.ColorPalette.TabPageSelected;
+            _tabHover = _styleManager.Theme.ColorPalette.TabPageHover;
         }
 
         #endregion

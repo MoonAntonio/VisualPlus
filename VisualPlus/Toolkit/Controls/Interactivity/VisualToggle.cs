@@ -361,30 +361,29 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                _buttonBorder.Color = theme.BorderSettings.Normal;
-                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
+                _buttonBorder.Color = theme.ColorPalette.BorderNormal;
+                _buttonBorder.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
-
+                // Font = theme.ColorPalette.Font;
                 _controlColorState = new ColorState
                     {
-                        Enabled = theme.BackgroundSettings.Type2,
-                        Disabled = theme.BackgroundSettings.Type1
+                        Enabled = theme.ColorPalette.Type2,
+                        Disabled = theme.ColorPalette.Type1
                     };
 
                 _buttonColorState = new ControlColorState
                     {
-                        Enabled = theme.ColorStateSettings.Enabled,
-                        Disabled = theme.ColorStateSettings.Disabled,
-                        Hover = theme.ColorStateSettings.Hover,
-                        Pressed = theme.ColorStateSettings.Pressed
+                        Enabled = theme.ColorPalette.Enabled,
+                        Disabled = theme.ColorPalette.Disabled,
+                        Hover = theme.ColorPalette.Hover,
+                        Pressed = theme.ColorPalette.Pressed
                     };
             }
             catch (Exception e)

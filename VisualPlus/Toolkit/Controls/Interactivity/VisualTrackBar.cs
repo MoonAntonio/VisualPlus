@@ -1115,45 +1115,44 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             try
             {
-                _trackerTextColor = theme.TextSetting.Enabled;
-                _textDisabledColor = theme.TextSetting.Disabled;
-                _progressColor = theme.OtherSettings.Progress;
+                _trackerTextColor = theme.ColorPalette.TextEnabled;
+                _textDisabledColor = theme.ColorPalette.TextDisabled;
+                _progressColor = theme.ColorPalette.Progress;
 
                 _buttonControlColorState = new ControlColorState
                     {
-                        Enabled = theme.ColorStateSettings.Enabled,
-                        Disabled = theme.ColorStateSettings.Disabled,
-                        Hover = theme.ColorStateSettings.Hover,
-                        Pressed = theme.ColorStateSettings.Pressed
+                        Enabled = theme.ColorPalette.Enabled,
+                        Disabled = theme.ColorPalette.Disabled,
+                        Hover = theme.ColorPalette.Hover,
+                        Pressed = theme.ColorPalette.Pressed
                     };
 
                 _trackBarColor = new ColorState
                     {
-                        Enabled = theme.OtherSettings.ProgressBackground,
-                        Disabled = theme.OtherSettings.ProgressDisabled
+                        Enabled = theme.ColorPalette.ProgressBackground,
+                        Disabled = theme.ColorPalette.ProgressDisabled
                     };
 
-                _hatch.BackColor = Color.FromArgb(0, theme.OtherSettings.HatchBackColor);
+                _hatch.BackColor = Color.FromArgb(0, theme.ColorPalette.HatchBackColor);
                 _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
 
-                _tickColor = theme.OtherSettings.Line;
+                _tickColor = theme.ColorPalette.Line;
 
-                _trackerBorder.Color = theme.BorderSettings.Normal;
-                _trackerBorder.HoverColor = theme.BorderSettings.Hover;
+                _trackerBorder.Color = theme.ColorPalette.BorderNormal;
+                _trackerBorder.HoverColor = theme.ColorPalette.BorderHover;
 
-                _trackBarBorder.Color = theme.BorderSettings.Normal;
-                _trackBarBorder.HoverColor = theme.BorderSettings.Hover;
+                _trackBarBorder.Color = theme.ColorPalette.BorderNormal;
+                _trackBarBorder.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
-                _textFont = theme.TextSetting.Font;
-                _trackerFont = theme.TextSetting.Font;
+                _textFont = SystemFonts.DefaultFont;
+                _trackerFont = SystemFonts.DefaultFont;
 
-                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
-                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
+                BackColorState.Enabled = theme.ColorPalette.Enabled;
+                BackColorState.Disabled = theme.ColorPalette.Disabled;
             }
             catch (Exception e)
             {

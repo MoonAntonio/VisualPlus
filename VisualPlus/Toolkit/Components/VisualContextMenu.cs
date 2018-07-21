@@ -279,18 +279,18 @@ namespace VisualPlus.Toolkit.Components
                     Type = ShapeType.Rectangle
                 };
 
-            Font = styleManager.Theme.TextSetting.Font;
-            foreColor = styleManager.Theme.TextSetting.Enabled;
-            textDisabledColor = styleManager.Theme.TextSetting.Disabled;
+            // Font = styleManager.Theme.ColorPalette.Font;
+            foreColor = styleManager.Theme.ColorPalette.TextEnabled;
+            textDisabledColor = styleManager.Theme.ColorPalette.TextDisabled;
 
             BackColor = _backgroundColor;
-            arrowColor = styleManager.Theme.OtherSettings.FlatControlEnabled;
-            arrowDisabledColor = styleManager.Theme.OtherSettings.FlatControlDisabled;
+            arrowColor = styleManager.Theme.ColorPalette.FlatControlEnabled;
+            arrowDisabledColor = styleManager.Theme.ColorPalette.FlatControlDisabled;
             contextMenuFont = Font;
 
-            _backgroundColor = styleManager.Theme.BackgroundSettings.Type1;
-            _selectedItemBackColor = styleManager.Theme.ListItemSettings.ItemHover;
-            _textHoverColor = styleManager.Theme.TextSetting.Enabled;
+            _backgroundColor = styleManager.Theme.ColorPalette.Type1;
+            _selectedItemBackColor = styleManager.Theme.ColorPalette.ItemHover;
+            _textHoverColor = styleManager.Theme.ColorPalette.TextEnabled;
         }
 
         public sealed class VisualToolStripRender : ToolStripProfessionalRenderer

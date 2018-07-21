@@ -41,8 +41,8 @@ namespace VisualPlus.Structure
             _visible = Settings.DefaultValue.HatchVisible;
             _size = Settings.DefaultValue.HatchSize;
             _style = Settings.DefaultValue.HatchStyle;
-            _backColor = styleManager.Theme.OtherSettings.HatchBackColor;
-            _foreColor = Color.FromArgb(40, styleManager.Theme.OtherSettings.HatchForeColor);
+            _backColor = styleManager.Theme.ColorPalette.HatchBackColor;
+            _foreColor = Color.FromArgb(40, styleManager.Theme.ColorPalette.HatchForeColor);
         }
 
         /// <summary>Initializes a new instance of the <see cref="Hatch" /> class.</summary>

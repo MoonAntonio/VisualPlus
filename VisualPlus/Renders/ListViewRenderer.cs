@@ -105,7 +105,7 @@ namespace VisualPlus.Renders
             int _interiorWidth = rectangle.Width - (listView.CellPaddingSize * 2);
 
             // int _interiorHeight = rectangle.Height - (cellPaddingSize * 2);
-            DebugTraceManager.WriteDebug("ListViewRenderer::DrawCellText - CellText: " + cellText, DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("ListViewRenderer::DrawCellText - CellText: " + cellText);
 
             // Convert property editor friendly alignment to an alignment we can use for strings
             StringFormat _stringFormat = new StringFormat
@@ -190,7 +190,7 @@ namespace VisualPlus.Renders
         /// <param name="listView">The list View.</param>
         public static void DrawColumnHeader(Graphics graphicsColumn, Rectangle columnRectangle, VisualListViewColumn column, IntPtr theme, VisualListView listView)
         {
-            DebugTraceManager.WriteDebug("ListViewRenderer::DrawColumnHeader - Text: " + column.Text, DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("ListViewRenderer::DrawColumnHeader - Text: " + column.Text);
 
             if (listView.ControlStyle == LVControlStyles.SuperFlat)
             {
@@ -274,7 +274,7 @@ namespace VisualPlus.Renders
         /// <param name="theme">The theme.</param>
         public static void DrawColumnHeaders(Graphics graphicHeader, Size sizeHeader, VisualListView listView, ManagedHScrollBar hPanelScrollBar, IntPtr theme)
         {
-            DebugTraceManager.WriteDebug("ListViewRenderer::DrawColumnHeaders - Count: " + listView.Columns.Count, DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("ListViewRenderer::DrawColumnHeaders - Count: " + listView.Columns.Count);
 
             // Draw the column header background.
             if (listView.ControlStyle == LVControlStyles.SuperFlat)
@@ -329,7 +329,7 @@ namespace VisualPlus.Renders
         /// <param name="listView">The list View.</param>
         public static void DrawGridLines(Graphics rowsDC, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, VisualListView listView)
         {
-            DebugTraceManager.WriteDebug("ListViewRenderer::DrawGridLines", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("ListViewRenderer::DrawGridLines");
 
             int _yCursor = listView.RowsInnerClientRect.Y;
             using (Pen _gridPen = new Pen(listView.GridColor))
@@ -396,7 +396,7 @@ namespace VisualPlus.Renders
         /// <param name="checkBoxSize">The check Box Size.</param>
         public static void DrawRow(Graphics graphicsRow, Rectangle rectRow, VisualListViewItem item, int itemIndex, VisualListView listView, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
         {
-            DebugTraceManager.WriteDebug("ListViewRenderer::DrawRow", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("ListViewRenderer::DrawRow");
 
             // If its selected, that trumps all, if not then see if we are using alternating colors, if not draw normal
             // this can all be overridden by the sub item background property make sure anything can even be selected before drawing selection rectangles
@@ -509,7 +509,7 @@ namespace VisualPlus.Renders
         /// <param name="checkBoxSize">The check Box Size.</param>
         public static void DrawRows(Graphics graphicsRows, VisualListView listView, Color backColor, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
         {
-            DebugTraceManager.WriteDebug("ListViewRenderer::DrawRows", DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("ListViewRenderer::DrawRows");
 
             using (SolidBrush _clientRowsViewBrush = new SolidBrush(backColor))
             {
@@ -586,7 +586,7 @@ namespace VisualPlus.Renders
         /// <param name="checkBoxSize">The check Box Size.</param>
         public static void DrawSubItem(Graphics graphicsSubItem, Rectangle rectSubItem, VisualListViewItem item, VisualListViewSubItem subItem, int column, Font font, VisualListView listView, ArrayList _newLiveControls, ArrayList _liveControls, int cellPaddingSize, int checkBoxSize)
         {
-            DebugTraceManager.WriteDebug("ListViewRenderer::DrawSubItem Name: " + subItem.Name, DebugTraceManager.DebugOutput.TraceListener);
+            ConsoleEx.WriteDebug("ListViewRenderer::DrawSubItem Name: " + subItem.Name);
 
             Rectangle _controlRectangle = new Rectangle(rectSubItem.X, rectSubItem.Y, rectSubItem.Width, rectSubItem.Height);
 

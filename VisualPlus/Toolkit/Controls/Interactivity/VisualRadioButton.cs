@@ -54,21 +54,20 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             try
             {
-                Border.Color = theme.BorderSettings.Normal;
-                Border.HoverColor = theme.BorderSettings.Hover;
+                Border.Color = theme.ColorPalette.BorderNormal;
+                Border.HoverColor = theme.ColorPalette.BorderHover;
 
-                CheckStyle.CheckColor = theme.OtherSettings.Progress;
+                CheckStyle.CheckColor = theme.ColorPalette.Progress;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
-
-                BoxColorState.Enabled = theme.ColorStateSettings.Enabled;
-                BoxColorState.Disabled = theme.ColorStateSettings.Disabled;
-                BoxColorState.Hover = theme.ColorStateSettings.Hover;
-                BoxColorState.Pressed = theme.ColorStateSettings.Pressed;
+                // Font = theme.ColorPalette.Font;
+                BoxColorState.Enabled = theme.ColorPalette.Enabled;
+                BoxColorState.Disabled = theme.ColorPalette.Disabled;
+                BoxColorState.Hover = theme.ColorPalette.Hover;
+                BoxColorState.Pressed = theme.ColorPalette.Pressed;
             }
             catch (Exception e)
             {

@@ -60,13 +60,14 @@ namespace VisualPlus.Toolkit.Dialogs
         private Size _previousSize;
         private ResizeDirection _resizeDir;
         private StyleManager _styleManager;
-        private Rectangle _textRectangle;
+        private int _textPaddingTop;
         private Alignment.TextAlignment _titleAlignment;
         private Rectangle _titleBarRectangle;
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
         private ContextMenuStrip _windowContextMenuStripTitle;
+        private bool _windowTitleBar;
 
         #endregion
 
@@ -108,10 +109,12 @@ namespace VisualPlus.Toolkit.Dialogs
                     Type = ShapeType.Rectangle
                 };
 
+            _textPaddingTop = 10;
+
             _dropShadow = true;
             _headerMouseDown = false;
             FormBorderStyle = FormBorderStyle.None;
-            TitleToggleWindowState = true;
+            _windowTitleBar = true;
             _magnetic = false;
             _magneticRadius = 100;
             Padding = new Padding(0, 0, 0, 0);
@@ -133,9 +136,6 @@ namespace VisualPlus.Toolkit.Dialogs
             VisualControlBox = new VisualControlBox();
             Controls.Add(VisualControlBox);
             VisualControlBox.Location = new Point(Width - VisualControlBox.Width - 16, _border.Thickness + 1);
-
-            _textRectangle = new Rectangle(0, 7, 0, 0);
-
             _contextMenuStrip = null;
             _windowContextMenuStripTitle = null;
             _defaultContextTitle = true;
@@ -556,19 +556,23 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
-        [Category(PropertyCategory.Layout)]
-        [Description(PropertyDescription.Rectangle)]
-        public Rectangle TextRectangle
+        [Browsable(true)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Value)]
+        public int TextPaddingTop
         {
             get
             {
-                return _textRectangle;
+                return _textPaddingTop;
             }
 
             set
             {
-                _textRectangle = value;
-                Invalidate();
+                if (_textPaddingTop != value)
+                {
+                    _textPaddingTop = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -592,7 +596,22 @@ namespace VisualPlus.Toolkit.Dialogs
         [Category(PropertyCategory.Behavior)]
         [Description(PropertyDescription.Visible)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public bool TitleToggleWindowState { get; set; }
+        public bool TitleToggleWindowState
+        {
+            get
+            {
+                return _windowTitleBar;
+            }
+
+            set
+            {
+                if (_windowTitleBar != value)
+                {
+                    _windowTitleBar = value;
+                    Invalidate();
+                }
+            }
+        }
 
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
@@ -801,11 +820,25 @@ namespace VisualPlus.Toolkit.Dialogs
 
                 if (BackgroundImage != null)
                 {
-                    Rectangle _windowWithoutTitleBar = new Rectangle(1, _textRectangle.Bottom, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
-                    graphics.DrawImage(BackgroundImage, _windowWithoutTitleBar);
+                    Rectangle background;
+
+                    if (_windowTitleBar)
+                    {
+                        background = new Rectangle(1, VisualControlBox.Bottom, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+                    }
+                    else
+                    {
+                        background = new Rectangle(1, 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+                    }
+
+                    graphics.DrawImage(BackgroundImage, background);
                 }
 
-                DrawWindowTitleBar(graphics);
+                if (_windowTitleBar)
+                {
+                    DrawWindowTitleBar(graphics);
+                }
+
                 graphics.ResetClip();
                 VisualBorderRenderer.DrawBorderStyle(graphics, _border, _clientPath, State);
             }
@@ -1016,12 +1049,11 @@ namespace VisualPlus.Toolkit.Dialogs
             {
                 _styleManager = new StyleManager(theme);
 
-                _background = theme.OtherSettings.FormBackground;
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
-                ForeColor = theme.TextSetting.Enabled;
-                Font = theme.TextSetting.Font;
-                _windowBarColor = theme.OtherSettings.FormWindowBar;
+                _background = theme.ColorPalette.FormBackground;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                _windowBarColor = theme.ColorPalette.FormWindowBar;
             }
             catch (Exception e)
             {
@@ -1053,30 +1085,26 @@ namespace VisualPlus.Toolkit.Dialogs
         {
             try
             {
-                Size _textSize = TextManager.MeasureTextRenderer(Text, Font);
-
-                // Fixes: Lower hanging characters like 'g'.
-                _textSize.Height = _textSize.Height + 1;
-
-                Point _titleLocation;
+                Size _textSize = TextManager.MeasureText(Text, Font, graphics);
+                Point _titleLocation = new Point(0, _textPaddingTop);
 
                 switch (_titleAlignment)
                 {
                     case Alignment.TextAlignment.Center:
                         {
-                            _titleLocation = new Point((Width / 2) - (_textSize.Width / 2), _textRectangle.Y);
+                            _titleLocation = new Point((Width / 2) - (_textSize.Width / 2), _titleLocation.Y);
                             break;
                         }
 
                     case Alignment.TextAlignment.Left:
                         {
-                            _titleLocation = new Point(_vsImage.Point.X + _vsImage.Size.Width + 1, _textRectangle.Y);
+                            _titleLocation = new Point(_vsImage.Point.X + _vsImage.Size.Width + 1, _titleLocation.Y);
                             break;
                         }
 
                     case Alignment.TextAlignment.Right:
                         {
-                            _titleLocation = new Point(Width - _border.Thickness - _textSize.Width - VisualControlBox.Width - 1, _textRectangle.Y);
+                            _titleLocation = new Point(Width - _border.Thickness - _textSize.Width - VisualControlBox.Width - 1, _titleLocation.Y);
                             break;
                         }
 
@@ -1086,8 +1114,7 @@ namespace VisualPlus.Toolkit.Dialogs
                         }
                 }
 
-                _textRectangle = new Rectangle(_titleLocation.X, _titleLocation.Y, _textSize.Width, _textSize.Height);
-                graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _textRectangle);
+                graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _titleLocation);
             }
             catch (Exception e)
             {

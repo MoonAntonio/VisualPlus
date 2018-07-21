@@ -83,7 +83,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _backColorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.BackgroundSettings.Type4 
+                       Enabled = ThemeManager.Theme.ColorPalette.Type4 
                     };
 
             _textBox = new TextBox
@@ -1054,24 +1054,23 @@ namespace VisualPlus.Toolkit.Controls.Editors
         {
             try
             {
-                _border.Color = theme.BorderSettings.Normal;
-                _border.HoverColor = theme.BorderSettings.Hover;
+                _border.Color = theme.ColorPalette.BorderNormal;
+                _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.TextSetting.Enabled;
-                TextStyle.Enabled = theme.TextSetting.Enabled;
-                TextStyle.Disabled = theme.TextSetting.Disabled;
+                ForeColor = theme.ColorPalette.TextEnabled;
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                Font = theme.TextSetting.Font;
-
+                // Font = theme.ColorPalette.Font;
                 _buttonColorState = new ControlColorState();
                 _backColorState = new ColorState
                     {
-                        Enabled = theme.BackgroundSettings.Type4,
-                        Disabled = theme.BackgroundSettings.Type2
+                        Enabled = theme.ColorPalette.Type4,
+                        Disabled = theme.ColorPalette.Type2
                     };
 
-                _borderButton.BackColor = theme.OtherSettings.Line;
-                _borderImage.BackColor = theme.OtherSettings.Line;
+                _borderButton.BackColor = theme.ColorPalette.Line;
+                _borderImage.BackColor = theme.ColorPalette.Line;
             }
             catch (Exception e)
             {

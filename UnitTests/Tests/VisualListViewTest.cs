@@ -90,7 +90,7 @@ namespace UnitTests.Tests
         /// <param name="text">The text to display.</param>
         /// <param name="imageIndex">The image index.</param>
         /// <param name="width">The width.</param>
-        /// <returns>The <see cref="VisualListViewColumn"/>.</returns>
+        /// <returns>The <see cref="VisualListViewColumn" />.</returns>
         private VisualListViewColumn GenerateColumn(string text, int imageIndex, int width)
         {
             VisualListViewColumn _column = new VisualListViewColumn(text)
@@ -98,7 +98,7 @@ namespace UnitTests.Tests
                     TextAlignment = ContentAlignment.MiddleCenter,
                     ImageIndex = imageIndex,
                     Width = width
-            };
+                };
 
             return _column;
         }

@@ -82,7 +82,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
             StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
-            _pointerColor = styleManager.Theme.OtherSettings.Progress;
+            _pointerColor = styleManager.Theme.ColorPalette.Progress;
 
             UpdateStyles();
             _knobFont = Font;

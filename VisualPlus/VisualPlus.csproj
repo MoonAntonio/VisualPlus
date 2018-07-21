@@ -101,7 +101,9 @@
     <Compile Include="Localization\PropertyCategory.cs" />
     <Compile Include="Localization\PropertyDescription.cs" />
     <Compile Include="Managers\BrushManager.cs" />
-    <Compile Include="Managers\DebugTraceManager.cs" />
+    <Compile Include="Enumerators\DateTimeComparer.cs" />
+    <Compile Include="Managers\DateTimeManager.cs" />
+    <Compile Include="Structure\ConsoleEx.cs" />
     <Compile Include="Managers\ExceptionMessenger.cs" />
     <Compile Include="Managers\FontManager.cs" />
     <Compile Include="Managers\FormManager.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Managers\TextManager.cs" />
     <Compile Include="Managers\TickManager.cs" />
     <Compile Include="Constants\ListViewConstants.cs" />
+    <Compile Include="Managers\XMLManager.cs" />
     <Compile Include="Native\Dwmapi.cs" />
     <Compile Include="Native\Gdi32.cs" />
     <Compile Include="Native\Shlwapi.cs" />
@@ -131,16 +134,12 @@
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
     <Compile Include="Structure\ControlBoxButton.cs" />
+    <Compile Include="Enumerators\DebugOutput.cs" />
     <Compile Include="Structure\GlobalId.cs" />
-    <Compile Include="Structure\OtherSettings.cs" />
-    <Compile Include="Structure\BackgroundSettings.cs" />
+    <Compile Include="Structure\ColorPalette.cs" />
     <Compile Include="Structure\BorderEdge.cs" />
-    <Compile Include="Structure\ListItemSettings.cs" />
-    <Compile Include="Structure\ControlColorStateSettings.cs" />
     <Compile Include="Structure\RECT.cs" />
     <Compile Include="Structure\ThemeInformation.cs" />
-    <Compile Include="Structure\TextSettings.cs" />
-    <Compile Include="Structure\BorderSettings.cs" />
     <Compile Include="Structure\HoverColorState.cs" />
     <Compile Include="Structure\ControlColorState.cs" />
     <Compile Include="Structure\ColorState.cs" />
