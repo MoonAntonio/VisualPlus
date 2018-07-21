@@ -22,15 +22,15 @@ namespace VisualPlus.Managers
         #region Methods
 
         /// <summary>Deserialize a internal theme from resources.</summary>
-        /// <param name="theme">The theme.</param>
+        /// <param name="themes">The internal themes.</param>
         /// <returns>The <see cref="Theme" />.</returns>
-        public static Theme DeserializeTheme(Themes theme)
+        public static Theme DeserializeTheme(Themes themes)
         {
             Theme _theme = null;
 
             try
             {
-                string rawThemeResource = ResourcesManager.ReadResource(Assembly.GetExecutingAssembly().Location, $"{SettingConstants.ThemeResourceLocation}{theme.ToString()}.xml");
+                string rawThemeResource = ResourcesManager.ReadResource(Assembly.GetExecutingAssembly().Location, $"{SettingConstants.ThemeResourceLocation}{themes.ToString()}.xml");
                 XDocument resourceDocumentTheme = XDocument.Parse(rawThemeResource);
                 _theme = Deserialize(resourceDocumentTheme);
             }
