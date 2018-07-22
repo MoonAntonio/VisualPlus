@@ -462,6 +462,8 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             else
             {
                 _minimizeButton.Location = new Point(0, 0);
+                _maximizeButton.Location = new Point(_minimizeButton.Right, 0);
+                _closeButton.Location = new Point(_maximizeButton.Right, 0);
             }
 
             if (_minimizeButton.Visible)
@@ -470,7 +472,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
             else
             {
-                _maximizeButton.Location = new Point(_minimizeButton.Right, 0);
+                if (_helpButton.Visible)
+                {
+                    _maximizeButton.Location = new Point(_helpButton.Right, 0);
+                }
+                else
+                {
+                    _maximizeButton.Location = new Point(0, 0);
+                }
             }
 
             if (_maximizeButton.Visible)
@@ -479,7 +488,21 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
             else
             {
-                _closeButton.Location = new Point(_minimizeButton.Right, 0);
+                if (_minimizeButton.Visible)
+                {
+                    _closeButton.Location = new Point(_minimizeButton.Right, 0);
+                }
+                else
+                {
+                    if (_helpButton.Visible)
+                    {
+                        _closeButton.Location = new Point(_helpButton.Right, 0);
+                    }
+                    else
+                    {
+                        _closeButton.Location = new Point(0, 0);
+                    }
+                }
             }
 
             OnResize(new EventArgs());
