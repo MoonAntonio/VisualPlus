@@ -572,7 +572,7 @@ namespace VisualPlus.Structure
         /// <summary>Serialize the theme to a raw string.</summary>
         /// <param name="theme">The theme.</param>
         /// <returns>The <see cref="string" />.</returns>
-        public static string SerializeTheme(Theme theme)
+        public static string Serialize(Theme theme)
         {
             return Serialize(theme.Information, theme.ColorPalette);
         }

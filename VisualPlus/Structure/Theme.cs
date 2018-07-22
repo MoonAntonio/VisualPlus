@@ -211,7 +211,7 @@ namespace VisualPlus.Structure
                 throw new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(filePath));
             }
 
-            _rawTheme = ThemeSerialization.Serialize(_information, _colorPalette);
+            _rawTheme = ThemeSerialization.Serialize(this);
 
             if (string.IsNullOrEmpty(_rawTheme))
             {
@@ -230,7 +230,7 @@ namespace VisualPlus.Structure
             _information = themeInformation;
             _colorPalette = colorPalette;
 
-            _rawTheme = ThemeSerialization.Serialize(_information, _colorPalette);
+            _rawTheme = ThemeSerialization.Serialize(this);
         }
 
         /// <summary>Loads a <see cref="Theme" /> from resources.</summary>
