@@ -7,9 +7,9 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 
 using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
-using VisualPlus.Toolkit.Components;
 
 #endregion
 
@@ -50,8 +50,9 @@ namespace VisualPlus.Structure
         /// <summary>Initializes a new instance of the <see cref="Border" /> class.</summary>
         public Border()
         {
-            StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-            ConstructBorder(styleManager.Theme.ColorPalette.BorderHover, true);
+            Theme theme = new Theme(Themes.Visual);
+            Color color = theme.ColorPalette.BorderHover;
+            ConstructBorder(color, true);
         }
 
         #endregion

@@ -290,7 +290,7 @@ namespace VisualPlus.Toolkit.Components
 
             _backgroundColor = styleManager.Theme.ColorPalette.Type1;
             _selectedItemBackColor = styleManager.Theme.ColorPalette.ItemHover;
-            _textHoverColor = styleManager.Theme.ColorPalette.TextEnabled;
+            _textHoverColor = styleManager.Theme.ColorPalette.TextHover;
         }
 
         public sealed class VisualToolStripRender : ToolStripProfessionalRenderer

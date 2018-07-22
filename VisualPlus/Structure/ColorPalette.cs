@@ -125,6 +125,8 @@ namespace VisualPlus.Structure
 
         public Color TextHover { get; set; }
 
+        public Color TextPressed { get; set; }
+
         public Color Type1 { get; set; }
 
         public Color Type2 { get; set; }

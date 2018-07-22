@@ -12,7 +12,6 @@ using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
-using VisualPlus.Toolkit.Components;
 
 #endregion
 
@@ -41,8 +40,9 @@ namespace VisualPlus.Structure
         /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
         public Shape()
         {
-            StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-            ConstructShape(ShapeType.Rounded, styleManager.Theme.ColorPalette.BorderNormal, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
+            Theme theme = new Theme(Themes.Visual);
+            Color color = theme.ColorPalette.BorderNormal;
+            ConstructShape(ShapeType.Rounded, color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.Shape" /> class.</summary>

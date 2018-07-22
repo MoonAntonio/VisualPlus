@@ -244,7 +244,7 @@ namespace VisualPlus.Structure
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
         }
 

@@ -36,14 +36,15 @@
                 <Enabled>#777776</Enabled>
                 <Disabled>#777776</Disabled>
             </FlatControl>
-            <Font>
-                <Enabled>#000000</Enabled>
+            <Text>
                 <Disabled>#838181</Disabled>
+                <Enabled>#000000</Enabled>
                 <Hover>#000000</Hover>
+                <Pressed>#000000</Pressed>
                 <Selected>#D9DCE3</Selected>
                 <Subscript>#BC1708</Subscript>
                 <Superscript>#0924BC</Superscript>
-            </Font>
+            </Text>
             <ListItem>
                 <Normal>#DCDCDC</Normal>
                 <Hover>#78B7E6</Hover>

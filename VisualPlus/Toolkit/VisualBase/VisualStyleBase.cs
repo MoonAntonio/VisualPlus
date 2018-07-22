@@ -194,7 +194,7 @@ namespace VisualPlus.Toolkit.VisualBase
                     Disabled = theme.ColorPalette.TextDisabled,
                     Enabled = theme.ColorPalette.TextEnabled,
                     Hover = theme.ColorPalette.TextHover,
-                    Pressed = theme.ColorPalette.Selected
+                    Pressed = theme.ColorPalette.TextPressed
                 };
 
             _textStyle = new TextStyle(controlState);

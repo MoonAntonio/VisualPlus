@@ -36,14 +36,15 @@
                 <Enabled>#FF777776</Enabled>
                 <Disabled>#FFF3F3F3</Disabled>
             </FlatControl>
-            <Font>
-                <FontFamily>Segoe UI</FontFamily>
-                <Enabled>#FF000000</Enabled>
-                <Disabled>#FF838181</Disabled>
-                <Selected>#FFD9DCE3</Selected>
-                <Subscript>#FF000000</Subscript>
-                <Superscript>#FF000000</Superscript>
-            </Font>
+            <Text>
+                <Disabled>#838181</Disabled>
+                <Enabled>#000000</Enabled>
+                <Hover>#000000</Hover>
+                <Pressed>#000000</Pressed>
+                <Selected>#D9DCE3</Selected>
+                <Subscript>#BC1708</Subscript>
+                <Superscript>#0924BC</Superscript>
+            </Text>
             <ListItem>
                 <Normal>#FFDCDCDC</Normal>
                 <Hover>#FF78B7E6</Hover>

@@ -59,12 +59,13 @@ namespace VisualPlus.Structure
                 colorPalette.BorderNormal = themeDocument.GetValue(Shared + "Border/Normal").ToColor();
                 colorPalette.BorderHover = themeDocument.GetValue(Shared + "Border/Hover").ToColor();
 
-                colorPalette.TextEnabled = themeDocument.GetValue(Shared + "Font/Enabled").ToColor();
-                colorPalette.TextHover = themeDocument.GetValue(Shared + "Font/Hover").ToColor();
-                colorPalette.TextDisabled = themeDocument.GetValue(Shared + "Font/Disabled").ToColor();
-                colorPalette.Selected = themeDocument.GetValue(Shared + "Font/Selected").ToColor();
-                colorPalette.SubscriptColor = themeDocument.GetValue(Shared + "Font/Subscript").ToColor();
-                colorPalette.SuperscriptColor = themeDocument.GetValue(Shared + "Font/Superscript").ToColor();
+                colorPalette.TextDisabled = themeDocument.GetValue(Shared + "Text/Disabled").ToColor();
+                colorPalette.TextEnabled = themeDocument.GetValue(Shared + "Text/Enabled").ToColor();
+                colorPalette.TextHover = themeDocument.GetValue(Shared + "Text/Hover").ToColor();
+                colorPalette.TextPressed = themeDocument.GetValue(Shared + "Text/Pressed").ToColor();
+                colorPalette.Selected = themeDocument.GetValue(Shared + "Text/Selected").ToColor();
+                colorPalette.SubscriptColor = themeDocument.GetValue(Shared + "Text/Subscript").ToColor();
+                colorPalette.SuperscriptColor = themeDocument.GetValue(Shared + "Text/Superscript").ToColor();
 
                 // colorPalette.Font = FontManager.ResolveFontFamily(themeDocument.GetValue(Shared + "Font/FontFamily"));
                 colorPalette.Enabled = themeDocument.GetValue(Toolkit + "VisualButton/Enabled").ToColor();
@@ -324,17 +325,18 @@ namespace VisualPlus.Structure
 
                     XMLManager.WriteElementGroup(xmlWriter, "FlatControl", flatControlDictionary);
 
-                    var fontDictionary = new Dictionary<string, Color>
+                    var textDictionary = new Dictionary<string, Color>
                         {
-                            { "Enabled", colorPalette.TextEnabled },
                             { "Disabled", colorPalette.TextDisabled },
+                            { "Enabled", colorPalette.TextEnabled },
                             { "Hover", colorPalette.TextHover },
+                            { "Pressed", colorPalette.TextPressed },
                             { "Selected", colorPalette.Selected },
                             { "Subscript", colorPalette.SubscriptColor },
                             { "Superscript", colorPalette.SuperscriptColor }
                         };
 
-                    XMLManager.WriteElementGroup(xmlWriter, "Font", fontDictionary);
+                    XMLManager.WriteElementGroup(xmlWriter, "Text", textDictionary);
 
                     var listItemDictionary = new Dictionary<string, Color>
                         {
