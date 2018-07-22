@@ -89,6 +89,11 @@ namespace VisualPlus.Managers
         /// <param name="colorTable">The element color table.</param>
         public static void WriteElementGroup(XmlWriter xmlWriter, string elementName, Dictionary<string, Color> colorTable)
         {
+            if (xmlWriter == null)
+            {
+                throw new ArgumentNullException(nameof(xmlWriter));
+            }
+
             xmlWriter.WriteStartElement(elementName);
 
             foreach (var element in colorTable)
