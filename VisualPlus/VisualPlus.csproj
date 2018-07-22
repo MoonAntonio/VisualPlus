@@ -170,7 +170,7 @@
     <Compile Include="Collections\CollectionsBase\VisualListViewColumnCollection.cs" />
     <Compile Include="Enumerators\ListStates.cs" />
     <Compile Include="Enumerators\BackgroundLayout.cs" />
-    <Compile Include="Toolkit\Controls\DataVisualization\VisualTile.cs" />
+    <Compile Include="Toolkit\Controls\Layout\VisualTile.cs" />
     <Compile Include="Toolkit\Controls\Editors\VisualDateTimePicker.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -423,7 +423,7 @@
     <EmbeddedResource Include="Resources\Images\ScrollBarArrowDown.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Toolkit\Controls\DataVisualization\VisualTile.bmp" />
+    <Content Include="Toolkit\Controls\Layout\VisualTile.bmp" />
     <Content Include="Toolkit\Controls\Editors\VisualDateTimePicker.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,7 +3,7 @@
 using System;
 using System.Drawing;
 
-using VisualPlus.Toolkit.Controls.DataVisualization;
+using VisualPlus.Toolkit.Controls.Layout;
 
 #endregion
 

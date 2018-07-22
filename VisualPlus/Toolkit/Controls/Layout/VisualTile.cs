@@ -17,7 +17,7 @@ using VisualPlus.Toolkit.VisualBase;
 
 #endregion
 
-namespace VisualPlus.Toolkit.Controls.DataVisualization
+namespace VisualPlus.Toolkit.Controls.Layout
 {
     /// <summary>The <see cref="VisualTile" /> control.</summary>
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
