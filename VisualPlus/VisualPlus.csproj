@@ -155,6 +155,7 @@
     <Compile Include="ActionList\VisualTextBoxActionList.cs" />
     <Compile Include="ActionList\VisuaListBoxActionList.cs" />
     <Compile Include="Structure\Theme.cs" />
+    <Compile Include="Structure\ThemeSerialization.cs" />
     <Compile Include="Toolkit\Child\VisualTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
