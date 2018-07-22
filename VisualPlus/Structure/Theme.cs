@@ -188,7 +188,7 @@ namespace VisualPlus.Structure
             {
                 if (File.Exists(filePath))
                 {
-                    Theme theme = XMLManager.DeserializeTheme(filePath);
+                    Theme theme = ThemeSerialization.Deserialize(filePath);
                     UpdateTheme(theme.InformationSettings, theme.ColorPalette);
                 }
                 else
@@ -211,7 +211,7 @@ namespace VisualPlus.Structure
                 throw new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(filePath));
             }
 
-            _rawTheme = XMLManager.SerializeTheme(_informationSettings, _colorPalette);
+            _rawTheme = ThemeSerialization.Serialize(_informationSettings, _colorPalette);
 
             if (string.IsNullOrEmpty(_rawTheme))
             {
@@ -230,7 +230,7 @@ namespace VisualPlus.Structure
             _informationSettings = themeInformation;
             _colorPalette = colorPalette;
 
-            _rawTheme = XMLManager.SerializeTheme(_informationSettings, _colorPalette);
+            _rawTheme = ThemeSerialization.Serialize(_informationSettings, _colorPalette);
         }
 
         /// <summary>Loads a <see cref="Theme" /> from resources.</summary>
@@ -239,7 +239,7 @@ namespace VisualPlus.Structure
         {
             try
             {
-                Theme theme = XMLManager.DeserializeTheme(themes);
+                Theme theme = ThemeSerialization.Deserialize(themes);
                 UpdateTheme(theme.InformationSettings, theme.ColorPalette);
             }
             catch (Exception e)

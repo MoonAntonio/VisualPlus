@@ -2,12 +2,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
+using VisualPlus.Constants;
+using VisualPlus.Enumerators;
 using VisualPlus.Extensibility;
 using VisualPlus.Managers;
 
@@ -175,6 +179,57 @@ namespace VisualPlus.Structure
 
             Theme theme = new Theme(themeInformation, colorPalette);
             return theme;
+        }
+
+        /// <summary>Deserialize a internal theme from resources.</summary>
+        /// <param name="themes">The internal themes.</param>
+        /// <returns>The <see cref="Theme" />.</returns>
+        public static Theme Deserialize(Themes themes)
+        {
+            Theme _theme = null;
+
+            try
+            {
+                string rawThemeResource = ResourcesManager.ReadResource(Assembly.GetExecutingAssembly().Location, $"{SettingConstants.ThemeResourceLocation}{themes.ToString()}.xml");
+                XDocument resourceDocumentTheme = XDocument.Parse(rawThemeResource);
+                _theme = Deserialize(resourceDocumentTheme);
+            }
+            catch (Exception e)
+            {
+                ConsoleEx.WriteDebug(e);
+            }
+
+            return _theme;
+        }
+
+        /// <summary>Deserialize the theme from a file path.</summary>
+        /// <param name="filePath">The file path.</param>
+        /// <returns>The <see cref="Theme" />.</returns>
+        public static Theme Deserialize(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(filePath));
+            }
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException(ExceptionMessenger.FileNotFound(filePath));
+            }
+
+            Theme _theme = null;
+
+            try
+            {
+                XDocument themeDocument = XDocument.Load(filePath);
+                _theme = Deserialize(themeDocument);
+            }
+            catch (Exception e)
+            {
+                ConsoleEx.WriteDebug(e);
+            }
+
+            return _theme;
         }
 
         /// <summary>Serialize the theme contents to a string.</summary>
@@ -522,6 +577,14 @@ namespace VisualPlus.Structure
             }
 
             return serializedXML;
+        }
+
+        /// <summary>Serialize the theme to a raw string.</summary>
+        /// <param name="theme">The theme.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        public static string SerializeTheme(Theme theme)
+        {
+            return Serialize(theme.InformationSettings, theme.ColorPalette);
         }
 
         #endregion
