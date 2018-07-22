@@ -60,10 +60,10 @@ namespace ThemeBuilder.Forms
                 throw new NoNullAllowedException(nameof(theme));
             }
 
-            tbName.Text = theme.InformationSettings.Name;
-            tbAuthor.Text = theme.InformationSettings.Author;
+            tbName.Text = theme.Information.Name;
+            tbAuthor.Text = theme.Information.Author;
 
-            _theme.UpdateTheme(theme.InformationSettings, theme.ColorPalette);
+            _theme.UpdateTheme(theme.Information, theme.ColorPalette);
             rawText.Text = _theme.RawTheme;
 
             palettePropertyGrid.SelectedObject = _theme.ColorPalette;
@@ -85,7 +85,7 @@ namespace ThemeBuilder.Forms
 
             Theme theme = new Theme(Themes.Visual)
                 {
-                    InformationSettings =
+                    Information =
                         {
                             Author = "Unknown",
                             Name = "UnnamedTheme"
@@ -161,7 +161,7 @@ namespace ThemeBuilder.Forms
                 tbPath.Text = openFileDialog.FileName;
                 Theme theme = new Theme(tbPath.Text);
 
-                if (theme.InformationSettings.IsEmpty)
+                if (theme.Information.IsEmpty)
                 {
                     MessageBox.Show($@"Unable to load the theme file.{Environment.NewLine}Detected invalid header.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;

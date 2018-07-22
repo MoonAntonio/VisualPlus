@@ -259,18 +259,8 @@ namespace VisualPlus.Structure
 
                     // Write theme information header.
                     xmlWriter.WriteStartElement(Information);
-
-                    var themeInformationDictionary = new Dictionary<string, string>
-                        {
-                            { "Name", themeInformation.Name },
-                            { "Author", themeInformation.Author }
-                        };
-
-                    foreach (var themeData in themeInformationDictionary)
-                    {
-                        xmlWriter.WriteStartElement(themeData.Key, themeData.Value);
-                    }
-
+                    xmlWriter.WriteElementString("Name", themeInformation.Name);
+                    xmlWriter.WriteElementString("Author", themeInformation.Author);
                     xmlWriter.WriteEndElement();
 
                     // Write theme style table header.
@@ -584,7 +574,7 @@ namespace VisualPlus.Structure
         /// <returns>The <see cref="string" />.</returns>
         public static string SerializeTheme(Theme theme)
         {
-            return Serialize(theme.InformationSettings, theme.ColorPalette);
+            return Serialize(theme.Information, theme.ColorPalette);
         }
 
         #endregion

@@ -274,8 +274,8 @@ namespace VisualPlus.Toolkit.Components
         public override string ToString()
         {
             StringBuilder _stringBuilder = new StringBuilder();
-            _stringBuilder.AppendLine("Theme name: " + _theme.InformationSettings.Name);
-            _stringBuilder.AppendLine("Theme author: " + _theme.InformationSettings.Author);
+            _stringBuilder.AppendLine("Theme name: " + _theme.Information.Name);
+            _stringBuilder.AppendLine("Theme author: " + _theme.Information.Author);
             _stringBuilder.Append(Environment.NewLine);
             _stringBuilder.AppendLine("Total forms: " + Forms.Count);
             _stringBuilder.AppendLine("Total controls: " + Controls.Count);

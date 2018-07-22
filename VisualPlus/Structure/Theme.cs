@@ -27,7 +27,7 @@ namespace VisualPlus.Structure
         #region Variables
 
         private ColorPalette _colorPalette;
-        private ThemeInformation _informationSettings;
+        private ThemeInformation _information;
         private string _rawTheme;
 
         #endregion
@@ -46,7 +46,7 @@ namespace VisualPlus.Structure
         /// <param name="theme">The theme.</param>
         public Theme(Theme theme)
         {
-            UpdateTheme(theme.InformationSettings, theme.ColorPalette);
+            UpdateTheme(theme.Information, theme.ColorPalette);
         }
 
         /// <summary>Initializes a new instance of the <see cref="Theme" /> class.</summary>
@@ -77,7 +77,7 @@ namespace VisualPlus.Structure
         public Theme()
         {
             _rawTheme = string.Empty;
-            _informationSettings = new ThemeInformation();
+            _information = new ThemeInformation();
             _colorPalette = new ColorPalette
                 {
                     HelpButtonBack = new ControlColorState(),
@@ -112,26 +112,26 @@ namespace VisualPlus.Structure
                 if (_colorPalette != value)
                 {
                     _colorPalette = value;
-                    UpdateTheme(_informationSettings, _colorPalette);
+                    UpdateTheme(_information, _colorPalette);
                 }
             }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [TypeConverter(typeof(BasicSettingsTypeConverter))]
-        public ThemeInformation InformationSettings
+        public ThemeInformation Information
         {
             get
             {
-                return _informationSettings;
+                return _information;
             }
 
             set
             {
-                if (_informationSettings != value)
+                if (_information != value)
                 {
-                    _informationSettings = value;
-                    UpdateTheme(_informationSettings, _colorPalette);
+                    _information = value;
+                    UpdateTheme(_information, _colorPalette);
                 }
             }
         }
@@ -189,7 +189,7 @@ namespace VisualPlus.Structure
                 if (File.Exists(filePath))
                 {
                     Theme theme = ThemeSerialization.Deserialize(filePath);
-                    UpdateTheme(theme.InformationSettings, theme.ColorPalette);
+                    UpdateTheme(theme.Information, theme.ColorPalette);
                 }
                 else
                 {
@@ -211,7 +211,7 @@ namespace VisualPlus.Structure
                 throw new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(filePath));
             }
 
-            _rawTheme = ThemeSerialization.Serialize(_informationSettings, _colorPalette);
+            _rawTheme = ThemeSerialization.Serialize(_information, _colorPalette);
 
             if (string.IsNullOrEmpty(_rawTheme))
             {
@@ -227,10 +227,10 @@ namespace VisualPlus.Structure
         /// <param name="colorPalette">The color Palette.</param>
         public void UpdateTheme(ThemeInformation themeInformation, ColorPalette colorPalette)
         {
-            _informationSettings = themeInformation;
+            _information = themeInformation;
             _colorPalette = colorPalette;
 
-            _rawTheme = ThemeSerialization.Serialize(_informationSettings, _colorPalette);
+            _rawTheme = ThemeSerialization.Serialize(_information, _colorPalette);
         }
 
         /// <summary>Loads a <see cref="Theme" /> from resources.</summary>
@@ -240,7 +240,7 @@ namespace VisualPlus.Structure
             try
             {
                 Theme theme = ThemeSerialization.Deserialize(themes);
-                UpdateTheme(theme.InformationSettings, theme.ColorPalette);
+                UpdateTheme(theme.Information, theme.ColorPalette);
             }
             catch (Exception e)
             {
