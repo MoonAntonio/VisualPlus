@@ -65,6 +65,15 @@ namespace VisualPlus.Structure
         }
 
         /// <summary>Write the debug text to the output.</summary>
+        /// <param name="value">The value.</param>
+        /// <param name="formatted">The toggle.</param>
+        /// <param name="output">The output method to use.</param>
+        public static void WriteDebug(bool value, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
+        {
+            WriteLog($@"Value: {value.ToString()}", formatted, output);
+        }
+
+        /// <summary>Write the debug text to the output.</summary>
         /// <param name="text">The text to write.</param>
         /// <param name="formatted">The toggle.</param>
         /// <param name="output">The output method to use.</param>

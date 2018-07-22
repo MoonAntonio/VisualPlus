@@ -98,6 +98,7 @@ namespace VisualPlus.Structure
 
         #region Properties
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [TypeConverter(typeof(BasicSettingsTypeConverter))]
         public ColorPalette ColorPalette
         {
@@ -116,6 +117,7 @@ namespace VisualPlus.Structure
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [TypeConverter(typeof(BasicSettingsTypeConverter))]
         public ThemeInformation InformationSettings
         {
@@ -135,6 +137,7 @@ namespace VisualPlus.Structure
         }
 
         [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public string RawTheme
         {

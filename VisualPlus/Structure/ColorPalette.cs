@@ -1,5 +1,6 @@
 #region Namespace
 
+using System.ComponentModel;
 using System.Drawing;
 
 #endregion
@@ -20,8 +21,10 @@ namespace VisualPlus.Structure
 
         public Color BoxEnabled { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState CloseButtonBack { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState CloseButtonFore { get; set; }
 
         public Color ColumnHeader { get; set; }
@@ -51,8 +54,10 @@ namespace VisualPlus.Structure
 
         public Color HatchForeColor { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState HelpButtonBack { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState HelpButtonFore { get; set; }
 
         public Color Hover { get; set; }
@@ -69,12 +74,16 @@ namespace VisualPlus.Structure
 
         public Color Line { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState MaximizeButtonBack { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState MaximizeButtonFore { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState MinimizeButtonBack { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState MinimizeButtonFore { get; set; }
 
         public Color Pressed { get; set; }
@@ -85,10 +94,13 @@ namespace VisualPlus.Structure
 
         public Color ProgressDisabled { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ColorState ScrollBar { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState ScrollButton { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState ScrollThumb { get; set; }
 
         public Color Selected { get; set; }

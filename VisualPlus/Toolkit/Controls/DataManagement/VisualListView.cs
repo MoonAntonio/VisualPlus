@@ -2735,7 +2735,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             if ((_items.Count <= 0) && _displayTextOnEmpty)
             {
                 Rectangle _layoutRectangle = new Rectangle(0, 0, RowsClientRectangle.Width, RowsClientRectangle.Height);
-                GraphicsManager.DrawText(graphics, _displayText, _displayTextFont, _displayTextColor, _layoutRectangle);
+             VisualTextRenderer.RenderText(graphics, _layoutRectangle, _displayText, _displayTextFont, _displayTextColor, TextStyle.StringFormat);
             }
         }
 

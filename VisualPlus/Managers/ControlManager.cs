@@ -121,6 +121,7 @@ namespace VisualPlus.Managers
                     typeof(VisualScrollBar),
                     typeof(VisualSeparator),
                     typeof(VisualTextBox),
+                    typeof(VisualTile),
                     typeof(VisualToggle),
                     typeof(VisualTrackBar)
                 };

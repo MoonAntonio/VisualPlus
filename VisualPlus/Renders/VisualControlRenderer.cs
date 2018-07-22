@@ -50,8 +50,8 @@ namespace VisualPlus.Renders
         public static void DrawContent(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, Image image, Size imageSize, TextImageRelation textImageRelation)
         {
             Rectangle _imageRectangle = new Rectangle(new Point(), imageSize);
-            Point _imagePoint = RelationManager.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, true);
-            Point _textPoint = RelationManager.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, false);
+            Point _imagePoint = RelationManager.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, Relation.Image);
+            Point _textPoint = RelationManager.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, Relation.Text);
 
             graphics.DrawImage(image, new Rectangle(_imagePoint, imageSize));
             graphics.DrawString(text, font, new SolidBrush(foreColor), _textPoint);

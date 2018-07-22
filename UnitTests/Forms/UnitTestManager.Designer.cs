@@ -63,6 +63,9 @@
             this.BtnRunTest.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.BtnRunTest.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.BtnRunTest.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.BtnRunTest.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            this.BtnRunTest.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.BtnRunTest.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.BtnRunTest.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.BtnRunTest.Click += new System.EventHandler(this.BtnRunTest_Click);
             // 
@@ -94,6 +97,9 @@
             this.visualListBoxTests.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.visualListBoxTests.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.visualListBoxTests.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.visualListBoxTests.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            this.visualListBoxTests.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.visualListBoxTests.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.visualListBoxTests.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.visualListBoxTests.SelectedIndexChanged += new System.EventHandler(this.ListBoxTests_SelectedIndexChanged);
             // 
@@ -123,6 +129,9 @@
             this.visualLabelTestsCount.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.visualLabelTestsCount.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.visualLabelTestsCount.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.visualLabelTestsCount.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            this.visualLabelTestsCount.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.visualLabelTestsCount.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.visualLabelTestsCount.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // 
             // UnitTestManager
@@ -166,6 +175,9 @@
             this.ControlBox.HelpButton.TextStyle.Disabled = System.Drawing.Color.Empty;
             this.ControlBox.HelpButton.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.HelpButton.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.ControlBox.HelpButton.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            this.ControlBox.HelpButton.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.ControlBox.HelpButton.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.HelpButton.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.ControlBox.Location = new System.Drawing.Point(257, 4);
             // 
@@ -191,6 +203,9 @@
             this.ControlBox.MaximizeButton.TextStyle.Disabled = System.Drawing.Color.Empty;
             this.ControlBox.MaximizeButton.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.MaximizeButton.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.ControlBox.MaximizeButton.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            this.ControlBox.MaximizeButton.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.ControlBox.MaximizeButton.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.MaximizeButton.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.ControlBox.MaximizeButton.Visible = false;
             // 
@@ -216,6 +231,9 @@
             this.ControlBox.MinimizeButton.TextStyle.Disabled = System.Drawing.Color.Empty;
             this.ControlBox.MinimizeButton.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.MinimizeButton.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.ControlBox.MinimizeButton.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            this.ControlBox.MinimizeButton.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.ControlBox.MinimizeButton.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.MinimizeButton.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.ControlBox.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.ControlBox.Name = "";
@@ -224,6 +242,9 @@
             this.ControlBox.TextStyle.Disabled = System.Drawing.Color.Empty;
             this.ControlBox.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.ControlBox.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            this.ControlBox.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.ControlBox.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.Controls.Add(this.visualLabelTestsCount);
             this.Controls.Add(this.visualListBoxTests);

@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -150,6 +151,82 @@ namespace VisualPlus.Renders
         public static void FillBackground(Graphics graphics, GraphicsPath graphicsPath, Brush brush)
         {
             graphics.FillPath(brush, graphicsPath);
+        }
+
+        /// <summary>Renders the background.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="backColor">The back color.</param>
+        /// <param name="backgroundImage">The background image.</param>
+        /// <param name="backgroundLayout">The background Layout.</param>
+        /// <param name="clientRectangle">The client rectangle.</param>
+        public static void RenderBackground(Graphics graphics, Color backColor, Image backgroundImage, BackgroundLayout backgroundLayout, Rectangle clientRectangle)
+        {
+            if (graphics == null)
+            {
+                throw new ArgumentNullException(nameof(graphics));
+            }
+
+            if (backColor == Color.Empty)
+            {
+                throw new ArgumentNullException(nameof(backColor));
+            }
+
+            if (clientRectangle == Rectangle.Empty)
+            {
+                throw new ArgumentNullException(nameof(clientRectangle));
+            }
+
+            graphics.FillRectangle(new SolidBrush(backColor), clientRectangle);
+            RenderBackgroundImage(graphics, backgroundImage, backgroundLayout, clientRectangle);
+        }
+
+        /// <summary>Render the background image.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="backgroundImage">The background image.</param>
+        /// <param name="backgroundLayout">The background layout.</param>
+        /// <param name="clientRectangle">The client rectangle.</param>
+        public static void RenderBackgroundImage(Graphics graphics, Image backgroundImage, BackgroundLayout backgroundLayout, Rectangle clientRectangle)
+        {
+            if (graphics == null)
+            {
+                throw new ArgumentNullException(nameof(graphics));
+            }
+
+            if (backgroundImage == null)
+            {
+                return;
+            }
+
+            if (clientRectangle == Rectangle.Empty)
+            {
+                throw new ArgumentNullException(nameof(clientRectangle));
+            }
+
+            switch (backgroundLayout)
+            {
+                case BackgroundLayout.None:
+                    {
+                        VisualImageRenderer.RenderImage(graphics, backgroundImage);
+                        break;
+                    }
+
+                case BackgroundLayout.Center:
+                    {
+                        VisualImageRenderer.RenderImageCenteredFit(graphics, clientRectangle, backgroundImage);
+                        break;
+                    }
+
+                case BackgroundLayout.Stretch:
+                    {
+                        VisualImageRenderer.RenderImageFilled(graphics, clientRectangle, backgroundImage);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(backgroundLayout), backgroundLayout, null);
+                    }
+            }
         }
 
         /// <summary>Fills the background graphics path.</summary>

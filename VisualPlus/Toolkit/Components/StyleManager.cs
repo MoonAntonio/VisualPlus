@@ -197,6 +197,8 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(ThemeTypeConverter))]
         public Theme Theme
         {

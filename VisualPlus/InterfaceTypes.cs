@@ -12,6 +12,30 @@ using VisualPlus.Toolkit.Components;
 
 namespace VisualPlus
 {
+    /// <summary>The IControlBox.</summary>
+    public interface IControlBox
+    {
+        #region Properties
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        bool CloseBox { get; set; }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        bool HelpButton { get; set; }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        bool MaximizeBox { get; set; }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
+        bool MinimizeBox { get; set; }
+
+        #endregion
+    }
+
     /// <summary>The IThemeManager.</summary>
     public interface IThemeManager
     {
@@ -101,30 +125,26 @@ namespace VisualPlus
         #endregion
     }
 
-    public interface IControlStateColor
+    /// <summary>The ITextColor.</summary>
+    public interface ITextColor
     {
         #region Properties
 
-        Color Background { get; set; }
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        Color Disabled { get; set; }
 
-        Color BackgroundDisabled { get; set; }
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        Color Enabled { get; set; }
 
-        Color BackgroundHover { get; set; }
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        Color Hover { get; set; }
 
-        Color BackgroundPressed { get; set; }
-
-        #endregion
-    }
-
-    public interface IImageControl
-    {
-        #region Properties
-
-        Image Hover { get; set; }
-
-        Image Normal { get; set; }
-
-        Image Pressed { get; set; }
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        Color Pressed { get; set; }
 
         #endregion
     }

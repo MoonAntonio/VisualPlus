@@ -1,9 +1,11 @@
 ﻿#region Namespace
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Text;
 
+using VisualPlus.Localization;
 using VisualPlus.TypeConverters;
 
 #endregion
@@ -11,70 +13,111 @@ using VisualPlus.TypeConverters;
 namespace VisualPlus.Structure
 {
     [TypeConverter(typeof(BasicSettingsTypeConverter))]
-    public class TextStyle
+    public class TextStyle : ITextColor
     {
         #region Variables
 
-        private Color _disabled;
-        private Color _enabled;
-        private Color _hover;
-        private StringFormat _stringFormat;
-        private TextRenderingHint _textRenderingHint;
+        private StringAlignment textAlignment;
+        private ControlColorState textColorState;
+        private StringAlignment textLineAlignment;
+        private TextRenderingHint textRenderingHint;
 
         #endregion
 
         #region Constructors
 
         /// <summary>Initializes a new instance of the <see cref="TextStyle" /> class.</summary>
+        /// <param name="colorState">The color State.</param>
+        public TextStyle(ControlColorState colorState) : this()
+        {
+            if (colorState.IsEmpty)
+            {
+                throw new ArgumentNullException(nameof(colorState));
+            }
+
+            textColorState = colorState;
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="TextStyle" /> class.</summary>
         public TextStyle()
         {
-            _disabled = Color.Empty;
-            _enabled = Color.Empty;
-            _hover = Color.Empty;
-            _stringFormat = StringFormat.GenericDefault;
-            _textRenderingHint = Settings.DefaultValue.TextRenderingHint;
+            textColorState = new ControlColorState();
+            textRenderingHint = Settings.DefaultValue.TextRenderingHint;
+            textAlignment = StringAlignment.Center;
+            textLineAlignment = StringAlignment.Center;
         }
 
         #endregion
 
         #region Properties
 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public ControlColorState ColorState
+        {
+            get
+            {
+                return textColorState;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Disabled
         {
             get
             {
-                return _disabled;
+                return textColorState.Disabled;
             }
 
             set
             {
-                _disabled = value;
+                textColorState.Disabled = value;
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Enabled
         {
             get
             {
-                return _enabled;
+                return textColorState.Enabled;
             }
 
             set
             {
-                _enabled = value;
+                textColorState.Enabled = value;
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Hover
         {
             get
             {
-                return _hover;
+                return textColorState.Hover;
             }
 
             set
             {
-                _hover = value;
+                textColorState.Hover = value;
+            }
+        }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color Pressed
+        {
+            get
+            {
+                return textColorState.Pressed;
+            }
+
+            set
+            {
+                textColorState.Pressed = value;
             }
         }
 
@@ -84,25 +127,58 @@ namespace VisualPlus.Structure
         {
             get
             {
-                return _stringFormat;
+                StringFormat stringFormat = new StringFormat
+                    {
+                        Alignment = textAlignment,
+                        LineAlignment = textLineAlignment
+                    };
+
+                return stringFormat;
+            }
+        }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Alignment)]
+        public StringAlignment TextAlignment
+        {
+            get
+            {
+                return textAlignment;
             }
 
             set
             {
-                _stringFormat = value;
+                textAlignment = value;
             }
         }
 
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Alignment)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return textLineAlignment;
+            }
+
+            set
+            {
+                textLineAlignment = value;
+            }
+        }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Type)]
         public TextRenderingHint TextRenderingHint
         {
             get
             {
-                return _textRenderingHint;
+                return textRenderingHint;
             }
 
             set
             {
-                _textRenderingHint = value;
+                textRenderingHint = value;
             }
         }
 

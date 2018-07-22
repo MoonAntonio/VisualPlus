@@ -62,11 +62,13 @@
     <Compile Include="Delegates\ControlBoxDelegate.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
     <Compile Include="ActionList\VisualListViewActionList.cs" />
+    <Compile Include="Designer\VisualTileDesigner.cs" />
     <Compile Include="Designer\VisualDateTimePickerDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxButtonDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxDesigner.cs" />
     <Compile Include="Designer\VisualListViewDesigner.cs" />
     <Compile Include="Designer\VisualScrollBarDesigner.cs" />
+    <Compile Include="Enumerators\Relation.cs" />
     <Compile Include="Enumerators\ColumnStates.cs" />
     <Compile Include="Enumerators\GridTypes.cs" />
     <Compile Include="Enumerators\GridLineStyle.cs" />
@@ -104,6 +106,9 @@
     <Compile Include="Managers\BrushManager.cs" />
     <Compile Include="Enumerators\DateTimeComparer.cs" />
     <Compile Include="Managers\DateTimeManager.cs" />
+    <Compile Include="Renders\VisualImageRenderer.cs" />
+    <Compile Include="Renders\VisualTextRenderer.cs" />
+    <Compile Include="Renders\VisualTileRenderer.cs" />
     <Compile Include="Structure\ConsoleEx.cs" />
     <Compile Include="Managers\ExceptionMessenger.cs" />
     <Compile Include="Managers\FontManager.cs" />
@@ -164,9 +169,13 @@
     </Compile>
     <Compile Include="Collections\CollectionsBase\VisualListViewColumnCollection.cs" />
     <Compile Include="Enumerators\ListStates.cs" />
+    <Compile Include="Enumerators\BackgroundLayout.cs" />
+    <Compile Include="Toolkit\Controls\DataVisualization\VisualTile.cs" />
     <Compile Include="Toolkit\Controls\Editors\VisualDateTimePicker.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Enumerators\ControlBoxButtons.cs" />
+    <Compile Include="Toolkit\Dialogs\VisualMessageBox.cs" />
     <Compile Include="Toolkit\EmbeddedControls\LVComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -414,6 +423,7 @@
     <EmbeddedResource Include="Resources\Images\ScrollBarArrowDown.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Toolkit\Controls\DataVisualization\VisualTile.bmp" />
     <Content Include="Toolkit\Controls\Editors\VisualDateTimePicker.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

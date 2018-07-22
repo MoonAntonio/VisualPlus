@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -59,6 +60,10 @@ namespace VisualPlus.Toolkit.VisualBase
         public event MouseStateChangedEventHandler MouseStateChanged;
 
         [Category(EventCategory.PropertyChanged)]
+        [Description("Occours when the text style of the control has changed.")]
+        public event EventHandler TextStyleChanged;
+
+        [Category(EventCategory.PropertyChanged)]
         [Description("Occours when the theme of the control has changed.")]
         public event ThemeChangedEventHandler ThemeChanged;
 
@@ -78,7 +83,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
             set
             {
-                if (value == _mouseState)
+                if (_mouseState == value)
                 {
                     return;
                 }
@@ -104,7 +109,13 @@ namespace VisualPlus.Toolkit.VisualBase
 
             set
             {
+                if (_textStyle == null)
+                {
+                    return;
+                }
+
                 _textStyle = value;
+                OnTextStyleChanged(new EventArgs());
             }
         }
 
@@ -121,7 +132,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
             set
             {
-                if ((_themeManager == null) || (value == _themeManager))
+                if ((_themeManager == null) || (_themeManager == value))
                 {
                     return;
                 }
@@ -147,12 +158,20 @@ namespace VisualPlus.Toolkit.VisualBase
             MouseStateChanged?.Invoke(e);
         }
 
+        /// <summary>Invokes the text style changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnTextStyleChanged(EventArgs e)
+        {
+            Invalidate();
+            TextStyleChanged?.Invoke(this, e);
+        }
+
         /// <summary>Invokes the theme changed event.</summary>
         /// <param name="e">The event args.</param>
         protected virtual void OnThemeChanged(ThemeEventArgs e)
         {
-            ThemeChanged?.Invoke(e);
             Invalidate();
+            ThemeChanged?.Invoke(e);
         }
 
         #endregion
@@ -167,7 +186,18 @@ namespace VisualPlus.Toolkit.VisualBase
 
             _mouseState = MouseStates.Normal;
             _themeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-            _textStyle = new TextStyle();
+
+            Theme theme = new Theme(Themes.Visual);
+
+            ControlColorState controlState = new ControlColorState
+                {
+                    Disabled = theme.ColorPalette.TextDisabled,
+                    Enabled = theme.ColorPalette.TextEnabled,
+                    Hover = theme.ColorPalette.TextHover,
+                    Pressed = theme.ColorPalette.Selected
+                };
+
+            _textStyle = new TextStyle(controlState);
         }
 
         #endregion

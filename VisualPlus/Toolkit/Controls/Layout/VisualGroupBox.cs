@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
+using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
@@ -279,7 +280,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                         _newSize = new Size(0, 0);
                     }
 
-                    Point _titleBoxBackground = RelationManager.GetTextImageRelationLocation(graphics, _textImageRelation, new Rectangle(new Point(0, 0), _newSize), Text, Font, _titleBoxRectangle, false);
+                    Point _titleBoxBackground = RelationManager.GetTextImageRelationLocation(graphics, _textImageRelation, new Rectangle(new Point(0, 0), _newSize), Text, Font, _titleBoxRectangle, Relation.Text);
                     graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), new Rectangle(new Point(_titleBoxBackground.X, _titleBoxBackground.Y), new Size(_titleBoxRectangle.Width, _titleBoxRectangle.Height)));
                 }
 
