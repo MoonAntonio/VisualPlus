@@ -1,7 +1,9 @@
 ﻿#region Namespace
 
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -108,7 +110,7 @@ namespace VisualPlus.Managers
                     ScrollThumb = new ControlColorState()
                 };
 
-            // TODO: Decompose body to simplify.
+            // TODO: Simplify to decompose body.
             try
             {
                 themeInformation.Name = themeDocument.GetValue(Information + "Name");
@@ -260,7 +262,7 @@ namespace VisualPlus.Managers
                 };
 
             string serializedXML;
-
+            // TODO: Simplify to decompose body.
             using (MemoryStream outputStream = new MemoryStream())
             {
                 using (XmlWriter xmlWriter = XmlWriter.Create(outputStream, xmlWriterSettings))
@@ -274,8 +276,16 @@ namespace VisualPlus.Managers
                     // Write theme information header.
                     xmlWriter.WriteStartElement(Information);
 
-                    xmlWriter.WriteElementString("Name", themeInformation.Name);
-                    xmlWriter.WriteElementString("Author", themeInformation.Author);
+                    var themeInformationDictionary = new Dictionary<string, string>
+                        {
+                            { "Name", themeInformation.Name },
+                            { "Author", themeInformation.Author }
+                        };
+
+                    foreach (var themeData in themeInformationDictionary)
+                    {
+                        xmlWriter.WriteStartElement(themeData.Key, themeData.Value);
+                    }
 
                     xmlWriter.WriteEndElement();
 
@@ -290,77 +300,112 @@ namespace VisualPlus.Managers
                     xmlWriter.WriteElementString("Line", colorPalette.Line.ToHTML());
                     xmlWriter.WriteElementString("Shadow", colorPalette.Shadow.ToHTML());
 
-                    // < ----------------------------------------------------------------------- |
-                    xmlWriter.WriteStartElement("Background");
-                    xmlWriter.WriteElementString("Type1", colorPalette.Type1.ToHTML());
-                    xmlWriter.WriteElementString("Type2", colorPalette.Type2.ToHTML());
-                    xmlWriter.WriteElementString("Type3", colorPalette.Type3.ToHTML());
-                    xmlWriter.WriteElementString("Type4", colorPalette.Type4.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var backgroundDictionary = new Dictionary<string, Color>
+                        {
+                            { "Type1", colorPalette.Type1 },
+                            { "Type2", colorPalette.Type2 },
+                            { "Type3", colorPalette.Type3 },
+                            { "Type4", colorPalette.Type4 }
+                        };
 
-                    xmlWriter.WriteStartElement("Border");
-                    xmlWriter.WriteElementString("Normal", colorPalette.BorderNormal.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.BorderHover.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    WriteElementGroup(xmlWriter, "Background", backgroundDictionary);
 
-                    xmlWriter.WriteStartElement("Box");
-                    xmlWriter.WriteElementString("Enabled", colorPalette.BoxEnabled.ToHTML());
-                    xmlWriter.WriteElementString("Disabled", colorPalette.BoxDisabled.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var borderDictionary = new Dictionary<string, Color>
+                        {
+                            { "BorderNormal", colorPalette.BorderNormal },
+                            { "BorderHover", colorPalette.BorderHover }
+                        };
 
-                    xmlWriter.WriteStartElement("ColumnHeader");
-                    xmlWriter.WriteElementString("Header", colorPalette.ColumnHeader.ToHTML());
-                    xmlWriter.WriteElementString("Text", colorPalette.ColumnText.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    WriteElementGroup(xmlWriter, "Border", borderDictionary);
 
-                    xmlWriter.WriteStartElement("Control");
-                    xmlWriter.WriteElementString("Enabled", colorPalette.ControlEnabled.ToHTML());
-                    xmlWriter.WriteElementString("Disabled", colorPalette.ControlDisabled.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var boxDictionary = new Dictionary<string, Color>
+                        {
+                            { "Enabled", colorPalette.BoxEnabled },
+                            { "Disabled", colorPalette.BoxDisabled }
+                        };
 
-                    xmlWriter.WriteStartElement("FlatControl");
-                    xmlWriter.WriteElementString("Enabled", colorPalette.FlatControlEnabled.ToHTML());
-                    xmlWriter.WriteElementString("Disabled", colorPalette.FlatControlDisabled.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    WriteElementGroup(xmlWriter, "Box", boxDictionary);
 
-                    xmlWriter.WriteStartElement("Font");
-                    xmlWriter.WriteElementString("Enabled", colorPalette.TextEnabled.ToHTML());
-                    xmlWriter.WriteElementString("Disabled", colorPalette.TextDisabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.TextHover.ToHTML());
-                    xmlWriter.WriteElementString("Selected", colorPalette.Selected.ToHTML());
-                    xmlWriter.WriteElementString("Subscript", colorPalette.SubscriptColor.ToHTML());
-                    xmlWriter.WriteElementString("Superscript", colorPalette.SuperscriptColor.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var columnHeaderDictionary = new Dictionary<string, Color>
+                        {
+                            { "Header", colorPalette.ColumnHeader },
+                            { "Text", colorPalette.ColumnText }
+                        };
 
-                    xmlWriter.WriteStartElement("ListItem");
-                    xmlWriter.WriteElementString("Normal", colorPalette.Item.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.ItemHover.ToHTML());
-                    xmlWriter.WriteElementString("Selected", colorPalette.ItemSelected.ToHTML());
-                    xmlWriter.WriteElementString("Alternate", colorPalette.ItemAlternate.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    WriteElementGroup(xmlWriter, "ColumnHeader", columnHeaderDictionary);
 
-                    xmlWriter.WriteStartElement("Hatch");
-                    xmlWriter.WriteElementString("BackColor", colorPalette.HatchBackColor.ToHTML());
-                    xmlWriter.WriteElementString("ForeColor", colorPalette.HatchForeColor.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var controlDictionary = new Dictionary<string, Color>
+                        {
+                            { "Enabled", colorPalette.ControlEnabled },
+                            { "Disabled", colorPalette.ControlDisabled }
+                        };
 
-                    xmlWriter.WriteStartElement("ProgressBar");
-                    xmlWriter.WriteElementString("Background", colorPalette.ProgressBackground.ToHTML());
-                    xmlWriter.WriteElementString("Working", colorPalette.Progress.ToHTML());
-                    xmlWriter.WriteElementString("Disabled", colorPalette.ProgressDisabled.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    WriteElementGroup(xmlWriter, "Control", controlDictionary);
 
-                    xmlWriter.WriteStartElement("TabPage");
-                    xmlWriter.WriteElementString("Enabled", colorPalette.TabPageEnabled.ToHTML());
-                    xmlWriter.WriteElementString("Disabled", colorPalette.TabPageDisabled.ToHTML());
-                    xmlWriter.WriteElementString("Selected", colorPalette.TabPageSelected.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.TabPageHover.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var flatControlDictionary = new Dictionary<string, Color>
+                        {
+                            { "Enabled", colorPalette.FlatControlEnabled },
+                            { "Disabled", colorPalette.FlatControlDisabled }
+                        };
 
-                    xmlWriter.WriteStartElement("Watermark");
-                    xmlWriter.WriteElementString("Active", colorPalette.WatermarkActive.ToHTML());
-                    xmlWriter.WriteElementString("Inactive", colorPalette.WatermarkInactive.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    WriteElementGroup(xmlWriter, "FlatControl", flatControlDictionary);
+
+                    var fontDictionary = new Dictionary<string, Color>
+                        {
+                            { "Enabled", colorPalette.TextEnabled },
+                            { "Disabled", colorPalette.TextDisabled },
+                            { "Hover", colorPalette.TextHover },
+                            { "Selected", colorPalette.Selected },
+                            { "Subscript", colorPalette.SubscriptColor },
+                            { "Superscript", colorPalette.SuperscriptColor }
+                        };
+
+                    WriteElementGroup(xmlWriter, "Font", fontDictionary);
+
+                    var listItemDictionary = new Dictionary<string, Color>
+                        {
+                            { "Normal", colorPalette.Item },
+                            { "Hover", colorPalette.ItemHover },
+                            { "Selected", colorPalette.ItemSelected },
+                            { "Alternate", colorPalette.ItemAlternate }
+                        };
+
+                    WriteElementGroup(xmlWriter, "ListItem", listItemDictionary);
+
+                    var hatchDictionary = new Dictionary<string, Color>
+                        {
+                            { "BackColor", colorPalette.HatchBackColor },
+                            { "ForeColor", colorPalette.HatchForeColor }
+                        };
+
+                    WriteElementGroup(xmlWriter, "Hatch", hatchDictionary);
+
+                    var progressDictionary = new Dictionary<string, Color>
+                        {
+                            { "Background", colorPalette.ProgressBackground },
+                            { "Working", colorPalette.Progress },
+                            { "Disabled", colorPalette.ProgressDisabled }
+                        };
+
+                    WriteElementGroup(xmlWriter, "ProgressBar", progressDictionary);
+
+                    var tabPageDictionary = new Dictionary<string, Color>
+                        {
+                            { "Enabled", colorPalette.TabPageEnabled },
+                            { "Disabled", colorPalette.TabPageDisabled },
+                            { "Selected", colorPalette.TabPageSelected },
+                            { "Hover", colorPalette.TabPageHover }
+                        };
+
+                    WriteElementGroup(xmlWriter, "TabPage", tabPageDictionary);
+
+                    var watermarkDictionary = new Dictionary<string, Color>
+                        {
+                            { "Active", colorPalette.WatermarkActive },
+                            { "Inactive", colorPalette.WatermarkInactive }
+                        };
+
+                    WriteElementGroup(xmlWriter, "Watermark", watermarkDictionary);
 
                     // End shared.
                     xmlWriter.WriteEndElement();
@@ -368,83 +413,114 @@ namespace VisualPlus.Managers
                     // Write theme toolkit.
                     xmlWriter.WriteStartElement(Toolkit);
 
-                    xmlWriter.WriteStartElement("VisualButton");
-                    xmlWriter.WriteElementString("Enabled", colorPalette.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Disabled", colorPalette.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var buttonDictionary = new Dictionary<string, Color>
+                        {
+                            { "Enabled", colorPalette.Enabled },
+                            { "Disabled", colorPalette.Disabled },
+                            { "Hover", colorPalette.Hover },
+                            { "Pressed", colorPalette.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "VisualButton", buttonDictionary);
 
                     xmlWriter.WriteStartElement("VisualControlBox");
 
                     xmlWriter.WriteStartElement("HelpButton");
-                    xmlWriter.WriteStartElement("BackColorState");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.HelpButtonBack.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.HelpButtonBack.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.HelpButtonBack.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.HelpButtonBack.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
 
-                    xmlWriter.WriteStartElement("ForeColorState");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.HelpButtonFore.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.HelpButtonFore.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.HelpButtonFore.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.HelpButtonFore.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var helpBackDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.HelpButtonBack.Disabled },
+                            { "Enabled", colorPalette.HelpButtonBack.Enabled },
+                            { "Hover", colorPalette.HelpButtonBack.Hover },
+                            { "Pressed", colorPalette.HelpButtonBack.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "BackColorState", helpBackDictionary);
+
+                    var helpForeDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.HelpButtonFore.Disabled },
+                            { "Enabled", colorPalette.HelpButtonFore.Enabled },
+                            { "Hover", colorPalette.HelpButtonFore.Hover },
+                            { "Pressed", colorPalette.HelpButtonFore.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "ForeColorState", helpForeDictionary);
 
                     // End Help Button
                     xmlWriter.WriteEndElement();
 
                     xmlWriter.WriteStartElement("MinimizeButton");
-                    xmlWriter.WriteStartElement("BackColorState");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.MinimizeButtonBack.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.MinimizeButtonBack.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.MinimizeButtonBack.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.MinimizeButtonBack.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
 
-                    xmlWriter.WriteStartElement("ForeColorState");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.MinimizeButtonFore.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.MinimizeButtonFore.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.MinimizeButtonFore.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.MinimizeButtonFore.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var minBackDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.MinimizeButtonBack.Disabled },
+                            { "Enabled", colorPalette.MinimizeButtonBack.Enabled },
+                            { "Hover", colorPalette.MinimizeButtonBack.Hover },
+                            { "Pressed", colorPalette.MinimizeButtonBack.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "BackColorState", minBackDictionary);
+
+                    var minForeDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.MinimizeButtonFore.Disabled },
+                            { "Enabled", colorPalette.MinimizeButtonFore.Enabled },
+                            { "Hover", colorPalette.MinimizeButtonFore.Hover },
+                            { "Pressed", colorPalette.MinimizeButtonFore.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "ForeColorState", minForeDictionary);
 
                     // End Minimize Button
                     xmlWriter.WriteEndElement();
 
                     xmlWriter.WriteStartElement("MaximizeButton");
-                    xmlWriter.WriteStartElement("BackColorState");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.MaximizeButtonBack.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.MaximizeButtonBack.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.MaximizeButtonBack.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.MaximizeButtonBack.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
 
-                    xmlWriter.WriteStartElement("ForeColorState");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.MaximizeButtonFore.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.MaximizeButtonFore.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.MaximizeButtonFore.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.MaximizeButtonFore.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var maxBackDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.MaximizeButtonBack.Disabled },
+                            { "Enabled", colorPalette.MaximizeButtonBack.Enabled },
+                            { "Hover", colorPalette.MaximizeButtonBack.Hover },
+                            { "Pressed", colorPalette.MaximizeButtonBack.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "BackColorState", maxBackDictionary);
+
+                    var maxForeDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.MaximizeButtonFore.Disabled },
+                            { "Enabled", colorPalette.MaximizeButtonFore.Enabled },
+                            { "Hover", colorPalette.MaximizeButtonFore.Hover },
+                            { "Pressed", colorPalette.MaximizeButtonFore.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "ForeColorState", maxForeDictionary);
 
                     // End Maximize Button
                     xmlWriter.WriteEndElement();
 
                     xmlWriter.WriteStartElement("CloseButton");
-                    xmlWriter.WriteStartElement("BackColorState");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.CloseButtonBack.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.CloseButtonBack.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.CloseButtonBack.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.CloseButtonBack.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
 
-                    xmlWriter.WriteStartElement("ForeColorState");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.CloseButtonFore.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.CloseButtonFore.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.CloseButtonFore.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.CloseButtonFore.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var closeBackDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.CloseButtonBack.Disabled },
+                            { "Enabled", colorPalette.CloseButtonBack.Enabled },
+                            { "Hover", colorPalette.CloseButtonBack.Hover },
+                            { "Pressed", colorPalette.CloseButtonBack.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "BackColorState", closeBackDictionary);
+
+                    var closeForeDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.CloseButtonFore.Disabled },
+                            { "Enabled", colorPalette.CloseButtonFore.Enabled },
+                            { "Hover", colorPalette.CloseButtonFore.Hover },
+                            { "Pressed", colorPalette.CloseButtonFore.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "ForeColorState", closeForeDictionary);
 
                     // End Close Button
                     xmlWriter.WriteEndElement();
@@ -452,35 +528,51 @@ namespace VisualPlus.Managers
                     // End VisualControlBox
                     xmlWriter.WriteEndElement();
 
-                    xmlWriter.WriteStartElement("VisualForm");
-                    xmlWriter.WriteElementString("Background", colorPalette.FormBackground.ToHTML());
-                    xmlWriter.WriteElementString("WindowBar", colorPalette.FormWindowBar.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var formDictionary = new Dictionary<string, Color>
+                        {
+                            { "Background", colorPalette.FormBackground },
+                            { "WindowBar", colorPalette.FormWindowBar }
+                        };
 
-                    xmlWriter.WriteStartElement("VisualRadialProgress");
-                    xmlWriter.WriteElementString("BackCircle", colorPalette.BackCircle.ToHTML());
-                    xmlWriter.WriteElementString("ForeCircle", colorPalette.ForeCircle.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    WriteElementGroup(xmlWriter, "VisualForm", formDictionary);
+
+                    var radialDictionary = new Dictionary<string, Color>
+                        {
+                            { "BackCircle", colorPalette.BackCircle },
+                            { "ForeCircle", colorPalette.ForeCircle }
+                        };
+
+                    WriteElementGroup(xmlWriter, "VisualRadialProgress", radialDictionary);
 
                     xmlWriter.WriteStartElement("VisualScrollbar");
-                    xmlWriter.WriteStartElement("Bar");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.ScrollBar.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.ScrollBar.Disabled.ToHTML());
-                    xmlWriter.WriteEndElement();
 
-                    xmlWriter.WriteStartElement("Button");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.ScrollButton.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.ScrollButton.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.ScrollButton.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.ScrollButton.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    var barDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.ScrollBar.Disabled },
+                            { "Enabled", colorPalette.ScrollBar.Enabled }
+                        };
 
-                    xmlWriter.WriteStartElement("Thumb");
-                    xmlWriter.WriteElementString("Disabled", colorPalette.ScrollThumb.Disabled.ToHTML());
-                    xmlWriter.WriteElementString("Enabled", colorPalette.ScrollThumb.Enabled.ToHTML());
-                    xmlWriter.WriteElementString("Hover", colorPalette.ScrollThumb.Hover.ToHTML());
-                    xmlWriter.WriteElementString("Pressed", colorPalette.ScrollThumb.Pressed.ToHTML());
-                    xmlWriter.WriteEndElement();
+                    WriteElementGroup(xmlWriter, "Bar", barDictionary);
+
+                    var scrollButtonDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.ScrollButton.Disabled },
+                            { "Enabled", colorPalette.ScrollButton.Enabled },
+                            { "Hover", colorPalette.ScrollButton.Hover },
+                            { "Pressed", colorPalette.ScrollButton.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "Button", scrollButtonDictionary);
+
+                    var scrollThumbDictionary = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.ScrollThumb.Disabled },
+                            { "Enabled", colorPalette.ScrollThumb.Enabled },
+                            { "Hover", colorPalette.ScrollThumb.Hover },
+                            { "Pressed", colorPalette.ScrollThumb.Pressed }
+                        };
+
+                    WriteElementGroup(xmlWriter, "Thumb", scrollThumbDictionary);
 
                     // End visual scrollbar.
                     xmlWriter.WriteEndElement();
@@ -501,6 +593,22 @@ namespace VisualPlus.Managers
             }
 
             return serializedXML;
+        }
+
+        /// <summary>Write the element group to xml.</summary>
+        /// <param name="xmlWriter">The xml writer.</param>
+        /// <param name="elementName">The element name.</param>
+        /// <param name="colorTable">The element color table.</param>
+        private static void WriteElementGroup(XmlWriter xmlWriter, string elementName, Dictionary<string, Color> colorTable)
+        {
+            xmlWriter.WriteStartElement(elementName);
+
+            foreach (var element in colorTable)
+            {
+                xmlWriter.WriteElementString(element.Key, element.Value.ToHTML());
+            }
+
+            xmlWriter.WriteEndElement();
         }
 
         #endregion
