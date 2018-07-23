@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 using UnitTests.Tests;
 
@@ -43,7 +44,10 @@ namespace UnitTests.Forms
             VisualControlBox = 1,
 
             /// <summary>The list view.</summary>
-            VisualListView = 2
+            VisualListView = 2,
+
+            /// <summary>The visual message box.</summary>
+            VisualMessageBox
         }
 
         #endregion
@@ -59,18 +63,27 @@ namespace UnitTests.Forms
                 case UnitTests.VisualForm:
                     {
                         _formToOpen = new VisualForm($@"{nameof(VisualForm)} Test");
+                        _formToOpen.ShowDialog();
                         break;
                     }
 
                 case UnitTests.VisualControlBox:
                     {
                         _formToOpen = new VisualControlBoxTest();
+                        _formToOpen.ShowDialog();
                         break;
                     }
 
                 case UnitTests.VisualListView:
                     {
                         _formToOpen = new VisualListViewTest();
+                        _formToOpen.ShowDialog();
+                        break;
+                    }
+
+                case UnitTests.VisualMessageBox:
+                    {
+                        VisualMessageBox.Show("Hello World", Application.ProductName);
                         break;
                     }
 
@@ -79,8 +92,6 @@ namespace UnitTests.Forms
                         throw new ArgumentOutOfRangeException();
                     }
             }
-
-            _formToOpen.ShowDialog();
         }
 
         private void ListBoxTests_SelectedIndexChanged(object sender, EventArgs e)

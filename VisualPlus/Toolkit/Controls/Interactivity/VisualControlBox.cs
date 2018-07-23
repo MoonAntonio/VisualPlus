@@ -360,7 +360,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
             if (form is VisualForm visualForm)
             {
-                if (!visualForm.TitleToggleWindowState)
+                if (!visualForm.WindowTitleBarVisible)
                 {
                     return;
                 }

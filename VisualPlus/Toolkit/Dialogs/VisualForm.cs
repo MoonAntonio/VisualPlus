@@ -1,4 +1,4 @@
-﻿#region Namespace
+#region Namespace
 
 using System;
 using System.Collections;
@@ -51,6 +51,7 @@ namespace VisualPlus.Toolkit.Dialogs
         private ContextMenuStrip _contextMenuStrip;
         private bool _defaultContextTitle;
         private bool _dropShadow;
+        private Rectangle _formBody;
         private bool _headerMouseDown;
         private bool _magnetic;
         private int _magneticRadius;
@@ -62,12 +63,12 @@ namespace VisualPlus.Toolkit.Dialogs
         private StyleManager _styleManager;
         private int _textPaddingTop;
         private Alignment.TextAlignment _titleAlignment;
-        private Rectangle _titleBarRectangle;
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
         private ContextMenuStrip _windowContextMenuStripTitle;
-        private bool _windowTitleBar;
+        private Rectangle _windowTitleBarRectangle;
+        private bool _windowTitleBarVisible;
 
         #endregion
 
@@ -114,7 +115,7 @@ namespace VisualPlus.Toolkit.Dialogs
             _dropShadow = true;
             _headerMouseDown = false;
             FormBorderStyle = FormBorderStyle.None;
-            _windowTitleBar = true;
+            _windowTitleBarVisible = true;
             _magnetic = false;
             _magneticRadius = 100;
             Padding = new Padding(0, 0, 0, 0);
@@ -124,7 +125,7 @@ namespace VisualPlus.Toolkit.Dialogs
             _windowBarHeight = 30;
             _previousSize = Size.Empty;
             _moveable = true;
-            _titleBarRectangle = new Rectangle(0, 0, Width, _windowBarHeight);
+            _windowTitleBarRectangle = new Rectangle(0, 0, Width, _windowBarHeight);
 
             _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16))
                     {
@@ -139,6 +140,9 @@ namespace VisualPlus.Toolkit.Dialogs
             _contextMenuStrip = null;
             _windowContextMenuStripTitle = null;
             _defaultContextTitle = true;
+
+            _formBody = new Rectangle(0, 0, 0, 0);
+            UpdateBody();
 
             UpdateContextMenuStripTitle();
 
@@ -377,6 +381,16 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
+        /// <summary>Retrieves the form body rectangle.</summary>
+        [Browsable(false)]
+        public Rectangle FormBody
+        {
+            get
+            {
+                return _formBody;
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Visible)]
         public new bool HelpButton
@@ -592,27 +606,6 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
-        [Browsable(true)]
-        [Category(PropertyCategory.Behavior)]
-        [Description(PropertyDescription.Visible)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public bool TitleToggleWindowState
-        {
-            get
-            {
-                return _windowTitleBar;
-            }
-
-            set
-            {
-                if (_windowTitleBar != value)
-                {
-                    _windowTitleBar = value;
-                    Invalidate();
-                }
-            }
-        }
-
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color WindowBarColor
@@ -659,6 +652,37 @@ namespace VisualPlus.Toolkit.Dialogs
             set
             {
                 _windowContextMenuStripTitle = value;
+            }
+        }
+
+        /// <summary>Retrieves the form window title bar rectangle.</summary>
+        [Browsable(false)]
+        public Rectangle WindowTitleBar
+        {
+            get
+            {
+                return _windowTitleBarRectangle;
+            }
+        }
+
+        [Browsable(true)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public bool WindowTitleBarVisible
+        {
+            get
+            {
+                return _windowTitleBarVisible;
+            }
+
+            set
+            {
+                if (_windowTitleBarVisible != value)
+                {
+                    _windowTitleBarVisible = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -711,7 +735,7 @@ namespace VisualPlus.Toolkit.Dialogs
         protected override void OnMouseDoubleClick(MouseEventArgs e)
         {
             // Toggle window state.
-            if (_titleBarRectangle.Contains(e.Location))
+            if (_windowTitleBarRectangle.Contains(e.Location))
             {
                 ControlBox.ToggleWindowState(this);
             }
@@ -818,23 +842,14 @@ namespace VisualPlus.Toolkit.Dialogs
 
                 graphics.FillRectangle(new SolidBrush(_background), new Rectangle(0, 0, Width, Height));
 
+                UpdateBody();
+
                 if (BackgroundImage != null)
                 {
-                    Rectangle background;
-
-                    if (_windowTitleBar)
-                    {
-                        background = new Rectangle(1, VisualControlBox.Bottom, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
-                    }
-                    else
-                    {
-                        background = new Rectangle(1, 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
-                    }
-
-                    graphics.DrawImage(BackgroundImage, background);
+                    graphics.DrawImage(BackgroundImage, _formBody);
                 }
 
-                if (_windowTitleBar)
+                if (_windowTitleBarVisible)
                 {
                     DrawWindowTitleBar(graphics);
                 }
@@ -896,7 +911,7 @@ namespace VisualPlus.Toolkit.Dialogs
                 return;
             }
 
-            if ((m.Msg == FormConstants.WM_MOUSEMOVE) && _maximized && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
+            if ((m.Msg == FormConstants.WM_MOUSEMOVE) && _maximized && _windowTitleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
                 // Fix: Not being called.
                 if (_headerMouseDown)
@@ -919,7 +934,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, FormConstants.HT_CAPTION, 0);
                 }
             }
-            else if ((m.Msg == FormConstants.WM_LBUTTONDOWN) && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
+            else if ((m.Msg == FormConstants.WM_LBUTTONDOWN) && _windowTitleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
                 _headerMouseDown = true;
 
@@ -935,7 +950,7 @@ namespace VisualPlus.Toolkit.Dialogs
 
                 WindowTitleClicked?.Invoke(this, new EventArgs());
             }
-            else if ((m.Msg == FormConstants.WM_RBUTTONDOWN) && _titleBarRectangle.Contains(PointToClient(Cursor.Position)))
+            else if ((m.Msg == FormConstants.WM_RBUTTONDOWN) && _windowTitleBarRectangle.Contains(PointToClient(Cursor.Position)))
             {
                 // Right-clicked in the window title bar.
                 if (!_maximized)
@@ -957,7 +972,7 @@ namespace VisualPlus.Toolkit.Dialogs
                 Point cursorPos = PointToClient(Cursor.Position);
 
                 // Right-clicked on the window title bar.
-                if (_titleBarRectangle.Contains(cursorPos))
+                if (_windowTitleBarRectangle.Contains(cursorPos))
                 {
                     // Retrieves the system menu.
                     // IntPtr systemMenu = User32.GetSystemMenu(Handle, false);
@@ -1126,8 +1141,8 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawWindowTitleBar(Graphics graphics)
         {
-            _titleBarRectangle = new Rectangle(0, 0, Width, _windowBarHeight);
-            graphics.FillRectangle(new SolidBrush(_windowBarColor), _titleBarRectangle);
+            _windowTitleBarRectangle = new Rectangle(0, 0, Width, _windowBarHeight);
+            graphics.FillRectangle(new SolidBrush(_windowBarColor), _windowTitleBarRectangle);
 
             DrawImageIcon(graphics);
             DrawTitle(graphics);
@@ -1239,6 +1254,19 @@ namespace VisualPlus.Toolkit.Dialogs
             if (_resizeDirection != -1)
             {
                 User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, _resizeDirection, 0);
+            }
+        }
+
+        /// <summary>Update the body rectangle.</summary>
+        private void UpdateBody()
+        {
+            if (_windowTitleBarVisible)
+            {
+                _formBody = new Rectangle(1, VisualControlBox.Bottom, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+            }
+            else
+            {
+                _formBody = new Rectangle(1, 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
             }
         }
 
