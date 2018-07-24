@@ -25,7 +25,6 @@ using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -1592,6 +1591,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 Uxtheme.CloseThemeData(_theme);
             }
 
+            _timer.Dispose();
+
             if (disposing)
             {
                 if (_components != null)
@@ -1648,7 +1649,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            ConsoleEx.WriteDebug("OnMouseDown");
+            ConsoleEx.WriteDebug("VisualListView::OnMouseDown");
 
             int _itemIndex;
             int _column;
@@ -1946,8 +1947,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
-            int _insideWidth = _columns.Width > HeaderRectangle.Width ? _columns.Width : HeaderRectangle.Width;
-
+            // int _insideWidth = _columns.Width > HeaderRectangle.Width ? _columns.Width : HeaderRectangle.Width;
             if (HeaderVisible)
             {
                 _graphics.SetClip(HeaderRectangle);
@@ -1985,8 +1985,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         public override bool PreProcessMessage(ref Message msg)
         {
-            ConsoleEx.WriteDebug("PreProcessMessage - Msg: " + msg);
-
             if (msg.Msg == ListViewConstants.WM_KEYDOWN)
             {
                 Keys _keyCode = (Keys)(int)msg.WParam; // this should turn the key data off because it will match selected keys to ORA them off
@@ -2229,30 +2227,36 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             if (SortType == SortTypes.InsertionSort)
             {
-                LVQuickSort sorter = new LVQuickSort();
+                LVQuickSort sorter = new LVQuickSort
+                    {
+                        NumericCompare = _columns[column].NumericSort,
+                        SortDirection = _columns[column].LastSortState,
+                        SortColumn = column
+                    };
 
-                sorter.NumericCompare = _columns[column].NumericSort;
-                sorter.SortDirection = _columns[column].LastSortState;
-                sorter.SortColumn = column;
                 sorter.LVInsertionSort(Items, 0, _items.Count - 1);
             }
             else if (SortType == SortTypes.MergeSort)
             {
                 // this.SortIndex = nColumn;
-                LVMergeSort mergesort = new LVMergeSort();
+                LVMergeSort mergeSort = new LVMergeSort
+                    {
+                        NumericCompare = _columns[column].NumericSort,
+                        SortDirection = _columns[column].LastSortState,
+                        SortColumn = column
+                    };
 
-                mergesort.NumericCompare = _columns[column].NumericSort;
-                mergesort.SortDirection = _columns[column].LastSortState;
-                mergesort.SortColumn = column;
-                mergesort.Sort(Items, 0, _items.Count - 1);
+                mergeSort.Sort(Items, 0, _items.Count - 1);
             }
             else if (SortType == SortTypes.QuickSort)
             {
-                LVQuickSort sorter = new LVQuickSort();
+                LVQuickSort sorter = new LVQuickSort
+                    {
+                        NumericCompare = _columns[column].NumericSort,
+                        SortDirection = _columns[column].LastSortState,
+                        SortColumn = column
+                    };
 
-                sorter.NumericCompare = _columns[column].NumericSort;
-                sorter.SortDirection = _columns[column].LastSortState;
-                sorter.SortColumn = column;
                 sorter.Sort(Items); // .QuickSort( Items, 0, Items.Count-1 );
             }
 
@@ -2620,9 +2624,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             _control.KeyPress += TextBox_KeyPress;
             _control.Parent = this;
             ActivatedEmbeddedControl = _control;
+
             if (_activatedEmbeddedControl != null)
             {
-                int _yOffset = (subItem.LastCellRectangle.Height - _activatedEmbeddedControl.Bounds.Height) / 2;
+                // int _yOffset = (subItem.LastCellRectangle.Height - _activatedEmbeddedControl.Bounds.Height) / 2;
             }
 
             Rectangle _controlBounds;
