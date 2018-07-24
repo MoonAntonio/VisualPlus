@@ -863,8 +863,8 @@ namespace VisualPlus.Toolkit.Controls.Layout
                     _rectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
                 }
 
-                VisualControlRenderer.DrawElement(e.Graphics, BackgroundImage, _border, _backColorState, Enabled, MouseState, _rectangle);
-                VisualControlRenderer.DrawElement(e.Graphics, null, _thumbBorder, _thumbColorState, Enabled, _thumbState, _thumbRectangle);
+                VisualElementRenderer.DrawElement(e.Graphics, BackgroundImage, _border, _backColorState, Enabled, MouseState, _rectangle);
+                VisualElementRenderer.DrawElement(e.Graphics, null, _thumbBorder, _thumbColorState, Enabled, _thumbState, _thumbRectangle);
 
                 if (_thumbGripVisible)
                 {
