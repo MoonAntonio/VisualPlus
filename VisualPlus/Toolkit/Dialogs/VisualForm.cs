@@ -252,6 +252,25 @@ namespace VisualPlus.Toolkit.Dialogs
 
         #region Enumerators
 
+        /// <summary>The supported control box icons.</summary>
+        public enum ControlBoxIcons
+        {
+            /// <summary>The help icon.</summary>
+            Help,
+
+            /// <summary>The minimize icon.</summary>
+            Minimize,
+
+            /// <summary>The maximize icon.</summary>
+            Maximize,
+
+            /// <summary>The restore icon.</summary>
+            Restore,
+
+            /// <summary>The close icon.</summary>
+            Close
+        }
+
         public enum ResizeDirection
         {
             /// <summary>The bottom left.</summary>

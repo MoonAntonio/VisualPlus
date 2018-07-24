@@ -109,6 +109,7 @@
     <Compile Include="Managers\ElementsManager.cs" />
     <Compile Include="Managers\MouseManager.cs" />
     <Compile Include="Managers\ObjectManagement.cs" />
+    <Compile Include="Renders\VisualControlBoxRenderer.cs" />
     <Compile Include="Renders\VisualElementRenderer.cs" />
     <Compile Include="Renders\VisualImageRenderer.cs" />
     <Compile Include="Renders\VisualProgressRenderer.cs" />

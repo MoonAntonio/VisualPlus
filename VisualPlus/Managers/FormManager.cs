@@ -3,7 +3,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-using VisualPlus.Constants;
+using VisualPlus.Renders;
 using VisualPlus.Toolkit.Dialogs;
 
 #endregion
@@ -13,20 +13,6 @@ namespace VisualPlus.Managers
     public sealed class FormManager
     {
         #region Methods
-
-        /// <summary>Draws the control box icon.</summary>
-        /// <param name="size">The size.</param>
-        /// <param name="text">The text.</param>
-        /// <returns>The <see cref="Bitmap" />.</returns>
-        public static Bitmap DrawControlBoxIcon(Size size, string text)
-        {
-            Bitmap bitmap = new Bitmap(size.Width, size.Height);
-            Graphics graphics = Graphics.FromImage(bitmap);
-            Font font = new Font("Marlett", 12);
-
-            graphics.DrawString(text, font, new SolidBrush(Color.Black), new PointF(0, 0));
-            return bitmap;
-        }
 
         /// <summary>Prepares the form for moving.</summary>
         /// <param name="form">The form.</param>
@@ -101,7 +87,7 @@ namespace VisualPlus.Managers
                 _restore.Enabled = false;
             }
 
-            _restore.Image = DrawControlBoxIcon(new Size(20, 20), ControlBoxConstants.RestoreText);
+            _restore.Image = VisualControlBoxRenderer.RenderControlBoxIcon(new Size(20, 20), VisualForm.ControlBoxIcons.Restore, Color.Black);
 
             ToolStripMenuItem _move = new ToolStripMenuItem("Move", null, (sender, args) => Move(form))
                     {
@@ -124,7 +110,7 @@ namespace VisualPlus.Managers
                 _minimize.Enabled = false;
             }
 
-            _minimize.Image = DrawControlBoxIcon(new Size(20, 20), ControlBoxConstants.MinimizeText);
+            _minimize.Image = VisualControlBoxRenderer.RenderControlBoxIcon(new Size(20, 20), VisualForm.ControlBoxIcons.Minimize, Color.Black);
 
             ToolStripMenuItem _maximize = new ToolStripMenuItem("Maximize", null, (sender, args) => form.ControlBox.MaximizeForm(form));
 
@@ -137,16 +123,16 @@ namespace VisualPlus.Managers
                 _maximize.Enabled = false;
             }
 
-            _maximize.Image = DrawControlBoxIcon(new Size(20, 20), ControlBoxConstants.MaximizeText);
+            _maximize.Image = VisualControlBoxRenderer.RenderControlBoxIcon(new Size(20, 20), VisualForm.ControlBoxIcons.Maximize, Color.Black);
 
             ToolStripSeparator _separator = new ToolStripSeparator();
 
             ToolStripMenuItem _close = new ToolStripMenuItem("Close", null, (sender, args) => form.ControlBox.CloseForm(form))
-                    {
-                       Image = DrawControlBoxIcon(new Size(20, 20), ControlBoxConstants.CloseText) 
-                    };
+                {
+                    Image = VisualControlBoxRenderer.RenderControlBoxIcon(new Size(20, 20), VisualForm.ControlBoxIcons.Close, Color.Black),
+                    ShortcutKeys = Keys.Alt | Keys.F4
+                };
 
-            _close.ShortcutKeys = Keys.Alt | Keys.F4;
             _contextMenu.Items.Add(_restore);
             _contextMenu.Items.Add(_move);
             _contextMenu.Items.Add(_size);
