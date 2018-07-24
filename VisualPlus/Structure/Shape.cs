@@ -45,7 +45,7 @@ namespace VisualPlus.Structure
             ConstructShape(ShapeType.Rounded, color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.Shape" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
         /// <param name="shapeType">The shape type.</param>
         /// <param name="color">The color.</param>
         /// <param name="rounding">The rounding.</param>
@@ -54,7 +54,7 @@ namespace VisualPlus.Structure
             ConstructShape(shapeType, color, rounding, _thickness, _visible);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.Shape" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
         /// <param name="shapeType">The shape type.</param>
         /// <param name="color">The color.</param>
         /// <param name="rounding">The rounding.</param>
