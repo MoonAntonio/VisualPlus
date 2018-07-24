@@ -6,18 +6,18 @@ using System.Drawing;
 
 namespace VisualPlus.Renders
 {
-    public class Bars
+    public sealed class VisualElementRenderer
     {
         #region Methods
 
-        /// <summary>Draws bars.</summary>
+        /// <summary>Render bars.</summary>
         /// <param name="graphics">The graphics.</param>
         /// <param name="point">The point.</param>
         /// <param name="size">The size.</param>
         /// <param name="color">The color.</param>
         /// <param name="bars">The bars.</param>
         /// <param name="spacing">The spacing.</param>
-        public static void DrawBars(Graphics graphics, Point point, Size size, Color color, int bars, int spacing)
+        public static void RenderBars(Graphics graphics, Point point, Size size, Color color, int bars, int spacing)
         {
             // TODO: Add orientation, auto align in middle (to avoid drawing from top down since size can change depending on # bars.)
             int bump = spacing;

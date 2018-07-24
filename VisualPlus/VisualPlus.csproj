@@ -106,6 +106,7 @@
     <Compile Include="Managers\BrushManager.cs" />
     <Compile Include="Enumerators\DateTimeComparer.cs" />
     <Compile Include="Managers\DateTimeManager.cs" />
+    <Compile Include="Renders\VisualElementRenderer.cs" />
     <Compile Include="Renders\VisualImageRenderer.cs" />
     <Compile Include="Renders\VisualTextRenderer.cs" />
     <Compile Include="Renders\VisualTileRenderer.cs" />
@@ -229,7 +230,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Components\ProgressDialog.cs" />
-    <Compile Include="Renders\Bars.cs" />
     <Compile Include="Enumerators\ShapeType.cs" />
     <Compile Include="Extensibility\BitmapExtension.cs" />
     <Compile Include="Extensibility\EnumExtension.cs" />

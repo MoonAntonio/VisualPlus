@@ -801,7 +801,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     {
                         _buttonImageSize = new Size(18, 10);
                         _buttonImageLocation = new Point((rectangle.X + (rectangle.Width / 2)) - (_buttonImageSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - _buttonImageSize.Height);
-                        Bars.DrawBars(graphics, _buttonImageLocation, _buttonImageSize, _buttonColor, 3, 5);
+                        VisualElementRenderer.RenderBars(graphics, _buttonImageLocation, _buttonImageSize, _buttonColor, 3, 5);
 
                         break;
                     }
