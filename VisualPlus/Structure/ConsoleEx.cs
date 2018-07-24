@@ -36,19 +36,16 @@ namespace VisualPlus.Structure
             File.Delete(file);
         }
 
-        /// <summary>The formatted debug trace string.</summary>
-        /// <param name="text">The text.</param>
-        /// <returns>The <see cref="string" />.</returns>
-        public static string FormattedText(string text)
-        {
-            return DateTime.Now.ToLocalTime() + " : " + text + Environment.NewLine;
-        }
-
         /// <summary>Generate an exception entry string.</summary>
         /// <param name="exception">The exception to format.</param>
         /// <returns>The <see cref="string" />.</returns>
-        public static string GenerateException(Exception exception)
+        public static string Generate(Exception exception)
         {
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+
             StringBuilder _log = new StringBuilder();
             _log.AppendLine("Message:");
             _log.AppendLine(exception.Message);
@@ -65,13 +62,46 @@ namespace VisualPlus.Structure
             return _log.ToString();
         }
 
+        /// <summary>Generate the formatted string.</summary>
+        /// <param name="text">The text.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        public static string Generate(string text)
+        {
+            return DateTime.Now.ToLocalTime() + " : " + text + Environment.NewLine;
+        }
+
+        /// <summary>Generate object formatting.</summary>
+        /// <param name="source">The object source.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        public static string Generate(object source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            string objectFormatting = $@"Type: {source.GetType()}, Value: {source}";
+            return objectFormatting;
+        }
+
+        /// <summary>Write the debug object to the output.</summary>
+        /// <param name="source">The object source.</param>
+        /// <param name="formatted">The toggle.</param>
+        /// <param name="output">The output method to use.</param>
+        public static void WriteDebug(object source, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
+        {
+            string generateObjectFormatting = Generate(source);
+            WriteLog(generateObjectFormatting, formatted, output);
+        }
+
         /// <summary>Write the debug int to the output.</summary>
         /// <param name="value">The value.</param>
         /// <param name="formatted">The toggle.</param>
         /// <param name="output">The output method to use.</param>
         public static void WriteDebug(int value, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
         {
-            WriteLog($@"Value: {value.ToString()}", formatted, output);
+            string generateObjectFormatting = Generate(value);
+            WriteLog(generateObjectFormatting, formatted, output);
         }
 
         /// <summary>Write the debug color to the output.</summary>
@@ -80,7 +110,8 @@ namespace VisualPlus.Structure
         /// <param name="output">The output method to use.</param>
         public static void WriteDebug(Color color, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
         {
-            WriteLog($@"Value: {color.ToString()}", formatted, output);
+            string generateObjectFormatting = Generate(color);
+            WriteLog(generateObjectFormatting, formatted, output);
         }
 
         /// <summary>Write the debug rectangle to the output.</summary>
@@ -89,7 +120,8 @@ namespace VisualPlus.Structure
         /// <param name="output">The output method to use.</param>
         public static void WriteDebug(Rectangle rectangle, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
         {
-            WriteLog($@"Value: {rectangle.ToString()}", formatted, output);
+            string generateObjectFormatting = Generate(rectangle);
+            WriteLog(generateObjectFormatting, formatted, output);
         }
 
         /// <summary>Write the debug text to the output.</summary>
@@ -98,7 +130,8 @@ namespace VisualPlus.Structure
         /// <param name="output">The output method to use.</param>
         public static void WriteDebug(Point point, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
         {
-            WriteLog($@"Value: {point.ToString()}", formatted, output);
+            string generateObjectFormatting = Generate(point);
+            WriteLog(generateObjectFormatting, formatted, output);
         }
 
         /// <summary>Write the debug bool to the output.</summary>
@@ -107,7 +140,8 @@ namespace VisualPlus.Structure
         /// <param name="output">The output method to use.</param>
         public static void WriteDebug(bool value, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
         {
-            WriteLog($@"Value: {value.ToString()}", formatted, output);
+            string generateObjectFormatting = Generate(value);
+            WriteLog(generateObjectFormatting, formatted, output);
         }
 
         /// <summary>Write the debug text to the output.</summary>
@@ -124,7 +158,7 @@ namespace VisualPlus.Structure
         /// <param name="output">The output method to use.</param>
         public static void WriteDebug(Exception exception, DebugOutput output = DebugOutput.TraceListener)
         {
-            WriteLog(GenerateException(exception), false, output);
+            WriteLog(Generate(exception), false, output);
         }
 
         /// <summary>Write the debug text to console.</summary>
@@ -135,7 +169,7 @@ namespace VisualPlus.Structure
             string formattedText = text;
             if (formatted)
             {
-                formattedText = FormattedText(text);
+                formattedText = Generate(text);
             }
 
             Console.WriteLine(formattedText);
@@ -152,7 +186,7 @@ namespace VisualPlus.Structure
                 string formattedText = text;
                 if (formatted)
                 {
-                    formattedText = FormattedText(text);
+                    formattedText = Generate(text);
                 }
 
                 StreamWriter _streamWriter = new StreamWriter(file, true);
@@ -173,7 +207,7 @@ namespace VisualPlus.Structure
             string formattedText = text;
             if (formatted)
             {
-                formattedText = FormattedText(text);
+                formattedText = Generate(text);
             }
 
             Debug.WriteLine(formattedText);

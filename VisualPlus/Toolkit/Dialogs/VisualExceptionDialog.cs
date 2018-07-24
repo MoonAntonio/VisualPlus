@@ -93,14 +93,14 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>Copy the log to the clipboard.</summary>
         public void CopyLogToClipboard()
         {
-            Clipboard.SetText(ConsoleEx.GenerateException(_exception));
+            Clipboard.SetText(ConsoleEx.Generate(_exception));
         }
 
         /// <summary>Saves the log to a file.</summary>
         /// <param name="filePath">The file Path.</param>
         public void SaveLog(string filePath)
         {
-            File.WriteAllText(filePath, ConsoleEx.GenerateException(_exception));
+            File.WriteAllText(filePath, ConsoleEx.Generate(_exception));
         }
 
         /// <summary>Display the <see cref="VisualExceptionDialog" />.</summary>
