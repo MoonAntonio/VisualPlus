@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using VisualPlus.Localization;
-using VisualPlus.Managers;
+using VisualPlus.Renders;
 
 #endregion
 
@@ -117,7 +117,7 @@ namespace VisualPlus.Toolkit.Components
         /// <param name="state">The expanded toggle.</param>
         public static void Draw(Graphics graphics, Rectangle rectangle, Color color, bool state)
         {
-            GraphicsManager.DrawTriangle(graphics, rectangle, new SolidBrush(color), state);
+            VisualElementRenderer.DrawTriangle(graphics, rectangle, new SolidBrush(color), state);
         }
 
         /// <summary>Gets the back color from the expander.</summary>

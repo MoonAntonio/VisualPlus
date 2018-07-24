@@ -1,10 +1,10 @@
 ﻿#region Namespace
 
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
 using VisualPlus.Enumerators;
-using VisualPlus.Managers;
 using VisualPlus.Structure;
 
 #endregion
@@ -67,6 +67,42 @@ namespace VisualPlus.Renders
             VisualBorderRenderer.DrawBorderStyle(graphics, border, _elementGraphicsPath, mouseState);
         }
 
+        /// <summary>Draw a triangle.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The button rectangle.</param>
+        /// <param name="brush">The brush.</param>
+        /// <param name="state">The state.</param>
+        public static void DrawTriangle(Graphics graphics, Rectangle rectangle, Brush brush, bool state)
+        {
+            var points = new Point[3];
+
+            if (state)
+            {
+                points[0].X = rectangle.X + (rectangle.Width / 2);
+                points[0].Y = rectangle.Y;
+
+                points[1].X = rectangle.X;
+                points[1].Y = rectangle.Y + rectangle.Height;
+
+                points[2].X = rectangle.X + rectangle.Width;
+                points[2].Y = rectangle.Y + rectangle.Height;
+            }
+            else
+            {
+                points[0].X = rectangle.X;
+                points[0].Y = rectangle.Y;
+
+                points[1].X = rectangle.X + rectangle.Width;
+                points[1].Y = rectangle.Y;
+
+                points[2].X = rectangle.X + (rectangle.Width / 2);
+                points[2].Y = rectangle.Y + rectangle.Height;
+            }
+
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.FillPolygon(brush, points);
+        }
+
         /// <summary>Draws an arrow.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         /// <param name="color">The color.</param>
@@ -74,7 +110,8 @@ namespace VisualPlus.Renders
         /// <param name="enabled">The enabled.</param>
         /// <param name="image">The image.</param>
         /// <param name="rectangle">The rectangle.</param>
-        public static void RenderArrow(Graphics graphics, Color color, Color disabled, bool enabled, Image image, Rectangle rectangle)
+        /// <param name="direction">The direction.</param>
+        public static void RenderArrow(Graphics graphics, Color color, Color disabled, bool enabled, Image image, Rectangle rectangle, Alignment.Vertical direction)
         {
             if (image != null)
             {
@@ -86,7 +123,28 @@ namespace VisualPlus.Renders
 
                 using (SolidBrush dropDownArrow = new SolidBrush(dropDownColor))
                 {
-                    GraphicsManager.DrawTriangle(graphics, rectangle, dropDownArrow, false);
+                    Arrow(graphics, rectangle, dropDownArrow, direction);
+                }
+            }
+        }
+
+        /// <summary>Draws an arrow.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="image">The image.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="direction">The direction.</param>
+        public static void RenderArrow(Graphics graphics, Color color, Image image, Rectangle rectangle, Alignment.Vertical direction)
+        {
+            if (image != null)
+            {
+                graphics.DrawImage(image, rectangle);
+            }
+            else
+            {
+                using (SolidBrush dropDownArrow = new SolidBrush(color))
+                {
+                    Arrow(graphics, rectangle, dropDownArrow, direction);
                 }
             }
         }
@@ -118,6 +176,34 @@ namespace VisualPlus.Renders
 
                 // Prepare for next bar drawing
                 bump = bump + spacing;
+            }
+        }
+
+        /// <summary>Draw a triangle.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The button rectangle.</param>
+        /// <param name="brush">The brush.</param>
+        /// <param name="direction">The direction.</param>
+        private static void Arrow(Graphics graphics, Rectangle rectangle, Brush brush, Alignment.Vertical direction)
+        {
+            switch (direction)
+            {
+                case Alignment.Vertical.Up:
+                    {
+                        DrawTriangle(graphics, rectangle, brush, true);
+                        break;
+                    }
+
+                case Alignment.Vertical.Down:
+                    {
+                        DrawTriangle(graphics, rectangle, brush, false);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+                    }
             }
         }
 

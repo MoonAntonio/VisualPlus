@@ -320,42 +320,6 @@ namespace VisualPlus.Managers
             }
         }
 
-        /// <summary>Draw a triangle.</summary>
-        /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="rectangle">The button rectangle.</param>
-        /// <param name="brush">The brush.</param>
-        /// <param name="state">The expanded toggle.</param>
-        /// TODO: Add angle
-        public static void DrawTriangle(Graphics graphics, Rectangle rectangle, Brush brush, bool state)
-        {
-            var points = new Point[3];
-            if (state)
-            {
-                points[0].X = rectangle.X + (rectangle.Width / 2);
-                points[0].Y = rectangle.Y;
-
-                points[1].X = rectangle.X;
-                points[1].Y = rectangle.Y + rectangle.Height;
-
-                points[2].X = rectangle.X + rectangle.Width;
-                points[2].Y = rectangle.Y + rectangle.Height;
-            }
-            else
-            {
-                points[0].X = rectangle.X;
-                points[0].Y = rectangle.Y;
-
-                points[1].X = rectangle.X + rectangle.Width;
-                points[1].Y = rectangle.Y;
-
-                points[2].X = rectangle.X + (rectangle.Width / 2);
-                points[2].Y = rectangle.Y + rectangle.Height;
-            }
-
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.FillPolygon(brush, points);
-        }
-
         /// <summary>Flip the size by orientation.</summary>
         /// <param name="orientation">The orientation.</param>
         /// <param name="size">Current size.</param>
