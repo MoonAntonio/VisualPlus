@@ -22,7 +22,6 @@ namespace VisualPlus.Constants
         public static readonly int MinimumRounding = 1;
         public static readonly string TemplatesFolder = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + @"\VisualPlus Themes\";
         public static readonly string TemplatesFilePath = TemplatesFolder + @"DefaultTheme.xml";
-
         public static readonly string ThemeResourceLocation = "VisualPlus.Resources.Themes.";
 
         #endregion
@@ -30,6 +29,8 @@ namespace VisualPlus.Constants
         #region Methods
 
         public const string DefaultCategoryText = "VisualExtension";
+        public const float EndPoint = 1.0F;
+        public const float StartPoint = 0.0F;
 
         #endregion
     }

@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 
+using VisualPlus.Constants;
 using VisualPlus.Delegates;
 using VisualPlus.Extensibility;
 using VisualPlus.Localization;
@@ -63,8 +64,6 @@ namespace VisualPlus.Structure
             _locations = null;
             _rectangle = new Rectangle(0, 0, 1, 1);
             Brush = null;
-            StartPoint = 0.0F;
-            EndPoint = 1.0F;
         }
 
         #endregion
@@ -261,21 +260,21 @@ namespace VisualPlus.Structure
             graphics.FillRectangle(_linearGradientBrush, gradient.Rectangle);
         }
 
-        public static float EndPoint;
+        // public float EndPoint;
 
         /// <summary>Sorts the offsets to an entire <see cref="Array" />.</summary>
         /// <param name="customOffsets">The custom offsets for the colors to be positioned.</param>
         /// <returns>The <see cref="float" />.</returns>
         public static float[] SortPositions(float[] customOffsets)
         {
-            if (!customOffsets.Contains(StartPoint))
+            if (!customOffsets.Contains(SettingConstants.StartPoint))
             {
-                throw new ArgumentNullException(nameof(customOffsets), @"A start position of " + StartPoint + @".0F doesn't exist.");
+                throw new ArgumentNullException(nameof(customOffsets), @"A start position of " + SettingConstants.StartPoint + @".0F doesn't exist.");
             }
 
-            if (!customOffsets.Contains(EndPoint))
+            if (!customOffsets.Contains(SettingConstants.EndPoint))
             {
-                throw new ArgumentNullException(nameof(customOffsets), @"A end position of " + EndPoint + @".0F doesn't exist.");
+                throw new ArgumentNullException(nameof(customOffsets), @"A end position of " + SettingConstants.EndPoint + @".0F doesn't exist.");
             }
 
             foreach (float offset in customOffsets)
@@ -294,7 +293,7 @@ namespace VisualPlus.Structure
             return customOffsets;
         }
 
-        public static float StartPoint;
+        // public float StartPoint;
 
         /// <summary>Initializes a new instance of the <see cref="Gradient" /> component.</summary>
         /// <param name="angle">The angle.</param>
