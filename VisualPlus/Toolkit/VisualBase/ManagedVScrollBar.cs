@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
+namespace VisualPlus.Toolkit.VisualBase
 {
     [ToolboxItem(false)]
     public class ManagedVScrollBar : VScrollBar

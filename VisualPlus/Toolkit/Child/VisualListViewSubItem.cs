@@ -11,7 +11,6 @@ using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Toolkit.Controls.DataManagement;
-using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
 using VisualPlus.TypeConverters;
 
 #endregion

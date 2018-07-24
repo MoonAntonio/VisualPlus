@@ -197,9 +197,8 @@
     <Compile Include="Enumerators\SortTypes.cs" />
     <Compile Include="Toolkit\Controls\DataManagement\VisualListView.cs" />
     <Compile Include="Toolkit\Child\VisualListViewColumn.cs" />
-    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\LVMergeSort.cs" />
+    <Compile Include="Structure\LVMergeSort.cs" />
     <Compile Include="Collections\CollectionsBase\VisualListViewSubItemCollection.cs" />
-    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\ILVEmbeddedControl.cs" />
     <Compile Include="Collections\CollectionsBase\VisualListViewItemCollection.cs" />
     <Compile Include="Toolkit\VisualBase\VisualDialog.cs">
       <SubType>Form</SubType>
@@ -209,11 +208,11 @@
     <Compile Include="TypeConverters\VisualListViewItemConverter.cs" />
     <Compile Include="Toolkit\Child\VisualListViewSubItem.cs" />
     <Compile Include="Toolkit\Child\VisualListViewItem.cs" />
-    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\LVQuickSort.cs" />
-    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\ManagedHScrollBar.cs">
+    <Compile Include="Structure\LVQuickSort.cs" />
+    <Compile Include="Toolkit\VisualBase\ManagedHScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\ManagedVScrollBar.cs">
+    <Compile Include="Toolkit\VisualBase\ManagedVScrollBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Structure\ScrollInfo.cs" />

@@ -9,9 +9,9 @@ using VisualPlus.Toolkit.Child;
 
 #endregion
 
-namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
+namespace VisualPlus.Structure
 {
-    internal class LVQuickSort
+    public class LVQuickSort
     {
         #region Variables
 

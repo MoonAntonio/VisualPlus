@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Controls.DataManagement;
-using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
 
 #endregion
 

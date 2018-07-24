@@ -9,9 +9,9 @@ using VisualPlus.Toolkit.Child;
 
 #endregion
 
-namespace VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents
+namespace VisualPlus.Structure
 {
-    internal class LVMergeSort
+    public class LVMergeSort
     {
         #region Variables
 

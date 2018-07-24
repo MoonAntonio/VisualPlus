@@ -16,7 +16,6 @@ using VisualPlus.Native;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Controls.DataManagement;
-using VisualPlus.Toolkit.Controls.DataManagement.ListViewComponents;
 using VisualPlus.Toolkit.VisualBase;
 
 using ContentAlignment = System.Drawing.ContentAlignment;
