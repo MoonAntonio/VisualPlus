@@ -143,7 +143,7 @@
     <Compile Include="Renders\VisualScrollBarRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
-    <Compile Include="Structure\ControlBoxButton.cs" />
+    <Compile Include="Toolkit\VisualBase\ControlBoxButton.cs" />
     <Compile Include="Enumerators\DebugOutput.cs" />
     <Compile Include="Structure\GlobalId.cs" />
     <Compile Include="Structure\ColorPalette.cs" />

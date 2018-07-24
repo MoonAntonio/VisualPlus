@@ -12,11 +12,11 @@ using VisualPlus.Enumerators;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Properties;
-using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.Structure;
 
 #endregion
 
-namespace VisualPlus.Structure
+namespace VisualPlus.Toolkit.VisualBase
 {
     /// <summary>The <see cref="ControlBoxButton" />.</summary>
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
