@@ -176,6 +176,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Enumerators\ControlBoxButtons.cs" />
+    <Compile Include="Toolkit\Dialogs\VisualInputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Toolkit\Dialogs\VisualMessageBox.cs" />
     <Compile Include="Toolkit\EmbeddedControls\LVComboBox.cs">
       <SubType>Component</SubType>
@@ -196,6 +199,9 @@
     <Compile Include="Collections\CollectionsBase\VisualListViewSubItemCollection.cs" />
     <Compile Include="Toolkit\Controls\DataManagement\ListViewComponents\ILVEmbeddedControl.cs" />
     <Compile Include="Collections\CollectionsBase\VisualListViewItemCollection.cs" />
+    <Compile Include="Toolkit\VisualBase\VisualDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TypeConverters\VisualListViewColumnConverter.cs" />
     <Compile Include="TypeConverters\VisualListViewSubItemConverter.cs" />
     <Compile Include="TypeConverters\VisualListViewItemConverter.cs" />

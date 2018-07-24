@@ -3,18 +3,23 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-using VisualPlus.Enumerators;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
 using VisualPlus.Toolkit.Controls.Interactivity;
+using VisualPlus.Toolkit.VisualBase;
 
 #endregion
 
 namespace VisualPlus.Toolkit.Dialogs
 {
-    public class VisualMessageBox : VisualForm, IMessageBox
+    /// <summary>The <see cref="VisualMessageBox" />.</summary>
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [ToolboxItem(false)]
+    public class VisualMessageBox : VisualDialog, IMessageBox
     {
         #region Variables
 
@@ -98,28 +103,12 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>Initializes a new instance of the <see cref="VisualMessageBox" /> class.</summary>
         public VisualMessageBox()
         {
-            AutoSize = true;
-            AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ControlBox.Location = new Point(Width - 30, Border.Distance + 2);
-            HelpButton = false;
-            MinimizeBox = false;
-            MaximizeBox = false;
-            Sizable = false;
-            ShowIcon = false;
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
             Text = string.Empty;
-            TitleAlignment = Alignment.TextAlignment.Left;
-
             Magnetic = true;
 
             BackColor = Color.White;
             Background = Color.White;
             WindowBarColor = Color.White;
-
-            MinimumSize = new Size(119, 116);
-            MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width - (Screen.PrimaryScreen.Bounds.Width / 3), 9999);
-            Size = new Size(119, 116);
 
             dialogImage = null;
             dialogImageSize = new Size(32, 32);

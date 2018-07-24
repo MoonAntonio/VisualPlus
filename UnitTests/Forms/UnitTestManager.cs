@@ -45,8 +45,11 @@ namespace UnitTests.Forms
             /// <summary>The list view.</summary>
             VisualListView = 2,
 
+            /// <summary>The visual input box.</summary>
+            VisualInputBox = 3,
+
             /// <summary>The visual message box.</summary>
-            VisualMessageBox
+            VisualMessageBox = 4
         }
 
         #endregion
@@ -84,6 +87,13 @@ namespace UnitTests.Forms
                     {
                         _formToOpen = new VisualMessageBoxTest();
                         _formToOpen.ShowDialog();
+                        break;
+                    }
+
+                case UnitTests.VisualInputBox:
+                    {
+                        VisualInputBox inputBox = new VisualInputBox();
+                        inputBox.ShowDialog();
                         break;
                     }
 
