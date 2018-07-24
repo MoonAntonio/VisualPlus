@@ -18,7 +18,7 @@ namespace VisualPlus.Managers
         /// <param name="graphicsPath">The graphics path.</param>
         /// <param name="wrapMode">The wrap mode.</param>
         /// <returns>The <see cref="Brush" />.</returns>
-        public Brush GlowBrush(Color centerColor, Color[] surroundColor, PointF point, GraphicsPath graphicsPath, WrapMode wrapMode = WrapMode.Clamp)
+        public static Brush GlowBrush(Color centerColor, Color[] surroundColor, PointF point, GraphicsPath graphicsPath, WrapMode wrapMode = WrapMode.Clamp)
         {
             return new PathGradientBrush(graphicsPath) { CenterColor = centerColor, SurroundColors = surroundColor, FocusScales = point, WrapMode = wrapMode };
         }
@@ -29,7 +29,7 @@ namespace VisualPlus.Managers
         /// <param name="point">The focus point for the gradient offset.</param>
         /// <param name="wrapMode">The wrap mode.</param>
         /// <returns>The <see cref="Brush" />.</returns>
-        public Brush GlowBrush(Color centerColor, Color[] surroundColor, PointF[] point, WrapMode wrapMode = WrapMode.Clamp)
+        public static Brush GlowBrush(Color centerColor, Color[] surroundColor, PointF[] point, WrapMode wrapMode = WrapMode.Clamp)
         {
             return new PathGradientBrush(point) { CenterColor = centerColor, SurroundColors = surroundColor, WrapMode = wrapMode };
         }
