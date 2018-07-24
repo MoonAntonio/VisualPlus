@@ -22,9 +22,7 @@ namespace VisualPlus.Managers
         /// <param name="backColor">The back color.</param>
         /// <param name="foreColor">The fore color.</param>
         /// <param name="alpha">The alpha value.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color BlendColor(Color backColor, Color foreColor, double alpha)
         {
             double _ratio = alpha / 255d;
@@ -38,9 +36,7 @@ namespace VisualPlus.Managers
         /// <summary>Blends the colors.</summary>
         /// <param name="backColor">The back color.</param>
         /// <param name="foreColor">The fore color.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color BlendColor(Color backColor, Color foreColor)
         {
             return BlendColor(backColor, foreColor, foreColor.A);
@@ -49,9 +45,7 @@ namespace VisualPlus.Managers
         /// <summary>Get the color from the Hex value.</summary>
         /// <param name="alpha">The alpha value.</param>
         /// <param name="value">The Hex value.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color ColorFromHex(int alpha, string value)
         {
             return Color.FromArgb(alpha, ColorTranslator.FromHtml(value));
@@ -59,9 +53,7 @@ namespace VisualPlus.Managers
 
         /// <summary>Get the color from the Hex value.</summary>
         /// <param name="value">The Hex value.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color ColorFromHex(string value)
         {
             return ColorTranslator.FromHtml(value);
@@ -69,9 +61,7 @@ namespace VisualPlus.Managers
 
         /// <summary>Get the color from position.</summary>
         /// <param name="position">The position.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color ColorFromPosition(Point position)
         {
             Bitmap _pixel = new Bitmap(1, 1, PixelFormat.Format32bppArgb);
@@ -95,9 +85,7 @@ namespace VisualPlus.Managers
         /// <param name="red">The red.</param>
         /// <param name="green">The green.</param>
         /// <param name="blue">The blue.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color ColorFromRGB(int red, int green, int blue)
         {
             // Correct Red element
@@ -140,9 +128,7 @@ namespace VisualPlus.Managers
         }
 
         /// <summary>Get the color underneath the cursor.</summary>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color CursorPointerColor()
         {
             Point cursor = new Point();
@@ -163,9 +149,7 @@ namespace VisualPlus.Managers
         /// <param name="baseColor">The base color.</param>
         /// <param name="blendColor">The blend color.</param>
         /// <param name="opacity">The opacity value.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color OpacityMix(Color baseColor, Color blendColor, int opacity)
         {
             int _r0 = blendColor.R;
@@ -185,9 +169,7 @@ namespace VisualPlus.Managers
         /// <param name="baseColor">The base color.</param>
         /// <param name="blendColor">The blend color.</param>
         /// <param name="opacity">The opacity value.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color OverlayMix(Color baseColor, Color blendColor, int opacity)
         {
             int _r0 = baseColor.R;
@@ -203,9 +185,7 @@ namespace VisualPlus.Managers
         }
 
         /// <summary>Generates a random color.</summary>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color RandomColor()
         {
             Random _random = new Random();
@@ -216,9 +196,7 @@ namespace VisualPlus.Managers
         /// <param name="baseColor">The base color.</param>
         /// <param name="blendColor">The blend color.</param>
         /// <param name="opacity">The opacity value.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color SoftLightMix(Color baseColor, Color blendColor, int opacity)
         {
             int _r0 = baseColor.R;
@@ -236,9 +214,7 @@ namespace VisualPlus.Managers
         /// <summary>Create a color step.</summary>
         /// <param name="color">The color.</param>
         /// <param name="alpha">The alpha value.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color StepColor(Color color, int alpha)
         {
             if (alpha == 100)
@@ -284,9 +260,7 @@ namespace VisualPlus.Managers
         /// <param name="brightness">The brightness.</param>
         /// <param name="color">The color.</param>
         /// <param name="data">The byte.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color TintColor(Brightness brightness, Color color, byte data)
         {
             Color _tintedColor;
@@ -387,9 +361,7 @@ namespace VisualPlus.Managers
         /// <param name="backColor">The back color.</param>
         /// <param name="foreColor">The fore color.</param>
         /// <param name="alpha">The alpha value.</param>
-        /// <returns>
-        ///     <see cref="double" />
-        /// </returns>
+        /// <returns>The <see cref="double" />.</returns>
         private static double BlendColor(double backColor, double foreColor, double alpha)
         {
             double result = backColor + (alpha * (foreColor - backColor));
@@ -409,9 +381,7 @@ namespace VisualPlus.Managers
         /// <summary>Calculate the overlay.</summary>
         /// <param name="baseValue">The base value.</param>
         /// <param name="alpha">The alpha value.</param>
-        /// <returns>
-        ///     <see cref="int" />
-        /// </returns>
+        /// <returns>The <see cref="int" />.</returns>
         private static int OverlayMath(int baseValue, int alpha)
         {
             double _baseOverlay = (double)baseValue / 255;
@@ -429,9 +399,7 @@ namespace VisualPlus.Managers
         /// <summary>Calculate the soft light.</summary>
         /// <param name="baseValue">The base value.</param>
         /// <param name="alpha">The alpha value.</param>
-        /// <returns>
-        ///     <see cref="int" />
-        /// </returns>
+        /// <returns>The <see cref="int" />.</returns>
         private static int SoftLightMath(int baseValue, int alpha)
         {
             float _softLightBase = (float)baseValue / 255;
