@@ -2,13 +2,13 @@
 {
     public enum MouseStates
     {
-        /// <summary>Normal state.</summary>
+        /// <summary>The mouse normal state.</summary>
         Normal,
 
-        /// <summary>Hover state.</summary>
+        /// <summary>The mouse hover state.</summary>
         Hover,
 
-        /// <summary>Down state.</summary>
-        Down
+        /// <summary>The mouse pressed state.</summary>
+        Pressed
     }
 }

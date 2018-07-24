@@ -178,7 +178,7 @@ namespace VisualPlus.Structure
                             break;
                         }
 
-                    case MouseStates.Down:
+                    case MouseStates.Pressed:
                         {
                             _color = colorState.Enabled;
                             break;

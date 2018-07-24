@@ -225,7 +225,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            MouseState = MouseStates.Down;
+            MouseState = MouseStates.Pressed;
             Focus();
             base.OnMouseDown(e);
         }

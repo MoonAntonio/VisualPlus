@@ -166,7 +166,7 @@ namespace VisualPlus.Structure
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            MouseState = MouseStates.Down;
+            MouseState = MouseStates.Pressed;
             Focus();
         }
 

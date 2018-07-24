@@ -733,7 +733,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             {
                 if (!_leftButtonDown)
                 {
-                    _mouseState = MouseStates.Down;
+                    _mouseState = MouseStates.Pressed;
                     _leftButtonDown = true;
                     Capture = true;
                     switch (_orientation)

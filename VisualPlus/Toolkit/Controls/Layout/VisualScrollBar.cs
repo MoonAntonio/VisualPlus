@@ -623,7 +623,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            MouseState = MouseStates.Down;
+            MouseState = MouseStates.Pressed;
             Invalidate();
             Focus();
 
@@ -638,14 +638,14 @@ namespace VisualPlus.Toolkit.Controls.Layout
                 {
                     _thumbClicked = true;
                     _thumbPosition = _orientation == Orientation.Vertical ? _mouseLocation.Y - _thumbRectangle.Y : _mouseLocation.X - _thumbRectangle.X;
-                    _thumbState = MouseStates.Down;
+                    _thumbState = MouseStates.Pressed;
                     Invalidate(_thumbRectangle);
                     OnThumbClicked(EventArgs.Empty);
                 }
                 else if (_topArrowRectangle.Contains(_mouseLocation))
                 {
                     _topArrowClicked = true;
-                    _buttonTopState = MouseStates.Down;
+                    _buttonTopState = MouseStates.Pressed;
                     Invalidate(_topArrowRectangle);
                     ProgressThumb(true);
                     OnButtonTopClicked(EventArgs.Empty);
@@ -653,7 +653,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                 else if (_bottomArrowRectangle.Contains(_mouseLocation))
                 {
                     _bottomArrowClicked = true;
-                    _buttonBottomState = MouseStates.Down;
+                    _buttonBottomState = MouseStates.Pressed;
                     Invalidate(_bottomArrowRectangle);
                     ProgressThumb(true);
                     OnButtonBottomClicked(EventArgs.Empty);

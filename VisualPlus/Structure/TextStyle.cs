@@ -210,7 +210,7 @@ namespace VisualPlus.Structure
                         break;
                     }
 
-                case MouseStates.Down:
+                case MouseStates.Pressed:
                     {
                         _textColor = enabled ? textStyle.Pressed : textStyle.Disabled;
                         break;

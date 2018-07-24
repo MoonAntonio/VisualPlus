@@ -793,7 +793,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
             if (MouseOnButton)
             {
-                MouseState = MouseStates.Down;
+                MouseState = MouseStates.Pressed;
             }
             else
             {
@@ -1126,7 +1126,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                             break;
                         }
 
-                    case MouseStates.Down:
+                    case MouseStates.Pressed:
                         {
                             _buttonColor = _buttonColorState.Pressed;
                             break;

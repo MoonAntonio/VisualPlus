@@ -648,7 +648,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            MouseState = MouseStates.Down;
+            MouseState = MouseStates.Pressed;
             Invalidate();
         }
 

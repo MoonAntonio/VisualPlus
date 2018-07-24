@@ -270,7 +270,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
         {
             get
             {
-                return _mouseState == MouseStates.Down;
+                return _mouseState == MouseStates.Pressed;
             }
         }
 
@@ -423,7 +423,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
         {
             if (e.Button == MouseButtons.Left)
             {
-                _mouseState = MouseStates.Down;
+                _mouseState = MouseStates.Pressed;
                 Invalidate();
             }
 

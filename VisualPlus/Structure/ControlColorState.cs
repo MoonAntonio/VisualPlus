@@ -159,7 +159,7 @@ namespace VisualPlus.Structure
                             break;
                         }
 
-                    case MouseStates.Down:
+                    case MouseStates.Pressed:
                         {
                             _color = controlColorState.Pressed;
                             break;

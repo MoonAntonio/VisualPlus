@@ -173,7 +173,7 @@ namespace VisualPlus.Renders
                         break;
                     }
 
-                case MouseStates.Down:
+                case MouseStates.Pressed:
                     {
                         DrawBorder(graphics, rectangle, border.HoverVisible ? border.HoverColor : border.Color, border.Rounding, border.Thickness, border.Type);
                         break;
@@ -212,7 +212,7 @@ namespace VisualPlus.Renders
                         break;
                     }
 
-                case MouseStates.Down:
+                case MouseStates.Pressed:
                     {
                         DrawBorder(graphics, customPath, border.HoverVisible ? border.HoverColor : border.Color, border.Thickness);
                         break;

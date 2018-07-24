@@ -251,7 +251,7 @@ namespace VisualPlus.Toolkit.VisualBase
                 };
             MouseDown += (sender, args) =>
                 {
-                    MouseState = MouseStates.Down;
+                    MouseState = MouseStates.Pressed;
 
                     if (_animation && (args.Button == MouseButtons.Left) && MouseManager.IsMouseInBounds(_mouseLocation, _box))
                     {
@@ -274,7 +274,7 @@ namespace VisualPlus.Toolkit.VisualBase
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            MouseState = MouseStates.Down;
+            MouseState = MouseStates.Pressed;
             Invalidate();
         }
 

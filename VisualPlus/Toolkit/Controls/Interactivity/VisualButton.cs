@@ -215,7 +215,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 {
                     if (args.Button == MouseButtons.Left)
                     {
-                        MouseState = MouseStates.Down;
+                        MouseState = MouseStates.Pressed;
                         _effectsManager.StartNewAnimation(AnimationDirection.In, args.Location);
                         Invalidate();
                     }
@@ -230,7 +230,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            MouseState = MouseStates.Down;
+            MouseState = MouseStates.Pressed;
             Invalidate();
         }
 
