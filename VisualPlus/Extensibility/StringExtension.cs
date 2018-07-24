@@ -374,11 +374,11 @@ namespace VisualPlus.Extensibility
         }
 
         /// <summary>Converts the Base64 <see cref="string" /> to an <see cref="Image" />.</summary>
-        /// <param name="base64Image">The Base64 value.</param>
+        /// <param name="base64Text">The Base64 text value.</param>
         /// <returns>The <see cref="Image" />.</returns>
-        public static Image ToImage(this string base64Image)
+        public static Image ToImage(this string base64Text)
         {
-            using (MemoryStream _image = new MemoryStream(Convert.FromBase64String(base64Image)))
+            using (MemoryStream _image = new MemoryStream(Convert.FromBase64String(base64Text)))
             {
                 return Image.FromStream(_image);
             }
