@@ -49,7 +49,7 @@
             this.BtnRunTest.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
             this.BtnRunTest.Border.Visible = true;
             this.BtnRunTest.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.BtnRunTest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.BtnRunTest.ForeColor = System.Drawing.Color.Black;
             this.BtnRunTest.Image = null;
             this.BtnRunTest.Location = new System.Drawing.Point(232, 40);
             this.BtnRunTest.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
@@ -57,13 +57,11 @@
             this.BtnRunTest.Size = new System.Drawing.Size(88, 28);
             this.BtnRunTest.TabIndex = 2;
             this.BtnRunTest.Text = "Run Test";
-            this.BtnRunTest.TextAlignment = System.Drawing.StringAlignment.Center;
             this.BtnRunTest.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.BtnRunTest.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.BtnRunTest.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            this.BtnRunTest.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.BtnRunTest.TextStyle.Hover = System.Drawing.Color.Empty;
-            this.BtnRunTest.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            this.BtnRunTest.TextStyle.Enabled = System.Drawing.Color.Black;
+            this.BtnRunTest.TextStyle.Hover = System.Drawing.Color.Black;
+            this.BtnRunTest.TextStyle.Pressed = System.Drawing.Color.Black;
             this.BtnRunTest.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
             this.BtnRunTest.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.BtnRunTest.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;

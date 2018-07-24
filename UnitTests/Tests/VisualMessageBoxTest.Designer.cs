@@ -71,9 +71,7 @@
             this.btnTest.Size = new System.Drawing.Size(99, 34);
             this.btnTest.TabIndex = 1;
             this.btnTest.Text = "Test";
-            this.btnTest.TextAlignment = System.Drawing.StringAlignment.Center;
             this.btnTest.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.btnTest.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.btnTest.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.btnTest.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnTest.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -480,9 +478,7 @@
             this.btnLoad.Size = new System.Drawing.Size(56, 25);
             this.btnLoad.TabIndex = 12;
             this.btnLoad.Text = "Load";
-            this.btnLoad.TextAlignment = System.Drawing.StringAlignment.Center;
             this.btnLoad.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.btnLoad.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.btnLoad.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.btnLoad.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnLoad.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -674,9 +670,7 @@
             this.btnGenerate.Size = new System.Drawing.Size(59, 22);
             this.btnGenerate.TabIndex = 18;
             this.btnGenerate.Text = "Generate";
-            this.btnGenerate.TextAlignment = System.Drawing.StringAlignment.Center;
             this.btnGenerate.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.btnGenerate.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.btnGenerate.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.btnGenerate.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnGenerate.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));

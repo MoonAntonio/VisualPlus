@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Text;
 
+using VisualPlus.Enumerators;
 using VisualPlus.Localization;
 using VisualPlus.TypeConverters;
 
@@ -180,6 +181,48 @@ namespace VisualPlus.Structure
             {
                 textRenderingHint = value;
             }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>Retrieves the color state.</summary>
+        /// <param name="enabled">The enabled state.</param>
+        /// <param name="mouseState">The mouse state.</param>
+        /// <param name="textStyle">The text style.></param>
+        /// <returns>The <see cref="Color" />.</returns>
+        public static Color GetColorState(bool enabled, MouseStates mouseState, ITextColor textStyle)
+        {
+            Color _textColor;
+
+            switch (mouseState)
+            {
+                case MouseStates.Normal:
+                    {
+                        _textColor = enabled ? textStyle.Enabled : textStyle.Disabled;
+                        break;
+                    }
+
+                case MouseStates.Hover:
+                    {
+                        _textColor = enabled ? textStyle.Hover : textStyle.Disabled;
+                        break;
+                    }
+
+                case MouseStates.Down:
+                    {
+                        _textColor = enabled ? textStyle.Pressed : textStyle.Disabled;
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(mouseState), mouseState, null);
+                    }
+            }
+
+            return _textColor;
         }
 
         #endregion

@@ -38,9 +38,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         private VFXManager _effectsManager;
         private VFXManager _hoverEffectsManager;
         private Image _image;
-        private StringAlignment _textAlignment;
         private TextImageRelation _textImageRelation;
-        private StringAlignment _textLineAlignment;
 
         #endregion
 
@@ -54,8 +52,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _backColorState = new ControlColorState();
             _animation = Settings.DefaultValue.Animation;
             _textImageRelation = TextImageRelation.Overlay;
-            _textAlignment = StringAlignment.Center;
-            _textLineAlignment = StringAlignment.Center;
             ConfigureAnimation(new[] { 0.03, 0.07 }, new[] { EffectType.EaseOut, EffectType.EaseInOut });
 
             UpdateTheme(ThemeManager.Theme);
@@ -127,6 +123,21 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
+        public new Color ForeColor
+        {
+            get
+            {
+                base.ForeColor = TextStyle.Enabled;
+                return base.ForeColor;
+            }
+
+            set
+            {
+                TextStyle.Enabled = value;
+                base.ForeColor = TextStyle.Enabled;
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Image)]
         public Image Image
@@ -139,22 +150,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             set
             {
                 _image = value;
-                Invalidate();
-            }
-        }
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Alignment)]
-        public StringAlignment TextAlignment
-        {
-            get
-            {
-                return _textAlignment;
-            }
-
-            set
-            {
-                _textAlignment = value;
                 Invalidate();
             }
         }
@@ -175,19 +170,19 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
+        [Browsable(true)]
         [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Alignment)]
-        public StringAlignment TextLineAlignment
+        [Description(PropertyDescription.TextStyle)]
+        public new TextStyle TextStyle
         {
             get
             {
-                return _textLineAlignment;
+                return base.TextStyle;
             }
 
             set
             {
-                _textLineAlignment = value;
-                Invalidate();
+                base.TextStyle = value;
             }
         }
 
@@ -272,21 +267,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 e.Graphics.SetClip(ControlGraphicsPath);
                 VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
 
-                Color _textColor = Enabled ? ForeColor : TextStyle.Disabled;
-
                 if (_image != null)
                 {
+                    Color _textColor = Enabled ? ForeColor : TextStyle.Disabled;
                     VisualControlRenderer.DrawContent(e.Graphics, ClientRectangle, Text, Font, _textColor, _image, _image.Size, _textImageRelation);
                 }
                 else
                 {
-                    StringFormat _stringFormat = new StringFormat
-                        {
-                            Alignment = _textAlignment,
-                            LineAlignment = _textLineAlignment
-                        };
-
-                    VisualTextRenderer.RenderText(e.Graphics, ClientRectangle, Text, Font, _textColor, _stringFormat);
+                    VisualTextRenderer.RenderText(e.Graphics, ClientRectangle, Text, Font, Enabled, MouseState, TextStyle);
                 }
 
                 VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
@@ -358,11 +346,11 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 _border.Color = theme.ColorPalette.BorderNormal;
                 _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.ColorPalette.TextEnabled;
                 TextStyle.Enabled = theme.ColorPalette.TextEnabled;
                 TextStyle.Disabled = theme.ColorPalette.TextDisabled;
+                TextStyle.Hover = theme.ColorPalette.TextHover;
+                TextStyle.Pressed = theme.ColorPalette.TextPressed;
 
-                // Font = theme.ColorPalette.Font;
                 _backColorState.Enabled = theme.ColorPalette.Enabled;
                 _backColorState.Disabled = theme.ColorPalette.Disabled;
                 _backColorState.Hover = theme.ColorPalette.Hover;

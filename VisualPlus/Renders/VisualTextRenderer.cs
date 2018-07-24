@@ -2,7 +2,9 @@
 
 using System.Drawing;
 
+using VisualPlus.Enumerators;
 using VisualPlus.Managers;
+using VisualPlus.Structure;
 
 #endregion
 
@@ -34,6 +36,33 @@ namespace VisualPlus.Renders
         public static void RenderText(Graphics graphics, Rectangle clientRectangle, string text, Font font, Color foreColor, StringFormat stringFormat)
         {
             graphics.DrawString(text, font, new SolidBrush(foreColor), clientRectangle, stringFormat);
+        }
+
+        /// <summary>Render the text using the text style.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="clientRectangle">The client rectangle.</param>
+        /// <param name="text">The text to draw.</param>
+        /// <param name="font">The font to  draw.</param>
+        /// <param name="enabled">The enabled.</param>
+        /// <param name="textStyle">The text Style.</param>
+        public static void RenderText(Graphics graphics, Rectangle clientRectangle, string text, Font font, bool enabled, TextStyle textStyle)
+        {
+            Color _textColor = enabled ? textStyle.Enabled : textStyle.Disabled;
+            RenderText(graphics, clientRectangle, text, font, _textColor, textStyle.StringFormat);
+        }
+
+        /// <summary>Render the text using the text style.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="clientRectangle">The client rectangle.</param>
+        /// <param name="text">The text to draw.</param>
+        /// <param name="font">The font to  draw.</param>
+        /// <param name="enabled">The enabled.</param>
+        /// <param name="mouseState">The mouse State.</param>
+        /// <param name="textStyle">The text Style.</param>
+        public static void RenderText(Graphics graphics, Rectangle clientRectangle, string text, Font font, bool enabled, MouseStates mouseState, TextStyle textStyle)
+        {
+            Color _textColor = TextStyle.GetColorState(enabled, mouseState, textStyle);
+            RenderText(graphics, clientRectangle, text, font, _textColor, textStyle.StringFormat);
         }
 
         /// <summary>Render the text in the center of the client rectangle.</summary>
