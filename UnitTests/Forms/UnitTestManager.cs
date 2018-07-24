@@ -2,10 +2,12 @@
 
 using System;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 using UnitTests.Tests;
 
 using VisualPlus.Events;
+using VisualPlus.Structure;
 using VisualPlus.Toolkit.Dialogs;
 
 #endregion
@@ -92,8 +94,13 @@ namespace UnitTests.Forms
 
                 case UnitTests.VisualInputBox:
                     {
-                        VisualInputBox inputBox = new VisualInputBox();
-                        inputBox.ShowDialog();
+                        VisualInputBox inputBox = new VisualInputBox($@"{nameof(VisualInputBox)} Test");
+
+                        if (inputBox.ShowDialog() == DialogResult.OK)
+                        {
+                            ConsoleEx.WriteDebug(inputBox.InputResult);
+                        }
+
                         break;
                     }
 

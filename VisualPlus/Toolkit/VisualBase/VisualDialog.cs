@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -24,9 +25,8 @@ namespace VisualPlus.Toolkit.VisualBase
         /// <summary>Initializes a new instance of the <see cref="VisualDialog" /> class.</summary>
         public VisualDialog()
         {
-            AutoSize = true;
-            AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ControlBox.Location = new Point(Width - 30, Border.Distance + 2);
+            ButtonSize = new Size(75, 23);
+            ControlBox.Location = new Point(Width - 45, Border.Distance + 2);
             HelpButton = false;
             MinimizeBox = false;
             MaximizeBox = false;
@@ -35,11 +35,15 @@ namespace VisualPlus.Toolkit.VisualBase
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             TitleAlignment = Alignment.TextAlignment.Left;
-
-            MinimumSize = new Size(119, 116);
-            MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width - (Screen.PrimaryScreen.Bounds.Width / 3), 9999);
-            Size = new Size(119, 116);
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>Gets or sets the button size.</summary>
+        [Browsable(false)]
+        public Size ButtonSize { get; set; }
 
         #endregion
     }

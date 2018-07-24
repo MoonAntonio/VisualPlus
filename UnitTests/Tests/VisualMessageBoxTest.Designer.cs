@@ -640,7 +640,7 @@
             this.lResult.ShadowDirection = 315;
             this.lResult.ShadowLocation = new System.Drawing.Point(0, 0);
             this.lResult.ShadowOpacity = 100;
-            this.lResult.Size = new System.Drawing.Size(297, 23);
+            this.lResult.Size = new System.Drawing.Size(294, 23);
             this.lResult.TabIndex = 17;
             this.lResult.Text = "Dialog Result: None";
             this.lResult.TextAlignment = System.Drawing.StringAlignment.Near;

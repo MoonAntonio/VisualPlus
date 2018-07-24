@@ -24,7 +24,6 @@ namespace VisualPlus.Toolkit.Dialogs
         #region Variables
 
         private readonly int buttonPadding;
-        private readonly Size defaultButtonSize;
         private readonly Size dialogImageSize;
         private readonly int extraPadding;
         private readonly MessageBoxButtons messageBoxButtons;
@@ -103,6 +102,8 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>Initializes a new instance of the <see cref="VisualMessageBox" /> class.</summary>
         public VisualMessageBox()
         {
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             Text = string.Empty;
             Magnetic = true;
 
@@ -115,8 +116,11 @@ namespace VisualPlus.Toolkit.Dialogs
             extraPadding = 5;
             messageBoxButtons = MessageBoxButtons.OK;
             messageBoxIcon = MessageBoxIcon.None;
-            defaultButtonSize = new Size(75, 23);
             buttonPadding = 10;
+
+            MinimumSize = new Size(119, 116);
+            MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width - (Screen.PrimaryScreen.Bounds.Width / 3), 9999);
+            Size = new Size(119, 116);
 
             InitializeMessageBoxButtons();
         }
@@ -124,6 +128,21 @@ namespace VisualPlus.Toolkit.Dialogs
         #endregion
 
         #region Properties
+
+        /// <summary>Gets or sets the abort button.</summary>
+        [Browsable(false)]
+        public VisualButton AbortButton
+        {
+            get
+            {
+                return abortButton;
+            }
+
+            set
+            {
+                abortButton = value;
+            }
+        }
 
         /// <summary>Gets the buttons max width.</summary>
         [Browsable(false)]
@@ -181,6 +200,21 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
+        /// <summary>Gets or sets the cancel button.</summary>
+        [Browsable(false)]
+        public new VisualButton CancelButton
+        {
+            get
+            {
+                return cancelButton;
+            }
+
+            set
+            {
+                cancelButton = value;
+            }
+        }
+
         /// <summary>Retrieves the caption size.</summary>
         [Browsable(false)]
         public Size CaptionSize
@@ -205,7 +239,7 @@ namespace VisualPlus.Toolkit.Dialogs
 
         /// <summary>The dialog icon image.</summary>
         [Browsable(false)]
-        public Image DialogIcon
+        public Image DialogImage
         {
             get
             {
@@ -235,7 +269,7 @@ namespace VisualPlus.Toolkit.Dialogs
         {
             get
             {
-                int dialogMaxHeight = WindowBarHeight + MessageSize.Height + buttonPadding + defaultButtonSize.Height + buttonPadding + Border.Distance;
+                int dialogMaxHeight = WindowBarHeight + MessageSize.Height + buttonPadding + ButtonSize.Height + buttonPadding + Border.Distance;
                 return dialogMaxHeight;
             }
         }
@@ -271,6 +305,21 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
+        /// <summary>Gets or sets the ignore button.</summary>
+        [Browsable(false)]
+        public VisualButton IgnoreButton
+        {
+            get
+            {
+                return ignoreButton;
+            }
+
+            set
+            {
+                ignoreButton = value;
+            }
+        }
+
         /// <summary>Determines whether the message box is empty.</summary>
         [Browsable(false)]
         public bool IsEmpty
@@ -292,6 +341,51 @@ namespace VisualPlus.Toolkit.Dialogs
 
                 // TODO: Maximum height is not being retrieved properly text appears to cut in some instances.
                 return new Size(messageSize.Width, messageSize.Height);
+            }
+        }
+
+        /// <summary>Gets or sets the no button.</summary>
+        [Browsable(false)]
+        public VisualButton NoButton
+        {
+            get
+            {
+                return noButton;
+            }
+
+            set
+            {
+                noButton = value;
+            }
+        }
+
+        /// <summary>Gets or sets the ok button.</summary>
+        [Browsable(false)]
+        public VisualButton OkButton
+        {
+            get
+            {
+                return okButton;
+            }
+
+            set
+            {
+                okButton = value;
+            }
+        }
+
+        /// <summary>Gets or sets the retry button.</summary>
+        [Browsable(false)]
+        public VisualButton RetryButton
+        {
+            get
+            {
+                return retryButton;
+            }
+
+            set
+            {
+                retryButton = value;
             }
         }
 
@@ -334,6 +428,21 @@ namespace VisualPlus.Toolkit.Dialogs
                 }
 
                 return textBlockWidth;
+            }
+        }
+
+        /// <summary>Gets or sets the yes button.</summary>
+        [Browsable(false)]
+        public VisualButton YesButton
+        {
+            get
+            {
+                return yesButton;
+            }
+
+            set
+            {
+                yesButton = value;
             }
         }
 
@@ -542,7 +651,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"OK",
                     Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
                     TabIndex = 0,
-                    Size = defaultButtonSize,
+                    Size = ButtonSize,
                     Location = new Point(0, 0)
                 };
 
@@ -553,7 +662,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"Cancel",
                     Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
                     TabIndex = 1,
-                    Size = defaultButtonSize,
+                    Size = ButtonSize,
                     Location = new Point(0, 0)
                 };
 
@@ -564,7 +673,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"Abort",
                     Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
                     TabIndex = 0,
-                    Size = defaultButtonSize,
+                    Size = ButtonSize,
                     Location = new Point(0, 0)
                 };
 
@@ -575,7 +684,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"No",
                     Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
                     TabIndex = 0,
-                    Size = defaultButtonSize,
+                    Size = ButtonSize,
                     Location = new Point(0, 0)
                 };
 
@@ -586,7 +695,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"Retry",
                     Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
                     TabIndex = 0,
-                    Size = defaultButtonSize,
+                    Size = ButtonSize,
                     Location = new Point(0, 0)
                 };
 
@@ -597,7 +706,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"Ignore",
                     Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
                     TabIndex = 0,
-                    Size = defaultButtonSize,
+                    Size = ButtonSize,
                     Location = new Point(0, 0)
                 };
 
@@ -608,7 +717,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"Yes",
                     Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
                     TabIndex = 0,
-                    Size = defaultButtonSize,
+                    Size = ButtonSize,
                     Location = new Point(0, 0)
                 };
 
