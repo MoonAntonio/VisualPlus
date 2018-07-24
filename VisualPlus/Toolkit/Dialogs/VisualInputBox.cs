@@ -17,6 +17,11 @@ namespace VisualPlus.Toolkit.Dialogs
     /// <summary>The <see cref="VisualInputBox" />.</summary>
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
+    [DefaultEvent("Load")]
+    [DefaultProperty("Text")]
+    [Description("The Visual InputBox Dialog")]
+    [DesignerCategory("Form")]
+    [DesignTimeVisible(false)]
     [ToolboxItem(false)]
     public class VisualInputBox : VisualDialog
     {

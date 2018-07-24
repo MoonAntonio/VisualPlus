@@ -18,6 +18,11 @@ namespace VisualPlus.Toolkit.Dialogs
     /// <summary>The <see cref="VisualMessageBox" />.</summary>
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
+    [DefaultEvent("Load")]
+    [DefaultProperty("Text")]
+    [Description("The Visual MessageBox")]
+    [DesignerCategory("Form")]
+    [DesignTimeVisible(false)]
     [ToolboxItem(false)]
     public class VisualMessageBox : VisualDialog, IMessageBox
     {

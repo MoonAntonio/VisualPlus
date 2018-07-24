@@ -17,10 +17,11 @@ namespace VisualPlus.Toolkit.Dialogs
     /// <summary>The <see cref="VisualExceptionDialog" />.</summary>
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    [DefaultEvent("Click")]
+    [DefaultEvent("Load")]
     [DefaultProperty("Text")]
     [Description("The Visual Exception Dialog")]
-    [ToolboxBitmap(typeof(VisualExceptionDialog), "Resources.VisualExceptionDialog.bmp")]
+    [DesignerCategory("Form")]
+    [DesignTimeVisible(false)]
     [ToolboxItem(false)]
     public class VisualExceptionDialog : VisualDialog
     {
