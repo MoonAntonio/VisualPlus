@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-using VisualPlus.Native;
 using VisualPlus.Toolkit.Controls.DataManagement;
 using VisualPlus.Toolkit.Controls.DataVisualization;
 using VisualPlus.Toolkit.Controls.Editors;
@@ -22,30 +21,6 @@ namespace VisualPlus.Managers
     [Description("The control manager.")]
     public sealed class ControlManager
     {
-        #region Properties
-
-        /// <summary>Determines if the composition is currently enabled for the deskop.</summary>
-        public static bool IsCompositionEnabled
-        {
-            get
-            {
-                // Desktop composition is only available on Vista upwards
-                if (Environment.OSVersion.Version.Major < 6)
-                {
-                    return false;
-                }
-                else
-                {
-                    // Ask the desktop window manager is composition is currently enabled
-                    bool compositionEnabled;
-                    Dwmapi.DwmIsCompositionEnabled(out compositionEnabled);
-                    return compositionEnabled;
-                }
-            }
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>Centers the control inside the parent control.</summary>

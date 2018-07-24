@@ -320,8 +320,26 @@ namespace VisualPlus.Managers
             return _newSize;
         }
 
+        /// <summary>Determines if the composition is currently enabled for the desktop.</summary>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool IsCompositionEnabled()
+        {
+            // Desktop composition is only available on Vista upwards
+            if (Environment.OSVersion.Version.Major < 6)
+            {
+                return false;
+            }
+            else
+            {
+                // Ask the desktop window manager is composition is currently enabled
+                bool compositionEnabled;
+                Dwmapi.DwmIsCompositionEnabled(out compositionEnabled);
+                return compositionEnabled;
+            }
+        }
+
         /// <summary>Retrieves the design mode state.</summary>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         public static bool IsDesignMode()
         {
             bool isInDesignMode = (LicenseManager.UsageMode == LicenseUsageMode.Designtime) || Debugger.IsAttached;
