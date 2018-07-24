@@ -112,6 +112,7 @@ namespace UnitTests.Forms
                         VisualExceptionDialog.Show(new Exception("Your custom exception message."));
                         break;
                     }
+
                 default:
                     {
                         throw new ArgumentOutOfRangeException();
