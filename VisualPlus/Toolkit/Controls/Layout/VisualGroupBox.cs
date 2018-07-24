@@ -12,7 +12,6 @@ using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -301,7 +300,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
             catch (Exception exception)
             {
-                VisualExceptionDialog.Show(exception);
+                ConsoleEx.WriteDebug(exception);
                 throw;
             }
         }
@@ -335,7 +334,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
 
             Invalidate();

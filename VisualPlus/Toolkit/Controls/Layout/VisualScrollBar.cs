@@ -878,7 +878,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
             catch (Exception exception)
             {
-                VisualExceptionDialog.Show(exception);
+                ConsoleEx.WriteDebug(exception);
             }
         }
 
@@ -1064,7 +1064,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
 
             Invalidate();

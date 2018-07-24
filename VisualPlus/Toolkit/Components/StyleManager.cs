@@ -19,7 +19,6 @@ using VisualPlus.Events;
 using VisualPlus.Extensibility;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.TypeConverters;
 using VisualPlus.UITypeEditors;
 
@@ -119,7 +118,7 @@ namespace VisualPlus.Toolkit.Components
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
         }
 

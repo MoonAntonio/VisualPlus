@@ -1090,7 +1090,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
 
             Invalidate();

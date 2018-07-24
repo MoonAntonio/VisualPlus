@@ -231,7 +231,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
 
             Invalidate();

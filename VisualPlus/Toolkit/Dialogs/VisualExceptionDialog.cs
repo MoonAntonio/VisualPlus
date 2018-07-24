@@ -24,10 +24,11 @@ namespace VisualPlus.Toolkit.Dialogs
     {
         #region Variables
 
+        private readonly Exception _exception;
+        private readonly int _imageSpacing;
+        private readonly int _textHeight;
         private Button _copyButton;
         private Label _descriptionLabel;
-        private Exception _exception;
-        private int _imageSpacing;
         private Label _messageLabel;
         private TextBox _messageTextBox;
         private Button _okButton;
@@ -35,7 +36,6 @@ namespace VisualPlus.Toolkit.Dialogs
         private Button _saveButton;
         private Label _stackLabel;
         private TextBox _textBoxStack;
-        private int _textHeight;
         private Label _typeLabel;
         private TextBox _typeTextBox;
 
@@ -332,9 +332,11 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <param name="e">The event.</param>
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            SaveFileDialog _saveFileDialog = new SaveFileDialog();
-            _saveFileDialog.Title = @"Save exception log...";
-            _saveFileDialog.Filter = @"Text Files|*.log;*.txt|All Files|*.*";
+            SaveFileDialog _saveFileDialog = new SaveFileDialog
+                {
+                    Title = @"Save exception log...",
+                    Filter = @"Text Files|*.log;*.txt|All Files|*.*"
+                };
 
             if (_saveFileDialog.ShowDialog() == DialogResult.OK)
             {

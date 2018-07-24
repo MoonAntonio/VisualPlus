@@ -9,7 +9,6 @@ using System.Xml.Linq;
 
 using VisualPlus.Enumerators;
 using VisualPlus.Managers;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.TypeConverters;
 
 #endregion
@@ -193,7 +192,7 @@ namespace VisualPlus.Structure
                 }
                 else
                 {
-                    VisualExceptionDialog.Show(new FileNotFoundException(ExceptionMessenger.FileNotFound(filePath)));
+                    ConsoleEx.WriteDebug(new FileNotFoundException(ExceptionMessenger.FileNotFound(filePath)));
                 }
             }
             catch (Exception e)

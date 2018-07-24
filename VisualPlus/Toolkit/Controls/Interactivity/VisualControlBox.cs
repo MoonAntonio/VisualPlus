@@ -446,7 +446,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
 
             Invalidate();
@@ -541,7 +541,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
                 return new Size(25, 25);
             }
         }

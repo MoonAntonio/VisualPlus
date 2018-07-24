@@ -388,7 +388,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
 
             Invalidate();

@@ -873,7 +873,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
 
             Invalidate();

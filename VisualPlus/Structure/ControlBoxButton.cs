@@ -12,7 +12,6 @@ using VisualPlus.Enumerators;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Properties;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -247,7 +246,7 @@ namespace VisualPlus.Structure
             }
             catch (Exception exception)
             {
-                VisualExceptionDialog.Show(exception);
+                ConsoleEx.WriteDebug(exception);
             }
         }
 

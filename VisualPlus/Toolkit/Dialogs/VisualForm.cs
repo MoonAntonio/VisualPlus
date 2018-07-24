@@ -925,7 +925,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
             catch (Exception exception)
             {
-                VisualExceptionDialog.Show(exception);
+                ConsoleEx.WriteDebug(exception);
             }
         }
 
@@ -1146,7 +1146,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
 
             OnThemeChanged(new ThemeEventArgs(theme));
@@ -1215,7 +1215,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
         }
 

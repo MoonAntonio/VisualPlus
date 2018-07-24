@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.Structure;
 
 #endregion
 
@@ -50,11 +50,11 @@ namespace VisualPlus.Managers
             {
                 // Value cannot be null.Parameter name: stream'
                 // The embedded resource cannot be found. Set type to 'Embedded Resource'.
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
             catch (Exception e)
             {
-                VisualExceptionDialog.Show(e);
+                ConsoleEx.WriteDebug(e);
             }
 
             return null;
@@ -67,12 +67,12 @@ namespace VisualPlus.Managers
         {
             if (string.IsNullOrEmpty(file))
             {
-                VisualExceptionDialog.Show(new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(file)));
+                ConsoleEx.WriteDebug(new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(file)));
             }
 
             if (!File.Exists(file))
             {
-                VisualExceptionDialog.Show(new NoNullAllowedException(ExceptionMessenger.FileNotFound(file)));
+                ConsoleEx.WriteDebug(new NoNullAllowedException(ExceptionMessenger.FileNotFound(file)));
             }
 
             return Assembly.LoadFile(file);
