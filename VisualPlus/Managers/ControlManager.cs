@@ -53,24 +53,6 @@ namespace VisualPlus.Managers
             return control.Controls.OfType<VisualRadioButton>().FirstOrDefault(r => r.Checked);
         }
 
-        /// <summary>Gets the namespace location from the control.</summary>
-        /// <param name="controlName">The control Name.</param>
-        /// <returns>Returns namespace name.</returns>
-        public static string GetControlNamespace(Control controlName)
-        {
-            return controlName.GetType().Namespace;
-        }
-
-        /// <summary>Determines whether the object has the method.</summary>
-        /// <param name="objectToCheck">The object.</param>
-        /// <param name="methodName">The method name.</param>
-        /// <returns>The <see cref="bool" />.</returns>
-        public static bool HasMethod(object objectToCheck, string methodName)
-        {
-            Type _methodType = objectToCheck.GetType();
-            return _methodType.GetMethod(methodName) != null;
-        }
-
         /// <summary>Retrieves the registered theme supported types.</summary>
         /// <returns>The <see cref="Type" /> list.</returns>
         public static List<Type> ThemeSupportedTypes()

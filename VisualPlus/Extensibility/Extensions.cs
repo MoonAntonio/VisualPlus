@@ -8,6 +8,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+using VisualPlus.Managers;
+
 #endregion
 
 namespace VisualPlus.Extensibility
@@ -25,13 +27,13 @@ namespace VisualPlus.Extensibility
             return (source != null) && source.Any();
         }
 
-        /// <summary>Gets a bool value determining whether the object has the following method.</summary>
-        /// <param name="objectToCheck">Object to check.</param>
-        /// <param name="methodName">Method name to search.</param>
+        /// <summary>Determines whether the object has the method.</summary>
+        /// <param name="source">The object source.</param>
+        /// <param name="methodName">The name of the method.</param>
         /// <returns>The <see cref="bool" />.</returns>
-        public static bool HasMethod(this object objectToCheck, string methodName)
+        public static bool HasMethod(this object source, string methodName)
         {
-            return objectToCheck.GetType().GetMethod(methodName) != null;
+            return ObjectManagement.HasMethod(source, methodName);
         }
 
         /// <summary>Check if the value is in range.</summary>

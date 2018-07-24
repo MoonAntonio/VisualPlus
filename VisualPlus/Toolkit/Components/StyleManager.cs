@@ -189,7 +189,7 @@ namespace VisualPlus.Toolkit.Components
 
                 foreach (Form _forms in _formCollection)
                 {
-                    _controlsList.AddRange(_forms.Controls.Cast<Control>().Where(_control => ControlManager.HasMethod(_control, "UpdateTheme")));
+                    _controlsList.AddRange(_forms.Controls.Cast<Control>().Where(_control => ObjectManagement.HasMethod(_control, "UpdateTheme")));
                 }
 
                 return _controlsList;
@@ -252,7 +252,7 @@ namespace VisualPlus.Toolkit.Components
 
                 foreach (Form _forms in _formCollection)
                 {
-                    _controlsList.AddRange(_forms.Controls.Cast<Control>().Where(_control => !ControlManager.HasMethod(_control, "UpdateTheme")));
+                    _controlsList.AddRange(_forms.Controls.Cast<Control>().Where(_control => !ObjectManagement.HasMethod(_control, "UpdateTheme")));
                 }
 
                 return _controlsList;
@@ -411,7 +411,7 @@ namespace VisualPlus.Toolkit.Components
             {
                 foreach (Type registeredTypes in ControlManager.ThemeSupportedTypes())
                 {
-                    if (ControlManager.HasMethod(component, methodName))
+                    if (ObjectManagement.HasMethod(component, methodName))
                     {
                         switch (component)
                         {
