@@ -733,7 +733,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            if (GraphicsManager.IsMouseInBounds(e.Location, _knobRectangle))
+            if (MouseManager.IsMouseInBounds(e.Location, _knobRectangle))
             {
                 if (_focused)
                 {
@@ -784,7 +784,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            if (GraphicsManager.IsMouseInBounds(e.Location, _knobRectangle))
+            if (MouseManager.IsMouseInBounds(e.Location, _knobRectangle))
             {
                 if (_focused && _rotating)
                 {
@@ -806,7 +806,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             base.OnMouseWheel(e);
 
-            if (_focused && _rotating && GraphicsManager.IsMouseInBounds(e.Location, _knobRectangle))
+            if (_focused && _rotating && MouseManager.IsMouseInBounds(e.Location, _knobRectangle))
             {
                 // the Delta value is always 120, as explained in MSDN
                 int v = ((e.Delta / 120) * (_maximum - _minimum)) / _mouseWheelBarPartitions;

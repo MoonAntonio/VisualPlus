@@ -407,7 +407,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             {
                 case PickerType.Rectangle:
                     {
-                        if ((e.Button == MouseButtons.Left) && GraphicsManager.IsMouseInBounds(e.Location, ClientRectangle))
+                        if ((e.Button == MouseButtons.Left) && MouseManager.IsMouseInBounds(e.Location, ClientRectangle))
                         {
                             _drag = true;
                             SetColor(e.Location);

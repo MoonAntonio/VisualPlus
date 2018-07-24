@@ -253,7 +253,7 @@ namespace VisualPlus.Toolkit.VisualBase
                 {
                     MouseState = MouseStates.Down;
 
-                    if (_animation && (args.Button == MouseButtons.Left) && GraphicsManager.IsMouseInBounds(_mouseLocation, _box))
+                    if (_animation && (args.Button == MouseButtons.Left) && MouseManager.IsMouseInBounds(_mouseLocation, _box))
                     {
                         _rippleEffectsManager.SecondaryIncrement = 0;
                         _rippleEffectsManager.StartNewAnimation(AnimationDirection.InOutIn, new object[] { Toggle });
@@ -267,7 +267,7 @@ namespace VisualPlus.Toolkit.VisualBase
             MouseMove += (sender, args) =>
                 {
                     _mouseLocation = args.Location;
-                    Cursor = GraphicsManager.IsMouseInBounds(_mouseLocation, _box) ? Cursors.Hand : Cursors.Default;
+                    Cursor = MouseManager.IsMouseInBounds(_mouseLocation, _box) ? Cursors.Hand : Cursors.Default;
                 };
         }
 

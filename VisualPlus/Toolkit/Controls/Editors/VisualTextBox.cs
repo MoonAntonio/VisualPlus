@@ -832,7 +832,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             base.OnMouseMove(e);
             _xValue = e.Location.X;
             _yValue = e.Location.Y;
-            MouseOnButton = GraphicsManager.IsMouseInBounds(e.Location, _buttonRectangle);
+            MouseOnButton = MouseManager.IsMouseInBounds(e.Location, _buttonRectangle);
 
             Invalidate();
 
