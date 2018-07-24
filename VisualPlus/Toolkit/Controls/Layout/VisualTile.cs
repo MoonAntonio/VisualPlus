@@ -274,10 +274,9 @@ namespace VisualPlus.Toolkit.Controls.Layout
                 e.Graphics.Clear(BackColor);
 
                 Color backColor = ControlColorState.BackColorState(backColorState, Enabled, MouseState);
-                Color foreColor = ControlColorState.BackColorState(TextStyle.ColorState, Enabled, MouseState);
 
                 VisualBackgroundRenderer.RenderBackground(e.Graphics, backColor, BackgroundImage, backgroundLayout, ClientRectangle);
-                VisualTileRenderer.RenderTile(e.Graphics, type, ClientRectangle, Image, Text, Font, foreColor, TextStyle.StringFormat, offset);
+                VisualTileRenderer.RenderTile(e.Graphics, type, ClientRectangle, Image, Text, Font, Enabled, MouseState, TextStyle, offset);
             }
             catch (Exception exception)
             {
@@ -302,6 +301,11 @@ namespace VisualPlus.Toolkit.Controls.Layout
                         Hover = theme.ColorPalette.ItemHover,
                         Pressed = theme.ColorPalette.Pressed
                     };
+
+                TextStyle.Enabled = theme.ColorPalette.TextEnabled;
+                TextStyle.Disabled = theme.ColorPalette.TextDisabled;
+                TextStyle.Hover = theme.ColorPalette.TextHover;
+                TextStyle.Pressed = theme.ColorPalette.TextPressed;
             }
             catch (Exception e)
             {
