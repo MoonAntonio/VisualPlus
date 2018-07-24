@@ -118,14 +118,7 @@ namespace VisualPlus.Toolkit.Components
         /// <param name="state">The expanded toggle.</param>
         public static void Draw(Graphics graphics, Rectangle rectangle, Color color, bool state)
         {
-            if (state)
-            {
-                VisualElementRenderer.RenderTriangle(graphics, rectangle, color, Alignment.Vertical.Up);
-            }
-            else
-            {
-                VisualElementRenderer.RenderTriangle(graphics, rectangle, color, Alignment.Vertical.Down);
-            }
+            VisualElementRenderer.RenderTriangle(graphics, rectangle, color, state ? Alignment.Vertical.Up : Alignment.Vertical.Down);
         }
 
         /// <summary>Gets the back color from the expander.</summary>
