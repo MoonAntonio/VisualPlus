@@ -10,6 +10,12 @@ namespace VisualPlus.Structure
     /// <summary>Contains the global identifier for the object.</summary>
     public class GlobalId
     {
+        #region Variables
+
+        private int _nextId = 1000;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>Initializes a new instance of the <see cref="GlobalId" /> class.</summary>
@@ -30,7 +36,7 @@ namespace VisualPlus.Structure
         public int Id { get; }
 
         /// <summary>Gets the next global identifier in sequence.</summary>
-        public static int NextId
+        public int NextId
         {
             [DebuggerStepThrough]
             get
@@ -38,12 +44,6 @@ namespace VisualPlus.Structure
                 return _nextId++;
             }
         }
-
-        #endregion
-
-        #region Methods
-
-        private static int _nextId = 1000;
 
         #endregion
     }
