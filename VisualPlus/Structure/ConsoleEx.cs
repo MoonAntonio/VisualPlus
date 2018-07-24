@@ -18,27 +18,6 @@ namespace VisualPlus.Structure
     {
         #region Methods
 
-        /// <summary>Create an entry exception.</summary>
-        /// <param name="exception">The exception.</param>
-        /// <returns>The <see cref="string" />.</returns>
-        public static string CreateException(Exception exception)
-        {
-            StringBuilder _log = new StringBuilder();
-            _log.AppendLine("Message:");
-            _log.AppendLine(exception.Message);
-            _log.Append(Environment.NewLine);
-            _log.AppendLine("Type:");
-            _log.AppendLine(exception.GetType().FullName);
-            _log.Append(Environment.NewLine);
-            _log.AppendLine("Stack Trace:");
-            _log.AppendLine(exception.StackTrace);
-            _log.Append(Environment.NewLine);
-            _log.AppendLine("Help Link: " + exception.HelpLink);
-            _log.AppendLine("Source: " + exception.Source);
-            _log.AppendLine("Target Site: " + exception.TargetSite);
-            return _log.ToString();
-        }
-
         /// <summary>Delete the debug text file.</summary>
         /// <param name="file">The file log.</param>
         public static void DeleteLogFile(string file)
@@ -63,6 +42,27 @@ namespace VisualPlus.Structure
         public static string FormattedText(string text)
         {
             return DateTime.Now.ToLocalTime() + " : " + text + Environment.NewLine;
+        }
+
+        /// <summary>Generate an exception entry string.</summary>
+        /// <param name="exception">The exception to format.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        public static string GenerateException(Exception exception)
+        {
+            StringBuilder _log = new StringBuilder();
+            _log.AppendLine("Message:");
+            _log.AppendLine(exception.Message);
+            _log.Append(Environment.NewLine);
+            _log.AppendLine("Type:");
+            _log.AppendLine(exception.GetType().FullName);
+            _log.Append(Environment.NewLine);
+            _log.AppendLine("Stack Trace:");
+            _log.AppendLine(exception.StackTrace);
+            _log.Append(Environment.NewLine);
+            _log.AppendLine("Help Link: " + exception.HelpLink);
+            _log.AppendLine("Source: " + exception.Source);
+            _log.AppendLine("Target Site: " + exception.TargetSite);
+            return _log.ToString();
         }
 
         /// <summary>Write the debug int to the output.</summary>
@@ -124,7 +124,7 @@ namespace VisualPlus.Structure
         /// <param name="output">The output method to use.</param>
         public static void WriteDebug(Exception exception, DebugOutput output = DebugOutput.TraceListener)
         {
-            WriteLog(CreateException(exception), false, output);
+            WriteLog(GenerateException(exception), false, output);
         }
 
         /// <summary>Write the debug text to console.</summary>

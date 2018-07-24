@@ -5,8 +5,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
+
+using VisualPlus.Structure;
 
 #endregion
 
@@ -92,38 +93,14 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>Copy the log to the clipboard.</summary>
         public void CopyLogToClipboard()
         {
-            Clipboard.SetText(CreateLog());
-        }
-
-        /// <summary>Create a log entry.</summary>
-        /// <returns>
-        ///     <see cref="string" />
-        /// </returns>
-        public string CreateLog()
-        {
-            StringBuilder _log = new StringBuilder();
-            _log.AppendLine("Message:");
-            _log.AppendLine(_exception.Message);
-            _log.Append(Environment.NewLine);
-            _log.AppendLine("Type:");
-            _log.AppendLine(_exception.GetType().FullName);
-            _log.Append(Environment.NewLine);
-            _log.AppendLine("Stack Trace:");
-            _log.AppendLine(_exception.StackTrace);
-
-            _log.Append(Environment.NewLine);
-            _log.AppendLine("Help Link: " + _exception.HelpLink);
-            _log.AppendLine("Source: " + _exception.Source);
-            _log.AppendLine("Target Site: " + _exception.TargetSite);
-
-            return _log.ToString();
+            Clipboard.SetText(ConsoleEx.GenerateException(_exception));
         }
 
         /// <summary>Saves the log to a file.</summary>
         /// <param name="filePath">The file Path.</param>
         public void SaveLog(string filePath)
         {
-            File.WriteAllText(filePath, CreateLog());
+            File.WriteAllText(filePath, ConsoleEx.GenerateException(_exception));
         }
 
         /// <summary>Display the <see cref="VisualExceptionDialog" />.</summary>
