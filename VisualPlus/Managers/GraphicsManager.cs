@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -317,6 +318,23 @@ namespace VisualPlus.Managers
             }
 
             return _newSize;
+        }
+
+        /// <summary>Retrieves the design mode state.</summary>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool IsDesignMode()
+        {
+            bool isInDesignMode = (LicenseManager.UsageMode == LicenseUsageMode.Designtime) || Debugger.IsAttached;
+
+            if (isInDesignMode)
+            {
+                return true;
+            }
+
+            using (Process process = Process.GetCurrentProcess())
+            {
+                return process.ProcessName.ToLowerInvariant().Contains("devenv");
+            }
         }
 
         /// <summary>Rounds the region of the control.</summary>

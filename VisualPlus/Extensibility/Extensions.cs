@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -15,29 +14,6 @@ namespace VisualPlus.Extensibility
 {
     public static class Extensions
     {
-        #region Properties
-
-        /// <summary>Get the design mode state.</summary>
-        public static bool IsInDesignMode
-        {
-            get
-            {
-                bool isInDesignMode = (LicenseManager.UsageMode == LicenseUsageMode.Designtime) || Debugger.IsAttached;
-
-                if (!isInDesignMode)
-                {
-                    using (Process process = Process.GetCurrentProcess())
-                    {
-                        return process.ProcessName.ToLowerInvariant().Contains("devenv");
-                    }
-                }
-
-                return isInDesignMode;
-            }
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>Gets a boolean determining whether the object holds any value or is empty/null.</summary>
