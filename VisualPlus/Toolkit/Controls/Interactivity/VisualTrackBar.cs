@@ -17,7 +17,6 @@ using VisualPlus.Managers;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.TypeConverters;
 
 #endregion
@@ -1446,7 +1445,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             if (_barProgress > 1)
             {
                 graphics.FillPath(new SolidBrush(_progressColor), _progressPath);
-                VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
+                VisualProgressRenderer.RenderHatch(graphics, _hatch, _progressPath);
             }
 
             graphics.ResetClip();

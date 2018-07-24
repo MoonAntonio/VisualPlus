@@ -56,25 +56,6 @@ namespace VisualPlus.Renders
             graphics.DrawString(text, font, new SolidBrush(foreColor), _textPoint);
         }
 
-        /// <summary>Draws a hatch component on the specified path.</summary>
-        /// <param name="graphics">The specified graphics to draw on.</param>
-        /// <param name="hatch">The hatch type.</param>
-        /// <param name="hatchGraphicsPath">The hatch path to fill.</param>
-        public static void DrawHatch(Graphics graphics, Hatch hatch, GraphicsPath hatchGraphicsPath)
-        {
-            if (!hatch.Visible)
-            {
-                return;
-            }
-
-            HatchBrush _hatchBrush = new HatchBrush(hatch.Style, hatch.ForeColor, hatch.BackColor);
-            using (TextureBrush _textureBrush = GraphicsManager.DrawTextureUsingHatch(_hatchBrush))
-            {
-                _textureBrush.ScaleTransform(hatch.Size.Width, hatch.Size.Height);
-                graphics.FillPath(_textureBrush, hatchGraphicsPath);
-            }
-        }
-
         #endregion
     }
 }

@@ -12,7 +12,6 @@ using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -395,7 +394,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                 {
                     graphics.SetClip(ControlGraphicsPath);
                     graphics.FillRectangle(new SolidBrush(_progressColor), _progressRectangle);
-                    VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
+                    VisualProgressRenderer.RenderHatch(graphics, _hatch, _progressPath);
                     graphics.ResetClip();
                 }
             }
@@ -438,7 +437,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _progressPath.AddRectangle(_progressRectangle);
             graphics.SetClip(ControlGraphicsPath);
             graphics.FillPath(new SolidBrush(_progressColor), _progressPath);
-            VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
+            VisualProgressRenderer.RenderHatch(graphics, _hatch, _progressPath);
             graphics.ResetClip();
         }
 

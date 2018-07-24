@@ -108,6 +108,7 @@
     <Compile Include="Managers\DateTimeManager.cs" />
     <Compile Include="Renders\VisualElementRenderer.cs" />
     <Compile Include="Renders\VisualImageRenderer.cs" />
+    <Compile Include="Renders\VisualProgressRenderer.cs" />
     <Compile Include="Renders\VisualTextRenderer.cs" />
     <Compile Include="Renders\VisualTileRenderer.cs" />
     <Compile Include="Structure\ConsoleEx.cs" />
