@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
 
-using VisualPlus.Managers;
 using VisualPlus.Structure;
 
 #endregion

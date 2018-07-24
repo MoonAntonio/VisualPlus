@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 #endregion
 
-namespace VisualPlus.Managers
+namespace VisualPlus.Structure
 {
     [Description("The monitor manager.")]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
