@@ -72,12 +72,15 @@ namespace VisualPlus.Extensibility
             return value;
         }
 
-        public static void ScrollDown(this Panel p, int pos)
+        /// <summary>Scroll down the panel.</summary>
+        /// <param name="panel">The panel.</param>
+        /// <param name="position">The position.</param>
+        public static void ScrollDown(this Panel panel, int position)
         {
-            // pos passed in should be positive
-            using (Control c = new Control { Parent = p, Height = 1, Top = p.ClientSize.Height + pos })
+            // position passed in should be positive
+            using (Control c = new Control { Parent = panel, Height = 1, Top = panel.ClientSize.Height + position })
             {
-                p.ScrollControlIntoView(c);
+                panel.ScrollControlIntoView(c);
             }
         }
 
@@ -92,12 +95,15 @@ namespace VisualPlus.Extensibility
             }
         }
 
-        public static void ScrollUp(this Panel p, int pos)
+        /// <summary>Scroll up the panel.</summary>
+        /// <param name="panel">The panel.</param>
+        /// <param name="position">The position.</param>
+        public static void ScrollUp(this Panel panel, int position)
         {
-            // pos passed in should be negative
-            using (Control c = new Control { Parent = p, Height = 1, Top = pos })
+            // position passed in should be negative
+            using (Control c = new Control { Parent = panel, Height = 1, Top = position })
             {
-                p.ScrollControlIntoView(c);
+                panel.ScrollControlIntoView(c);
             }
         }
 
