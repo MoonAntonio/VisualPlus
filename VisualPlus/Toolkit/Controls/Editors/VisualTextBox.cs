@@ -16,7 +16,6 @@ using VisualPlus.Managers;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -379,6 +378,11 @@ namespace VisualPlus.Toolkit.Controls.Editors
             get
             {
                 return _textBox;
+            }
+
+            set
+            {
+                _textBox = value;
             }
         }
 

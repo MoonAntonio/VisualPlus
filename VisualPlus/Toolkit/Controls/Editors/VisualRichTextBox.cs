@@ -14,7 +14,6 @@ using VisualPlus.Localization;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -141,7 +140,18 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         [Description("Gets access to the contained control.")]
-        public RichTextBox ContainedControl => _richTextBox;
+        public RichTextBox ContainedControl
+        {
+            get
+            {
+                return _richTextBox;
+            }
+
+            set
+            {
+                _richTextBox = value;
+            }
+        }
 
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Font)]
