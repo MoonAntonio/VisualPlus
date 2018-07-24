@@ -307,19 +307,6 @@ namespace VisualPlus.Managers
             return _roundedRectanglePath;
         }
 
-        /// <summary>Draws the hatch brush as an image and then converts it to a texture brush for scaling.</summary>
-        /// <param name="hatchBrush">Hatch brush pattern.</param>
-        /// <returns>The <see cref="TextureBrush" />.</returns>
-        public static TextureBrush DrawTextureUsingHatch(HatchBrush hatchBrush)
-        {
-            using (Bitmap _bitmap = new Bitmap(8, 8))
-            using (Graphics graphics = Graphics.FromImage(_bitmap))
-            {
-                graphics.FillRectangle(hatchBrush, 0, 0, 8, 8);
-                return new TextureBrush(_bitmap);
-            }
-        }
-
         /// <summary>Flip the size by orientation.</summary>
         /// <param name="orientation">The orientation.</param>
         /// <param name="size">Current size.</param>

@@ -34,6 +34,19 @@ namespace VisualPlus.Managers
             return new PathGradientBrush(point) { CenterColor = center, SurroundColors = surrounding, WrapMode = wrapMode };
         }
 
+        /// <summary>Draws the hatch brush as an image and then converts it to a texture brush for scaling.</summary>
+        /// <param name="brush">Hatch brush pattern.</param>
+        /// <returns>The <see cref="TextureBrush" />.</returns>
+        public static TextureBrush HatchTextureBrush(HatchBrush brush)
+        {
+            using (Bitmap _bitmap = new Bitmap(8, 8))
+            using (Graphics graphics = Graphics.FromImage(_bitmap))
+            {
+                graphics.FillRectangle(brush, 0, 0, 8, 8);
+                return new TextureBrush(_bitmap);
+            }
+        }
+
         #endregion
     }
 }

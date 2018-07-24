@@ -26,7 +26,7 @@ namespace VisualPlus.Renders
             }
 
             HatchBrush hatchBrush = new HatchBrush(hatch.Style, hatch.ForeColor, hatch.BackColor);
-            using (TextureBrush textureBrush = GraphicsManager.DrawTextureUsingHatch(hatchBrush))
+            using (TextureBrush textureBrush = BrushManager.HatchTextureBrush(hatchBrush))
             {
                 textureBrush.ScaleTransform(hatch.Size.Width, hatch.Size.Height);
                 graphics.FillPath(textureBrush, hatchPath);
