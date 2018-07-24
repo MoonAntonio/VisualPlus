@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Structure;
+using VisualPlus.Toolkit.VisualBase;
 
 #endregion
 
@@ -21,7 +22,7 @@ namespace VisualPlus.Toolkit.Dialogs
     [Description("The Visual Exception Dialog")]
     [ToolboxBitmap(typeof(VisualExceptionDialog), "Resources.VisualExceptionDialog.bmp")]
     [ToolboxItem(false)]
-    public class VisualExceptionDialog : Form
+    public class VisualExceptionDialog : VisualDialog
     {
         #region Variables
 
@@ -36,7 +37,7 @@ namespace VisualPlus.Toolkit.Dialogs
         private PictureBox _pictureBoxImage;
         private Button _saveButton;
         private Label _stackLabel;
-        private TextBox _textBoxStack;
+        private TextBox _stackTextBox;
         private Label _typeLabel;
         private TextBox _typeTextBox;
 
@@ -52,15 +53,11 @@ namespace VisualPlus.Toolkit.Dialogs
             _imageSpacing = 10;
             _textHeight = 16;
 
-            MaximizeBox = false;
-            MinimizeBox = false;
-            ShowIcon = false;
-            ShowInTaskbar = false;
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            ControlBox.Location = new Point(Width - 34, -6);
+
             Padding = new Padding(10);
             Size = new Size(440, 410);
             BackColor = Color.White;
-            StartPosition = FormStartPosition.CenterScreen;
             Text = caption;
 
             _exception = e;
@@ -73,6 +70,175 @@ namespace VisualPlus.Toolkit.Dialogs
             InitializeType(_defaultWidth);
             InitializeStackTrace(_defaultWidth);
             InitializeButtons();
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>Gets or sets the copy button.</summary>
+        [Browsable(false)]
+        public Button CopyButton
+        {
+            get
+            {
+                return _copyButton;
+            }
+
+            set
+            {
+                _copyButton = value;
+            }
+        }
+
+        /// <summary>Gets or sets the description label.</summary>
+        [Browsable(false)]
+        public Label DescriptionLabel
+        {
+            get
+            {
+                return _descriptionLabel;
+            }
+
+            set
+            {
+                _descriptionLabel = value;
+            }
+        }
+
+        /// <summary>Gets or sets the dialog image box.</summary>
+        [Browsable(false)]
+        public PictureBox DialogImage
+        {
+            get
+            {
+                return _pictureBoxImage;
+            }
+
+            set
+            {
+                _pictureBoxImage = value;
+            }
+        }
+
+        /// <summary>Gets or sets the message label.</summary>
+        [Browsable(false)]
+        public Label MessageLabel
+        {
+            get
+            {
+                return _messageLabel;
+            }
+
+            set
+            {
+                _messageLabel = value;
+            }
+        }
+
+        /// <summary>Gets or sets the message box.</summary>
+        [Browsable(false)]
+        public TextBox MessageTextBox
+        {
+            get
+            {
+                return _messageTextBox;
+            }
+
+            set
+            {
+                _messageTextBox = value;
+            }
+        }
+
+        /// <summary>Gets or sets the ok button.</summary>
+        [Browsable(false)]
+        public Button OkButton
+        {
+            get
+            {
+                return _okButton;
+            }
+
+            set
+            {
+                _okButton = value;
+            }
+        }
+
+        /// <summary>Gets or sets the save button.</summary>
+        [Browsable(false)]
+        public Button SaveButton
+        {
+            get
+            {
+                return _saveButton;
+            }
+
+            set
+            {
+                _saveButton = value;
+            }
+        }
+
+        /// <summary>Gets or sets the stack label.</summary>
+        [Browsable(false)]
+        public Label StackLabel
+        {
+            get
+            {
+                return _stackLabel;
+            }
+
+            set
+            {
+                _stackLabel = value;
+            }
+        }
+
+        /// <summary>Gets or sets the stack box.</summary>
+        [Browsable(false)]
+        public TextBox StackTextBox
+        {
+            get
+            {
+                return _stackTextBox;
+            }
+
+            set
+            {
+                _stackTextBox = value;
+            }
+        }
+
+        /// <summary>Gets or sets the type label.</summary>
+        [Browsable(false)]
+        public Label TypeLabel
+        {
+            get
+            {
+                return _typeLabel;
+            }
+
+            set
+            {
+                _typeLabel = value;
+            }
+        }
+
+        /// <summary>Gets or sets the type box.</summary>
+        [Browsable(false)]
+        public TextBox TypeTextBox
+        {
+            get
+            {
+                return _typeTextBox;
+            }
+
+            set
+            {
+                _typeTextBox = value;
+            }
         }
 
         #endregion
@@ -146,7 +312,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     BackColor = SystemColors.Control,
                     Text = @"OK",
                     Size = _buttonSize,
-                    Location = new Point(_textBoxStack.Right - _buttonSize.Width, _textBoxStack.Bottom + 10),
+                    Location = new Point(_stackTextBox.Right - _buttonSize.Width, _stackTextBox.Bottom + 10),
                     TabIndex = 0
                 };
 
@@ -159,7 +325,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     BackColor = SystemColors.Control,
                     Text = @"Save",
                     Size = _buttonSize,
-                    Location = new Point(_okButton.Left - _buttonSpacing - _buttonSize.Width, _textBoxStack.Bottom + 10),
+                    Location = new Point(_okButton.Left - _buttonSpacing - _buttonSize.Width, _stackTextBox.Bottom + 10),
                     TabIndex = 1
                 };
 
@@ -172,7 +338,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     BackColor = SystemColors.Control,
                     Text = @"Copy",
                     Size = _buttonSize,
-                    Location = new Point(_saveButton.Left - _buttonSpacing - _buttonSize.Width, _textBoxStack.Bottom + 10),
+                    Location = new Point(_saveButton.Left - _buttonSpacing - _buttonSize.Width, _stackTextBox.Bottom + 10),
                     TabIndex = 2
                 };
 
@@ -188,9 +354,10 @@ namespace VisualPlus.Toolkit.Dialogs
             _descriptionLabel = new Label
                 {
                     Text = @"An unhandled exception has occurred in a component in your application.",
-                    Location = new Point(_pictureBoxImage.Right + _imageSpacing, Padding.Top),
+                    Location = new Point(_pictureBoxImage.Right + _imageSpacing, Padding.Top + BodyContainer.Y),
                     Size = new Size(width, _textHeight),
-                    BorderStyle = BorderStyle.None
+                    BorderStyle = BorderStyle.None,
+                    BackColor = Background
                 };
 
             Controls.Add(_descriptionLabel);
@@ -205,7 +372,8 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"Message:",
                     BorderStyle = BorderStyle.None,
                     Location = new Point(_pictureBoxImage.Right + _imageSpacing, _descriptionLabel.Bottom + 10),
-                    Size = new Size(width, _textHeight)
+                    Size = new Size(width, _textHeight),
+                    BackColor = Background
                 };
 
             Controls.Add(_messageLabel);
@@ -215,7 +383,7 @@ namespace VisualPlus.Toolkit.Dialogs
             _messageTextBox = new TextBox
                 {
                     ReadOnly = true,
-                    BackColor = BackColor,
+                    BackColor = Background,
                     BorderStyle = BorderStyle.None,
                     Text = _message,
                     Location = new Point(_messageLabel.Location.X, _messageLabel.Bottom),
@@ -231,9 +399,10 @@ namespace VisualPlus.Toolkit.Dialogs
             _pictureBoxImage = new PictureBox
                 {
                     Image = SystemIcons.Error.ToBitmap(),
-                    Location = new Point(Padding.Left, Padding.Top),
+                    Location = new Point(Padding.Left + BodyContainer.X, Padding.Top + BodyContainer.Y),
                     Size = new Size(32, 32),
-                    SizeMode = PictureBoxSizeMode.StretchImage
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    BackColor = Background
                 };
 
             Controls.Add(_pictureBoxImage);
@@ -248,14 +417,15 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"Stack Trace:",
                     Location = new Point(_typeTextBox.Location.X, _typeTextBox.Bottom + 10),
                     Size = new Size(width, _textHeight),
-                    BorderStyle = BorderStyle.None
+                    BorderStyle = BorderStyle.None,
+                    BackColor = Background
                 };
 
             Controls.Add(_stackLabel);
 
-            _textBoxStack = new TextBox
+            _stackTextBox = new TextBox
                 {
-                    BackColor = BackColor,
+                    BackColor = Background,
                     Text = _exception.StackTrace,
                     ReadOnly = true,
                     Multiline = true,
@@ -264,7 +434,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     ScrollBars = ScrollBars.Both
                 };
 
-            Controls.Add(_textBoxStack);
+            Controls.Add(_stackTextBox);
         }
 
         /// <summary>Initializes the type message.</summary>
@@ -276,7 +446,8 @@ namespace VisualPlus.Toolkit.Dialogs
                     Text = @"Type:",
                     Location = new Point(_pictureBoxImage.Right + _imageSpacing, _messageTextBox.Bottom + 10),
                     Size = new Size(width, _textHeight),
-                    BorderStyle = BorderStyle.None
+                    BorderStyle = BorderStyle.None,
+                    BackColor = Background
                 };
 
             Controls.Add(_typeLabel);
@@ -286,7 +457,7 @@ namespace VisualPlus.Toolkit.Dialogs
             _typeTextBox = new TextBox
                 {
                     ReadOnly = true,
-                    BackColor = BackColor,
+                    BackColor = Background,
                     BorderStyle = BorderStyle.None,
                     Text = _message,
                     Location = new Point(_pictureBoxImage.Right + _imageSpacing, _typeLabel.Bottom),

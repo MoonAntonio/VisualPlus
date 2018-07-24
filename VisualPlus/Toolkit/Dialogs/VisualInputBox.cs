@@ -60,6 +60,7 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>Initializes a new instance of the <see cref="VisualInputBox" /> class.</summary>
         public VisualInputBox()
         {
+            ControlBox.Location = new Point(Width - 45, Border.Distance + 2);
             InitializeControls();
             Size = new Size(textBox.Right + Border.Distance + 2, 95);
         }

@@ -26,7 +26,6 @@ namespace VisualPlus.Toolkit.VisualBase
         public VisualDialog()
         {
             ButtonSize = new Size(75, 23);
-            ControlBox.Location = new Point(Width - 45, Border.Distance + 2);
             HelpButton = false;
             MinimizeBox = false;
             MaximizeBox = false;

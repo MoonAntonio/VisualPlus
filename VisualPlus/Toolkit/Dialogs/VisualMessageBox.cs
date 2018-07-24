@@ -102,6 +102,8 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>Initializes a new instance of the <see cref="VisualMessageBox" /> class.</summary>
         public VisualMessageBox()
         {
+            ControlBox.Location = new Point(Width - 45, Border.Distance + 2);
+
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             Text = string.Empty;

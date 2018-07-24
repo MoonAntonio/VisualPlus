@@ -47,11 +47,14 @@ namespace UnitTests.Forms
             /// <summary>The list view.</summary>
             VisualListView = 2,
 
+            /// <summary>The visual exception dialog.</summary>
+            VisualExceptionDialog = 3,
+
             /// <summary>The visual input box.</summary>
-            VisualInputBox = 3,
+            VisualInputBox = 4,
 
             /// <summary>The visual message box.</summary>
-            VisualMessageBox = 4
+            VisualMessageBox = 5
         }
 
         #endregion
@@ -104,6 +107,11 @@ namespace UnitTests.Forms
                         break;
                     }
 
+                case UnitTests.VisualExceptionDialog:
+                    {
+                        VisualExceptionDialog.Show(new Exception("Your custom exception message."));
+                        break;
+                    }
                 default:
                     {
                         throw new ArgumentOutOfRangeException();
