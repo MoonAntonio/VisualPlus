@@ -12,13 +12,13 @@ namespace VisualPlus.Structure
 
         public string Author { get; set; }
 
-        /// <summary>Determines if the theme information is empty.</summary>
+        /// <summary>Determines if the <see cref="ThemeInformation" /> is null.</summary>
         [Browsable(false)]
-        public bool IsEmpty
+        public bool IsNull
         {
             get
             {
-                return (Author == null) && (Name == null);
+                return (Author == null) || (Name == null);
             }
         }
 

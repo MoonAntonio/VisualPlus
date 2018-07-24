@@ -82,6 +82,9 @@ namespace ThemeBuilder.Forms
             this.rawText.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.rawText.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.rawText.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.rawText.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.rawText.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.rawText.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.rawText.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // 
             // tbName
@@ -127,12 +130,16 @@ namespace ThemeBuilder.Forms
             this.tbName.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.tbName.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tbName.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.tbName.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbName.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.tbName.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.tbName.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.tbName.Watermark.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.tbName.Watermark.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.tbName.Watermark.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
             this.tbName.Watermark.Text = "The theme name...";
             this.tbName.Watermark.Visible = true;
+            this.tbName.WordWrap = true;
             this.tbName.TextChanged += new System.EventHandler(this.TbThemeInformation_TextChanged);
             // 
             // tbAuthor
@@ -178,12 +185,16 @@ namespace ThemeBuilder.Forms
             this.tbAuthor.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.tbAuthor.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tbAuthor.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.tbAuthor.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbAuthor.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.tbAuthor.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.tbAuthor.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.tbAuthor.Watermark.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.tbAuthor.Watermark.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.tbAuthor.Watermark.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
             this.tbAuthor.Watermark.Text = "The authors name...";
             this.tbAuthor.Watermark.Visible = true;
+            this.tbAuthor.WordWrap = true;
             this.tbAuthor.TextChanged += new System.EventHandler(this.TbThemeInformation_TextChanged);
             // 
             // visualLabel1
@@ -212,6 +223,9 @@ namespace ThemeBuilder.Forms
             this.visualLabel1.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.visualLabel1.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.visualLabel1.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.visualLabel1.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabel1.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.visualLabel1.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.visualLabel1.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // 
             // visualLabel2
@@ -240,6 +254,9 @@ namespace ThemeBuilder.Forms
             this.visualLabel2.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.visualLabel2.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.visualLabel2.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.visualLabel2.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabel2.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.visualLabel2.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.visualLabel2.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // 
             // mainMenuStrip
@@ -404,12 +421,16 @@ namespace ThemeBuilder.Forms
             this.tbPath.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.tbPath.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tbPath.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.tbPath.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbPath.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.tbPath.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.tbPath.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.tbPath.Watermark.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.tbPath.Watermark.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbPath.Watermark.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
             this.tbPath.Watermark.Text = "Path to theme...";
             this.tbPath.Watermark.Visible = true;
+            this.tbPath.WordWrap = true;
             // 
             // Main
             // 
@@ -435,7 +456,7 @@ namespace ThemeBuilder.Forms
             this.ControlBox.HelpButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
             this.ControlBox.HelpButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
             this.ControlBox.HelpButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.ControlBox.HelpButton.BoxType = ControlBoxButton.ControlBoxType.Default;
+            this.ControlBox.HelpButton.BoxType = VisualPlus.Toolkit.VisualBase.ControlBoxButton.ControlBoxType.Default;
             this.ControlBox.HelpButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.ControlBox.HelpButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.ControlBox.HelpButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -451,6 +472,9 @@ namespace ThemeBuilder.Forms
             this.ControlBox.HelpButton.TextStyle.Disabled = System.Drawing.Color.Empty;
             this.ControlBox.HelpButton.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.HelpButton.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.ControlBox.HelpButton.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ControlBox.HelpButton.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.ControlBox.HelpButton.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.HelpButton.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.ControlBox.Location = new System.Drawing.Point(630, 4);
             // 
@@ -460,7 +484,7 @@ namespace ThemeBuilder.Forms
             this.ControlBox.MaximizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
             this.ControlBox.MaximizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
             this.ControlBox.MaximizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.ControlBox.MaximizeButton.BoxType = ControlBoxButton.ControlBoxType.Default;
+            this.ControlBox.MaximizeButton.BoxType = VisualPlus.Toolkit.VisualBase.ControlBoxButton.ControlBoxType.Default;
             this.ControlBox.MaximizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.ControlBox.MaximizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.ControlBox.MaximizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -476,6 +500,9 @@ namespace ThemeBuilder.Forms
             this.ControlBox.MaximizeButton.TextStyle.Disabled = System.Drawing.Color.Empty;
             this.ControlBox.MaximizeButton.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.MaximizeButton.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.ControlBox.MaximizeButton.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ControlBox.MaximizeButton.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.ControlBox.MaximizeButton.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.MaximizeButton.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // 
             // 
@@ -484,7 +511,7 @@ namespace ThemeBuilder.Forms
             this.ControlBox.MinimizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
             this.ControlBox.MinimizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
             this.ControlBox.MinimizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.ControlBox.MinimizeButton.BoxType = ControlBoxButton.ControlBoxType.Default;
+            this.ControlBox.MinimizeButton.BoxType = VisualPlus.Toolkit.VisualBase.ControlBoxButton.ControlBoxType.Default;
             this.ControlBox.MinimizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.ControlBox.MinimizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.ControlBox.MinimizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -500,6 +527,9 @@ namespace ThemeBuilder.Forms
             this.ControlBox.MinimizeButton.TextStyle.Disabled = System.Drawing.Color.Empty;
             this.ControlBox.MinimizeButton.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.MinimizeButton.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.ControlBox.MinimizeButton.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ControlBox.MinimizeButton.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.ControlBox.MinimizeButton.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.MinimizeButton.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.ControlBox.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.ControlBox.Name = "";
@@ -508,6 +538,9 @@ namespace ThemeBuilder.Forms
             this.ControlBox.TextStyle.Disabled = System.Drawing.Color.Empty;
             this.ControlBox.TextStyle.Enabled = System.Drawing.Color.Empty;
             this.ControlBox.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.ControlBox.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ControlBox.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.ControlBox.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.Controls.Add(this.tbPath);
             this.Controls.Add(this.palettePropertyGrid);

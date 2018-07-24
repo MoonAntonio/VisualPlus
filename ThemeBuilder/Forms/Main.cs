@@ -14,6 +14,7 @@ using VisualPlus.Toolkit.Dialogs;
 
 #endregion
 
+// Bug: Changing color in the properties grid to a known name will not serialize the RGB values.
 namespace ThemeBuilder.Forms
 {
     /// <summary>The main.</summary>
@@ -59,9 +60,6 @@ namespace ThemeBuilder.Forms
             {
                 throw new NoNullAllowedException(nameof(theme));
             }
-
-            tbName.Text = theme.Information.Name;
-            tbAuthor.Text = theme.Information.Author;
 
             _theme.UpdateTheme(theme.Information, theme.ColorPalette);
             rawText.Text = _theme.RawTheme;
@@ -153,21 +151,23 @@ namespace ThemeBuilder.Forms
             {
                 openFileDialog.Filter = @"Theme File|*.xml";
 
-                if (openFileDialog.ShowDialog() != DialogResult.OK)
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    return;
+                    Theme theme = new Theme(openFileDialog.FileName);
+
+                    if (theme.Information.IsNull)
+                    {
+                        // Unable to read theme information maybe corrupted.
+                        MessageBox.Show($@"Unable to load the theme file.{Environment.NewLine}Detected invalid header.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        tbPath.Text = openFileDialog.FileName;
+                    }
+
+                    LoadTheme(theme);
                 }
-
-                tbPath.Text = openFileDialog.FileName;
-                Theme theme = new Theme(tbPath.Text);
-
-                if (theme.Information.IsEmpty)
-                {
-                    MessageBox.Show($@"Unable to load the theme file.{Environment.NewLine}Detected invalid header.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                LoadTheme(theme);
             }
         }
 

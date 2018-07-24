@@ -53,125 +53,125 @@ namespace VisualPlus.Structure
             // TODO: Simplify to decompose body.
             try
             {
-                themeInformation.Name = themeDocument.GetValue(Information + "Name");
-                themeInformation.Author = themeDocument.GetValue(Information + "Author");
+                themeInformation.Author = XMLManager.ReadElement(themeDocument, Information + "Author");
+                themeInformation.Name = XMLManager.ReadElement(themeDocument, Information + "Name");
 
-                colorPalette.BorderNormal = themeDocument.GetValue(Shared + "Border/Normal").ToColor();
-                colorPalette.BorderHover = themeDocument.GetValue(Shared + "Border/Hover").ToColor();
+                colorPalette.BorderNormal = XMLManager.ReadElement(themeDocument, Shared + "Border/Normal").ToColor();
+                colorPalette.BorderHover = XMLManager.ReadElement(themeDocument, Shared + "Border/Hover").ToColor();
 
-                colorPalette.TextDisabled = themeDocument.GetValue(Shared + "Text/Disabled").ToColor();
-                colorPalette.TextEnabled = themeDocument.GetValue(Shared + "Text/Enabled").ToColor();
-                colorPalette.TextHover = themeDocument.GetValue(Shared + "Text/Hover").ToColor();
-                colorPalette.TextPressed = themeDocument.GetValue(Shared + "Text/Pressed").ToColor();
-                colorPalette.Selected = themeDocument.GetValue(Shared + "Text/Selected").ToColor();
-                colorPalette.SubscriptColor = themeDocument.GetValue(Shared + "Text/Subscript").ToColor();
-                colorPalette.SuperscriptColor = themeDocument.GetValue(Shared + "Text/Superscript").ToColor();
+                colorPalette.TextDisabled = XMLManager.ReadElement(themeDocument, Shared + "Text/Disabled").ToColor();
+                colorPalette.TextEnabled = XMLManager.ReadElement(themeDocument, Shared + "Text/Enabled").ToColor();
+                colorPalette.TextHover = XMLManager.ReadElement(themeDocument, Shared + "Text/Hover").ToColor();
+                colorPalette.TextPressed = XMLManager.ReadElement(themeDocument, Shared + "Text/Pressed").ToColor();
+                colorPalette.Selected = XMLManager.ReadElement(themeDocument, Shared + "Text/Selected").ToColor();
+                colorPalette.SubscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Subscript").ToColor();
+                colorPalette.SuperscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Superscript").ToColor();
 
                 // colorPalette.Font = FontManager.ResolveFontFamily(themeDocument.GetValue(Shared + "Font/FontFamily"));
-                colorPalette.Enabled = themeDocument.GetValue(Toolkit + "VisualButton/Enabled").ToColor();
-                colorPalette.Disabled = themeDocument.GetValue(Toolkit + "VisualButton/Disabled").ToColor();
-                colorPalette.Hover = themeDocument.GetValue(Toolkit + "VisualButton/Hover").ToColor();
-                colorPalette.Pressed = themeDocument.GetValue(Toolkit + "VisualButton/Pressed").ToColor();
+                colorPalette.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Enabled").ToColor();
+                colorPalette.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Disabled").ToColor();
+                colorPalette.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Hover").ToColor();
+                colorPalette.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Pressed").ToColor();
 
-                colorPalette.FormBackground = themeDocument.GetValue(Toolkit + "VisualForm/Background").ToColor();
-                colorPalette.FormWindowBar = themeDocument.GetValue(Toolkit + "VisualForm/WindowBar").ToColor();
+                colorPalette.FormBackground = XMLManager.ReadElement(themeDocument, Toolkit + "VisualForm/Background").ToColor();
+                colorPalette.FormWindowBar = XMLManager.ReadElement(themeDocument, Toolkit + "VisualForm/WindowBar").ToColor();
 
-                colorPalette.Item = themeDocument.GetValue(Shared + "ListItem/Normal").ToColor();
-                colorPalette.ItemHover = themeDocument.GetValue(Shared + "ListItem/Hover").ToColor();
-                colorPalette.ItemSelected = themeDocument.GetValue(Shared + "ListItem/Selected").ToColor();
-                colorPalette.ItemAlternate = themeDocument.GetValue(Shared + "ListItem/Alternate").ToColor();
+                colorPalette.Item = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Normal").ToColor();
+                colorPalette.ItemHover = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Hover").ToColor();
+                colorPalette.ItemSelected = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Selected").ToColor();
+                colorPalette.ItemAlternate = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Alternate").ToColor();
 
-                colorPalette.Type1 = themeDocument.GetValue(Shared + "Background/Type1").ToColor();
-                colorPalette.Type2 = themeDocument.GetValue(Shared + "Background/Type2").ToColor();
-                colorPalette.Type3 = themeDocument.GetValue(Shared + "Background/Type3").ToColor();
-                colorPalette.Type4 = themeDocument.GetValue(Shared + "Background/Type4").ToColor();
+                colorPalette.Type1 = XMLManager.ReadElement(themeDocument, Shared + "Background/Type1").ToColor();
+                colorPalette.Type2 = XMLManager.ReadElement(themeDocument, Shared + "Background/Type2").ToColor();
+                colorPalette.Type3 = XMLManager.ReadElement(themeDocument, Shared + "Background/Type3").ToColor();
+                colorPalette.Type4 = XMLManager.ReadElement(themeDocument, Shared + "Background/Type4").ToColor();
 
-                colorPalette.Line = themeDocument.GetValue(Shared + "Line").ToColor();
-                colorPalette.Shadow = themeDocument.GetValue(Shared + "Shadow").ToColor();
-                colorPalette.LightText = themeDocument.GetValue(Shared + "LightText").ToColor();
+                colorPalette.Line = XMLManager.ReadElement(themeDocument, Shared + "Line").ToColor();
+                colorPalette.Shadow = XMLManager.ReadElement(themeDocument, Shared + "Shadow").ToColor();
+                colorPalette.LightText = XMLManager.ReadElement(themeDocument, Shared + "LightText").ToColor();
 
-                colorPalette.ColumnHeader = themeDocument.GetValue(Shared + "ColumnHeader/Header").ToColor();
-                colorPalette.ColumnText = themeDocument.GetValue(Shared + "ColumnHeader/Text").ToColor();
+                colorPalette.ColumnHeader = XMLManager.ReadElement(themeDocument, Shared + "ColumnHeader/Header").ToColor();
+                colorPalette.ColumnText = XMLManager.ReadElement(themeDocument, Shared + "ColumnHeader/Text").ToColor();
 
-                colorPalette.ControlEnabled = themeDocument.GetValue(Shared + "Control/Enabled").ToColor();
-                colorPalette.ControlDisabled = themeDocument.GetValue(Shared + "Control/Disabled").ToColor();
+                colorPalette.ControlEnabled = XMLManager.ReadElement(themeDocument, Shared + "Control/Enabled").ToColor();
+                colorPalette.ControlDisabled = XMLManager.ReadElement(themeDocument, Shared + "Control/Disabled").ToColor();
 
-                colorPalette.BackCircle = themeDocument.GetValue(Toolkit + "VisualRadialProgress/BackCircle").ToColor();
-                colorPalette.ForeCircle = themeDocument.GetValue(Toolkit + "VisualRadialProgress/ForeCircle").ToColor();
+                colorPalette.BackCircle = XMLManager.ReadElement(themeDocument, Toolkit + "VisualRadialProgress/BackCircle").ToColor();
+                colorPalette.ForeCircle = XMLManager.ReadElement(themeDocument, Toolkit + "VisualRadialProgress/ForeCircle").ToColor();
 
-                colorPalette.ProgressBackground = themeDocument.GetValue(Shared + "ProgressBar/Background").ToColor();
-                colorPalette.Progress = themeDocument.GetValue(Shared + "ProgressBar/Working").ToColor();
-                colorPalette.ProgressDisabled = themeDocument.GetValue(Shared + "ProgressBar/Disabled").ToColor();
+                colorPalette.ProgressBackground = XMLManager.ReadElement(themeDocument, Shared + "ProgressBar/Background").ToColor();
+                colorPalette.Progress = XMLManager.ReadElement(themeDocument, Shared + "ProgressBar/Working").ToColor();
+                colorPalette.ProgressDisabled = XMLManager.ReadElement(themeDocument, Shared + "ProgressBar/Disabled").ToColor();
 
-                colorPalette.HatchBackColor = themeDocument.GetValue(Shared + "Hatch/BackColor").ToColor();
-                colorPalette.HatchForeColor = themeDocument.GetValue(Shared + "Hatch/ForeColor").ToColor();
+                colorPalette.HatchBackColor = XMLManager.ReadElement(themeDocument, Shared + "Hatch/BackColor").ToColor();
+                colorPalette.HatchForeColor = XMLManager.ReadElement(themeDocument, Shared + "Hatch/ForeColor").ToColor();
 
-                colorPalette.FlatControlDisabled = themeDocument.GetValue(Shared + "FlatControl/Enabled").ToColor();
-                colorPalette.FlatControlEnabled = themeDocument.GetValue(Shared + "FlatControl/Enabled").ToColor();
+                colorPalette.FlatControlDisabled = XMLManager.ReadElement(themeDocument, Shared + "FlatControl/Enabled").ToColor();
+                colorPalette.FlatControlEnabled = XMLManager.ReadElement(themeDocument, Shared + "FlatControl/Enabled").ToColor();
 
-                colorPalette.BoxDisabled = themeDocument.GetValue(Shared + "Box/Disabled").ToColor();
-                colorPalette.BoxEnabled = themeDocument.GetValue(Shared + "Box/Enabled").ToColor();
+                colorPalette.BoxDisabled = XMLManager.ReadElement(themeDocument, Shared + "Box/Disabled").ToColor();
+                colorPalette.BoxEnabled = XMLManager.ReadElement(themeDocument, Shared + "Box/Enabled").ToColor();
 
-                colorPalette.WatermarkActive = themeDocument.GetValue(Shared + "Watermark/Active").ToColor();
-                colorPalette.WatermarkInactive = themeDocument.GetValue(Shared + "Watermark/Inactive").ToColor();
+                colorPalette.WatermarkActive = XMLManager.ReadElement(themeDocument, Shared + "Watermark/Active").ToColor();
+                colorPalette.WatermarkInactive = XMLManager.ReadElement(themeDocument, Shared + "Watermark/Inactive").ToColor();
 
-                colorPalette.TabPageEnabled = themeDocument.GetValue(Shared + "TabPage/Enabled").ToColor();
-                colorPalette.TabPageDisabled = themeDocument.GetValue(Shared + "TabPage/Disabled").ToColor();
-                colorPalette.TabPageHover = themeDocument.GetValue(Shared + "TabPage/Hover").ToColor();
-                colorPalette.TabPageSelected = themeDocument.GetValue(Shared + "TabPage/Selected").ToColor();
+                colorPalette.TabPageEnabled = XMLManager.ReadElement(themeDocument, Shared + "TabPage/Enabled").ToColor();
+                colorPalette.TabPageDisabled = XMLManager.ReadElement(themeDocument, Shared + "TabPage/Disabled").ToColor();
+                colorPalette.TabPageHover = XMLManager.ReadElement(themeDocument, Shared + "TabPage/Hover").ToColor();
+                colorPalette.TabPageSelected = XMLManager.ReadElement(themeDocument, Shared + "TabPage/Selected").ToColor();
 
-                colorPalette.HelpButtonBack.Disabled = themeDocument.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Disabled").ToColor();
-                colorPalette.HelpButtonBack.Enabled = themeDocument.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Enabled").ToColor();
-                colorPalette.HelpButtonBack.Hover = themeDocument.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Hover").ToColor();
-                colorPalette.HelpButtonBack.Pressed = themeDocument.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Pressed").ToColor();
+                colorPalette.HelpButtonBack.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Disabled").ToColor();
+                colorPalette.HelpButtonBack.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Enabled").ToColor();
+                colorPalette.HelpButtonBack.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Hover").ToColor();
+                colorPalette.HelpButtonBack.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Pressed").ToColor();
 
-                colorPalette.HelpButtonFore.Disabled = themeDocument.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Disabled").ToColor();
-                colorPalette.HelpButtonFore.Enabled = themeDocument.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Enabled").ToColor();
-                colorPalette.HelpButtonFore.Hover = themeDocument.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Hover").ToColor();
-                colorPalette.HelpButtonFore.Pressed = themeDocument.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Pressed").ToColor();
+                colorPalette.HelpButtonFore.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Disabled").ToColor();
+                colorPalette.HelpButtonFore.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Enabled").ToColor();
+                colorPalette.HelpButtonFore.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Hover").ToColor();
+                colorPalette.HelpButtonFore.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Pressed").ToColor();
 
-                colorPalette.MinimizeButtonBack.Disabled = themeDocument.GetValue(Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Disabled").ToColor();
-                colorPalette.MinimizeButtonBack.Enabled = themeDocument.GetValue(Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Enabled").ToColor();
-                colorPalette.MinimizeButtonBack.Hover = themeDocument.GetValue(Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Hover").ToColor();
-                colorPalette.MinimizeButtonBack.Pressed = themeDocument.GetValue(Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Pressed").ToColor();
+                colorPalette.MinimizeButtonBack.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Disabled").ToColor();
+                colorPalette.MinimizeButtonBack.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Enabled").ToColor();
+                colorPalette.MinimizeButtonBack.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Hover").ToColor();
+                colorPalette.MinimizeButtonBack.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Pressed").ToColor();
 
-                colorPalette.MinimizeButtonFore.Disabled = themeDocument.GetValue(Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Disabled").ToColor();
-                colorPalette.MinimizeButtonFore.Enabled = themeDocument.GetValue(Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Enabled").ToColor();
-                colorPalette.MinimizeButtonFore.Hover = themeDocument.GetValue(Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Hover").ToColor();
-                colorPalette.MinimizeButtonFore.Pressed = themeDocument.GetValue(Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Pressed").ToColor();
+                colorPalette.MinimizeButtonFore.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Disabled").ToColor();
+                colorPalette.MinimizeButtonFore.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Enabled").ToColor();
+                colorPalette.MinimizeButtonFore.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Hover").ToColor();
+                colorPalette.MinimizeButtonFore.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Pressed").ToColor();
 
-                colorPalette.MaximizeButtonBack.Disabled = themeDocument.GetValue(Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Disabled").ToColor();
-                colorPalette.MaximizeButtonBack.Enabled = themeDocument.GetValue(Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Enabled").ToColor();
-                colorPalette.MaximizeButtonBack.Hover = themeDocument.GetValue(Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Hover").ToColor();
-                colorPalette.MaximizeButtonBack.Pressed = themeDocument.GetValue(Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Pressed").ToColor();
+                colorPalette.MaximizeButtonBack.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Disabled").ToColor();
+                colorPalette.MaximizeButtonBack.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Enabled").ToColor();
+                colorPalette.MaximizeButtonBack.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Hover").ToColor();
+                colorPalette.MaximizeButtonBack.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Pressed").ToColor();
 
-                colorPalette.MaximizeButtonFore.Disabled = themeDocument.GetValue(Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Disabled").ToColor();
-                colorPalette.MaximizeButtonFore.Enabled = themeDocument.GetValue(Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Enabled").ToColor();
-                colorPalette.MaximizeButtonFore.Hover = themeDocument.GetValue(Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Hover").ToColor();
-                colorPalette.MaximizeButtonFore.Pressed = themeDocument.GetValue(Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Pressed").ToColor();
+                colorPalette.MaximizeButtonFore.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Disabled").ToColor();
+                colorPalette.MaximizeButtonFore.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Enabled").ToColor();
+                colorPalette.MaximizeButtonFore.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Hover").ToColor();
+                colorPalette.MaximizeButtonFore.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Pressed").ToColor();
 
-                colorPalette.CloseButtonBack.Disabled = themeDocument.GetValue(Toolkit + "VisualControlBox/CloseButton/BackColorState/Disabled").ToColor();
-                colorPalette.CloseButtonBack.Enabled = themeDocument.GetValue(Toolkit + "VisualControlBox/CloseButton/BackColorState/Enabled").ToColor();
-                colorPalette.CloseButtonBack.Hover = themeDocument.GetValue(Toolkit + "VisualControlBox/CloseButton/BackColorState/Hover").ToColor();
-                colorPalette.CloseButtonBack.Pressed = themeDocument.GetValue(Toolkit + "VisualControlBox/CloseButton/BackColorState/Pressed").ToColor();
+                colorPalette.CloseButtonBack.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Disabled").ToColor();
+                colorPalette.CloseButtonBack.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Enabled").ToColor();
+                colorPalette.CloseButtonBack.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Hover").ToColor();
+                colorPalette.CloseButtonBack.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Pressed").ToColor();
 
-                colorPalette.CloseButtonFore.Disabled = themeDocument.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Disabled").ToColor();
-                colorPalette.CloseButtonFore.Enabled = themeDocument.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Enabled").ToColor();
-                colorPalette.CloseButtonFore.Hover = themeDocument.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Hover").ToColor();
-                colorPalette.CloseButtonFore.Pressed = themeDocument.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Pressed").ToColor();
+                colorPalette.CloseButtonFore.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Disabled").ToColor();
+                colorPalette.CloseButtonFore.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Enabled").ToColor();
+                colorPalette.CloseButtonFore.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Hover").ToColor();
+                colorPalette.CloseButtonFore.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Pressed").ToColor();
 
-                colorPalette.ScrollBar.Disabled = themeDocument.GetValue(Toolkit + "VisualScrollBar/Bar/Disabled").ToColor();
-                colorPalette.ScrollBar.Enabled = themeDocument.GetValue(Toolkit + "VisualScrollBar/Bar/Enabled").ToColor();
+                colorPalette.ScrollBar.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Bar/Disabled").ToColor();
+                colorPalette.ScrollBar.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Bar/Enabled").ToColor();
 
-                colorPalette.ScrollThumb.Disabled = themeDocument.GetValue(Toolkit + "VisualScrollBar/Thumb/Disabled").ToColor();
-                colorPalette.ScrollThumb.Enabled = themeDocument.GetValue(Toolkit + "VisualScrollBar/Thumb/Enabled").ToColor();
-                colorPalette.ScrollThumb.Hover = themeDocument.GetValue(Toolkit + "VisualScrollBar/Thumb/Hover").ToColor();
-                colorPalette.ScrollThumb.Pressed = themeDocument.GetValue(Toolkit + "VisualScrollBar/Thumb/Pressed").ToColor();
+                colorPalette.ScrollThumb.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Disabled").ToColor();
+                colorPalette.ScrollThumb.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Enabled").ToColor();
+                colorPalette.ScrollThumb.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Hover").ToColor();
+                colorPalette.ScrollThumb.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Pressed").ToColor();
 
-                colorPalette.ScrollButton.Disabled = themeDocument.GetValue(Toolkit + "VisualScrollBar/Button/Disabled").ToColor();
-                colorPalette.ScrollButton.Enabled = themeDocument.GetValue(Toolkit + "VisualScrollBar/Button/Enabled").ToColor();
-                colorPalette.ScrollButton.Hover = themeDocument.GetValue(Toolkit + "VisualScrollBar/Button/Hover").ToColor();
-                colorPalette.ScrollButton.Pressed = themeDocument.GetValue(Toolkit + "VisualScrollBar/Button/Pressed").ToColor();
+                colorPalette.ScrollButton.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Disabled").ToColor();
+                colorPalette.ScrollButton.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Enabled").ToColor();
+                colorPalette.ScrollButton.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Hover").ToColor();
+                colorPalette.ScrollButton.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Pressed").ToColor();
             }
             catch (Exception e)
             {

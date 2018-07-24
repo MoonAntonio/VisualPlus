@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 
 using VisualPlus.Constants;
 using VisualPlus.Extensibility;
@@ -17,6 +18,99 @@ namespace VisualPlus.Managers
     public class XMLManager
     {
         #region Methods
+
+        /// <summary>Verify the element node is empty.</summary>
+        /// <param name="container">The theme container.</param>
+        /// <param name="elementPath">The element path.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool NodeEmpty(XContainer container, string elementPath)
+        {
+            if (container == null)
+            {
+                throw new ArgumentNullException(nameof(container));
+            }
+
+            if (string.IsNullOrEmpty(elementPath))
+            {
+                throw new ArgumentNullException(nameof(elementPath));
+            }
+
+            bool nodeEmpty;
+            if (NodeExists(container, elementPath))
+            {
+                XElement node = container.GetNode(elementPath);
+                nodeEmpty = string.IsNullOrEmpty(node.Value);
+            }
+            else
+            {
+                throw new ArgumentNullException($@"The node doesn't exist. Element Path: {elementPath}");
+            }
+
+            return nodeEmpty;
+        }
+
+        /// <summary>Verify the element node exists.</summary>
+        /// <param name="container">The theme container.</param>
+        /// <param name="elementPath">The element path.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool NodeExists(XContainer container, string elementPath)
+        {
+            if (container == null)
+            {
+                throw new ArgumentNullException(nameof(container));
+            }
+
+            if (string.IsNullOrEmpty(elementPath))
+            {
+                throw new ArgumentNullException(nameof(elementPath));
+            }
+
+            XElement node = container.GetNode(elementPath);
+            bool nodeExists = node != null;
+            return nodeExists;
+        }
+
+        /// <summary>Reads the xml container element to string.</summary>
+        /// <param name="container">The xml container.</param>
+        /// <param name="elementPath">The element path.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        public static string ReadElement(XContainer container, string elementPath)
+        {
+            if (container == null)
+            {
+                throw new ArgumentNullException(nameof(container));
+            }
+
+            if (string.IsNullOrEmpty(elementPath))
+            {
+                throw new ArgumentNullException(nameof(elementPath));
+            }
+
+            string element;
+
+            if (NodeExists(container, elementPath))
+            {
+                if (NodeEmpty(container, elementPath))
+                {
+                    // Empty node return a default or null value;
+                    element = null;
+                }
+                else
+                {
+                    // Read node value.
+                    element = container.GetNode(elementPath).Value;
+                }
+            }
+            else
+            {
+                element = null;
+
+                // Node not found logging to trace listener.
+                ConsoleEx.WriteDebug($@"Unable to read the xml node. Path: {elementPath}");
+            }
+
+            return element;
+        }
 
         /// <summary>Write the element string to xml.</summary>
         /// <param name="xmlWriter">The xml writer.</param>
@@ -126,12 +220,10 @@ namespace VisualPlus.Managers
         {
             if ((name == "Name") && string.IsNullOrEmpty(value))
             {
-                ConsoleEx.WriteDebug("Theme didn't have a theme NAME. Setting default.");
                 value = SettingConstants.ThemeName;
             }
             else if ((name == "Author") && string.IsNullOrEmpty(value))
             {
-                ConsoleEx.WriteDebug("Theme didn't have an author. Setting default.");
                 value = SettingConstants.ThemeAuthor;
             }
 
