@@ -71,6 +71,16 @@ namespace VisualPlus.Structure
 
         #region Properties
 
+        /// <summary>Gets the <see cref="Border" /> display distance based on thickness and visibility.</summary>
+        [Browsable(false)]
+        public int Distance
+        {
+            get
+            {
+                return Visible ? Thickness : 0;
+            }
+        }
+
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(PropertyDescription.Color)]

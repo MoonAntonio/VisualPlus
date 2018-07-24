@@ -1,5 +1,6 @@
 ﻿#region Namespace
 
+using System;
 using System.Drawing;
 
 #endregion
@@ -53,7 +54,17 @@ namespace VisualPlus.Renders
         /// <param name="image">The image to draw.</param>
         public static void RenderImageFilled(Graphics graphics, Rectangle clientRectangle, Image image)
         {
-            graphics.DrawImage(image, new Rectangle(new Point(0, 0), clientRectangle.Size));
+            if (graphics == null)
+            {
+                throw new ArgumentNullException(nameof(graphics));
+            }
+
+            if (image == null)
+            {
+                throw new ArgumentNullException(nameof(image));
+            }
+
+            graphics.DrawImage(image, clientRectangle);
         }
 
         #endregion

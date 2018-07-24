@@ -51,7 +51,6 @@ namespace VisualPlus.Toolkit.Dialogs
         private ContextMenuStrip _contextMenuStrip;
         private bool _defaultContextTitle;
         private bool _dropShadow;
-        private Rectangle _formBody;
         private bool _headerMouseDown;
         private bool _magnetic;
         private int _magneticRadius;
@@ -63,12 +62,14 @@ namespace VisualPlus.Toolkit.Dialogs
         private StyleManager _styleManager;
         private int _textPaddingTop;
         private Alignment.TextAlignment _titleAlignment;
+        private Color _titleForeColor;
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
         private ContextMenuStrip _windowContextMenuStripTitle;
         private Rectangle _windowTitleBarRectangle;
         private bool _windowTitleBarVisible;
+        private int titleMaxLength;
 
         #endregion
 
@@ -140,9 +141,8 @@ namespace VisualPlus.Toolkit.Dialogs
             _contextMenuStrip = null;
             _windowContextMenuStripTitle = null;
             _defaultContextTitle = true;
-
-            _formBody = new Rectangle(0, 0, 0, 0);
-            UpdateBody();
+            titleMaxLength = 50;
+            TitleSuffix = @"...";
 
             UpdateContextMenuStripTitle();
 
@@ -299,6 +299,48 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
+        /// <summary>Retrieves the <see cref="VisualForm" /> full body.</summary>
+        [Browsable(false)]
+        public Rectangle Body
+        {
+            get
+            {
+                Rectangle body;
+
+                if (_windowTitleBarVisible)
+                {
+                    body = new Rectangle(1, _windowBarHeight + 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+                }
+                else
+                {
+                    body = new Rectangle(1, 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+                }
+
+                return body;
+            }
+        }
+
+        /// <summary>Retrieves the <see cref="VisualForm" /> body container.</summary>
+        [Browsable(false)]
+        public Rectangle BodyContainer
+        {
+            get
+            {
+                Rectangle bodyContainer;
+
+                if (_windowTitleBarVisible)
+                {
+                    bodyContainer = new Rectangle(_border.Distance, _border.Distance + _windowBarHeight, ClientRectangle.Width - _border.Distance, ClientRectangle.Height - _windowBarHeight - _border.Distance);
+                }
+                else
+                {
+                    bodyContainer = new Rectangle(_border.Distance, _border.Distance, ClientRectangle.Width + _border.Distance, ClientRectangle.Height + _border.Distance);
+                }
+
+                return bodyContainer;
+            }
+        }
+
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
@@ -378,16 +420,6 @@ namespace VisualPlus.Toolkit.Dialogs
             set
             {
                 _dropShadow = value;
-            }
-        }
-
-        /// <summary>Retrieves the form body rectangle.</summary>
-        [Browsable(false)]
-        public Rectangle FormBody
-        {
-            get
-            {
-                return _formBody;
             }
         }
 
@@ -605,6 +637,42 @@ namespace VisualPlus.Toolkit.Dialogs
                 Invalidate();
             }
         }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        public Color TitleForeColor
+        {
+            get
+            {
+                return _titleForeColor;
+            }
+
+            set
+            {
+                _titleForeColor = value;
+                Invalidate();
+            }
+        }
+
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.MaxLength)]
+        public int TitleMaxLength
+        {
+            get
+            {
+                return titleMaxLength;
+            }
+
+            set
+            {
+                titleMaxLength = value;
+            }
+        }
+
+        [Browsable(false)]
+        [Category(PropertyCategory.Data)]
+        [Description(PropertyDescription.Text)]
+        public string TitleSuffix { get; set; }
 
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
@@ -842,11 +910,9 @@ namespace VisualPlus.Toolkit.Dialogs
 
                 graphics.FillRectangle(new SolidBrush(_background), new Rectangle(0, 0, Width, Height));
 
-                UpdateBody();
-
                 if (BackgroundImage != null)
                 {
-                    graphics.DrawImage(BackgroundImage, _formBody);
+                    graphics.DrawImage(BackgroundImage, BodyContainer);
                 }
 
                 if (_windowTitleBarVisible)
@@ -897,6 +963,13 @@ namespace VisualPlus.Toolkit.Dialogs
         protected override void OnTextChanged(EventArgs e)
         {
             base.OnTextChanged(e);
+
+            // Update caption if its too long to fit in the title.
+            if (Text.Length > titleMaxLength)
+            {
+                string tooLongText = Text.Substring(0, titleMaxLength);
+                Text = tooLongText + TitleSuffix;
+            }
 
             // Repaint the text on change.
             Invalidate();
@@ -1068,6 +1141,7 @@ namespace VisualPlus.Toolkit.Dialogs
                 _border.Color = theme.ColorPalette.BorderNormal;
                 _border.HoverColor = theme.ColorPalette.BorderHover;
                 ForeColor = theme.ColorPalette.TextEnabled;
+                _titleForeColor = theme.ColorPalette.TextEnabled;
                 _windowBarColor = theme.ColorPalette.FormWindowBar;
             }
             catch (Exception e)
@@ -1113,7 +1187,15 @@ namespace VisualPlus.Toolkit.Dialogs
 
                     case Alignment.TextAlignment.Left:
                         {
-                            _titleLocation = new Point(_vsImage.Point.X + _vsImage.Size.Width + 1, _titleLocation.Y);
+                            if (_vsImage.Visible)
+                            {
+                                _titleLocation = new Point(_vsImage.Point.X + _vsImage.Size.Width + 1, _titleLocation.Y);
+                            }
+                            else
+                            {
+                                _titleLocation = new Point(_vsImage.Point.X, _titleLocation.Y);
+                            }
+
                             break;
                         }
 
@@ -1129,7 +1211,7 @@ namespace VisualPlus.Toolkit.Dialogs
                         }
                 }
 
-                graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _titleLocation);
+                graphics.DrawString(Text, Font, new SolidBrush(_titleForeColor), _titleLocation);
             }
             catch (Exception e)
             {
@@ -1254,19 +1336,6 @@ namespace VisualPlus.Toolkit.Dialogs
             if (_resizeDirection != -1)
             {
                 User32.SendMessage(Handle, FormConstants.WM_NCLBUTTONDOWN, _resizeDirection, 0);
-            }
-        }
-
-        /// <summary>Update the body rectangle.</summary>
-        private void UpdateBody()
-        {
-            if (_windowTitleBarVisible)
-            {
-                _formBody = new Rectangle(1, VisualControlBox.Bottom, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
-            }
-            else
-            {
-                _formBody = new Rectangle(1, 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
             }
         }
 

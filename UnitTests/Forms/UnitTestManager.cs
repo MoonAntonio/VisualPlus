@@ -2,7 +2,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Windows.Forms;
 
 using UnitTests.Tests;
 
@@ -83,7 +82,8 @@ namespace UnitTests.Forms
 
                 case UnitTests.VisualMessageBox:
                     {
-                        VisualMessageBox.Show("Hello World", Application.ProductName);
+                        _formToOpen = new VisualMessageBoxTest();
+                        _formToOpen.ShowDialog();
                         break;
                     }
 

@@ -108,16 +108,19 @@ namespace VisualPlus.Managers
         /// <param name="font">The font to apply to the measured text.</param>
         /// <param name="graphics">The specified graphics input.</param>
         /// <returns>The <see cref="SizeF" />.</returns>
-        public static SizeF MeasureMultiLineText(string text, Font font, Graphics graphics = null)
+        public static Size MeasureMultiLineText(string text, Font font, Graphics graphics = null)
         {
             Graphics _graphics = graphics ?? new Control().CreateGraphics();
             StringReader _stringReader = new StringReader(text);
-            SizeF _textSize = new SizeF(0, 0);
+            Size _textSize = new Size(0, 0);
 
             string _line;
             while ((_line = _stringReader.ReadLine()) != null)
             {
-                SizeF _stringSize = _graphics.MeasureString(_line, font);
+                int _width = Convert.ToInt32(_graphics.MeasureString(_line, font).Width);
+                int _height = Convert.ToInt32(_graphics.MeasureString(_line, font).Height);
+
+                Size _stringSize = new Size(_width, _height);
                 _textSize.Height += _stringSize.Height;
 
                 if (_textSize.Width < _stringSize.Width)

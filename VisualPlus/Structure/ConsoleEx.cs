@@ -3,6 +3,7 @@
 using System;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -64,7 +65,43 @@ namespace VisualPlus.Structure
             return DateTime.Now.ToLocalTime() + " : " + text + Environment.NewLine;
         }
 
+        /// <summary>Write the debug int to the output.</summary>
+        /// <param name="value">The value.</param>
+        /// <param name="formatted">The toggle.</param>
+        /// <param name="output">The output method to use.</param>
+        public static void WriteDebug(int value, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
+        {
+            WriteLog($@"Value: {value.ToString()}", formatted, output);
+        }
+
+        /// <summary>Write the debug color to the output.</summary>
+        /// <param name="color">The color.</param>
+        /// <param name="formatted">The toggle.</param>
+        /// <param name="output">The output method to use.</param>
+        public static void WriteDebug(Color color, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
+        {
+            WriteLog($@"Value: {color.ToString()}", formatted, output);
+        }
+
+        /// <summary>Write the debug rectangle to the output.</summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="formatted">The toggle.</param>
+        /// <param name="output">The output method to use.</param>
+        public static void WriteDebug(Rectangle rectangle, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
+        {
+            WriteLog($@"Value: {rectangle.ToString()}", formatted, output);
+        }
+
         /// <summary>Write the debug text to the output.</summary>
+        /// <param name="point">The point.</param>
+        /// <param name="formatted">The toggle.</param>
+        /// <param name="output">The output method to use.</param>
+        public static void WriteDebug(Point point, bool formatted = true, DebugOutput output = DebugOutput.TraceListener)
+        {
+            WriteLog($@"Value: {point.ToString()}", formatted, output);
+        }
+
+        /// <summary>Write the debug bool to the output.</summary>
         /// <param name="value">The value.</param>
         /// <param name="formatted">The toggle.</param>
         /// <param name="output">The output method to use.</param>

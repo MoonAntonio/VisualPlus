@@ -107,6 +107,16 @@ namespace VisualPlus.Extensibility
             return length < text.Length ? text.Substring(0, length) : text;
         }
 
+        /// <summary>The amount of lines in the string.</summary>
+        /// <param name="text">The text.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        public static int LineCount(this string text)
+        {
+            // int numLinesMethod = text.Length - text.Replace(Environment.NewLine, string.Empty).Length;
+            int numLines = text.Split('\n').Length;
+            return numLines;
+        }
+
         /// <summary>Returns the text as a <see cref="string" /><see cref="Array" />.</summary>
         /// <param name="text">The text.</param>
         /// <returns>The <see cref="string" />.</returns>

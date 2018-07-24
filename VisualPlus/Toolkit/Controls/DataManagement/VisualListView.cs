@@ -20,7 +20,6 @@ using VisualPlus.Designer;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
-using VisualPlus.Managers;
 using VisualPlus.Native;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
@@ -2735,7 +2734,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             if ((_items.Count <= 0) && _displayTextOnEmpty)
             {
                 Rectangle _layoutRectangle = new Rectangle(0, 0, RowsClientRectangle.Width, RowsClientRectangle.Height);
-             VisualTextRenderer.RenderText(graphics, _layoutRectangle, _displayText, _displayTextFont, _displayTextColor, TextStyle.StringFormat);
+                VisualTextRenderer.RenderText(graphics, _layoutRectangle, _displayText, _displayTextFont, _displayTextColor, TextStyle.StringFormat);
             }
         }
 

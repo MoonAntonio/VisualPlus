@@ -274,7 +274,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
 
                 Color _textColor = Enabled ? ForeColor : TextStyle.Disabled;
-                
+
                 if (_image != null)
                 {
                     VisualControlRenderer.DrawContent(e.Graphics, ClientRectangle, Text, Font, _textColor, _image, _image.Size, _textImageRelation);

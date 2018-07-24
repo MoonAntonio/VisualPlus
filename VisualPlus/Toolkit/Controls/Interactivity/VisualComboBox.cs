@@ -734,11 +734,11 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 _border.Color = theme.ColorPalette.BorderNormal;
                 _border.HoverColor = theme.ColorPalette.BorderHover;
 
-                ForeColor = theme.ColorPalette.TextEnabled;
+                _foreColor = theme.ColorPalette.TextEnabled;
+                _textDisabledColor = theme.ColorPalette.TextDisabled;
                 _textStyle.Enabled = theme.ColorPalette.TextEnabled;
                 _textStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                // Font = theme.ColorPalette.Font;
                 _borderEdge.BackColor = theme.ColorPalette.Line;
 
                 _backColorState = new ColorState

@@ -699,6 +699,22 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.WordWrap)]
+        public bool WordWrap
+        {
+            get
+            {
+                return _textBox.WordWrap;
+            }
+
+            set
+            {
+                _textBox.WordWrap = value;
+                Invalidate();
+            }
+        }
+
         #endregion
 
         #region Overrides
