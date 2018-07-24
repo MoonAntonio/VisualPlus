@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UnitTestManager));
             this.BtnRunTest = new VisualPlus.Toolkit.Controls.Interactivity.VisualButton();
             this.visualListBoxTests = new VisualPlus.Toolkit.Controls.DataManagement.VisualListBox();
-            this.visualLabelTestsCount = new VisualPlus.Toolkit.Controls.Interactivity.VisualLabel();
+            this.visualLabelTestsStats = new VisualPlus.Toolkit.Controls.Interactivity.VisualLabel();
             this.SuspendLayout();
             // 
             // BtnRunTest
@@ -51,10 +51,10 @@
             this.BtnRunTest.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.BtnRunTest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.BtnRunTest.Image = null;
-            this.BtnRunTest.Location = new System.Drawing.Point(12, 42);
+            this.BtnRunTest.Location = new System.Drawing.Point(232, 40);
             this.BtnRunTest.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.BtnRunTest.Name = "BtnRunTest";
-            this.BtnRunTest.Size = new System.Drawing.Size(88, 38);
+            this.BtnRunTest.Size = new System.Drawing.Size(88, 28);
             this.BtnRunTest.TabIndex = 2;
             this.BtnRunTest.Text = "Run Test";
             this.BtnRunTest.TextAlignment = System.Drawing.StringAlignment.Center;
@@ -88,7 +88,7 @@
             this.visualListBoxTests.ItemLineAlignment = System.Drawing.StringAlignment.Center;
             this.visualListBoxTests.ItemNormal = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
             this.visualListBoxTests.ItemSelected = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
-            this.visualListBoxTests.Location = new System.Drawing.Point(12, 86);
+            this.visualListBoxTests.Location = new System.Drawing.Point(12, 78);
             this.visualListBoxTests.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.visualListBoxTests.Name = "visualListBoxTests";
             this.visualListBoxTests.Size = new System.Drawing.Size(308, 150);
@@ -103,36 +103,36 @@
             this.visualListBoxTests.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.visualListBoxTests.SelectedIndexChanged += new System.EventHandler(this.ListBoxTests_SelectedIndexChanged);
             // 
-            // visualLabelTestsCount
+            // visualLabelTestsStats
             // 
-            this.visualLabelTestsCount.BackColor = System.Drawing.Color.White;
-            this.visualLabelTestsCount.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.visualLabelTestsCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.visualLabelTestsCount.Location = new System.Drawing.Point(220, 49);
-            this.visualLabelTestsCount.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
-            this.visualLabelTestsCount.Name = "visualLabelTestsCount";
-            this.visualLabelTestsCount.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.visualLabelTestsCount.Outline = false;
-            this.visualLabelTestsCount.OutlineColor = System.Drawing.Color.Red;
-            this.visualLabelTestsCount.OutlineLocation = new System.Drawing.Point(0, 0);
-            this.visualLabelTestsCount.ReflectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.visualLabelTestsCount.ReflectionSpacing = 0;
-            this.visualLabelTestsCount.ShadowColor = System.Drawing.Color.Black;
-            this.visualLabelTestsCount.ShadowDirection = 315;
-            this.visualLabelTestsCount.ShadowLocation = new System.Drawing.Point(0, 0);
-            this.visualLabelTestsCount.ShadowOpacity = 100;
-            this.visualLabelTestsCount.Size = new System.Drawing.Size(100, 23);
-            this.visualLabelTestsCount.TabIndex = 4;
-            this.visualLabelTestsCount.Text = "Tests Count: 0";
-            this.visualLabelTestsCount.TextAlignment = System.Drawing.StringAlignment.Far;
-            this.visualLabelTestsCount.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            this.visualLabelTestsCount.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            this.visualLabelTestsCount.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.visualLabelTestsCount.TextStyle.Hover = System.Drawing.Color.Empty;
-            this.visualLabelTestsCount.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
-            this.visualLabelTestsCount.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.visualLabelTestsCount.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            this.visualLabelTestsCount.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.visualLabelTestsStats.BackColor = System.Drawing.Color.White;
+            this.visualLabelTestsStats.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.visualLabelTestsStats.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabelTestsStats.Location = new System.Drawing.Point(12, 34);
+            this.visualLabelTestsStats.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.visualLabelTestsStats.Name = "visualLabelTestsStats";
+            this.visualLabelTestsStats.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.visualLabelTestsStats.Outline = false;
+            this.visualLabelTestsStats.OutlineColor = System.Drawing.Color.Red;
+            this.visualLabelTestsStats.OutlineLocation = new System.Drawing.Point(0, 0);
+            this.visualLabelTestsStats.ReflectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabelTestsStats.ReflectionSpacing = 0;
+            this.visualLabelTestsStats.ShadowColor = System.Drawing.Color.Black;
+            this.visualLabelTestsStats.ShadowDirection = 315;
+            this.visualLabelTestsStats.ShadowLocation = new System.Drawing.Point(0, 0);
+            this.visualLabelTestsStats.ShadowOpacity = 100;
+            this.visualLabelTestsStats.Size = new System.Drawing.Size(214, 38);
+            this.visualLabelTestsStats.TabIndex = 4;
+            this.visualLabelTestsStats.Text = "Selected: 0\r\nTotal Tests: 0";
+            this.visualLabelTestsStats.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.visualLabelTestsStats.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.visualLabelTestsStats.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.visualLabelTestsStats.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabelTestsStats.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.visualLabelTestsStats.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            this.visualLabelTestsStats.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.visualLabelTestsStats.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.visualLabelTestsStats.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // 
             // UnitTestManager
             // 
@@ -146,7 +146,7 @@
             this.Border.Thickness = 3;
             this.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
             this.Border.Visible = true;
-            this.ClientSize = new System.Drawing.Size(333, 251);
+            this.ClientSize = new System.Drawing.Size(333, 242);
             // 
             // 
             // 
@@ -246,7 +246,7 @@
             this.ControlBox.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.Controls.Add(this.visualLabelTestsCount);
+            this.Controls.Add(this.visualLabelTestsStats);
             this.Controls.Add(this.visualListBoxTests);
             this.Controls.Add(this.BtnRunTest);
             this.HelpButton = true;
@@ -265,7 +265,7 @@
             this.MinimizeBox = true;
             this.Name = "UnitTestManager";
             this.Sizable = false;
-            this.Text = "VisualPlus - UnitTest Manager";
+            this.Text = "VisualPlus - Unit Test Manager";
             this.Load += new System.EventHandler(this.TestManager_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -275,6 +275,6 @@
         #endregion
         private VisualPlus.Toolkit.Controls.Interactivity.VisualButton BtnRunTest;
         private VisualPlus.Toolkit.Controls.DataManagement.VisualListBox visualListBoxTests;
-        private VisualPlus.Toolkit.Controls.Interactivity.VisualLabel visualLabelTestsCount;
+        private VisualPlus.Toolkit.Controls.Interactivity.VisualLabel visualLabelTestsStats;
     }
 }

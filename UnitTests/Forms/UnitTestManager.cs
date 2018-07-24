@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Text;
 using System.Windows.Forms;
 
 using UnitTests.Tests;
@@ -120,9 +121,20 @@ namespace UnitTests.Forms
             }
         }
 
+        /// <summary>Generates the test statistics.</summary>
+        /// <returns>The <see cref="string" />.</returns>
+        private string GenerateTestStatistics()
+        {
+            StringBuilder stats = new StringBuilder();
+            stats.AppendLine($@"Selected: {visualListBoxTests.SelectedIndex + 1}");
+            stats.AppendLine($@"Total Tests: {visualListBoxTests.Items.Count}");
+            return stats.ToString();
+        }
+
         private void ListBoxTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             _unitTest = (UnitTests)visualListBoxTests.SelectedIndex;
+            visualLabelTestsStats.Text = GenerateTestStatistics();
         }
 
         private void TestManager_Load(object sender, EventArgs e)
@@ -130,7 +142,7 @@ namespace UnitTests.Forms
             _unitTest = UnitTests.VisualListView;
 
             Array _tests = typeof(UnitTests).GetEnumValues();
-            visualLabelTestsCount.Text = $@"Tests Count: {_tests.Length}";
+            visualLabelTestsStats.Text = GenerateTestStatistics();
 
             foreach (object test in _tests)
             {
