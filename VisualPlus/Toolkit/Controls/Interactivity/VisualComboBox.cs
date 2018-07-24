@@ -17,6 +17,7 @@ using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
 using VisualPlus.Toolkit.Dialogs;
+using VisualPlus.Toolkit.VisualBase;
 using VisualPlus.TypeConverters;
 
 #endregion

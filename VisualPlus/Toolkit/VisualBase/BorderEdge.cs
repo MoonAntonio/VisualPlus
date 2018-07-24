@@ -6,11 +6,10 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Localization;
-using VisualPlus.Toolkit.VisualBase;
 
 #endregion
 
-namespace VisualPlus.Structure
+namespace VisualPlus.Toolkit.VisualBase
 {
     [ToolboxItem(false)]
     [DefaultEvent("Paint")]

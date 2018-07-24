@@ -147,7 +147,7 @@
     <Compile Include="Enumerators\DebugOutput.cs" />
     <Compile Include="Structure\GlobalId.cs" />
     <Compile Include="Structure\ColorPalette.cs" />
-    <Compile Include="Structure\BorderEdge.cs" />
+    <Compile Include="Toolkit\VisualBase\BorderEdge.cs" />
     <Compile Include="Structure\RECT.cs" />
     <Compile Include="Structure\ThemeInformation.cs" />
     <Compile Include="Structure\HoverColorState.cs" />
