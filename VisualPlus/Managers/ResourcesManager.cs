@@ -20,7 +20,7 @@ namespace VisualPlus.Managers
         /// <summary>Retrieve the resource names from the file.</summary>
         /// <param name="file">The file path.</param>
         /// <returns>The <see cref="string" />.</returns>
-        internal static List<string> GetResourceNames(string file)
+        public static List<string> GetResourceNames(string file)
         {
             Assembly _assembly = LoadAssembly(file);
             return _assembly.GetManifestResourceNames().ToList();
@@ -30,7 +30,7 @@ namespace VisualPlus.Managers
         /// <param name="file">The file path.</param>
         /// <param name="resource">The resource name.</param>
         /// <returns>The <see cref="string" />.</returns>
-        internal static string ReadResource(string file, string resource)
+        public static string ReadResource(string file, string resource)
         {
             Assembly _assembly = LoadAssembly(file);
 
