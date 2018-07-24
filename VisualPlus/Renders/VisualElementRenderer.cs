@@ -67,7 +67,7 @@ namespace VisualPlus.Renders
             VisualBorderRenderer.DrawBorderStyle(graphics, border, _elementGraphicsPath, mouseState);
         }
 
-        /// <summary>Draws an arrow.</summary>
+        /// <summary>Renders a triangle.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         /// <param name="color">The color.</param>
         /// <param name="disabled">The disabled.</param>
@@ -75,7 +75,7 @@ namespace VisualPlus.Renders
         /// <param name="image">The image.</param>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="direction">The direction.</param>
-        public static void RenderArrow(Graphics graphics, Color color, Color disabled, bool enabled, Image image, Rectangle rectangle, Alignment.Vertical direction)
+        public static void RenderTriangle(Graphics graphics, Color color, Color disabled, bool enabled, Image image, Rectangle rectangle, Alignment.Vertical direction)
         {
             if (image != null)
             {
@@ -88,18 +88,17 @@ namespace VisualPlus.Renders
             }
         }
 
-        /// <summary>Draws an arrow image.</summary>
+        /// <summary>Renders a triangle image.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         /// <param name="color">The color.</param>
         /// <param name="image">The image.</param>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="direction">The direction.</param>
-        public static void RenderArrowImage(Graphics graphics, Color color, Image image, Rectangle rectangle, Alignment.Vertical direction)
+        public static void RenderTriangleImage(Graphics graphics, Color color, Image image, Rectangle rectangle, Alignment.Vertical direction)
         {
             if (image != null)
             {
                 // TODO: Flip image based on direction.
-
                 graphics.DrawImage(image, rectangle);
             }
             else
@@ -138,7 +137,7 @@ namespace VisualPlus.Renders
             }
         }
 
-        /// <summary>Draw a triangle.</summary>
+        /// <summary>Renders a triangle.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
         /// <param name="rectangle">The button rectangle.</param>
         /// <param name="color">The color.</param>

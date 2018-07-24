@@ -487,7 +487,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                     e.Graphics.DrawImage(_image, new Rectangle(arrowRectangle.Left - _image.Width - 2, (Height / 2) - (_image.Height / 2), _imageSize.Width, _imageSize.Height));
                 }
 
-                VisualElementRenderer.RenderArrow(e.Graphics, _arrowColor, _arrowDisabledColor, Enabled, _dropDownImage, arrowRectangle, Alignment.Vertical.Down);
+                VisualElementRenderer.RenderTriangle(e.Graphics, _arrowColor, _arrowDisabledColor, Enabled, _dropDownImage, arrowRectangle, Alignment.Vertical.Down);
 
                 var _check = 0;
                 Rectangle checkBoxRectangle = new Rectangle(3, (Height / 2) - 6, 12, 12);
