@@ -106,6 +106,7 @@
     <Compile Include="Managers\BrushManager.cs" />
     <Compile Include="Enumerators\DateTimeComparer.cs" />
     <Compile Include="Managers\DateTimeManager.cs" />
+    <Compile Include="Managers\ElementsManager.cs" />
     <Compile Include="Renders\VisualElementRenderer.cs" />
     <Compile Include="Renders\VisualImageRenderer.cs" />
     <Compile Include="Renders\VisualProgressRenderer.cs" />
