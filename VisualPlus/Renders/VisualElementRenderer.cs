@@ -67,24 +67,6 @@ namespace VisualPlus.Renders
             VisualBorderRenderer.DrawBorderStyle(graphics, border, _elementGraphicsPath, mouseState);
         }
 
-        [Obsolete]
-        /// <summary>Draw a triangle.</summary>
-        /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="rectangle">The button rectangle.</param>
-        /// <param name="brush">The brush.</param>
-        /// <param name="state">The state.</param>
-        public static void DrawTriangle(Graphics graphics, Rectangle rectangle, Color color, bool state)
-        {
-            if (state)
-            {
-                RenderTriangle(graphics, rectangle, color, Alignment.Vertical.Up);
-            }
-            else
-            {
-                RenderTriangle(graphics, rectangle, color, Alignment.Vertical.Down);
-            }
-        }
-
         /// <summary>Draws an arrow.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>
         /// <param name="color">The color.</param>
@@ -101,9 +83,8 @@ namespace VisualPlus.Renders
             }
             else
             {
-                Color dropDownColor = enabled ? color : disabled;
-
-                RenderTriangle(graphics, rectangle, dropDownColor, direction);
+                Color colorState = enabled ? color : disabled;
+                RenderTriangle(graphics, rectangle, colorState, direction);
             }
         }
 
