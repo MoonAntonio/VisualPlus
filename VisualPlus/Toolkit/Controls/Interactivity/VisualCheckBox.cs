@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using VisualPlus.Designer;
 using VisualPlus.Events;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion

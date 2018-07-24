@@ -1,9 +1,11 @@
 #region Namespace
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -349,6 +351,51 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Methods
 
+        /// <summary>Gets the first or default control.</summary>
+        /// <param name="container">The container control.</param>
+        /// <returns>The <see cref="ToggleCheckmarkBase" />.</returns>
+        public static ToggleCheckmarkBase GetSelectedControl(Control container)
+        {
+            if (container == null)
+            {
+                throw new ArgumentNullException(nameof(container));
+            }
+
+            if (container.Controls.Count == 0)
+            {
+                return null;
+            }
+
+            return container.Controls.OfType<ToggleCheckmarkBase>().FirstOrDefault(r => r.Toggle);
+        }
+
+        /// <summary>Gets the toggled controls from the container.</summary>
+        /// <param name="container">The container control.</param>
+        /// <returns>The <see cref="ToggleCheckmarkBase" /> list.</returns>
+        public static List<ToggleCheckmarkBase> GetToggled(Control container)
+        {
+            if (container == null)
+            {
+                throw new ArgumentNullException(nameof(container));
+            }
+
+            if (container.Controls.Count == 0)
+            {
+                return null;
+            }
+
+            var toggledControlsList = new List<ToggleCheckmarkBase>();
+            foreach (object control in container.Controls)
+            {
+                if (control is ToggleCheckmarkBase toggledControl && toggledControl.Toggle)
+                {
+                    toggledControlsList.Add(toggledControl);
+                }
+            }
+
+            return toggledControlsList;
+        }
+
         public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
         {
             VFXManager effectsManager = new VFXManager
@@ -392,6 +439,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
+        /// <summary>Auto fit to the text size.</summary>
+        /// <param name="textSize">The text size.</param>
         private void AutoFit(Size textSize)
         {
             if (GraphicsManager.TextLargerThanRectangle(textSize, _box))

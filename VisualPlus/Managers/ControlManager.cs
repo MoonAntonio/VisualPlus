@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 using VisualPlus.Toolkit.Controls.DataManagement;
@@ -43,14 +42,6 @@ namespace VisualPlus.Managers
             }
 
             control.Location = _controlLocation;
-        }
-
-        /// <summary>Gets the checked VisualRadioButton.</summary>
-        /// <param name="control">The container control.</param>
-        /// <returns>The checked VisualRadioButton.</returns>
-        public static VisualRadioButton GetCheckedFromContainer(Control control)
-        {
-            return control.Controls.OfType<VisualRadioButton>().FirstOrDefault(r => r.Checked);
         }
 
         /// <summary>Retrieves the registered theme supported types.</summary>
