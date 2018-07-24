@@ -259,10 +259,13 @@ namespace VisualPlus.Structure
                     xmlWriter.WriteStartElement(Header);
 
                     // Write theme information header.
-                    xmlWriter.WriteStartElement(Information);
-                    xmlWriter.WriteElementString("Name", themeInformation.Name);
-                    xmlWriter.WriteElementString("Author", themeInformation.Author);
-                    xmlWriter.WriteEndElement();
+                    var themeDataDictionary = new Dictionary<string, string>
+                        {
+                            { "Name", themeInformation.Name },
+                            { "Author", themeInformation.Author }
+                        };
+
+                    XMLManager.WriteElementGroup(xmlWriter, Information, themeDataDictionary);
 
                     // Write theme style table header.
                     xmlWriter.WriteStartElement(StyleTable);

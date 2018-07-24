@@ -22,6 +22,8 @@ namespace VisualPlus.Constants
         public static readonly int MinimumRounding = 1;
         public static readonly string TemplatesFolder = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + @"\VisualPlus Themes\";
         public static readonly string TemplatesFilePath = TemplatesFolder + @"DefaultTheme.xml";
+        public static readonly string ThemeAuthor = "Unknown";
+        public static readonly string ThemeName = "Unnamed";
         public static readonly string ThemeResourceLocation = "VisualPlus.Resources.Themes.";
 
         #endregion

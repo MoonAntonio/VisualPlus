@@ -6,7 +6,9 @@ using System.Drawing;
 using System.Text;
 using System.Xml;
 
+using VisualPlus.Constants;
 using VisualPlus.Extensibility;
+using VisualPlus.Structure;
 
 #endregion
 
@@ -34,7 +36,12 @@ namespace VisualPlus.Managers
 
             if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentNullException($@"The element doesnt contain a value: {name}");
+                value = ResetToDefault(name, value);
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException($@"The element doesnt contain a value: {name}");
+                }
             }
 
             xmlWriter.WriteElementString(name, value);
@@ -75,6 +82,27 @@ namespace VisualPlus.Managers
             xmlWriter.WriteEndElement();
         }
 
+        /// <summary>Write the element group to xml.</summary>
+        /// <param name="xmlWriter">The xml writer.</param>
+        /// <param name="elementName">The element name.</param>
+        /// <param name="dataTable">The data Table.</param>
+        public static void WriteElementGroup(XmlWriter xmlWriter, string elementName, Dictionary<string, string> dataTable)
+        {
+            if (xmlWriter == null)
+            {
+                throw new ArgumentNullException(nameof(xmlWriter));
+            }
+
+            xmlWriter.WriteStartElement(elementName);
+
+            foreach (var element in dataTable)
+            {
+                WriteElement(xmlWriter, element.Key, element.Value);
+            }
+
+            xmlWriter.WriteEndElement();
+        }
+
         /// <summary>Retrieves the writer settings.</summary>
         /// <returns>The <see cref="XmlWriterSettings" />.</returns>
         public static XmlWriterSettings WriterSettings()
@@ -88,6 +116,26 @@ namespace VisualPlus.Managers
                 };
 
             return xmlWriterSettings;
+        }
+
+        /// <summary>Resets the empty <see cref="ThemeInformation" /> element to the defaults.</summary>
+        /// <param name="name">The element name.</param>
+        /// <param name="value">The element value.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        private static string ResetToDefault(string name, string value)
+        {
+            if ((name == "Name") && string.IsNullOrEmpty(value))
+            {
+                ConsoleEx.WriteDebug("Theme didn't have a theme NAME. Setting default.");
+                value = SettingConstants.ThemeName;
+            }
+            else if ((name == "Author") && string.IsNullOrEmpty(value))
+            {
+                ConsoleEx.WriteDebug("Theme didn't have an author. Setting default.");
+                value = SettingConstants.ThemeAuthor;
+            }
+
+            return value;
         }
 
         #endregion
