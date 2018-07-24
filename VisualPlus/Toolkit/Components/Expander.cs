@@ -117,7 +117,7 @@ namespace VisualPlus.Toolkit.Components
         /// <param name="state">The expanded toggle.</param>
         public static void Draw(Graphics graphics, Rectangle rectangle, Color color, bool state)
         {
-            VisualElementRenderer.DrawTriangle(graphics, rectangle, new SolidBrush(color), state);
+            VisualElementRenderer.DrawTriangle(graphics, rectangle, color, state);
         }
 
         /// <summary>Gets the back color from the expander.</summary>

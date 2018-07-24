@@ -73,15 +73,15 @@ namespace VisualPlus.Renders
         /// <param name="rectangle">The button rectangle.</param>
         /// <param name="brush">The brush.</param>
         /// <param name="state">The state.</param>
-        public static void DrawTriangle(Graphics graphics, Rectangle rectangle, Brush brush, bool state)
+        public static void DrawTriangle(Graphics graphics, Rectangle rectangle, Color color, bool state)
         {
             if (state)
             {
-                RenderTriangle(graphics, rectangle, brush, Alignment.Vertical.Up);
+                RenderTriangle(graphics, rectangle, color, Alignment.Vertical.Up);
             }
             else
             {
-                RenderTriangle(graphics, rectangle, brush, Alignment.Vertical.Down);
+                RenderTriangle(graphics, rectangle, color, Alignment.Vertical.Down);
             }
         }
 
@@ -103,10 +103,7 @@ namespace VisualPlus.Renders
             {
                 Color dropDownColor = enabled ? color : disabled;
 
-                using (SolidBrush dropDownArrow = new SolidBrush(dropDownColor))
-                {
-                    RenderTriangle(graphics, rectangle, dropDownArrow, direction);
-                }
+                RenderTriangle(graphics, rectangle, dropDownColor, direction);
             }
         }
 
@@ -124,10 +121,7 @@ namespace VisualPlus.Renders
             }
             else
             {
-                using (SolidBrush dropDownArrow = new SolidBrush(color))
-                {
-                    RenderTriangle(graphics, rectangle, dropDownArrow, direction);
-                }
+                RenderTriangle(graphics, rectangle, color, direction);
             }
         }
 
@@ -164,9 +158,9 @@ namespace VisualPlus.Renders
         /// <summary>Draw a triangle.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
         /// <param name="rectangle">The button rectangle.</param>
-        /// <param name="brush">The brush.</param>
+        /// <param name="color">The color.</param>
         /// <param name="direction">The direction.</param>
-        public static void RenderTriangle(Graphics graphics, Rectangle rectangle, Brush brush, Alignment.Vertical direction)
+        public static void RenderTriangle(Graphics graphics, Rectangle rectangle, Color color, Alignment.Vertical direction)
         {
             var points = new Point[3];
 
@@ -205,7 +199,7 @@ namespace VisualPlus.Renders
             }
 
             graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.FillPolygon(brush, points);
+            graphics.FillPolygon(new SolidBrush(color), points);
         }
 
         #endregion

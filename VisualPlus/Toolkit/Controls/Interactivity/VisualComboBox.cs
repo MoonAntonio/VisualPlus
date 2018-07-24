@@ -791,7 +791,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     {
                         _buttonImageSize = new Size(10, 6);
                         _buttonImageLocation = new Point((rectangle.X + (rectangle.Width / 2)) - (_buttonImageSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (_buttonImageSize.Height / 2));
-                        VisualElementRenderer.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), new SolidBrush(_buttonColor), false);
+                        VisualElementRenderer.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), _buttonColor, false);
 
                         break;
                     }
