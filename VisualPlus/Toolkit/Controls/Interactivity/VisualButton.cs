@@ -14,7 +14,6 @@ using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -287,7 +286,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                             LineAlignment = _textLineAlignment
                         };
 
-                    VisualControlRenderer.DrawContentText(e.Graphics, ClientRectangle, Text, Font, _textColor, _stringFormat);
+                    VisualTextRenderer.RenderText(e.Graphics, ClientRectangle, Text, Font, _textColor, _stringFormat);
                 }
 
                 VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);

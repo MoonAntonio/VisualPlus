@@ -295,7 +295,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                             LineAlignment = _textLineAlignment
                         };
 
-                    VisualControlRenderer.DrawContentText(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _stringFormat);
+                    VisualTextRenderer.RenderText(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _stringFormat);
                 }
             }
             catch (Exception exception)

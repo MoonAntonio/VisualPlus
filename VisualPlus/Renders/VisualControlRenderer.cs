@@ -1,6 +1,5 @@
 ﻿#region Namespace
 
-using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -55,76 +54,6 @@ namespace VisualPlus.Renders
 
             graphics.DrawImage(image, new Rectangle(_imagePoint, imageSize));
             graphics.DrawString(text, font, new SolidBrush(foreColor), _textPoint);
-        }
-
-        /// <summary>Draws the text content.</summary>
-        /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
-        /// <param name="text">The string to draw.</param>
-        /// <param name="font">The font to use in the string.</param>
-        /// <param name="foreColor">The color of the string.</param>
-        /// <param name="stringFormat">The string Format.</param>
-        public static void DrawContentText(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, StringFormat stringFormat)
-        {
-            const int Padding = 0;
-
-            int _xPosition;
-            int _yPosition;
-            Size _textSize = TextManager.MeasureText(text, font, graphics);
-
-            switch (stringFormat.Alignment)
-            {
-                case StringAlignment.Near:
-                    {
-                        _xPosition = rectangle.X + Padding;
-                        break;
-                    }
-
-                case StringAlignment.Center:
-                    {
-                        _xPosition = (rectangle.Width / 2) - (_textSize.Width / 2);
-                        break;
-                    }
-
-                case StringAlignment.Far:
-                    {
-                        _xPosition = rectangle.Width - Padding - _textSize.Width;
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(stringFormat.Alignment), stringFormat.Alignment, null);
-                    }
-            }
-
-            switch (stringFormat.LineAlignment)
-            {
-                case StringAlignment.Near:
-                    {
-                        _yPosition = rectangle.Y + Padding;
-                        break;
-                    }
-
-                case StringAlignment.Center:
-                    {
-                        _yPosition = (rectangle.Height / 2) - (_textSize.Height / 2);
-                        break;
-                    }
-
-                case StringAlignment.Far:
-                    {
-                        _yPosition = rectangle.Height - Padding - _textSize.Height;
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(stringFormat.LineAlignment), stringFormat.LineAlignment, null);
-                    }
-            }
-
-            graphics.DrawString(text, font, new SolidBrush(foreColor), new Point(_xPosition, _yPosition));
         }
 
         /// <summary>Draws a hatch component on the specified path.</summary>

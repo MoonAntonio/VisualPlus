@@ -843,7 +843,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                         LineAlignment = _textLineAlignment
                     };
 
-                VisualControlRenderer.DrawContentText(graphics, rectangle, Text, Font, _textColor, _stringFormat);
+                VisualTextRenderer.RenderText(graphics, rectangle, Text, Font, _textColor, _stringFormat);
             }
         }
 
