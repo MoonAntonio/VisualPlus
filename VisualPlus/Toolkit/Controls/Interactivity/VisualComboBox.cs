@@ -863,7 +863,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     LineAlignment = _textLineAlignment
                 };
 
-            Watermark.DrawWatermark(graphics, rectangle, _stringFormat, _watermark);
+            VisualWatermarkRenderer.RenderWatermark(graphics, rectangle, _stringFormat, _watermark);
         }
 
         #endregion

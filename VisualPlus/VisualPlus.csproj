@@ -115,6 +115,7 @@
     <Compile Include="Renders\VisualProgressRenderer.cs" />
     <Compile Include="Renders\VisualTextRenderer.cs" />
     <Compile Include="Renders\VisualTileRenderer.cs" />
+    <Compile Include="Renders\VisualWatermarkRenderer.cs" />
     <Compile Include="Structure\ConsoleEx.cs" />
     <Compile Include="Managers\ExceptionMessenger.cs" />
     <Compile Include="Managers\FontManager.cs" />

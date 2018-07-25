@@ -196,18 +196,6 @@ namespace VisualPlus.Structure
         }
 
         #endregion
-
-        #region Methods
-
-        public static void DrawWatermark(Graphics graphics, Rectangle textBoxRectangle, StringFormat stringFormat, Watermark watermark)
-        {
-            if (watermark.Visible)
-            {
-                graphics.DrawString(watermark.Text, watermark.Font, watermark.Brush, textBoxRectangle, stringFormat);
-            }
-        }
-
-        #endregion
     }
 
     public class WatermarkConverter : ExpandableObjectConverter
