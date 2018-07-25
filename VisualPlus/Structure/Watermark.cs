@@ -18,10 +18,10 @@ namespace VisualPlus.Structure
     {
         #region Variables
 
-        private Color activeColor;
+        private Color active;
         private SolidBrush brush;
         private Font font;
-        private Color inactiveColor;
+        private Color inactive;
         private string text;
         private bool visible;
 
@@ -34,15 +34,15 @@ namespace VisualPlus.Structure
         {
             Theme theme = new Theme(Settings.DefaultValue.DefaultStyle);
 
-            activeColor = theme.ColorPalette.WatermarkActive;
-            inactiveColor = theme.ColorPalette.WatermarkInactive;
+            active = theme.ColorPalette.WatermarkActive;
+            inactive = theme.ColorPalette.WatermarkInactive;
 
             font = SystemFonts.DefaultFont;
 
             text = Settings.DefaultValue.WatermarkText;
             visible = Settings.DefaultValue.WatermarkVisible;
 
-            brush = new SolidBrush(inactiveColor);
+            brush = new SolidBrush(inactive);
         }
 
         #endregion
@@ -73,24 +73,31 @@ namespace VisualPlus.Structure
 
         #region Properties
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Color)]
-        public Color ActiveColor
+        public Color Active
         {
             get
             {
-                return activeColor;
+                return active;
             }
 
             set
             {
-                activeColor = value;
-                ActiveColorChanged?.Invoke();
+                if (active != value)
+                {
+                    active = value;
+                    ActiveColorChanged?.Invoke();
+                }
             }
         }
 
+        /// <summary>The <see cref="Watermark" /> brush.</summary>
         [Browsable(false)]
+        [NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public SolidBrush Brush
         {
             get
@@ -104,9 +111,10 @@ namespace VisualPlus.Structure
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Font)]
         public Font Font
         {
             get
@@ -116,31 +124,39 @@ namespace VisualPlus.Structure
 
             set
             {
-                font = value;
-                FontChanged?.Invoke();
+                if (!font.Equals(value))
+                {
+                    font = value;
+                    FontChanged?.Invoke();
+                }
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Color)]
-        public Color InactiveColor
+        public Color Inactive
         {
             get
             {
-                return inactiveColor;
+                return inactive;
             }
 
             set
             {
-                inactiveColor = value;
-                InactiveColorChanged?.Invoke();
+                if (inactive != value)
+                {
+                    inactive = value;
+                    InactiveColorChanged?.Invoke();
+                }
             }
         }
 
+        [Category(PropertyCategory.Data)]
+        [Description(PropertyDescription.Text)]
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Text)]
         public string Text
         {
             get
@@ -150,14 +166,18 @@ namespace VisualPlus.Structure
 
             set
             {
-                text = value;
-                TextChanged?.Invoke();
+                if (text != value)
+                {
+                    text = value;
+                    TextChanged?.Invoke();
+                }
             }
         }
 
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(PropertyDescription.Visible)]
         public bool Visible
         {
             get
@@ -167,8 +187,11 @@ namespace VisualPlus.Structure
 
             set
             {
-                visible = value;
-                VisibleChanged?.Invoke();
+                if (visible != value)
+                {
+                    visible = value;
+                    VisibleChanged?.Invoke();
+                }
             }
         }
 

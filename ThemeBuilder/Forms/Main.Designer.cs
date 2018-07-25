@@ -137,9 +137,9 @@ namespace ThemeBuilder.Forms
             this.tbName.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
             this.tbName.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.tbName.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.tbName.Watermark.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.tbName.Watermark.Active = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.tbName.Watermark.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.tbName.Watermark.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
+            this.tbName.Watermark.Inactive = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
             this.tbName.Watermark.Text = "The theme name...";
             this.tbName.Watermark.Visible = true;
             this.tbName.WordWrap = true;
@@ -192,9 +192,9 @@ namespace ThemeBuilder.Forms
             this.tbAuthor.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
             this.tbAuthor.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.tbAuthor.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.tbAuthor.Watermark.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.tbAuthor.Watermark.Active = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.tbAuthor.Watermark.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.tbAuthor.Watermark.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
+            this.tbAuthor.Watermark.Inactive = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
             this.tbAuthor.Watermark.Text = "The authors name...";
             this.tbAuthor.Watermark.Visible = true;
             this.tbAuthor.WordWrap = true;
@@ -430,9 +430,9 @@ namespace ThemeBuilder.Forms
             this.tbPath.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
             this.tbPath.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.tbPath.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.tbPath.Watermark.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.tbPath.Watermark.Active = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.tbPath.Watermark.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPath.Watermark.InactiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
+            this.tbPath.Watermark.Inactive = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
             this.tbPath.Watermark.Text = "Path to theme...";
             this.tbPath.Watermark.Visible = true;
             this.tbPath.WordWrap = true;

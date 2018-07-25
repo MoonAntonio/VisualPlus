@@ -611,7 +611,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         protected override void OnEnter(EventArgs e)
         {
             base.OnEnter(e);
-            _watermark.Brush = new SolidBrush(_watermark.ActiveColor);
+            _watermark.Brush = new SolidBrush(_watermark.Active);
             _mouseState = MouseStates.Hover;
             Invalidate();
         }
@@ -619,7 +619,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         protected override void OnLeave(EventArgs e)
         {
             base.OnLeave(e);
-            _watermark.Brush = new SolidBrush(_watermark.InactiveColor);
+            _watermark.Brush = new SolidBrush(_watermark.Inactive);
             _mouseState = MouseStates.Normal;
             Invalidate();
         }

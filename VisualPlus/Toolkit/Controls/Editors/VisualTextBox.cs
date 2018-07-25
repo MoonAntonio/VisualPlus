@@ -739,7 +739,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             if (_watermark.Visible)
             {
                 // If focused use focus color
-                _watermark.Brush = new SolidBrush(_watermark.ActiveColor);
+                _watermark.Brush = new SolidBrush(_watermark.Active);
 
                 // Don't draw watermark if contains text.
                 if (_textBox.TextLength <= 0)
@@ -1297,7 +1297,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             _waterMarkContainer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             // Set color
-            _watermark.Brush = ContainsFocus ? new SolidBrush(_watermark.ActiveColor) : new SolidBrush(_watermark.InactiveColor);
+            _watermark.Brush = ContainsFocus ? new SolidBrush(_watermark.Active) : new SolidBrush(_watermark.Inactive);
 
             // Draws the string on the panel
             e.Graphics.DrawString(_watermark.Text, _watermark.Font, _watermark.Brush, new PointF(0F, 0F));
