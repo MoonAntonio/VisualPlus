@@ -97,6 +97,7 @@ namespace VisualPlus.Managers
                 }
                 else
                 {
+                    // TODO: Create method to deserialize various color input data. Like Red. Currently only support HTML code (hex).
                     // Read node value.
                     element = container.GetNode(elementPath).Value;
                 }
@@ -152,7 +153,10 @@ namespace VisualPlus.Managers
                 throw new ArgumentNullException($@"The color is empty for the element: {name}");
             }
 
-            WriteElement(xmlWriter, name, color.ToHTML());
+            // TODO: Attach color encoder to allow writing various colors but also need to be able to deserialize them.
+            string encodedHTML = color.ToHTML();
+
+            WriteElement(xmlWriter, name, encodedHTML);
         }
 
         /// <summary>Write the element group to xml.</summary>
