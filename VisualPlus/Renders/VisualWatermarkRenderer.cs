@@ -21,7 +21,7 @@ namespace VisualPlus.Renders
         {
             if (watermark.Visible)
             {
-                graphics.DrawString(watermark.Text, watermark.Font, watermark.Brush, rectangle, stringFormat);
+                VisualTextRenderer.RenderText(graphics, rectangle, watermark.Text, watermark.Font, watermark.Brush.Color, stringFormat);
             }
         }
 
