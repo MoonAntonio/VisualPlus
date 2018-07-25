@@ -163,7 +163,7 @@ namespace VisualPlus.Toolkit.Dialogs
                     Size = new Size(200, 23)
                 };
 
-            textBox.TextBoxWidth = textBox.Size.Width - 10;
+            textBox.TextBoxWidth = textBox.GetTextBoxWidth();
             textBox.TextChanged += TextBox_TextChanged;
 
             button = new VisualButton

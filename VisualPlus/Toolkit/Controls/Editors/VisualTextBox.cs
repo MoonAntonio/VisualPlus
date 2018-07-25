@@ -76,10 +76,11 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
             _borderImage = new BorderEdge { Visible = false };
 
-            _textWidth = 125;
+            _textWidth = GetTextBoxWidth();
             _border = new Border();
 
             ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+
             _backColorState = new ColorState
                     {
                        Enabled = ThemeManager.Theme.ColorPalette.Type4 
@@ -87,7 +88,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
             _textBox = new TextBox
                 {
-                    Size = new Size(_textWidth, 25),
+                    Size = new Size(GetTextBoxWidth(), 25),
                     Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border), VisualBorderRenderer.CalculateBorderCurve(_border)),
                     Text = string.Empty,
                     BorderStyle = BorderStyle.None,
@@ -97,6 +98,11 @@ namespace VisualPlus.Toolkit.Controls.Editors
                     BackColor = _backColorState.Enabled,
                     Multiline = false
                 };
+
+            Size = new Size(135, 25);
+
+            // Apply new height after initializing.
+            _textBox.Size = new Size(GetTextBoxWidth(), 25);
 
             _imageWidth = 35;
             _buttonFont = Font;
@@ -108,8 +114,6 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
             _watermark = new Watermark();
             _buttonBorder = new Border();
-
-            Size = new Size(135, 25);
 
             _textBox.KeyDown += TextBox_KeyDown;
             _textBox.Leave += OnLeave;
@@ -639,7 +643,6 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        [DefaultValue(125)]
         [Category(PropertyCategory.Layout)]
         [Description(PropertyDescription.Size)]
         public int TextBoxWidth
@@ -1036,6 +1039,15 @@ namespace VisualPlus.Toolkit.Controls.Editors
         public Point GetPositionFromCharIndex(int index)
         {
             return _textBox.GetPositionFromCharIndex(index);
+        }
+
+        /// <summary>Returns the internal text box width.</summary>
+        /// <returns>The <see cref="int" />.</returns>
+        public int GetTextBoxWidth()
+        {
+            // 5px for each side from the VisualTextBox control border.
+            int i = Size.Width - 10;
+            return i;
         }
 
         /// <summary>Replaces the current selection in the text box with the contents of the Clipboard.</summary>
