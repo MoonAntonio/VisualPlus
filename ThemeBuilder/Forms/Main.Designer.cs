@@ -52,6 +52,7 @@ namespace ThemeBuilder.Forms
             this.palettePropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.tbPath = new VisualPlus.Toolkit.Controls.Editors.VisualTextBox();
             this.gpColorPalette = new VisualPlus.Toolkit.Controls.Layout.VisualGroupBox();
+            this.visualTile1 = new VisualPlus.Toolkit.Controls.Layout.VisualTile();
             this.mainMenuStrip.SuspendLayout();
             this.gpColorPalette.SuspendLayout();
             this.SuspendLayout();
@@ -374,11 +375,12 @@ namespace ThemeBuilder.Forms
             this.palettePropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.palettePropertyGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.palettePropertyGrid.Location = new System.Drawing.Point(3, 21);
+            this.palettePropertyGrid.Location = new System.Drawing.Point(3, 75);
             this.palettePropertyGrid.Name = "palettePropertyGrid";
-            this.palettePropertyGrid.Size = new System.Drawing.Size(260, 406);
+            this.palettePropertyGrid.Size = new System.Drawing.Size(260, 352);
             this.palettePropertyGrid.TabIndex = 9;
             this.palettePropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PalettePropertyGrid_PropertyValueChanged);
+            this.palettePropertyGrid.SelectedGridItemChanged += new System.Windows.Forms.SelectedGridItemChangedEventHandler(this.PalettePropertyGrid_SelectedGridItemChanged);
             // 
             // tbPath
             // 
@@ -449,6 +451,7 @@ namespace ThemeBuilder.Forms
             this.gpColorPalette.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
             this.gpColorPalette.Border.Visible = true;
             this.gpColorPalette.BoxStyle = VisualPlus.Toolkit.Controls.Layout.VisualGroupBox.GroupBoxStyle.Default;
+            this.gpColorPalette.Controls.Add(this.visualTile1);
             this.gpColorPalette.Controls.Add(this.palettePropertyGrid);
             this.gpColorPalette.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.gpColorPalette.Image = null;
@@ -472,6 +475,32 @@ namespace ThemeBuilder.Forms
             this.gpColorPalette.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.gpColorPalette.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.gpColorPalette.TitleBoxHeight = 25;
+            // 
+            // visualTile1
+            // 
+            this.visualTile1.BackColor = System.Drawing.Color.Gainsboro;
+            this.visualTile1.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.visualTile1.BackColorState.Enabled = System.Drawing.Color.Gainsboro;
+            this.visualTile1.BackColorState.Hover = System.Drawing.Color.Gainsboro;
+            this.visualTile1.BackColorState.Pressed = System.Drawing.Color.Gainsboro;
+            this.visualTile1.BackgroundImageLayout = VisualPlus.Enumerators.BackgroundLayout.Stretch;
+            this.visualTile1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualTile1.Image = ((System.Drawing.Image)(resources.GetObject("visualTile1.Image")));
+            this.visualTile1.Location = new System.Drawing.Point(93, 31);
+            this.visualTile1.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.visualTile1.Name = "visualTile1";
+            this.visualTile1.Offset = new System.Drawing.Point(0, 0);
+            this.visualTile1.Size = new System.Drawing.Size(77, 38);
+            this.visualTile1.TabIndex = 18;
+            this.visualTile1.Text = "Preview";
+            this.visualTile1.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.visualTile1.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualTile1.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualTile1.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualTile1.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.visualTile1.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.visualTile1.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.visualTile1.Type = VisualPlus.Toolkit.Controls.Layout.VisualTile.TileType.Text;
             // 
             // Main
             // 
@@ -640,6 +669,7 @@ namespace ThemeBuilder.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem openTemplatesDirectoryToolStripMenuItem;
         private VisualPlus.Toolkit.Controls.Layout.VisualGroupBox gpColorPalette;
+        private VisualPlus.Toolkit.Controls.Layout.VisualTile visualTile1;
     }
 }
 
