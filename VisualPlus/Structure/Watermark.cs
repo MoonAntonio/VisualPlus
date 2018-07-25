@@ -7,7 +7,6 @@ using System.Globalization;
 
 using VisualPlus.Delegates;
 using VisualPlus.Localization;
-using VisualPlus.Toolkit.Components;
 
 #endregion
 
@@ -33,11 +32,13 @@ namespace VisualPlus.Structure
         /// <summary>Initializes a new instance of the <see cref="Watermark" /> class.</summary>
         public Watermark()
         {
-            StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            Theme theme = new Theme(Settings.DefaultValue.DefaultStyle);
 
-            activeColor = styleManager.Theme.ColorPalette.WatermarkActive;
+            activeColor = theme.ColorPalette.WatermarkActive;
+            inactiveColor = theme.ColorPalette.WatermarkInactive;
+
             font = SystemFonts.DefaultFont;
-            inactiveColor = styleManager.Theme.ColorPalette.WatermarkInactive;
+
             text = Settings.DefaultValue.WatermarkText;
             visible = Settings.DefaultValue.WatermarkVisible;
 
