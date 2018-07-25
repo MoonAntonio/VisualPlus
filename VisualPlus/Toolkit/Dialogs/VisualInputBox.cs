@@ -67,7 +67,7 @@ namespace VisualPlus.Toolkit.Dialogs
         {
             ControlBox.Location = new Point(Width - 45, Border.Distance + 2);
             InitializeControls();
-            Size = new Size(textBox.Right + Border.Distance + 2, 95);
+            Size = new Size(textBox.Right + Border.Distance + 5, 95);
         }
 
         #endregion
@@ -159,8 +159,11 @@ namespace VisualPlus.Toolkit.Dialogs
                             Visible = true,
                             Text = "Enter your input..."
                         },
-                    Location = new Point(label.Right, BodyContainer.Y + 2)
+                    Location = new Point(label.Right, BodyContainer.Y + 2),
+                    Size = new Size(200, 23)
                 };
+
+            textBox.TextBoxWidth = textBox.Size.Width - 10;
             textBox.TextChanged += TextBox_TextChanged;
 
             button = new VisualButton
