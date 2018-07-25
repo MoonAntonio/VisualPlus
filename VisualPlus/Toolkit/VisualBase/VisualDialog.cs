@@ -32,7 +32,7 @@ namespace VisualPlus.Toolkit.VisualBase
             Sizable = false;
             ShowIcon = false;
             ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             TitleAlignment = Alignment.TextAlignment.Left;
         }
 

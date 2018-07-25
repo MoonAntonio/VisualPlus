@@ -24,7 +24,7 @@ namespace VisualPlus.Toolkit.Dialogs
     [DesignerCategory("Form")]
     [DesignTimeVisible(false)]
     [ToolboxItem(false)]
-    public class VisualMessageBox : VisualDialog, IMessageBox
+    public class VisualMessageBox : VisualDialog
     {
         #region Variables
 
@@ -527,6 +527,33 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>Displays a message box with the specified text.</summary>
         /// <param name="text">The text to display in the message box.</param>
         /// <param name="caption">The text to display in the title bar of the message box.</param>
+        /// <returns>The <see cref="DialogResult" />.</returns>
+        public static DialogResult Show(string text, string caption)
+        {
+            return new VisualMessageBox(text, caption, MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
+        }
+
+        /// <summary>Displays a message box with the specified text.</summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <returns>The <see cref="DialogResult" />.</returns>
+        public static DialogResult Show(string text)
+        {
+            return new VisualMessageBox(text, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
+        }
+
+        /// <summary>Displays a message box with the specified text.</summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
+        /// <param name="buttons">Specifies which buttons to display in the message box.</param>
+        /// <returns>The <see cref="DialogResult" />.</returns>
+        public static DialogResult Show(string text, string caption, MessageBoxButtons buttons)
+        {
+            return new VisualMessageBox(text, caption, buttons, MessageBoxIcon.None).ShowDialog();
+        }
+
+        /// <summary>Displays a message box with the specified text.</summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
         /// <param name="buttons">Specifies which buttons to display in the message box.</param>
         /// <param name="icon">Specifies which icon to display in the message box.</param>
         /// <returns>The <see cref="DialogResult" />.</returns>
@@ -776,31 +803,6 @@ namespace VisualPlus.Toolkit.Dialogs
 
             cancelButton.Location = new Point(BodyContainer.Right - cancelButton.Width - buttonPadding, BodyContainer.Bottom - cancelButton.Height - buttonPadding);
             retryButton.Location = new Point(cancelButton.Location.X - retryButton.Width - buttonPadding, cancelButton.Location.Y);
-        }
-
-        DialogResult IMessageBox.Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
-        {
-            return Show(text, caption, buttons, icon);
-        }
-
-        DialogResult IMessageBox.Show(string text, string caption, MessageBoxButtons buttons)
-        {
-            return Show(text, caption, buttons, MessageBoxIcon.None);
-        }
-
-        DialogResult IMessageBox.Show(string text, string caption)
-        {
-            return Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.None);
-        }
-
-        DialogResult IMessageBox.Show(string text)
-        {
-            return Show(text, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.None);
-        }
-
-        DialogResult IMessageBox.Show(string text, string caption, MessageBoxButtons buttons, Image icon)
-        {
-            return Show(text, caption, buttons, icon);
         }
 
         /// <summary>Updates the buttons visibility.</summary>

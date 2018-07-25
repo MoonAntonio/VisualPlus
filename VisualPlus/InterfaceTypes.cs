@@ -160,48 +160,6 @@ namespace VisualPlus
         #endregion
     }
 
-    /// <summary> The IMessageBox interface.</summary>
-    public interface IMessageBox
-    {
-        #region Methods
-
-        /// <summary>Displays a message box with the specified text.</summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttons">Specifies which buttons to display in the message box.</param>
-        /// <param name="icon">Specifies which icon to display in the message box.</param>
-        /// <returns>The <see cref="DialogResult" />.</returns>
-        DialogResult Show(string text, string caption, MessageBoxButtons buttons, Image icon);
-
-        /// <summary>Displays a message box with the specified text.</summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttons">Specifies which buttons to display in the message box.</param>
-        /// <param name="icon">Specifies which icon to display in the message box.</param>
-        /// <returns>The <see cref="DialogResult" />.</returns>
-        DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon);
-
-        /// <summary>Displays a message box with the specified text.</summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttons">Specifies which buttons to display in the message box.</param>
-        /// <returns>The <see cref="DialogResult" />.</returns>
-        DialogResult Show(string text, string caption, MessageBoxButtons buttons);
-
-        /// <summary>Displays a message box with the specified text.</summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <returns>The <see cref="DialogResult" />.</returns>
-        DialogResult Show(string text, string caption);
-
-        /// <summary>Displays a message box with the specified text.</summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <returns>The <see cref="DialogResult" />.</returns>
-        DialogResult Show(string text);
-
-        #endregion
-    }
-
     /// <summary>The ITextColor.</summary>
     public interface ITextColor
     {
