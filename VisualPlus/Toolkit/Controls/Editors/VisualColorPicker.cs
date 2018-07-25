@@ -67,11 +67,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Editors.VisualColorPicker" />
-        ///     class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualColorPicker" /> class.</summary>
         public VisualColorPicker()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.Selectable | ControlStyles.StandardClick | ControlStyles.StandardDoubleClick | ControlStyles.SupportsTransparentBackColor, true);
@@ -1133,8 +1129,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             public override string ToString()
             {
                 StringBuilder builder = new StringBuilder();
-                builder.Append(GetType().
-                    Name);
+                builder.Append(GetType().Name);
                 builder.Append(" [");
                 builder.Append("H=");
                 builder.Append(H);
