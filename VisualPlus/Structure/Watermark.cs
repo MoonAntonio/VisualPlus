@@ -19,14 +19,8 @@ namespace VisualPlus.Structure
     {
         #region Variables
 
-        [Browsable(false)]
-        public SolidBrush Brush;
-
-        #endregion
-
-        #region Variables
-
         private Color activeColor;
+        private SolidBrush brush;
         private Font font;
         private Color inactiveColor;
         private string text;
@@ -47,7 +41,7 @@ namespace VisualPlus.Structure
             text = Settings.DefaultValue.WatermarkText;
             visible = Settings.DefaultValue.WatermarkVisible;
 
-            Brush = new SolidBrush(inactiveColor);
+            brush = new SolidBrush(inactiveColor);
         }
 
         #endregion
@@ -92,6 +86,20 @@ namespace VisualPlus.Structure
             {
                 activeColor = value;
                 ActiveColorChanged?.Invoke();
+            }
+        }
+
+        [Browsable(false)]
+        public SolidBrush Brush
+        {
+            get
+            {
+                return brush;
+            }
+
+            set
+            {
+                brush = value;
             }
         }
 
