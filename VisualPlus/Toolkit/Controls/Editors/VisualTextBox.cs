@@ -601,7 +601,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 {
                     if (!MultiLine)
                     {
-                        string text = RemoveLineBreaks(value);
+                        string text = TextManager.RemoveLineBreaks(value);
                         value = text;
                     }
 
@@ -1111,11 +1111,6 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
-        }
-
-        private static string RemoveLineBreaks(string text)
-        {
-            return text.Replace(Environment.NewLine, " ");
         }
 
         private void DrawButton(Graphics graphics)

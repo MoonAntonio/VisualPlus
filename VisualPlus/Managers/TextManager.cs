@@ -154,6 +154,14 @@ namespace VisualPlus.Managers
             return TextRenderer.MeasureText(text, font);
         }
 
+        /// <summary>Removes the line breaks and new lines from the text.</summary>
+        /// <param name="text">The text.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        public static string RemoveLineBreaks(string text)
+        {
+            return text.Replace(Environment.NewLine, " ");
+        }
+
         /// <summary>Compares the strings using invariant culture for Turkish-I support.</summary>
         /// <param name="string1">The first string.</param>
         /// <param name="string2">The second string.</param>
