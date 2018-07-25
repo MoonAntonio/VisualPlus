@@ -157,16 +157,16 @@ namespace VisualPlus.Managers
 
         /// <summary>Write the element group to xml.</summary>
         /// <param name="xmlWriter">The xml writer.</param>
-        /// <param name="elementName">The element name.</param>
+        /// <param name="groupName">The group name.</param>
         /// <param name="colorTable">The element color table.</param>
-        public static void WriteElementGroup(XmlWriter xmlWriter, string elementName, Dictionary<string, Color> colorTable)
+        public static void WriteElementGroup(XmlWriter xmlWriter, string groupName, Dictionary<string, Color> colorTable)
         {
             if (xmlWriter == null)
             {
                 throw new ArgumentNullException(nameof(xmlWriter));
             }
 
-            xmlWriter.WriteStartElement(elementName);
+            xmlWriter.WriteStartElement(groupName);
 
             foreach (var element in colorTable)
             {
@@ -178,16 +178,16 @@ namespace VisualPlus.Managers
 
         /// <summary>Write the element group to xml.</summary>
         /// <param name="xmlWriter">The xml writer.</param>
-        /// <param name="elementName">The element name.</param>
+        /// <param name="groupName">The group name.</param>
         /// <param name="dataTable">The data Table.</param>
-        public static void WriteElementGroup(XmlWriter xmlWriter, string elementName, Dictionary<string, string> dataTable)
+        public static void WriteElementGroup(XmlWriter xmlWriter, string groupName, Dictionary<string, string> dataTable)
         {
             if (xmlWriter == null)
             {
                 throw new ArgumentNullException(nameof(xmlWriter));
             }
 
-            xmlWriter.WriteStartElement(elementName);
+            xmlWriter.WriteStartElement(groupName);
 
             foreach (var element in dataTable)
             {
