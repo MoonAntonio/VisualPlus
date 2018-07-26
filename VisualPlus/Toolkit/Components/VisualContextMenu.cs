@@ -16,13 +16,14 @@ using VisualPlus.Structure;
 
 namespace VisualPlus.Toolkit.Components
 {
+    [Obsolete]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("Opening")]
     [DefaultProperty("Items")]
     [Description("The Visual Context Menu Strip")]
     [ToolboxBitmap(typeof(VisualContextMenu), "VisualContextMenu.bmp")]
-    [ToolboxItem(true)]
+    [ToolboxItem(false)]
     public class VisualContextMenu : ContextMenuStrip
     {
         #region Variables
