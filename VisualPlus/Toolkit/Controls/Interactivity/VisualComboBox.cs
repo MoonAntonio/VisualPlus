@@ -743,8 +743,8 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
                 _backColorState = new ColorState
                     {
-                        Enabled = theme.ColorPalette.BoxEnabled,
-                        Disabled = theme.ColorPalette.BoxDisabled
+                        Enabled = theme.ColorPalette.VisualComboBoxEnabled,
+                        Disabled = theme.ColorPalette.VisualComboBoxDisabled
                     };
 
                 _buttonColor = theme.ColorPalette.ElementEnabled;

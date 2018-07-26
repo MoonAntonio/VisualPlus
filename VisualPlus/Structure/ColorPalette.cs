@@ -28,11 +28,11 @@ namespace VisualPlus.Structure
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
-        public Color BoxDisabled { get; set; }
+        public Color VisualComboBoxEnabled { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
-        public Color BoxEnabled { get; set; }
+        public Color VisualComboBoxDisabled { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]

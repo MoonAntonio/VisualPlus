@@ -54,15 +54,7 @@ namespace VisualPlus.Structure
                 colorPalette.SubscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Subscript").ToColor();
                 colorPalette.SuperscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Superscript").ToColor();
                 colorPalette.TextLight = XMLManager.ReadElement(themeDocument, Shared + "Text/TextLight").ToColor();
-
                 // colorPalette.Font = FontManager.ResolveFontFamily(themeDocument.GetValue(Shared + "Font/FontFamily"));
-                colorPalette.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Enabled").ToColor();
-                colorPalette.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Disabled").ToColor();
-                colorPalette.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Hover").ToColor();
-                colorPalette.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Pressed").ToColor();
-
-                colorPalette.FormBackground = XMLManager.ReadElement(themeDocument, Toolkit + "VisualForm/Background").ToColor();
-                colorPalette.FormWindowBar = XMLManager.ReadElement(themeDocument, Toolkit + "VisualForm/WindowBar").ToColor();
 
                 colorPalette.Item = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Normal").ToColor();
                 colorPalette.ItemHover = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Hover").ToColor();
@@ -95,9 +87,6 @@ namespace VisualPlus.Structure
                 colorPalette.ElementDisabled = XMLManager.ReadElement(themeDocument, Shared + "Element/Disabled").ToColor();
                 colorPalette.ElementEnabled = XMLManager.ReadElement(themeDocument, Shared + "Element/Enabled").ToColor();
 
-                colorPalette.BoxDisabled = XMLManager.ReadElement(themeDocument, Shared + "Box/Disabled").ToColor();
-                colorPalette.BoxEnabled = XMLManager.ReadElement(themeDocument, Shared + "Box/Enabled").ToColor();
-
                 colorPalette.WatermarkActive = XMLManager.ReadElement(themeDocument, Shared + "Watermark/Active").ToColor();
                 colorPalette.WatermarkInactive = XMLManager.ReadElement(themeDocument, Shared + "Watermark/Inactive").ToColor();
 
@@ -105,6 +94,17 @@ namespace VisualPlus.Structure
                 colorPalette.TabPageDisabled = XMLManager.ReadElement(themeDocument, Shared + "TabPage/Disabled").ToColor();
                 colorPalette.TabPageHover = XMLManager.ReadElement(themeDocument, Shared + "TabPage/Hover").ToColor();
                 colorPalette.TabPageSelected = XMLManager.ReadElement(themeDocument, Shared + "TabPage/Selected").ToColor();
+
+                colorPalette.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Enabled").ToColor();
+                colorPalette.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Disabled").ToColor();
+                colorPalette.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Hover").ToColor();
+                colorPalette.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Pressed").ToColor();
+
+                colorPalette.VisualComboBoxDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualComboBox/Disabled").ToColor();
+                colorPalette.VisualComboBoxEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualComboBox/Enabled").ToColor();
+
+                colorPalette.FormBackground = XMLManager.ReadElement(themeDocument, Toolkit + "VisualForm/Background").ToColor();
+                colorPalette.FormWindowBar = XMLManager.ReadElement(themeDocument, Toolkit + "VisualForm/WindowBar").ToColor();
 
                 colorPalette.HelpButtonBackDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Disabled").ToColor();
                 colorPalette.HelpButtonBackEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Enabled").ToColor();
@@ -280,14 +280,6 @@ namespace VisualPlus.Structure
 
                     XMLManager.WriteElementGroup(xmlWriter, "Border", borderDictionary);
 
-                    var boxDictionary = new Dictionary<string, Color>
-                        {
-                            { "Enabled", colorPalette.BoxEnabled },
-                            { "Disabled", colorPalette.BoxDisabled }
-                        };
-
-                    XMLManager.WriteElementGroup(xmlWriter, "Box", boxDictionary);
-
                     var columnHeaderDictionary = new Dictionary<string, Color>
                         {
                             { "Header", colorPalette.ColumnHeader },
@@ -377,7 +369,7 @@ namespace VisualPlus.Structure
                     // Write theme toolkit.
                     xmlWriter.WriteStartElement(Toolkit);
 
-                    var buttonDictionary = new Dictionary<string, Color>
+                    var visualButton = new Dictionary<string, Color>
                         {
                             { "Enabled", colorPalette.Enabled },
                             { "Disabled", colorPalette.Disabled },
@@ -385,7 +377,15 @@ namespace VisualPlus.Structure
                             { "Pressed", colorPalette.Pressed }
                         };
 
-                    XMLManager.WriteElementGroup(xmlWriter, "VisualButton", buttonDictionary);
+                    XMLManager.WriteElementGroup(xmlWriter, "VisualButton", visualButton);
+
+                    var visualComboBox = new Dictionary<string, Color>
+                        {
+                            { "Disabled", colorPalette.VisualComboBoxDisabled },
+                            { "Enabled", colorPalette.VisualComboBoxEnabled }
+                        };
+
+                    XMLManager.WriteElementGroup(xmlWriter, "VisualComboBox", visualComboBox);
 
                     xmlWriter.WriteStartElement("VisualControlBox");
 
