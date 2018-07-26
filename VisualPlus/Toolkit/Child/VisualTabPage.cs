@@ -63,7 +63,7 @@ namespace VisualPlus.Toolkit.Child
             _border = new Shape
                 {
                     Visible = false,
-                    Type = ShapeType.Rectangle
+                    Type = ShapeTypes.Rectangle
                 };
 
             _textImageRelation = TextImageRelations.Text;

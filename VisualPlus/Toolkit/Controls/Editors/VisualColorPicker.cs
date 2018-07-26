@@ -710,7 +710,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
 
             // Create the button path
-            GraphicsPath _buttonGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(new Rectangle(x - (SelectionSize / 2), y - (SelectionSize / 2), SelectionSize, SelectionSize), 10, 1, ShapeType.Rounded);
+            GraphicsPath _buttonGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(new Rectangle(x - (SelectionSize / 2), y - (SelectionSize / 2), SelectionSize, SelectionSize), 10, 1, ShapeTypes.Rounded);
 
             // Draw button
             e.Graphics.FillPath(new SolidBrush(_buttonColor), _buttonGraphicsPath);

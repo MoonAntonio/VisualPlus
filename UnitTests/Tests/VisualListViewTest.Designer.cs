@@ -60,7 +60,7 @@ namespace UnitTests.Tests
             this.visualListView.Border.HoverVisible = true;
             this.visualListView.Border.Rounding = 6;
             this.visualListView.Border.Thickness = 1;
-            this.visualListView.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
+            this.visualListView.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
             this.visualListView.Border.Visible = true;
             this.visualListView.ColumnColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.visualListView.ColumnColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
@@ -137,7 +137,7 @@ namespace UnitTests.Tests
             this.BtnRemove.Border.HoverVisible = true;
             this.BtnRemove.Border.Rounding = 6;
             this.BtnRemove.Border.Thickness = 1;
-            this.BtnRemove.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.BtnRemove.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.BtnRemove.Border.Visible = true;
             this.BtnRemove.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.BtnRemove.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -169,7 +169,7 @@ namespace UnitTests.Tests
             this.BtnAdd.Border.HoverVisible = true;
             this.BtnAdd.Border.Rounding = 6;
             this.BtnAdd.Border.Thickness = 1;
-            this.BtnAdd.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.BtnAdd.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.BtnAdd.Border.Visible = true;
             this.BtnAdd.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.BtnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -199,7 +199,7 @@ namespace UnitTests.Tests
             this.Border.HoverVisible = true;
             this.Border.Rounding = 6;
             this.Border.Thickness = 3;
-            this.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
+            this.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
             this.Border.Visible = true;
             this.ClientSize = new System.Drawing.Size(538, 348);
             // 
@@ -309,7 +309,7 @@ namespace UnitTests.Tests
             this.Image.Border.HoverVisible = false;
             this.Image.Border.Rounding = 6;
             this.Image.Border.Thickness = 1;
-            this.Image.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.Image.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.Image.Border.Visible = false;
             this.Image.Image = ((System.Drawing.Bitmap)(resources.GetObject("resource.Image3")));
             this.Image.Point = new System.Drawing.Point(5, 7);

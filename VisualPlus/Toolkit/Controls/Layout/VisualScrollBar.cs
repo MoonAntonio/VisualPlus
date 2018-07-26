@@ -854,7 +854,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                 e.Graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
                 Rectangle _rectangle;
-                if (_border.Type == ShapeType.Rounded)
+                if (_border.Type == ShapeTypes.Rounded)
                 {
                     _rectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
                 }

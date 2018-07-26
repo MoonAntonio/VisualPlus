@@ -236,7 +236,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Components\ProgressDialog.cs" />
-    <Compile Include="Enumerators\ShapeType.cs" />
+    <Compile Include="Enumerators\ShapeTypes.cs" />
     <Compile Include="Extensibility\BitmapExtension.cs" />
     <Compile Include="Extensibility\EnumExtension.cs" />
     <Compile Include="Extensibility\GraphicsPathExtension.cs" />

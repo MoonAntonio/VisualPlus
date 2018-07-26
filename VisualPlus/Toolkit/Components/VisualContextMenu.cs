@@ -276,7 +276,7 @@ namespace VisualPlus.Toolkit.Components
             border = new Border
                 {
                     HoverVisible = false,
-                    Type = ShapeType.Rectangle
+                    Type = ShapeTypes.Rectangle
                 };
 
             // Font = styleManager.Theme.ColorPalette.Font;

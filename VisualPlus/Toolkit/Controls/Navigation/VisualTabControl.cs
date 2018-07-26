@@ -71,7 +71,7 @@ namespace VisualPlus.Toolkit.Controls.Navigation
 
             _border = new Border
                     {
-                       Type = ShapeType.Rectangle 
+                       Type = ShapeTypes.Rectangle 
                     };
 
             _alignment = TabAlignment.Top;

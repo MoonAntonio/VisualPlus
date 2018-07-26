@@ -24,7 +24,7 @@ namespace VisualPlus
         {
             public const bool Animation = true;
             public const int BorderThickness = 1;
-            public const ShapeType BorderType = ShapeType.Rounded;
+            public const ShapeTypes BorderType = ShapeTypes.Rounded;
             public const bool BorderVisible = true;
             public const int ColumnWidth = 60;
             public const bool TextVisible = true;

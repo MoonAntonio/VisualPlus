@@ -29,7 +29,7 @@ namespace VisualPlus.Structure
 
         private Color _color;
         private int _rounding;
-        private ShapeType _shapeType;
+        private ShapeTypes _shapeType;
         private int _thickness;
         private bool _visible;
 
@@ -42,14 +42,14 @@ namespace VisualPlus.Structure
         {
             Theme theme = new Theme(Settings.DefaultValue.DefaultStyle);
             Color color = theme.ColorPalette.BorderNormal;
-            ConstructShape(ShapeType.Rounded, color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
+            ConstructShape(ShapeTypes.Rounded, color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
         }
 
         /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
         /// <param name="shapeType">The shape type.</param>
         /// <param name="color">The color.</param>
         /// <param name="rounding">The rounding.</param>
-        public Shape(ShapeType shapeType, Color color, int rounding) : this()
+        public Shape(ShapeTypes shapeType, Color color, int rounding) : this()
         {
             ConstructShape(shapeType, color, rounding, _thickness, _visible);
         }
@@ -59,7 +59,7 @@ namespace VisualPlus.Structure
         /// <param name="color">The color.</param>
         /// <param name="rounding">The rounding.</param>
         /// <param name="thickness">The thickness.</param>
-        public Shape(ShapeType shapeType, Color color, int rounding, int thickness) : this()
+        public Shape(ShapeTypes shapeType, Color color, int rounding, int thickness) : this()
         {
             ConstructShape(shapeType, color, rounding, thickness, _visible);
         }
@@ -70,7 +70,7 @@ namespace VisualPlus.Structure
         /// <param name="rounding">The rounding.</param>
         /// <param name="thickness">The thickness.</param>
         /// <param name="visible">The visibility.</param>
-        public Shape(ShapeType shapeType, Color color, int rounding, int thickness, bool visible)
+        public Shape(ShapeTypes shapeType, Color color, int rounding, int thickness, bool visible)
         {
             ConstructShape(shapeType, color, rounding, thickness, visible);
         }
@@ -187,7 +187,7 @@ namespace VisualPlus.Structure
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(PropertyDescription.Shape)]
-        public ShapeType Type
+        public ShapeTypes Type
         {
             get
             {
@@ -228,7 +228,7 @@ namespace VisualPlus.Structure
         /// <param name="rounding">The rounding.</param>
         /// <param name="thickness">The thickness.</param>
         /// <param name="visible">The visibility.</param>
-        private void ConstructShape(ShapeType shapeType, Color color, int rounding, int thickness, bool visible)
+        private void ConstructShape(ShapeTypes shapeType, Color color, int rounding, int thickness, bool visible)
         {
             _color = color;
             _rounding = rounding;

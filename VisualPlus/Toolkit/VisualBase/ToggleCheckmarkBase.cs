@@ -323,7 +323,7 @@ namespace VisualPlus.Toolkit.VisualBase
             _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 2, ClientRectangle.Height + 2);
-            Shape _clientShape = new Shape(ShapeType.Rectangle, _backColor, 0);
+            Shape _clientShape = new Shape(ShapeTypes.Rectangle, _backColor, 0);
 
             GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _clientShape);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);

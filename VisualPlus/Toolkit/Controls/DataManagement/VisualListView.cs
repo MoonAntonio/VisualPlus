@@ -191,7 +191,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             _border = new Border
                     {
-                       Type = ShapeType.Rectangle 
+                       Type = ShapeTypes.Rectangle 
                     };
 
             _horizontalScrollBar = new ManagedHScrollBar
@@ -1932,7 +1932,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             ConsoleEx.WriteDebug("VisualListView::Paint");
 
             // TODO: Allow rounded type.
-            _border.Type = ShapeType.Rectangle;
+            _border.Type = ShapeTypes.Rectangle;
 
             if (!DesignMode && _updating)
             {

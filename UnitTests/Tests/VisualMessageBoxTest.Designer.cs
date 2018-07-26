@@ -63,7 +63,7 @@ namespace UnitTests.Tests
             this.btnTest.Border.HoverVisible = true;
             this.btnTest.Border.Rounding = 6;
             this.btnTest.Border.Thickness = 1;
-            this.btnTest.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.btnTest.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.btnTest.Border.Visible = true;
             this.btnTest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnTest.Image = null;
@@ -92,14 +92,14 @@ namespace UnitTests.Tests
             this.tbTitle.Border.HoverVisible = true;
             this.tbTitle.Border.Rounding = 6;
             this.tbTitle.Border.Thickness = 1;
-            this.tbTitle.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbTitle.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbTitle.Border.Visible = true;
             this.tbTitle.ButtonBorder.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.tbTitle.ButtonBorder.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             this.tbTitle.ButtonBorder.HoverVisible = true;
             this.tbTitle.ButtonBorder.Rounding = 6;
             this.tbTitle.ButtonBorder.Thickness = 1;
-            this.tbTitle.ButtonBorder.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbTitle.ButtonBorder.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbTitle.ButtonBorder.Visible = true;
             this.tbTitle.ButtonColor.Disabled = System.Drawing.Color.Empty;
             this.tbTitle.ButtonColor.Enabled = System.Drawing.Color.Empty;
@@ -205,14 +205,14 @@ namespace UnitTests.Tests
             this.tbMessage.Border.HoverVisible = true;
             this.tbMessage.Border.Rounding = 6;
             this.tbMessage.Border.Thickness = 1;
-            this.tbMessage.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbMessage.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbMessage.Border.Visible = true;
             this.tbMessage.ButtonBorder.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.tbMessage.ButtonBorder.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             this.tbMessage.ButtonBorder.HoverVisible = true;
             this.tbMessage.ButtonBorder.Rounding = 6;
             this.tbMessage.ButtonBorder.Thickness = 1;
-            this.tbMessage.ButtonBorder.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbMessage.ButtonBorder.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbMessage.ButtonBorder.Visible = true;
             this.tbMessage.ButtonColor.Disabled = System.Drawing.Color.Empty;
             this.tbMessage.ButtonColor.Enabled = System.Drawing.Color.Empty;
@@ -259,7 +259,7 @@ namespace UnitTests.Tests
             this.cbButtons.Border.HoverVisible = true;
             this.cbButtons.Border.Rounding = 6;
             this.cbButtons.Border.Thickness = 1;
-            this.cbButtons.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.cbButtons.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.cbButtons.Border.Visible = true;
             this.cbButtons.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(118)))));
             this.cbButtons.ButtonImage = null;
@@ -373,7 +373,7 @@ namespace UnitTests.Tests
             this.cbIcons.Border.HoverVisible = true;
             this.cbIcons.Border.Rounding = 6;
             this.cbIcons.Border.Thickness = 1;
-            this.cbIcons.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.cbIcons.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.cbIcons.Border.Visible = true;
             this.cbIcons.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(118)))));
             this.cbIcons.ButtonImage = null;
@@ -469,7 +469,7 @@ namespace UnitTests.Tests
             this.btnLoad.Border.HoverVisible = true;
             this.btnLoad.Border.Rounding = 6;
             this.btnLoad.Border.Thickness = 1;
-            this.btnLoad.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.btnLoad.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.btnLoad.Border.Visible = true;
             this.btnLoad.Enabled = false;
             this.btnLoad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -499,14 +499,14 @@ namespace UnitTests.Tests
             this.tImage.Border.HoverVisible = true;
             this.tImage.Border.Rounding = 20;
             this.tImage.Border.Thickness = 1;
-            this.tImage.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tImage.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tImage.Border.Visible = true;
             this.tImage.ButtonBorder.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.tImage.ButtonBorder.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             this.tImage.ButtonBorder.HoverVisible = true;
             this.tImage.ButtonBorder.Rounding = 18;
             this.tImage.ButtonBorder.Thickness = 1;
-            this.tImage.ButtonBorder.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tImage.ButtonBorder.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tImage.ButtonBorder.Visible = true;
             this.tImage.ButtonColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.tImage.ButtonColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
@@ -572,7 +572,7 @@ namespace UnitTests.Tests
             this.cbType.Border.HoverVisible = true;
             this.cbType.Border.Rounding = 6;
             this.cbType.Border.Thickness = 1;
-            this.cbType.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.cbType.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.cbType.Border.Visible = true;
             this.cbType.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(118)))));
             this.cbType.ButtonImage = null;
@@ -662,7 +662,7 @@ namespace UnitTests.Tests
             this.btnGenerate.Border.HoverVisible = true;
             this.btnGenerate.Border.Rounding = 6;
             this.btnGenerate.Border.Thickness = 1;
-            this.btnGenerate.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.btnGenerate.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.btnGenerate.Border.Visible = true;
             this.btnGenerate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnGenerate.Image = null;
@@ -691,7 +691,7 @@ namespace UnitTests.Tests
             this.Border.HoverVisible = true;
             this.Border.Rounding = 6;
             this.Border.Thickness = 3;
-            this.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
+            this.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
             this.Border.Visible = true;
             this.ClientSize = new System.Drawing.Size(301, 365);
             // 
@@ -817,7 +817,7 @@ namespace UnitTests.Tests
             this.Image.Border.HoverVisible = false;
             this.Image.Border.Rounding = 6;
             this.Image.Border.Thickness = 1;
-            this.Image.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.Image.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.Image.Border.Visible = false;
             this.Image.Image = ((System.Drawing.Bitmap)(resources.GetObject("resource.Image3")));
             this.Image.Point = new System.Drawing.Point(5, 7);

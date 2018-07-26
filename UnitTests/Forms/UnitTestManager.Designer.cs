@@ -48,7 +48,7 @@ namespace UnitTests.Forms
             this.BtnRunTest.Border.HoverVisible = true;
             this.BtnRunTest.Border.Rounding = 6;
             this.BtnRunTest.Border.Thickness = 1;
-            this.BtnRunTest.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.BtnRunTest.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.BtnRunTest.Border.Visible = true;
             this.BtnRunTest.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.BtnRunTest.ForeColor = System.Drawing.Color.Black;
@@ -79,7 +79,7 @@ namespace UnitTests.Forms
             this.visualListBoxTests.Border.HoverVisible = true;
             this.visualListBoxTests.Border.Rounding = 6;
             this.visualListBoxTests.Border.Thickness = 1;
-            this.visualListBoxTests.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.visualListBoxTests.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.visualListBoxTests.Border.Visible = true;
             this.visualListBoxTests.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.visualListBoxTests.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -144,7 +144,7 @@ namespace UnitTests.Forms
             this.Border.HoverVisible = true;
             this.Border.Rounding = 6;
             this.Border.Thickness = 3;
-            this.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
+            this.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
             this.Border.Visible = true;
             this.ClientSize = new System.Drawing.Size(333, 242);
             // 
@@ -256,7 +256,7 @@ namespace UnitTests.Forms
             this.Image.Border.HoverVisible = false;
             this.Image.Border.Rounding = 6;
             this.Image.Border.Thickness = 1;
-            this.Image.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.Image.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.Image.Border.Visible = false;
             this.Image.Image = ((System.Drawing.Bitmap)(resources.GetObject("resource.Image3")));
             this.Image.Point = new System.Drawing.Point(5, 7);

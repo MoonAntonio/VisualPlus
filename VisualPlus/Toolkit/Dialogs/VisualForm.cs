@@ -108,7 +108,7 @@ namespace VisualPlus.Toolkit.Dialogs
             _border = new Border
                 {
                     Thickness = 3,
-                    Type = ShapeType.Rectangle
+                    Type = ShapeTypes.Rectangle
                 };
 
             _textPaddingTop = 10;
@@ -922,7 +922,7 @@ namespace VisualPlus.Toolkit.Dialogs
 
                 GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(GetBorderBounds(), _border);
 
-                if (_border.Type != ShapeType.Rectangle)
+                if (_border.Type != ShapeTypes.Rectangle)
                 {
                     graphics.SetClip(_clientPath);
                 }
@@ -1256,13 +1256,13 @@ namespace VisualPlus.Toolkit.Dialogs
             Rectangle _borderBounds;
             switch (_border.Type)
             {
-                case ShapeType.Rectangle:
+                case ShapeTypes.Rectangle:
                     {
                         _borderBounds = new Rectangle(1, 1, Width, Height);
                         break;
                     }
 
-                case ShapeType.Rounded:
+                case ShapeTypes.Rounded:
                     {
                         _borderBounds = new Rectangle(0, 0, Width - 1, Height - 1);
                         break;

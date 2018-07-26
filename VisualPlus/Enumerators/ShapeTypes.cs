@@ -1,6 +1,6 @@
 ﻿namespace VisualPlus.Enumerators
 {
-    public enum ShapeType
+    public enum ShapeTypes
     {
         /// <summary>Rectangle shape.</summary>
         Rectangle,

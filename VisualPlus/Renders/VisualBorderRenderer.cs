@@ -31,20 +31,20 @@ namespace VisualPlus.Renders
         /// <param name="thickness">The thickness.</param>
         /// <param name="type">The shape.</param>
         /// <returns>The <see cref="GraphicsPath" />.</returns>
-        public static GraphicsPath CreateBorderTypePath(Rectangle rectangle, int rounding, int thickness, ShapeType type)
+        public static GraphicsPath CreateBorderTypePath(Rectangle rectangle, int rounding, int thickness, ShapeTypes type)
         {
             Rectangle _borderRectangle = new Rectangle(rectangle.X, rectangle.Y, rectangle.Width - thickness, rectangle.Height - thickness);
             GraphicsPath _borderShape = new GraphicsPath();
 
             switch (type)
             {
-                case ShapeType.Rectangle:
+                case ShapeTypes.Rectangle:
                     {
                         _borderShape.AddRectangle(_borderRectangle);
                         break;
                     }
 
-                case ShapeType.Rounded:
+                case ShapeTypes.Rounded:
                     {
                         _borderShape.AddArc(rectangle.X, rectangle.Y, rounding, rounding, 180.0F, 90.0F);
                         _borderShape.AddArc(rectangle.Right - rounding, rectangle.Y, rounding, rounding, 270.0F, 90.0F);
@@ -107,17 +107,17 @@ namespace VisualPlus.Renders
         /// <param name="rounding">The rounding.</param>
         /// <param name="thickness">The thickness.</param>
         /// <param name="shape">The shape.</param>
-        public static void DrawBorder(Graphics graphics, Rectangle rectangle, Color color, int rounding, float thickness, ShapeType shape)
+        public static void DrawBorder(Graphics graphics, Rectangle rectangle, Color color, int rounding, float thickness, ShapeTypes shape)
         {
             switch (shape)
             {
-                case ShapeType.Rectangle:
+                case ShapeTypes.Rectangle:
                     {
                         DrawBorder(graphics, rectangle, color, thickness);
                         break;
                     }
 
-                case ShapeType.Rounded:
+                case ShapeTypes.Rounded:
                     {
                         DrawBorder(graphics, rectangle, color, rounding, thickness);
                         break;

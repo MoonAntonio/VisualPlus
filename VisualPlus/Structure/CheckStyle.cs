@@ -28,7 +28,7 @@ namespace VisualPlus.Structure
         private Color _color;
         private Image _image;
         private int _shapeRounding;
-        private ShapeType _shapeType;
+        private ShapeTypes _shapeType;
         private float _thickness;
 
         #endregion
@@ -197,7 +197,7 @@ namespace VisualPlus.Structure
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(PropertyDescription.Type)]
-        public ShapeType ShapeType
+        public ShapeTypes ShapeType
         {
             get
             {

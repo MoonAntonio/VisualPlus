@@ -69,7 +69,7 @@ namespace ThemeBuilder.Forms
             this.rawText.Border.HoverVisible = true;
             this.rawText.Border.Rounding = 6;
             this.rawText.Border.Thickness = 1;
-            this.rawText.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.rawText.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.rawText.Border.Visible = true;
             this.rawText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.rawText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -99,14 +99,14 @@ namespace ThemeBuilder.Forms
             this.tbName.Border.HoverVisible = true;
             this.tbName.Border.Rounding = 6;
             this.tbName.Border.Thickness = 1;
-            this.tbName.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbName.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbName.Border.Visible = true;
             this.tbName.ButtonBorder.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.tbName.ButtonBorder.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             this.tbName.ButtonBorder.HoverVisible = true;
             this.tbName.ButtonBorder.Rounding = 6;
             this.tbName.ButtonBorder.Thickness = 1;
-            this.tbName.ButtonBorder.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbName.ButtonBorder.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbName.ButtonBorder.Visible = true;
             this.tbName.ButtonColor.Disabled = System.Drawing.Color.Empty;
             this.tbName.ButtonColor.Enabled = System.Drawing.Color.Empty;
@@ -154,14 +154,14 @@ namespace ThemeBuilder.Forms
             this.tbAuthor.Border.HoverVisible = true;
             this.tbAuthor.Border.Rounding = 6;
             this.tbAuthor.Border.Thickness = 1;
-            this.tbAuthor.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbAuthor.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbAuthor.Border.Visible = true;
             this.tbAuthor.ButtonBorder.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.tbAuthor.ButtonBorder.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             this.tbAuthor.ButtonBorder.HoverVisible = true;
             this.tbAuthor.ButtonBorder.Rounding = 6;
             this.tbAuthor.ButtonBorder.Thickness = 1;
-            this.tbAuthor.ButtonBorder.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbAuthor.ButtonBorder.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbAuthor.ButtonBorder.Visible = true;
             this.tbAuthor.ButtonColor.Disabled = System.Drawing.Color.Empty;
             this.tbAuthor.ButtonColor.Enabled = System.Drawing.Color.Empty;
@@ -393,14 +393,14 @@ namespace ThemeBuilder.Forms
             this.tbPath.Border.HoverVisible = true;
             this.tbPath.Border.Rounding = 6;
             this.tbPath.Border.Thickness = 1;
-            this.tbPath.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbPath.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbPath.Border.Visible = true;
             this.tbPath.ButtonBorder.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.tbPath.ButtonBorder.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             this.tbPath.ButtonBorder.HoverVisible = true;
             this.tbPath.ButtonBorder.Rounding = 6;
             this.tbPath.ButtonBorder.Thickness = 1;
-            this.tbPath.ButtonBorder.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.tbPath.ButtonBorder.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.tbPath.ButtonBorder.Visible = true;
             this.tbPath.ButtonColor.Disabled = System.Drawing.Color.Empty;
             this.tbPath.ButtonColor.Enabled = System.Drawing.Color.Empty;
@@ -448,7 +448,7 @@ namespace ThemeBuilder.Forms
             this.gpColorPalette.Border.HoverVisible = true;
             this.gpColorPalette.Border.Rounding = 6;
             this.gpColorPalette.Border.Thickness = 1;
-            this.gpColorPalette.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.gpColorPalette.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.gpColorPalette.Border.Visible = true;
             this.gpColorPalette.BoxStyle = VisualPlus.Toolkit.Controls.Layout.VisualGroupBox.GroupBoxStyle.Default;
             this.gpColorPalette.Controls.Add(this.visualTile1);
@@ -511,7 +511,7 @@ namespace ThemeBuilder.Forms
             this.Border.HoverVisible = true;
             this.Border.Rounding = 6;
             this.Border.Thickness = 3;
-            this.Border.Type = VisualPlus.Enumerators.ShapeType.Rectangle;
+            this.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
             this.Border.Visible = true;
             this.ClientSize = new System.Drawing.Size(730, 500);
             // 
@@ -627,7 +627,7 @@ namespace ThemeBuilder.Forms
             this.Image.Border.HoverVisible = false;
             this.Image.Border.Rounding = 6;
             this.Image.Border.Thickness = 1;
-            this.Image.Border.Type = VisualPlus.Enumerators.ShapeType.Rounded;
+            this.Image.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.Image.Border.Visible = false;
             this.Image.Image = ((System.Drawing.Bitmap)(resources.GetObject("resource.Image3")));
             this.Image.Point = new System.Drawing.Point(5, 7);
