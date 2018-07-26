@@ -83,12 +83,12 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
             _backColorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.ColorPalette.Type3
+                       Enabled = ThemeManager.Theme.ColorPalette.Type3 
                     };
 
             _textBox = new TextBox
                 {
-                    Size = new Size(GetTextBoxWidth(), 25),
+                    Size = new Size(125, 25),
                     Location = new Point(_border.BorderCurve, _border.BorderCurve),
                     Text = string.Empty,
                     BorderStyle = BorderStyle.None,
@@ -98,11 +98,6 @@ namespace VisualPlus.Toolkit.Controls.Editors
                     BackColor = _backColorState.Enabled,
                     Multiline = false
                 };
-
-            Size = new Size(135, 25);
-
-            // Apply new height after initializing.
-            _textBox.Size = new Size(GetTextBoxWidth(), 25);
 
             _imageWidth = 35;
             _buttonFont = Font;
@@ -129,6 +124,8 @@ namespace VisualPlus.Toolkit.Controls.Editors
             Controls.Add(_borderImage);
 
             _waterMarkContainer = null;
+
+            Size = new Size(135, 25);
 
             if (_watermark.Visible)
             {
