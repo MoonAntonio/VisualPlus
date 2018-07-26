@@ -27,7 +27,6 @@ namespace VisualPlus.Designer
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
             properties.Remove("RightToLeft");
-            properties.Remove("BackColorState");
 
             base.PreFilterProperties(properties);
         }

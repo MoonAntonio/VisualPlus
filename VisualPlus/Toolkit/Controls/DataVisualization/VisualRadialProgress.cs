@@ -12,7 +12,6 @@ using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -33,7 +32,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         private Color _backCircleColor;
         private bool _backCircleVisible;
-        private ControlColorState _colorState;
         private Color _foreCircleColor;
         private bool _foreCircleVisible;
         private Image _image;
@@ -110,27 +108,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             set
             {
                 _backCircleVisible = value;
-                Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(ControlColorStateConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState BackColorState
-        {
-            get
-            {
-                return _colorState;
-            }
-
-            set
-            {
-                if (value == _colorState)
-                {
-                    return;
-                }
-
-                _colorState = value;
                 Invalidate();
             }
         }
@@ -526,12 +503,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
                 _superscriptColor = theme.ColorPalette.SuperscriptColor;
                 _subscriptColor = theme.ColorPalette.SubscriptColor;
-
-                _colorState = new ControlColorState
-                    {
-                        Enabled = theme.ColorPalette.Type1,
-                        Disabled = theme.ColorPalette.Type1
-                    };
 
                 _backCircleColor = theme.ColorPalette.BackCircle;
                 _foreCircleColor = theme.ColorPalette.ForeCircle;
