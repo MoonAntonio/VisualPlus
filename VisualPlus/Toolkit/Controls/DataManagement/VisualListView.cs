@@ -1583,7 +1583,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="disposing">Indicates whether the method call comes from a <see cref="Dispose" /> method or a finalizer.</param>
         protected override void Dispose(bool disposing)
         {
-            ConsoleEx.WriteDebug("Disposing VisualListViewAdvanced.");
+            ConsoleEx.WriteDebug("Disposing VisualListView.");
 
             if (_theme != IntPtr.Zero)
             {
