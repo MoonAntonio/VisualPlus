@@ -46,7 +46,7 @@ namespace VisualPlus.Structure
         }
 
         /// <summary>Initializes a new instance of the <see cref="Hatch" /> class.</summary>
-        /// <param name="visible">The visiblity of the hatch.</param>
+        /// <param name="visible">The visibility of the hatch.</param>
         /// <param name="size">The size of the hatch.</param>
         /// <param name="style">The style of the hatch.</param>
         /// <param name="backColor">The back Color.</param>
