@@ -7,7 +7,6 @@
     </Information>
     <StyleTable>
         <Shared>
-            <LightText>#FF808080</LightText>
             <Line>#FFE0DEDC</Line>
             <Shadow>#FFFAF9F9</Shadow>
             <Background>
@@ -44,6 +43,7 @@
                 <Selected>#D9DCE3</Selected>
                 <Subscript>#BC1708</Subscript>
                 <Superscript>#0924BC</Superscript>
+                <LightText>#FF808080</LightText>
             </Text>
             <ListItem>
                 <Normal>#FFDCDCDC</Normal>

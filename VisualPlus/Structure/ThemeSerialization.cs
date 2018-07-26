@@ -53,6 +53,7 @@ namespace VisualPlus.Structure
                 colorPalette.Selected = XMLManager.ReadElement(themeDocument, Shared + "Text/Selected").ToColor();
                 colorPalette.SubscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Subscript").ToColor();
                 colorPalette.SuperscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Superscript").ToColor();
+                colorPalette.LightText = XMLManager.ReadElement(themeDocument, Shared + "Text/LightText").ToColor();
 
                 // colorPalette.Font = FontManager.ResolveFontFamily(themeDocument.GetValue(Shared + "Font/FontFamily"));
                 colorPalette.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Enabled").ToColor();
@@ -75,7 +76,6 @@ namespace VisualPlus.Structure
 
                 colorPalette.Line = XMLManager.ReadElement(themeDocument, Shared + "Line").ToColor();
                 colorPalette.Shadow = XMLManager.ReadElement(themeDocument, Shared + "Shadow").ToColor();
-                colorPalette.LightText = XMLManager.ReadElement(themeDocument, Shared + "LightText").ToColor();
 
                 colorPalette.ColumnHeader = XMLManager.ReadElement(themeDocument, Shared + "ColumnHeader/Header").ToColor();
                 colorPalette.ColumnText = XMLManager.ReadElement(themeDocument, Shared + "ColumnHeader/Text").ToColor();
@@ -261,7 +261,6 @@ namespace VisualPlus.Structure
                     xmlWriter.WriteStartElement(Shared);
 
                     // < ----------------------------------------------------------------------- |
-                    xmlWriter.WriteElementString("LightText", colorPalette.LightText.ToHTML());
                     xmlWriter.WriteElementString("Line", colorPalette.Line.ToHTML());
                     xmlWriter.WriteElementString("Shadow", colorPalette.Shadow.ToHTML());
 
@@ -323,7 +322,8 @@ namespace VisualPlus.Structure
                             { "Pressed", colorPalette.TextPressed },
                             { "Selected", colorPalette.Selected },
                             { "Subscript", colorPalette.SubscriptColor },
-                            { "Superscript", colorPalette.SuperscriptColor }
+                            { "Superscript", colorPalette.SuperscriptColor },
+                            { "LightText", colorPalette.LightText }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "Text", textDictionary);
