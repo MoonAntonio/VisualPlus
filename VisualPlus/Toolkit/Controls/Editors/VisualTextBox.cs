@@ -1113,6 +1113,8 @@ namespace VisualPlus.Toolkit.Controls.Editors
             OnThemeChanged(new ThemeEventArgs(theme));
         }
 
+        /// <summary>Draws the button.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawButton(Graphics graphics)
         {
             Color _buttonColor;
@@ -1194,6 +1196,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             graphics.ResetClip();
         }
 
+        /// <summary>Draws the watermark.</summary>
         private void DrawWaterMark()
         {
             if ((_waterMarkContainer == null) && (_textBox.TextLength <= 0))
@@ -1232,6 +1235,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
+        /// <summary>Removes the watermark.</summary>
         private void RemoveWaterMark()
         {
             if (_waterMarkContainer != null)
