@@ -56,7 +56,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _backColorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.ColorPalette.Type4 
+                       Enabled = ThemeManager.Theme.ColorPalette.Type3
                     };
 
             _richTextBox = new RichTextBox
@@ -640,7 +640,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 // Font = theme.ColorPalette.Font;
                 _backColorState = new ColorState
                     {
-                        Enabled = theme.ColorPalette.Type4,
+                        Enabled = theme.ColorPalette.Type3,
                         Disabled = theme.ColorPalette.Type1
                     };
             }

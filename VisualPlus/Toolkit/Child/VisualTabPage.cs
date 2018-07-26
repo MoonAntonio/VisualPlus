@@ -56,7 +56,7 @@ namespace VisualPlus.Toolkit.Child
             _textLineAlignment = StringAlignment.Center;
             _textAlignment = StringAlignment.Center;
 
-            BackColor = _styleManager.Theme.ColorPalette.Type4;
+            BackColor = _styleManager.Theme.ColorPalette.Type3;
             ForeColor = Color.FromArgb(174, 181, 187);
 
             // Font = _styleManager.Theme.ColorPalette.Font;

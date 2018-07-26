@@ -64,7 +64,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             _colorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.ColorPalette.Type4 
+                       Enabled = ThemeManager.Theme.ColorPalette.Type3 
                     };
 
             _listBox = new ListBox
@@ -871,7 +871,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 _colorState = new ColorState
                     {
-                        Enabled = theme.ColorPalette.Type4,
+                        Enabled = theme.ColorPalette.Type3,
                         Disabled = theme.ColorPalette.Type1
                     };
             }

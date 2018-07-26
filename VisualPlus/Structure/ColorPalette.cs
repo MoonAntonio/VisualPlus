@@ -360,10 +360,6 @@ namespace VisualPlus.Structure
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
-        public Color Type4 { get; set; }
-
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
         public Color WatermarkActive { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]

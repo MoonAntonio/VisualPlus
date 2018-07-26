@@ -83,7 +83,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
             _backColorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.ColorPalette.Type4 
+                       Enabled = ThemeManager.Theme.ColorPalette.Type3
                     };
 
             _textBox = new TextBox
@@ -1097,7 +1097,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 _buttonColorState = new ControlColorState();
                 _backColorState = new ColorState
                     {
-                        Enabled = theme.ColorPalette.Type4,
+                        Enabled = theme.ColorPalette.Type3,
                         Disabled = theme.ColorPalette.Type2
                     };
 
