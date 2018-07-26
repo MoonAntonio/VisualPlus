@@ -130,6 +130,16 @@ namespace VisualPlus.Structure
             }
         }
 
+        /// <summary>Gets the <see cref="Shape" /> display distance based on thickness and visibility.</summary>
+        [Browsable(false)]
+        public int Distance
+        {
+            get
+            {
+                return _visible ? _thickness : 0;
+            }
+        }
+
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(PropertyDescription.Rounding)]
