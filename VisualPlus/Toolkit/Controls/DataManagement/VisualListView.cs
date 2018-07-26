@@ -1590,8 +1590,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 Uxtheme.CloseThemeData(_theme);
             }
 
-            _timer.Dispose();
-
             if (disposing)
             {
                 if (_components != null)
