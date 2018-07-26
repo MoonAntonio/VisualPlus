@@ -495,7 +495,7 @@ namespace VisualPlus.Structure
 
                     XMLManager.WriteElementGroup(xmlWriter, "VisualRadialProgress", radialDictionary);
 
-                    xmlWriter.WriteStartElement("VisualScrollbar");
+                    xmlWriter.WriteStartElement("VisualScrollBar");
 
                     var barDictionary = new Dictionary<string, Color>
                         {
