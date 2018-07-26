@@ -89,7 +89,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             _textBox = new TextBox
                 {
                     Size = new Size(GetTextBoxWidth(), 25),
-                    Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border), VisualBorderRenderer.CalculateBorderCurve(_border)),
+                    Location = new Point(_border.BorderCurve, _border.BorderCurve),
                     Text = string.Empty,
                     BorderStyle = BorderStyle.None,
                     TextAlign = HorizontalAlignment.Left,
@@ -882,7 +882,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             {
                 if (_borderImage.Visible)
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border) + _imageRectangle.Width, _textBox.Location.Y);
+                    _textBox.Location = new Point(_border.BorderCurve + _imageRectangle.Width, _textBox.Location.Y);
 
                     DrawImage(graphics);
 
@@ -893,7 +893,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 }
                 else
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border), _textBox.Location.Y);
+                    _textBox.Location = new Point(_border.BorderCurve, _textBox.Location.Y);
 
                     if (_borderButton.Visible)
                     {
@@ -926,11 +926,11 @@ namespace VisualPlus.Toolkit.Controls.Editors
             {
                 if (_borderImage.Visible)
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border) + _imageWidth, _textBox.Location.Y);
+                    _textBox.Location = new Point(_border.BorderCurve + _imageWidth, _textBox.Location.Y);
                 }
                 else
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border), _textBox.Location.Y);
+                    _textBox.Location = new Point(_border.BorderCurve, _textBox.Location.Y);
                 }
 
                 if ((!_borderImage.Visible & !_borderButton.Visible) && AutoSize)
@@ -939,7 +939,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 }
 
                 _textBox.Height = GetTextBoxHeight();
-                Size = new Size(Width, VisualBorderRenderer.CalculateBorderCurve(_border) + _textBox.Height + VisualBorderRenderer.CalculateBorderCurve(_border));
+                Size = new Size(Width, _border.BorderCurve + _textBox.Height + _border.BorderCurve);
             }
             else
             {

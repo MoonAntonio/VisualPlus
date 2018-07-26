@@ -103,6 +103,16 @@ namespace VisualPlus.Structure
 
         #region Properties
 
+        /// <summary>Gets the distance from the rounded border.</summary>
+        [Browsable(false)]
+        public int BorderCurve
+        {
+            get
+            {
+                return (_rounding / 2) + _thickness + 1;
+            }
+        }
+
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(PropertyDescription.Color)]

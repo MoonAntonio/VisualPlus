@@ -16,14 +16,6 @@ namespace VisualPlus.Renders
     {
         #region Methods
 
-        /// <summary>Gets the distance from the border.</summary>
-        /// <param name="shape">The shape of the container control.</param>
-        /// <returns>The <see cref="int" />.</returns>
-        public static int CalculateBorderCurve(Shape shape)
-        {
-            return (shape.Rounding / 2) + shape.Thickness + 1;
-        }
-
         /// <summary>Creates a border type path.</summary>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="shape">The shape.</param>
