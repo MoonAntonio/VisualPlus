@@ -82,7 +82,7 @@ namespace VisualPlus.Toolkit.Controls.Navigation
 
             _itemSize = new Size(100, 25);
             _tabMenu = Color.FromArgb(55, 61, 73);
-            _tabSelector = _styleManager.Theme.ColorPalette.Type3;
+            _tabSelector = _styleManager.Theme.ColorPalette.ControlEnabled;
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
             _separatorSpacing = 2;

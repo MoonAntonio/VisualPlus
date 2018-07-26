@@ -9,11 +9,6 @@
         <Shared>
             <Line>#FFE0DEDC</Line>
             <Shadow>#FFFAF9F9</Shadow>
-            <Background>
-                <Type1>#FFDCDCDC</Type1>
-                <Type2>#FFDCDCDC</Type2>
-                <Type3>#FFF1F4F9</Type3>
-            </Background>
             <Border>
                 <Normal>#FFB4B4B4</Normal>
                 <Hover>#D71AA6</Hover>
@@ -23,8 +18,8 @@
                 <Text>#FF000000</Text>
             </ColumnHeader>
             <Control>
-                <Enabled>#FFE2E2E2</Enabled>
-                <Disabled>#FFF3F3F3</Disabled>
+                <Enabled>#F1F4F9</Enabled>
+                <Disabled>#DCDCDC</Disabled>
             </Control>
             <Element>
                 <Disabled>#FFF3F3F3</Disabled>

@@ -346,17 +346,13 @@ namespace VisualPlus.Structure
         [TypeConverter(typeof(VisualColorConverter))]
         public Color TextPressed { get; set; }
 
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
-        public Color Type1 { get; set; }
+        //[Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        //[TypeConverter(typeof(VisualColorConverter))]
+        //public Color Type1 { get; set; }
 
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
-        public Color Type2 { get; set; }
-
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
-        public Color Type3 { get; set; }
+        //[Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        //[TypeConverter(typeof(VisualColorConverter))]
+        //public Color Type2 { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]

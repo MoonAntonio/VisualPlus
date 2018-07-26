@@ -235,8 +235,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             _colorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.ColorPalette.Type3 
-                    };
+                       Enabled = ThemeManager.Theme.ColorPalette.ControlEnabled
+            };
 
             Size = new Size(121, 97);
             UpdateTheme(ThemeManager.Theme);
@@ -2514,11 +2514,11 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 _colorState = new ColorState
                     {
-                        Enabled = theme.ColorPalette.Type3,
-                        Disabled = theme.ColorPalette.Type1
-                    };
+                        Enabled = theme.ColorPalette.ControlEnabled,
+                        Disabled = theme.ColorPalette.ControlDisabled
+                };
 
-                _cornerBox.BackColor = theme.ColorPalette.Type3;
+                _cornerBox.BackColor = theme.ColorPalette.ControlEnabled;
             }
             catch (Exception e)
             {

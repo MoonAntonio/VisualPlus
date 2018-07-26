@@ -374,8 +374,8 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 // Font = theme.ColorPalette.Font;
                 _controlColorState = new ColorState
                     {
-                        Enabled = theme.ColorPalette.Type2,
-                        Disabled = theme.ColorPalette.Type1
+                        Enabled = theme.ColorPalette.ControlEnabled,
+                        Disabled = theme.ColorPalette.ControlDisabled
                     };
 
                 _buttonColorState = new ControlColorState

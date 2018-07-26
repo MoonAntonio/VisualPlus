@@ -602,12 +602,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
                 // _buttonFont = new Font(theme.ColorPalette.Font.FontFamily, 14, FontStyle.Bold);
                 _buttonFont = new Font(SystemFonts.DefaultFont.FontFamily, 14, FontStyle.Bold);
-                _buttonColor = theme.ColorPalette.Type2;
+                _buttonColor = theme.ColorPalette.ControlEnabled;
 
                 _colorState = new ColorState
                     {
-                        Enabled = theme.ColorPalette.Type2,
-                        Disabled = theme.ColorPalette.Type1
+                        Enabled = theme.ColorPalette.ControlEnabled,
+                        Disabled = theme.ColorPalette.ControlDisabled
                     };
             }
             catch (Exception e)

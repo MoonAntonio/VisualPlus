@@ -288,7 +288,7 @@ namespace VisualPlus.Toolkit.Components
             arrowDisabledColor = styleManager.Theme.ColorPalette.ElementDisabled;
             contextMenuFont = Font;
 
-            _backgroundColor = styleManager.Theme.ColorPalette.Type1;
+            _backgroundColor = styleManager.Theme.ColorPalette.ControlEnabled;
             _selectedItemBackColor = styleManager.Theme.ColorPalette.ItemHover;
             _textHoverColor = styleManager.Theme.ColorPalette.TextHover;
         }

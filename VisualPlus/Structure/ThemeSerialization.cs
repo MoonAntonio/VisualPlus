@@ -61,9 +61,8 @@ namespace VisualPlus.Structure
                 colorPalette.ItemSelected = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Selected").ToColor();
                 colorPalette.ItemAlternate = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Alternate").ToColor();
 
-                colorPalette.Type1 = XMLManager.ReadElement(themeDocument, Shared + "Background/Type1").ToColor();
-                colorPalette.Type2 = XMLManager.ReadElement(themeDocument, Shared + "Background/Type2").ToColor();
-                colorPalette.Type3 = XMLManager.ReadElement(themeDocument, Shared + "Background/Type3").ToColor();
+                //colorPalette.Type1 = XMLManager.ReadElement(themeDocument, Shared + "Background/Type1").ToColor();
+                //colorPalette.Type2 = XMLManager.ReadElement(themeDocument, Shared + "Background/Type2").ToColor();
 
                 colorPalette.Line = XMLManager.ReadElement(themeDocument, Shared + "Line").ToColor();
                 colorPalette.Shadow = XMLManager.ReadElement(themeDocument, Shared + "Shadow").ToColor();
@@ -263,14 +262,13 @@ namespace VisualPlus.Structure
                     xmlWriter.WriteElementString("Line", colorPalette.Line.ToHTML());
                     xmlWriter.WriteElementString("Shadow", colorPalette.Shadow.ToHTML());
 
-                    var backgroundDictionary = new Dictionary<string, Color>
-                        {
-                            { "Type1", colorPalette.Type1 },
-                            { "Type2", colorPalette.Type2 },
-                            { "Type3", colorPalette.Type3 }
-                        };
+                    //var backgroundDictionary = new Dictionary<string, Color>
+                    //    {
+                    //        { "Type1", colorPalette.Type1 },
+                    //        { "Type2", colorPalette.Type2 }
+                    //    };
 
-                    XMLManager.WriteElementGroup(xmlWriter, "Background", backgroundDictionary);
+                    //XMLManager.WriteElementGroup(xmlWriter, "Background", backgroundDictionary);
 
                     var borderDictionary = new Dictionary<string, Color>
                         {

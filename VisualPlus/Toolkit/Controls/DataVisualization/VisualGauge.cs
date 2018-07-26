@@ -223,7 +223,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
                 _colorState = new ColorState
                     {
-                        Enabled = theme.ColorPalette.Type3,
+                        Enabled = theme.ColorPalette.ControlEnabled,
                         Disabled = theme.ColorPalette.ControlDisabled
                     };
 
