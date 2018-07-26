@@ -40,7 +40,7 @@ namespace VisualPlus.Structure
         /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
         public Shape()
         {
-            Theme theme = new Theme(Themes.Visual);
+            Theme theme = new Theme(Settings.DefaultValue.DefaultStyle);
             Color color = theme.ColorPalette.BorderNormal;
             ConstructShape(ShapeType.Rounded, color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
         }
