@@ -8,7 +8,6 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 
 using VisualPlus.Localization;
-using VisualPlus.Toolkit.Components;
 
 #endregion
 
@@ -37,12 +36,13 @@ namespace VisualPlus.Structure
         /// <summary>Initializes a new instance of the <see cref="Hatch" /> class.</summary>
         public Hatch()
         {
-            StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            Theme theme = new Theme(Settings.DefaultValue.DefaultStyle);
+
             _visible = Settings.DefaultValue.HatchVisible;
             _size = Settings.DefaultValue.HatchSize;
             _style = Settings.DefaultValue.HatchStyle;
-            _backColor = styleManager.Theme.ColorPalette.HatchBackColor;
-            _foreColor = Color.FromArgb(40, styleManager.Theme.ColorPalette.HatchForeColor);
+            _backColor = theme.ColorPalette.HatchBackColor;
+            _foreColor = Color.FromArgb(40, theme.ColorPalette.HatchForeColor);
         }
 
         /// <summary>Initializes a new instance of the <see cref="Hatch" /> class.</summary>

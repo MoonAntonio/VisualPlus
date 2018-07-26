@@ -40,9 +40,9 @@ namespace VisualPlus.Structure
         /// <param name="boundary">The boundary.</param>
         public CheckStyle(Rectangle boundary)
         {
-            StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            Theme theme = new Theme(Settings.DefaultValue.DefaultStyle);
 
-            _color = styleManager.Theme.ColorPalette.Progress;
+            _color = theme.ColorPalette.Progress;
 
             _autoSize = true;
             _character = '✔';

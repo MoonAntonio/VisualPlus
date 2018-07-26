@@ -260,8 +260,6 @@ namespace VisualPlus.Structure
             graphics.FillRectangle(_linearGradientBrush, gradient.Rectangle);
         }
 
-        // public float EndPoint;
-
         /// <summary>Sorts the offsets to an entire <see cref="Array" />.</summary>
         /// <param name="customOffsets">The custom offsets for the colors to be positioned.</param>
         /// <returns>The <see cref="float" />.</returns>
@@ -292,8 +290,6 @@ namespace VisualPlus.Structure
             Array.Sort(customOffsets);
             return customOffsets;
         }
-
-        // public float StartPoint;
 
         /// <summary>Initializes a new instance of the <see cref="Gradient" /> component.</summary>
         /// <param name="angle">The angle.</param>
