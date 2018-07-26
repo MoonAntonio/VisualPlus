@@ -43,7 +43,7 @@
                 <Selected>#D9DCE3</Selected>
                 <Subscript>#BC1708</Subscript>
                 <Superscript>#0924BC</Superscript>
-                <LightText>#FF808080</LightText>
+                <TextLight>#FF808080</TextLight>
             </Text>
             <ListItem>
                 <Normal>#FFDCDCDC</Normal>

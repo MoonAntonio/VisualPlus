@@ -53,7 +53,7 @@ namespace VisualPlus.Structure
                 colorPalette.Selected = XMLManager.ReadElement(themeDocument, Shared + "Text/Selected").ToColor();
                 colorPalette.SubscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Subscript").ToColor();
                 colorPalette.SuperscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Superscript").ToColor();
-                colorPalette.LightText = XMLManager.ReadElement(themeDocument, Shared + "Text/LightText").ToColor();
+                colorPalette.TextLight = XMLManager.ReadElement(themeDocument, Shared + "Text/TextLight").ToColor();
 
                 // colorPalette.Font = FontManager.ResolveFontFamily(themeDocument.GetValue(Shared + "Font/FontFamily"));
                 colorPalette.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualButton/Enabled").ToColor();
@@ -323,7 +323,7 @@ namespace VisualPlus.Structure
                             { "Selected", colorPalette.Selected },
                             { "Subscript", colorPalette.SubscriptColor },
                             { "Superscript", colorPalette.SuperscriptColor },
-                            { "LightText", colorPalette.LightText }
+                            { "TextLight", colorPalette.TextLight }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "Text", textDictionary);
