@@ -9,7 +9,6 @@ using System.IO;
 using VisualPlus.Enumerators;
 using VisualPlus.Localization;
 using VisualPlus.Renders;
-using VisualPlus.Toolkit.Components;
 
 #endregion
 
