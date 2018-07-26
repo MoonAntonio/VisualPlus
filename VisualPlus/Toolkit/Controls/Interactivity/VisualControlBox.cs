@@ -382,66 +382,66 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             {
                 _closeButton.BackColorState = new ControlColorState
                     {
-                        Disabled = theme.ColorPalette.CloseButtonBack.Disabled,
-                        Enabled = theme.ColorPalette.CloseButtonBack.Enabled,
-                        Hover = theme.ColorPalette.CloseButtonBack.Hover,
-                        Pressed = theme.ColorPalette.CloseButtonBack.Pressed
+                        Disabled = theme.ColorPalette.CloseButtonBackDisabled,
+                        Enabled = theme.ColorPalette.CloseButtonBackEnabled,
+                        Hover = theme.ColorPalette.CloseButtonBackHover,
+                        Pressed = theme.ColorPalette.CloseButtonBackPressed
                     };
 
                 _closeButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = theme.ColorPalette.CloseButtonFore.Disabled,
-                        Enabled = theme.ColorPalette.CloseButtonFore.Enabled,
-                        Hover = theme.ColorPalette.CloseButtonFore.Hover,
-                        Pressed = theme.ColorPalette.CloseButtonFore.Pressed
+                        Disabled = theme.ColorPalette.CloseButtonForeDisabled,
+                        Enabled = theme.ColorPalette.CloseButtonForeEnabled,
+                        Hover = theme.ColorPalette.CloseButtonForeHover,
+                        Pressed = theme.ColorPalette.CloseButtonForePressed
                     };
 
                 _maximizeButton.BackColorState = new ControlColorState
                     {
-                        Disabled = theme.ColorPalette.MaximizeButtonBack.Disabled,
-                        Enabled = theme.ColorPalette.MaximizeButtonBack.Enabled,
-                        Hover = theme.ColorPalette.MaximizeButtonBack.Hover,
-                        Pressed = theme.ColorPalette.MaximizeButtonBack.Pressed
+                        Disabled = theme.ColorPalette.MaximizeButtonBackDisabled,
+                        Enabled = theme.ColorPalette.MaximizeButtonBackEnabled,
+                        Hover = theme.ColorPalette.MaximizeButtonBackHover,
+                        Pressed = theme.ColorPalette.MaximizeButtonBackPressed
                     };
 
                 _maximizeButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = theme.ColorPalette.MaximizeButtonFore.Disabled,
-                        Enabled = theme.ColorPalette.MaximizeButtonFore.Enabled,
-                        Hover = theme.ColorPalette.MaximizeButtonFore.Hover,
-                        Pressed = theme.ColorPalette.MaximizeButtonFore.Pressed
+                        Disabled = theme.ColorPalette.MaximizeButtonForeDisabled,
+                        Enabled = theme.ColorPalette.MaximizeButtonForeEnabled,
+                        Hover = theme.ColorPalette.MaximizeButtonForeHover,
+                        Pressed = theme.ColorPalette.MaximizeButtonForePressed
                     };
 
                 _minimizeButton.BackColorState = new ControlColorState
                     {
-                        Disabled = theme.ColorPalette.MinimizeButtonBack.Disabled,
-                        Enabled = theme.ColorPalette.MinimizeButtonBack.Enabled,
-                        Hover = theme.ColorPalette.MinimizeButtonBack.Hover,
-                        Pressed = theme.ColorPalette.MinimizeButtonBack.Pressed
+                        Disabled = theme.ColorPalette.MinimizeButtonBackDisabled,
+                        Enabled = theme.ColorPalette.MinimizeButtonBackEnabled,
+                        Hover = theme.ColorPalette.MinimizeButtonBackHover,
+                        Pressed = theme.ColorPalette.MinimizeButtonBackPressed
                     };
 
                 _minimizeButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = theme.ColorPalette.MinimizeButtonFore.Disabled,
-                        Enabled = theme.ColorPalette.MinimizeButtonFore.Enabled,
-                        Hover = theme.ColorPalette.MinimizeButtonFore.Hover,
-                        Pressed = theme.ColorPalette.MinimizeButtonFore.Pressed
+                        Disabled = theme.ColorPalette.MinimizeButtonForeDisabled,
+                        Enabled = theme.ColorPalette.MinimizeButtonForeEnabled,
+                        Hover = theme.ColorPalette.MinimizeButtonForeHover,
+                        Pressed = theme.ColorPalette.MinimizeButtonForePressed
                     };
 
                 _helpButton.BackColorState = new ControlColorState
                     {
-                        Disabled = theme.ColorPalette.HelpButtonBack.Disabled,
-                        Enabled = theme.ColorPalette.HelpButtonBack.Enabled,
-                        Hover = theme.ColorPalette.HelpButtonBack.Hover,
-                        Pressed = theme.ColorPalette.HelpButtonBack.Pressed
+                        Disabled = theme.ColorPalette.HelpButtonBackDisabled,
+                        Enabled = theme.ColorPalette.HelpButtonBackEnabled,
+                        Hover = theme.ColorPalette.HelpButtonBackHover,
+                        Pressed = theme.ColorPalette.HelpButtonBackPressed
                     };
 
                 _helpButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = theme.ColorPalette.HelpButtonFore.Disabled,
-                        Enabled = theme.ColorPalette.HelpButtonFore.Enabled,
-                        Hover = theme.ColorPalette.HelpButtonFore.Hover,
-                        Pressed = theme.ColorPalette.HelpButtonFore.Pressed
+                        Disabled = theme.ColorPalette.HelpButtonForeDisabled,
+                        Enabled = theme.ColorPalette.HelpButtonForeEnabled,
+                        Hover = theme.ColorPalette.HelpButtonForeHover,
+                        Pressed = theme.ColorPalette.HelpButtonForePressed
                     };
             }
             catch (Exception e)

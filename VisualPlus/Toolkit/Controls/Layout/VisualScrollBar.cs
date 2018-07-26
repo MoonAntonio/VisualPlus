@@ -14,7 +14,6 @@ using VisualPlus.Localization;
 using VisualPlus.Native;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -1047,18 +1046,18 @@ namespace VisualPlus.Toolkit.Controls.Layout
                 _thumbBorder.Color = theme.ColorPalette.BorderNormal;
                 _thumbBorder.HoverColor = theme.ColorPalette.BorderHover;
 
-                _backColorState.Disabled = theme.ColorPalette.ScrollBar.Disabled;
-                _backColorState.Enabled = theme.ColorPalette.ScrollBar.Enabled;
+                _backColorState.Disabled = theme.ColorPalette.ScrollBarDisabled;
+                _backColorState.Enabled = theme.ColorPalette.ScrollBarEnabled;
 
-                _thumbColorState.Disabled = theme.ColorPalette.ScrollThumb.Enabled;
-                _thumbColorState.Enabled = theme.ColorPalette.ScrollThumb.Disabled;
-                _thumbColorState.Hover = theme.ColorPalette.ScrollThumb.Hover;
-                _thumbColorState.Pressed = theme.ColorPalette.ScrollThumb.Pressed;
+                _thumbColorState.Disabled = theme.ColorPalette.ScrollThumbEnabled;
+                _thumbColorState.Enabled = theme.ColorPalette.ScrollThumbDisabled;
+                _thumbColorState.Hover = theme.ColorPalette.ScrollThumbHover;
+                _thumbColorState.Pressed = theme.ColorPalette.ScrollThumbPressed;
 
-                _buttonColorState.Disabled = theme.ColorPalette.ScrollButton.Enabled;
-                _buttonColorState.Enabled = theme.ColorPalette.ScrollButton.Disabled;
-                _buttonColorState.Hover = theme.ColorPalette.ScrollButton.Hover;
-                _buttonColorState.Pressed = theme.ColorPalette.ScrollButton.Pressed;
+                _buttonColorState.Disabled = theme.ColorPalette.ScrollButtonEnabled;
+                _buttonColorState.Enabled = theme.ColorPalette.ScrollButtonDisabled;
+                _buttonColorState.Hover = theme.ColorPalette.ScrollButtonHover;
+                _buttonColorState.Pressed = theme.ColorPalette.ScrollButtonPressed;
 
                 _trackPressed = Color.FromArgb(10, 0, 0, 0);
             }

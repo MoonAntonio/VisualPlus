@@ -77,20 +77,7 @@ namespace VisualPlus.Structure
         {
             _rawTheme = string.Empty;
             _information = new ThemeInformation();
-            _colorPalette = new ColorPalette
-                {
-                    HelpButtonBack = new ControlColorState(),
-                    HelpButtonFore = new ControlColorState(),
-                    MinimizeButtonBack = new ControlColorState(),
-                    MinimizeButtonFore = new ControlColorState(),
-                    MaximizeButtonBack = new ControlColorState(),
-                    MaximizeButtonFore = new ControlColorState(),
-                    CloseButtonBack = new ControlColorState(),
-                    CloseButtonFore = new ControlColorState(),
-                    ScrollBar = new ColorState(),
-                    ScrollButton = new ControlColorState(),
-                    ScrollThumb = new ControlColorState()
-                };
+            _colorPalette = new ColorPalette();
         }
 
         #endregion

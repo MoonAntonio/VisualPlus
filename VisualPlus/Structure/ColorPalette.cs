@@ -34,11 +34,37 @@ namespace VisualPlus.Structure
         [TypeConverter(typeof(VisualColorConverter))]
         public Color BoxEnabled { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState CloseButtonBack { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color CloseButtonBackDisabled { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState CloseButtonFore { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color CloseButtonBackEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color CloseButtonBackHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color CloseButtonBackPressed { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color CloseButtonForeDisabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color CloseButtonForeEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color CloseButtonForeHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color CloseButtonForePressed { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
@@ -92,11 +118,37 @@ namespace VisualPlus.Structure
         [TypeConverter(typeof(VisualColorConverter))]
         public Color HatchForeColor { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState HelpButtonBack { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color HelpButtonBackDisabled { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState HelpButtonFore { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color HelpButtonBackEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color HelpButtonBackHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color HelpButtonBackPressed { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color HelpButtonForeDisabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color HelpButtonForeEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color HelpButtonForeHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color HelpButtonForePressed { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
@@ -126,17 +178,69 @@ namespace VisualPlus.Structure
         [TypeConverter(typeof(VisualColorConverter))]
         public Color Line { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState MaximizeButtonBack { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MaximizeButtonBackDisabled { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState MaximizeButtonFore { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MaximizeButtonBackEnabled { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState MinimizeButtonBack { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MaximizeButtonBackHover { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState MinimizeButtonFore { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MaximizeButtonBackPressed { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MaximizeButtonForeDisabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MaximizeButtonForeEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MaximizeButtonForeHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MaximizeButtonForePressed { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MinimizeButtonBackDisabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MinimizeButtonBackEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MinimizeButtonBackHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MinimizeButtonBackPressed { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MinimizeButtonForeDisabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MinimizeButtonForeEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MinimizeButtonForeHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color MinimizeButtonForePressed { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
@@ -154,14 +258,45 @@ namespace VisualPlus.Structure
         [TypeConverter(typeof(VisualColorConverter))]
         public Color ProgressDisabled { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ColorState ScrollBar { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollBarDisabled { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState ScrollButton { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollBarEnabled { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ControlColorState ScrollThumb { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollButtonDisabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollButtonEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollButtonHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollButtonPressed { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollThumbDisabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollThumbEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollThumbHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ScrollThumbPressed { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]

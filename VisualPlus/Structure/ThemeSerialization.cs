@@ -35,20 +35,7 @@ namespace VisualPlus.Structure
             const string Toolkit = StyleTable + @"Toolkit/";
 
             ThemeInformation themeInformation = new ThemeInformation();
-            ColorPalette colorPalette = new ColorPalette
-                {
-                    HelpButtonBack = new ControlColorState(),
-                    HelpButtonFore = new ControlColorState(),
-                    MinimizeButtonBack = new ControlColorState(),
-                    MinimizeButtonFore = new ControlColorState(),
-                    MaximizeButtonBack = new ControlColorState(),
-                    MaximizeButtonFore = new ControlColorState(),
-                    CloseButtonBack = new ControlColorState(),
-                    CloseButtonFore = new ControlColorState(),
-                    ScrollBar = new ColorState(),
-                    ScrollButton = new ControlColorState(),
-                    ScrollThumb = new ControlColorState()
-                };
+            ColorPalette colorPalette = new ColorPalette();
 
             // TODO: Simplify to decompose body.
             try
@@ -120,58 +107,58 @@ namespace VisualPlus.Structure
                 colorPalette.TabPageHover = XMLManager.ReadElement(themeDocument, Shared + "TabPage/Hover").ToColor();
                 colorPalette.TabPageSelected = XMLManager.ReadElement(themeDocument, Shared + "TabPage/Selected").ToColor();
 
-                colorPalette.HelpButtonBack.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Disabled").ToColor();
-                colorPalette.HelpButtonBack.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Enabled").ToColor();
-                colorPalette.HelpButtonBack.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Hover").ToColor();
-                colorPalette.HelpButtonBack.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Pressed").ToColor();
+                colorPalette.HelpButtonBackDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Disabled").ToColor();
+                colorPalette.HelpButtonBackEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Enabled").ToColor();
+                colorPalette.HelpButtonBackHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Hover").ToColor();
+                colorPalette.HelpButtonBackPressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/BackColorState/Pressed").ToColor();
 
-                colorPalette.HelpButtonFore.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Disabled").ToColor();
-                colorPalette.HelpButtonFore.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Enabled").ToColor();
-                colorPalette.HelpButtonFore.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Hover").ToColor();
-                colorPalette.HelpButtonFore.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Pressed").ToColor();
+                colorPalette.HelpButtonForeDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Disabled").ToColor();
+                colorPalette.HelpButtonForeEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Enabled").ToColor();
+                colorPalette.HelpButtonForeHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Hover").ToColor();
+                colorPalette.HelpButtonForePressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/HelpButton/ForeColorState/Pressed").ToColor();
 
-                colorPalette.MinimizeButtonBack.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Disabled").ToColor();
-                colorPalette.MinimizeButtonBack.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Enabled").ToColor();
-                colorPalette.MinimizeButtonBack.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Hover").ToColor();
-                colorPalette.MinimizeButtonBack.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Pressed").ToColor();
+                colorPalette.MinimizeButtonBackDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Disabled").ToColor();
+                colorPalette.MinimizeButtonBackEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Enabled").ToColor();
+                colorPalette.MinimizeButtonBackHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Hover").ToColor();
+                colorPalette.MinimizeButtonBackPressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Pressed").ToColor();
 
-                colorPalette.MinimizeButtonFore.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Disabled").ToColor();
-                colorPalette.MinimizeButtonFore.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Enabled").ToColor();
-                colorPalette.MinimizeButtonFore.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Hover").ToColor();
-                colorPalette.MinimizeButtonFore.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Pressed").ToColor();
+                colorPalette.MinimizeButtonForeDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Disabled").ToColor();
+                colorPalette.MinimizeButtonForeEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Enabled").ToColor();
+                colorPalette.MinimizeButtonForeHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Hover").ToColor();
+                colorPalette.MinimizeButtonForePressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Pressed").ToColor();
 
-                colorPalette.MaximizeButtonBack.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Disabled").ToColor();
-                colorPalette.MaximizeButtonBack.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Enabled").ToColor();
-                colorPalette.MaximizeButtonBack.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Hover").ToColor();
-                colorPalette.MaximizeButtonBack.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Pressed").ToColor();
+                colorPalette.MaximizeButtonBackDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Disabled").ToColor();
+                colorPalette.MaximizeButtonBackEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Enabled").ToColor();
+                colorPalette.MaximizeButtonBackHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Hover").ToColor();
+                colorPalette.MaximizeButtonBackPressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Pressed").ToColor();
 
-                colorPalette.MaximizeButtonFore.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Disabled").ToColor();
-                colorPalette.MaximizeButtonFore.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Enabled").ToColor();
-                colorPalette.MaximizeButtonFore.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Hover").ToColor();
-                colorPalette.MaximizeButtonFore.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Pressed").ToColor();
+                colorPalette.MaximizeButtonForeDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Disabled").ToColor();
+                colorPalette.MaximizeButtonForeEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Enabled").ToColor();
+                colorPalette.MaximizeButtonForeHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Hover").ToColor();
+                colorPalette.MaximizeButtonForePressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Pressed").ToColor();
 
-                colorPalette.CloseButtonBack.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Disabled").ToColor();
-                colorPalette.CloseButtonBack.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Enabled").ToColor();
-                colorPalette.CloseButtonBack.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Hover").ToColor();
-                colorPalette.CloseButtonBack.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Pressed").ToColor();
+                colorPalette.CloseButtonBackDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Disabled").ToColor();
+                colorPalette.CloseButtonBackEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Enabled").ToColor();
+                colorPalette.CloseButtonBackHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Hover").ToColor();
+                colorPalette.CloseButtonBackPressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/BackColorState/Pressed").ToColor();
 
-                colorPalette.CloseButtonFore.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Disabled").ToColor();
-                colorPalette.CloseButtonFore.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Enabled").ToColor();
-                colorPalette.CloseButtonFore.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Hover").ToColor();
-                colorPalette.CloseButtonFore.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Pressed").ToColor();
+                colorPalette.CloseButtonForeDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Disabled").ToColor();
+                colorPalette.CloseButtonForeEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Enabled").ToColor();
+                colorPalette.CloseButtonForeHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Hover").ToColor();
+                colorPalette.CloseButtonForePressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualControlBox/CloseButton/ForeColorState/Pressed").ToColor();
 
-                colorPalette.ScrollBar.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Bar/Disabled").ToColor();
-                colorPalette.ScrollBar.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Bar/Enabled").ToColor();
+                colorPalette.ScrollBarDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Bar/Disabled").ToColor();
+                colorPalette.ScrollBarEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Bar/Enabled").ToColor();
 
-                colorPalette.ScrollThumb.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Disabled").ToColor();
-                colorPalette.ScrollThumb.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Enabled").ToColor();
-                colorPalette.ScrollThumb.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Hover").ToColor();
-                colorPalette.ScrollThumb.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Pressed").ToColor();
+                colorPalette.ScrollThumbDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Disabled").ToColor();
+                colorPalette.ScrollThumbEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Enabled").ToColor();
+                colorPalette.ScrollThumbHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Hover").ToColor();
+                colorPalette.ScrollThumbPressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Thumb/Pressed").ToColor();
 
-                colorPalette.ScrollButton.Disabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Disabled").ToColor();
-                colorPalette.ScrollButton.Enabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Enabled").ToColor();
-                colorPalette.ScrollButton.Hover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Hover").ToColor();
-                colorPalette.ScrollButton.Pressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Pressed").ToColor();
+                colorPalette.ScrollButtonDisabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Disabled").ToColor();
+                colorPalette.ScrollButtonEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Enabled").ToColor();
+                colorPalette.ScrollButtonHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Hover").ToColor();
+                colorPalette.ScrollButtonPressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Pressed").ToColor();
             }
             catch (Exception e)
             {
@@ -408,20 +395,20 @@ namespace VisualPlus.Structure
 
                     var helpBackDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.HelpButtonBack.Disabled },
-                            { "Enabled", colorPalette.HelpButtonBack.Enabled },
-                            { "Hover", colorPalette.HelpButtonBack.Hover },
-                            { "Pressed", colorPalette.HelpButtonBack.Pressed }
+                            { "Disabled", colorPalette.HelpButtonBackDisabled },
+                            { "Enabled", colorPalette.HelpButtonBackEnabled },
+                            { "Hover", colorPalette.HelpButtonBackHover },
+                            { "Pressed", colorPalette.HelpButtonBackPressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "BackColorState", helpBackDictionary);
 
                     var helpForeDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.HelpButtonFore.Disabled },
-                            { "Enabled", colorPalette.HelpButtonFore.Enabled },
-                            { "Hover", colorPalette.HelpButtonFore.Hover },
-                            { "Pressed", colorPalette.HelpButtonFore.Pressed }
+                            { "Disabled", colorPalette.HelpButtonForeDisabled },
+                            { "Enabled", colorPalette.HelpButtonForeEnabled },
+                            { "Hover", colorPalette.HelpButtonForeHover },
+                            { "Pressed", colorPalette.HelpButtonForePressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "ForeColorState", helpForeDictionary);
@@ -433,20 +420,20 @@ namespace VisualPlus.Structure
 
                     var minBackDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.MinimizeButtonBack.Disabled },
-                            { "Enabled", colorPalette.MinimizeButtonBack.Enabled },
-                            { "Hover", colorPalette.MinimizeButtonBack.Hover },
-                            { "Pressed", colorPalette.MinimizeButtonBack.Pressed }
+                            { "Disabled", colorPalette.MinimizeButtonBackDisabled },
+                            { "Enabled", colorPalette.MinimizeButtonBackEnabled },
+                            { "Hover", colorPalette.MinimizeButtonBackHover },
+                            { "Pressed", colorPalette.MinimizeButtonBackPressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "BackColorState", minBackDictionary);
 
                     var minForeDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.MinimizeButtonFore.Disabled },
-                            { "Enabled", colorPalette.MinimizeButtonFore.Enabled },
-                            { "Hover", colorPalette.MinimizeButtonFore.Hover },
-                            { "Pressed", colorPalette.MinimizeButtonFore.Pressed }
+                            { "Disabled", colorPalette.MinimizeButtonForeDisabled },
+                            { "Enabled", colorPalette.MinimizeButtonForeEnabled },
+                            { "Hover", colorPalette.MinimizeButtonForeHover },
+                            { "Pressed", colorPalette.MinimizeButtonForePressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "ForeColorState", minForeDictionary);
@@ -458,20 +445,20 @@ namespace VisualPlus.Structure
 
                     var maxBackDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.MaximizeButtonBack.Disabled },
-                            { "Enabled", colorPalette.MaximizeButtonBack.Enabled },
-                            { "Hover", colorPalette.MaximizeButtonBack.Hover },
-                            { "Pressed", colorPalette.MaximizeButtonBack.Pressed }
+                            { "Disabled", colorPalette.MaximizeButtonBackDisabled },
+                            { "Enabled", colorPalette.MaximizeButtonBackEnabled },
+                            { "Hover", colorPalette.MaximizeButtonBackHover },
+                            { "Pressed", colorPalette.MaximizeButtonBackPressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "BackColorState", maxBackDictionary);
 
                     var maxForeDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.MaximizeButtonFore.Disabled },
-                            { "Enabled", colorPalette.MaximizeButtonFore.Enabled },
-                            { "Hover", colorPalette.MaximizeButtonFore.Hover },
-                            { "Pressed", colorPalette.MaximizeButtonFore.Pressed }
+                            { "Disabled", colorPalette.MaximizeButtonForeDisabled },
+                            { "Enabled", colorPalette.MaximizeButtonForeEnabled },
+                            { "Hover", colorPalette.MaximizeButtonForeHover },
+                            { "Pressed", colorPalette.MaximizeButtonForePressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "ForeColorState", maxForeDictionary);
@@ -483,20 +470,20 @@ namespace VisualPlus.Structure
 
                     var closeBackDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.CloseButtonBack.Disabled },
-                            { "Enabled", colorPalette.CloseButtonBack.Enabled },
-                            { "Hover", colorPalette.CloseButtonBack.Hover },
-                            { "Pressed", colorPalette.CloseButtonBack.Pressed }
+                            { "Disabled", colorPalette.CloseButtonBackDisabled },
+                            { "Enabled", colorPalette.CloseButtonBackEnabled },
+                            { "Hover", colorPalette.CloseButtonBackHover },
+                            { "Pressed", colorPalette.CloseButtonBackPressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "BackColorState", closeBackDictionary);
 
                     var closeForeDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.CloseButtonFore.Disabled },
-                            { "Enabled", colorPalette.CloseButtonFore.Enabled },
-                            { "Hover", colorPalette.CloseButtonFore.Hover },
-                            { "Pressed", colorPalette.CloseButtonFore.Pressed }
+                            { "Disabled", colorPalette.CloseButtonForeDisabled },
+                            { "Enabled", colorPalette.CloseButtonForeEnabled },
+                            { "Hover", colorPalette.CloseButtonForeHover },
+                            { "Pressed", colorPalette.CloseButtonForePressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "ForeColorState", closeForeDictionary);
@@ -527,28 +514,28 @@ namespace VisualPlus.Structure
 
                     var barDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.ScrollBar.Disabled },
-                            { "Enabled", colorPalette.ScrollBar.Enabled }
+                            { "Disabled", colorPalette.ScrollBarDisabled },
+                            { "Enabled", colorPalette.ScrollBarEnabled }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "Bar", barDictionary);
 
                     var scrollButtonDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.ScrollButton.Disabled },
-                            { "Enabled", colorPalette.ScrollButton.Enabled },
-                            { "Hover", colorPalette.ScrollButton.Hover },
-                            { "Pressed", colorPalette.ScrollButton.Pressed }
+                            { "Disabled", colorPalette.ScrollButtonDisabled },
+                            { "Enabled", colorPalette.ScrollButtonEnabled },
+                            { "Hover", colorPalette.ScrollButtonHover },
+                            { "Pressed", colorPalette.ScrollButtonPressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "Button", scrollButtonDictionary);
 
                     var scrollThumbDictionary = new Dictionary<string, Color>
                         {
-                            { "Disabled", colorPalette.ScrollThumb.Disabled },
-                            { "Enabled", colorPalette.ScrollThumb.Enabled },
-                            { "Hover", colorPalette.ScrollThumb.Hover },
-                            { "Pressed", colorPalette.ScrollThumb.Pressed }
+                            { "Disabled", colorPalette.ScrollThumbDisabled },
+                            { "Enabled", colorPalette.ScrollThumbEnabled },
+                            { "Hover", colorPalette.ScrollThumbHover },
+                            { "Pressed", colorPalette.ScrollThumbPressed }
                         };
 
                     XMLManager.WriteElementGroup(xmlWriter, "Thumb", scrollThumbDictionary);
