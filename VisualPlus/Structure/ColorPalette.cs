@@ -28,14 +28,6 @@ namespace VisualPlus.Structure
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
-        public Color VisualComboBoxEnabled { get; set; }
-
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
-        public Color VisualComboBoxDisabled { get; set; }
-
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
         public Color CloseButtonBackDisabled { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
@@ -346,13 +338,13 @@ namespace VisualPlus.Structure
         [TypeConverter(typeof(VisualColorConverter))]
         public Color TextPressed { get; set; }
 
-        //[Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        //[TypeConverter(typeof(VisualColorConverter))]
-        //public Color Type1 { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color VisualComboBoxDisabled { get; set; }
 
-        //[Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        //[TypeConverter(typeof(VisualColorConverter))]
-        //public Color Type2 { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color VisualComboBoxEnabled { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
