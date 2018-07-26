@@ -585,8 +585,8 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 ForeColor = theme.ColorPalette.TextEnabled;
 
                 // Font = theme.ColorPalette.Font;
-                _arrowColor = theme.ColorPalette.FlatControlEnabled;
-                _arrowDisabledColor = theme.ColorPalette.FlatControlDisabled;
+                _arrowColor = theme.ColorPalette.ElementEnabled;
+                _arrowDisabledColor = theme.ColorPalette.ElementDisabled;
             }
             catch (Exception e)
             {

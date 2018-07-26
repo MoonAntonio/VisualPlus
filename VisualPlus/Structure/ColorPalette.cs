@@ -88,15 +88,15 @@ namespace VisualPlus.Structure
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
+        public Color ElementDisabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color ElementEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
         public Color Enabled { get; set; }
-
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
-        public Color FlatControlDisabled { get; set; }
-
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
-        public Color FlatControlEnabled { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
@@ -169,10 +169,6 @@ namespace VisualPlus.Structure
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
         public Color ItemSelected { get; set; }
-
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
-        public Color TextLight { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
@@ -341,6 +337,10 @@ namespace VisualPlus.Structure
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
         public Color TextHover { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color TextLight { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]

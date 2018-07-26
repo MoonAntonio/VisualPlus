@@ -747,7 +747,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                         Disabled = theme.ColorPalette.BoxDisabled
                     };
 
-                _buttonColor = theme.ColorPalette.FlatControlEnabled;
+                _buttonColor = theme.ColorPalette.ElementEnabled;
 
                 _menuTextColor = theme.ColorPalette.TextEnabled;
                 _menuItemNormal = theme.ColorPalette.Item;

@@ -284,8 +284,8 @@ namespace VisualPlus.Toolkit.Components
             textDisabledColor = styleManager.Theme.ColorPalette.TextDisabled;
 
             BackColor = _backgroundColor;
-            arrowColor = styleManager.Theme.ColorPalette.FlatControlEnabled;
-            arrowDisabledColor = styleManager.Theme.ColorPalette.FlatControlDisabled;
+            arrowColor = styleManager.Theme.ColorPalette.ElementEnabled;
+            arrowDisabledColor = styleManager.Theme.ColorPalette.ElementDisabled;
             contextMenuFont = Font;
 
             _backgroundColor = styleManager.Theme.ColorPalette.Type1;

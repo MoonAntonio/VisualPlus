@@ -93,8 +93,8 @@ namespace VisualPlus.Structure
                 colorPalette.HatchBackColor = XMLManager.ReadElement(themeDocument, Shared + "Hatch/BackColor").ToColor();
                 colorPalette.HatchForeColor = XMLManager.ReadElement(themeDocument, Shared + "Hatch/ForeColor").ToColor();
 
-                colorPalette.FlatControlDisabled = XMLManager.ReadElement(themeDocument, Shared + "FlatControl/Enabled").ToColor();
-                colorPalette.FlatControlEnabled = XMLManager.ReadElement(themeDocument, Shared + "FlatControl/Enabled").ToColor();
+                colorPalette.ElementDisabled = XMLManager.ReadElement(themeDocument, Shared + "Element/Disabled").ToColor();
+                colorPalette.ElementEnabled = XMLManager.ReadElement(themeDocument, Shared + "Element/Enabled").ToColor();
 
                 colorPalette.BoxDisabled = XMLManager.ReadElement(themeDocument, Shared + "Box/Disabled").ToColor();
                 colorPalette.BoxEnabled = XMLManager.ReadElement(themeDocument, Shared + "Box/Enabled").ToColor();
@@ -308,11 +308,11 @@ namespace VisualPlus.Structure
 
                     var flatControlDictionary = new Dictionary<string, Color>
                         {
-                            { "Enabled", colorPalette.FlatControlEnabled },
-                            { "Disabled", colorPalette.FlatControlDisabled }
+                            { "Disabled", colorPalette.ElementDisabled },
+                            { "Enabled", colorPalette.ElementEnabled }
                         };
 
-                    XMLManager.WriteElementGroup(xmlWriter, "FlatControl", flatControlDictionary);
+                    XMLManager.WriteElementGroup(xmlWriter, "Element", flatControlDictionary);
 
                     var textDictionary = new Dictionary<string, Color>
                         {

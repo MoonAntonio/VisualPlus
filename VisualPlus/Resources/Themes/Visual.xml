@@ -31,10 +31,10 @@
                 <Enabled>#E2E2E2</Enabled>
                 <Disabled>#F3F3F3</Disabled>
             </Control>
-            <FlatControl>
-                <Enabled>#777776</Enabled>
+            <Element>
                 <Disabled>#777776</Disabled>
-            </FlatControl>
+                <Enabled>#777776</Enabled>
+            </Element>
             <Text>
                 <Disabled>#838181</Disabled>
                 <Enabled>#000000</Enabled>
