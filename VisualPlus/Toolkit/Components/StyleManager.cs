@@ -163,7 +163,7 @@ namespace VisualPlus.Toolkit.Components
                 }
 
                 _customThemePath = value;
-                _theme.Load(_customThemePath);
+                ReadTheme(_customThemePath);
             }
         }
 
@@ -359,14 +359,15 @@ namespace VisualPlus.Toolkit.Components
                 }
 
                 _customThemePath = _openFileDialog.FileName;
-                ReadTheme();
+                ReadTheme(_customThemePath);
             }
         }
 
         /// <summary>Reads the theme from the custom file path.</summary>
-        public void ReadTheme()
+        /// <param name="path">The path.</param>
+        public void ReadTheme(string path)
         {
-            _theme = new Theme(_customThemePath);
+            _theme = new Theme(path);
             OnThemeChanged(new ThemeEventArgs(_theme));
         }
 
