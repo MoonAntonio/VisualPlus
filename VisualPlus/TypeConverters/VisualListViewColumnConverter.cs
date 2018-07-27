@@ -28,9 +28,8 @@ namespace VisualPlus.TypeConverters
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if ((destinationType == typeof(InstanceDescriptor)) && value is VisualListViewColumn)
+            if ((destinationType == typeof(InstanceDescriptor)) && value is VisualListViewColumn column)
             {
-                VisualListViewColumn _column = (VisualListViewColumn)value;
                 ConstructorInfo _constructorInfo = typeof(VisualListViewColumn).GetConstructor(new Type[] { });
                 if (_constructorInfo != null)
                 {
