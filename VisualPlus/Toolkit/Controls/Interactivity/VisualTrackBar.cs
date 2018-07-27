@@ -1135,7 +1135,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 _hatch.BackColor = Color.FromArgb(0, theme.ColorPalette.HatchBackColor);
                 _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
 
-                _tickColor = theme.ColorPalette.Line;
+                _tickColor = theme.ColorPalette.BorderNormal;
 
                 _trackerBorder.Color = theme.ColorPalette.BorderNormal;
                 _trackerBorder.HoverColor = theme.ColorPalette.BorderHover;

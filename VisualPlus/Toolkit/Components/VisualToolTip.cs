@@ -82,7 +82,7 @@ namespace VisualPlus.Toolkit.Components
             _font = SystemFonts.DefaultFont;
             _autoSize = true;
             _foreColor = styleManager.Theme.ColorPalette.TextEnabled;
-            _lineColor = styleManager.Theme.ColorPalette.Line;
+            _lineColor = styleManager.Theme.ColorPalette.BorderNormal;
             _titleFont = SystemFonts.DefaultFont;
 
             _border = new Border();

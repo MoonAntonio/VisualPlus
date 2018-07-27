@@ -54,15 +54,12 @@ namespace VisualPlus.Structure
                 colorPalette.SubscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Subscript").ToColor();
                 colorPalette.SuperscriptColor = XMLManager.ReadElement(themeDocument, Shared + "Text/Superscript").ToColor();
                 colorPalette.TextLight = XMLManager.ReadElement(themeDocument, Shared + "Text/TextLight").ToColor();
-                // colorPalette.Font = FontManager.ResolveFontFamily(themeDocument.GetValue(Shared + "Font/FontFamily"));
 
+                // colorPalette.Font = FontManager.ResolveFontFamily(themeDocument.GetValue(Shared + "Font/FontFamily"));
                 colorPalette.Item = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Normal").ToColor();
                 colorPalette.ItemHover = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Hover").ToColor();
                 colorPalette.ItemSelected = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Selected").ToColor();
                 colorPalette.ItemAlternate = XMLManager.ReadElement(themeDocument, Shared + "ListItem/Alternate").ToColor();
-
-                colorPalette.Line = XMLManager.ReadElement(themeDocument, Shared + "Line").ToColor();
-                colorPalette.Shadow = XMLManager.ReadElement(themeDocument, Shared + "Shadow").ToColor();
 
                 colorPalette.ColumnHeader = XMLManager.ReadElement(themeDocument, Shared + "ColumnHeader/Header").ToColor();
                 colorPalette.ColumnText = XMLManager.ReadElement(themeDocument, Shared + "ColumnHeader/Text").ToColor();
@@ -154,6 +151,9 @@ namespace VisualPlus.Structure
                 colorPalette.ScrollButtonEnabled = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Enabled").ToColor();
                 colorPalette.ScrollButtonHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Hover").ToColor();
                 colorPalette.ScrollButtonPressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Pressed").ToColor();
+
+                colorPalette.VisualSeparatorLine = XMLManager.ReadElement(themeDocument, Toolkit + "VisualSeparator/Line").ToColor();
+                colorPalette.VisualSeparatorShadow = XMLManager.ReadElement(themeDocument, Toolkit + "VisualSeparator/Shadow").ToColor();
             }
             catch (Exception e)
             {
@@ -254,10 +254,6 @@ namespace VisualPlus.Structure
 
                     // Write theme shared.
                     xmlWriter.WriteStartElement(Shared);
-
-                    // < ----------------------------------------------------------------------- |
-                    xmlWriter.WriteElementString("Line", colorPalette.Line.ToHTML());
-                    xmlWriter.WriteElementString("Shadow", colorPalette.Shadow.ToHTML());
 
                     var borderDictionary = new Dictionary<string, Color>
                         {
@@ -527,6 +523,14 @@ namespace VisualPlus.Structure
 
                     // End visual scrollbar.
                     xmlWriter.WriteEndElement();
+
+                    var visualSeparator = new Dictionary<string, Color>
+                        {
+                            { "Line", colorPalette.VisualSeparatorLine },
+                            { "Shadow", colorPalette.VisualSeparatorShadow }
+                        };
+
+                    XMLManager.WriteElementGroup(xmlWriter, "VisualSeparator", visualSeparator);
 
                     // End toolkit.
                     xmlWriter.WriteEndElement();

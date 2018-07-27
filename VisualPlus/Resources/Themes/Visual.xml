@@ -7,8 +7,6 @@
     </Information>
     <StyleTable>
         <Shared>
-            <Line>#E0DEDC</Line>
-            <Shadow>#FAF9F9</Shadow>
             <Border>
                 <Normal>#B4B4B4</Normal>
                 <Hover>#78B7E6</Hover>
@@ -156,6 +154,10 @@
                     <Pressed>#FFC0C0C0</Pressed>
                 </Thumb>
             </VisualScrollBar>
+            <VisualSeparator>
+                <Line>#E0DEDC</Line>
+                <Shadow>#FAF9F9</Shadow>
+            </VisualSeparator>
         </Toolkit>
     </StyleTable>
 </VisualPlus-Theme>

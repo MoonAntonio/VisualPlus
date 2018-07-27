@@ -227,8 +227,8 @@ namespace VisualPlus.Toolkit.Controls.Layout
                 TextStyle.Enabled = theme.ColorPalette.TextEnabled;
                 TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                _line = theme.ColorPalette.Line;
-                _shadow = theme.ColorPalette.Shadow;
+                _line = theme.ColorPalette.VisualSeparatorLine;
+                _shadow = theme.ColorPalette.VisualSeparatorShadow;
             }
             catch (Exception e)
             {

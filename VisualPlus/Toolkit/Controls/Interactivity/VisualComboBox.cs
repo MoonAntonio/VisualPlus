@@ -739,7 +739,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 _textStyle.Enabled = theme.ColorPalette.TextEnabled;
                 _textStyle.Disabled = theme.ColorPalette.TextDisabled;
 
-                _borderEdge.BackColor = theme.ColorPalette.Line;
+                _borderEdge.BackColor = theme.ColorPalette.BorderNormal;
 
                 _backColorState = new ColorState
                     {

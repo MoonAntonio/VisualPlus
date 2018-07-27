@@ -2497,7 +2497,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 // Font = theme.ColorPalette.Font;
                 _colorAlternateBackground = theme.ColorPalette.ItemAlternate;
-                _colorGridColor = theme.ColorPalette.Line;
+                _colorGridColor = theme.ColorPalette.BorderNormal;
 
                 _columnColorState.Enabled = theme.ColorPalette.ColumnHeader;
                 _columnColorState.Disabled = theme.ColorPalette.ColumnHeader;

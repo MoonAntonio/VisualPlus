@@ -87,7 +87,7 @@ namespace VisualPlus.Toolkit.Controls.Navigation
 
             _separatorSpacing = 2;
             _separatorThickness = 2F;
-            _separator = _styleManager.Theme.ColorPalette.Line;
+            _separator = _styleManager.Theme.ColorPalette.BorderNormal;
             _selectorTypes = SelectorTypes.Arrow;
 
             Size = new Size(320, 160);

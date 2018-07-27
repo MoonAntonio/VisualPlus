@@ -327,7 +327,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                 TextStyle.Disabled = theme.ColorPalette.TextDisabled;
 
                 // Font = theme.ColorPalette.Font;
-                _borderEdge.BackColor = theme.ColorPalette.Line;
+                _borderEdge.BackColor = theme.ColorPalette.BorderNormal;
 
                 BackColorState.Enabled = theme.ColorPalette.Enabled;
                 BackColorState.Disabled = theme.ColorPalette.Disabled;

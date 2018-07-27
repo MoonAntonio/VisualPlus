@@ -1098,8 +1098,8 @@ namespace VisualPlus.Toolkit.Controls.Editors
                         Disabled = theme.ColorPalette.ControlDisabled
                     };
 
-                _borderButton.BackColor = theme.ColorPalette.Line;
-                _borderImage.BackColor = theme.ColorPalette.Line;
+                _borderButton.BackColor = theme.ColorPalette.BorderNormal;
+                _borderImage.BackColor = theme.ColorPalette.BorderNormal;
             }
             catch (Exception e)
             {

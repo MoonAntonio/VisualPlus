@@ -596,7 +596,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
                 // Font = theme.ColorPalette.Font;
                 _borderEdge.BackColor = theme.ColorPalette.BorderNormal;
-                _borderButtons.BackColor = theme.ColorPalette.Line;
+                _borderButtons.BackColor = theme.ColorPalette.BorderNormal;
 
                 _buttonForeColor = theme.ColorPalette.TextLight;
 

@@ -164,10 +164,6 @@ namespace VisualPlus.Structure
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
-        public Color Line { get; set; }
-
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
         public Color MaximizeButtonBackDisabled { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
@@ -292,10 +288,6 @@ namespace VisualPlus.Structure
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
-        public Color Shadow { get; set; }
-
-        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
-        [TypeConverter(typeof(VisualColorConverter))]
         public Color SubscriptColor { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
@@ -345,6 +337,14 @@ namespace VisualPlus.Structure
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
         public Color VisualComboBoxEnabled { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color VisualSeparatorLine { get; set; }
+
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color VisualSeparatorShadow { get; set; }
 
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
