@@ -189,7 +189,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Enumerators\ControlBoxButtons.cs" />
-    <Compile Include="Toolkit\Dialogs\VisualInputBox.cs">
+    <Compile Include="Toolkit\Dialogs\VisualInputDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Toolkit\Dialogs\VisualMessageBox.cs" />

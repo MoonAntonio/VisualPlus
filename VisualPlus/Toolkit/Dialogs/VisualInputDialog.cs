@@ -14,7 +14,7 @@ using VisualPlus.Toolkit.VisualBase;
 
 namespace VisualPlus.Toolkit.Dialogs
 {
-    /// <summary>The <see cref="VisualInputBox" />.</summary>
+    /// <summary>The <see cref="VisualInputDialog" />.</summary>
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("Load")]
@@ -23,7 +23,7 @@ namespace VisualPlus.Toolkit.Dialogs
     [DesignerCategory("Form")]
     [DesignTimeVisible(false)]
     [ToolboxItem(false)]
-    public class VisualInputBox : VisualDialog
+    public class VisualInputDialog : VisualDialog
     {
         #region Variables
 
@@ -35,35 +35,35 @@ namespace VisualPlus.Toolkit.Dialogs
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualInputBox" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualInputDialog" /> class.</summary>
         /// <param name="caption">The caption.</param>
-        public VisualInputBox(string caption) : this()
+        public VisualInputDialog(string caption) : this()
         {
             Text = caption;
         }
 
-        /// <summary>Initializes a new instance of the <see cref="VisualInputBox" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualInputDialog" /> class.</summary>
         /// <param name="caption">The caption.</param>
         /// <param name="watermark">The watermark.</param>
-        public VisualInputBox(string caption, string watermark) : this()
+        public VisualInputDialog(string caption, string watermark) : this()
         {
             Text = caption;
             textBox.Watermark.Text = watermark;
         }
 
-        /// <summary>Initializes a new instance of the <see cref="VisualInputBox" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualInputDialog" /> class.</summary>
         /// <param name="text">The caption text.</param>
         /// <param name="caption">The caption.</param>
         /// <param name="watermark">The watermark.</param>
-        public VisualInputBox(string text, string caption, string watermark) : this()
+        public VisualInputDialog(string text, string caption, string watermark) : this()
         {
             Text = caption;
             textBox.Text = text;
             textBox.Watermark.Text = watermark;
         }
 
-        /// <summary>Initializes a new instance of the <see cref="VisualInputBox" /> class.</summary>
-        public VisualInputBox()
+        /// <summary>Initializes a new instance of the <see cref="VisualInputDialog" /> class.</summary>
+        public VisualInputDialog()
         {
             ControlBox.Location = new Point(Width - 45, Border.Distance + 2);
             InitializeControls();

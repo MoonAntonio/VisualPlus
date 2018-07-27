@@ -55,7 +55,7 @@ namespace UnitTests.Forms
             VisualExceptionDialog = 4,
 
             /// <summary>The visual input box.</summary>
-            VisualInputBox = 5,
+            VisualInputDialog = 5,
 
             /// <summary>The visual message box.</summary>
             VisualMessageBox = 6
@@ -99,13 +99,13 @@ namespace UnitTests.Forms
                         break;
                     }
 
-                case UnitTests.VisualInputBox:
+                case UnitTests.VisualInputDialog:
                     {
-                        VisualInputBox inputBox = new VisualInputBox($@"{nameof(VisualInputBox)} Test");
+                        VisualInputDialog inputDialog = new VisualInputDialog($@"{nameof(VisualInputDialog)} Test");
 
-                        if (inputBox.ShowDialog() == DialogResult.OK)
+                        if (inputDialog.ShowDialog() == DialogResult.OK)
                         {
-                            ConsoleEx.WriteDebug(inputBox.InputResult);
+                            ConsoleEx.WriteDebug(inputDialog.InputResult);
                         }
 
                         break;
