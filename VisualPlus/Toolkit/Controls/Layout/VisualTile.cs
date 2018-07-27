@@ -30,7 +30,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
     [DesignerCategory("code")]
     [ToolboxBitmap(typeof(VisualTile), "VisualTile.bmp")]
     [ToolboxItem(true)]
-    public partial class VisualTile : VisualStyleBase, IThemeSupport
+    public class VisualTile : VisualStyleBase, IThemeSupport
     {
         #region Variables
 
