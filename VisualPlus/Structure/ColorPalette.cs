@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 
+using VisualPlus.TypeConverters;
 using VisualPlus.UITypeEditors;
 
 #endregion

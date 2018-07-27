@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace VisualPlus.UITypeEditors
 {
-    internal class ColorEditor : UITypeEditor
+    public class ColorEditor : UITypeEditor
     {
         #region Overrides
 
@@ -40,18 +40,6 @@ namespace VisualPlus.UITypeEditors
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
             return UITypeEditorEditStyle.Modal;
-        }
-
-        #endregion
-    }
-
-    internal class VisualColorConverter : ColorConverter
-    {
-        #region Overrides
-
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
-        {
-            return false;
         }
 
         #endregion

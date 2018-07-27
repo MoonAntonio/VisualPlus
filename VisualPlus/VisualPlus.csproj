@@ -305,6 +305,7 @@
     <Compile Include="InterfaceTypes.cs" />
     <Compile Include="Managers\ControlManager.cs" />
     <Compile Include="Structure\CheckStyle.cs" />
+    <Compile Include="TypeConverters\VisualColorConverter.cs" />
     <EmbeddedResource Include="Toolkit\Components\VisualDrag.cs">
       <SubType>Component</SubType>
     </EmbeddedResource>
