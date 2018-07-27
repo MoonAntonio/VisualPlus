@@ -6,6 +6,8 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
+using VisualPlus.Constants;
+
 #endregion
 
 namespace VisualPlus.UITypeEditors
@@ -21,20 +23,23 @@ namespace VisualPlus.UITypeEditors
                 return base.EditValue(context, provider, value);
             }
 
-            IWindowsFormsEditorService _editorService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+            IWindowsFormsEditorService editorService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
 
-            if (_editorService == null)
+            if (editorService == null)
             {
                 return base.EditValue(context, provider, value);
             }
 
-            OpenFileDialog _openFileDialog = new OpenFileDialog
+            OpenFileDialog openFileDialog = new OpenFileDialog
                 {
                     FileName = string.Empty,
-                    Filter = @"Theme|*.xml"
+                    Filter = SettingConstants.ThemeExtensionSupportedFileFilter,
+                    InitialDirectory = SettingConstants.TemplatesFolder,
+                    Multiselect = false,
+                    Title = @"Browse for theme..."
                 };
 
-            return _openFileDialog.ShowDialog() == DialogResult.OK ? _openFileDialog.FileName : base.EditValue(context, provider, value);
+            return openFileDialog.ShowDialog() == DialogResult.OK ? openFileDialog.FileName : base.EditValue(context, provider, value);
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
