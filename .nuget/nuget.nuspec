@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>VisualPlus</id>
-    <version>0.4.1.4-beta</version>
+    <version>0.4.1.5-beta</version>
     <title>VisualPlus</title>
     <authors>DarkByte7</authors>
     <owners>VisualPlus</owners>
@@ -18,5 +18,6 @@
   </metadata>
   <files>
   <file src="..\VisualPlus\bin\Release\VisualPlus.dll" target="lib\VisualPlus\NET4\VisualPlus.dll"></file>
+  <file src="..\VisualThemeBuilder\bin\Release\VisualThemeBuilder.exe" target="lib\VisualPlus\NET4\VisualThemeBuilder.exe"></file>
   </files>
 </package>
