@@ -51,4 +51,4 @@ Hit the ⭐️ Star ⭐️ button.
 ## Screenshots
 ![ToolBox](https://github.com/DarkByte7/VisualPlus/blob/master/docs/assets/images/documentation/Toolbox.jpg?raw=true)
 
-![ThemeBuilder](https://github.com/DarkByte7/VisualPlus/blob/master/docs/assets/images/documentation/ThemeBuilder.jpg?raw=true)
+![ThemeBuilder](https://github.com/DarkByte7/VisualPlus/blob/master/docs/assets/images/documentation/Builder.jpg?raw=true)
