@@ -1045,6 +1045,13 @@ namespace VisualPlus.Toolkit.Controls.Editors
         {
             // 5px for each side from the VisualTextBox control border.
             int i = Size.Width - 10;
+
+            // Remove extra pixels if image is visible.
+            if (_imageVisible)
+            {
+                i = i - _imageWidth - (_border.Distance * 2);
+            }
+
             return i;
         }
 
