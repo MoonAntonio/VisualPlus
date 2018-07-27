@@ -18,7 +18,7 @@ using VisualPlus.Toolkit.Dialogs;
 
 #endregion
 
-namespace ThemeBuilder.Forms
+namespace VisualThemeBuilder.Forms
 {
     /// <summary>The main.</summary>
     public partial class Main : VisualForm

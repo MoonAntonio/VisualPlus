@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E875F0FB-9ACD-4AFE-BD5D-FE130E95CB3C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ThemeBuilder</RootNamespace>
-    <AssemblyName>ThemeBuilder</AssemblyName>
+    <RootNamespace>VisualThemeBuilder</RootNamespace>
+    <AssemblyName>VisualThemeBuilder</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ThemeBuilder.Program</StartupObject>
+    <StartupObject>VisualThemeBuilder.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
@@ -71,6 +71,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

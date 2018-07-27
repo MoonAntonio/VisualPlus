@@ -1,6 +1,4 @@
-﻿using VisualPlus.Toolkit.VisualBase;
-
-namespace ThemeBuilder.Forms
+﻿namespace VisualThemeBuilder.Forms
 {
     partial class Main
     {
@@ -675,7 +673,7 @@ namespace ThemeBuilder.Forms
             this.MinimizeBox = true;
             this.MinimumSize = new System.Drawing.Size(817, 500);
             this.Name = "Main";
-            this.Text = "Theme Builder";
+            this.Text = "Visual Theme Builder";
             this.HelpButtonClicked += new VisualPlus.Delegates.ControlBoxEventHandler(this.Main_HelpButtonClicked);
             this.Load += new System.EventHandler(this.Main_Load);
             this.mainMenuStrip.ResumeLayout(false);

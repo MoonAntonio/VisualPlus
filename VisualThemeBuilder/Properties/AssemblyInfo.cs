@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Theme Builder")]
-[assembly: AssemblyDescription("Theme Builder for VisualPlus framework.")]
+[assembly: AssemblyTitle("Visual Theme Builder")]
+[assembly: AssemblyDescription("Visual Theme Builder for the VisualPlus framework.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("VisualPlus")]
-[assembly: AssemblyProduct("Theme Builder")]
+[assembly: AssemblyProduct("Visual Theme Builder")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("https://darkbyte7.github.io/VisualPlus/")]
 [assembly: AssemblyCulture("")]

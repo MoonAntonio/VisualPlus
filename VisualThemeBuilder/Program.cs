@@ -3,11 +3,11 @@
 using System;
 using System.Windows.Forms;
 
-using ThemeBuilder.Forms;
+using VisualThemeBuilder.Forms;
 
 #endregion
 
-namespace ThemeBuilder
+namespace VisualThemeBuilder
 {
     internal static class Program
     {
