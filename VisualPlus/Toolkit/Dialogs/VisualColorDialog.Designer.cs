@@ -203,7 +203,7 @@
             this.nudAlpha.Value = ((long)(0));
             this.nudAlpha.ValueChanged += new VisualPlus.Delegates.ValueChangedEventHandler(this.NumericUpDownARGB_ValueChanged);
             // 
-            // nudR
+            // nudRed
             // 
             this.nudRed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -242,7 +242,7 @@
             this.nudRed.Value = ((long)(0));
             this.nudRed.ValueChanged += new VisualPlus.Delegates.ValueChangedEventHandler(this.NumericUpDownARGB_ValueChanged);
             // 
-            // nudG
+            // nudGreen
             // 
             this.nudGreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -281,7 +281,7 @@
             this.nudGreen.Value = ((long)(0));
             this.nudGreen.ValueChanged += new VisualPlus.Delegates.ValueChangedEventHandler(this.NumericUpDownARGB_ValueChanged);
             // 
-            // nudB
+            // nudBlue
             // 
             this.nudBlue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -412,11 +412,11 @@
             // 
             // tilePreview
             // 
-            this.tilePreview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
-            this.tilePreview.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.tilePreview.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
-            this.tilePreview.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
-            this.tilePreview.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.tilePreview.BackColor = System.Drawing.Color.White;
+            this.tilePreview.BackColorState.Disabled = System.Drawing.Color.White;
+            this.tilePreview.BackColorState.Enabled = System.Drawing.Color.White;
+            this.tilePreview.BackColorState.Hover = System.Drawing.Color.White;
+            this.tilePreview.BackColorState.Pressed = System.Drawing.Color.White;
             this.tilePreview.BackgroundImageLayout = VisualPlus.Enumerators.BackgroundLayout.Stretch;
             this.tilePreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tilePreview.Image = ((System.Drawing.Image)(resources.GetObject("tilePreview.Image")));
