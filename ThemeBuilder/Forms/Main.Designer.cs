@@ -381,7 +381,7 @@ namespace ThemeBuilder.Forms
             this.palettePropertyGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
             this.palettePropertyGrid.Location = new System.Drawing.Point(3, 46);
             this.palettePropertyGrid.Name = "palettePropertyGrid";
-            this.palettePropertyGrid.Size = new System.Drawing.Size(347, 381);
+            this.palettePropertyGrid.Size = new System.Drawing.Size(340, 381);
             this.palettePropertyGrid.TabIndex = 9;
             this.palettePropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PalettePropertyGrid_PropertyValueChanged);
             this.palettePropertyGrid.SelectedGridItemChanged += new System.Windows.Forms.SelectedGridItemChangedEventHandler(this.PalettePropertyGrid_SelectedGridItemChanged);
@@ -467,7 +467,7 @@ namespace ThemeBuilder.Forms
             this.gpColorPalette.Padding = new System.Windows.Forms.Padding(5, 26, 5, 5);
             this.gpColorPalette.Separator = false;
             this.gpColorPalette.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
-            this.gpColorPalette.Size = new System.Drawing.Size(353, 430);
+            this.gpColorPalette.Size = new System.Drawing.Size(346, 430);
             this.gpColorPalette.TabIndex = 11;
             this.gpColorPalette.Text = "Color Palette";
             this.gpColorPalette.TextAlignment = System.Drawing.StringAlignment.Center;
@@ -522,10 +522,10 @@ namespace ThemeBuilder.Forms
             this.tbSelectedColor.PasswordChar = '\0';
             this.tbSelectedColor.ReadOnly = true;
             this.tbSelectedColor.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.tbSelectedColor.Size = new System.Drawing.Size(347, 23);
+            this.tbSelectedColor.Size = new System.Drawing.Size(340, 23);
             this.tbSelectedColor.TabIndex = 22;
             this.tbSelectedColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbSelectedColor.TextBoxWidth = 305;
+            this.tbSelectedColor.TextBoxWidth = 295;
             this.tbSelectedColor.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.tbSelectedColor.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tbSelectedColor.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
