@@ -7,7 +7,9 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+using VisualPlus.Enumerators;
 using VisualPlus.Structure;
+using VisualPlus.Toolkit.Controls.Interactivity;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -30,13 +32,13 @@ namespace VisualPlus.Toolkit.Dialogs
         private readonly Exception _exception;
         private readonly int _imageSpacing;
         private readonly int _textHeight;
-        private Button _copyButton;
+        private VisualButton _copyButton;
         private Label _descriptionLabel;
         private Label _messageLabel;
         private TextBox _messageTextBox;
-        private Button _okButton;
+        private VisualButton _okButton;
         private PictureBox _pictureBoxImage;
-        private Button _saveButton;
+        private VisualButton _saveButton;
         private Label _stackLabel;
         private TextBox _stackTextBox;
         private Label _typeLabel;
@@ -79,7 +81,7 @@ namespace VisualPlus.Toolkit.Dialogs
 
         /// <summary>Gets or sets the copy button.</summary>
         [Browsable(false)]
-        public Button CopyButton
+        public VisualButton CopyButton
         {
             get
             {
@@ -154,7 +156,7 @@ namespace VisualPlus.Toolkit.Dialogs
 
         /// <summary>Gets or sets the ok button.</summary>
         [Browsable(false)]
-        public Button OkButton
+        public VisualButton OkButton
         {
             get
             {
@@ -169,7 +171,7 @@ namespace VisualPlus.Toolkit.Dialogs
 
         /// <summary>Gets or sets the save button.</summary>
         [Browsable(false)]
-        public Button SaveButton
+        public VisualButton SaveButton
         {
             get
             {
@@ -308,39 +310,51 @@ namespace VisualPlus.Toolkit.Dialogs
             var _buttonSpacing = 7;
             Size _buttonSize = new Size(75, 23);
 
-            _okButton = new Button
+            _okButton = new VisualButton
                 {
                     BackColor = SystemColors.Control,
                     Text = @"OK",
                     Size = _buttonSize,
                     Location = new Point(_stackTextBox.Right - _buttonSize.Width, _stackTextBox.Bottom + 10),
-                    TabIndex = 0
+                    TabIndex = 0,
+                    Border =
+                            {
+                               Type = ShapeTypes.Rectangle 
+                            }
                 };
 
             _okButton.Click += OkButton_Click;
 
             Controls.Add(_okButton);
 
-            _saveButton = new Button
+            _saveButton = new VisualButton
                 {
                     BackColor = SystemColors.Control,
                     Text = @"Save",
                     Size = _buttonSize,
                     Location = new Point(_okButton.Left - _buttonSpacing - _buttonSize.Width, _stackTextBox.Bottom + 10),
-                    TabIndex = 1
+                    TabIndex = 1,
+                    Border =
+                            {
+                               Type = ShapeTypes.Rectangle 
+                            }
                 };
 
             _saveButton.Click += SaveButton_Click;
 
             Controls.Add(_saveButton);
 
-            _copyButton = new Button
+            _copyButton = new VisualButton
                 {
                     BackColor = SystemColors.Control,
                     Text = @"Copy",
                     Size = _buttonSize,
                     Location = new Point(_saveButton.Left - _buttonSpacing - _buttonSize.Width, _stackTextBox.Bottom + 10),
-                    TabIndex = 2
+                    TabIndex = 2,
+                    Border =
+                            {
+                               Type = ShapeTypes.Rectangle 
+                            }
                 };
 
             _copyButton.Click += CopyButton_Click;
