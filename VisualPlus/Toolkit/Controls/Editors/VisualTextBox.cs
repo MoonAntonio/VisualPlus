@@ -1097,9 +1097,15 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 ForeColor = theme.ColorPalette.TextEnabled;
                 TextStyle.Enabled = theme.ColorPalette.TextEnabled;
                 TextStyle.Disabled = theme.ColorPalette.TextDisabled;
+                
+                _buttonColorState = new ControlColorState
+                    {
+                        Disabled = theme.ColorPalette.Disabled,
+                        Enabled = theme.ColorPalette.Enabled,
+                        Hover = theme.ColorPalette.Hover,
+                        Pressed = theme.ColorPalette.Pressed
+                    };
 
-                // Font = theme.ColorPalette.Font;
-                _buttonColorState = new ControlColorState();
                 _backColorState = new ColorState
                     {
                         Enabled = theme.ColorPalette.ControlEnabled,
