@@ -25,7 +25,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
     [Designer(typeof(VisualProgressBarDesigner))]
     [ToolboxBitmap(typeof(VisualSeparator), "VisualSeparator.bmp")]
     [ToolboxItem(true)]
-    public class VisualSeparator : VisualStyleBase
+    public class VisualSeparator : VisualStyleBase, IThemeSupport
     {
         #region Variables
 
