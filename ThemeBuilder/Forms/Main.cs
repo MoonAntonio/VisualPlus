@@ -72,7 +72,14 @@ namespace ThemeBuilder.Forms
 
         private void Main_HelpButtonClicked(ControlBoxEventArgs e)
         {
-            Process.Start("https://darkbyte7.github.io/VisualPlus/");
+            var link = "https://darkbyte7.github.io/VisualPlus/";
+
+            DialogResult dialogResult = VisualMessageBox.Show("Would you like to visit the website?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                Process.Start(link);
+            }
         }
 
         private void Main_Load(object sender, EventArgs e)
