@@ -524,6 +524,7 @@ namespace ThemeBuilder.Forms
             this.tbSelectedColor.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.tbSelectedColor.Size = new System.Drawing.Size(347, 23);
             this.tbSelectedColor.TabIndex = 22;
+            this.tbSelectedColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tbSelectedColor.TextBoxWidth = 305;
             this.tbSelectedColor.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.tbSelectedColor.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
