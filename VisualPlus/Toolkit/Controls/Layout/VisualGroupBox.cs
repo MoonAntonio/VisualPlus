@@ -31,7 +31,6 @@ namespace VisualPlus.Toolkit.Controls.Layout
         private BorderEdge _borderEdge;
         private GroupBoxStyle _boxStyle;
         private Image _image;
-        private StringAlignment _stringAlignment;
         private StringAlignment _textAlignment;
         private TextImageRelation _textImageRelation;
         private StringAlignment _textLineAlignment;
@@ -46,7 +45,6 @@ namespace VisualPlus.Toolkit.Controls.Layout
         public VisualGroupBox()
         {
             _boxStyle = GroupBoxStyle.Default;
-            _stringAlignment = StringAlignment.Center;
             _titleBoxHeight = 25;
             _borderEdge = new BorderEdge();
             _textImageRelation = TextImageRelation.ImageBeforeText;
@@ -394,7 +392,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                         // +1 extra whitespace in case of FontStyle=Bold
                         titleSize = new Size(textArea.Width + 2, textArea.Height);
 
-                        switch (_stringAlignment)
+                        switch (_textAlignment)
                         {
                             case StringAlignment.Near:
                                 {
