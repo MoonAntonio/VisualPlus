@@ -340,7 +340,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.Clear(BackColor);
         }
 
         protected override void OnResize(EventArgs e)

@@ -15,7 +15,6 @@ using VisualPlus.Toolkit.Dialogs;
 
 #endregion
 
-// Bug: Changing color in the properties grid to a known name will not serialize the RGB values.
 namespace ThemeBuilder.Forms
 {
     /// <summary>The main.</summary>
