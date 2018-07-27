@@ -41,6 +41,15 @@ namespace VisualPlus.Managers
             return source.GetType().GetMethod(methodName) != null;
         }
 
+        /// <summary>Determines whether the object has the method.</summary>
+        /// <typeparam name="T">The type.</typeparam>
+        /// <param name="methodName">The name of the method.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool HasMethod<T>(string methodName)
+        {
+            return typeof(T).GetMethod(methodName) != null;
+        }
+
         /// <summary>Determines whether the object is an enum.</summary>
         /// <typeparam name="T">The object type.</typeparam>
         /// <returns>The <see cref="bool" />.</returns>
