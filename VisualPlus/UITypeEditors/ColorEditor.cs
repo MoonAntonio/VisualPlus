@@ -39,6 +39,17 @@ namespace VisualPlus.UITypeEditors
             return UITypeEditorEditStyle.Modal;
         }
 
+        public override bool GetPaintValueSupported(ITypeDescriptorContext context)
+        {
+            return true;
+        }
+
+        public override void PaintValue(PaintValueEventArgs e)
+        {
+            Color color = (Color)e.Value;
+            e.Graphics.FillRectangle(new SolidBrush(color), e.Bounds);
+        }
+
         #endregion
     }
 }
