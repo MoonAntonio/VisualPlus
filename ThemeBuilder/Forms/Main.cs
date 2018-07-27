@@ -1,15 +1,18 @@
 ﻿#region Namespace
 
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
+using VisualPlus;
 using VisualPlus.Constants;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
+using VisualPlus.Managers;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Dialogs;
 
@@ -34,7 +37,7 @@ namespace ThemeBuilder.Forms
         {
             InitializeComponent();
 
-            _theme = new Theme(Themes.Visual);
+            _theme = new Theme(Settings.DefaultValue.DefaultStyle);
             LoadTheme(_theme);
 
             tbName.Text = "UnnamedTheme";
@@ -47,8 +50,26 @@ namespace ThemeBuilder.Forms
 
         #endregion
 
+        #region Properties
+
+        /// <summary>Retrieves the selected property color.</summary>
+        [Browsable(false)]
+        public Color SelectedColor
+        {
+            get
+            {
+                Color selectedItemColor = (Color)palettePropertyGrid.SelectedGridItem.Value;
+                return selectedItemColor;
+            }
+        }
+
+        #endregion
+
         #region Methods
 
+        /// <summary>Occurs when the exit button has been clicked.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -69,18 +90,21 @@ namespace ThemeBuilder.Forms
             palettePropertyGrid.SelectedObject = _theme.ColorPalette;
         }
 
+        /// <summary>Occurs when the help button has been clicked.</summary>
+        /// <param name="e">The event args.</param>
         private void Main_HelpButtonClicked(ControlBoxEventArgs e)
         {
-            var link = "https://darkbyte7.github.io/VisualPlus/";
-
             DialogResult dialogResult = VisualMessageBox.Show("Would you like to visit the website?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (dialogResult == DialogResult.Yes)
             {
-                Process.Start(link);
+                Process.Start("https://darkbyte7.github.io/VisualPlus/");
             }
         }
 
+        /// <summary>Occurs when the form loads.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void Main_Load(object sender, EventArgs e)
         {
         }
@@ -103,6 +127,9 @@ namespace ThemeBuilder.Forms
             _saved = false;
         }
 
+        /// <summary>Occurs when the new button has been clicked.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_saved)
@@ -127,6 +154,9 @@ namespace ThemeBuilder.Forms
             NewTheme();
         }
 
+        /// <summary>Occurs when the open directory button has been clicked.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void OpenDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (tbPath.TextLength > 0)
@@ -139,6 +169,9 @@ namespace ThemeBuilder.Forms
             }
         }
 
+        /// <summary>Occurs when the open templates button has been clicked.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void OpenTemplatesDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string path = SettingConstants.TemplatesFolder;
@@ -154,6 +187,9 @@ namespace ThemeBuilder.Forms
             }
         }
 
+        /// <summary>Occurs when the open button has been clicked.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -180,11 +216,11 @@ namespace ThemeBuilder.Forms
             }
         }
 
-        private void PalettePropertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        /// <summary>Occurs when the palette property value changed.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        private void PalettePropertyGrid_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
-            ConsoleEx.WriteDebug($@"Updated property: {e.ChangedItem.Label}.");
-            ConsoleEx.WriteDebug($@"Changed {e.OldValue} to new {e.ChangedItem.Value}.");
-
             Color changedItemValue = (Color)e.ChangedItem.Value;
 
             if (changedItemValue == Color.Empty)
@@ -193,8 +229,12 @@ namespace ThemeBuilder.Forms
             }
 
             UpdateThemeContents();
+            UpdateSelection();
         }
 
+        /// <summary>Occurs when the palette selected item changed.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void PalettePropertyGrid_SelectedGridItemChanged(object sender, SelectedGridItemChangedEventArgs e)
         {
             UpdateSelection();
@@ -210,6 +250,9 @@ namespace ThemeBuilder.Forms
             }
         }
 
+        /// <summary>Occurs when the save as button has been clicked.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
@@ -224,6 +267,9 @@ namespace ThemeBuilder.Forms
             }
         }
 
+        /// <summary>Occurs when the save button has been clicked.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_saved)
@@ -241,6 +287,9 @@ namespace ThemeBuilder.Forms
             }
         }
 
+        /// <summary>Occurs when the theme information text was changed.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void TbThemeInformation_TextChanged(object sender, EventArgs e)
         {
             UpdateThemeContents();
@@ -255,26 +304,9 @@ namespace ThemeBuilder.Forms
 
                 if (selectedGridItem is Color)
                 {
-                    Color selectedItemColor = (Color)palettePropertyGrid.SelectedGridItem.Value;
-
-                    int alpha = Convert.ToInt32(selectedItemColor.A);
-                    int red = Convert.ToInt32(selectedItemColor.R);
-                    int green = Convert.ToInt32(selectedItemColor.G);
-                    int blue = Convert.ToInt32(selectedItemColor.B);
-
-                    Color fromArgb = Color.FromArgb(alpha, red, green, blue);
-
-                    tilePreview.BackColor = fromArgb;
-                    tilePreview.BackColorState.Hover = fromArgb;
-                    tilePreview.BackColorState.Pressed = fromArgb;
-                    tilePreview.BackColorState.Pressed = fromArgb;
-
-                    ColorPalette palette = (ColorPalette)palettePropertyGrid.SelectedObject;
-
-                    tilePreview.TextStyle.Enabled = palette.TextEnabled;
-                    tilePreview.TextStyle.Disabled = palette.TextDisabled;
-                    tilePreview.TextStyle.Hover = palette.TextHover;
-                    tilePreview.TextStyle.Pressed = palette.TextPressed;
+                    tbSelectedColor.Image = ImageManager.CreateBitmap(SelectedColor, tbSelectedColor.ImageSize);
+                    tbSelectedColor.ForeColor = ((ColorPalette)palettePropertyGrid.SelectedObject).TextEnabled;
+                    tbSelectedColor.Text = palettePropertyGrid.SelectedGridItem.Label;
                 }
             }
         }

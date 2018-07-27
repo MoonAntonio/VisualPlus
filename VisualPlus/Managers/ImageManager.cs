@@ -17,6 +17,21 @@ namespace VisualPlus.Managers
     {
         #region Methods
 
+        /// <summary>Creates a bitmap with the color and size.</summary>
+        /// <param name="fill">The fill color.</param>
+        /// <param name="size">The bitmap size.</param>
+        /// <returns>The <see cref="Bitmap" />.</returns>
+        public static Bitmap CreateBitmap(Color fill, Size size)
+        {
+            Bitmap bitmap = new Bitmap(size.Width, size.Height);
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                graphics.FillRectangle(new SolidBrush(fill), 0, 0, size.Width, size.Height);
+            }
+
+            return bitmap;
+        }
+
         /// <summary>Creates a gradient bitmap.</summary>
         /// <param name="size">The size of the gradient.</param>
         /// <param name="topLeft">The color for top-left.</param>

@@ -52,7 +52,7 @@ namespace ThemeBuilder.Forms
             this.palettePropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.tbPath = new VisualPlus.Toolkit.Controls.Editors.VisualTextBox();
             this.gpColorPalette = new VisualPlus.Toolkit.Controls.Layout.VisualGroupBox();
-            this.tilePreview = new VisualPlus.Toolkit.Controls.Layout.VisualTile();
+            this.tbSelectedColor = new VisualPlus.Toolkit.Controls.Editors.VisualTextBox();
             this.mainMenuStrip.SuspendLayout();
             this.gpColorPalette.SuspendLayout();
             this.SuspendLayout();
@@ -148,6 +148,8 @@ namespace ThemeBuilder.Forms
             // 
             // tbAuthor
             // 
+            this.tbAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAuthor.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.tbAuthor.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
             this.tbAuthor.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
@@ -275,7 +277,7 @@ namespace ThemeBuilder.Forms
             this.mainMenuStrip.Location = new System.Drawing.Point(4, 30);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
-            this.mainMenuStrip.Size = new System.Drawing.Size(720, 23);
+            this.mainMenuStrip.Size = new System.Drawing.Size(810, 23);
             this.mainMenuStrip.TabIndex = 8;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -376,10 +378,10 @@ namespace ThemeBuilder.Forms
             // 
             this.palettePropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.palettePropertyGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.palettePropertyGrid.Location = new System.Drawing.Point(3, 75);
+            this.palettePropertyGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.palettePropertyGrid.Location = new System.Drawing.Point(3, 46);
             this.palettePropertyGrid.Name = "palettePropertyGrid";
-            this.palettePropertyGrid.Size = new System.Drawing.Size(260, 352);
+            this.palettePropertyGrid.Size = new System.Drawing.Size(347, 381);
             this.palettePropertyGrid.TabIndex = 9;
             this.palettePropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PalettePropertyGrid_PropertyValueChanged);
             this.palettePropertyGrid.SelectedGridItemChanged += new System.Windows.Forms.SelectedGridItemChangedEventHandler(this.PalettePropertyGrid_SelectedGridItemChanged);
@@ -444,8 +446,9 @@ namespace ThemeBuilder.Forms
             // 
             this.gpColorPalette.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gpColorPalette.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
             this.gpColorPalette.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.gpColorPalette.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.gpColorPalette.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
             this.gpColorPalette.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.gpColorPalette.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             this.gpColorPalette.Border.HoverVisible = true;
@@ -453,8 +456,8 @@ namespace ThemeBuilder.Forms
             this.gpColorPalette.Border.Thickness = 1;
             this.gpColorPalette.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.gpColorPalette.Border.Visible = true;
-            this.gpColorPalette.BoxStyle = VisualPlus.Toolkit.Controls.Layout.VisualGroupBox.GroupBoxStyle.Default;
-            this.gpColorPalette.Controls.Add(this.tilePreview);
+            this.gpColorPalette.BoxStyle = VisualPlus.Toolkit.Controls.Layout.VisualGroupBox.GroupBoxStyle.Classic;
+            this.gpColorPalette.Controls.Add(this.tbSelectedColor);
             this.gpColorPalette.Controls.Add(this.palettePropertyGrid);
             this.gpColorPalette.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.gpColorPalette.Image = null;
@@ -462,9 +465,9 @@ namespace ThemeBuilder.Forms
             this.gpColorPalette.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.gpColorPalette.Name = "gpColorPalette";
             this.gpColorPalette.Padding = new System.Windows.Forms.Padding(5, 26, 5, 5);
-            this.gpColorPalette.Separator = true;
-            this.gpColorPalette.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(222)))), ((int)(((byte)(220)))));
-            this.gpColorPalette.Size = new System.Drawing.Size(266, 430);
+            this.gpColorPalette.Separator = false;
+            this.gpColorPalette.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.gpColorPalette.Size = new System.Drawing.Size(353, 430);
             this.gpColorPalette.TabIndex = 11;
             this.gpColorPalette.Text = "Color Palette";
             this.gpColorPalette.TextAlignment = System.Drawing.StringAlignment.Center;
@@ -479,31 +482,62 @@ namespace ThemeBuilder.Forms
             this.gpColorPalette.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.gpColorPalette.TitleBoxHeight = 25;
             // 
-            // tilePreview
+            // tbSelectedColor
             // 
-            this.tilePreview.BackColor = System.Drawing.Color.Gainsboro;
-            this.tilePreview.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.tilePreview.BackColorState.Enabled = System.Drawing.Color.Gainsboro;
-            this.tilePreview.BackColorState.Hover = System.Drawing.Color.Gainsboro;
-            this.tilePreview.BackColorState.Pressed = System.Drawing.Color.Gainsboro;
-            this.tilePreview.BackgroundImageLayout = VisualPlus.Enumerators.BackgroundLayout.Stretch;
-            this.tilePreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tilePreview.Image = null;
-            this.tilePreview.Location = new System.Drawing.Point(93, 31);
-            this.tilePreview.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
-            this.tilePreview.Name = "tilePreview";
-            this.tilePreview.Offset = new System.Drawing.Point(0, 0);
-            this.tilePreview.Size = new System.Drawing.Size(77, 38);
-            this.tilePreview.TabIndex = 18;
-            this.tilePreview.Text = "Preview";
-            this.tilePreview.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            this.tilePreview.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tilePreview.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tilePreview.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.tilePreview.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.tilePreview.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            this.tilePreview.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.tilePreview.Type = VisualPlus.Toolkit.Controls.Layout.VisualTile.TileType.Text;
+            this.tbSelectedColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSelectedColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.tbSelectedColor.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.tbSelectedColor.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.tbSelectedColor.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.tbSelectedColor.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.tbSelectedColor.Border.HoverVisible = true;
+            this.tbSelectedColor.Border.Rounding = 6;
+            this.tbSelectedColor.Border.Thickness = 1;
+            this.tbSelectedColor.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
+            this.tbSelectedColor.Border.Visible = true;
+            this.tbSelectedColor.ButtonBorder.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.tbSelectedColor.ButtonBorder.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.tbSelectedColor.ButtonBorder.HoverVisible = true;
+            this.tbSelectedColor.ButtonBorder.Rounding = 6;
+            this.tbSelectedColor.ButtonBorder.Thickness = 1;
+            this.tbSelectedColor.ButtonBorder.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
+            this.tbSelectedColor.ButtonBorder.Visible = true;
+            this.tbSelectedColor.ButtonColor.Disabled = System.Drawing.Color.Empty;
+            this.tbSelectedColor.ButtonColor.Enabled = System.Drawing.Color.Empty;
+            this.tbSelectedColor.ButtonColor.Hover = System.Drawing.Color.Empty;
+            this.tbSelectedColor.ButtonColor.Pressed = System.Drawing.Color.Empty;
+            this.tbSelectedColor.ButtonFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSelectedColor.ButtonIndent = 3;
+            this.tbSelectedColor.ButtonText = "visualButton";
+            this.tbSelectedColor.ButtonVisible = false;
+            this.tbSelectedColor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbSelectedColor.Image = null;
+            this.tbSelectedColor.ImageSize = new System.Drawing.Size(16, 16);
+            this.tbSelectedColor.ImageVisible = true;
+            this.tbSelectedColor.ImageWidth = 35;
+            this.tbSelectedColor.Location = new System.Drawing.Point(3, 17);
+            this.tbSelectedColor.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.tbSelectedColor.Name = "tbSelectedColor";
+            this.tbSelectedColor.PasswordChar = '\0';
+            this.tbSelectedColor.ReadOnly = true;
+            this.tbSelectedColor.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.tbSelectedColor.Size = new System.Drawing.Size(347, 23);
+            this.tbSelectedColor.TabIndex = 22;
+            this.tbSelectedColor.TextBoxWidth = 305;
+            this.tbSelectedColor.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.tbSelectedColor.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbSelectedColor.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbSelectedColor.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbSelectedColor.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.tbSelectedColor.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.tbSelectedColor.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.tbSelectedColor.Watermark.Active = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.tbSelectedColor.Watermark.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSelectedColor.Watermark.Inactive = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
+            this.tbSelectedColor.Watermark.Text = "Select a color property...";
+            this.tbSelectedColor.Watermark.Visible = true;
+            this.tbSelectedColor.WordWrap = true;
             // 
             // Main
             // 
@@ -516,7 +550,7 @@ namespace ThemeBuilder.Forms
             this.Border.Thickness = 3;
             this.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
             this.Border.Visible = true;
-            this.ClientSize = new System.Drawing.Size(730, 500);
+            this.ClientSize = new System.Drawing.Size(817, 500);
             // 
             // 
             // 
@@ -549,7 +583,7 @@ namespace ThemeBuilder.Forms
             this.ControlBox.HelpButton.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.HelpButton.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.HelpButton.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.ControlBox.Location = new System.Drawing.Point(630, 4);
+            this.ControlBox.Location = new System.Drawing.Point(717, 4);
             // 
             // 
             // 
@@ -638,7 +672,7 @@ namespace ThemeBuilder.Forms
             this.Image.Visible = true;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
-            this.MinimumSize = new System.Drawing.Size(730, 500);
+            this.MinimumSize = new System.Drawing.Size(817, 500);
             this.Name = "Main";
             this.Text = "Theme Builder";
             this.HelpButtonClicked += new VisualPlus.Delegates.ControlBoxEventHandler(this.Main_HelpButtonClicked);
@@ -646,6 +680,7 @@ namespace ThemeBuilder.Forms
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.gpColorPalette.ResumeLayout(false);
+            this.gpColorPalette.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -672,7 +707,7 @@ namespace ThemeBuilder.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem openTemplatesDirectoryToolStripMenuItem;
         private VisualPlus.Toolkit.Controls.Layout.VisualGroupBox gpColorPalette;
-        private VisualPlus.Toolkit.Controls.Layout.VisualTile tilePreview;
+        private VisualPlus.Toolkit.Controls.Editors.VisualTextBox tbSelectedColor;
     }
 }
 
