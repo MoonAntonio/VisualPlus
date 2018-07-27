@@ -257,23 +257,24 @@ namespace ThemeBuilder.Forms
                 {
                     Color selectedItemColor = (Color)palettePropertyGrid.SelectedGridItem.Value;
 
-                    int r = selectedItemColor.R;
-                    int b = selectedItemColor.B;
-                    int g = selectedItemColor.G;
+                    int alpha = Convert.ToInt32(selectedItemColor.A);
+                    int red = Convert.ToInt32(selectedItemColor.R);
+                    int green = Convert.ToInt32(selectedItemColor.G);
+                    int blue = Convert.ToInt32(selectedItemColor.B);
 
-                    Color fromArgb = Color.FromArgb(r, b, g);
+                    Color fromArgb = Color.FromArgb(alpha, red, green, blue);
 
-                    visualTile1.BackColor = fromArgb;
-                    visualTile1.BackColorState.Hover = fromArgb;
-                    visualTile1.BackColorState.Pressed = fromArgb;
-                    visualTile1.BackColorState.Pressed = fromArgb;
+                    tilePreview.BackColor = fromArgb;
+                    tilePreview.BackColorState.Hover = fromArgb;
+                    tilePreview.BackColorState.Pressed = fromArgb;
+                    tilePreview.BackColorState.Pressed = fromArgb;
 
                     ColorPalette palette = (ColorPalette)palettePropertyGrid.SelectedObject;
 
-                    visualTile1.TextStyle.Enabled = palette.TextEnabled;
-                    visualTile1.TextStyle.Disabled = palette.TextDisabled;
-                    visualTile1.TextStyle.Hover = palette.TextHover;
-                    visualTile1.TextStyle.Pressed = palette.TextPressed;
+                    tilePreview.TextStyle.Enabled = palette.TextEnabled;
+                    tilePreview.TextStyle.Disabled = palette.TextDisabled;
+                    tilePreview.TextStyle.Hover = palette.TextHover;
+                    tilePreview.TextStyle.Pressed = palette.TextPressed;
                 }
             }
         }
