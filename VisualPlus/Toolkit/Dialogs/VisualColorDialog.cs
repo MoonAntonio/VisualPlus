@@ -80,7 +80,6 @@ namespace VisualPlus.Toolkit.Dialogs
 
             Color readColor = Color.FromArgb(alpha, red, green, blue);
             tilePreview.BackColor = readColor;
-
             tbHtml.Text = ColorTranslator.ToHtml(readColor);
         }
 
@@ -95,5 +94,10 @@ namespace VisualPlus.Toolkit.Dialogs
         }
 
         #endregion
+
+        private void ColorPicker_ColorChanged(object sender, EventArgs e)
+        {
+            UpdateColorDialog(colorPicker.Color);
+        }
     }
 }

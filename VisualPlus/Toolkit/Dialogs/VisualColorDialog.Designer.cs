@@ -42,13 +42,14 @@
             this.btnOk = new VisualPlus.Toolkit.Controls.Interactivity.VisualButton();
             this.tilePreview = new VisualPlus.Toolkit.Controls.Layout.VisualTile();
             this.visualLabel1 = new VisualPlus.Toolkit.Controls.Interactivity.VisualLabel();
+            this.colorPicker = new VisualPlus.Toolkit.Controls.Editors.VisualColorPicker();
             this.SuspendLayout();
             // 
             // lR
             // 
             this.lR.BackColor = System.Drawing.Color.White;
             this.lR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lR.Location = new System.Drawing.Point(10, 66);
+            this.lR.Location = new System.Drawing.Point(146, 66);
             this.lR.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.lR.Name = "lR";
             this.lR.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -78,7 +79,7 @@
             // 
             this.lG.BackColor = System.Drawing.Color.White;
             this.lG.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lG.Location = new System.Drawing.Point(10, 95);
+            this.lG.Location = new System.Drawing.Point(146, 95);
             this.lG.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.lG.Name = "lG";
             this.lG.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -108,7 +109,7 @@
             // 
             this.lB.BackColor = System.Drawing.Color.White;
             this.lB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lB.Location = new System.Drawing.Point(10, 130);
+            this.lB.Location = new System.Drawing.Point(146, 130);
             this.lB.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.lB.Name = "lB";
             this.lB.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -138,7 +139,7 @@
             // 
             this.lAlpha.BackColor = System.Drawing.Color.White;
             this.lAlpha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lAlpha.Location = new System.Drawing.Point(10, 37);
+            this.lAlpha.Location = new System.Drawing.Point(146, 37);
             this.lAlpha.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.lAlpha.Name = "lAlpha";
             this.lAlpha.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -184,13 +185,13 @@
             this.nudAlpha.ButtonOrientation = System.Windows.Forms.Orientation.Horizontal;
             this.nudAlpha.ButtonWidth = 50;
             this.nudAlpha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.nudAlpha.Location = new System.Drawing.Point(57, 37);
+            this.nudAlpha.Location = new System.Drawing.Point(193, 37);
             this.nudAlpha.MaximumValue = ((long)(255));
             this.nudAlpha.MinimumValue = ((long)(0));
             this.nudAlpha.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.nudAlpha.Name = "nudAlpha";
             this.nudAlpha.Separator = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.nudAlpha.Size = new System.Drawing.Size(149, 25);
+            this.nudAlpha.Size = new System.Drawing.Size(121, 25);
             this.nudAlpha.TabIndex = 5;
             this.nudAlpha.Text = "visualNumericUpDown1";
             this.nudAlpha.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
@@ -223,13 +224,13 @@
             this.nudRed.ButtonOrientation = System.Windows.Forms.Orientation.Horizontal;
             this.nudRed.ButtonWidth = 50;
             this.nudRed.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.nudRed.Location = new System.Drawing.Point(57, 68);
+            this.nudRed.Location = new System.Drawing.Point(193, 68);
             this.nudRed.MaximumValue = ((long)(255));
             this.nudRed.MinimumValue = ((long)(0));
             this.nudRed.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.nudRed.Name = "nudRed";
             this.nudRed.Separator = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.nudRed.Size = new System.Drawing.Size(149, 25);
+            this.nudRed.Size = new System.Drawing.Size(121, 25);
             this.nudRed.TabIndex = 6;
             this.nudRed.Text = "visualNumericUpDown2";
             this.nudRed.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
@@ -262,13 +263,13 @@
             this.nudGreen.ButtonOrientation = System.Windows.Forms.Orientation.Horizontal;
             this.nudGreen.ButtonWidth = 50;
             this.nudGreen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.nudGreen.Location = new System.Drawing.Point(57, 99);
+            this.nudGreen.Location = new System.Drawing.Point(193, 99);
             this.nudGreen.MaximumValue = ((long)(255));
             this.nudGreen.MinimumValue = ((long)(0));
             this.nudGreen.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.nudGreen.Name = "nudGreen";
             this.nudGreen.Separator = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.nudGreen.Size = new System.Drawing.Size(149, 25);
+            this.nudGreen.Size = new System.Drawing.Size(121, 25);
             this.nudGreen.TabIndex = 7;
             this.nudGreen.Text = "visualNumericUpDown3";
             this.nudGreen.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
@@ -301,13 +302,13 @@
             this.nudBlue.ButtonOrientation = System.Windows.Forms.Orientation.Horizontal;
             this.nudBlue.ButtonWidth = 50;
             this.nudBlue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.nudBlue.Location = new System.Drawing.Point(57, 130);
+            this.nudBlue.Location = new System.Drawing.Point(193, 130);
             this.nudBlue.MaximumValue = ((long)(255));
             this.nudBlue.MinimumValue = ((long)(0));
             this.nudBlue.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.nudBlue.Name = "nudBlue";
             this.nudBlue.Separator = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.nudBlue.Size = new System.Drawing.Size(149, 25);
+            this.nudBlue.Size = new System.Drawing.Size(121, 25);
             this.nudBlue.TabIndex = 8;
             this.nudBlue.Text = "visualNumericUpDown4";
             this.nudBlue.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
@@ -354,15 +355,15 @@
             this.tbHtml.ImageSize = new System.Drawing.Size(16, 16);
             this.tbHtml.ImageVisible = false;
             this.tbHtml.ImageWidth = 35;
-            this.tbHtml.Location = new System.Drawing.Point(57, 161);
+            this.tbHtml.Location = new System.Drawing.Point(193, 161);
             this.tbHtml.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.tbHtml.Name = "tbHtml";
             this.tbHtml.PasswordChar = '\0';
             this.tbHtml.ReadOnly = true;
             this.tbHtml.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.tbHtml.Size = new System.Drawing.Size(149, 23);
+            this.tbHtml.Size = new System.Drawing.Size(121, 23);
             this.tbHtml.TabIndex = 9;
-            this.tbHtml.TextBoxWidth = 139;
+            this.tbHtml.TextBoxWidth = 111;
             this.tbHtml.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.tbHtml.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tbHtml.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -394,7 +395,7 @@
             this.btnOk.Border.Visible = true;
             this.btnOk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnOk.Image = null;
-            this.btnOk.Location = new System.Drawing.Point(131, 190);
+            this.btnOk.Location = new System.Drawing.Point(239, 190);
             this.btnOk.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 24);
@@ -439,7 +440,7 @@
             // 
             this.visualLabel1.BackColor = System.Drawing.Color.White;
             this.visualLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.visualLabel1.Location = new System.Drawing.Point(10, 161);
+            this.visualLabel1.Location = new System.Drawing.Point(146, 161);
             this.visualLabel1.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.visualLabel1.Name = "visualLabel1";
             this.visualLabel1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -465,6 +466,40 @@
             this.visualLabel1.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.visualLabel1.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // 
+            // colorPicker
+            // 
+            this.colorPicker.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.colorPicker.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.colorPicker.Border.HoverVisible = false;
+            this.colorPicker.Border.Rounding = 6;
+            this.colorPicker.Border.Thickness = 1;
+            this.colorPicker.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
+            this.colorPicker.Border.Visible = true;
+            this.colorPicker.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.colorPicker.Location = new System.Drawing.Point(10, 48);
+            this.colorPicker.MinimumSize = new System.Drawing.Size(130, 130);
+            this.colorPicker.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.colorPicker.Name = "colorPicker";
+            this.colorPicker.Picker.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.colorPicker.Picker.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.colorPicker.Picker.HoverVisible = false;
+            this.colorPicker.Picker.Rounding = 6;
+            this.colorPicker.Picker.Thickness = 1;
+            this.colorPicker.Picker.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
+            this.colorPicker.Picker.Visible = true;
+            this.colorPicker.PickerStyle = VisualPlus.Toolkit.Controls.Editors.VisualColorPicker.PickerType.Wheel;
+            this.colorPicker.PickerVisible = true;
+            this.colorPicker.Size = new System.Drawing.Size(130, 130);
+            this.colorPicker.TabIndex = 13;
+            this.colorPicker.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.colorPicker.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.colorPicker.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.colorPicker.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.colorPicker.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.colorPicker.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.colorPicker.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.colorPicker.ColorChanged += new System.EventHandler(this.ColorPicker_ColorChanged);
+            // 
             // VisualColorDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -477,7 +512,7 @@
             this.Border.Thickness = 3;
             this.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
             this.Border.Visible = true;
-            this.ClientSize = new System.Drawing.Size(214, 221);
+            this.ClientSize = new System.Drawing.Size(322, 221);
             // 
             // 
             // 
@@ -511,7 +546,7 @@
             this.ControlBox.HelpButton.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.HelpButton.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             this.ControlBox.HelpButton.Visible = false;
-            this.ControlBox.Location = new System.Drawing.Point(185, 4);
+            this.ControlBox.Location = new System.Drawing.Point(293, 4);
             // 
             // 
             // 
@@ -579,6 +614,7 @@
             this.ControlBox.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.Controls.Add(this.colorPicker);
             this.Controls.Add(this.visualLabel1);
             this.Controls.Add(this.tilePreview);
             this.Controls.Add(this.btnOk);
@@ -623,5 +659,6 @@
         private Controls.Interactivity.VisualButton btnOk;
         private Controls.Layout.VisualTile tilePreview;
         private Controls.Interactivity.VisualLabel visualLabel1;
+        private Controls.Editors.VisualColorPicker colorPicker;
     }
 }
