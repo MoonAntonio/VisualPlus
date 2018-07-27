@@ -288,9 +288,16 @@ namespace VisualPlus.Toolkit.Components
         #region Methods
 
         /// <summary>Creates a default theme file in the templates folder.</summary>
-        public static void GenerateDefaultThemeFile()
+        /// <param name="force">Forcefully overwrite any default theme with a new one.</param>
+        public static void GenerateDefaultThemeFile(bool force = false)
         {
             string _defaultThemePath = SettingConstants.TemplatesFilePath;
+
+            if (force)
+            {
+                CreateDefaultThemeFile();
+                return;
+            }
 
             if (File.Exists(_defaultThemePath))
             {
