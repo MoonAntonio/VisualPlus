@@ -14,62 +14,29 @@ namespace VisualPlus.TypeConverters
     {
         #region Overrides
 
+        /// <summary>Can convert context from source type.</summary>
+        /// <param name="context">The context.</param>
+        /// <param name="sourceType">The source type.</param>
+        /// <returns>The <see cref="bool" />.</returns>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectThemeWrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
+            // Sets the property to read only.
+            return false;
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            Theme _theme;
-            object result;
+            object result = null;
 
-            result = null;
-            _theme = value as Theme;
-
-            if ((_theme != null) && (destinationType == typeof(string)))
+            if (value is Theme theme && (destinationType == typeof(string)))
             {
-                // result = borderStyle.ToString();
-                result = "Theme Settings";
+                string text = $@"{theme.Information.Name} by {theme.Information.Author}";
+
+                result = text;
             }
 
             return result ?? base.ConvertTo(context, culture, value, destinationType);
         }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(ThemeTypeConverter))]
-    public class ObjectThemeWrapper
-    {
-        #region Constructors
-
-        public ObjectThemeWrapper()
-        {
-        }
-
-        public ObjectThemeWrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }
