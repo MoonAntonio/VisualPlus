@@ -23,6 +23,7 @@ using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
 using VisualPlus.Toolkit.Controls.Interactivity;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -360,7 +361,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -472,7 +473,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
-        [TypeConverter(typeof(VisualBitmapConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public VisualBitmap Image

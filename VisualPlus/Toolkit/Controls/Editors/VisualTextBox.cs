@@ -17,6 +17,7 @@ using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
 using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -223,7 +224,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        [TypeConverter(typeof(ColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
@@ -245,7 +246,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -262,7 +263,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border ButtonBorder
@@ -279,7 +280,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        [TypeConverter(typeof(ControlColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ControlColorState ButtonColor
@@ -686,7 +687,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        [TypeConverter(typeof(WatermarkConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Behavior)]
         public Watermark Watermark

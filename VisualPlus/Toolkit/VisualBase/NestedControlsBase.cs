@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using VisualPlus.Enumerators;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -40,7 +41,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Properties
 
-        [TypeConverter(typeof(ColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ColorState BackColorState
         {

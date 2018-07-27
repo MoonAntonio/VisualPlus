@@ -1,21 +1,20 @@
 ﻿#region Namespace
 
-using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.Runtime.InteropServices;
 
 using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
+using VisualPlus.TypeConverters;
 
 #endregion
 
 namespace VisualPlus.Structure
 {
-    [TypeConverter(typeof(BorderConverter))]
+    [TypeConverter(typeof(BasicSettingsTypeConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -117,70 +116,6 @@ namespace VisualPlus.Structure
             _hoverColor = hoverColor;
             _hoverVisible = hoverVisible;
         }
-
-        #endregion
-    }
-
-    public class BorderConverter : ExpandableObjectConverter
-    {
-        #region Overrides
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectShape2Wrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            Border border;
-            object result;
-
-            result = null;
-            border = value as Border;
-
-            if ((border != null) && (destinationType == typeof(string)))
-            {
-                // result = borderStyle.ToString();
-                result = "Border Settings";
-            }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(BorderConverter))]
-    public class ObjectShape2Wrapper
-    {
-        #region Constructors
-
-        public ObjectShape2Wrapper()
-        {
-        }
-
-        public ObjectShape2Wrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }

@@ -14,6 +14,7 @@ using VisualPlus.Properties;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -97,7 +98,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(ControlColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState BackColorState
         {

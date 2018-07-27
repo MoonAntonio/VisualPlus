@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using VisualPlus.Enumerators;
 using VisualPlus.Localization;
 using VisualPlus.Structure;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -126,7 +127,7 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border

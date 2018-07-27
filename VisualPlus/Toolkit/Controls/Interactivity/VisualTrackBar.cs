@@ -166,7 +166,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Properties
 
-        [TypeConverter(typeof(ControlColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ControlColorState BackColorState
@@ -268,7 +268,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(HatchConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Hatch Hatch
@@ -549,7 +549,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border TrackBar
@@ -566,7 +566,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(ColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ColorState TrackBarState
@@ -605,7 +605,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border TrackerBorder

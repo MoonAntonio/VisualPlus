@@ -3,19 +3,19 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 
 using VisualPlus.Enumerators;
 using VisualPlus.Localization;
 using VisualPlus.Renders;
+using VisualPlus.TypeConverters;
 
 #endregion
 
 namespace VisualPlus.Structure
 {
     [Description("The check style structure.")]
-    [TypeConverter(typeof(CheckStyleConverter))]
+    [TypeConverter(typeof(BasicSettingsTypeConverter))]
     public class CheckStyle
     {
         #region Variables
@@ -241,69 +241,6 @@ namespace VisualPlus.Structure
                 _thickness = value;
             }
         }
-
-        #endregion
-    }
-
-    public class CheckStyleConverter : ExpandableObjectConverter
-    {
-        #region Overrides
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectCheckMarkWrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            CheckStyle checkStyle;
-            object result;
-
-            result = null;
-            checkStyle = value as CheckStyle;
-
-            if ((checkStyle != null) && (destinationType == typeof(string)))
-            {
-                result = "Check Style Settings";
-            }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(CheckStyleConverter))]
-    public class ObjectCheckMarkWrapper
-    {
-        #region Constructors
-
-        public ObjectCheckMarkWrapper()
-        {
-        }
-
-        public ObjectCheckMarkWrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }

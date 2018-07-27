@@ -25,6 +25,7 @@ using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -235,8 +236,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             _colorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.ColorPalette.ControlEnabled
-            };
+                       Enabled = ThemeManager.Theme.ColorPalette.ControlEnabled 
+                    };
 
             Size = new Size(121, 97);
             UpdateTheme(ThemeManager.Theme);
@@ -427,7 +428,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
-        [TypeConverter(typeof(ColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
@@ -471,7 +472,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -554,7 +555,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [TypeConverter(typeof(ColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         public ControlColorState ColumnColorState
         {
             get
@@ -2516,7 +2517,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     {
                         Enabled = theme.ColorPalette.ControlEnabled,
                         Disabled = theme.ColorPalette.ControlDisabled
-                };
+                    };
 
                 _cornerBox.BackColor = theme.ColorPalette.ControlEnabled;
             }

@@ -1,5 +1,9 @@
-﻿using System.ComponentModel;
+﻿#region Namespace
+
+using System.ComponentModel;
 using System.Drawing;
+
+#endregion
 
 namespace VisualPlus.TypeConverters
 {

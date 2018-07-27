@@ -4,7 +4,6 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -13,12 +12,13 @@ using VisualPlus.Delegates;
 using VisualPlus.Extensibility;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
+using VisualPlus.TypeConverters;
 
 #endregion
 
 namespace VisualPlus.Structure
 {
-    [TypeConverter(typeof(GradientConverter))]
+    [TypeConverter(typeof(BasicSettingsTypeConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -325,70 +325,6 @@ namespace VisualPlus.Structure
 
             Brush = CreateBrush(_angle, _colors, _locations, _rectangle);
         }
-
-        #endregion
-    }
-
-    public class GradientConverter : ExpandableObjectConverter
-    {
-        #region Overrides
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectGradientWrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            Gradient gradient;
-            object result;
-
-            result = null;
-            gradient = value as Gradient;
-
-            if ((gradient != null) && (destinationType == typeof(string)))
-            {
-                // result = borderStyle.ToString();
-                result = "Gradient Settings";
-            }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(GradientConverter))]
-    public class ObjectGradientWrapper
-    {
-        #region Constructors
-
-        public ObjectGradientWrapper()
-        {
-        }
-
-        public ObjectGradientWrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }

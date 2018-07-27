@@ -16,6 +16,7 @@ using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -85,7 +86,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -123,7 +124,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [TypeConverter(typeof(ControlColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState BoxColorState
         {
@@ -181,7 +182,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [TypeConverter(typeof(CheckStyleConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public CheckStyle CheckStyle

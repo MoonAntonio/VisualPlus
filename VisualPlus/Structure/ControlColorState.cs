@@ -3,7 +3,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -11,12 +10,13 @@ using VisualPlus.Delegates;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
 using VisualPlus.Localization;
+using VisualPlus.TypeConverters;
 
 #endregion
 
 namespace VisualPlus.Structure
 {
-    [TypeConverter(typeof(ControlColorStateConverter))]
+    [TypeConverter(typeof(BasicSettingsTypeConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -178,70 +178,6 @@ namespace VisualPlus.Structure
 
             return _color;
         }
-
-        #endregion
-    }
-
-    public class ControlColorStateConverter : ExpandableObjectConverter
-    {
-        #region Overrides
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectControlColorStateWrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            ControlColorState _controlColorState;
-            object result;
-
-            result = null;
-            _controlColorState = value as ControlColorState;
-
-            if ((_controlColorState != null) && (destinationType == typeof(string)))
-            {
-                // result = borderStyle.ToString();
-                result = "Color State Settings";
-            }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(ControlColorStateConverter))]
-    public class ObjectControlColorStateWrapper
-    {
-        #region Constructors
-
-        public ObjectControlColorStateWrapper()
-        {
-        }
-
-        public ObjectControlColorStateWrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }

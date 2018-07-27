@@ -15,6 +15,7 @@ using VisualPlus.Managers;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -85,7 +86,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(ControlColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState BackColorState
         {
@@ -106,7 +107,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border

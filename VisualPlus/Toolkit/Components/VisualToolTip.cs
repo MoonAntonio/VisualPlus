@@ -11,6 +11,7 @@ using VisualPlus.Designer;
 using VisualPlus.Localization;
 using VisualPlus.Properties;
 using VisualPlus.Structure;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -143,7 +144,7 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border

@@ -17,6 +17,7 @@ using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
 using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -143,7 +144,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         #region Properties
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -270,7 +271,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Picker

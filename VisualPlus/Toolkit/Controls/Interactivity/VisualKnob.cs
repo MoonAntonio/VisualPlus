@@ -13,6 +13,7 @@ using VisualPlus.Managers;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -210,7 +211,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(GradientConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Gradient Knob
@@ -227,7 +228,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border KnobBorder
@@ -308,7 +309,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(GradientConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Gradient KnobTop
@@ -325,7 +326,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border KnobTopBorder
@@ -471,7 +472,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(GradientConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Gradient ScaleGradient

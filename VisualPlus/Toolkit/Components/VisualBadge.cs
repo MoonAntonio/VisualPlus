@@ -9,6 +9,7 @@ using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -328,7 +329,7 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
-        [TypeConverter(typeof(ShapeConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Shape Shape

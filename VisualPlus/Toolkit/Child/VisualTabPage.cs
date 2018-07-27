@@ -11,6 +11,7 @@ using VisualPlus.Enumerators;
 using VisualPlus.Localization;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -98,7 +99,7 @@ namespace VisualPlus.Toolkit.Child
 
         #region Properties
 
-        [TypeConverter(typeof(ShapeConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Shape Border

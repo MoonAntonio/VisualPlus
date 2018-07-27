@@ -1,20 +1,19 @@
 ﻿#region Namespace
 
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Globalization;
 
 using VisualPlus.Localization;
 using VisualPlus.Renders;
+using VisualPlus.TypeConverters;
 
 #endregion
 
 namespace VisualPlus.Structure
 {
     [Description("The VisualBitmap")]
-    [TypeConverter(typeof(VisualBitmapConverter))]
+    [TypeConverter(typeof(BasicSettingsTypeConverter))]
     public class VisualBitmap
     {
         #region Variables
@@ -53,7 +52,7 @@ namespace VisualPlus.Structure
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [Category(PropertyCategory.Appearance)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Border Border
@@ -168,70 +167,6 @@ namespace VisualPlus.Structure
         {
             return _image.Size;
         }
-
-        #endregion
-    }
-
-    public class VisualBitmapConverter : ExpandableObjectConverter
-    {
-        #region Overrides
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectVisualBitmapWrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            VisualBitmap visualBitmap;
-            object result;
-
-            result = null;
-            visualBitmap = value as VisualBitmap;
-
-            if ((visualBitmap != null) && (destinationType == typeof(string)))
-            {
-                // result = borderStyle.ToString();
-                result = "Image Settings";
-            }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(VisualBitmapConverter))]
-    public class ObjectVisualBitmapWrapper
-    {
-        #region Constructors
-
-        public ObjectVisualBitmapWrapper()
-        {
-        }
-
-        public ObjectVisualBitmapWrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }

@@ -13,6 +13,7 @@ using VisualPlus.Localization;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -69,7 +70,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Properties
 
-        [TypeConverter(typeof(ColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
@@ -91,7 +92,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -108,7 +109,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [TypeConverter(typeof(HatchConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Behavior)]
         public Hatch Hatch

@@ -15,6 +15,7 @@ using VisualPlus.Native;
 using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -159,7 +160,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
 
         #region Properties
 
-        [TypeConverter(typeof(ColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ColorState BackColorState
         {
@@ -180,7 +181,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -197,7 +198,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border ButtonBorder
@@ -230,7 +231,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(ControlColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState ButtonColorState
         {
@@ -475,7 +476,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border ThumbBorder
@@ -492,7 +493,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(ControlColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState ThumbColorState
         {

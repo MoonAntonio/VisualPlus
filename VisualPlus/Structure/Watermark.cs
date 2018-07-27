@@ -1,19 +1,18 @@
 ﻿#region Namespace
 
-using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 
 using VisualPlus.Delegates;
 using VisualPlus.Localization;
+using VisualPlus.TypeConverters;
 
 #endregion
 
 namespace VisualPlus.Structure
 {
     [Description("The watermark")]
-    [TypeConverter(typeof(WatermarkConverter))]
+    [TypeConverter(typeof(BasicSettingsTypeConverter))]
     public class Watermark
     {
         #region Variables
@@ -194,69 +193,6 @@ namespace VisualPlus.Structure
                 }
             }
         }
-
-        #endregion
-    }
-
-    public class WatermarkConverter : ExpandableObjectConverter
-    {
-        #region Overrides
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectWatermarkWrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            Watermark watermark;
-            object result;
-
-            result = null;
-            watermark = value as Watermark;
-
-            if ((watermark != null) && (destinationType == typeof(string)))
-            {
-                result = "Watermark Settings";
-            }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(WatermarkConverter))]
-    public class ObjectWatermarkWrapper
-    {
-        #region Constructors
-
-        public ObjectWatermarkWrapper()
-        {
-        }
-
-        public ObjectWatermarkWrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }

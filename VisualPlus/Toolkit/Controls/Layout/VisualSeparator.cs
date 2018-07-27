@@ -11,7 +11,6 @@ using VisualPlus.Designer;
 using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion

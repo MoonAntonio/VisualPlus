@@ -13,6 +13,7 @@ using VisualPlus.Localization;
 using VisualPlus.Managers;
 using VisualPlus.Properties;
 using VisualPlus.Structure;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -72,7 +73,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Properties
 
-        [TypeConverter(typeof(ControlColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState BackColorState
         {
@@ -108,7 +109,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [TypeConverter(typeof(ControlColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState ForeColorState
         {

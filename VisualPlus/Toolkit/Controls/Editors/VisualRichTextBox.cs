@@ -15,6 +15,7 @@ using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Components;
 using VisualPlus.Toolkit.VisualBase;
+using VisualPlus.TypeConverters;
 
 #endregion
 
@@ -56,7 +57,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             ThemeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _backColorState = new ColorState
                     {
-                       Enabled = ThemeManager.Theme.ColorPalette.ControlEnabled
+                       Enabled = ThemeManager.Theme.ColorPalette.ControlEnabled 
                     };
 
             _richTextBox = new RichTextBox
@@ -102,7 +103,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         #region Properties
 
-        [TypeConverter(typeof(ColorStateConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
@@ -119,7 +120,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(BasicSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border

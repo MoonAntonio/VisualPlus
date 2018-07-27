@@ -67,46 +67,6 @@ namespace VisualPlus.Renders
             VisualBorderRenderer.DrawBorderStyle(graphics, border, _elementGraphicsPath, mouseState);
         }
 
-        /// <summary>Renders a triangle.</summary>
-        /// <param name="graphics">The specified graphics to draw on.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="disabled">The disabled.</param>
-        /// <param name="enabled">The enabled.</param>
-        /// <param name="image">The image.</param>
-        /// <param name="rectangle">The rectangle.</param>
-        /// <param name="direction">The direction.</param>
-        public static void RenderTriangle(Graphics graphics, Color color, Color disabled, bool enabled, Image image, Rectangle rectangle, Alignment.Vertical direction)
-        {
-            if (image != null)
-            {
-                graphics.DrawImage(image, rectangle);
-            }
-            else
-            {
-                Color colorState = enabled ? color : disabled;
-                RenderTriangle(graphics, rectangle, colorState, direction);
-            }
-        }
-
-        /// <summary>Renders a triangle image.</summary>
-        /// <param name="graphics">The specified graphics to draw on.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="image">The image.</param>
-        /// <param name="rectangle">The rectangle.</param>
-        /// <param name="direction">The direction.</param>
-        public static void RenderTriangleImage(Graphics graphics, Color color, Image image, Rectangle rectangle, Alignment.Vertical direction)
-        {
-            if (image != null)
-            {
-                // TODO: Flip image based on direction.
-                graphics.DrawImage(image, rectangle);
-            }
-            else
-            {
-                RenderTriangle(graphics, rectangle, color, direction);
-            }
-        }
-
         /// <summary>Render bars.</summary>
         /// <param name="graphics">The graphics.</param>
         /// <param name="point">The point.</param>
@@ -134,6 +94,27 @@ namespace VisualPlus.Renders
 
                 // Prepare for next bar drawing
                 bump = bump + spacing;
+            }
+        }
+
+        /// <summary>Renders a triangle.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="disabled">The disabled.</param>
+        /// <param name="enabled">The enabled.</param>
+        /// <param name="image">The image.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="direction">The direction.</param>
+        public static void RenderTriangle(Graphics graphics, Color color, Color disabled, bool enabled, Image image, Rectangle rectangle, Alignment.Vertical direction)
+        {
+            if (image != null)
+            {
+                graphics.DrawImage(image, rectangle);
+            }
+            else
+            {
+                Color colorState = enabled ? color : disabled;
+                RenderTriangle(graphics, rectangle, colorState, direction);
             }
         }
 
@@ -182,6 +163,25 @@ namespace VisualPlus.Renders
 
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.FillPolygon(new SolidBrush(color), points);
+        }
+
+        /// <summary>Renders a triangle image.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="image">The image.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="direction">The direction.</param>
+        public static void RenderTriangleImage(Graphics graphics, Color color, Image image, Rectangle rectangle, Alignment.Vertical direction)
+        {
+            if (image != null)
+            {
+                // TODO: Flip image based on direction.
+                graphics.DrawImage(image, rectangle);
+            }
+            else
+            {
+                RenderTriangle(graphics, rectangle, color, direction);
+            }
         }
 
         #endregion
