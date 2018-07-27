@@ -103,7 +103,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Properties
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
@@ -125,7 +125,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -142,7 +142,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border ButtonBorder
@@ -159,7 +159,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ControlColorState ButtonColorState

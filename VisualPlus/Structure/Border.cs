@@ -14,7 +14,7 @@ using VisualPlus.TypeConverters;
 
 namespace VisualPlus.Structure
 {
-    [TypeConverter(typeof(BasicSettingsTypeConverter))]
+    [TypeConverter(typeof(VisualSettingsTypeConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]

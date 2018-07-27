@@ -160,7 +160,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
 
         #region Properties
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ColorState BackColorState
         {
@@ -181,7 +181,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -198,7 +198,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border ButtonBorder
@@ -231,7 +231,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState ButtonColorState
         {
@@ -476,7 +476,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border ThumbBorder
@@ -493,7 +493,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState ThumbColorState
         {

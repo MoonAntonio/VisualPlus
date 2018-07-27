@@ -12,7 +12,7 @@ using VisualPlus.TypeConverters;
 namespace VisualPlus.Structure
 {
     [Description("The watermark")]
-    [TypeConverter(typeof(BasicSettingsTypeConverter))]
+    [TypeConverter(typeof(VisualSettingsTypeConverter))]
     public class Watermark
     {
         #region Variables

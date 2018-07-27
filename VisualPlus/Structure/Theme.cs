@@ -85,7 +85,7 @@ namespace VisualPlus.Structure
         #region Properties
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         public ColorPalette ColorPalette
         {
             get
@@ -104,7 +104,7 @@ namespace VisualPlus.Structure
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         public ThemeInformation Information
         {
             get

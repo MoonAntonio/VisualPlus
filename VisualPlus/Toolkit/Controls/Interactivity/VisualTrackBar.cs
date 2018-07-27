@@ -166,7 +166,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Properties
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ControlColorState BackColorState
@@ -268,7 +268,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Hatch Hatch
@@ -503,7 +503,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(PropertyDescription.TextStyle)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         public TextStyle TextStyle
         {
             get
@@ -549,7 +549,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border TrackBar
@@ -566,7 +566,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ColorState TrackBarState
@@ -605,7 +605,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border TrackerBorder

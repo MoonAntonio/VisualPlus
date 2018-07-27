@@ -361,7 +361,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -473,7 +473,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public VisualBitmap Image

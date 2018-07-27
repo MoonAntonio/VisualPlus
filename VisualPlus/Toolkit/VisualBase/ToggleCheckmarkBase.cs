@@ -86,7 +86,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -124,7 +124,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState BoxColorState
         {
@@ -182,7 +182,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public CheckStyle CheckStyle

@@ -98,7 +98,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ControlColorState BackColorState
         {

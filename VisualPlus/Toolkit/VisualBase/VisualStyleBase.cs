@@ -99,7 +99,7 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description(PropertyDescription.TextStyle)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         public TextStyle TextStyle
         {
             get

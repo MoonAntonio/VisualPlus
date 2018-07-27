@@ -13,7 +13,7 @@ using VisualPlus.TypeConverters;
 
 namespace VisualPlus.Structure
 {
-    [TypeConverter(typeof(BasicSettingsTypeConverter))]
+    [TypeConverter(typeof(VisualSettingsTypeConverter))]
     public class TextStyle : ITextColor
     {
         #region Variables

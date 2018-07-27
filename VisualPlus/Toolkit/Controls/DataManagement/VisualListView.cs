@@ -428,7 +428,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
@@ -472,7 +472,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public Border Border
@@ -555,7 +555,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         public ControlColorState ColumnColorState
         {
             get

@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace VisualPlus.TypeConverters
 {
-    public class BasicSettingsTypeConverter : ExpandableObjectConverter
+    public class VisualSettingsTypeConverter : ExpandableObjectConverter
     {
         #region Overrides
 

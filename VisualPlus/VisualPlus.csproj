@@ -350,7 +350,7 @@
     </Compile>
     <Compile Include="Toolkit\VisualBase\VisualControlBase.cs" />
     <Compile Include="Toolkit\VisualBase\VisualStyleBase.cs" />
-    <Compile Include="TypeConverters\BasicSettingsTypeConverter.cs" />
+    <Compile Include="TypeConverters\VisualSettingsTypeConverter.cs" />
     <Compile Include="TypeConverters\ThemeTypeConverter.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>

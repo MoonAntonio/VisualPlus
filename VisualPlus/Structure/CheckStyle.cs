@@ -15,7 +15,7 @@ using VisualPlus.TypeConverters;
 namespace VisualPlus.Structure
 {
     [Description("The check style structure.")]
-    [TypeConverter(typeof(BasicSettingsTypeConverter))]
+    [TypeConverter(typeof(VisualSettingsTypeConverter))]
     public class CheckStyle
     {
         #region Variables

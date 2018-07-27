@@ -13,7 +13,7 @@ using VisualPlus.TypeConverters;
 namespace VisualPlus.Structure
 {
     [Description("The VisualBitmap")]
-    [TypeConverter(typeof(BasicSettingsTypeConverter))]
+    [TypeConverter(typeof(VisualSettingsTypeConverter))]
     public class VisualBitmap
     {
         #region Variables
@@ -52,7 +52,7 @@ namespace VisualPlus.Structure
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [TypeConverter(typeof(BasicSettingsTypeConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [Category(PropertyCategory.Appearance)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Border Border
