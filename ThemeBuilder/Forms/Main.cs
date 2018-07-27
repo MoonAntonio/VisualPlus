@@ -257,9 +257,9 @@ namespace ThemeBuilder.Forms
                 {
                     Color selectedItemColor = (Color)palettePropertyGrid.SelectedGridItem.Value;
 
-                    var r = selectedItemColor.R;
-                    var b = selectedItemColor.B;
-                    var g = selectedItemColor.G;
+                    int r = selectedItemColor.R;
+                    int b = selectedItemColor.B;
+                    int g = selectedItemColor.G;
 
                     Color fromArgb = Color.FromArgb(r, b, g);
 
@@ -268,7 +268,7 @@ namespace ThemeBuilder.Forms
                     visualTile1.BackColorState.Pressed = fromArgb;
                     visualTile1.BackColorState.Pressed = fromArgb;
 
-                    var palette = (ColorPalette)palettePropertyGrid.SelectedObject;
+                    ColorPalette palette = (ColorPalette)palettePropertyGrid.SelectedObject;
 
                     visualTile1.TextStyle.Enabled = palette.TextEnabled;
                     visualTile1.TextStyle.Disabled = palette.TextDisabled;
