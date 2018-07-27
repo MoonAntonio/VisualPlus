@@ -33,7 +33,6 @@ namespace VisualPlus.Toolkit.Components
     {
         #region Variables
 
-        private readonly string methodName;
         private string _customThemePath;
         private List<Form> _formCollection;
         private Theme _theme;
@@ -106,7 +105,6 @@ namespace VisualPlus.Toolkit.Components
                 if (_customThemePath == null)
                 {
                     string _themePath = SettingConstants.TemplatesFilePath;
-                    _theme = new Theme(_themePath);
                     _customThemePath = _themePath;
                 }
 
@@ -114,7 +112,6 @@ namespace VisualPlus.Toolkit.Components
 
                 _themeType = Settings.DefaultValue.DefaultStyle;
                 _theme = new Theme(_themeType);
-                methodName = "UpdateTheme";
             }
             catch (Exception e)
             {
@@ -418,7 +415,7 @@ namespace VisualPlus.Toolkit.Components
             {
                 foreach (Type registeredTypes in ControlManager.ThemeSupportedTypes())
                 {
-                    if (ObjectManagement.HasMethod(component, methodName))
+                    if (ObjectManagement.HasMethod(component, SettingConstants.ComponentUpdateMethodName))
                     {
                         switch (component)
                         {
@@ -487,7 +484,7 @@ namespace VisualPlus.Toolkit.Components
         /// <param name="registeredType">The registered type.</param>
         private void InvokeThemeUpdate(IDisposable component, Type registeredType)
         {
-            MethodInfo method = registeredType.GetMethod(methodName);
+            MethodInfo method = registeredType.GetMethod(SettingConstants.ComponentUpdateMethodName);
 
             if (method != null)
             {

@@ -10,6 +10,7 @@ namespace VisualPlus.Constants
     {
         #region Variables
 
+        public static readonly string ComponentUpdateMethodName = "UpdateTheme";
         public static readonly int MaximumAlpha = 255;
         public static readonly int MaximumBorderSize = 24;
         public static readonly int MaximumCheckBoxBorderRounding = 12;
