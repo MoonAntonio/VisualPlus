@@ -277,6 +277,7 @@ namespace VisualPlus.Toolkit.Controls.Layout
                         _newSize = new Size(0, 0);
                     }
 
+                    _titleBoxRectangle = new Rectangle(5, 0, title.Width - 1, title.Height);
                     Point _titleBoxBackground = RelationManager.GetTextImageRelationLocation(graphics, _textImageRelation, new Rectangle(new Point(0, 0), _newSize), Text, Font, _titleBoxRectangle, Relation.Text);
                     graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), new Rectangle(new Point(_titleBoxBackground.X, _titleBoxBackground.Y), new Size(_titleBoxRectangle.Width, _titleBoxRectangle.Height)));
                 }
@@ -299,7 +300,6 @@ namespace VisualPlus.Toolkit.Controls.Layout
             catch (Exception exception)
             {
                 ConsoleEx.WriteDebug(exception);
-                throw;
             }
         }
 
