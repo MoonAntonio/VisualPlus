@@ -287,7 +287,17 @@ namespace VisualPlus.Toolkit.Dialogs
         {
             get
             {
-                int width = CaptionTextMaxWidth > ButtonsMaxWidth ? CaptionTextMaxWidth : ButtonsMaxWidth;
+                int buttonsMaxWithImage;
+                if ((messageBoxIcon == MessageBoxIcon.None) && (dialogImage == null))
+                {
+                    buttonsMaxWithImage = ButtonsMaxWidth;
+                }
+                else
+                {
+                    buttonsMaxWithImage = buttonPadding + dialogImageSize.Width + buttonPadding + ButtonsMaxWidth + buttonPadding;
+                }
+
+                int width = CaptionTextMaxWidth > buttonsMaxWithImage ? CaptionTextMaxWidth : buttonsMaxWithImage;
                 return width;
             }
         }
