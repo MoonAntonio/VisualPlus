@@ -118,6 +118,7 @@ namespace ThemeBuilder.Forms
             this.tbName.ButtonVisible = false;
             this.tbName.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.tbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbName.Image = null;
             this.tbName.ImageSize = new System.Drawing.Size(16, 16);
             this.tbName.ImageVisible = false;
             this.tbName.ImageWidth = 35;
@@ -173,6 +174,7 @@ namespace ThemeBuilder.Forms
             this.tbAuthor.ButtonVisible = false;
             this.tbAuthor.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.tbAuthor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbAuthor.Image = null;
             this.tbAuthor.ImageSize = new System.Drawing.Size(16, 16);
             this.tbAuthor.ImageVisible = false;
             this.tbAuthor.ImageWidth = 35;
@@ -411,6 +413,7 @@ namespace ThemeBuilder.Forms
             this.tbPath.ButtonText = "visualButton";
             this.tbPath.ButtonVisible = false;
             this.tbPath.ForeColor = System.Drawing.Color.Silver;
+            this.tbPath.Image = null;
             this.tbPath.ImageSize = new System.Drawing.Size(16, 16);
             this.tbPath.ImageVisible = false;
             this.tbPath.ImageWidth = 35;
