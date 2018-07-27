@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
 
+using VisualPlus.Toolkit.Dialogs;
+
 #endregion
 
 namespace VisualPlus.UITypeEditors
@@ -16,25 +18,20 @@ namespace VisualPlus.UITypeEditors
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            ColorDialog colorDialog = new ColorDialog
-                    {
-                       FullOpen = true 
-                    };
-
-            Color editColorValue = Color.Black;
-            colorDialog.SolidColorOnly = false;
+            Color defaultDialogColor = Color.Black;
 
             if (value != null)
             {
-                editColorValue = (Color)value;
+                defaultDialogColor = (Color)value;
             }
 
+            VisualColorDialog colorDialog = new VisualColorDialog(defaultDialogColor);
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                editColorValue = colorDialog.Color;
+                defaultDialogColor = colorDialog.Color;
             }
 
-            return editColorValue;
+            return defaultDialogColor;
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)

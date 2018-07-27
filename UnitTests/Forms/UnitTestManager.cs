@@ -42,20 +42,23 @@ namespace UnitTests.Forms
             /// <summary>The VisualForm.</summary>
             VisualForm = 0,
 
+            /// <summary>The visual color dialog.</summary>
+            VisualColorDialog = 1,
+
             /// <summary>The VisualControlBox.</summary>
-            VisualControlBox = 1,
+            VisualControlBox = 2,
 
             /// <summary>The list view.</summary>
-            VisualListView = 2,
+            VisualListView = 3,
 
             /// <summary>The visual exception dialog.</summary>
-            VisualExceptionDialog = 3,
+            VisualExceptionDialog = 4,
 
             /// <summary>The visual input box.</summary>
-            VisualInputBox = 4,
+            VisualInputBox = 5,
 
             /// <summary>The visual message box.</summary>
-            VisualMessageBox = 5
+            VisualMessageBox = 6
         }
 
         #endregion
@@ -111,6 +114,18 @@ namespace UnitTests.Forms
                 case UnitTests.VisualExceptionDialog:
                     {
                         VisualExceptionDialog.Show(new Exception("Your custom exception message."));
+                        break;
+                    }
+
+                case UnitTests.VisualColorDialog:
+                    {
+                        VisualColorDialog colorDialog = new VisualColorDialog();
+
+                        if (colorDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            ConsoleEx.WriteDebug(colorDialog.Color);
+                        }
+
                         break;
                     }
 

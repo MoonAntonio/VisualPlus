@@ -146,6 +146,12 @@
     <Compile Include="Renders\VisualScrollBarRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
+    <Compile Include="Toolkit\Dialogs\VisualColorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Dialogs\VisualColorDialog.Designer.cs">
+      <DependentUpon>VisualColorDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Toolkit\VisualBase\ControlBoxButton.cs" />
     <Compile Include="Enumerators\DebugOutput.cs" />
     <Compile Include="Structure\GlobalId.cs" />
@@ -352,6 +358,9 @@
     <Compile Include="Toolkit\VisualBase\VisualStyleBase.cs" />
     <Compile Include="TypeConverters\VisualSettingsTypeConverter.cs" />
     <Compile Include="TypeConverters\ThemeTypeConverter.cs" />
+    <EmbeddedResource Include="Toolkit\Dialogs\VisualColorDialog.resx">
+      <DependentUpon>VisualColorDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
