@@ -429,6 +429,30 @@ namespace VisualPlus.Structure
         [Description(PropertyDescription.Color)]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VisualColorConverter))]
+        public Color Star { get; set; }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color StarBorder { get; set; }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color StarDull { get; set; }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
+        public Color StarDullBorder { get; set; }
+
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(VisualColorConverter))]
         public Color SubscriptColor { get; set; }
 
         [Category(PropertyCategory.Appearance)]

@@ -8,8 +8,10 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Designer;
+using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
+using VisualPlus.Structure;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -24,7 +26,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     [Designer(typeof(VisualRatingDesigner))]
     [ToolboxBitmap(typeof(VisualRating), "VisualRating.bmp")]
     [ToolboxItem(true)]
-    public class VisualRating : VisualStyleBase
+    public class VisualRating : VisualStyleBase, IThemeSupport
     {
         #region Variables
 
@@ -56,15 +58,19 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _maximum = 5;
             _mouseOverIndex = -1;
             _ratingType = StarType.Thick;
+            _starSpacing = 1;
+
             _starBrush = new SolidBrush(Color.Yellow);
             _starDullStroke = new Pen(Color.Gray, 3f);
             _starDullBrush = new SolidBrush(Color.Silver);
-            _starSpacing = 1;
             _starStroke = new Pen(Color.Gold, 3f);
+
             _starWidth = 25;
             SetPenBrushDefaults();
             Size = new Size(200, 100);
             UpdateGraphicsBuffer();
+
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -499,6 +505,31 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         #endregion
 
         #region Methods
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                // Star border color.
+                _starStroke.Color = theme.ColorPalette.StarBorder;
+
+                // Star color.
+                _starBrush.Color = theme.ColorPalette.Star;
+
+                // Star dull border color
+                _starDullStroke.Color = theme.ColorPalette.StarDullBorder;
+
+                // Star dull color
+                _starDullBrush.Color = theme.ColorPalette.StarDull;
+            }
+            catch (Exception e)
+            {
+                ConsoleEx.WriteDebug(e);
+            }
+
+            Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
 
         /// <summary>Rounds precise numbers to a number no more precise than .5.</summary>
         /// <param name="f">The value.</param>

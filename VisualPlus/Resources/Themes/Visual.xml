@@ -154,6 +154,12 @@
                     <Pressed>#FFC0C0C0</Pressed>
                 </Thumb>
             </VisualScrollBar>
+            <VisualRating>
+                <Star>#FFFF00</Star>
+                <Border>#FFD700</Border>
+                <Dull>#C0C0C0</Dull>
+                <DullBorder>#808080</DullBorder>
+            </VisualRating>
             <VisualSeparator>
                 <Line>#E0DEDC</Line>
                 <Shadow>#FAF9F9</Shadow>

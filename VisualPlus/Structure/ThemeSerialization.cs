@@ -152,6 +152,11 @@ namespace VisualPlus.Structure
                 colorPalette.ScrollButtonHover = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Hover").ToColor();
                 colorPalette.ScrollButtonPressed = XMLManager.ReadElement(themeDocument, Toolkit + "VisualScrollBar/Button/Pressed").ToColor();
 
+                colorPalette.Star = XMLManager.ReadElement(themeDocument, Toolkit + "VisualRating/Star").ToColor();
+                colorPalette.StarBorder = XMLManager.ReadElement(themeDocument, Toolkit + "VisualRating/Border").ToColor();
+                colorPalette.StarDull = XMLManager.ReadElement(themeDocument, Toolkit + "VisualRating/Dull").ToColor();
+                colorPalette.StarDullBorder = XMLManager.ReadElement(themeDocument, Toolkit + "VisualRating/DullBorder").ToColor();
+
                 colorPalette.VisualSeparatorLine = XMLManager.ReadElement(themeDocument, Toolkit + "VisualSeparator/Line").ToColor();
                 colorPalette.VisualSeparatorShadow = XMLManager.ReadElement(themeDocument, Toolkit + "VisualSeparator/Shadow").ToColor();
             }
@@ -523,6 +528,16 @@ namespace VisualPlus.Structure
 
                     // End visual scrollbar.
                     xmlWriter.WriteEndElement();
+
+                    var visualRating = new Dictionary<string, Color>
+                        {
+                            { "Star", colorPalette.Star },
+                            { "Border", colorPalette.StarBorder },
+                            { "Dull", colorPalette.StarDull },
+                            { "DullBorder", colorPalette.StarDullBorder }
+                        };
+
+                    XMLManager.WriteElementGroup(xmlWriter, "VisualRating", visualRating);
 
                     var visualSeparator = new Dictionary<string, Color>
                         {
