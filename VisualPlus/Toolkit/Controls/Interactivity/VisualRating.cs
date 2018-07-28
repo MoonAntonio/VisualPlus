@@ -36,14 +36,16 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         private float _mouseOverIndex;
         private StarType _ratingType;
         private bool _settingRating;
-        private SolidBrush _starBrush;
-        private SolidBrush _starDullBrush;
-        private Pen _starDullStroke;
         private int _starSpacing;
-        private Pen _starStroke;
         private int _starWidth;
         private bool _toggleHalfStar;
         private float _value;
+        private float borderWidth;
+        private float dullStroke;
+        private Color starBorderColor;
+        private Color starColor;
+        private Color starDull;
+        private Color starDullBorderColor;
 
         #endregion
 
@@ -60,16 +62,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _ratingType = StarType.Thick;
             _starSpacing = 1;
 
-            _starBrush = new SolidBrush(Color.Yellow);
-            _starDullStroke = new Pen(Color.Gray, 3f);
-            _starDullBrush = new SolidBrush(Color.Silver);
-            _starStroke = new Pen(Color.Gold, 3f);
+            borderWidth = 3f;
+            dullStroke = 3f;
 
             _starWidth = 25;
-            SetPenBrushDefaults();
-            Size = new Size(200, 100);
-            UpdateGraphicsBuffer();
 
+            Size = new Size(200, 100);
+
+            UpdateGraphicsBuffer();
             UpdateTheme(ThemeManager.Theme);
         }
 
@@ -102,6 +102,26 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         #endregion
 
         #region Properties
+
+        [Description("The dull stroke width")]
+        [Category(PropertyCategory.Appearance)]
+        [DefaultValue(3)]
+        public float DullStrokeWidth
+        {
+            get
+            {
+                return dullStroke;
+            }
+
+            set
+            {
+                if (dullStroke != value)
+                {
+                    dullStroke = value;
+                    Invalidate();
+                }
+            }
+        }
 
         [Description("The number of stars to display")]
         [Category(PropertyCategory.Appearance)]
@@ -162,12 +182,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             get
             {
-                return _starStroke.Color;
+                return starBorderColor;
             }
 
             set
             {
-                _starStroke.Color = value;
+                starBorderColor = value;
                 Invalidate();
             }
         }
@@ -182,29 +202,15 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             get
             {
-                return _starStroke.Width;
+                return borderWidth;
             }
 
             set
             {
-                _starStroke.Width = value;
-                _starDullStroke.Width = value;
+                borderWidth = value;
+                dullStroke = value;
                 UpdateSize();
                 Invalidate();
-            }
-        }
-
-        [Browsable(false)]
-        public SolidBrush StarBrush
-        {
-            get
-            {
-                return _starBrush;
-            }
-
-            set
-            {
-                _starBrush = value;
             }
         }
 
@@ -215,12 +221,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             get
             {
-                return _starBrush.Color;
+                return starColor;
             }
 
             set
             {
-                _starBrush.Color = value;
+                starColor = value;
                 Invalidate();
             }
         }
@@ -232,27 +238,13 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             get
             {
-                return _starDullStroke.Color;
+                return starDullBorderColor;
             }
 
             set
             {
-                _starDullStroke.Color = value;
+                starDullBorderColor = value;
                 Invalidate();
-            }
-        }
-
-        [Browsable(false)]
-        public SolidBrush StarDullBrush
-        {
-            get
-            {
-                return _starDullBrush;
-            }
-
-            set
-            {
-                _starDullBrush = value;
             }
         }
 
@@ -263,27 +255,13 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             get
             {
-                return _starDullBrush.Color;
+                return starDull;
             }
 
             set
             {
-                _starDullBrush.Color = value;
+                starDull = value;
                 Invalidate();
-            }
-        }
-
-        [Browsable(false)]
-        public Pen StarDullStroke
-        {
-            get
-            {
-                return _starDullStroke;
-            }
-
-            set
-            {
-                _starDullStroke = value;
             }
         }
 
@@ -302,20 +280,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 _starSpacing = _starSpacing < 0 ? 0 : value;
                 UpdateSize();
                 Invalidate();
-            }
-        }
-
-        [Browsable(false)]
-        public Pen StarStroke
-        {
-            get
-            {
-                return _starStroke;
-            }
-
-            set
-            {
-                _starStroke = value;
             }
         }
 
@@ -435,7 +399,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             get
             {
-                return _maximum * _starStroke.Width;
+                return _maximum * borderWidth;
             }
         }
 
@@ -511,16 +475,16 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             try
             {
                 // Star border color.
-                _starStroke.Color = theme.ColorPalette.StarBorder;
+                starBorderColor = theme.ColorPalette.StarBorder;
 
                 // Star color.
-                _starBrush.Color = theme.ColorPalette.Star;
+                starColor = theme.ColorPalette.Star;
 
                 // Star dull border color
-                _starDullStroke.Color = theme.ColorPalette.StarDullBorder;
+                starDullBorderColor = theme.ColorPalette.StarDullBorder;
 
                 // Star dull color
-                _starDullBrush.Color = theme.ColorPalette.StarDull;
+                starDull = theme.ColorPalette.StarDull;
             }
             catch (Exception e)
             {
@@ -539,50 +503,64 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             return (float)Math.Round(f / 5.0, 1) * 5f;
         }
 
+        /// <summary>Draws the dull stars.</summary>
         private void DrawDullStars()
         {
-            float height = Height - _starStroke.Width;
-            float lastX = _starStroke.Width / 2f; // Start off at stroke size and increment
+            float height = Height - borderWidth;
+            float lastX = borderWidth / 2f; // Start off at stroke size and increment
             float width = (Width - TotalSpacing - TotalStrokeWidth) / _maximum;
+
+            Pen starDullStroke = new Pen(starDullBorderColor, dullStroke)
+                {
+                    LineJoin = LineJoin.Round,
+                    Alignment = PenAlignment.Outset
+                };
 
             // Draw stars
             for (var i = 0; i < _maximum; i++)
             {
-                RectangleF rect = new RectangleF(lastX, _starStroke.Width / 2f, width, height);
+                RectangleF rect = new RectangleF(lastX, borderWidth / 2f, width, height);
                 var polygon = GetStarPolygon(rect);
-                _bufferedGraphics.Graphics.FillPolygon(_starDullBrush, polygon);
-                _bufferedGraphics.Graphics.DrawPolygon(_starDullStroke, polygon);
-                lastX += _starWidth + _starSpacing + _starStroke.Width;
+                _bufferedGraphics.Graphics.FillPolygon(new SolidBrush(starDull), polygon);
+                _bufferedGraphics.Graphics.DrawPolygon(starDullStroke, polygon);
+                lastX += _starWidth + _starSpacing + borderWidth;
                 _bufferedGraphics.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                _bufferedGraphics.Graphics.FillPolygon(_starDullBrush, polygon);
-                _bufferedGraphics.Graphics.DrawPolygon(_starDullStroke, polygon);
+                _bufferedGraphics.Graphics.FillPolygon(new SolidBrush(starDull), polygon);
+                _bufferedGraphics.Graphics.DrawPolygon(starDullStroke, polygon);
                 _bufferedGraphics.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
             }
         }
 
+        /// <summary>Draws the illuminated stars.</summary>
         private void DrawIlluminatedStars()
         {
-            float height = Height - _starStroke.Width;
-            float lastX = _starStroke.Width / 2f; // Start off at stroke size and increment
+            float height = Height - borderWidth;
+            float lastX = borderWidth / 2f; // Start off at stroke size and increment
             float width = (Width - TotalSpacing - TotalStrokeWidth) / _maximum;
+
+            Pen _starStroke = new Pen(starBorderColor, borderWidth)
+                {
+                    LineJoin = LineJoin.Round,
+                    Alignment = PenAlignment.Outset
+                };
 
             if (_toggleHalfStar)
             {
                 // Draw stars
                 for (var i = 0; i < _maximum; i++)
                 {
-                    RectangleF rect = new RectangleF(lastX, _starStroke.Width / 2f, width, height);
+                    RectangleF rect = new RectangleF(lastX, borderWidth / 2f, width, height);
 
                     if (i < _mouseOverIndex - 0.5f)
                     {
                         var polygon = GetStarPolygon(rect);
-                        _bufferedGraphics.Graphics.FillPolygon(_starBrush, polygon);
+                        _bufferedGraphics.Graphics.FillPolygon(new SolidBrush(starColor), polygon);
                         _bufferedGraphics.Graphics.DrawPolygon(_starStroke, polygon);
                     }
                     else if (i == _mouseOverIndex - 0.5f)
                     {
                         var polygon = GetSemiStarPolygon(rect);
-                        _bufferedGraphics.Graphics.FillPolygon(_starBrush, polygon);
+                        _bufferedGraphics.Graphics.FillPolygon(new SolidBrush(starColor), polygon);
                         _bufferedGraphics.Graphics.DrawPolygon(_starStroke, polygon);
                     }
                     else
@@ -590,7 +568,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                         break;
                     }
 
-                    lastX += _starWidth + _starSpacing + _starStroke.Width;
+                    lastX += _starWidth + _starSpacing + borderWidth;
                 }
             }
             else
@@ -598,12 +576,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 // Draw stars
                 for (var i = 0; i < _maximum; i++)
                 {
-                    RectangleF rect = new RectangleF(lastX, _starStroke.Width / 2f, width, height);
+                    RectangleF rect = new RectangleF(lastX, borderWidth / 2f, width, height);
                     var polygon = GetStarPolygon(rect);
 
                     if (i <= _mouseOverIndex)
                     {
-                        _bufferedGraphics.Graphics.FillPolygon(_starBrush, polygon);
+                        _bufferedGraphics.Graphics.FillPolygon(new SolidBrush(starColor), polygon);
                         _bufferedGraphics.Graphics.DrawPolygon(_starStroke, polygon);
                     }
                     else
@@ -611,7 +589,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                         break;
                     }
 
-                    lastX += _starWidth + _starSpacing + _starStroke.Width;
+                    lastX += _starWidth + _starSpacing + borderWidth;
                 }
             }
         }
@@ -716,14 +694,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             StarsPanned?.Invoke(this, EventArgs.Empty);
         }
 
-        private void SetPenBrushDefaults()
-        {
-            _starStroke.LineJoin = LineJoin.Round;
-            _starStroke.Alignment = PenAlignment.Outset;
-            _starDullStroke.LineJoin = LineJoin.Round;
-            _starDullStroke.Alignment = PenAlignment.Outset;
-        }
-
         private void UpdateGraphicsBuffer()
         {
             if ((Width > 0) && (Height > 0))
@@ -736,7 +706,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         private void UpdateSize()
         {
-            var height = (int)(_starWidth + _starStroke.Width + 0.5);
+            var height = (int)(_starWidth + borderWidth + 0.5);
             var width = (int)(TotalStarWidth + TotalSpacing + TotalStrokeWidth + 0.5);
             Size = new Size(width, height);
         }
