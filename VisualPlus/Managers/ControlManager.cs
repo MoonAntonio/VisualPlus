@@ -65,6 +65,7 @@ namespace VisualPlus.Managers
                     typeof(VisualProgressBar),
                     typeof(VisualRadialProgress),
                     typeof(VisualRadioButton),
+                    typeof(VisualRating),
                     typeof(VisualRichTextBox),
                     typeof(VisualScrollBar),
                     typeof(VisualSeparator),
