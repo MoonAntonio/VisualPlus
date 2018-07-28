@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using VisualPlus.Designer;
 using VisualPlus.Localization;
+using VisualPlus.Managers;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -46,11 +47,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualRating" />
-        ///     class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualRating" /> class.</summary>
         public VisualRating()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
@@ -503,123 +500,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Methods
 
-        /// <summary>Gets half of the detailed star polygon as a point[].</summary>
-        /// <param name="rect">The rectangle.</param>
-        /// <returns>Star shape.</returns>
-        private static PointF[] GetDetailedSemiStar(RectangleF rect)
-        {
-            return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.73f)),
-                    new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.83f)),
-                    new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.6f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.5f)),
-                    new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.4f)),
-                    new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.17f)),
-                    new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.27f))
-                };
-        }
-
-        /// <summary>Gets a detailed star polygon as a point[].</summary>
-        /// <param name="rect">The rectangle.</param>
-        /// <returns>Star shape.</returns>
-        private static PointF[] GetDetailedStar(RectangleF rect)
-        {
-            return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
-                    new PointF(rect.X + (rect.Width * 0.6f), rect.Y + (rect.Height * 0.27f)),
-                    new PointF(rect.X + (rect.Width * 0.83f), rect.Y + (rect.Height * 0.17f)),
-                    new PointF(rect.X + (rect.Width * 0.73f), rect.Y + (rect.Height * 0.4f)),
-                    new PointF(rect.X + (rect.Width * 1f), rect.Y + (rect.Height * 0.5f)),
-                    new PointF(rect.X + (rect.Width * 0.73f), rect.Y + (rect.Height * 0.6f)),
-                    new PointF(rect.X + (rect.Width * 0.83f), rect.Y + (rect.Height * 0.83f)),
-                    new PointF(rect.X + (rect.Width * 0.6f), rect.Y + (rect.Height * 0.73f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.73f)),
-                    new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.83f)),
-                    new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.6f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.5f)),
-                    new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.4f)),
-                    new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.17f)),
-                    new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.27f))
-                };
-        }
-
-        /// <summary>Gets half of a fat star polygon as a point[].</summary>
-        /// <param name="rect">The rectangle.</param>
-        /// <returns>Star shape.</returns>
-        private static PointF[] GetFatSemiStar(RectangleF rect)
-        {
-            return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.33f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.37f)),
-                    new PointF(rect.X + (rect.Width * 0.25f), rect.Y + (rect.Height * 0.62f)),
-                    new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.81f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f))
-                };
-        }
-
-        /// <summary>Gets a fat star polygon as a point[].</summary>
-        /// <param name="rect">The rectangle.</param>
-        /// <returns>Star shape.</returns>
-        private static PointF[] GetFatStar(RectangleF rect)
-        {
-            return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.33f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.37f)),
-                    new PointF(rect.X + (rect.Width * 0.25f), rect.Y + (rect.Height * 0.62f)),
-                    new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.81f)),
-                    new PointF(rect.X + (rect.Width * 0.81f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.75f), rect.Y + (rect.Height * 0.62f)),
-                    new PointF(rect.X + (rect.Width * 1f), rect.Y + (rect.Height * 0.37f)),
-                    new PointF(rect.X + (rect.Width * 0.69f), rect.Y + (rect.Height * 0.33f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f))
-                };
-        }
-
-        /// <summary>Gets half of a typical thin star polygon as a point[].</summary>
-        /// <param name="rect">The rectangle.</param>
-        /// <returns>Star shape.</returns>
-        private static PointF[] GetNormalSemiStar(RectangleF rect)
-        {
-            return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
-                    new PointF(rect.X + (rect.Width * 0.38f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.61f)),
-                    new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.77f))
-                };
-        }
-
-        /// <summary>Gets a typical thin star polygon as a point[].</summary>
-        /// <param name="rect">The rectangle.</param>
-        /// <returns>Star shape.</returns>
-        private static PointF[] GetNormalStar(RectangleF rect)
-        {
-            return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
-                    new PointF(rect.X + (rect.Width * 0.38f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.61f)),
-                    new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.77f)),
-                    new PointF(rect.X + (rect.Width * 0.8f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.69f), rect.Y + (rect.Height * 0.61f)),
-                    new PointF(rect.X + (rect.Width * 1f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0.61f), rect.Y + (rect.Height * 0.38f))
-                };
-        }
-
         /// <summary>Rounds precise numbers to a number no more precise than .5.</summary>
         /// <param name="f">The value.</param>
         /// <returns>Star shape.</returns>
@@ -747,10 +627,25 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             switch (_ratingType)
             {
-                case StarType.Default: return GetNormalSemiStar(rect);
-                case StarType.Thick: return GetFatSemiStar(rect);
-                case StarType.Detailed: return GetDetailedSemiStar(rect);
-                default: return null;
+                case StarType.Default:
+                    {
+                        return ElementsManager.GenerateNormalSemiStar(rect);
+                    }
+
+                case StarType.Thick:
+                    {
+                        return ElementsManager.GenerateFatSemiStar(rect);
+                    }
+
+                case StarType.Detailed:
+                    {
+                        return ElementsManager.GenerateDetailedSemiStar(rect);
+                    }
+
+                default:
+                    {
+                        return null;
+                    }
             }
         }
 
@@ -758,10 +653,25 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             switch (_ratingType)
             {
-                case StarType.Default: return GetNormalStar(rect);
-                case StarType.Thick: return GetFatStar(rect);
-                case StarType.Detailed: return GetDetailedStar(rect);
-                default: return null;
+                case StarType.Default:
+                    {
+                        return ElementsManager.GenerateNormalStar(rect);
+                    }
+
+                case StarType.Thick:
+                    {
+                        return ElementsManager.GenerateFatStar(rect);
+                    }
+
+                case StarType.Detailed:
+                    {
+                        return ElementsManager.GenerateDetailedStar(rect);
+                    }
+
+                default:
+                    {
+                        return null;
+                    }
             }
         }
 
