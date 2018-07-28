@@ -18,6 +18,5 @@
   </metadata>
   <files>
   <file src="..\VisualPlus\bin\Release\VisualPlus.dll" target="lib\VisualPlus\NET4\VisualPlus.dll"></file>
-  <file src="..\VisualThemeBuilder\bin\Release\VisualThemeBuilder.exe" target="lib\VisualPlus\NET4\VisualThemeBuilder.exe"></file>
   </files>
 </package>
