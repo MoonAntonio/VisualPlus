@@ -145,6 +145,7 @@ namespace VisualPlus.Toolkit.Dialogs
             titleMaxLength = 50;
             TitleSuffix = @"...";
 
+            // Fixes: The Form from hiding the TaskBar on maximized state.
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
 
             UpdateContextMenuStripTitle();
