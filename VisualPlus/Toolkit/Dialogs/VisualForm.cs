@@ -398,7 +398,7 @@ namespace VisualPlus.Toolkit.Dialogs
             }
         }
 
-        [TypeConverter(typeof(VisualControlBoxConverter))]
+        [TypeConverter(typeof(VisualSettingsTypeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(PropertyCategory.Appearance)]
         public new VisualControlBox ControlBox

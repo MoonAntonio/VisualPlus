@@ -3,7 +3,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -24,12 +23,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [DefaultEvent("Click")]
-    [DefaultProperty("MaximizeVisible")]
+    [DefaultProperty("MaximizeButton")]
     [Description("The Visual ControlBox")]
     [Designer(typeof(VisualControlBoxDesigner))]
     [ToolboxBitmap(typeof(VisualControlBox), "VisualControlBox.bmp")]
     [ToolboxItem(true)]
-    [TypeConverter(typeof(VisualControlBoxConverter))]
+    [TypeConverter(typeof(VisualSettingsTypeConverter))]
     public class VisualControlBox : VisualStyleBase, IThemeSupport
     {
         #region Variables
@@ -612,70 +611,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Controls.Add(_maximizeButton);
             Controls.Add(_closeButton);
         }
-
-        #endregion
-    }
-
-    public class VisualControlBoxConverter : ExpandableObjectConverter
-    {
-        #region Overrides
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectVisualControlBoxWrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            VisualControlBox controlBox;
-            object result;
-
-            result = null;
-            controlBox = value as VisualControlBox;
-
-            if ((controlBox != null) && (destinationType == typeof(string)))
-            {
-                // result = borderStyle.ToString();
-                result = "ControlBox Settings";
-            }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(VisualControlBoxConverter))]
-    public class ObjectVisualControlBoxWrapper
-    {
-        #region Constructors
-
-        public ObjectVisualControlBoxWrapper()
-        {
-        }
-
-        public ObjectVisualControlBoxWrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }
