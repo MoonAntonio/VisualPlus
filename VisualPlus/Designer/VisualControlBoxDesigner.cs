@@ -13,17 +13,19 @@ namespace VisualPlus.Designer
 
         protected override void PreFilterProperties(IDictionary properties)
         {
-            properties.Remove("ImeMode");
-            properties.Remove("Padding");
+            properties.Remove("AllowDrop");
+            properties.Remove("AutoEllipsis");
             properties.Remove("FlatAppearance");
             properties.Remove("FlatStyle");
-            properties.Remove("AutoEllipsis");
-            properties.Remove("UseCompatibleTextRendering");
             properties.Remove("ImageAlign");
             properties.Remove("ImageIndex");
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
+            properties.Remove("ImeMode");
+            properties.Remove("Padding");
             properties.Remove("RightToLeft");
+            properties.Remove("Text");
+            properties.Remove("UseCompatibleTextRendering");
 
             base.PreFilterProperties(properties);
         }
