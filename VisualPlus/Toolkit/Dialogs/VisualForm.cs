@@ -145,6 +145,8 @@ namespace VisualPlus.Toolkit.Dialogs
             titleMaxLength = 50;
             TitleSuffix = @"...";
 
+            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
+
             UpdateContextMenuStripTitle();
 
             UpdateTheme(_styleManager.Theme);
