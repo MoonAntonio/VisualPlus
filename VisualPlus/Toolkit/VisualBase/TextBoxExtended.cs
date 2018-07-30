@@ -9,7 +9,7 @@ using VisualPlus.Events;
 
 #endregion
 
-namespace VisualPlus.Toolkit.Controls.Editors
+namespace VisualPlus.Toolkit.VisualBase
 {
     [ToolboxItem(false)]
     public class TextBoxExtended : TextBox

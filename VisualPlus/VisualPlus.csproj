@@ -149,7 +149,7 @@
     <Compile Include="Renders\VisualScrollBarRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
-    <Compile Include="Toolkit\Controls\Editors\TextBoxExtended.cs">
+    <Compile Include="Toolkit\VisualBase\TextBoxExtended.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Dialogs\VisualColorDialog.cs">
