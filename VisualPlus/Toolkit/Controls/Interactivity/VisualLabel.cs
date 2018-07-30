@@ -4,8 +4,6 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -14,6 +12,7 @@ using VisualPlus.Designer;
 using VisualPlus.Events;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
+using VisualPlus.Renders;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.VisualBase;
 
@@ -355,22 +354,22 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             // Draw the text outline
             if (_outline)
             {
-                DrawOutline(graphics);
+                VisualTextRenderer.RenderTextOutline(graphics, _orientation, Text, Font, _outlineColor, _outlineLocation);
             }
 
             // Draw the shadow
             if (_shadow)
             {
-                DrawShadow(graphics);
+                VisualTextRenderer.RenderTextShadow(graphics, _orientation, Text, Font, _shadowColor, ClientRectangle, _shadowLocation, _shadowSmooth, _shadowDepth, _shadowDirection, shadowOpacity);
             }
 
             // Draw the reflection text.
             if (_reflection)
             {
-                DrawReflection(graphics);
+                VisualTextRenderer.RenderTextReflection(graphics, _orientation, Text, Font, _reflectionColor, ClientRectangle, _reflectionSpacing, textBoxRectangle.Location, _alignment, _lineAlignment);
             }
 
-            graphics.DrawString(Text, Font, new SolidBrush(_foreColor), textBoxRectangle, GetStringFormat());
+            graphics.DrawString(Text, Font, new SolidBrush(_foreColor), textBoxRectangle, VisualTextRenderer.GetOrientedStringFormat(_orientation, _alignment, _lineAlignment));
         }
 
         #endregion
@@ -394,161 +393,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
             Invalidate();
             OnThemeChanged(new ThemeEventArgs(theme));
-        }
-
-        private void DrawOutline(Graphics graphics)
-        {
-            GraphicsPath outlinePath = new GraphicsPath();
-
-            switch (_orientation)
-            {
-                case Orientation.Horizontal:
-                    {
-                        outlinePath.AddString(
-                            Text,
-                            Font.FontFamily,
-                            (int)Font.Style,
-                            (graphics.DpiY * Font.SizeInPoints) / 72,
-                            _outlineLocation,
-                            new StringFormat());
-
-                        break;
-                    }
-
-                case Orientation.Vertical:
-                    {
-                        outlinePath.AddString(
-                            Text,
-                            Font.FontFamily,
-                            (int)Font.Style,
-                            (graphics.DpiY * Font.SizeInPoints) / 72,
-                            _outlineLocation,
-                            new StringFormat(StringFormatFlags.DirectionVertical));
-
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(_orientation));
-                    }
-            }
-
-            graphics.DrawPath(new Pen(OutlineColor), outlinePath);
-        }
-
-        private void DrawReflection(Graphics graphics)
-        {
-            Point reflectionLocation;
-            Bitmap reflectionBitmap = new Bitmap(Width, Height);
-            Graphics imageGraphics = Graphics.FromImage(reflectionBitmap);
-
-            // Setup text render
-            imageGraphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-
-            // Rotate reflection
-            switch (_orientation)
-            {
-                case Orientation.Horizontal:
-                    {
-                        imageGraphics.TranslateTransform(0, TextManager.MeasureText(Text, Font, graphics).Height);
-                        imageGraphics.ScaleTransform(1, -1);
-
-                        reflectionLocation = new Point(0, textBoxRectangle.Y - (TextManager.MeasureText(Text, Font, graphics).Height / 2) - _reflectionSpacing);
-                        break;
-                    }
-
-                case Orientation.Vertical:
-                    {
-                        imageGraphics.ScaleTransform(-1, 1);
-                        reflectionLocation = new Point((textBoxRectangle.X - (TextManager.MeasureText(Text, Font, graphics).Width / 2)) + _reflectionSpacing, 0);
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(_orientation));
-                    }
-            }
-
-            // Draw reflected string
-            imageGraphics.DrawString(Text, Font, new SolidBrush(_reflectionColor), reflectionLocation, GetStringFormat());
-
-            // Draw the reflection image
-            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            graphics.DrawImage(reflectionBitmap, ClientRectangle, 0, 0, reflectionBitmap.Width, reflectionBitmap.Height, GraphicsUnit.Pixel);
-            graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-        }
-
-        private void DrawShadow(Graphics graphics)
-        {
-            // Create shadow into a bitmap
-            Bitmap shadowBitmap = new Bitmap(Math.Max((int)(Width / _shadowSmooth), 1), Math.Max((int)(Height / _shadowSmooth), 1));
-            Graphics imageGraphics = Graphics.FromImage(shadowBitmap);
-
-            // Setup text render
-            imageGraphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-
-            // Create transformation matrix
-            Matrix transformMatrix = new Matrix();
-            transformMatrix.Scale(1 / _shadowSmooth, 1 / _shadowSmooth);
-            transformMatrix.Translate((float)(_shadowDepth * Math.Cos(_shadowDirection)), (float)(_shadowDepth * Math.Sin(_shadowDirection)));
-            imageGraphics.Transform = transformMatrix;
-
-            switch (_orientation)
-            {
-                case Orientation.Horizontal:
-                    {
-                        imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, _shadowColor)), _shadowLocation);
-                        break;
-                    }
-
-                case Orientation.Vertical:
-                    {
-                        imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, _shadowColor)), _shadowLocation, new StringFormat(StringFormatFlags.DirectionVertical));
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(_orientation));
-                    }
-            }
-
-            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            graphics.DrawImage(shadowBitmap, ClientRectangle, 0, 0, shadowBitmap.Width, shadowBitmap.Height, GraphicsUnit.Pixel);
-            graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-        }
-
-        /// <summary>Retrieves the appropriate string format.</summary>
-        /// <returns>The <see cref="StringFormat" />.</returns>
-        private StringFormat GetStringFormat()
-        {
-            StringFormat _stringFormat;
-
-            switch (_orientation)
-            {
-                case Orientation.Horizontal:
-                    {
-                        _stringFormat = new StringFormat
-                            {
-                                Alignment = _alignment,
-                                LineAlignment = _lineAlignment
-                            };
-                        break;
-                    }
-
-                case Orientation.Vertical:
-                    {
-                        _stringFormat = new StringFormat(StringFormatFlags.DirectionVertical);
-                        break;
-                    }
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            return _stringFormat;
         }
 
         #endregion
