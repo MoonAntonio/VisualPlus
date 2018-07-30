@@ -41,7 +41,9 @@ namespace VisualPlus.Toolkit.Controls.Layout
         /// <summary>Initializes a new instance of the <see cref="VisualSeparator" /> class.</summary>
         public VisualSeparator()
         {
+            Size = new Size(75, 4);
             _orientation = Orientation.Horizontal;
+            _shadowVisible = true;
             UpdateTheme(ThemeManager.Theme);
         }
 

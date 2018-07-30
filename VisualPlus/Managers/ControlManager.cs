@@ -44,9 +44,9 @@ namespace VisualPlus.Managers
             control.Location = _controlLocation;
         }
 
-        /// <summary>Retrieves the registered theme supported types.</summary>
+        /// <summary>Retrieves the registered controls.</summary>
         /// <returns>The <see cref="Type" /> list.</returns>
-        public static List<Type> ThemeSupportedTypes()
+        public static List<Type> ControlsSupported()
         {
             var control = new List<Type>
                 {
@@ -54,7 +54,6 @@ namespace VisualPlus.Managers
                     typeof(VisualCheckBox),
                     typeof(VisualComboBox),
                     typeof(VisualDateTimePicker),
-                    typeof(VisualForm),
                     typeof(VisualGauge),
                     typeof(VisualGroupBox),
                     typeof(VisualLabel),
@@ -76,6 +75,30 @@ namespace VisualPlus.Managers
                 };
 
             return control;
+        }
+
+        /// <summary>Retrieves the registered dialog forms.</summary>
+        /// <returns>The <see cref="Type" /> list.</returns>
+        public static List<Type> DialogsSupported()
+        {
+            var control = new List<Type>
+                    {
+                       typeof(VisualForm) 
+                    };
+
+            return control;
+        }
+
+        /// <summary>Retrieves the registered theme supported types.</summary>
+        /// <returns>The <see cref="Type" /> list.</returns>
+        public static List<Type> ThemeSupportedTypes()
+        {
+            var components = new List<Type>();
+
+            components.AddRange(ControlsSupported());
+            components.AddRange(DialogsSupported());
+
+            return components;
         }
 
         #endregion

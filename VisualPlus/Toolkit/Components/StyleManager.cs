@@ -8,7 +8,6 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -427,7 +426,7 @@ namespace VisualPlus.Toolkit.Components
                                     {
                                         if (registeredTypes != null)
                                         {
-                                            InvokeThemeUpdate(form, registeredTypes);
+                                            Theme.InvokeThemeUpdate(form, registeredTypes, _theme);
                                         }
                                     }
                                     else
@@ -447,7 +446,7 @@ namespace VisualPlus.Toolkit.Components
                                             control.BackColor = visualForm.Background;
                                         }
 
-                                        InvokeThemeUpdate(control, registeredTypes);
+                                        Theme.InvokeThemeUpdate(control, registeredTypes, _theme);
                                     }
                                     else
                                     {
@@ -484,19 +483,6 @@ namespace VisualPlus.Toolkit.Components
             }
 
             File.WriteAllText(_defaultThemePath, _text);
-        }
-
-        /// <summary>Invoke the theme update to the component.</summary>
-        /// <param name="component">The component.</param>
-        /// <param name="registeredType">The registered type.</param>
-        private void InvokeThemeUpdate(IDisposable component, Type registeredType)
-        {
-            MethodInfo method = registeredType.GetMethod(SettingConstants.ComponentUpdateMethodName);
-
-            if (method != null)
-            {
-                method.Invoke(component, new object[] { _theme });
-            }
         }
 
         #endregion

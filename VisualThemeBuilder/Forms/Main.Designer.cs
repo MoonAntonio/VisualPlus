@@ -51,10 +51,17 @@
             this.tbPath = new VisualPlus.Toolkit.Controls.Editors.VisualTextBox();
             this.gpColorPalette = new VisualPlus.Toolkit.Controls.Layout.VisualGroupBox();
             this.tbSelectedColor = new VisualPlus.Toolkit.Controls.Editors.VisualTextBox();
-            this.gbTheme = new VisualPlus.Toolkit.Controls.Layout.VisualGroupBox();
+            this.tabController = new VisualPlus.Toolkit.Controls.Navigation.VisualTabControl();
+            this.visualTabPage1 = new VisualPlus.Toolkit.Child.VisualTabPage();
+            this.visualLabel3 = new VisualPlus.Toolkit.Controls.Interactivity.VisualLabel();
+            this.cbControls = new VisualPlus.Toolkit.Controls.Interactivity.VisualComboBox();
+            this.visualTabPage2 = new VisualPlus.Toolkit.Child.VisualTabPage();
+            this.gpPreviewControl = new VisualPlus.Toolkit.Controls.Layout.VisualGroupBox();
             this.mainMenuStrip.SuspendLayout();
             this.gpColorPalette.SuspendLayout();
-            this.gbTheme.SuspendLayout();
+            this.tabController.SuspendLayout();
+            this.visualTabPage1.SuspendLayout();
+            this.visualTabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // rawText
@@ -74,14 +81,14 @@
             this.rawText.Border.Visible = true;
             this.rawText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.rawText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.rawText.Location = new System.Drawing.Point(3, 77);
+            this.rawText.Location = new System.Drawing.Point(3, 3);
             this.rawText.MaxLength = 2147483647;
             this.rawText.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.rawText.Name = "rawText";
             this.rawText.ReadOnly = true;
             this.rawText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.rawText.ShowSelectionMargin = false;
-            this.rawText.Size = new System.Drawing.Size(432, 350);
+            this.rawText.Size = new System.Drawing.Size(421, 388);
             this.rawText.TabIndex = 2;
             this.rawText.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.rawText.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -93,6 +100,8 @@
             // 
             // tbName
             // 
+            this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
             this.tbName.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.tbName.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
@@ -124,15 +133,15 @@
             this.tbName.ImageSize = new System.Drawing.Size(16, 16);
             this.tbName.ImageVisible = false;
             this.tbName.ImageWidth = 35;
-            this.tbName.Location = new System.Drawing.Point(50, 17);
+            this.tbName.Location = new System.Drawing.Point(54, 32);
             this.tbName.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.tbName.Name = "tbName";
             this.tbName.PasswordChar = '\0';
             this.tbName.ReadOnly = false;
             this.tbName.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.tbName.Size = new System.Drawing.Size(169, 25);
+            this.tbName.Size = new System.Drawing.Size(370, 25);
             this.tbName.TabIndex = 3;
-            this.tbName.TextBoxWidth = 159;
+            this.tbName.TextBoxWidth = 360;
             this.tbName.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.tbName.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tbName.TextStyle.Hover = System.Drawing.Color.Empty;
@@ -183,15 +192,15 @@
             this.tbAuthor.ImageSize = new System.Drawing.Size(16, 16);
             this.tbAuthor.ImageVisible = false;
             this.tbAuthor.ImageWidth = 35;
-            this.tbAuthor.Location = new System.Drawing.Point(277, 17);
+            this.tbAuthor.Location = new System.Drawing.Point(54, 63);
             this.tbAuthor.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.tbAuthor.Name = "tbAuthor";
             this.tbAuthor.PasswordChar = '\0';
             this.tbAuthor.ReadOnly = false;
             this.tbAuthor.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.tbAuthor.Size = new System.Drawing.Size(158, 25);
+            this.tbAuthor.Size = new System.Drawing.Size(370, 25);
             this.tbAuthor.TabIndex = 4;
-            this.tbAuthor.TextBoxWidth = 148;
+            this.tbAuthor.TextBoxWidth = 360;
             this.tbAuthor.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.tbAuthor.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tbAuthor.TextStyle.Hover = System.Drawing.Color.Empty;
@@ -209,10 +218,10 @@
             // 
             // visualLabel1
             // 
-            this.visualLabel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.visualLabel1.BackColor = System.Drawing.Color.Transparent;
             this.visualLabel1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.visualLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.visualLabel1.Location = new System.Drawing.Point(3, 17);
+            this.visualLabel1.Location = new System.Drawing.Point(3, 32);
             this.visualLabel1.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.visualLabel1.Name = "visualLabel1";
             this.visualLabel1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -225,7 +234,7 @@
             this.visualLabel1.ShadowDirection = 315;
             this.visualLabel1.ShadowLocation = new System.Drawing.Point(0, 0);
             this.visualLabel1.ShadowOpacity = 100;
-            this.visualLabel1.Size = new System.Drawing.Size(41, 23);
+            this.visualLabel1.Size = new System.Drawing.Size(45, 23);
             this.visualLabel1.TabIndex = 5;
             this.visualLabel1.Text = "Name:";
             this.visualLabel1.TextAlignment = System.Drawing.StringAlignment.Near;
@@ -240,10 +249,10 @@
             // 
             // visualLabel2
             // 
-            this.visualLabel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.visualLabel2.BackColor = System.Drawing.Color.Transparent;
             this.visualLabel2.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.visualLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.visualLabel2.Location = new System.Drawing.Point(225, 17);
+            this.visualLabel2.Location = new System.Drawing.Point(2, 63);
             this.visualLabel2.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.visualLabel2.Name = "visualLabel2";
             this.visualLabel2.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -423,15 +432,15 @@
             this.tbPath.ImageSize = new System.Drawing.Size(16, 16);
             this.tbPath.ImageVisible = false;
             this.tbPath.ImageWidth = 35;
-            this.tbPath.Location = new System.Drawing.Point(3, 48);
+            this.tbPath.Location = new System.Drawing.Point(3, 3);
             this.tbPath.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.tbPath.Name = "tbPath";
             this.tbPath.PasswordChar = '\0';
             this.tbPath.ReadOnly = true;
             this.tbPath.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.tbPath.Size = new System.Drawing.Size(432, 23);
+            this.tbPath.Size = new System.Drawing.Size(421, 23);
             this.tbPath.TabIndex = 10;
-            this.tbPath.TextBoxWidth = 422;
+            this.tbPath.TextBoxWidth = 411;
             this.tbPath.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
             this.tbPath.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.tbPath.TextStyle.Hover = System.Drawing.Color.Empty;
@@ -544,50 +553,218 @@
             this.tbSelectedColor.Watermark.Visible = true;
             this.tbSelectedColor.WordWrap = true;
             // 
-            // gbTheme
+            // tabController
             // 
-            this.gbTheme.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabController.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbTheme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
-            this.gbTheme.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.gbTheme.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
-            this.gbTheme.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.gbTheme.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
-            this.gbTheme.Border.HoverVisible = true;
-            this.gbTheme.Border.Rounding = 6;
-            this.gbTheme.Border.Thickness = 1;
-            this.gbTheme.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
-            this.gbTheme.Border.Visible = true;
-            this.gbTheme.BoxStyle = VisualPlus.Toolkit.Controls.Layout.VisualGroupBox.GroupBoxStyle.Classic;
-            this.gbTheme.Controls.Add(this.visualLabel1);
-            this.gbTheme.Controls.Add(this.tbName);
-            this.gbTheme.Controls.Add(this.rawText);
-            this.gbTheme.Controls.Add(this.tbPath);
-            this.gbTheme.Controls.Add(this.tbAuthor);
-            this.gbTheme.Controls.Add(this.visualLabel2);
-            this.gbTheme.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.gbTheme.Image = null;
-            this.gbTheme.Location = new System.Drawing.Point(14, 60);
-            this.gbTheme.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
-            this.gbTheme.Name = "gbTheme";
-            this.gbTheme.Padding = new System.Windows.Forms.Padding(5, 26, 5, 5);
-            this.gbTheme.Separator = false;
-            this.gbTheme.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.gbTheme.Size = new System.Drawing.Size(438, 430);
-            this.gbTheme.TabIndex = 12;
-            this.gbTheme.Text = "Theme File";
-            this.gbTheme.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.gbTheme.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.gbTheme.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            this.gbTheme.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            this.gbTheme.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.gbTheme.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.gbTheme.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.gbTheme.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.gbTheme.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            this.gbTheme.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.gbTheme.TitleBoxHeight = 25;
+            this.tabController.Controls.Add(this.visualTabPage1);
+            this.tabController.Controls.Add(this.visualTabPage2);
+            this.tabController.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabController.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabController.ItemSize = new System.Drawing.Size(100, 25);
+            this.tabController.Location = new System.Drawing.Point(14, 60);
+            this.tabController.MinimumSize = new System.Drawing.Size(144, 85);
+            this.tabController.Name = "tabController";
+            this.tabController.SelectedIndex = 0;
+            this.tabController.SelectorAlignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabController.SelectorSpacing = 10;
+            this.tabController.SelectorThickness = 5;
+            this.tabController.SelectorType = VisualPlus.Toolkit.Controls.Navigation.VisualTabControl.SelectorTypes.Arrow;
+            this.tabController.SelectorVisible = true;
+            this.tabController.Separator = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.tabController.SeparatorSpacing = 2;
+            this.tabController.SeparatorThickness = 2F;
+            this.tabController.Size = new System.Drawing.Size(435, 427);
+            this.tabController.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabController.State = VisualPlus.Enumerators.MouseStates.Normal;
+            this.tabController.TabIndex = 13;
+            this.tabController.TabMenu = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(61)))), ((int)(((byte)(73)))));
+            this.tabController.TabSelector = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.tabController.TextRendering = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            // 
+            // visualTabPage1
+            // 
+            this.visualTabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.visualTabPage1.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.visualTabPage1.Border.Rounding = 6;
+            this.visualTabPage1.Border.Thickness = 1;
+            this.visualTabPage1.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
+            this.visualTabPage1.Border.Visible = false;
+            this.visualTabPage1.Controls.Add(this.gpPreviewControl);
+            this.visualTabPage1.Controls.Add(this.visualLabel3);
+            this.visualTabPage1.Controls.Add(this.cbControls);
+            this.visualTabPage1.Controls.Add(this.tbPath);
+            this.visualTabPage1.Controls.Add(this.visualLabel1);
+            this.visualTabPage1.Controls.Add(this.tbName);
+            this.visualTabPage1.Controls.Add(this.visualLabel2);
+            this.visualTabPage1.Controls.Add(this.tbAuthor);
+            this.visualTabPage1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(181)))), ((int)(((byte)(187)))));
+            this.visualTabPage1.HeaderImage = null;
+            this.visualTabPage1.Image = null;
+            this.visualTabPage1.ImageSize = new System.Drawing.Size(16, 16);
+            this.visualTabPage1.Location = new System.Drawing.Point(4, 29);
+            this.visualTabPage1.Name = "visualTabPage1";
+            this.visualTabPage1.Size = new System.Drawing.Size(427, 394);
+            this.visualTabPage1.TabHover = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(36)))), ((int)(((byte)(38)))));
+            this.visualTabPage1.TabIndex = 0;
+            this.visualTabPage1.TabNormal = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(61)))), ((int)(((byte)(73)))));
+            this.visualTabPage1.TabSelected = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(76)))), ((int)(((byte)(88)))));
+            this.visualTabPage1.Text = "Theme";
+            this.visualTabPage1.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.visualTabPage1.TextImageRelation = VisualPlus.Toolkit.Child.VisualTabPage.TextImageRelations.Text;
+            this.visualTabPage1.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.visualTabPage1.TextSelected = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            // 
+            // visualLabel3
+            // 
+            this.visualLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabel3.Location = new System.Drawing.Point(4, 94);
+            this.visualLabel3.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.visualLabel3.Name = "visualLabel3";
+            this.visualLabel3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.visualLabel3.Outline = false;
+            this.visualLabel3.OutlineColor = System.Drawing.Color.Red;
+            this.visualLabel3.OutlineLocation = new System.Drawing.Point(0, 0);
+            this.visualLabel3.ReflectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabel3.ReflectionSpacing = 0;
+            this.visualLabel3.ShadowColor = System.Drawing.Color.Black;
+            this.visualLabel3.ShadowDirection = 315;
+            this.visualLabel3.ShadowLocation = new System.Drawing.Point(0, 0);
+            this.visualLabel3.ShadowOpacity = 100;
+            this.visualLabel3.Size = new System.Drawing.Size(44, 30);
+            this.visualLabel3.TabIndex = 12;
+            this.visualLabel3.Text = "Control:";
+            this.visualLabel3.TextAlignment = System.Drawing.StringAlignment.Near;
+            this.visualLabel3.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.visualLabel3.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.visualLabel3.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabel3.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabel3.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.visualLabel3.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.visualLabel3.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.visualLabel3.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            // 
+            // cbControls
+            // 
+            this.cbControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbControls.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.cbControls.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.cbControls.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.cbControls.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.cbControls.Border.HoverVisible = true;
+            this.cbControls.Border.Rounding = 6;
+            this.cbControls.Border.Thickness = 1;
+            this.cbControls.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
+            this.cbControls.Border.Visible = true;
+            this.cbControls.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(119)))), ((int)(((byte)(118)))));
+            this.cbControls.ButtonImage = null;
+            this.cbControls.ButtonStyle = VisualPlus.Toolkit.Controls.Interactivity.VisualComboBox.ButtonStyles.Arrow;
+            this.cbControls.ButtonWidth = 30;
+            this.cbControls.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cbControls.DropDownHeight = 100;
+            this.cbControls.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbControls.FormattingEnabled = true;
+            this.cbControls.ImageList = null;
+            this.cbControls.ImageVisible = false;
+            this.cbControls.Index = 0;
+            this.cbControls.IntegralHeight = false;
+            this.cbControls.ItemHeight = 24;
+            this.cbControls.ItemImageVisible = true;
+            this.cbControls.Location = new System.Drawing.Point(54, 94);
+            this.cbControls.MenuItemHover = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.cbControls.MenuItemNormal = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.cbControls.MenuTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cbControls.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.cbControls.Name = "cbControls";
+            this.cbControls.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.cbControls.SeparatorVisible = false;
+            this.cbControls.Size = new System.Drawing.Size(370, 30);
+            this.cbControls.State = VisualPlus.Enumerators.MouseStates.Normal;
+            this.cbControls.TabIndex = 11;
+            this.cbControls.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.cbControls.TextDisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.cbControls.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cbControls.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.cbControls.TextRendering = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.cbControls.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.cbControls.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cbControls.TextStyle.Hover = System.Drawing.Color.Empty;
+            this.cbControls.TextStyle.Pressed = System.Drawing.Color.Empty;
+            this.cbControls.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.cbControls.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.cbControls.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.cbControls.Watermark.Active = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.cbControls.Watermark.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbControls.Watermark.Inactive = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
+            this.cbControls.Watermark.Text = "Watermark text";
+            this.cbControls.Watermark.Visible = false;
+            this.cbControls.SelectedIndexChanged += new System.EventHandler(this.CbControls_SelectedIndexChanged);
+            // 
+            // visualTabPage2
+            // 
+            this.visualTabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(244)))), ((int)(((byte)(249)))));
+            this.visualTabPage2.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.visualTabPage2.Border.Rounding = 6;
+            this.visualTabPage2.Border.Thickness = 1;
+            this.visualTabPage2.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
+            this.visualTabPage2.Border.Visible = false;
+            this.visualTabPage2.Controls.Add(this.rawText);
+            this.visualTabPage2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(174)))), ((int)(((byte)(181)))), ((int)(((byte)(187)))));
+            this.visualTabPage2.HeaderImage = null;
+            this.visualTabPage2.Image = null;
+            this.visualTabPage2.ImageSize = new System.Drawing.Size(16, 16);
+            this.visualTabPage2.Location = new System.Drawing.Point(4, 29);
+            this.visualTabPage2.Name = "visualTabPage2";
+            this.visualTabPage2.Size = new System.Drawing.Size(427, 394);
+            this.visualTabPage2.TabHover = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(36)))), ((int)(((byte)(38)))));
+            this.visualTabPage2.TabIndex = 1;
+            this.visualTabPage2.TabNormal = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(61)))), ((int)(((byte)(73)))));
+            this.visualTabPage2.TabSelected = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(76)))), ((int)(((byte)(88)))));
+            this.visualTabPage2.Text = "Raw";
+            this.visualTabPage2.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.visualTabPage2.TextImageRelation = VisualPlus.Toolkit.Child.VisualTabPage.TextImageRelations.Text;
+            this.visualTabPage2.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.visualTabPage2.TextSelected = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
+            // 
+            // gpPreviewControl
+            // 
+            this.gpPreviewControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gpPreviewControl.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.gpPreviewControl.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.gpPreviewControl.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.gpPreviewControl.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.gpPreviewControl.Border.HoverVisible = true;
+            this.gpPreviewControl.Border.Rounding = 6;
+            this.gpPreviewControl.Border.Thickness = 1;
+            this.gpPreviewControl.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
+            this.gpPreviewControl.Border.Visible = true;
+            this.gpPreviewControl.BoxStyle = VisualPlus.Toolkit.Controls.Layout.VisualGroupBox.GroupBoxStyle.Default;
+            this.gpPreviewControl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.gpPreviewControl.Image = null;
+            this.gpPreviewControl.Location = new System.Drawing.Point(4, 130);
+            this.gpPreviewControl.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.gpPreviewControl.Name = "gpPreviewControl";
+            this.gpPreviewControl.Padding = new System.Windows.Forms.Padding(5, 26, 5, 5);
+            this.gpPreviewControl.Separator = true;
+            this.gpPreviewControl.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.gpPreviewControl.Size = new System.Drawing.Size(420, 261);
+            this.gpPreviewControl.TabIndex = 14;
+            this.gpPreviewControl.Text = "Control Preview";
+            this.gpPreviewControl.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.gpPreviewControl.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.gpPreviewControl.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.gpPreviewControl.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.gpPreviewControl.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.gpPreviewControl.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.gpPreviewControl.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.gpPreviewControl.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.gpPreviewControl.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.gpPreviewControl.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            this.gpPreviewControl.TitleBoxHeight = 25;
             // 
             // Main
             // 
@@ -699,7 +876,7 @@
             this.ControlBox.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.ControlBox.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.Controls.Add(this.gbTheme);
+            this.Controls.Add(this.tabController);
             this.Controls.Add(this.gpColorPalette);
             this.Controls.Add(this.mainMenuStrip);
             this.HelpButton = true;
@@ -716,6 +893,7 @@
             this.Image.Size = new System.Drawing.Size(16, 16);
             this.Image.Visible = true;
             this.Location = new System.Drawing.Point(0, 0);
+            this.Magnetic = true;
             this.MaximizeBox = true;
             this.MinimizeBox = true;
             this.MinimumSize = new System.Drawing.Size(817, 500);
@@ -723,12 +901,15 @@
             this.Text = "Visual Theme Builder";
             this.HelpButtonClicked += new VisualPlus.Delegates.ControlBoxEventHandler(this.Main_HelpButtonClicked);
             this.Load += new System.EventHandler(this.Main_Load);
+            this.Resize += new System.EventHandler(this.Main_Resize);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.gpColorPalette.ResumeLayout(false);
             this.gpColorPalette.PerformLayout();
-            this.gbTheme.ResumeLayout(false);
-            this.gbTheme.PerformLayout();
+            this.tabController.ResumeLayout(false);
+            this.visualTabPage1.ResumeLayout(false);
+            this.visualTabPage1.PerformLayout();
+            this.visualTabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -755,7 +936,12 @@
         private System.Windows.Forms.ToolStripMenuItem openTemplatesDirectoryToolStripMenuItem;
         private VisualPlus.Toolkit.Controls.Layout.VisualGroupBox gpColorPalette;
         private VisualPlus.Toolkit.Controls.Editors.VisualTextBox tbSelectedColor;
-        private VisualPlus.Toolkit.Controls.Layout.VisualGroupBox gbTheme;
+        private VisualPlus.Toolkit.Controls.Navigation.VisualTabControl tabController;
+        private VisualPlus.Toolkit.Child.VisualTabPage visualTabPage1;
+        private VisualPlus.Toolkit.Child.VisualTabPage visualTabPage2;
+        private VisualPlus.Toolkit.Controls.Interactivity.VisualLabel visualLabel3;
+        private VisualPlus.Toolkit.Controls.Interactivity.VisualComboBox cbControls;
+        private VisualPlus.Toolkit.Controls.Layout.VisualGroupBox gpPreviewControl;
     }
 }
 

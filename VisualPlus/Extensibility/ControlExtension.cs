@@ -23,6 +23,15 @@ namespace VisualPlus.Extensibility
             return control;
         }
 
+        /// <summary>Centers the control inside the parent control.</summary>
+        /// <param name="control">The control to center.</param>
+        /// <returns>The <see cref="Control" />.</returns>
+        public static Control ToCenter(this Control control)
+        {
+            ControlManager.CenterControl(control, control.Parent, true, true);
+            return control;
+        }
+
         #endregion
     }
 }

@@ -10,10 +10,11 @@ using System.Windows.Forms;
 
 using VisualPlus;
 using VisualPlus.Constants;
-using VisualPlus.Enumerators;
 using VisualPlus.Events;
+using VisualPlus.Extensibility;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
+using VisualPlus.Toolkit.Controls.Editors;
 using VisualPlus.Toolkit.Dialogs;
 
 #endregion
@@ -25,8 +26,9 @@ namespace VisualThemeBuilder.Forms
     {
         #region Variables
 
-        private readonly Theme _theme;
-        private bool _saved;
+        private readonly Theme theme;
+        private Control control;
+        private bool saved;
 
         #endregion
 
@@ -37,13 +39,23 @@ namespace VisualThemeBuilder.Forms
         {
             InitializeComponent();
 
-            _theme = new Theme(Settings.DefaultValue.DefaultStyle);
-            LoadTheme(_theme);
+            control = null;
+            theme = new Theme(Settings.DefaultValue.DefaultStyle);
+
+            foreach (Type controlType in ControlManager.ControlsSupported())
+            {
+                cbControls.Items.Add(controlType.FullName);
+            }
+
+            cbControls.SelectedIndex = 0;
+            tabController.SelectedIndex = 0;
+
+            LoadTheme(theme);
 
             tbName.Text = "UnnamedTheme";
             tbAuthor.Text = "Unknown";
 
-            _saved = true;
+            saved = true;
 
             UpdateSelection();
         }
@@ -67,6 +79,34 @@ namespace VisualThemeBuilder.Forms
 
         #region Methods
 
+        /// <summary>Occurs when the control combo box selection index changed.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        private void CbControls_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Type controlType = Type.GetType(string.Concat(GetSelectedControlPreview(), ", ", "VisualPlus"));
+
+            control = (Control)Activator.CreateInstance(controlType);
+
+            if (control is VisualDateTimePicker)
+            {
+                // Do nothing.
+            }
+            else
+            {
+                control.Text = @"VisualPlus";
+            }
+
+            control.BackColor = gpPreviewControl.BackColorState.Enabled;
+
+            gpPreviewControl.Controls.Clear();
+            gpPreviewControl.Controls.Add(control);
+
+            control.ToCenter();
+
+            UpdateControlTheme();
+        }
+
         /// <summary>Occurs when the exit button has been clicked.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
@@ -75,19 +115,27 @@ namespace VisualThemeBuilder.Forms
             Close();
         }
 
-        /// <summary>Loads the theme settings.</summary>
-        /// <param name="theme">The theme to update with.</param>
-        private void LoadTheme(Theme theme)
+        /// <summary>Gets the selected control preview.</summary>
+        /// <returns>The <see cref="string" />.</returns>
+        private string GetSelectedControlPreview()
         {
-            if (theme == null)
+            var selectedControlName = (string)cbControls.SelectedItem;
+            return selectedControlName;
+        }
+
+        /// <summary>Loads the theme settings.</summary>
+        /// <param name="newTheme">The theme to update with.</param>
+        private void LoadTheme(Theme newTheme)
+        {
+            if (newTheme == null)
             {
-                throw new NoNullAllowedException(nameof(theme));
+                throw new NoNullAllowedException(nameof(newTheme));
             }
 
-            _theme.UpdateTheme(theme.Information, theme.ColorPalette);
-            rawText.Text = _theme.RawTheme;
+            theme.UpdateTheme(newTheme.Information, newTheme.ColorPalette);
+            rawText.Text = newTheme.RawTheme;
 
-            palettePropertyGrid.SelectedObject = _theme.ColorPalette;
+            palettePropertyGrid.SelectedObject = newTheme.ColorPalette;
         }
 
         /// <summary>Occurs when the help button has been clicked.</summary>
@@ -109,12 +157,23 @@ namespace VisualThemeBuilder.Forms
         {
         }
 
+        /// <summary>Occurs when the form resizes.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        private void Main_Resize(object sender, EventArgs e)
+        {
+            if (control != null)
+            {
+                control.ToCenter();
+            }
+        }
+
         /// <summary>Create new theme.</summary>
         private void NewTheme()
         {
             tbPath.Text = string.Empty;
 
-            Theme theme = new Theme(Themes.Visual)
+            Theme newTheme = new Theme(Settings.DefaultValue.DefaultStyle)
                 {
                     Information =
                         {
@@ -123,8 +182,8 @@ namespace VisualThemeBuilder.Forms
                         }
                 };
 
-            LoadTheme(theme);
-            _saved = false;
+            LoadTheme(newTheme);
+            saved = false;
         }
 
         /// <summary>Occurs when the new button has been clicked.</summary>
@@ -132,7 +191,7 @@ namespace VisualThemeBuilder.Forms
         /// <param name="e">The event args.</param>
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_saved)
+            if (saved)
             {
                 DialogResult result = MessageBox.Show(@"Would you like to save the unsaved changed?", Application.ProductName, MessageBoxButtons.YesNoCancel);
 
@@ -198,9 +257,9 @@ namespace VisualThemeBuilder.Forms
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    Theme theme = new Theme(openFileDialog.FileName);
+                    Theme openTheme = new Theme(openFileDialog.FileName);
 
-                    if (theme.Information.IsNull)
+                    if (openTheme.Information.IsNull)
                     {
                         // Unable to read theme information maybe corrupted.
                         MessageBox.Show($@"Unable to load the theme file.{Environment.NewLine}Detected invalid header.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -211,7 +270,7 @@ namespace VisualThemeBuilder.Forms
                         tbPath.Text = openFileDialog.FileName;
                     }
 
-                    LoadTheme(theme);
+                    LoadTheme(openTheme);
                 }
             }
         }
@@ -246,7 +305,7 @@ namespace VisualThemeBuilder.Forms
             using (StreamWriter _streamWriter = new StreamWriter(tbPath.Text, false))
             {
                 _streamWriter.WriteLine(rawText.Text);
-                _saved = false;
+                saved = false;
             }
         }
 
@@ -272,7 +331,7 @@ namespace VisualThemeBuilder.Forms
         /// <param name="e">The event args.</param>
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_saved)
+            if (saved)
             {
                 return;
             }
@@ -295,6 +354,15 @@ namespace VisualThemeBuilder.Forms
             UpdateThemeContents();
         }
 
+        /// <summary>Updates the control theme.</summary>
+        private void UpdateControlTheme()
+        {
+            if (control is IThemeSupport themeSupportedControl)
+            {
+                themeSupportedControl.UpdateTheme(theme);
+            }
+        }
+
         /// <summary>Update the color information based on the selection in the properties dialog.</summary>
         private void UpdateSelection()
         {
@@ -309,6 +377,8 @@ namespace VisualThemeBuilder.Forms
                     tbSelectedColor.Text = palettePropertyGrid.SelectedGridItem.Label;
                 }
             }
+
+            UpdateControlTheme();
         }
 
         /// <summary>Update the theme contents.</summary>
@@ -320,8 +390,8 @@ namespace VisualThemeBuilder.Forms
                     Name = tbName.Text
                 };
 
-            rawText.Text = new Theme(themeInformation, _theme.ColorPalette).RawTheme;
-            _saved = false;
+            rawText.Text = new Theme(themeInformation, theme.ColorPalette).RawTheme;
+            saved = false;
         }
 
         #endregion

@@ -55,11 +55,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualLabel" />
-        ///     class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualLabel" /> class.</summary>
         public VisualLabel()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
@@ -78,6 +74,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             shadowOpacity = 100;
             _shadowSmooth = 1.5f;
 
+            Size = new Size(75, 23);
             UpdateTheme(ThemeManager.Theme);
         }
 
@@ -432,7 +429,9 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     }
 
                 default:
-                    break;
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(_orientation));
+                    }
             }
 
             graphics.DrawPath(new Pen(OutlineColor), outlinePath);
@@ -440,7 +439,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         private void DrawReflection(Graphics graphics)
         {
-            Point reflectionLocation = new Point(0, 0);
+            Point reflectionLocation;
             Bitmap reflectionBitmap = new Bitmap(Width, Height);
             Graphics imageGraphics = Graphics.FromImage(reflectionBitmap);
 
@@ -448,7 +447,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             imageGraphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
             // Rotate reflection
-            switch (Orientation)
+            switch (_orientation)
             {
                 case Orientation.Horizontal:
                     {
@@ -467,7 +466,9 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     }
 
                 default:
-                    break;
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(_orientation));
+                    }
             }
 
             // Draw reflected string
@@ -494,7 +495,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             transformMatrix.Translate((float)(_shadowDepth * Math.Cos(_shadowDirection)), (float)(_shadowDepth * Math.Sin(_shadowDirection)));
             imageGraphics.Transform = transformMatrix;
 
-            switch (Orientation)
+            switch (_orientation)
             {
                 case Orientation.Horizontal:
                     {
@@ -509,7 +510,9 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     }
 
                 default:
-                    break;
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(_orientation));
+                    }
             }
 
             graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -518,9 +521,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         }
 
         /// <summary>Retrieves the appropriate string format.</summary>
-        /// <returns>
-        ///     <see cref="StringFormat" />
-        /// </returns>
+        /// <returns>The <see cref="StringFormat" />.</returns>
         private StringFormat GetStringFormat()
         {
             StringFormat _stringFormat;

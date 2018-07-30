@@ -156,6 +156,33 @@ namespace VisualPlus.Structure
 
         #region Methods
 
+        /// <summary>Invoke the theme update to the supported component.</summary>
+        /// <param name="component">The component.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="theme">The theme.</param>
+        public static void InvokeThemeUpdate(IDisposable component, Type type, Theme theme)
+        {
+            if (component == null)
+            {
+                throw new ArgumentNullException(nameof(component));
+            }
+
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (theme == null)
+            {
+                throw new ArgumentNullException(nameof(theme));
+            }
+
+            if (component is IThemeSupport controlThemeSupported)
+            {
+                controlThemeSupported.UpdateTheme(theme);
+            }
+        }
+
         /// <summary>Loads the <see cref="Theme" /> from the file path.</summary>
         /// <param name="filePath">The file path.</param>
         public void Load(string filePath)
