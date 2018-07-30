@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+using VisualPlus.Delegates;
 using VisualPlus.Designer;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
@@ -51,7 +52,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
         private Size _imageSize;
         private bool _imageVisible;
         private int _imageWidth;
-        private TextBox _textBox;
+        private TextBoxExtended _textBox;
         private int _textWidth;
         private Watermark _watermark;
         private Panel _waterMarkContainer;
@@ -87,7 +88,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                        Enabled = ThemeManager.Theme.ColorPalette.ControlEnabled 
                     };
 
-            _textBox = new TextBox
+            _textBox = new TextBoxExtended
                 {
                     Size = new Size(125, 25),
                     Location = new Point(_border.BorderCurve, _border.BorderCurve),
@@ -147,6 +148,54 @@ namespace VisualPlus.Toolkit.Controls.Editors
         #region Events
 
         public event ButtonClickedEventHandler ButtonClicked;
+
+        [Browsable(true)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description("Occurs when the clipboard text is copied.")]
+        public event ClipboardEventHandler ClipboardCopy
+        {
+            add
+            {
+                _textBox.ClipboardCopy += value;
+            }
+
+            remove
+            {
+                _textBox.ClipboardCopy -= value;
+            }
+        }
+
+        [Browsable(true)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description("Occurs when the clipboard text is cut.")]
+        public event ClipboardEventHandler ClipboardCut
+        {
+            add
+            {
+                _textBox.ClipboardCut += value;
+            }
+
+            remove
+            {
+                _textBox.ClipboardCut -= value;
+            }
+        }
+
+        [Browsable(true)]
+        [Category(EventCategory.PropertyChanged)]
+        [Description("Occurs when the clipboard text is pasted.")]
+        public event ClipboardEventHandler ClipboardPaste
+        {
+            add
+            {
+                _textBox.ClipboardPaste += value;
+            }
+
+            remove
+            {
+                _textBox.ClipboardPaste -= value;
+            }
+        }
 
         [Browsable(true)]
         [Description(EventDescription.TextChanged)]
@@ -375,7 +424,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         [Description("Gets access to the contained control.")]
-        public TextBox ContainedControl
+        public TextBoxExtended ContainedControl
         {
             get
             {
@@ -1097,7 +1146,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 ForeColor = theme.ColorPalette.TextEnabled;
                 TextStyle.Enabled = theme.ColorPalette.TextEnabled;
                 TextStyle.Disabled = theme.ColorPalette.TextDisabled;
-                
+
                 _buttonColorState = new ControlColorState
                     {
                         Disabled = theme.ColorPalette.Disabled,
