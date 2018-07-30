@@ -58,7 +58,10 @@ namespace UnitTests.Forms
             VisualInputDialog = 5,
 
             /// <summary>The visual message box.</summary>
-            VisualMessageBox = 6
+            VisualMessageBox = 6,
+
+            /// <summary>The clipboard test.</summary>
+            ClipboardTest = 7
         }
 
         #endregion
@@ -126,6 +129,13 @@ namespace UnitTests.Forms
                             ConsoleEx.WriteDebug(colorDialog.Color);
                         }
 
+                        break;
+                    }
+
+                case UnitTests.ClipboardTest:
+                    {
+                        _formToOpen = new ClipboardTest();
+                        _formToOpen.ShowDialog();
                         break;
                     }
 

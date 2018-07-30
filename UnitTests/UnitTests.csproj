@@ -61,6 +61,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tests\ClipboardTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tests\ClipboardTest.Designer.cs">
+      <DependentUpon>ClipboardTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tests\VisualMessageBoxTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +100,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tests\ClipboardTest.resx">
+      <DependentUpon>ClipboardTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tests\VisualMessageBoxTest.resx">
       <DependentUpon>VisualMessageBoxTest.cs</DependentUpon>
