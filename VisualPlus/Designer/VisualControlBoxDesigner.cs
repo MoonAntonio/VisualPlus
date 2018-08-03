@@ -15,6 +15,7 @@ namespace VisualPlus.Designer
         {
             properties.Remove("AllowDrop");
             properties.Remove("AutoEllipsis");
+            properties.Remove("Dock");
             properties.Remove("FlatAppearance");
             properties.Remove("FlatStyle");
             properties.Remove("ImageAlign");
