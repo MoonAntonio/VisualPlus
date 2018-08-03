@@ -29,7 +29,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     [Designer(typeof(VisualButtonDesigner))]
     [ToolboxBitmap(typeof(VisualButton), "VisualButton.bmp")]
     [ToolboxItem(true)]
-    public class VisualButton : VisualStyleBase, IAnimationSupport, IThemeSupport
+    public class VisualButton : VisualStyleBase, IAnimationSupport, IButtonControl, IThemeSupport
     {
         #region Variables
 
@@ -40,6 +40,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         private VFXManager _hoverEffectsManager;
         private Image _image;
         private TextImageRelation _textImageRelation;
+        private DialogResult dialogResult;
 
         #endregion
 
@@ -49,9 +50,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         public VisualButton()
         {
             Size = new Size(140, 45);
+            _animation = Settings.DefaultValue.Animation;
             _border = new Border();
             _backColorState = new ControlColorState();
-            _animation = Settings.DefaultValue.Animation;
+            dialogResult = DialogResult.OK;
             _textImageRelation = TextImageRelation.Overlay;
             ConfigureAnimation(new[] { 0.03, 0.07 }, new[] { EffectType.EaseOut, EffectType.EaseInOut });
 
@@ -124,6 +126,24 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
+        /// <summary>Gets or sets the value returned from the parent form when the button is clicked.</summary>
+        [Browsable(false)]
+        public DialogResult DialogResult
+        {
+            get
+            {
+                return dialogResult;
+            }
+
+            set
+            {
+                if (Enum.IsDefined(typeof(DialogResult), value))
+                {
+                    dialogResult = value;
+                }
+            }
+        }
+
         public new Color ForeColor
         {
             get
@@ -187,9 +207,26 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
+        private bool IsDefault { get; set; }
+
         #endregion
 
         #region Overrides
+
+        protected override void OnClick(EventArgs e)
+        {
+            Form form = FindForm();
+
+            if (form != null)
+            {
+                form.DialogResult = dialogResult;
+            }
+
+            AccessibilityNotifyClients(AccessibleEvents.StateChange, -1);
+            AccessibilityNotifyClients(AccessibleEvents.NameChange, -1);
+
+            base.OnClick(e);
+        }
 
         protected override void OnCreateControl()
         {
@@ -338,6 +375,28 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
 
             graphics.SmoothingMode = SmoothingMode.None;
+        }
+
+        /// <summary>
+        ///     Notify s a control that this is the default button so that its appearance and behavior is adjusted
+        ///     accordingly.
+        /// </summary>
+        /// <param name="value">If the control should behave as a default button.</param>
+        public void NotifyDefault(bool value)
+        {
+            if (IsDefault != value)
+            {
+                IsDefault = value;
+            }
+        }
+
+        /// <summary>Generates a click event for the control.</summary>
+        public void PerformClick()
+        {
+            if (CanSelect)
+            {
+                OnClick(EventArgs.Empty);
+            }
         }
 
         public void UpdateTheme(Theme theme)

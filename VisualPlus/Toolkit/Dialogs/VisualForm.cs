@@ -145,6 +145,8 @@ namespace VisualPlus.Toolkit.Dialogs
             titleMaxLength = 50;
             TitleSuffix = @"...";
 
+            AcceptButton = new VisualButton();
+
             // Fixes: The Form from hiding the TaskBar on maximized state.
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
 
