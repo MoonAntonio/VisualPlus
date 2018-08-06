@@ -36,6 +36,7 @@ namespace VisualPlus.Attributes
 
         #region Properties
 
+        /// <summary>The text of the attribute.</summary>
         public string Text
         {
             get
