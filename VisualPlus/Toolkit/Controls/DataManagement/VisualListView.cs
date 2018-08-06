@@ -12,6 +12,7 @@ using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+using VisualPlus.Attributes;
 using VisualPlus.Collections.CollectionsBase;
 using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Constants;
@@ -2273,6 +2274,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
         /// <param name="columnIndex">The zero-based index of the column to resize.</param>
         /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
+        [Test]
         public void AutoResizeColumn(int columnIndex, ColumnHeaderAutoResizeStyle headerAutoResize)
         {
             if (!IsHandleCreated)
@@ -2285,6 +2287,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         /// <summary>Resizes the width of the columns as indicated by the resize style.</summary>
         /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
+        [Test]
         public void AutoResizeColumns(ColumnHeaderAutoResizeStyle headerAutoResize)
         {
             if (!IsHandleCreated)
@@ -2533,6 +2536,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
         /// <param name="columnIndex">The zero-based index of the column to resize.</param>
         /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
+        [Test]
         internal void SetColumnWidth(int columnIndex, ColumnHeaderAutoResizeStyle headerAutoResize)
         {
             if ((columnIndex < 0) || ((columnIndex >= 0) && (_columns == null)) || (columnIndex >= _columns.Count))
@@ -2670,6 +2674,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             return false;
         }
 
+        [Test]
         private int CompensateColumnHeaderResize(int columnIndex, bool columnResizeCancelled)
         {
             if ((_controlStyle == LVControlStyles.Normal) && !columnResizeCancelled && (_items.Count > 0))
@@ -2972,6 +2977,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
         /// <param name="columnIndex">The zero-based index of the column to resize.</param>
         /// <param name="width">The width of the column.</param>
+        [Test]
         private void SetColumnWidth(int columnIndex, int width)
         {
             if (IsHandleCreated)
@@ -2993,6 +2999,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
         /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
+        [Test]
         private void UpdateColumnWidths(ColumnHeaderAutoResizeStyle headerAutoResize)
         {
             if (_columns != null)
