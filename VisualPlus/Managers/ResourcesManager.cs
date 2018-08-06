@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,7 +12,7 @@ using VisualPlus.Structure;
 
 namespace VisualPlus.Managers
 {
-    internal class ResourcesManager
+    public class ResourcesManager
     {
         #region Methods
 
@@ -22,7 +21,7 @@ namespace VisualPlus.Managers
         /// <returns>The <see cref="string" />.</returns>
         public static List<string> GetResourceNames(string file)
         {
-            Assembly _assembly = LoadAssembly(file);
+            Assembly _assembly = AssemblyManager.LoadAssembly(file);
             return _assembly.GetManifestResourceNames().ToList();
         }
 
@@ -32,7 +31,7 @@ namespace VisualPlus.Managers
         /// <returns>The <see cref="string" />.</returns>
         public static string ReadResource(string file, string resource)
         {
-            Assembly _assembly = LoadAssembly(file);
+            Assembly _assembly = AssemblyManager.LoadAssembly(file);
 
             try
             {
@@ -58,24 +57,6 @@ namespace VisualPlus.Managers
             }
 
             return null;
-        }
-
-        /// <summary>Loads the assembly file.</summary>
-        /// <param name="file">The file path.</param>
-        /// <returns>The <see cref="Assembly" />.</returns>
-        private static Assembly LoadAssembly(string file)
-        {
-            if (string.IsNullOrEmpty(file))
-            {
-                ConsoleEx.WriteDebug(new NoNullAllowedException(ExceptionMessenger.IsNullOrEmpty(file)));
-            }
-
-            if (!File.Exists(file))
-            {
-                ConsoleEx.WriteDebug(new NoNullAllowedException(ExceptionMessenger.FileNotFound(file)));
-            }
-
-            return Assembly.LoadFile(file);
         }
 
         #endregion
