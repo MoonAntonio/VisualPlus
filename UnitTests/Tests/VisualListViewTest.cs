@@ -26,7 +26,6 @@ namespace UnitTests.Tests
 
             visualListView.DisplayText = "No tasks in the current view." + Environment.NewLine + Environment.NewLine + "Click 'Add' to create a new task.";
             visualListView.SelectedIndexChanged += VisualListViewSelection_SelectedIndexChanged;
-
             visualListView.ColumnClickedEvent += VisualListViewColumnClickedEvent;
         }
 
