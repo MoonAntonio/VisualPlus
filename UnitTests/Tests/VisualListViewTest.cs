@@ -25,7 +25,7 @@ namespace UnitTests.Tests
             InitializeComponent();
 
             visualListView.DisplayText = "No tasks in the current view." + Environment.NewLine + Environment.NewLine + "Click 'Add' to create a new task.";
-            visualListView.SelectedIndexChanged += VisualListViewAdvanced1_SelectedIndexChanged;
+            visualListView.SelectedIndexChanged += VisualListViewSelection_SelectedIndexChanged;
 
             visualListView.ColumnClickedEvent += VisualListViewColumnClickedEvent;
         }
@@ -103,7 +103,18 @@ namespace UnitTests.Tests
             return _column;
         }
 
-        private void VisualListViewAdvanced1_SelectedIndexChanged(object source, ListViewClickEventArgs e)
+        private void VisualListViewColumnClickedEvent(object source, ListViewClickEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                foreach (VisualListViewItem _item in visualListView.Items)
+                {
+                    _item.Checked = visualListView.Columns[0].Checked;
+                }
+            }
+        }
+
+        private void VisualListViewSelection_SelectedIndexChanged(object source, ListViewClickEventArgs e)
         {
             int _columnIndex;
 
@@ -131,17 +142,6 @@ namespace UnitTests.Tests
             _selectedIndex.AppendLine(Environment.NewLine);
             _selectedIndex.AppendLine($"Cell: Text: {_rowSub}, - Checked: {_cellChecked}");
             MessageBox.Show(_selectedIndex.ToString(), Application.ProductName);
-        }
-
-        private void VisualListViewColumnClickedEvent(object source, ListViewClickEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                foreach (VisualListViewItem _item in visualListView.Items)
-                {
-                    _item.Checked = visualListView.Columns[0].Checked;
-                }
-            }
         }
 
         private void VisualListViewTest_Load(object sender, EventArgs e)
