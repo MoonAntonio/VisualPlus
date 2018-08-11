@@ -13,7 +13,6 @@ using VisualPlus.Events;
 using VisualPlus.Extensibility;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
-using VisualPlus.Structure;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Controls.DataManagement;
 
@@ -225,7 +224,6 @@ namespace VisualPlus.Collections.CollectionsBase
                 }
 
                 int _index = IndexOfKey(key);
-                ConsoleEx.WriteDebug("VisualListViewSubItem this[string key - Key: " + key + " Index: " + _index);
 
                 if (List.IsValidIndex(_index))
                 {
@@ -528,7 +526,6 @@ namespace VisualPlus.Collections.CollectionsBase
         /// <param name="e">The event args.</param>
         public void SubItem_Changed(object source, ListViewChangedEventArgs e)
         {
-            ConsoleEx.WriteDebug("VisualListViewSubItemCollection::SubItem_Changed");
             ChangedEvent?.Invoke(source, e);
         }
 

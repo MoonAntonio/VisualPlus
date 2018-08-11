@@ -12,7 +12,6 @@ using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-using VisualPlus.Attributes;
 using VisualPlus.Collections.CollectionsBase;
 using VisualPlus.Collections.CollectionsEditor;
 using VisualPlus.Constants;
@@ -20,6 +19,7 @@ using VisualPlus.Delegates;
 using VisualPlus.Designer;
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
+using VisualPlus.Extensibility;
 using VisualPlus.Localization;
 using VisualPlus.Native;
 using VisualPlus.Renders;
@@ -109,6 +109,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private Timer _timer;
         private bool _updating;
         private ManagedVScrollBar _verticalScrollBar;
+        private int internalPadding;
 
         #endregion
 
@@ -117,8 +118,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>Initializes a new instance of the <see cref="VisualListView" /> class.</summary>
         public VisualListView()
         {
-            ConsoleEx.WriteDebug("VisualListView::Constructor");
-
+internalPadding = 2;
             _columnColorState = new ControlColorState();
             _liveControls = new ArrayList();
             _allowColumnResize = true;
@@ -450,7 +450,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate from BackColorState property.");
                     Parent.Invalidate(true);
                 }
             }
@@ -494,8 +493,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate from Border property.");
-                    Parent.Invalidate(true);
+                     Parent.Invalidate(true);
                 }
             }
         }
@@ -575,7 +573,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate from ColumnColorState property.");
                     Parent.Invalidate(true);
                 }
             }
@@ -621,7 +618,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate from ControlStyle Property");
                     Parent.Invalidate(true);
                 }
             }
@@ -647,7 +643,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate from CornerBox property.");
                     Parent.Invalidate(true);
                 }
             }
@@ -675,7 +670,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate from CornerBoxColor property.");
                     Parent.Invalidate(true);
                 }
             }
@@ -784,7 +778,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _focusedItem = value;
                     if (!DesignMode)
                     {
-                        ConsoleEx.WriteDebug("Calling Invalidate From FocusedItem");
                         Invalidate(true);
                     }
 
@@ -837,8 +830,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate From GridColor");
-                    Parent.Invalidate(true);
+                     Parent.Invalidate(true);
                 }
             }
         }
@@ -860,7 +852,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate From GLGridLines");
                     Parent.Invalidate(true);
                 }
             }
@@ -906,7 +897,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate From GLGridTypes");
                     Parent.Invalidate(true);
                 }
             }
@@ -935,7 +925,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _headerHeight = value;
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate From HeaderHeight");
                     Parent.Invalidate(true);
                 }
             }
@@ -1032,7 +1021,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                         if (!DesignMode)
                         {
-                            ConsoleEx.WriteDebug("Calling Invalidate From HotColumnIndex");
                             Invalidate(true);
                         }
                     }
@@ -1131,7 +1119,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                         _hotColumnIndex = -1;
                         _hoverItemIndex = value;
 
-                        ConsoleEx.WriteDebug("Calling Invalidate From HotItemIndex");
                         Invalidate(true);
                     }
                 }
@@ -1243,7 +1230,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 _itemHeight = value;
                 if (DesignMode && (Parent != null))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate From ItemHeight");
                     Parent.Invalidate(true);
                 }
             }
@@ -1339,11 +1325,9 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                         if (!DesignMode)
                         {
-                            ConsoleEx.WriteDebug("Calling Invalidate From MaxHeight");
                             Invalidate(true);
                         }
 
-                        ConsoleEx.WriteDebug("Item height set bigger");
                     }
                 }
             }
@@ -1585,8 +1569,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="disposing">Indicates whether the method call comes from a <see cref="Dispose" /> method or a finalizer.</param>
         protected override void Dispose(bool disposing)
         {
-            ConsoleEx.WriteDebug("Disposing VisualListView.");
-
             if (_theme != IntPtr.Zero)
             {
                 Uxtheme.CloseThemeData(_theme);
@@ -1605,9 +1587,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnDoubleClick(EventArgs e)
         {
-            ConsoleEx.WriteDebug("VisualListView::OnDoubleClick");
-
-            Point _pointerLocation = PointToClient(Cursor.Position);
+           Point _pointerLocation = PointToClient(Cursor.Position);
 
             int _item;
             int _columnIndexer;
@@ -1648,8 +1628,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            ConsoleEx.WriteDebug("VisualListView::OnMouseDown");
-
             int _itemIndex;
             int _column;
             int _cellX;
@@ -1841,9 +1819,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            ConsoleEx.WriteDebug("VisualListView::MouseMove");
-
-            try
+             try
             {
                 if (_state == ListStates.ColumnResizing)
                 {
@@ -1909,8 +1885,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            ConsoleEx.WriteDebug("VisualListView::MouseUp");
-
             Cursor.Current = Cursors.Arrow;
             Columns.ClearStates();
 
@@ -1929,8 +1903,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            ConsoleEx.WriteDebug("VisualListView::Paint");
-
             // TODO: Allow rounded type.
             _border.Type = ShapeTypes.Rectangle;
 
@@ -1978,7 +1950,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         protected override void OnResize(EventArgs e)
         {
-            ConsoleEx.WriteDebug("OnResize - Calling Invalidate From OnResize");
             Invalidate();
         }
 
@@ -2195,7 +2166,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     {
                         _verticalScrollBar.Value = _moveIndex;
 
-                        ConsoleEx.WriteDebug("Calling Invalidate From PreProcessMessage");
                         Invalidate();
                     }
                 }
@@ -2216,9 +2186,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="column">The column.</param>
         public virtual void SortColumn(int column)
         {
-            Debug.WriteLine("Column sorting called.");
-
-            if (Count < 2)
+           if (Count < 2)
             {
                 // nothing to sort
                 return;
@@ -2274,7 +2242,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
         /// <param name="columnIndex">The zero-based index of the column to resize.</param>
         /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
-        [Test]
         public void AutoResizeColumn(int columnIndex, ColumnHeaderAutoResizeStyle headerAutoResize)
         {
             if (!IsHandleCreated)
@@ -2287,7 +2254,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         /// <summary>Resizes the width of the columns as indicated by the resize style.</summary>
         /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
-        [Test]
         public void AutoResizeColumns(ColumnHeaderAutoResizeStyle headerAutoResize)
         {
             if (!IsHandleCreated)
@@ -2309,8 +2275,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="e">The event args.</param>
         public void Columns_Changed(object source, ListViewChangedEventArgs e)
         {
-            ConsoleEx.WriteDebug("Columns_Changed");
-
             if (e.ChangedType != ListViewChangedTypes.ColumnStateChanged)
             {
                 DestroyActivatedEmbedded();
@@ -2318,8 +2282,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             ColumnChangedEvent?.Invoke(this, e);
 
-            ConsoleEx.WriteDebug("Calling Invalidate From Columns_Changed");
-            Invalidate();
+          Invalidate();
         }
 
         /// <summary>Tell paint to start worrying about updates again and repaint while your at it.</summary>
@@ -2334,8 +2297,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <returns>The <see cref="int" />.</returns>
         public int GetColumnScreenX(int column)
         {
-            ConsoleEx.WriteDebug("Get Column Screen X");
-
+            // ConsoleEx.WriteDebug("Get Column Screen X");
             if (column >= Columns.Count)
             {
                 return 0;
@@ -2371,8 +2333,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="listStates">The state.</param>
         public void InterpretCoordinates(int screenX, int screenY, out ListViewRegion listRegion, out int cellX, out int cellY, out int itemIndex, out int columnIndex, out ListStates listStates)
         {
-            ConsoleEx.WriteDebug("VisualListView::Interpret Coordinates");
-
             listStates = ListStates.None;
             columnIndex = 0;
             itemIndex = 0;
@@ -2488,6 +2448,17 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             return false;
         }
 
+        /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
+        /// <param name="columnIndex">The zero-based index of the column to resize.</param>
+        /// <param name="width">The width of the column.</param>
+        public void SetColumnWidth(int columnIndex, int width)
+        {
+            if (IsHandleCreated)
+            {
+                _columns[columnIndex].Width = width;
+            }
+        }
+
         public void UpdateTheme(Theme theme)
         {
             try
@@ -2533,66 +2504,23 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             OnThemeChanged(new ThemeEventArgs(theme));
         }
 
-        /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
-        /// <param name="columnIndex">The zero-based index of the column to resize.</param>
-        /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
-        [Test]
-        internal void SetColumnWidth(int columnIndex, ColumnHeaderAutoResizeStyle headerAutoResize)
+        /// <summary>Calculates the longest width of the elements.</summary>
+        /// <param name="column">The column.</param>
+        /// <param name="textWidth">The text.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        private static int CalculateLongestElementWidth(int column, int textWidth)
         {
-            if ((columnIndex < 0) || ((columnIndex >= 0) && (_columns == null)) || (columnIndex >= _columns.Count))
+            int width;
+            if (column > textWidth)
             {
-                throw new ArgumentOutOfRangeException(nameof(columnIndex));
+                width = column;
+            }
+            else
+            {
+                width = textWidth;
             }
 
-            int _width = 0;
-            int _compensate = 0;
-
-            switch (headerAutoResize)
-            {
-                case ColumnHeaderAutoResizeStyle.None:
-                    {
-                        if (_width == -2)
-                        {
-                            headerAutoResize = ColumnHeaderAutoResizeStyle.HeaderSize;
-                        }
-                        else if (_width == -1)
-                        {
-                            headerAutoResize = ColumnHeaderAutoResizeStyle.ColumnContent;
-                        }
-
-                        break;
-                    }
-
-                case ColumnHeaderAutoResizeStyle.HeaderSize:
-                    {
-                        _compensate = CompensateColumnHeaderResize(columnIndex, false);
-                        _width = -2;
-                        break;
-                    }
-
-                case ColumnHeaderAutoResizeStyle.ColumnContent:
-                    {
-                        _compensate = CompensateColumnHeaderResize(columnIndex, false);
-                        _width = -1;
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(headerAutoResize), headerAutoResize, null);
-                    }
-            }
-
-            SetColumnWidth(columnIndex, _width);
-
-            if ((IsHandleCreated && (headerAutoResize == ColumnHeaderAutoResizeStyle.ColumnContent)) || (headerAutoResize == ColumnHeaderAutoResizeStyle.HeaderSize))
-            {
-                if (_compensate != 0)
-                {
-                    int _newWidth = _columns[columnIndex].Width + _compensate;
-                    _columns[columnIndex].Width = _newWidth;
-                }
-            }
+            return width;
         }
 
         /// <summary>Instance the activated embedded control for this item/column.</summary>
@@ -2654,9 +2582,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <returns>The <see cref="bool" />.</returns>
         private bool AreThemesAvailable()
         {
-            ConsoleEx.WriteDebug("AreThemesAvailable");
-
-            // IntPtr hTheme = IntPtr.Zero;
+ // IntPtr hTheme = IntPtr.Zero;
             try
             {
                 if ((Uxtheme.IsThemeActive() == 1) && (_theme == IntPtr.Zero))
@@ -2674,48 +2600,61 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             return false;
         }
 
-        [Test]
-        private int CompensateColumnHeaderResize(int columnIndex, bool columnResizeCancelled)
+        /// <summary>Calculate the check box width.</summary>
+        /// <param name="columnIndex">The column index.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="padding">The padding.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        private int CalculateCheckBoxWidth(int columnIndex, int width, int padding)
         {
-            if ((_controlStyle == LVControlStyles.Normal) && !columnResizeCancelled && (_items.Count > 0))
+            if (_columns[columnIndex].CheckBoxes)
             {
-                // The user resized the first column
-                if (columnIndex == 0)
-                {
-                    VisualListViewColumn _column = (_columns != null) && (_columns.Count > 0) ? _columns[0] : null;
-
-                    if (_column != null)
-                    {
-                        if (_imageListColumns == null)
-                        {
-                            return 2;
-                        }
-                        else
-                        {
-                            // If the list-view contains an item w/ a non-negative ImageIndex then we don't need to add extra padding.
-                            bool _addPadding = true;
-
-                            for (var i = 0; i < _items.Count; i++)
-                            {
-                                if (_items[i].ImageIndex > -1)
-                                {
-                                    _addPadding = false;
-                                }
-                            }
-
-                            if (_addPadding)
-                            {
-                                // 18 = 16 + 2;
-                                // 16 = size of small image list.
-                                // 2 is the padding we add when there is no small image list.
-                                return 18;
-                            }
-                        }
-                    }
-                }
+                int columnCheckBoxWidth = padding + ListViewConstants.CHECKBOX_SIZE;
+                width += columnCheckBoxWidth;
             }
 
-            return 0;
+            return width;
+        }
+
+        /// <summary>Calculates the column text width.</summary>
+        /// <param name="columnIndex">The column index.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        private int CalculateColumnTextWidth(int columnIndex)
+        {
+            int columnWidth = _columns[columnIndex].Text.MeasureText(Font).Width;
+            int width = RetrieveDecorationsWidth(columnIndex, columnWidth, internalPadding);
+            columnWidth += width;
+            return columnWidth;
+        }
+
+        /// <summary>Calculates the column width.</summary>
+        /// <param name="columnIndex">The column index.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        private int CalculateColumnWidth(int columnIndex)
+        {
+            int columnWidth = _columns[columnIndex].Width;
+            ConsoleEx.WriteDebug("columnWidth: " + columnWidth);
+            int width = RetrieveDecorationsWidth(columnIndex, columnWidth, internalPadding);
+            ConsoleEx.WriteDebug("width: " + width);
+            columnWidth += width;
+            ConsoleEx.WriteDebug("new columnWidth: " + columnWidth);
+            return columnWidth;
+        }
+
+        /// <summary>Calculate the image list index width.</summary>
+        /// <param name="columnIndex">The column index.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="padding">The padding.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        private int CalculateImageWidth(int columnIndex, int width, int padding)
+        {
+            if (_imageListColumns != null)
+            {
+                int columnImageWidth = padding + padding + _imageListColumns.Images[columnIndex].Width + padding + padding;
+                width += columnImageWidth;
+            }
+
+            return width;
         }
 
         /// <summary>Destroy activated embedded control exists, remove and unload it.</summary>
@@ -2751,12 +2690,9 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="e">The event args.</param>
         private void HorizontalPanelScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
-            ConsoleEx.WriteDebug("hPanelScrollBar_Scroll");
-
+           
             // this.Focus();
-            ConsoleEx.WriteDebug("Calling Invalidate From hPanelScrollBar_Scroll");
-
-            Invalidate();
+             Invalidate();
         }
 
         /// <summary>Timer handler. This mostly deals with the hover technology with events firing.</summary>
@@ -2784,13 +2720,11 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             if ((_pointLocalMouse == _lastHoverSpot) && !_hoverLive && (_listRegion != ListViewRegion.NonClient))
             {
-                Debug.WriteLine("VisualListView::HoverTimer-Firing");
                 HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverStart, _item, _column, _listRegion));
                 _hoverLive = true;
             }
             else if (_hoverLive && (_pointLocalMouse != _lastHoverSpot))
             {
-                Debug.WriteLine("VisualListView::HoverTimer-Canceling");
                 HoverEvent?.Invoke(this, new ListViewHoverEventArgs(ListViewHoverTypes.HoverEnd, -1, -1, ListViewRegion.NonClient));
                 _hoverLive = false;
             }
@@ -2815,8 +2749,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <param name="e">The event args.</param>
         private void Items_Changed(object source, ListViewChangedEventArgs e)
         {
-            ConsoleEx.WriteDebug("VisualListView::Items_Changed");
-
             DestroyActivatedEmbedded();
 
             ItemChangedEvent?.Invoke(this, e);
@@ -2826,7 +2758,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             {
                 if (IsItemVisible(e.Item))
                 {
-                    ConsoleEx.WriteDebug("Calling Invalidate From Items_Changed");
                     Invalidate();
                 }
             }
@@ -2846,26 +2777,19 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         private void OnScroll(object sender, ScrollEventArgs e)
         {
-            ConsoleEx.WriteDebug("Calling Invalidate From OnScroll");
-
             DestroyActivatedEmbedded();
-
             Invalidate();
-
             Scroll?.Invoke(sender, e);
         }
 
         /// <summary>Recalculate scroll bars and control size.</summary>
         private void RecalculateScroll()
         {
-            ConsoleEx.WriteDebug("VisualListView::RecalculateScroll");
-
             var _exitCode = 0;
             bool _bSbChanged;
             do
             {
-                // this loop is to handle changes and re-changes that happen when one or the other changes
-                ConsoleEx.WriteDebug("Begin scrollbar updates loop");
+                // Loop handles changes and re-changes that happen when one or the other changes
                 _bSbChanged = false;
 
                 if ((_columns.Width > RowsInnerClientRect.Width) && (_horizontalScrollBar.Visible == false))
@@ -2875,9 +2799,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
 
-                    ConsoleEx.WriteDebug("Calling Invalidate From RecalculateScroll");
                     Invalidate();
-                    ConsoleEx.WriteDebug("showing hScrollbar");
+
                 }
 
                 if ((_columns.Width <= RowsInnerClientRect.Width) && _horizontalScrollBar.Visible)
@@ -2886,10 +2809,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _horizontalScrollBar.MVisible = false;
                     _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
-                    ConsoleEx.WriteDebug("Calling Invalidate From RecalculateScroll");
-                    Invalidate();
-                    ConsoleEx.WriteDebug("hiding hScrollbar");
-                }
+
+                   Invalidate();
+
+                 }
 
                 if ((TotalRowsHeight > RowsInnerClientRect.Height) && (_verticalScrollBar.Visible == false))
                 {
@@ -2897,10 +2820,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _verticalScrollBar.MVisible = true;
                     _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
-                    ConsoleEx.WriteDebug("Calling Invalidate From RecalculateScroll");
-                    Invalidate();
-                    ConsoleEx.WriteDebug("showing vScrollbar");
-                }
+
+                  Invalidate();
+
+               }
 
                 if ((TotalRowsHeight <= RowsInnerClientRect.Height) && _verticalScrollBar.Visible)
                 {
@@ -2908,14 +2831,12 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                     _verticalScrollBar.MVisible = false;
                     _verticalScrollBar.Value = 0;
                     _bSbChanged = true;
-                    ConsoleEx.WriteDebug("Calling Invalidate From RecalculateScroll");
+
                     Invalidate();
-                    ConsoleEx.WriteDebug("hiding vScrollbar");
-                }
 
-                ConsoleEx.WriteDebug("End scrollbar updates loop");
+                 }
 
-                if (++_exitCode > 4)
+               if (++_exitCode > 4)
                 {
                     break;
                 }
@@ -2934,8 +2855,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (_verticalScrollBar.Value + RowsVisible > Count)
                 {
-                    // catch all to make sure the scrollbar isn't going farther than visible items
-                    ConsoleEx.WriteDebug("Changing vPanel value");
+                    // Catch all to make sure the scrollbar isn't going farther than visible items
                     _verticalScrollBar.Value = Count - RowsVisible; // an item got deleted underneath somehow and scroll value is larger than can be displayed
                 }
             }
@@ -2951,7 +2871,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
                 if (_horizontalScrollBar.Value + _horizontalScrollBar.LargeChange > _horizontalScrollBar.Maximum)
                 {
-                    ConsoleEx.WriteDebug("Changing vPanel value");
                     _horizontalScrollBar.Value = _horizontalScrollBar.Maximum - _horizontalScrollBar.LargeChange;
                 }
             }
@@ -2974,15 +2893,75 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
         }
 
+        /// <summary>Retrieves the decorations width.</summary>
+        /// <param name="columnIndex">The column index.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="padding">The padding.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        private int RetrieveDecorationsWidth(int columnIndex, int width, int padding)
+        {
+            width = CalculateCheckBoxWidth(columnIndex, width, padding);
+            width = CalculateImageWidth(columnIndex, width, padding);
+            return width;
+        }
+
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
         /// <param name="columnIndex">The zero-based index of the column to resize.</param>
-        /// <param name="width">The width of the column.</param>
-        [Test]
-        private void SetColumnWidth(int columnIndex, int width)
+        /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
+        private void SetColumnWidth(int columnIndex, ColumnHeaderAutoResizeStyle headerAutoResize)
         {
-            if (IsHandleCreated)
+            if ((columnIndex < 0) || ((columnIndex >= 0) && (_columns == null)) || (columnIndex >= _columns.Count))
             {
-                _columns[columnIndex].Width = width;
+                throw new ArgumentOutOfRangeException(nameof(columnIndex));
+            }
+
+            int width;
+
+            switch (headerAutoResize)
+            {
+                case ColumnHeaderAutoResizeStyle.None:
+                    {
+                        if (AutoSize)
+                        {
+                            int columnWidth = CalculateColumnWidth(columnIndex);
+                            int columnTextWidth = CalculateColumnTextWidth(columnIndex);
+
+                            width = CalculateLongestElementWidth(columnWidth, columnTextWidth);
+                        }
+                        else
+                        {
+                            width = CalculateColumnWidth(columnIndex);
+                        }
+
+                        break;
+                    }
+
+                case ColumnHeaderAutoResizeStyle.HeaderSize:
+                    {
+                        width = CalculateColumnWidth(columnIndex);
+                        break;
+                    }
+
+                case ColumnHeaderAutoResizeStyle.ColumnContent:
+                    {
+                        width = CalculateColumnTextWidth(columnIndex);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(headerAutoResize), headerAutoResize, null);
+                    }
+            }
+
+            SetColumnWidth(columnIndex, width);
+
+            if ((IsHandleCreated && (headerAutoResize == ColumnHeaderAutoResizeStyle.ColumnContent)) || (headerAutoResize == ColumnHeaderAutoResizeStyle.HeaderSize))
+            {
+                if (width != 0)
+                {
+                    _columns[columnIndex].Width = width;
+                }
             }
         }
 
@@ -2999,7 +2978,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
         /// <summary>Resizes the width of the given column as indicated by the resize style.</summary>
         /// <param name="headerAutoResize">One of the <see cref="ColumnHeaderAutoResizeStyle" /> values.</param>
-        [Test]
         private void UpdateColumnWidths(ColumnHeaderAutoResizeStyle headerAutoResize)
         {
             if (_columns != null)
@@ -3017,7 +2995,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private void VerticalPanelScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
             // this.Focus();
-            ConsoleEx.WriteDebug("VPanelScrollBar_Scroll::Calling Invalidate From vPanelScrollBar_Scroll");
             Parent.Invalidate(true);
         }
 

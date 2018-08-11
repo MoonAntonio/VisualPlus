@@ -104,7 +104,6 @@ namespace VisualPlus.Renders
             int _interiorWidth = rectangle.Width - (listView.CellPaddingSize * 2);
 
             // int _interiorHeight = rectangle.Height - (cellPaddingSize * 2);
-            ConsoleEx.WriteDebug("ListViewRenderer::DrawCellText - CellText: " + cellText);
 
             // Convert property editor friendly alignment to an alignment we can use for strings
             StringFormat _stringFormat = new StringFormat
@@ -189,8 +188,6 @@ namespace VisualPlus.Renders
         /// <param name="listView">The list View.</param>
         public static void DrawColumnHeader(Graphics graphicsColumn, Rectangle columnRectangle, VisualListViewColumn column, IntPtr theme, VisualListView listView)
         {
-            ConsoleEx.WriteDebug("ListViewRenderer::DrawColumnHeader - Text: " + column.Text);
-
             if (listView.ControlStyle == LVControlStyles.SuperFlat)
             {
                 SolidBrush columnRectangleBrush;
@@ -273,8 +270,6 @@ namespace VisualPlus.Renders
         /// <param name="theme">The theme.</param>
         public static void DrawColumnHeaders(Graphics graphicHeader, Size sizeHeader, VisualListView listView, ManagedHScrollBar hPanelScrollBar, IntPtr theme)
         {
-            ConsoleEx.WriteDebug("ListViewRenderer::DrawColumnHeaders - Count: " + listView.Columns.Count);
-
             // Draw the column header background.
             if (listView.ControlStyle == LVControlStyles.SuperFlat)
             {
@@ -328,8 +323,6 @@ namespace VisualPlus.Renders
         /// <param name="listView">The list View.</param>
         public static void DrawGridLines(Graphics rowsDC, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, VisualListView listView)
         {
-            ConsoleEx.WriteDebug("ListViewRenderer::DrawGridLines");
-
             int _yCursor = listView.RowsInnerClientRect.Y;
             using (Pen _gridPen = new Pen(listView.GridColor))
             {
@@ -395,8 +388,6 @@ namespace VisualPlus.Renders
         /// <param name="checkBoxSize">The check Box Size.</param>
         public static void DrawRow(Graphics graphicsRow, Rectangle rectRow, VisualListViewItem item, int itemIndex, VisualListView listView, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
         {
-            ConsoleEx.WriteDebug("ListViewRenderer::DrawRow");
-
             // If its selected, that trumps all, if not then see if we are using alternating colors, if not draw normal
             // this can all be overridden by the sub item background property make sure anything can even be selected before drawing selection rectangles
             if (item.Selected && listView.Selectable)
@@ -508,8 +499,6 @@ namespace VisualPlus.Renders
         /// <param name="checkBoxSize">The check Box Size.</param>
         public static void DrawRows(Graphics graphicsRows, VisualListView listView, Color backColor, ManagedVScrollBar vPanelScrollBar, ManagedHScrollBar hPanelScrollBar, ArrayList _newLiveControls, ArrayList _liveControls, int checkBoxSize)
         {
-            ConsoleEx.WriteDebug("ListViewRenderer::DrawRows");
-
             using (SolidBrush _clientRowsViewBrush = new SolidBrush(backColor))
             {
                 graphicsRows.FillRectangle(_clientRowsViewBrush, listView.RowsClientRectangle);
@@ -585,8 +574,6 @@ namespace VisualPlus.Renders
         /// <param name="checkBoxSize">The check Box Size.</param>
         public static void DrawSubItem(Graphics graphicsSubItem, Rectangle rectSubItem, VisualListViewItem item, VisualListViewSubItem subItem, int column, Font font, VisualListView listView, ArrayList _newLiveControls, ArrayList _liveControls, int cellPaddingSize, int checkBoxSize)
         {
-            ConsoleEx.WriteDebug("ListViewRenderer::DrawSubItem Name: " + subItem.Name);
-
             Rectangle _controlRectangle = new Rectangle(rectSubItem.X, rectSubItem.Y, rectSubItem.Width, rectSubItem.Height);
 
             if ((subItem.EmbeddedControl != null) && !subItem.ForceText)

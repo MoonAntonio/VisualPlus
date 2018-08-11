@@ -13,7 +13,6 @@ using VisualPlus.Events;
 using VisualPlus.Extensibility;
 using VisualPlus.Localization;
 using VisualPlus.Managers;
-using VisualPlus.Structure;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Controls.DataManagement;
 
@@ -578,8 +577,6 @@ namespace VisualPlus.Collections.CollectionsBase
         /// <param name="e">The event args.</param>
         public void Item_Changed(object source, ListViewChangedEventArgs e)
         {
-            ConsoleEx.WriteDebug("VisualListViewItemCollection::Item_Changed");
-
             if ((ChangedEvent != null) && !SuspendEvents)
             {
                 ChangedEvent(source, e);

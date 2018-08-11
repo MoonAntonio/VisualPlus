@@ -169,6 +169,8 @@ namespace UnitTests.Tests
             }
 
             visualListView.Items[0].Selected = true;
+
+            visualListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         #endregion
