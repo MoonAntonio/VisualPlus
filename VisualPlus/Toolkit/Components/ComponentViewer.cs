@@ -2,9 +2,12 @@
 
 using System;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using VisualPlus.Constants;
+using VisualPlus.Delegates;
+using VisualPlus.Events;
 using VisualPlus.Extensibility;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Controls.Editors;
@@ -14,25 +17,31 @@ using VisualPlus.Toolkit.Controls.Editors;
 namespace VisualPlus.Toolkit.Components
 {
     /// <summary>The component viewer.</summary>
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("ThemeChanged")]
+    [DefaultProperty("Theme")]
+    [Description("The Component Viewer")]
     [ToolboxItem(false)]
     public partial class ComponentViewer : UserControl
     {
         #region Variables
 
         private Control component;
+        private string componentNamespace;
         private Type componentType;
+        private Theme theme;
 
         #endregion
 
         #region Constructors
 
         /// <summary>Initializes a new instance of the <see cref="ComponentViewer" /> class.</summary>
-        /// <param name="componentNamespace">The component namespace to display.</param>
-        /// <param name="theme">The theme data.</param>
-        public ComponentViewer(string componentNamespace, Theme theme) : this()
+        /// <param name="typeNamespace">The component type namespace to display.</param>
+        public ComponentViewer(string typeNamespace) : this()
         {
-            CreateComponentInstance(componentNamespace);
-            UpdateTheme(theme);
+            componentNamespace = typeNamespace;
+            ComponentNamespace = componentNamespace;
         }
 
         /// <summary>Initializes a new instance of the <see cref="ComponentViewer" /> class.</summary>
@@ -40,7 +49,55 @@ namespace VisualPlus.Toolkit.Components
         {
             InitializeComponent();
             component = null;
+            componentNamespace = string.Empty;
             componentType = null;
+            theme = new Theme(Settings.DefaultValue.DefaultStyle);
+        }
+
+        #endregion
+
+        #region Events
+
+        [Description("Occurs when the component has changed.")]
+        public event ControlEventHandler ComponentChanged;
+
+        [Description("Occurs when the theme has changed.")]
+        public event ThemeChangedEventHandler ThemeChanged;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>The <see cref="Component" /> namespace to use for the viewer.</summary>
+        [Browsable(true)]
+        public string ComponentNamespace
+        {
+            get
+            {
+                return componentType.Namespace;
+            }
+
+            set
+            {
+                componentNamespace = value;
+                OnComponentChanged(new ControlEventArgs(component));
+            }
+        }
+
+        /// <summary>The <see cref="Theme" /> to use for the <see cref="Component" />.</summary>
+        [Browsable(true)]
+        public Theme Theme
+        {
+            get
+            {
+                return theme;
+            }
+
+            set
+            {
+                theme = value;
+                OnThemeChanged(new ThemeEventArgs(theme));
+            }
         }
 
         #endregion
@@ -57,20 +114,29 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
+        /// <summary>Occurs when the component changed.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnComponentChanged(ControlEventArgs e)
+        {
+            CreateComponentInstance();
+            ApplyTheme();
+            ComponentChanged?.Invoke(this, e);
+        }
+
+        /// <summary>Occurs when the theme changed.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            ApplyTheme();
+            ThemeChanged?.Invoke(e);
+        }
+
         #endregion
 
         #region Methods
 
-        /// <summary>Updates the component to the new component namespace.</summary>
-        /// <param name="componentNamespace">The component namespace.</param>
-        public void UpdateComponent(string componentNamespace)
-        {
-            CreateComponentInstance(componentNamespace);
-        }
-
-        /// <summary>Update the component theme.</summary>
-        /// <param name="theme">The theme data.</param>
-        public void UpdateTheme(Theme theme)
+        /// <summary>Applies the theme to the <see cref="Component" />.</summary>
+        private void ApplyTheme()
         {
             if (component is IThemeSupport supportedControl)
             {
@@ -79,8 +145,7 @@ namespace VisualPlus.Toolkit.Components
         }
 
         /// <summary>Create component instance.</summary>
-        /// <param name="componentNamespace">The component namespace.</param>
-        private void CreateComponentInstance(string componentNamespace)
+        private void CreateComponentInstance()
         {
             if (componentNamespace == null)
             {

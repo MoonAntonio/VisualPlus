@@ -38,27 +38,26 @@ namespace VisualThemeBuilder.Forms
         {
             InitializeComponent();
 
-            theme = new Theme(Settings.DefaultValue.DefaultStyle);
-
-            componentViewer = new ComponentViewer(GetSelectedControlPreview(), theme)
-                {
-                    Dock = DockStyle.Fill
-                };
-
             foreach (Type controlType in ControlManager.ControlsSupported())
             {
                 cbControls.Items.Add(controlType.FullName);
             }
 
-            cbControls.SelectedIndex = 0;
-            tabController.SelectedIndex = 0;
+            componentViewer = new ComponentViewer
+                    {
+                       Dock = DockStyle.Fill 
+                    };
 
+            theme = new Theme(Settings.DefaultValue.DefaultStyle);
             LoadTheme(theme);
 
             tbName.Text = "UnnamedTheme";
             tbAuthor.Text = "Unknown";
 
             saved = true;
+
+            cbControls.SelectedIndex = 0;
+            tabController.SelectedIndex = 0;
 
             componentPanel.Controls.Add(componentViewer);
 
@@ -89,8 +88,7 @@ namespace VisualThemeBuilder.Forms
         /// <param name="e">The event args.</param>
         private void CbControls_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string componentNamespace = GetSelectedControlPreview();
-            componentViewer.UpdateComponent(componentNamespace);
+            componentViewer.ComponentNamespace = (string)cbControls.SelectedItem;
         }
 
         /// <summary>Occurs when the exit button has been clicked.</summary>
@@ -99,14 +97,6 @@ namespace VisualThemeBuilder.Forms
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        /// <summary>Gets the selected control preview.</summary>
-        /// <returns>The <see cref="string" />.</returns>
-        private string GetSelectedControlPreview()
-        {
-            var selectedControlName = (string)cbControls.SelectedItem;
-            return selectedControlName;
         }
 
         /// <summary>Loads the theme settings.</summary>
@@ -344,7 +334,7 @@ namespace VisualThemeBuilder.Forms
                 }
             }
 
-            componentViewer.UpdateTheme(theme);
+            componentViewer.Theme = theme;
         }
 
         /// <summary>Update the theme contents.</summary>
