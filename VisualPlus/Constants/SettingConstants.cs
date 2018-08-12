@@ -25,6 +25,7 @@ namespace VisualPlus.Constants
         public static readonly string ProductName = Assembly.GetExecutingAssembly().GetName().Name;
         public static readonly string TemplatesFolder = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + @"\VisualPlus Themes\";
         public static readonly string TemplatesFilePath = TemplatesFolder + @"DefaultTheme.xml";
+
         public static readonly string ThemeAuthor = "Unknown";
         public static readonly string ThemeExtensionSupportedFileFilter = "Theme|*.xml";
         public static readonly string ThemeName = "Unnamed";

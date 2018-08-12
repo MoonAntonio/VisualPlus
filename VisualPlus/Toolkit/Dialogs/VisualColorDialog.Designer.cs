@@ -47,7 +47,7 @@
             // 
             // lR
             // 
-            this.lR.BackColor = System.Drawing.Color.White;
+            this.lR.BackColor = System.Drawing.Color.Transparent;
             this.lR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lR.Location = new System.Drawing.Point(146, 66);
             this.lR.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
@@ -77,7 +77,7 @@
             // 
             // lG
             // 
-            this.lG.BackColor = System.Drawing.Color.White;
+            this.lG.BackColor = System.Drawing.Color.Transparent;
             this.lG.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lG.Location = new System.Drawing.Point(146, 95);
             this.lG.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
@@ -107,7 +107,7 @@
             // 
             // lB
             // 
-            this.lB.BackColor = System.Drawing.Color.White;
+            this.lB.BackColor = System.Drawing.Color.Transparent;
             this.lB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lB.Location = new System.Drawing.Point(146, 130);
             this.lB.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
@@ -137,7 +137,7 @@
             // 
             // lAlpha
             // 
-            this.lAlpha.BackColor = System.Drawing.Color.White;
+            this.lAlpha.BackColor = System.Drawing.Color.Transparent;
             this.lAlpha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lAlpha.Location = new System.Drawing.Point(146, 37);
             this.lAlpha.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
@@ -393,6 +393,7 @@
             this.btnOk.Border.Thickness = 1;
             this.btnOk.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.btnOk.Border.Visible = true;
+            this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnOk.Image = null;
             this.btnOk.Location = new System.Drawing.Point(239, 190);
@@ -438,7 +439,7 @@
             // 
             // visualLabel1
             // 
-            this.visualLabel1.BackColor = System.Drawing.Color.White;
+            this.visualLabel1.BackColor = System.Drawing.Color.Transparent;
             this.visualLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.visualLabel1.Location = new System.Drawing.Point(146, 161);
             this.visualLabel1.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
@@ -504,7 +505,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Background = System.Drawing.Color.White;
             this.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             this.Border.HoverVisible = true;
@@ -638,6 +638,7 @@
             this.Image.Point = new System.Drawing.Point(5, 7);
             this.Image.Size = new System.Drawing.Size(16, 16);
             this.Image.Visible = false;
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "VisualColorDialog";
             this.Text = "Color Dialog";
             this.ResumeLayout(false);

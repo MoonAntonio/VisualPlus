@@ -50,6 +50,7 @@ namespace UnitTests.Forms
             this.BtnRunTest.Border.Thickness = 1;
             this.BtnRunTest.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.BtnRunTest.Border.Visible = true;
+            this.BtnRunTest.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.BtnRunTest.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.BtnRunTest.ForeColor = System.Drawing.Color.Black;
             this.BtnRunTest.Image = null;
@@ -138,7 +139,7 @@ namespace UnitTests.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Background = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.White;
             this.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
             this.Border.HoverVisible = true;
@@ -262,6 +263,7 @@ namespace UnitTests.Forms
             this.Image.Point = new System.Drawing.Point(5, 7);
             this.Image.Size = new System.Drawing.Size(16, 16);
             this.Image.Visible = true;
+            this.Location = new System.Drawing.Point(0, 0);
             this.MinimizeBox = true;
             this.Name = "UnitTestManager";
             this.Sizable = false;

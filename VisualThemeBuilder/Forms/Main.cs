@@ -44,9 +44,10 @@ namespace VisualThemeBuilder.Forms
             }
 
             componentViewer = new ComponentViewer
-                    {
-                       Dock = DockStyle.Fill 
-                    };
+                {
+                    BackColor = componentPanel.BackColor,
+                    Dock = DockStyle.Fill
+                };
 
             theme = new Theme(Settings.DefaultValue.DefaultStyle);
             LoadTheme(theme);

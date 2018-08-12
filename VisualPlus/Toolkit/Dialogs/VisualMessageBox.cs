@@ -115,7 +115,6 @@ namespace VisualPlus.Toolkit.Dialogs
             Magnetic = true;
 
             BackColor = Color.White;
-            Background = Color.White;
             WindowBarColor = Color.White;
 
             dialogImage = null;

@@ -154,7 +154,6 @@ namespace VisualPlus.Toolkit.Controls.Layout
         {
             base.OnPaint(e);
             Graphics _graphics = e.Graphics;
-            _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 

@@ -507,10 +507,8 @@ namespace VisualPlus.Toolkit.Controls.Editors
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            graphics.Clear(Parent.BackColor);
-            graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             graphics.SmoothingMode = SmoothingMode.HighQuality;
-            GraphicsPath controlGraphicsPath = new GraphicsPath();
+            GraphicsPath controlGraphicsPath;
 
             switch (_pickType)
             {
@@ -559,6 +557,9 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
                         break;
                     }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             VisualBorderRenderer.DrawBorderStyle(graphics, _border, controlGraphicsPath, MouseState);

@@ -183,8 +183,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _labelProgress.Location = new Point((Width / 2) - (_progressTextSize.Width / 2), Height - _progressTextSize.Height - 30);
 
             Graphics _graphics = e.Graphics;
-            _graphics.Clear(Parent.BackColor);
-            _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
 
             Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;

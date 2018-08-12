@@ -272,7 +272,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         {
             base.OnPaint(e);
             Graphics _graphics = e.Graphics;
-            _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
@@ -280,7 +279,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
-            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
             _graphics.SetClip(ControlGraphicsPath);
 
             Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
@@ -289,12 +287,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             DrawProgress(_orientation, _graphics);
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
             e.Graphics.ResetClip();
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
         }
 
         #endregion

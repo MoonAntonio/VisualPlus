@@ -337,8 +337,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-            graphics.Clear(Parent.BackColor);
-            graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
             Color _foreColor = Enabled ? ForeColor : TextStyle.Disabled;
 

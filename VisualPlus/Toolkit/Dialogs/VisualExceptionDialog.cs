@@ -7,9 +7,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-using VisualPlus.Enumerators;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Controls.Interactivity;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -25,24 +23,11 @@ namespace VisualPlus.Toolkit.Dialogs
     [DesignerCategory("Form")]
     [DesignTimeVisible(false)]
     [ToolboxItem(false)]
-    public class VisualExceptionDialog : VisualDialog
+    public partial class VisualExceptionDialog : VisualDialog
     {
         #region Variables
 
         private readonly Exception _exception;
-        private readonly int _imageSpacing;
-        private readonly int _textHeight;
-        private VisualButton _copyButton;
-        private Label _descriptionLabel;
-        private Label _messageLabel;
-        private TextBox _messageTextBox;
-        private VisualButton _okButton;
-        private PictureBox _pictureBoxImage;
-        private VisualButton _saveButton;
-        private Label _stackLabel;
-        private TextBox _stackTextBox;
-        private Label _typeLabel;
-        private TextBox _typeTextBox;
 
         #endregion
 
@@ -51,197 +36,28 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>Initializes a new instance of the <see cref="VisualExceptionDialog" /> class.</summary>
         /// <param name="e">The exception.</param>
         /// <param name="caption">The caption.</param>
-        public VisualExceptionDialog(Exception e, string caption = "Exception Dialog")
+        public VisualExceptionDialog(Exception e, string caption = "Exception Dialog") : this()
         {
-            _imageSpacing = 10;
-            _textHeight = 16;
-
-            ControlBox.Location = new Point(Width - 34, -6);
-
-            Padding = new Padding(10);
-            Size = new Size(440, 410);
-            BackColor = Color.White;
             Text = caption;
-
             _exception = e;
 
-            var _defaultWidth = 360;
+            string _message = _exception?.Message ?? "The exception was null.";
+            tbMessage.Text = _message;
 
-            InitializePictureBoxImage();
-            InitializeDescriptionLabel(_defaultWidth);
-            InitializeMessage(_defaultWidth);
-            InitializeType(_defaultWidth);
-            InitializeStackTrace(_defaultWidth);
-            InitializeButtons();
-        }
+            string _messageT = _exception?.GetType().ToString() ?? "The exception was null.";
+            tbType.Text = _messageT;
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>Gets or sets the copy button.</summary>
-        [Browsable(false)]
-        public VisualButton CopyButton
-        {
-            get
+            if (_exception != null)
             {
-                return _copyButton;
-            }
-
-            set
-            {
-                _copyButton = value;
+                tbStackTrace.Text = _exception.StackTrace;
             }
         }
 
-        /// <summary>Gets or sets the description label.</summary>
-        [Browsable(false)]
-        public Label DescriptionLabel
+        /// <summary>Initializes a new instance of the <see cref="VisualExceptionDialog" /> class.</summary>
+        public VisualExceptionDialog()
         {
-            get
-            {
-                return _descriptionLabel;
-            }
-
-            set
-            {
-                _descriptionLabel = value;
-            }
-        }
-
-        /// <summary>Gets or sets the dialog image box.</summary>
-        [Browsable(false)]
-        public PictureBox DialogImage
-        {
-            get
-            {
-                return _pictureBoxImage;
-            }
-
-            set
-            {
-                _pictureBoxImage = value;
-            }
-        }
-
-        /// <summary>Gets or sets the message label.</summary>
-        [Browsable(false)]
-        public Label MessageLabel
-        {
-            get
-            {
-                return _messageLabel;
-            }
-
-            set
-            {
-                _messageLabel = value;
-            }
-        }
-
-        /// <summary>Gets or sets the message box.</summary>
-        [Browsable(false)]
-        public TextBox MessageTextBox
-        {
-            get
-            {
-                return _messageTextBox;
-            }
-
-            set
-            {
-                _messageTextBox = value;
-            }
-        }
-
-        /// <summary>Gets or sets the ok button.</summary>
-        [Browsable(false)]
-        public VisualButton OkButton
-        {
-            get
-            {
-                return _okButton;
-            }
-
-            set
-            {
-                _okButton = value;
-            }
-        }
-
-        /// <summary>Gets or sets the save button.</summary>
-        [Browsable(false)]
-        public VisualButton SaveButton
-        {
-            get
-            {
-                return _saveButton;
-            }
-
-            set
-            {
-                _saveButton = value;
-            }
-        }
-
-        /// <summary>Gets or sets the stack label.</summary>
-        [Browsable(false)]
-        public Label StackLabel
-        {
-            get
-            {
-                return _stackLabel;
-            }
-
-            set
-            {
-                _stackLabel = value;
-            }
-        }
-
-        /// <summary>Gets or sets the stack box.</summary>
-        [Browsable(false)]
-        public TextBox StackTextBox
-        {
-            get
-            {
-                return _stackTextBox;
-            }
-
-            set
-            {
-                _stackTextBox = value;
-            }
-        }
-
-        /// <summary>Gets or sets the type label.</summary>
-        [Browsable(false)]
-        public Label TypeLabel
-        {
-            get
-            {
-                return _typeLabel;
-            }
-
-            set
-            {
-                _typeLabel = value;
-            }
-        }
-
-        /// <summary>Gets or sets the type box.</summary>
-        [Browsable(false)]
-        public TextBox TypeTextBox
-        {
-            get
-            {
-                return _typeTextBox;
-            }
-
-            set
-            {
-                _typeTextBox = value;
-            }
+            InitializeComponent();
+            dialogImage.Image = SystemIcons.Error.ToBitmap();
         }
 
         #endregion
@@ -304,188 +120,10 @@ namespace VisualPlus.Toolkit.Dialogs
             CopyLogToClipboard();
         }
 
-        /// <summary>Initializes the ok button.</summary>
-        private void InitializeButtons()
-        {
-            var _buttonSpacing = 7;
-            Size _buttonSize = new Size(75, 23);
-
-            _okButton = new VisualButton
-                {
-                    BackColor = SystemColors.Control,
-                    Text = @"OK",
-                    Size = _buttonSize,
-                    Location = new Point(_stackTextBox.Right - _buttonSize.Width, _stackTextBox.Bottom + 10),
-                    TabIndex = 0,
-                    Border =
-                            {
-                               Type = ShapeTypes.Rectangle 
-                            }
-                };
-
-            _okButton.Click += OkButton_Click;
-
-            Controls.Add(_okButton);
-
-            _saveButton = new VisualButton
-                {
-                    BackColor = SystemColors.Control,
-                    Text = @"Save",
-                    Size = _buttonSize,
-                    Location = new Point(_okButton.Left - _buttonSpacing - _buttonSize.Width, _stackTextBox.Bottom + 10),
-                    TabIndex = 1,
-                    Border =
-                            {
-                               Type = ShapeTypes.Rectangle 
-                            }
-                };
-
-            _saveButton.Click += SaveButton_Click;
-
-            Controls.Add(_saveButton);
-
-            _copyButton = new VisualButton
-                {
-                    BackColor = SystemColors.Control,
-                    Text = @"Copy",
-                    Size = _buttonSize,
-                    Location = new Point(_saveButton.Left - _buttonSpacing - _buttonSize.Width, _stackTextBox.Bottom + 10),
-                    TabIndex = 2,
-                    Border =
-                            {
-                               Type = ShapeTypes.Rectangle 
-                            }
-                };
-
-            _copyButton.Click += CopyButton_Click;
-
-            Controls.Add(_copyButton);
-        }
-
-        /// <summary>Initializes the description label.</summary>
-        /// <param name="width">The width.</param>
-        private void InitializeDescriptionLabel(int width)
-        {
-            _descriptionLabel = new Label
-                {
-                    Text = @"An unhandled exception has occurred in a component in your application.",
-                    Location = new Point(_pictureBoxImage.Right + _imageSpacing, Padding.Top + BodyContainer.Y),
-                    Size = new Size(width, _textHeight),
-                    BorderStyle = BorderStyle.None,
-                    BackColor = Background
-                };
-
-            Controls.Add(_descriptionLabel);
-        }
-
-        /// <summary>Initializes the text box message.</summary>
-        /// <param name="width">The width.</param>
-        private void InitializeMessage(int width)
-        {
-            _messageLabel = new Label
-                {
-                    Text = @"Message:",
-                    BorderStyle = BorderStyle.None,
-                    Location = new Point(_pictureBoxImage.Right + _imageSpacing, _descriptionLabel.Bottom + 10),
-                    Size = new Size(width, _textHeight),
-                    BackColor = Background
-                };
-
-            Controls.Add(_messageLabel);
-
-            string _message = _exception?.Message ?? "The exception was null.";
-
-            _messageTextBox = new TextBox
-                {
-                    ReadOnly = true,
-                    BackColor = Background,
-                    BorderStyle = BorderStyle.None,
-                    Text = _message,
-                    Location = new Point(_messageLabel.Location.X, _messageLabel.Bottom),
-                    Size = new Size(width, 20)
-                };
-
-            Controls.Add(_messageTextBox);
-        }
-
-        /// <summary>Initializes the picture box image.</summary>
-        private void InitializePictureBoxImage()
-        {
-            _pictureBoxImage = new PictureBox
-                {
-                    Image = SystemIcons.Error.ToBitmap(),
-                    Location = new Point(Padding.Left + BodyContainer.X, Padding.Top + BodyContainer.Y),
-                    Size = new Size(32, 32),
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    BackColor = Background
-                };
-
-            Controls.Add(_pictureBoxImage);
-        }
-
-        /// <summary>Initializes the text box stack trace.</summary>
-        /// <param name="width">The width.</param>
-        private void InitializeStackTrace(int width)
-        {
-            _stackLabel = new Label
-                {
-                    Text = @"Stack Trace:",
-                    Location = new Point(_typeTextBox.Location.X, _typeTextBox.Bottom + 10),
-                    Size = new Size(width, _textHeight),
-                    BorderStyle = BorderStyle.None,
-                    BackColor = Background
-                };
-
-            Controls.Add(_stackLabel);
-
-            _stackTextBox = new TextBox
-                {
-                    BackColor = Background,
-                    Text = _exception.StackTrace,
-                    ReadOnly = true,
-                    Multiline = true,
-                    Location = new Point(_stackLabel.Location.X, _stackLabel.Bottom),
-                    Size = new Size(width, 200),
-                    ScrollBars = ScrollBars.Both
-                };
-
-            Controls.Add(_stackTextBox);
-        }
-
-        /// <summary>Initializes the type message.</summary>
-        /// <param name="width">The width.</param>
-        private void InitializeType(int width)
-        {
-            _typeLabel = new Label
-                {
-                    Text = @"Type:",
-                    Location = new Point(_pictureBoxImage.Right + _imageSpacing, _messageTextBox.Bottom + 10),
-                    Size = new Size(width, _textHeight),
-                    BorderStyle = BorderStyle.None,
-                    BackColor = Background
-                };
-
-            Controls.Add(_typeLabel);
-
-            string _message = _exception?.GetType().ToString() ?? "The exception was null.";
-
-            _typeTextBox = new TextBox
-                {
-                    ReadOnly = true,
-                    BackColor = Background,
-                    BorderStyle = BorderStyle.None,
-                    Text = _message,
-                    Location = new Point(_pictureBoxImage.Right + _imageSpacing, _typeLabel.Bottom),
-                    Size = new Size(width, 20)
-                };
-
-            Controls.Add(_typeTextBox);
-        }
-
         /// <summary>The OK button is clicked.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event.</param>
-        private void OkButton_Click(object sender, EventArgs e)
+        private void OKButton_Click(object sender, EventArgs e)
         {
             Close();
         }

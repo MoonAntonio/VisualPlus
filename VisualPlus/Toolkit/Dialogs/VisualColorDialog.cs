@@ -69,6 +69,11 @@ namespace VisualPlus.Toolkit.Dialogs
             DialogResult = DialogResult.OK;
         }
 
+        private void ColorPicker_ColorChanged(object sender, EventArgs e)
+        {
+            UpdateColorDialog(colorPicker.Color);
+        }
+
         /// <summary>Occurs when the numeric up/down for ARGB had a value changed.</summary>
         /// <param name="e">The event args.</param>
         private void NumericUpDownARGB_ValueChanged(ValueChangedEventArgs e)
@@ -94,10 +99,5 @@ namespace VisualPlus.Toolkit.Dialogs
         }
 
         #endregion
-
-        private void ColorPicker_ColorChanged(object sender, EventArgs e)
-        {
-            UpdateColorDialog(colorPicker.Color);
-        }
     }
 }

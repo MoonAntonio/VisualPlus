@@ -57,7 +57,6 @@ namespace VisualPlus.Toolkit.Components
         private ToolTipType _toolTipType;
         private int _xWidth;
         private int _yHeight;
-        private StyleManager styleManager;
 
         #endregion
 
@@ -66,7 +65,7 @@ namespace VisualPlus.Toolkit.Components
         /// <summary>Initializes a new instance of the <see cref="VisualToolTip" /> class.</summary>
         public VisualToolTip()
         {
-            styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
             _iconPoint = new Point(0, 0);
             _iconSize = new Size(24, 24);
             _padding = new Padding(4, 4, 4, 4);

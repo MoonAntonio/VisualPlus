@@ -157,6 +157,18 @@
     <Compile Include="Toolkit\Components\ComponentViewer.Designer.cs">
       <DependentUpon>ComponentViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Toolkit\Dialogs\VisualExceptionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Dialogs\VisualExceptionDialog.Designer.cs">
+      <DependentUpon>VisualExceptionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Toolkit\Dialogs\VisualInputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Dialogs\VisualInputDialog.Designer.cs">
+      <DependentUpon>VisualInputDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Toolkit\VisualBase\TextBoxExtended.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -203,9 +215,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Enumerators\ControlBoxButtons.cs" />
-    <Compile Include="Toolkit\Dialogs\VisualInputDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Toolkit\Dialogs\VisualMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,9 +260,6 @@
     <Compile Include="Toolkit\Controls\Interactivity\VisualControlBox.cs" />
     <Compile Include="UITypeEditors\ColorEditor.cs" />
     <Compile Include="UITypeEditors\ThemesEditor.cs" />
-    <Compile Include="Toolkit\Dialogs\VisualExceptionDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Toolkit\Components\Expander.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -379,6 +385,12 @@
     <Compile Include="TypeConverters\ThemeTypeConverter.cs" />
     <EmbeddedResource Include="Toolkit\Dialogs\VisualColorDialog.resx">
       <DependentUpon>VisualColorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Toolkit\Dialogs\VisualExceptionDialog.resx">
+      <DependentUpon>VisualExceptionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Toolkit\Dialogs\VisualInputDialog.resx">
+      <DependentUpon>VisualInputDialog.cs</DependentUpon>
     </EmbeddedResource>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>

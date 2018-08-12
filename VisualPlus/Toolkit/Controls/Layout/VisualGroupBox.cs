@@ -304,12 +304,6 @@ namespace VisualPlus.Toolkit.Controls.Layout
             }
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
-        }
-
         #endregion
 
         #region Methods

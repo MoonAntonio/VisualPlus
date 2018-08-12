@@ -272,8 +272,6 @@ namespace VisualPlus.Toolkit.Controls.Layout
         {
             try
             {
-                e.Graphics.Clear(BackColor);
-
                 Color backColor = ControlColorState.BackColorState(backColorState, Enabled, MouseState);
 
                 VisualBackgroundRenderer.RenderBackground(e.Graphics, backColor, BackgroundImage, backgroundLayout, ClientRectangle);

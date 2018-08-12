@@ -104,7 +104,7 @@ namespace UnitTests.Forms
 
                 case UnitTests.VisualInputDialog:
                     {
-                        VisualInputDialog inputDialog = new VisualInputDialog($@"{nameof(VisualInputDialog)} Test");
+                        VisualInputDialog inputDialog = new VisualInputDialog(@"Input Dialog Test");
 
                         if (inputDialog.ShowDialog() == DialogResult.OK)
                         {

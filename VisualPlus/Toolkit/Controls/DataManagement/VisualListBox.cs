@@ -651,12 +651,6 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             e.Graphics.ResetClip();
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(Parent.BackColor);
-        }
-
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);

@@ -293,12 +293,11 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             try
             {
                 Graphics _graphics = e.Graphics;
-                _graphics.Clear(Parent.BackColor);
+
                 _graphics.SmoothingMode = SmoothingMode.HighQuality;
                 _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
                 Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
                 ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-                _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
                 Color _backColor = ControlColorState.BackColorState(BackColorState, Enabled, MouseState);
 
@@ -323,12 +322,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             {
                 ConsoleEx.WriteDebug(exception);
             }
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
         }
 
         #endregion

@@ -850,9 +850,6 @@ namespace VisualPlus.Toolkit.Controls.Layout
 
             try
             {
-                e.Graphics.Clear(BackColor);
-                e.Graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
-
                 Rectangle _rectangle;
                 if (_border.Type == ShapeTypes.Rounded)
                 {
@@ -880,12 +877,6 @@ namespace VisualPlus.Toolkit.Controls.Layout
             {
                 ConsoleEx.WriteDebug(exception);
             }
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
         }
 
         protected override void OnSizeChanged(EventArgs e)

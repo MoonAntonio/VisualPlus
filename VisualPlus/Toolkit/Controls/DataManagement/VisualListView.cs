@@ -118,7 +118,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         /// <summary>Initializes a new instance of the <see cref="VisualListView" /> class.</summary>
         public VisualListView()
         {
-internalPadding = 2;
+            internalPadding = 2;
             _columnColorState = new ControlColorState();
             _liveControls = new ArrayList();
             _allowColumnResize = true;
@@ -493,7 +493,7 @@ internalPadding = 2;
 
                 if (DesignMode && (Parent != null))
                 {
-                     Parent.Invalidate(true);
+                    Parent.Invalidate(true);
                 }
             }
         }
@@ -830,7 +830,7 @@ internalPadding = 2;
 
                 if (DesignMode && (Parent != null))
                 {
-                     Parent.Invalidate(true);
+                    Parent.Invalidate(true);
                 }
             }
         }
@@ -1327,7 +1327,6 @@ internalPadding = 2;
                         {
                             Invalidate(true);
                         }
-
                     }
                 }
             }
@@ -1587,7 +1586,7 @@ internalPadding = 2;
 
         protected override void OnDoubleClick(EventArgs e)
         {
-           Point _pointerLocation = PointToClient(Cursor.Position);
+            Point _pointerLocation = PointToClient(Cursor.Position);
 
             int _item;
             int _columnIndexer;
@@ -1819,7 +1818,7 @@ internalPadding = 2;
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-             try
+            try
             {
                 if (_state == ListStates.ColumnResizing)
                 {
@@ -2186,7 +2185,7 @@ internalPadding = 2;
         /// <param name="column">The column.</param>
         public virtual void SortColumn(int column)
         {
-           if (Count < 2)
+            if (Count < 2)
             {
                 // nothing to sort
                 return;
@@ -2282,7 +2281,7 @@ internalPadding = 2;
 
             ColumnChangedEvent?.Invoke(this, e);
 
-          Invalidate();
+            Invalidate();
         }
 
         /// <summary>Tell paint to start worrying about updates again and repaint while your at it.</summary>
@@ -2582,7 +2581,7 @@ internalPadding = 2;
         /// <returns>The <see cref="bool" />.</returns>
         private bool AreThemesAvailable()
         {
- // IntPtr hTheme = IntPtr.Zero;
+            // IntPtr hTheme = IntPtr.Zero;
             try
             {
                 if ((Uxtheme.IsThemeActive() == 1) && (_theme == IntPtr.Zero))
@@ -2690,9 +2689,8 @@ internalPadding = 2;
         /// <param name="e">The event args.</param>
         private void HorizontalPanelScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
-           
             // this.Focus();
-             Invalidate();
+            Invalidate();
         }
 
         /// <summary>Timer handler. This mostly deals with the hover technology with events firing.</summary>
@@ -2800,7 +2798,6 @@ internalPadding = 2;
                     _bSbChanged = true;
 
                     Invalidate();
-
                 }
 
                 if ((_columns.Width <= RowsInnerClientRect.Width) && _horizontalScrollBar.Visible)
@@ -2810,9 +2807,8 @@ internalPadding = 2;
                     _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
 
-                   Invalidate();
-
-                 }
+                    Invalidate();
+                }
 
                 if ((TotalRowsHeight > RowsInnerClientRect.Height) && (_verticalScrollBar.Visible == false))
                 {
@@ -2821,9 +2817,8 @@ internalPadding = 2;
                     _horizontalScrollBar.Value = 0;
                     _bSbChanged = true;
 
-                  Invalidate();
-
-               }
+                    Invalidate();
+                }
 
                 if ((TotalRowsHeight <= RowsInnerClientRect.Height) && _verticalScrollBar.Visible)
                 {
@@ -2833,10 +2828,9 @@ internalPadding = 2;
                     _bSbChanged = true;
 
                     Invalidate();
+                }
 
-                 }
-
-               if (++_exitCode > 4)
+                if (++_exitCode > 4)
                 {
                     break;
                 }

@@ -462,7 +462,6 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics _graphics = e.Graphics;
-            _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.CompositingMode = CompositingMode.SourceOver;
             _graphics.CompositingQuality = CompositingQuality.Default;

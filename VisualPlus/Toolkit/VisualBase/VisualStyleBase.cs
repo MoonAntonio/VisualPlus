@@ -187,7 +187,7 @@ namespace VisualPlus.Toolkit.VisualBase
             _mouseState = MouseStates.Normal;
             _themeManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
-            Theme theme = new Theme(Themes.Visual);
+            Theme theme = new Theme(Settings.DefaultValue.DefaultStyle);
 
             ControlColorState controlState = new ControlColorState
                 {

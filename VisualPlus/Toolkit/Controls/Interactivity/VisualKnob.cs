@@ -73,8 +73,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualKnob" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualKnob" /> class.</summary>
         public VisualKnob()
         {
             SetStyle(
@@ -849,7 +848,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
-            // Empty To avoid Flickring due do background Drawing.
+            // Empty To avoid flickering due do background Drawing.
         }
 
         #endregion

@@ -959,12 +959,6 @@ namespace VisualPlus.Toolkit.Controls.Editors
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
-        }
-
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);

@@ -13,11 +13,6 @@ namespace VisualPlus.TypeConverters
     {
         #region Overrides
 
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
-        {
-            return false;
-        }
-
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             object result = null;
@@ -34,6 +29,11 @@ namespace VisualPlus.TypeConverters
             }
 
             return result ?? base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        {
+            return false;
         }
 
         #endregion

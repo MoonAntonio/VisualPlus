@@ -677,7 +677,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics _graphics = e.Graphics;
-            _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = _textRendererHint;
 
@@ -702,12 +701,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
             DrawWatermark(_graphics, _textBoxRectangle);
             VisualBorderRenderer.DrawBorderStyle(_graphics, _border, _controlGraphicsPath, _mouseState);
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
         }
 
         protected override void OnSelectionChangeCommitted(EventArgs e)

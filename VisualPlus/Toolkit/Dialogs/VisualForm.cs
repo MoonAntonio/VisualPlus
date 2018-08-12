@@ -47,7 +47,6 @@ namespace VisualPlus.Toolkit.Dialogs
 
         private readonly Cursor[] _resizeCursors;
         private readonly Dictionary<int, int> _resizedLocationsCommand;
-        private Color _background;
         private Border _border;
         private ContextMenuStrip _contextMenuStrip;
         private bool _defaultContextTitle;
@@ -162,10 +161,6 @@ namespace VisualPlus.Toolkit.Dialogs
         #endregion
 
         #region Events
-
-        [Category(EventCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        public event BackgroundChangedEventHandler BackgroundChanged;
 
         [Category(EventCategory.PropertyChanged)]
         [Description(EventDescription.PropertyEventChanged)]
@@ -301,28 +296,6 @@ namespace VisualPlus.Toolkit.Dialogs
         #endregion
 
         #region Properties
-
-        [Category(PropertyCategory.Appearance)]
-        [Description(PropertyDescription.Color)]
-        public Color Background
-        {
-            get
-            {
-                return _background;
-            }
-
-            set
-            {
-                if (_background == value)
-                {
-                    return;
-                }
-
-                _background = value;
-                Invalidate();
-                BackgroundChanged?.Invoke(new ColorEventArgs(_background));
-            }
-        }
 
         /// <summary>Retrieves the <see cref="VisualForm" /> full body.</summary>
         [Browsable(false)]
@@ -924,7 +897,6 @@ namespace VisualPlus.Toolkit.Dialogs
                 UpdateContextMenuStripTitle();
 
                 Graphics graphics = e.Graphics;
-                graphics.Clear(BackColor);
 
                 GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(GetBorderBounds(), _border);
 
@@ -932,8 +904,6 @@ namespace VisualPlus.Toolkit.Dialogs
                 {
                     graphics.SetClip(_clientPath);
                 }
-
-                graphics.FillRectangle(new SolidBrush(_background), new Rectangle(0, 0, Width, Height));
 
                 if (BackgroundImage != null)
                 {
@@ -1162,7 +1132,7 @@ namespace VisualPlus.Toolkit.Dialogs
             {
                 _styleManager = new StyleManager(theme);
 
-                _background = theme.ColorPalette.FormBackground;
+                BackColor = theme.ColorPalette.FormBackground;
                 _border.Color = theme.ColorPalette.BorderNormal;
                 _border.HoverColor = theme.ColorPalette.BorderHover;
                 ForeColor = theme.ColorPalette.TextEnabled;

@@ -338,12 +338,6 @@ namespace VisualPlus.Toolkit.Controls.Editors
             e.Graphics.ResetClip();
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
-        }
-
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);

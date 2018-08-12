@@ -480,7 +480,6 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 e.Graphics.SetClip(controlGraphicsPath);
                 VisualBackgroundRenderer.DrawBackground(e.Graphics, backColorState, BackgroundImage, MouseState, _clientRectangle, _border);
                 VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, controlGraphicsPath, _mouseState);
-
                 Rectangle arrowRectangle = new Rectangle(Width - _arrowSize.Width - 5, (Height / 2) - (_arrowSize.Height / 2), _arrowSize.Width, _arrowSize.Height);
 
                 if (_image != null)
@@ -523,12 +522,6 @@ namespace VisualPlus.Toolkit.Controls.Editors
             {
                 Invalidate();
             }
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
         }
 
         protected override void OnValueChanged(EventArgs e)

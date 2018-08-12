@@ -141,6 +141,7 @@ namespace VisualPlus.Toolkit.Components
             if (component is IThemeSupport supportedControl)
             {
                 supportedControl.UpdateTheme(theme);
+                component.BackColor = BackColor;
             }
         }
 

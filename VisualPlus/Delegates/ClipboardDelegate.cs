@@ -1,4 +1,8 @@
-﻿using VisualPlus.Events;
+﻿#region Namespace
+
+using VisualPlus.Events;
+
+#endregion
 
 namespace VisualPlus.Delegates
 {

@@ -319,7 +319,6 @@ namespace VisualPlus.Toolkit.VisualBase
             Color _backColor = ControlColorState.BackColorState(BoxColorState, Enabled, MouseState);
 
             Graphics _graphics = e.Graphics;
-            _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
@@ -331,8 +330,6 @@ namespace VisualPlus.Toolkit.VisualBase
 
             e.Graphics.SetClip(_clientPath);
 
-            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
-
             _textSize = TextManager.MeasureText(Text, Font, _graphics);
             Point _textLocation = new Point(_box.Right + _boxSpacing, (ClientRectangle.Height / 2) - (_textSize.Height / 2));
             Color _textColor = Enabled ? ForeColor : TextStyle.Disabled;
@@ -340,12 +337,6 @@ namespace VisualPlus.Toolkit.VisualBase
             VisualToggleRenderer.DrawCheckBox(_graphics, Border, _checkStyle, _box, Checked, Enabled, _backColor, BackgroundImage, MouseState, Text, Font, _textColor, _textLocation);
             DrawAnimation(_graphics);
             e.Graphics.ResetClip();
-        }
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            base.OnPaintBackground(e);
-            e.Graphics.Clear(BackColor);
         }
 
         #endregion

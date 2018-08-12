@@ -19,7 +19,6 @@ using VisualPlus.Events;
 using VisualPlus.Extensibility;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Dialogs;
 using VisualPlus.TypeConverters;
 using VisualPlus.UITypeEditors;
 
@@ -446,11 +445,6 @@ namespace VisualPlus.Toolkit.Components
                                 {
                                     if (control.GetType() == registeredTypes)
                                     {
-                                        if (_formCollection[0] is VisualForm visualForm)
-                                        {
-                                            control.BackColor = visualForm.Background;
-                                        }
-
                                         Theme.InvokeThemeUpdate(control, registeredTypes, _theme);
                                     }
                                     else
