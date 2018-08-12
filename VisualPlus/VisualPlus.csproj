@@ -143,7 +143,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Renders\ListViewRenderer.cs" />
+    <Compile Include="Renders\VisualListViewRenderer.cs" />
     <Compile Include="Renders\VisualBackgroundRenderer.cs" />
     <Compile Include="Renders\VisualBadgeRenderer.cs" />
     <Compile Include="Renders\VisualBorderRenderer.cs" />

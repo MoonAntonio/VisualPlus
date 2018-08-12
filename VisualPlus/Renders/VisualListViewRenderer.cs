@@ -24,7 +24,7 @@ using ContentAlignment = System.Drawing.ContentAlignment;
 
 namespace VisualPlus.Renders
 {
-    public static class ListViewRenderer
+    public static class VisualListViewRenderer
     {
         #region Methods
 
@@ -592,7 +592,7 @@ namespace VisualPlus.Renders
                 }
 
                 Rectangle _subItemRectangle = new Rectangle(_controlRectangle.X, _controlRectangle.Y + 1, _controlRectangle.Width, _controlRectangle.Height - 1);
-
+                
                 // Type _type = _control.GetType();
                 PropertyInfo _propertyInfo = _control.GetType().GetProperty("PreferredHeight");
                 if (_propertyInfo != null)

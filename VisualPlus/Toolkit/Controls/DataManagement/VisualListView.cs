@@ -1922,13 +1922,13 @@ internalPadding = 2;
             if (HeaderVisible)
             {
                 _graphics.SetClip(HeaderRectangle);
-                ListViewRenderer.DrawColumnHeaders(_graphics, new Size(HeaderRectangle.Width, HeaderRectangle.Height), this, _horizontalScrollBar, _theme);
+                VisualListViewRenderer.DrawColumnHeaders(_graphics, new Size(HeaderRectangle.Width, HeaderRectangle.Height), this, _horizontalScrollBar, _theme);
             }
 
             _graphics.SetClip(RowsInnerClientRect);
 
             Color backColorState = ColorState.BackColorState(_colorState, Enabled, MouseState);
-            ListViewRenderer.DrawRows(_graphics, this, backColorState, _verticalScrollBar, _horizontalScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
+            VisualListViewRenderer.DrawRows(_graphics, this, backColorState, _verticalScrollBar, _horizontalScrollBar, _newLiveControls, _liveControls, ListViewConstants.CHECKBOX_SIZE);
 
             // Update embedded controls.
             foreach (Control control in _liveControls)
