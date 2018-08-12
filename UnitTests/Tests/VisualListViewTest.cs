@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 using VisualPlus.Enumerators;
 using VisualPlus.Events;
+using VisualPlus.Structure;
 using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Controls.DataVisualization;
 using VisualPlus.Toolkit.Dialogs;
@@ -140,7 +141,8 @@ namespace UnitTests.Tests
             _selectedIndex.AppendLine($"Row: [{_rowIndex}] - Text: {_rowItem}, - Checked: {_rowChecked}");
             _selectedIndex.AppendLine(Environment.NewLine);
             _selectedIndex.AppendLine($"Cell: Text: {_rowSub}, - Checked: {_cellChecked}");
-            MessageBox.Show(_selectedIndex.ToString(), Application.ProductName);
+
+            ConsoleEx.WriteDebug(_selectedIndex.ToString());
         }
 
         private void VisualListViewTest_Load(object sender, EventArgs e)
