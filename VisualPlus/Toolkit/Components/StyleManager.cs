@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -26,9 +27,13 @@ using VisualPlus.UITypeEditors;
 
 namespace VisualPlus.Toolkit.Components
 {
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("ThemeChanged")]
+    [DefaultProperty("Theme")]
+    [Description("The style manager component enables you to manage the control themes.")]
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(StyleManager), "StyleManager.bmp")]
-    [Description("The style manager component enables you to manage the control themes.")]
     public class StyleManager : Component, ICloneable
     {
         #region Variables
