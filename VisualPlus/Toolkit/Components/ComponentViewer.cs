@@ -168,8 +168,6 @@ namespace VisualPlus.Toolkit.Components
                 component.Text = @"VisualPlus";
             }
 
-            component.BackColor = BackColor;
-
             Controls.Clear();
             Controls.Add(component);
 
