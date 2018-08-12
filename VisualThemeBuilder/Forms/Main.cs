@@ -11,10 +11,9 @@ using System.Windows.Forms;
 using VisualPlus;
 using VisualPlus.Constants;
 using VisualPlus.Events;
-using VisualPlus.Extensibility;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Controls.Editors;
+using VisualPlus.Toolkit.Components;
 using VisualPlus.Toolkit.Dialogs;
 
 #endregion
@@ -27,7 +26,7 @@ namespace VisualThemeBuilder.Forms
         #region Variables
 
         private readonly Theme theme;
-        private Control control;
+        private ComponentViewer componentViewer;
         private bool saved;
 
         #endregion
@@ -39,8 +38,12 @@ namespace VisualThemeBuilder.Forms
         {
             InitializeComponent();
 
-            control = null;
             theme = new Theme(Settings.DefaultValue.DefaultStyle);
+
+            componentViewer = new ComponentViewer(GetSelectedControlPreview(), theme)
+                {
+                    Dock = DockStyle.Fill
+                };
 
             foreach (Type controlType in ControlManager.ControlsSupported())
             {
@@ -56,6 +59,8 @@ namespace VisualThemeBuilder.Forms
             tbAuthor.Text = "Unknown";
 
             saved = true;
+
+            componentPanel.Controls.Add(componentViewer);
 
             UpdateSelection();
         }
@@ -84,27 +89,8 @@ namespace VisualThemeBuilder.Forms
         /// <param name="e">The event args.</param>
         private void CbControls_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Type controlType = Type.GetType(string.Concat(GetSelectedControlPreview(), ", ", "VisualPlus"));
-
-            control = (Control)Activator.CreateInstance(controlType);
-
-            if (control is VisualDateTimePicker)
-            {
-                // Do nothing.
-            }
-            else
-            {
-                control.Text = @"VisualPlus";
-            }
-
-            control.BackColor = gpPreviewControl.BackColorState.Enabled;
-
-            gpPreviewControl.Controls.Clear();
-            gpPreviewControl.Controls.Add(control);
-
-            control.ToCenter();
-
-            UpdateControlTheme();
+            string componentNamespace = GetSelectedControlPreview();
+            componentViewer.UpdateComponent(componentNamespace);
         }
 
         /// <summary>Occurs when the exit button has been clicked.</summary>
@@ -155,17 +141,6 @@ namespace VisualThemeBuilder.Forms
         /// <param name="e">The event args.</param>
         private void Main_Load(object sender, EventArgs e)
         {
-        }
-
-        /// <summary>Occurs when the form resizes.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void Main_Resize(object sender, EventArgs e)
-        {
-            if (control != null)
-            {
-                control.ToCenter();
-            }
         }
 
         /// <summary>Create new theme.</summary>
@@ -354,15 +329,6 @@ namespace VisualThemeBuilder.Forms
             UpdateThemeContents();
         }
 
-        /// <summary>Updates the control theme.</summary>
-        private void UpdateControlTheme()
-        {
-            if (control is IThemeSupport themeSupportedControl)
-            {
-                themeSupportedControl.UpdateTheme(theme);
-            }
-        }
-
         /// <summary>Update the color information based on the selection in the properties dialog.</summary>
         private void UpdateSelection()
         {
@@ -378,7 +344,7 @@ namespace VisualThemeBuilder.Forms
                 }
             }
 
-            UpdateControlTheme();
+            componentViewer.UpdateTheme(theme);
         }
 
         /// <summary>Update the theme contents.</summary>

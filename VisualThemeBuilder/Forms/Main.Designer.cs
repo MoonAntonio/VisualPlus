@@ -56,7 +56,7 @@
             this.visualLabel3 = new VisualPlus.Toolkit.Controls.Interactivity.VisualLabel();
             this.cbControls = new VisualPlus.Toolkit.Controls.Interactivity.VisualComboBox();
             this.visualTabPage2 = new VisualPlus.Toolkit.Child.VisualTabPage();
-            this.gpPreviewControl = new VisualPlus.Toolkit.Controls.Layout.VisualGroupBox();
+            this.componentPanel = new VisualPlus.Toolkit.Controls.Layout.VisualPanel();
             this.mainMenuStrip.SuspendLayout();
             this.gpColorPalette.SuspendLayout();
             this.tabController.SuspendLayout();
@@ -591,7 +591,7 @@
             this.visualTabPage1.Border.Thickness = 1;
             this.visualTabPage1.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rectangle;
             this.visualTabPage1.Border.Visible = false;
-            this.visualTabPage1.Controls.Add(this.gpPreviewControl);
+            this.visualTabPage1.Controls.Add(this.componentPanel);
             this.visualTabPage1.Controls.Add(this.visualLabel3);
             this.visualTabPage1.Controls.Add(this.cbControls);
             this.visualTabPage1.Controls.Add(this.tbPath);
@@ -728,43 +728,35 @@
             this.visualTabPage2.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.visualTabPage2.TextSelected = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(220)))), ((int)(((byte)(227)))));
             // 
-            // gpPreviewControl
+            // visualPanel1
             // 
-            this.gpPreviewControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.componentPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gpPreviewControl.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.gpPreviewControl.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.gpPreviewControl.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.gpPreviewControl.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
-            this.gpPreviewControl.Border.HoverVisible = true;
-            this.gpPreviewControl.Border.Rounding = 6;
-            this.gpPreviewControl.Border.Thickness = 1;
-            this.gpPreviewControl.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
-            this.gpPreviewControl.Border.Visible = true;
-            this.gpPreviewControl.BoxStyle = VisualPlus.Toolkit.Controls.Layout.VisualGroupBox.GroupBoxStyle.Default;
-            this.gpPreviewControl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.gpPreviewControl.Image = null;
-            this.gpPreviewControl.Location = new System.Drawing.Point(4, 130);
-            this.gpPreviewControl.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
-            this.gpPreviewControl.Name = "gpPreviewControl";
-            this.gpPreviewControl.Padding = new System.Windows.Forms.Padding(5, 26, 5, 5);
-            this.gpPreviewControl.Separator = true;
-            this.gpPreviewControl.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.gpPreviewControl.Size = new System.Drawing.Size(420, 261);
-            this.gpPreviewControl.TabIndex = 14;
-            this.gpPreviewControl.Text = "Control Preview";
-            this.gpPreviewControl.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.gpPreviewControl.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.gpPreviewControl.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            this.gpPreviewControl.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
-            this.gpPreviewControl.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.gpPreviewControl.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.gpPreviewControl.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.gpPreviewControl.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.gpPreviewControl.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
-            this.gpPreviewControl.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.gpPreviewControl.TitleBoxHeight = 25;
+            this.componentPanel.BackColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.componentPanel.BackColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.componentPanel.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.componentPanel.Border.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(183)))), ((int)(((byte)(230)))));
+            this.componentPanel.Border.HoverVisible = true;
+            this.componentPanel.Border.Rounding = 6;
+            this.componentPanel.Border.Thickness = 1;
+            this.componentPanel.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
+            this.componentPanel.Border.Visible = true;
+            this.componentPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.componentPanel.Location = new System.Drawing.Point(4, 130);
+            this.componentPanel.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
+            this.componentPanel.Name = "componentPanel";
+            this.componentPanel.Padding = new System.Windows.Forms.Padding(5);
+            this.componentPanel.Size = new System.Drawing.Size(420, 261);
+            this.componentPanel.TabIndex = 13;
+            this.componentPanel.Text = "visualPanel1";
+            this.componentPanel.TextStyle.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(131)))), ((int)(((byte)(129)))), ((int)(((byte)(129)))));
+            this.componentPanel.TextStyle.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.componentPanel.TextStyle.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.componentPanel.TextStyle.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.componentPanel.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.componentPanel.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
+            this.componentPanel.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             // 
             // Main
             // 
@@ -901,7 +893,6 @@
             this.Text = "Visual Theme Builder";
             this.HelpButtonClicked += new VisualPlus.Delegates.ControlBoxEventHandler(this.Main_HelpButtonClicked);
             this.Load += new System.EventHandler(this.Main_Load);
-            this.Resize += new System.EventHandler(this.Main_Resize);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.gpColorPalette.ResumeLayout(false);
@@ -941,7 +932,7 @@
         private VisualPlus.Toolkit.Child.VisualTabPage visualTabPage2;
         private VisualPlus.Toolkit.Controls.Interactivity.VisualLabel visualLabel3;
         private VisualPlus.Toolkit.Controls.Interactivity.VisualComboBox cbControls;
-        private VisualPlus.Toolkit.Controls.Layout.VisualGroupBox gpPreviewControl;
+        private VisualPlus.Toolkit.Controls.Layout.VisualPanel componentPanel;
     }
 }
 

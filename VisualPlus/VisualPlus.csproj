@@ -151,6 +151,12 @@
     <Compile Include="Renders\VisualScrollBarRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
+    <Compile Include="Toolkit\Components\ComponentViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Components\ComponentViewer.Designer.cs">
+      <DependentUpon>ComponentViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Toolkit\VisualBase\TextBoxExtended.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -322,6 +328,9 @@
     <Compile Include="Managers\ControlManager.cs" />
     <Compile Include="Structure\CheckStyle.cs" />
     <Compile Include="TypeConverters\VisualColorConverter.cs" />
+    <EmbeddedResource Include="Toolkit\Components\ComponentViewer.resx">
+      <DependentUpon>ComponentViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Toolkit\Components\VisualDrag.cs">
       <SubType>Component</SubType>
     </EmbeddedResource>
