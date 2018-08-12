@@ -141,7 +141,6 @@
             this.btnOK.TextStyle.TextAlignment = System.Drawing.StringAlignment.Center;
             this.btnOK.TextStyle.TextLineAlignment = System.Drawing.StringAlignment.Center;
             this.btnOK.TextStyle.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            this.btnOK.Click += new System.EventHandler(this.OKButton_Click);
             // 
             // dialogImage
             // 

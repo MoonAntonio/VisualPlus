@@ -120,14 +120,6 @@ namespace VisualPlus.Toolkit.Dialogs
             CopyLogToClipboard();
         }
 
-        /// <summary>The OK button is clicked.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event.</param>
-        private void OKButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         /// <summary>The Copy button is clicked.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event.</param>
