@@ -65,6 +65,7 @@ namespace UnitTests.Tests
             this.btnTest.Border.Thickness = 1;
             this.btnTest.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.btnTest.Border.Visible = true;
+            this.btnTest.DialogResult = System.Windows.Forms.DialogResult.None;
             this.btnTest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnTest.Image = null;
             this.btnTest.Location = new System.Drawing.Point(190, 297);
@@ -110,6 +111,7 @@ namespace UnitTests.Tests
             this.tbTitle.ButtonText = "visualButton";
             this.tbTitle.ButtonVisible = false;
             this.tbTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbTitle.Image = null;
             this.tbTitle.ImageSize = new System.Drawing.Size(16, 16);
             this.tbTitle.ImageVisible = false;
             this.tbTitle.ImageWidth = 35;
@@ -223,6 +225,7 @@ namespace UnitTests.Tests
             this.tbMessage.ButtonText = "visualButton";
             this.tbMessage.ButtonVisible = false;
             this.tbMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tbMessage.Image = null;
             this.tbMessage.ImageSize = new System.Drawing.Size(16, 16);
             this.tbMessage.ImageVisible = false;
             this.tbMessage.ImageWidth = 35;
@@ -471,6 +474,7 @@ namespace UnitTests.Tests
             this.btnLoad.Border.Thickness = 1;
             this.btnLoad.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.btnLoad.Border.Visible = true;
+            this.btnLoad.DialogResult = System.Windows.Forms.DialogResult.None;
             this.btnLoad.Enabled = false;
             this.btnLoad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnLoad.Image = null;
@@ -664,6 +668,7 @@ namespace UnitTests.Tests
             this.btnGenerate.Border.Thickness = 1;
             this.btnGenerate.Border.Type = VisualPlus.Enumerators.ShapeTypes.Rounded;
             this.btnGenerate.Border.Visible = true;
+            this.btnGenerate.DialogResult = System.Windows.Forms.DialogResult.None;
             this.btnGenerate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnGenerate.Image = null;
             this.btnGenerate.Location = new System.Drawing.Point(8, 112);
@@ -706,7 +711,7 @@ namespace UnitTests.Tests
             this.ControlBox.HelpButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
             this.ControlBox.HelpButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
             this.ControlBox.HelpButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.ControlBox.HelpButton.BoxType = ControlBoxButton.ControlBoxType.Default;
+            this.ControlBox.HelpButton.BoxType = VisualPlus.Toolkit.VisualBase.ControlBoxButton.ControlBoxType.Default;
             this.ControlBox.HelpButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.ControlBox.HelpButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.ControlBox.HelpButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -735,7 +740,7 @@ namespace UnitTests.Tests
             this.ControlBox.MaximizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
             this.ControlBox.MaximizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
             this.ControlBox.MaximizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.ControlBox.MaximizeButton.BoxType = ControlBoxButton.ControlBoxType.Default;
+            this.ControlBox.MaximizeButton.BoxType = VisualPlus.Toolkit.VisualBase.ControlBoxButton.ControlBoxType.Default;
             this.ControlBox.MaximizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.ControlBox.MaximizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.ControlBox.MaximizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -763,7 +768,7 @@ namespace UnitTests.Tests
             this.ControlBox.MinimizeButton.BackColorState.Enabled = System.Drawing.Color.Transparent;
             this.ControlBox.MinimizeButton.BackColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(186)))), ((int)(((byte)(186)))));
             this.ControlBox.MinimizeButton.BackColorState.Pressed = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.ControlBox.MinimizeButton.BoxType = ControlBoxButton.ControlBoxType.Default;
+            this.ControlBox.MinimizeButton.BoxType = VisualPlus.Toolkit.VisualBase.ControlBoxButton.ControlBoxType.Default;
             this.ControlBox.MinimizeButton.ForeColorState.Disabled = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.ControlBox.MinimizeButton.ForeColorState.Enabled = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.ControlBox.MinimizeButton.ForeColorState.Hover = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));

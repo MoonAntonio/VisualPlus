@@ -21,8 +21,14 @@ namespace UnitTests.Tests
             InitializeComponent();
 
             cbButtons.DataSource = Enum.GetValues(typeof(MessageBoxButtons));
-            cbIcons.DataSource = Enum.GetValues(typeof(MessageBoxIcon));
             cbType.DataSource = Enum.GetValues(typeof(MessageBoxType));
+
+            cbIcons.Items.Add("None");
+            cbIcons.Items.Add("Error");
+            cbIcons.Items.Add("Information");
+            cbIcons.Items.Add("Question");
+            cbIcons.Items.Add("Warning");
+            cbIcons.SelectedIndex = 0;
 
             tbTitle.Text = Application.ProductName;
             tbMessage.Text = "Hello world.";
@@ -78,7 +84,10 @@ namespace UnitTests.Tests
         private void BtnTest_Click(object sender, EventArgs e)
         {
             MessageBoxButtons messageBoxButtons = (MessageBoxButtons)cbButtons.SelectedValue;
-            MessageBoxIcon messageBoxIcons = (MessageBoxIcon)cbIcons.SelectedValue;
+
+            object boxIconObject = Enum.Parse(typeof(MessageBoxIcon), cbIcons.Text);
+            MessageBoxIcon messageBoxIcons = (MessageBoxIcon)boxIconObject;
+
             MessageBoxType messageBoxType = (MessageBoxType)cbType.SelectedValue;
 
             DialogResult result;
@@ -118,12 +127,12 @@ namespace UnitTests.Tests
         {
             if (e.State)
             {
-                cbButtons.Enabled = false;
+                cbIcons.Enabled = false;
                 btnLoad.Enabled = true;
             }
             else
             {
-                cbButtons.Enabled = true;
+                cbIcons.Enabled = true;
                 btnLoad.Enabled = false;
             }
         }

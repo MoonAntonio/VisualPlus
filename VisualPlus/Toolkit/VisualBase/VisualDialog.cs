@@ -25,6 +25,7 @@ namespace VisualPlus.Toolkit.VisualBase
         /// <summary>Initializes a new instance of the <see cref="VisualDialog" /> class.</summary>
         public VisualDialog()
         {
+            BackColor = Color.White;
             ButtonSize = new Size(75, 23);
             HelpButton = false;
             MinimizeBox = false;

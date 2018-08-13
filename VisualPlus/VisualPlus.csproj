@@ -169,6 +169,12 @@
     <Compile Include="Toolkit\Dialogs\VisualInputDialog.Designer.cs">
       <DependentUpon>VisualInputDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Toolkit\Dialogs\VisualMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Dialogs\VisualMessageBox.Designer.cs">
+      <DependentUpon>VisualMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Toolkit\VisualBase\TextBoxExtended.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -215,9 +221,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Enumerators\ControlBoxButtons.cs" />
-    <Compile Include="Toolkit\Dialogs\VisualMessageBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Toolkit\EmbeddedControls\LVComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -392,6 +395,9 @@
     <EmbeddedResource Include="Toolkit\Dialogs\VisualInputDialog.resx">
       <DependentUpon>VisualInputDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Toolkit\Dialogs\VisualMessageBox.resx">
+      <DependentUpon>VisualMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -477,6 +483,10 @@
     <EmbeddedResource Include="Resources\Images\ScrollBarArrowDown.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Images\MessageBox\Warning.png" />
+    <None Include="Resources\Images\MessageBox\Error.png" />
+    <None Include="Resources\Images\MessageBox\Information.png" />
+    <None Include="Resources\Images\MessageBox\Question.png" />
     <Content Include="Toolkit\Controls\Layout\VisualTile.bmp" />
     <Content Include="Toolkit\Controls\Editors\VisualDateTimePicker.bmp" />
   </ItemGroup>

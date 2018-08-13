@@ -6,9 +6,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-using VisualPlus.Managers;
-using VisualPlus.Renders;
-using VisualPlus.Toolkit.Controls.Interactivity;
+using VisualPlus.Properties;
 using VisualPlus.Toolkit.VisualBase;
 
 #endregion
@@ -24,25 +22,12 @@ namespace VisualPlus.Toolkit.Dialogs
     [DesignerCategory("Form")]
     [DesignTimeVisible(false)]
     [ToolboxItem(false)]
-    public class VisualMessageBox : VisualDialog
+    public partial class VisualMessageBox : VisualDialog
     {
         #region Variables
 
-        private readonly int buttonPadding;
-        private readonly Size dialogImageSize;
-        private readonly int extraPadding;
         private readonly MessageBoxButtons messageBoxButtons;
         private readonly MessageBoxIcon messageBoxIcon;
-        private readonly string messageText;
-        private VisualButton abortButton;
-        private VisualButton cancelButton;
-        private Image dialogImage;
-        private Rectangle dialogImageRectangle;
-        private VisualButton ignoreButton;
-        private VisualButton noButton;
-        private VisualButton okButton;
-        private VisualButton retryButton;
-        private VisualButton yesButton;
 
         #endregion
 
@@ -55,22 +40,10 @@ namespace VisualPlus.Toolkit.Dialogs
         ///     One of the <see cref="MessageBoxButtons" /> values that specifies which buttons to display in the
         ///     message box.
         /// </param>
-        public VisualMessageBox(string text, string caption, MessageBoxButtons buttons) : this(text, caption)
-        {
-            messageBoxButtons = buttons;
-        }
-
-        /// <summary>Initializes a new instance of the <see cref="VisualMessageBox" /> class.</summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttons">
-        ///     One of the <see cref="MessageBoxButtons" /> values that specifies which buttons to display in the
-        ///     message box.
-        /// </param>
         /// <param name="image">The icon image to display.</param>
         public VisualMessageBox(string text, string caption, MessageBoxButtons buttons, Image image) : this(text, caption, buttons)
         {
-            dialogImage = image;
+            dialogImage.Image = image;
         }
 
         /// <summary>Initializes a new instance of the <see cref="VisualMessageBox" /> class.</summary>
@@ -92,6 +65,18 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <summary>Initializes a new instance of the <see cref="VisualMessageBox" /> class.</summary>
         /// <param name="text">The text to display in the message box.</param>
         /// <param name="caption">The text to display in the title bar of the message box.</param>
+        /// <param name="buttons">
+        ///     One of the <see cref="MessageBoxButtons" /> values that specifies which buttons to display in the
+        ///     message box.
+        /// </param>
+        public VisualMessageBox(string text, string caption, MessageBoxButtons buttons) : this(text, caption)
+        {
+            messageBoxButtons = buttons;
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="VisualMessageBox" /> class.</summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
         public VisualMessageBox(string text, string caption) : this(text)
         {
             Text = caption;
@@ -101,421 +86,20 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <param name="text">The text to display in the message box.</param>
         public VisualMessageBox(string text) : this()
         {
-            messageText = text;
+            rtbMessage.Text = text;
         }
 
         /// <summary>Initializes a new instance of the <see cref="VisualMessageBox" /> class.</summary>
         public VisualMessageBox()
         {
-            ControlBox.Location = new Point(Width - 45, Border.Distance + 2);
+            InitializeComponent();
 
-            AutoSize = true;
-            AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            Text = string.Empty;
-            Magnetic = true;
-
-            BackColor = Color.White;
-            WindowBarColor = Color.White;
-
-            dialogImage = null;
-            dialogImageSize = new Size(32, 32);
-            extraPadding = 5;
             messageBoxButtons = MessageBoxButtons.OK;
             messageBoxIcon = MessageBoxIcon.None;
-            buttonPadding = 10;
+            rtbMessage.Text = string.Empty;
+            Text = string.Empty;
 
-            MinimumSize = new Size(119, 116);
             MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width - (Screen.PrimaryScreen.Bounds.Width / 3), 9999);
-            Size = new Size(119, 116);
-
-            InitializeMessageBoxButtons();
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>Gets or sets the abort button.</summary>
-        [Browsable(false)]
-        public VisualButton AbortButton
-        {
-            get
-            {
-                return abortButton;
-            }
-
-            set
-            {
-                abortButton = value;
-            }
-        }
-
-        /// <summary>Gets the buttons max width.</summary>
-        [Browsable(false)]
-        public int ButtonsMaxWidth
-        {
-            get
-            {
-                int width;
-
-                switch (messageBoxButtons)
-                {
-                    case MessageBoxButtons.OK:
-                        {
-                            width = buttonPadding + okButton.Width;
-                            break;
-                        }
-
-                    case MessageBoxButtons.OKCancel:
-                        {
-                            width = buttonPadding + okButton.Width + buttonPadding + cancelButton.Width + buttonPadding;
-                            break;
-                        }
-
-                    case MessageBoxButtons.AbortRetryIgnore:
-                        {
-                            width = buttonPadding + abortButton.Width + buttonPadding + retryButton.Width + buttonPadding + ignoreButton.Width + buttonPadding;
-                            break;
-                        }
-
-                    case MessageBoxButtons.YesNoCancel:
-                        {
-                            width = buttonPadding + yesButton.Width + buttonPadding + noButton.Width + buttonPadding + cancelButton.Width + buttonPadding;
-                            break;
-                        }
-
-                    case MessageBoxButtons.YesNo:
-                        {
-                            width = buttonPadding + yesButton.Width + buttonPadding + noButton.Width + buttonPadding;
-                            break;
-                        }
-
-                    case MessageBoxButtons.RetryCancel:
-                        {
-                            width = buttonPadding + retryButton.Width + buttonPadding + cancelButton.Width + buttonPadding;
-                            break;
-                        }
-
-                    default:
-                        {
-                            throw new ArgumentOutOfRangeException(nameof(messageBoxButtons), messageBoxButtons, null);
-                        }
-                }
-
-                return width;
-            }
-        }
-
-        /// <summary>Gets or sets the cancel button.</summary>
-        [Browsable(false)]
-        public new VisualButton CancelButton
-        {
-            get
-            {
-                return cancelButton;
-            }
-
-            set
-            {
-                cancelButton = value;
-            }
-        }
-
-        /// <summary>Retrieves the caption size.</summary>
-        [Browsable(false)]
-        public Size CaptionSize
-        {
-            get
-            {
-                Size captionSize = TextManager.MeasureText(Text, Font);
-                return new Size(captionSize.Width + buttonPadding + ControlBox.CloseButton.Width, captionSize.Height);
-            }
-        }
-
-        /// <summary>Retrieves the maximum display caption and text width.</summary>
-        [Browsable(false)]
-        public int CaptionTextMaxWidth
-        {
-            get
-            {
-                int captionTextMaxWidth = CaptionSize.Width > DisplayTextWithImageWidth ? CaptionSize.Width : DisplayTextWithImageWidth;
-                return captionTextMaxWidth;
-            }
-        }
-
-        /// <summary>The dialog icon image.</summary>
-        [Browsable(false)]
-        public Image DialogImage
-        {
-            get
-            {
-                return dialogImage;
-            }
-
-            set
-            {
-                dialogImage = value;
-                Invalidate();
-            }
-        }
-
-        /// <summary>The dialog image visibility.</summary>
-        [Browsable(false)]
-        public bool DialogImageVisible
-        {
-            get
-            {
-                return dialogImage != null;
-            }
-        }
-
-        /// <summary>Gets the dialog max height.</summary>
-        [Browsable(false)]
-        public int DialogMaxHeight
-        {
-            get
-            {
-                int dialogMaxHeight = WindowBarHeight + MessageSize.Height + buttonPadding + ButtonSize.Height + buttonPadding + Border.Distance;
-                return dialogMaxHeight;
-            }
-        }
-
-        /// <summary>Gets the dialog max width.</summary>
-        [Browsable(false)]
-        public int DialogMaxWidth
-        {
-            get
-            {
-                int buttonsMaxWithImage;
-                if ((messageBoxIcon == MessageBoxIcon.None) && (dialogImage == null))
-                {
-                    buttonsMaxWithImage = ButtonsMaxWidth;
-                }
-                else
-                {
-                    buttonsMaxWithImage = buttonPadding + dialogImageSize.Width + buttonPadding + ButtonsMaxWidth + buttonPadding;
-                }
-
-                int width = CaptionTextMaxWidth > buttonsMaxWithImage ? CaptionTextMaxWidth : buttonsMaxWithImage;
-                return width;
-            }
-        }
-
-        /// <summary>Retrieves the maximum display text width.</summary>
-        [Browsable(false)]
-        public int DisplayTextWithImageWidth
-        {
-            get
-            {
-                int displayTextWithImageWidth;
-                if (dialogImage != null)
-                {
-                    displayTextWithImageWidth = MessageSize.Width + extraPadding + dialogImageSize.Width;
-                }
-                else
-                {
-                    displayTextWithImageWidth = MessageSize.Width;
-                }
-
-                return displayTextWithImageWidth;
-            }
-        }
-
-        /// <summary>Gets or sets the ignore button.</summary>
-        [Browsable(false)]
-        public VisualButton IgnoreButton
-        {
-            get
-            {
-                return ignoreButton;
-            }
-
-            set
-            {
-                ignoreButton = value;
-            }
-        }
-
-        /// <summary>Determines whether the message box is empty.</summary>
-        [Browsable(false)]
-        public bool IsEmpty
-        {
-            get
-            {
-                bool emptyCheck = (messageText.Length <= 0) || (Text.Length <= 0);
-                return emptyCheck;
-            }
-        }
-
-        /// <summary>Retrieves the message size.</summary>
-        [Browsable(false)]
-        public Size MessageSize
-        {
-            get
-            {
-                Size messageSize = TextManager.MeasureText(messageText, Font);
-
-                // TODO: Maximum height is not being retrieved properly text appears to cut in some instances.
-                return new Size(messageSize.Width, messageSize.Height);
-            }
-        }
-
-        /// <summary>Gets or sets the no button.</summary>
-        [Browsable(false)]
-        public VisualButton NoButton
-        {
-            get
-            {
-                return noButton;
-            }
-
-            set
-            {
-                noButton = value;
-            }
-        }
-
-        /// <summary>Gets or sets the ok button.</summary>
-        [Browsable(false)]
-        public VisualButton OkButton
-        {
-            get
-            {
-                return okButton;
-            }
-
-            set
-            {
-                okButton = value;
-            }
-        }
-
-        /// <summary>Gets or sets the retry button.</summary>
-        [Browsable(false)]
-        public VisualButton RetryButton
-        {
-            get
-            {
-                return retryButton;
-            }
-
-            set
-            {
-                retryButton = value;
-            }
-        }
-
-        /// <summary>Gets the text block height.</summary>
-        [Browsable(false)]
-        public int TextBlockHeight
-        {
-            get
-            {
-                int textBlockHeight;
-
-                if (BodyContainer.X + MessageSize.Height < okButton.Top)
-                {
-                    textBlockHeight = MessageSize.Height;
-                }
-                else
-                {
-                    textBlockHeight = WindowBarHeight + MessageSize.Height;
-                }
-
-                return textBlockHeight;
-            }
-        }
-
-        /// <summary>Gets the text block width.</summary>
-        [Browsable(false)]
-        public int TextBlockWidth
-        {
-            get
-            {
-                int textBlockWidth;
-                if (dialogImage != null)
-                {
-                    int xTextLocation = dialogImageRectangle.Right + extraPadding;
-                    textBlockWidth = BodyContainer.Width - xTextLocation - extraPadding;
-                }
-                else
-                {
-                    textBlockWidth = BodyContainer.Right - (extraPadding * 2) - (Border.Distance * 2);
-                }
-
-                return textBlockWidth;
-            }
-        }
-
-        /// <summary>Gets or sets the yes button.</summary>
-        [Browsable(false)]
-        public VisualButton YesButton
-        {
-            get
-            {
-                return yesButton;
-            }
-
-            set
-            {
-                yesButton = value;
-            }
-        }
-
-        #endregion
-
-        #region Overrides
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            Graphics graphics = e.Graphics;
-
-            if (messageBoxIcon != MessageBoxIcon.None)
-            {
-                dialogImage = GetSystemIconsImage();
-            }
-
-            dialogImageRectangle = new Rectangle(BodyContainer.X + extraPadding, BodyContainer.Y, dialogImageSize.Width, dialogImageSize.Height);
-
-            Rectangle textRectangle;
-
-            if (dialogImage != null)
-            {
-                VisualImageRenderer.RenderImageFilled(graphics, dialogImageRectangle, dialogImage);
-
-                int xTextLocation = dialogImageRectangle.Right + extraPadding;
-                textRectangle = new Rectangle(xTextLocation, BodyContainer.Y, TextBlockWidth, TextBlockHeight);
-            }
-            else
-            {
-                textRectangle = new Rectangle(BodyContainer.Left + extraPadding, BodyContainer.Y, TextBlockWidth, TextBlockHeight);
-            }
-
-            StringFormat stringFormat = new StringFormat
-                {
-                    Alignment = StringAlignment.Near,
-                    LineAlignment = StringAlignment.Center
-                };
-
-            VisualTextRenderer.RenderText(graphics, textRectangle, messageText, Font, ForeColor, stringFormat);
-            UpdateButtonsVisibility();
-        }
-
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-
-            if (IsHandleCreated)
-            {
-                Size totalDialogSize = new Size(DialogMaxWidth, DialogMaxHeight);
-
-                if (Size != totalDialogSize)
-                {
-                    Size = totalDialogSize;
-                }
-            }
         }
 
         #endregion
@@ -526,38 +110,29 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <param name="text">The text to display in the message box.</param>
         /// <param name="caption">The text to display in the title bar of the message box.</param>
         /// <param name="buttons">Specifies which buttons to display in the message box.</param>
-        /// <param name="icon">Specifies which icon to display in the message box.</param>
         /// <returns>The <see cref="DialogResult" />.</returns>
-        public static DialogResult Show(string text, string caption, MessageBoxButtons buttons, Image icon)
+        public static DialogResult Show(string text, string caption, MessageBoxButtons buttons)
         {
-            return new VisualMessageBox(text, caption, buttons, icon).ShowDialog();
-        }
-
-        /// <summary>Displays a message box with the specified text.</summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <returns>The <see cref="DialogResult" />.</returns>
-        public static DialogResult Show(string text, string caption)
-        {
-            return new VisualMessageBox(text, caption, MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
-        }
-
-        /// <summary>Displays a message box with the specified text.</summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <returns>The <see cref="DialogResult" />.</returns>
-        public static DialogResult Show(string text)
-        {
-            return new VisualMessageBox(text, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.None).ShowDialog();
+            using (VisualMessageBox messageBox = new VisualMessageBox(text, caption, buttons))
+            {
+                messageBox.ShowDialog();
+                return messageBox.DialogResult;
+            }
         }
 
         /// <summary>Displays a message box with the specified text.</summary>
         /// <param name="text">The text to display in the message box.</param>
         /// <param name="caption">The text to display in the title bar of the message box.</param>
         /// <param name="buttons">Specifies which buttons to display in the message box.</param>
+        /// <param name="image">The icon image to display.</param>
         /// <returns>The <see cref="DialogResult" />.</returns>
-        public static DialogResult Show(string text, string caption, MessageBoxButtons buttons)
+        public static DialogResult Show(string text, string caption, MessageBoxButtons buttons, Image image)
         {
-            return new VisualMessageBox(text, caption, buttons, MessageBoxIcon.None).ShowDialog();
+            using (VisualMessageBox messageBox = new VisualMessageBox(text, caption, buttons, image))
+            {
+                messageBox.ShowDialog();
+                return messageBox.DialogResult;
+            }
         }
 
         /// <summary>Displays a message box with the specified text.</summary>
@@ -568,104 +143,75 @@ namespace VisualPlus.Toolkit.Dialogs
         /// <returns>The <see cref="DialogResult" />.</returns>
         public static DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
-            return new VisualMessageBox(text, caption, buttons, icon).ShowDialog();
+            using (VisualMessageBox messageBox = new VisualMessageBox(text, caption, buttons, icon))
+            {
+                messageBox.ShowDialog();
+                return messageBox.DialogResult;
+            }
         }
 
-        /// <summary>The abort button.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void AbortButton_Click(object sender, EventArgs e)
+        /// <summary>Displays a message box with the specified text.</summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <param name="caption">The text to display in the title bar of the message box.</param>
+        /// <returns>The <see cref="DialogResult" />.</returns>
+        public static DialogResult Show(string text, string caption)
         {
-            DialogResult = DialogResult.Abort;
+            using (VisualMessageBox messageBox = new VisualMessageBox(text, caption))
+            {
+                messageBox.ShowDialog();
+                return messageBox.DialogResult;
+            }
         }
 
-        /// <summary>The buttons ok cancel configuration.</summary>
-        private void AbortRetryIgnore()
+        /// <summary>Displays a message box with the specified text.</summary>
+        /// <param name="text">The text to display in the message box.</param>
+        /// <returns>The <see cref="DialogResult" />.</returns>
+        public static DialogResult Show(string text)
         {
-            okButton.Visible = false;
-            cancelButton.Visible = false;
-            abortButton.Visible = true;
-            noButton.Visible = false;
-            retryButton.Visible = true;
-            ignoreButton.Visible = true;
-            yesButton.Visible = false;
-
-            abortButton.Location = new Point(BodyContainer.Right - abortButton.Width - buttonPadding, BodyContainer.Bottom - abortButton.Height - buttonPadding);
-            retryButton.Location = new Point(abortButton.Location.X - retryButton.Width - buttonPadding, abortButton.Location.Y);
-            ignoreButton.Location = new Point(retryButton.Location.X - ignoreButton.Width - buttonPadding, abortButton.Location.Y);
+            using (VisualMessageBox messageBox = new VisualMessageBox(text))
+            {
+                messageBox.ShowDialog();
+                return messageBox.DialogResult;
+            }
         }
 
-        /// <summary>The buttons ok configuration.</summary>
-        private void ButtonsOK()
+        /// <summary>Update the <see cref="MessageBoxIcon" />.</summary>
+        private void UpdateBoxIcon()
         {
-            okButton.Visible = true;
-            cancelButton.Visible = false;
-            abortButton.Visible = false;
-            noButton.Visible = false;
-            retryButton.Visible = false;
-            ignoreButton.Visible = false;
-            yesButton.Visible = false;
-
-            okButton.Location = new Point(BodyContainer.Right - okButton.Width - buttonPadding, BodyContainer.Bottom - okButton.Height - buttonPadding);
-        }
-
-        /// <summary>The buttons ok cancel configuration.</summary>
-        private void ButtonsOKCancel()
-        {
-            okButton.Visible = true;
-            cancelButton.Visible = true;
-            abortButton.Visible = false;
-            noButton.Visible = false;
-            retryButton.Visible = false;
-            ignoreButton.Visible = false;
-            yesButton.Visible = false;
-
-            cancelButton.Location = new Point(BodyContainer.Right - cancelButton.Width - buttonPadding, BodyContainer.Bottom - cancelButton.Height - buttonPadding);
-            okButton.Location = new Point(cancelButton.Location.X - okButton.Width - buttonPadding, cancelButton.Location.Y);
-        }
-
-        /// <summary>The cancel button.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-        }
-
-        /// <summary>Retrieves the bitmap for the associated system icons.</summary>
-        /// <returns>The <see cref="Bitmap" />.</returns>
-        private Bitmap GetSystemIconsImage()
-        {
-            Bitmap image;
             switch (messageBoxIcon)
             {
                 case MessageBoxIcon.None:
                     {
-                        image = null;
+                        if (dialogImage.Image == null)
+                        {
+                            rtbMessage.Location = new Point(dialogImage.Location.X, rtbMessage.Location.Y);
+                            rtbMessage.Size = new Size(btn3.Right - 13, rtbMessage.Height);
+                        }
+
                         break;
                     }
 
-                case MessageBoxIcon.Hand:
+                case MessageBoxIcon.Error:
                     {
-                        image = SystemIcons.Hand.ToBitmap();
+                        dialogImage.Image = Resources.Error;
+                        break;
+                    }
+
+                case MessageBoxIcon.Information:
+                    {
+                        dialogImage.Image = Resources.Information;
                         break;
                     }
 
                 case MessageBoxIcon.Question:
                     {
-                        image = SystemIcons.Question.ToBitmap();
+                        dialogImage.Image = Resources.Question;
                         break;
                     }
 
-                case MessageBoxIcon.Exclamation:
+                case MessageBoxIcon.Warning:
                     {
-                        image = SystemIcons.Exclamation.ToBitmap();
-                        break;
-                    }
-
-                case MessageBoxIcon.Asterisk:
-                    {
-                        image = SystemIcons.Asterisk.ToBitmap();
+                        dialogImage.Image = Resources.Warning;
                         break;
                     }
 
@@ -674,231 +220,107 @@ namespace VisualPlus.Toolkit.Dialogs
                         throw new ArgumentOutOfRangeException();
                     }
             }
-
-            return image;
         }
 
-        /// <summary>The ignore button.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void IgnoreButton_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Ignore;
-        }
-
-        /// <summary>Initializes the message box buttons.</summary>
-        private void InitializeMessageBoxButtons()
-        {
-            okButton = new VisualButton
-                {
-                    Text = @"OK",
-                    Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
-                    TabIndex = 0,
-                    Size = ButtonSize,
-                    Location = new Point(0, 0)
-                };
-
-            okButton.Click += OkButton_Click;
-
-            cancelButton = new VisualButton
-                {
-                    Text = @"Cancel",
-                    Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
-                    TabIndex = 1,
-                    Size = ButtonSize,
-                    Location = new Point(0, 0)
-                };
-
-            cancelButton.Click += CancelButton_Click;
-
-            abortButton = new VisualButton
-                {
-                    Text = @"Abort",
-                    Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
-                    TabIndex = 0,
-                    Size = ButtonSize,
-                    Location = new Point(0, 0)
-                };
-
-            abortButton.Click += AbortButton_Click;
-
-            noButton = new VisualButton
-                {
-                    Text = @"No",
-                    Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
-                    TabIndex = 0,
-                    Size = ButtonSize,
-                    Location = new Point(0, 0)
-                };
-
-            noButton.Click += NoButton_Click;
-
-            retryButton = new VisualButton
-                {
-                    Text = @"Retry",
-                    Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
-                    TabIndex = 0,
-                    Size = ButtonSize,
-                    Location = new Point(0, 0)
-                };
-
-            retryButton.Click += RetryButton_Click;
-
-            ignoreButton = new VisualButton
-                {
-                    Text = @"Ignore",
-                    Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
-                    TabIndex = 0,
-                    Size = ButtonSize,
-                    Location = new Point(0, 0)
-                };
-
-            ignoreButton.Click += IgnoreButton_Click;
-
-            yesButton = new VisualButton
-                {
-                    Text = @"Yes",
-                    Anchor = AnchorStyles.Right & AnchorStyles.Bottom,
-                    TabIndex = 0,
-                    Size = ButtonSize,
-                    Location = new Point(0, 0)
-                };
-
-            yesButton.Click += YesButton_Click;
-
-            Controls.Add(okButton);
-            Controls.Add(cancelButton);
-            Controls.Add(abortButton);
-            Controls.Add(noButton);
-            Controls.Add(retryButton);
-            Controls.Add(ignoreButton);
-            Controls.Add(yesButton);
-        }
-
-        /// <summary>The no button.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void NoButton_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.No;
-        }
-
-        /// <summary>The OK button.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void OkButton_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.OK;
-        }
-
-        /// <summary>The retry button.</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void RetryButton_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Retry;
-        }
-
-        /// <summary>The buttons retry cancel configuration.</summary>
-        private void RetryCancel()
-        {
-            okButton.Visible = false;
-            cancelButton.Visible = true;
-            abortButton.Visible = false;
-            noButton.Visible = false;
-            retryButton.Visible = true;
-            ignoreButton.Visible = false;
-            yesButton.Visible = false;
-
-            cancelButton.Location = new Point(BodyContainer.Right - cancelButton.Width - buttonPadding, BodyContainer.Bottom - cancelButton.Height - buttonPadding);
-            retryButton.Location = new Point(cancelButton.Location.X - retryButton.Width - buttonPadding, cancelButton.Location.Y);
-        }
-
-        /// <summary>Updates the buttons visibility.</summary>
-        private void UpdateButtonsVisibility()
+        /// <summary>Update the <see cref="MessageBoxButtons" />.</summary>
+        private void UpdateButtons()
         {
             switch (messageBoxButtons)
             {
                 case MessageBoxButtons.OK:
                     {
-                        ButtonsOK();
+                        btn1.Visible = false;
+                        btn2.Visible = false;
+                        btn3.Visible = true;
+
+                        btn3.Text = @"OK";
+                        btn3.DialogResult = DialogResult.OK;
                         break;
                     }
 
                 case MessageBoxButtons.OKCancel:
                     {
-                        ButtonsOKCancel();
+                        btn1.Visible = false;
+                        btn2.Visible = true;
+                        btn3.Visible = true;
+
+                        btn2.Text = @"OK";
+                        btn3.Text = @"Cancel";
+                        btn2.DialogResult = DialogResult.OK;
+                        btn3.DialogResult = DialogResult.Cancel;
                         break;
                     }
 
                 case MessageBoxButtons.AbortRetryIgnore:
                     {
-                        AbortRetryIgnore();
+                        btn1.Visible = true;
+                        btn2.Visible = true;
+                        btn3.Visible = true;
+
+                        btn1.Text = @"Abort";
+                        btn2.Text = @"Retry";
+                        btn3.Text = @"Ignore";
+                        btn1.DialogResult = DialogResult.Abort;
+                        btn2.DialogResult = DialogResult.Retry;
+                        btn3.DialogResult = DialogResult.Ignore;
                         break;
                     }
 
                 case MessageBoxButtons.YesNoCancel:
                     {
-                        YesNoCancel();
+                        btn1.Visible = true;
+                        btn2.Visible = true;
+                        btn3.Visible = true;
+
+                        btn1.Text = @"Yes";
+                        btn2.Text = @"No";
+                        btn3.Text = @"Cancel";
+                        btn1.DialogResult = DialogResult.Yes;
+                        btn2.DialogResult = DialogResult.No;
+                        btn3.DialogResult = DialogResult.Cancel;
                         break;
                     }
 
                 case MessageBoxButtons.YesNo:
                     {
-                        YesNo();
+                        btn1.Visible = false;
+                        btn2.Visible = true;
+                        btn3.Visible = true;
+
+                        btn2.Text = @"Yes";
+                        btn3.Text = @"No";
+                        btn2.DialogResult = DialogResult.Yes;
+                        btn3.DialogResult = DialogResult.No;
                         break;
                     }
 
                 case MessageBoxButtons.RetryCancel:
                     {
-                        RetryCancel();
+                        btn1.Visible = false;
+                        btn2.Visible = true;
+                        btn3.Visible = true;
+
+                        btn2.Text = @"Retry";
+                        btn3.Text = @"Cancel";
+                        btn2.DialogResult = DialogResult.Retry;
+                        btn3.DialogResult = DialogResult.Cancel;
                         break;
                     }
 
                 default:
                     {
-                        throw new ArgumentOutOfRangeException(nameof(messageBoxButtons), messageBoxButtons, null);
+                        throw new ArgumentOutOfRangeException();
                     }
             }
         }
 
-        /// <summary>The yes button.</summary>
+        /// <summary>Loads the <see cref="VisualMessageBox" /> form.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void YesButton_Click(object sender, EventArgs e)
+        private void VisualMessageBox_Load(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Yes;
-        }
-
-        /// <summary>The buttons yes no configuration.</summary>
-        private void YesNo()
-        {
-            okButton.Visible = false;
-            cancelButton.Visible = false;
-            abortButton.Visible = false;
-            noButton.Visible = true;
-            retryButton.Visible = false;
-            ignoreButton.Visible = false;
-            yesButton.Visible = true;
-
-            noButton.Location = new Point(BodyContainer.Right - noButton.Width - buttonPadding, BodyContainer.Bottom - noButton.Height - buttonPadding);
-            yesButton.Location = new Point(noButton.Location.X - yesButton.Width - buttonPadding, noButton.Location.Y);
-        }
-
-        /// <summary>The buttons yes no cancel configuration.</summary>
-        private void YesNoCancel()
-        {
-            okButton.Visible = false;
-            cancelButton.Visible = true;
-            abortButton.Visible = false;
-            noButton.Visible = true;
-            retryButton.Visible = false;
-            ignoreButton.Visible = false;
-            yesButton.Visible = true;
-
-            cancelButton.Location = new Point(BodyContainer.Right - cancelButton.Width - buttonPadding, BodyContainer.Bottom - cancelButton.Height - buttonPadding);
-            noButton.Location = new Point(cancelButton.Location.X - noButton.Width - buttonPadding, cancelButton.Location.Y);
-            yesButton.Location = new Point(noButton.Location.X - ignoreButton.Width - buttonPadding, cancelButton.Location.Y);
+            UpdateBoxIcon();
+            UpdateButtons();
         }
 
         #endregion
