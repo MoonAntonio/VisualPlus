@@ -53,7 +53,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _animation = Settings.DefaultValue.Animation;
             _border = new Border();
             _backColorState = new ControlColorState();
-            dialogResult = DialogResult.OK;
+            dialogResult = DialogResult.None;
             _textImageRelation = TextImageRelation.Overlay;
             ConfigureAnimation(new[] { 0.03, 0.07 }, new[] { EffectType.EaseOut, EffectType.EaseInOut });
 
