@@ -259,6 +259,12 @@ namespace VisualPlus.Renders
                 columnRectangle = DrawCellGraphic(graphicsColumn, columnRectangle, listView.ImageListColumns.Images[column.ImageIndex], HorizontalAlignment.Left, listView.CellPaddingSize, listView);
             }
 
+            // Draw column header grid
+            if (listView.GridLineStyle != GridLineStyle.None)
+            {
+                graphicsColumn.DrawLine(new Pen(listView.GridColor), new Point(columnRectangle.Right, 0), new Point(columnRectangle.Right, columnRectangle.Bottom));
+            }
+
             DrawCellText(graphicsColumn, columnRectangle, column.Text, listView.Font, column.TextAlignment, listView.ForeColor, false, listView);
         }
 
@@ -540,7 +546,6 @@ namespace VisualPlus.Renders
 
             if (listView.GridLineStyle != GridLineStyle.None)
             {
-                // TODO: DrawGridLines also vertical when sub-items exist.
                 DrawGridLines(graphicsRows, vPanelScrollBar, hPanelScrollBar, listView);
             }
 
