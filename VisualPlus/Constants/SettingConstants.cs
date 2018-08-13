@@ -1,6 +1,7 @@
 ﻿#region Namespace
 
 using System;
+using System.Diagnostics;
 using System.Reflection;
 
 #endregion
@@ -23,9 +24,9 @@ namespace VisualPlus.Constants
         public static readonly int MinimumCheckBoxSize = 3;
         public static readonly int MinimumRounding = 1;
         public static readonly string ProductName = Assembly.GetExecutingAssembly().GetName().Name;
+        public static readonly string ProjectURL = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).LegalTrademarks;
         public static readonly string TemplatesFolder = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + @"\VisualPlus Themes\";
         public static readonly string TemplatesFilePath = TemplatesFolder + @"DefaultTheme.xml";
-
         public static readonly string ThemeAuthor = "Unknown";
         public static readonly string ThemeExtensionSupportedFileFilter = "Theme|*.xml";
         public static readonly string ThemeName = "Unnamed";

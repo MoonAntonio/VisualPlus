@@ -2,13 +2,18 @@
 
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
 using UnitTests.Tests;
 
+using VisualPlus.Attributes;
+using VisualPlus.Constants;
 using VisualPlus.Events;
+using VisualPlus.Managers;
 using VisualPlus.Structure;
+using VisualPlus.Toolkit.Child;
 using VisualPlus.Toolkit.Dialogs;
 
 #endregion
@@ -29,7 +34,7 @@ namespace UnitTests.Forms
         public UnitTestManager()
         {
             InitializeComponent();
-            HelpButtonClicked += VisualControlBox_HelpClick;
+            HelpButtonClicked += HelpButton_Click;
         }
 
         #endregion
@@ -68,6 +73,41 @@ namespace UnitTests.Forms
 
         #region Methods
 
+        /// <summary>Creates a data entry.</summary>
+        /// <param name="name">The name.</param>
+        /// <param name="category">The category</param>
+        /// <returns>The <see cref="VisualListViewItem" />.</returns>
+        private static VisualListViewItem DataEntry(string name, string category)
+        {
+            VisualListViewItem dataEntry = new VisualListViewItem(name);
+            VisualListViewSubItem subEntry = new VisualListViewSubItem(category);
+            dataEntry.SubItems.Add(subEntry);
+
+            return dataEntry;
+        }
+
+        /// <summary>Retrieve the reflection type name.</summary>
+        /// <param name="data">The data type.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        private static string RetrieveType(Type data)
+        {
+            string result;
+
+            if (data.ReflectedType != null)
+            {
+                result = data.ReflectedType.Name;
+            }
+            else
+            {
+                result = "Unable to load reflected type.";
+            }
+
+            return result;
+        }
+
+        /// <summary>Occurs when the button to run tests was clicked.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void BtnRunTest_Click(object sender, EventArgs e)
         {
             VisualForm _formToOpen;
@@ -156,12 +196,108 @@ namespace UnitTests.Forms
             return stats.ToString();
         }
 
+        /// <summary>Occurs when the help button was clicked.</summary>
+        /// <param name="e">The event args.</param>
+        private void HelpButton_Click(ControlBoxEventArgs e)
+        {
+            DialogResult dialogResult = VisualMessageBox.Show(@"Would you like to visit the website?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                Process.Start(SettingConstants.ProjectURL);
+            }
+        }
+
+        /// <summary>Occurs when the unit test selection was changed.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void ListBoxTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             _unitTest = (UnitTests)visualListBoxTests.SelectedIndex;
             visualLabelTestsStats.Text = GenerateTestStatistics();
         }
 
+        /// <summary>Loads the flagged test attributes data.</summary>
+        private void LoadFlaggedTests()
+        {
+            lvFlaggedTests.Columns.Add(null, "Name", 50);
+            lvFlaggedTests.Columns.Add(null, "Namespace", 80);
+
+            lvFlaggedTests.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            var constructors = ReflectionManager.LoadConstructors(AssemblyManager.VisualPlus(), typeof(Test));
+            var events = ReflectionManager.LoadEvents(AssemblyManager.VisualPlus(), typeof(Test));
+            var fields = ReflectionManager.LoadFields(AssemblyManager.VisualPlus(), typeof(Test));
+            var members = ReflectionManager.LoadMembers(AssemblyManager.VisualPlus(), typeof(Test));
+            var methods = ReflectionManager.LoadMethods(AssemblyManager.VisualPlus(), typeof(Test));
+            var properties = ReflectionManager.LoadProperties(AssemblyManager.VisualPlus(), typeof(Test));
+
+            foreach (ConstructorInfo data in constructors)
+            {
+                string typeName = RetrieveType(data.ReflectedType);
+                VisualListViewItem item = DataEntry(data.Name, typeName);
+
+                if (!lvFlaggedTests.Items.ContainsItem(item))
+                {
+                    lvFlaggedTests.Items.Add(item);
+                }
+            }
+
+            foreach (EventInfo data in events)
+            {
+                string typeName = RetrieveType(data.ReflectedType);
+                VisualListViewItem item = DataEntry(data.Name, typeName);
+                if (!lvFlaggedTests.Items.ContainsItem(item))
+                {
+                    lvFlaggedTests.Items.Add(item);
+                }
+            }
+
+            foreach (FieldInfo data in fields)
+            {
+                string typeName = RetrieveType(data.ReflectedType);
+                VisualListViewItem item = DataEntry(data.Name, typeName);
+                if (!lvFlaggedTests.Items.ContainsItem(item))
+                {
+                    lvFlaggedTests.Items.Add(item);
+                }
+            }
+
+            foreach (MemberInfo data in members)
+            {
+                string typeName = RetrieveType(data.ReflectedType);
+                VisualListViewItem item = DataEntry(data.Name, typeName);
+
+                if (!lvFlaggedTests.Items.ContainsItem(item))
+                {
+                    lvFlaggedTests.Items.Add(item);
+                }
+            }
+
+            foreach (MethodInfo data in methods)
+            {
+                string typeName = RetrieveType(data.ReflectedType);
+                VisualListViewItem item = DataEntry(data.Name, typeName);
+                if (!lvFlaggedTests.Items.ContainsItem(item))
+                {
+                    lvFlaggedTests.Items.Add(item);
+                }
+            }
+
+            foreach (PropertyInfo data in properties)
+            {
+                string typeName = RetrieveType(data.ReflectedType);
+                VisualListViewItem item = DataEntry(data.Name, typeName);
+                if (!lvFlaggedTests.Items.ContainsItem(item))
+                {
+                    lvFlaggedTests.Items.Add(item);
+                }
+            }
+        }
+
+        /// <summary>Occurs when the form loads.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void TestManager_Load(object sender, EventArgs e)
         {
             _unitTest = UnitTests.VisualListView;
@@ -175,11 +311,9 @@ namespace UnitTests.Forms
             }
 
             visualListBoxTests.SelectedIndex = 0;
-        }
+            tabController.SelectedIndex = 0;
 
-        private void VisualControlBox_HelpClick(ControlBoxEventArgs e)
-        {
-            Process.Start("https://darkbyte7.github.io/VisualPlus/");
+            LoadFlaggedTests();
         }
 
         #endregion

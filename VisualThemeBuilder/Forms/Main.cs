@@ -123,7 +123,7 @@ namespace VisualThemeBuilder.Forms
 
             if (dialogResult == DialogResult.Yes)
             {
-                Process.Start("https://darkbyte7.github.io/VisualPlus/");
+                Process.Start(SettingConstants.ProjectURL);
             }
         }
 

@@ -2552,7 +2552,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             _control.KeyPress += TextBox_KeyPress;
             _control.Parent = this;
-            ActivatedEmbeddedControl = _control;
+            _activatedEmbeddedControl = _control;
 
             if (_activatedEmbeddedControl != null)
             {
