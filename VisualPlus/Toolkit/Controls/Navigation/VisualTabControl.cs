@@ -411,15 +411,8 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             Appearance = TabAppearance.Normal;
             DoubleBuffered = true;
             Font = SystemFonts.DefaultFont;
-
-            // Font = _styleManager.Theme.ColorPalette.Font;
             MinimumSize = new Size(144, 85);
             SizeMode = TabSizeMode.Fixed;
-        }
-
-        protected override void OnControlRemoved(ControlEventArgs e)
-        {
-            GraphicsManager.SetControlBackColor(e.Control, Parent.BackColor, true);
         }
 
         protected override void OnMouseEnter(EventArgs e)

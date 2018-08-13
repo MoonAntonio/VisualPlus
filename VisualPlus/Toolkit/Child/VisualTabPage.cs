@@ -10,7 +10,6 @@ using VisualPlus.Designer;
 using VisualPlus.Enumerators;
 using VisualPlus.Localization;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
 using VisualPlus.TypeConverters;
 
 #endregion
@@ -46,21 +45,18 @@ namespace VisualPlus.Toolkit.Child
         /// <summary>Initializes a new instance of the <see cref="VisualTabPage" /> class.</summary>
         public VisualTabPage()
         {
-            // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
             UpdateStyles();
-
-            StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-
-            _textSelected = Color.FromArgb(217, 220, 227);
 
             _textLineAlignment = StringAlignment.Center;
             _textAlignment = StringAlignment.Center;
 
-            BackColor = _styleManager.Theme.ColorPalette.ControlEnabled;
-            ForeColor = Color.FromArgb(174, 181, 187);
+            Theme theme = new Theme(Settings.DefaultValue.DefaultStyle);
 
-            // Font = _styleManager.Theme.ColorPalette.Font;
+            BackColor = theme.ColorPalette.ControlEnabled;
+            ForeColor = Color.FromArgb(174, 181, 187);
+            _textSelected = Color.FromArgb(217, 220, 227);
+
             _border = new Shape
                 {
                     Visible = false,
@@ -74,9 +70,9 @@ namespace VisualPlus.Toolkit.Child
 
             _headerImage = null;
 
-            _tabNormal = _styleManager.Theme.ColorPalette.TabPageEnabled;
-            _tabSelected = _styleManager.Theme.ColorPalette.TabPageSelected;
-            _tabHover = _styleManager.Theme.ColorPalette.TabPageHover;
+            _tabNormal = theme.ColorPalette.TabPageEnabled;
+            _tabSelected = theme.ColorPalette.TabPageSelected;
+            _tabHover = theme.ColorPalette.TabPageHover;
         }
 
         #endregion
@@ -179,6 +175,9 @@ namespace VisualPlus.Toolkit.Child
                 Invalidate();
             }
         }
+
+        [Browsable(false)]
+        public Rectangle Rectangle { get; set; }
 
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
@@ -292,9 +291,6 @@ namespace VisualPlus.Toolkit.Child
             }
         }
 
-        [Browsable(false)]
-        internal Rectangle Rectangle { get; set; }
-
         #endregion
 
         #region Overrides
@@ -328,7 +324,6 @@ namespace VisualPlus.Toolkit.Child
         {
             Graphics _graphics = e.Graphics;
             _graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-            _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
             if (BackgroundImage != null)
             {
