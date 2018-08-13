@@ -2632,11 +2632,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private int CalculateColumnWidth(int columnIndex)
         {
             int columnWidth = _columns[columnIndex].Width;
-            ConsoleEx.WriteDebug("columnWidth: " + columnWidth);
             int width = RetrieveDecorationsWidth(columnIndex, columnWidth, internalPadding);
-            ConsoleEx.WriteDebug("width: " + width);
             columnWidth += width;
-            ConsoleEx.WriteDebug("new columnWidth: " + columnWidth);
             return columnWidth;
         }
 
