@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -9,8 +10,10 @@ using VisualPlus.Constants;
 using VisualPlus.Delegates;
 using VisualPlus.Events;
 using VisualPlus.Extensibility;
+using VisualPlus.Managers;
 using VisualPlus.Structure;
 using VisualPlus.Toolkit.Controls.Editors;
+using VisualPlus.Toolkit.Dialogs;
 
 #endregion
 
@@ -84,6 +87,46 @@ namespace VisualPlus.Toolkit.Components
             }
         }
 
+        /// <summary>Determines if the <see cref="Component" /> is a Control.</summary>
+        [Browsable(true)]
+        [ReadOnly(true)]
+        public bool IsControl
+        {
+            get
+            {
+                var control = false;
+                foreach (Type dialogType in ControlManager.ControlsSupported())
+                {
+                    if (componentType == dialogType)
+                    {
+                        control = true;
+                    }
+                }
+
+                return control;
+            }
+        }
+
+        /// <summary>Determines if the <see cref="Component" /> is a Dialog.</summary>
+        [Browsable(true)]
+        [ReadOnly(true)]
+        public bool IsDialog
+        {
+            get
+            {
+                var dialog = false;
+                foreach (Type dialogType in ControlManager.DialogsSupported())
+                {
+                    if (componentType == dialogType)
+                    {
+                        dialog = true;
+                    }
+                }
+
+                return dialog;
+            }
+        }
+
         /// <summary>The <see cref="Theme" /> to use for the <see cref="Component" />.</summary>
         [Browsable(true)]
         public Theme Theme
@@ -141,7 +184,11 @@ namespace VisualPlus.Toolkit.Components
             if (component is IThemeSupport supportedControl)
             {
                 supportedControl.UpdateTheme(theme);
-                component.BackColor = BackColor;
+
+                if (!IsDialog)
+                {
+                    component.BackColor = BackColor;
+                }
             }
         }
 
@@ -156,22 +203,34 @@ namespace VisualPlus.Toolkit.Components
             string visualPlusEntryPoint = SettingConstants.ProductName;
 
             componentType = Type.GetType(string.Concat(componentNamespace, ", ", visualPlusEntryPoint));
-
-            // TODO: Determine if component is Control or Form.
             component = (Control)Activator.CreateInstance(componentType);
 
-            if (component is VisualDateTimePicker)
+            if (IsDialog)
             {
-                // Do nothing.
+                if (component is VisualForm form)
+                {
+                    form.Text = @"VisualPlus";
+                    form.Size = new Size(300, 250);
+                    form.TopLevel = false;
+                    form.AutoScroll = true;
+                    form.UpdateTheme(theme);
+                    form.Show();
+                }
             }
             else
             {
-                component.Text = @"VisualPlus";
+                if (component is VisualDateTimePicker)
+                {
+                    // Do nothing. Doesn't like un-formatted Text.
+                }
+                else
+                {
+                    component.Text = @"VisualPlus";
+                }
             }
 
             Controls.Clear();
             Controls.Add(component);
-
             component.ToCenter();
         }
 

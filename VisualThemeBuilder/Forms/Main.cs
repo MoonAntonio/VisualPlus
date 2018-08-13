@@ -38,7 +38,7 @@ namespace VisualThemeBuilder.Forms
         {
             InitializeComponent();
 
-            foreach (Type controlType in ControlManager.ControlsSupported())
+            foreach (Type controlType in ControlManager.ThemeSupportedTypes())
             {
                 cbControls.Items.Add(controlType.FullName);
             }
