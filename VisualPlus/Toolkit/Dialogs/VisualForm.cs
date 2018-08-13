@@ -116,6 +116,7 @@ namespace VisualPlus.Toolkit.Dialogs
             _dropShadow = true;
             _headerMouseDown = false;
             FormBorderStyle = FormBorderStyle.None;
+            StartPosition = FormStartPosition.CenterScreen;
             _windowTitleBarVisible = true;
             _magnetic = false;
             _magneticRadius = 100;

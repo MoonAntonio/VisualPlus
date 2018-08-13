@@ -2,7 +2,6 @@
 
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
 
 using VisualPlus.Enumerators;
 using VisualPlus.Toolkit.Dialogs;
@@ -33,7 +32,6 @@ namespace VisualPlus.Toolkit.VisualBase
             Sizable = false;
             ShowIcon = false;
             ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
             TitleAlignment = Alignment.TextAlignment.Left;
         }
 
