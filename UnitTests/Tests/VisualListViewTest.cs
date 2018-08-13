@@ -147,17 +147,17 @@ namespace UnitTests.Tests
 
         private void VisualListViewTest_Load(object sender, EventArgs e)
         {
-            VisualListViewColumn _title = GenerateColumn("Title", 0, 150);
+            VisualListViewColumn _title = GenerateColumn("Title", 0, 50);
             _title.CheckBox = true;
             _title.CheckBoxes = true;
 
-            VisualListViewColumn _content = GenerateColumn("Content", 1, 150);
+            VisualListViewColumn _content = GenerateColumn("Content", 1, 50);
             _content.EmbeddedType = LVActivatedEmbeddedTypes.TextBox;
 
-            VisualListViewColumn _date = GenerateColumn("Date", 2, 100);
+            VisualListViewColumn _date = GenerateColumn("Date", 2, 50);
             _date.EmbeddedType = LVActivatedEmbeddedTypes.DateTimePicker;
 
-            VisualListViewColumn _progress = GenerateColumn("Progress", 3, 100);
+            VisualListViewColumn _progress = GenerateColumn("Progress", 3, 50);
 
             visualListView.Columns.Add(_title);
             visualListView.Columns.Add(_content);
