@@ -270,7 +270,7 @@ namespace UnitTests.Forms
             this.lvFlaggedTests.ItemSelectedTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lvFlaggedTests.ItemWordWrap = false;
             this.lvFlaggedTests.Location = new System.Drawing.Point(3, 3);
-            this.lvFlaggedTests.MouseState = VisualPlus.Enumerators.MouseStates.Hover;
+            this.lvFlaggedTests.MouseState = VisualPlus.Enumerators.MouseStates.Normal;
             this.lvFlaggedTests.MultiSelect = false;
             this.lvFlaggedTests.Name = "lvFlaggedTests";
             this.lvFlaggedTests.Selectable = true;
