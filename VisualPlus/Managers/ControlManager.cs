@@ -53,6 +53,7 @@ namespace VisualPlus.Managers
                     typeof(VisualButton),
                     typeof(VisualCheckBox),
                     typeof(VisualComboBox),
+                    typeof(VisualControlBox),
                     typeof(VisualDateTimePicker),
                     typeof(VisualGauge),
                     typeof(VisualGroupBox),

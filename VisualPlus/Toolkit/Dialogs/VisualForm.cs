@@ -1139,6 +1139,9 @@ namespace VisualPlus.Toolkit.Dialogs
                 ForeColor = theme.ColorPalette.TextEnabled;
                 _titleForeColor = theme.ColorPalette.TextEnabled;
                 _windowBarColor = theme.ColorPalette.FormWindowBar;
+
+                // Update internal controls.
+                ControlBox.UpdateTheme(theme);
             }
             catch (Exception e)
             {
