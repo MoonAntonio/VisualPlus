@@ -49,6 +49,6 @@ Enjoy using `VisualPlus` or just want to say thanks?
 Hit the ⭐️ Star ⭐️ button.
 
 ## Screenshots
-![ToolBox](https://github.com/DarkByte7/VisualPlus/blob/master/docs/assets/images/documentation/Toolbox.jpg?raw=true)
+![ToolBox](https://github.com/DarkByte7/VisualPlus/blob/master/docs/assets/images/documentation/Toolbox.jpg)
 
-![ThemeBuilder](https://github.com/DarkByte7/VisualPlus/blob/master/docs/assets/images/documentation/Builder.jpg?raw=true)
+![ThemeBuilder](https://github.com/DarkByte7/VisualPlus/blob/master/docs/assets/images/documentation/VisualThemeBuilder.jpg)
