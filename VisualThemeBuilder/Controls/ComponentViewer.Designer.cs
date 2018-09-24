@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿namespace VisualThemeBuilder.Controls
 {
     partial class ComponentViewer
     {

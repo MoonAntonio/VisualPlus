@@ -7,14 +7,13 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-
 using VisualPlus;
 using VisualPlus.Constants;
 using VisualPlus.Events;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
 using VisualPlus.Toolkit.Dialogs;
+using VisualThemeBuilder.Controls;
 
 #endregion
 
@@ -44,10 +43,10 @@ namespace VisualThemeBuilder.Forms
             }
 
             componentViewer = new ComponentViewer
-                {
-                    BackColor = componentPanel.BackColor,
-                    Dock = DockStyle.Fill
-                };
+            {
+                BackColor = componentPanel.BackColor,
+                Dock = DockStyle.Fill
+            };
 
             theme = new Theme(Settings.DefaultValue.DefaultStyle);
             LoadTheme(theme);
@@ -140,13 +139,13 @@ namespace VisualThemeBuilder.Forms
             tbPath.Text = string.Empty;
 
             Theme newTheme = new Theme(Settings.DefaultValue.DefaultStyle)
+            {
+                Information =
                 {
-                    Information =
-                        {
-                            Author = "Unknown",
-                            Name = "UnnamedTheme"
-                        }
-                };
+                    Author = "Unknown",
+                    Name = "UnnamedTheme"
+                }
+            };
 
             LoadTheme(newTheme);
             saved = false;
@@ -342,10 +341,10 @@ namespace VisualThemeBuilder.Forms
         private void UpdateThemeContents()
         {
             ThemeInformation themeInformation = new ThemeInformation
-                {
-                    Author = tbAuthor.Text,
-                    Name = tbName.Text
-                };
+            {
+                Author = tbAuthor.Text,
+                Name = tbName.Text
+            };
 
             rawText.Text = new Theme(themeInformation, theme.ColorPalette).RawTheme;
             saved = false;

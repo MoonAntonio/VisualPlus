@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using VisualPlus;
 using VisualPlus.Constants;
 using VisualPlus.Delegates;
 using VisualPlus.Events;
@@ -16,7 +17,7 @@ using VisualPlus.Toolkit.Dialogs;
 
 #endregion
 
-namespace VisualPlus.Toolkit.Components
+namespace VisualThemeBuilder.Controls
 {
     /// <summary>The component viewer.</summary>
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -172,7 +173,7 @@ namespace VisualPlus.Toolkit.Components
             string visualPlusEntryPoint = SettingConstants.ProductName;
 
             componentType = Type.GetType(string.Concat(componentNamespace, ", ", visualPlusEntryPoint));
-            component = (Control) Activator.CreateInstance(componentType);
+            component = (Control)Activator.CreateInstance(componentType);
 
             if (IsDialog)
             {
