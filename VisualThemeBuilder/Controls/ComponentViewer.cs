@@ -12,7 +12,11 @@ using VisualPlus.Events;
 using VisualPlus.Extensibility;
 using VisualPlus.Managers;
 using VisualPlus.Structure;
+using VisualPlus.Toolkit.Child;
+using VisualPlus.Toolkit.Controls.DataManagement;
+using VisualPlus.Toolkit.Controls.DataVisualization;
 using VisualPlus.Toolkit.Controls.Editors;
+using VisualPlus.Toolkit.Controls.Interactivity;
 using VisualPlus.Toolkit.Dialogs;
 
 #endregion
@@ -189,9 +193,54 @@ namespace VisualThemeBuilder.Controls
             }
             else
             {
-                if (component is VisualDateTimePicker)
+                if (component is VisualComboBox comboBox)
+                {
+                    // Generate a sample items
+                    for (var i = 0; i <= 7; i++)
+                    {
+                        comboBox.Items.Add("Item #" + i);
+                    }
+
+                    comboBox.SelectedIndex = 0;
+                }
+                else if (component is VisualDateTimePicker)
                 {
                     // Do nothing. Doesn't like un-formatted Text.
+                }
+                else if (component is VisualGauge gauge)
+                {
+                    gauge.Value = 50;
+                }
+                else if (component is VisualListBox listBox)
+                {
+                    // Generate a sample items
+                    for (var i = 0; i <= 7; i++)
+                    {
+                        listBox.Items.Add("Item #" + i);
+                    }
+
+                    listBox.SelectedIndex = 0;
+                }
+                else if (component is VisualListView listView)
+                {
+                    listView.Size = new Size(250, 200);
+                    listView.Columns.Add("1", "Column 1", 100);
+                    listView.Columns.Add("2", "Column 2", 100);
+
+                    // Generate a sample items
+                    for (var i = 0; i <= 7; i++)
+                    {
+                        VisualListViewItem item = new VisualListViewItem("Item #" + i);
+                        VisualListViewSubItem subItem = new VisualListViewSubItem("SubItem #" + i);
+                        item.SubItems.Add(subItem);
+                        listView.Items.Add(item);
+                    }
+
+                    // listView.SelectedIndex = 0;
+                }
+                else if (component is VisualProgressBar progressBar)
+                {
+                    progressBar.Value = 50;
                 }
                 else
                 {
