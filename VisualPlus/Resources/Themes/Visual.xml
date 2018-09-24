@@ -34,7 +34,7 @@
                 <TextLight>#808080</TextLight>
             </Text>
             <ListItem>
-                <Normal>#DCDCDC</Normal>
+                <Normal>#F1F4F9</Normal>
                 <Hover>#78B7E6</Hover>
                 <Selected>#78B7E6</Selected>
                 <Alternate>#FFC40D</Alternate>
