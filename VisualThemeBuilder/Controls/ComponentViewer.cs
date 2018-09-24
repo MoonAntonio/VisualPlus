@@ -242,6 +242,10 @@ namespace VisualThemeBuilder.Controls
                 {
                     progressBar.Value = 50;
                 }
+                else if (component is VisualRadialProgress radialProgress)
+                {
+                    radialProgress.Value = 50;
+                }
                 else
                 {
                     component.Text = @"VisualPlus";
