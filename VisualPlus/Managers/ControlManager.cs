@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-
 using VisualPlus.Toolkit.Controls.DataManagement;
 using VisualPlus.Toolkit.Controls.DataVisualization;
 using VisualPlus.Toolkit.Controls.Editors;
@@ -49,31 +48,31 @@ namespace VisualPlus.Managers
         public static List<Type> ControlsSupported()
         {
             var control = new List<Type>
-                {
-                    typeof(VisualButton),
-                    typeof(VisualCheckBox),
-                    typeof(VisualComboBox),
-                    typeof(VisualControlBox),
-                    typeof(VisualDateTimePicker),
-                    typeof(VisualGauge),
-                    typeof(VisualGroupBox),
-                    typeof(VisualLabel),
-                    typeof(VisualListBox),
-                    typeof(VisualListView),
-                    typeof(VisualNumericUpDown),
-                    typeof(VisualPanel),
-                    typeof(VisualProgressBar),
-                    typeof(VisualRadialProgress),
-                    typeof(VisualRadioButton),
-                    typeof(VisualRating),
-                    typeof(VisualRichTextBox),
-                    typeof(VisualScrollBar),
-                    typeof(VisualSeparator),
-                    typeof(VisualTextBox),
-                    typeof(VisualTile),
-                    typeof(VisualToggle),
-                    typeof(VisualTrackBar)
-                };
+            {
+                typeof(VisualButton),
+                typeof(VisualCheckBox),
+                typeof(VisualComboBox),
+                typeof(VisualControlBox),
+                typeof(VisualDateTimePicker),
+                typeof(VisualGauge),
+                typeof(VisualGroupBox),
+                typeof(VisualLabel),
+                typeof(VisualListBox),
+                typeof(VisualListView),
+                typeof(VisualNumericUpDown),
+                typeof(VisualPanel),
+                typeof(VisualProgressBar),
+                typeof(VisualRadialProgress),
+                typeof(VisualRadioButton),
+                typeof(VisualRating),
+                typeof(VisualRichTextBox),
+                typeof(VisualScrollBar),
+                typeof(VisualSeparator),
+                typeof(VisualTextBox),
+                typeof(VisualTile),
+                typeof(VisualToggle),
+                typeof(VisualTrackBar)
+            };
 
             return control;
         }
@@ -83,11 +82,47 @@ namespace VisualPlus.Managers
         public static List<Type> DialogsSupported()
         {
             var control = new List<Type>
-                    {
-                       typeof(VisualForm) 
-                    };
+            {
+                typeof(VisualForm)
+            };
 
             return control;
+        }
+
+        /// <summary>Determines if the <see cref="Component" /> type is a Control.</summary>
+        /// <param name="componentType">The component type</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool IsControl(Type componentType)
+        {
+            var control = false;
+
+            foreach (Type controlType in ControlsSupported())
+            {
+                if (componentType == controlType)
+                {
+                    control = true;
+                }
+            }
+
+            return control;
+        }
+
+        /// <summary>Determines if the <see cref="Component" /> type is a Dialog.</summary>
+        /// <param name="componentType">The component type</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool IsDialog(Type componentType)
+        {
+            var dialog = false;
+
+            foreach (Type dialogType in DialogsSupported())
+            {
+                if (componentType == dialogType)
+                {
+                    dialog = true;
+                }
+            }
+
+            return dialog;
         }
 
         /// <summary>Retrieves the registered theme supported types.</summary>

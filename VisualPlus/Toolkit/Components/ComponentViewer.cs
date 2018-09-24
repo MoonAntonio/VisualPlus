@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
 using VisualPlus.Constants;
 using VisualPlus.Delegates;
 using VisualPlus.Events;
@@ -75,10 +74,7 @@ namespace VisualPlus.Toolkit.Components
         [Browsable(true)]
         public string ComponentNamespace
         {
-            get
-            {
-                return componentType.Namespace;
-            }
+            get { return componentType.Namespace; }
 
             set
             {
@@ -92,19 +88,7 @@ namespace VisualPlus.Toolkit.Components
         [ReadOnly(true)]
         public bool IsControl
         {
-            get
-            {
-                var control = false;
-                foreach (Type dialogType in ControlManager.ControlsSupported())
-                {
-                    if (componentType == dialogType)
-                    {
-                        control = true;
-                    }
-                }
-
-                return control;
-            }
+            get { return ControlManager.IsControl(componentType); }
         }
 
         /// <summary>Determines if the <see cref="Component" /> is a Dialog.</summary>
@@ -112,29 +96,14 @@ namespace VisualPlus.Toolkit.Components
         [ReadOnly(true)]
         public bool IsDialog
         {
-            get
-            {
-                var dialog = false;
-                foreach (Type dialogType in ControlManager.DialogsSupported())
-                {
-                    if (componentType == dialogType)
-                    {
-                        dialog = true;
-                    }
-                }
-
-                return dialog;
-            }
+            get { return ControlManager.IsDialog(componentType); }
         }
 
         /// <summary>The <see cref="Theme" /> to use for the <see cref="Component" />.</summary>
         [Browsable(true)]
         public Theme Theme
         {
-            get
-            {
-                return theme;
-            }
+            get { return theme; }
 
             set
             {
@@ -203,7 +172,7 @@ namespace VisualPlus.Toolkit.Components
             string visualPlusEntryPoint = SettingConstants.ProductName;
 
             componentType = Type.GetType(string.Concat(componentNamespace, ", ", visualPlusEntryPoint));
-            component = (Control)Activator.CreateInstance(componentType);
+            component = (Control) Activator.CreateInstance(componentType);
 
             if (IsDialog)
             {
