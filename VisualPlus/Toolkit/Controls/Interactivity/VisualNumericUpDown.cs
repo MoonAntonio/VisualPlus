@@ -53,6 +53,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         private long _value;
         private int _xValue;
         private int _yValue;
+        private bool readOnly;
 
         #endregion
 
@@ -75,6 +76,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _buttonOrientation = Orientation.Horizontal;
 
             _border = new Border();
+            readOnly = false;
 
             Controls.Add(_borderEdge);
             Controls.Add(_borderButtons);
@@ -262,6 +264,22 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ReadOnly)]
+        public bool ReadOnly
+        {
+            get
+            {
+                return readOnly;
+            }
+
+            set
+            {
+                readOnly = value;
+                Invalidate();
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Color)]
         public Color Separator
@@ -306,122 +324,136 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
             base.OnKeyPress(e);
-            try
-            {
-                if (_keyboardNum)
-                {
-                    _value = long.Parse(_value + e.KeyChar.ToString());
-                    OnValueChanged(new ValueChangedEventArgs(_value));
-                }
 
-                if (_value > _maximumValue)
-                {
-                    _value = _maximumValue;
-                    OnValueChanged(new ValueChangedEventArgs(_value));
-                }
-            }
-            catch (Exception)
+            // Determines if control is not readonly
+            if (!readOnly)
             {
-                // ignored
+                try
+                {
+                    if (_keyboardNum)
+                    {
+                        _value = long.Parse(_value + e.KeyChar.ToString());
+                        OnValueChanged(new ValueChangedEventArgs(_value));
+                    }
+
+                    if (_value > _maximumValue)
+                    {
+                        _value = _maximumValue;
+                        OnValueChanged(new ValueChangedEventArgs(_value));
+                    }
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
-            if (e.KeyCode == Keys.Back)
+
+            // Determines if control is not readonly
+            if (!readOnly)
             {
-                string temporaryValue = _value.ToString();
-                temporaryValue = temporaryValue.Remove(Convert.ToInt32(temporaryValue.Length - 1));
-                if (temporaryValue.Length == 0)
+                if (e.KeyCode == Keys.Back)
                 {
-                    temporaryValue = "0";
+                    string temporaryValue = _value.ToString();
+                    temporaryValue = temporaryValue.Remove(Convert.ToInt32(temporaryValue.Length - 1));
+                    if (temporaryValue.Length == 0)
+                    {
+                        temporaryValue = "0";
+                    }
+
+                    _value = Convert.ToInt32(temporaryValue);
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
-                _value = Convert.ToInt32(temporaryValue);
-                OnValueChanged(new ValueChangedEventArgs(_value));
+                Invalidate();
             }
-
-            Invalidate();
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
             OnMouseClick(e);
 
-            switch (_buttonOrientation)
+            // Determines if control is not readonly
+            if (!readOnly)
             {
-                case Orientation.Vertical:
-                    {
-                        // Check if mouse in X position.
-                        if ((_xValue > Width - _buttonRectangle.Width) && (_xValue < Width))
+                switch (_buttonOrientation)
+                {
+                    case Orientation.Vertical:
                         {
-                            // Determine the button middle separator by checking for the Y position.
-                            if ((_yValue > _buttonRectangle.Y) && (_yValue < Height / 2))
+                            // Check if mouse in X position.
+                            if ((_xValue > Width - _buttonRectangle.Width) && (_xValue < Width))
                             {
-                                if (Value + 1 <= _maximumValue)
+                                // Determine the button middle separator by checking for the Y position.
+                                if ((_yValue > _buttonRectangle.Y) && (_yValue < Height / 2))
                                 {
-                                    _value++;
-                                    OnValueChanged(new ValueChangedEventArgs(_value));
+                                    if (Value + 1 <= _maximumValue)
+                                    {
+                                        _value++;
+                                        OnValueChanged(new ValueChangedEventArgs(_value));
+                                    }
+                                }
+                                else if ((_yValue > Height / 2) && (_yValue < Height))
+                                {
+                                    if (Value - 1 >= _minimumValue)
+                                    {
+                                        _value--;
+                                        OnValueChanged(new ValueChangedEventArgs(_value));
+                                    }
                                 }
                             }
-                            else if ((_yValue > Height / 2) && (_yValue < Height))
+                            else
                             {
-                                if (Value - 1 >= _minimumValue)
+                                _keyboardNum = !_keyboardNum;
+                                Focus();
+                            }
+
+                            break;
+                        }
+
+                    case Orientation.Horizontal:
+                        {
+                            // Check if mouse in X position.
+                            if ((_xValue > Width - _buttonRectangle.Width) && (_xValue < Width))
+                            {
+                                // Determine the button middle separator by checking for the X position.
+                                if ((_xValue > _buttonRectangle.X) && (_xValue < _buttonRectangle.X + (_buttonRectangle.Width / 2)))
                                 {
-                                    _value--;
-                                    OnValueChanged(new ValueChangedEventArgs(_value));
+                                    if (Value + 1 <= _maximumValue)
+                                    {
+                                        _value++;
+                                        OnValueChanged(new ValueChangedEventArgs(_value));
+                                    }
+                                }
+                                else if ((_xValue > _buttonRectangle.X + (_buttonRectangle.Width / 2)) && (_xValue < Width))
+                                {
+                                    if (Value - 1 >= _minimumValue)
+                                    {
+                                        _value--;
+                                        OnValueChanged(new ValueChangedEventArgs(_value));
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            _keyboardNum = !_keyboardNum;
-                            Focus();
-                        }
-
-                        break;
-                    }
-
-                case Orientation.Horizontal:
-                    {
-                        // Check if mouse in X position.
-                        if ((_xValue > Width - _buttonRectangle.Width) && (_xValue < Width))
-                        {
-                            // Determine the button middle separator by checking for the X position.
-                            if ((_xValue > _buttonRectangle.X) && (_xValue < _buttonRectangle.X + (_buttonRectangle.Width / 2)))
+                            else
                             {
-                                if (Value + 1 <= _maximumValue)
-                                {
-                                    _value++;
-                                    OnValueChanged(new ValueChangedEventArgs(_value));
-                                }
+                                _keyboardNum = !_keyboardNum;
+                                Focus();
                             }
-                            else if ((_xValue > _buttonRectangle.X + (_buttonRectangle.Width / 2)) && (_xValue < Width))
-                            {
-                                if (Value - 1 >= _minimumValue)
-                                {
-                                    _value--;
-                                    OnValueChanged(new ValueChangedEventArgs(_value));
-                                }
-                            }
+
+                            break;
                         }
-                        else
+
+                    default:
                         {
-                            _keyboardNum = !_keyboardNum;
-                            Focus();
+                            throw new ArgumentOutOfRangeException();
                         }
+                }
 
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                Invalidate();
             }
-
-            Invalidate();
         }
 
         protected override void OnMouseEnter(EventArgs e)
@@ -459,25 +491,30 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
-            if (e.Delta > 0)
-            {
-                if (Value + 1 <= _maximumValue)
-                {
-                    _value++;
-                    OnValueChanged(new ValueChangedEventArgs(_value));
-                }
 
-                Invalidate();
-            }
-            else
+            // Determines if control is not readonly
+            if (!readOnly)
             {
-                if (Value - 1 >= _minimumValue)
+                if (e.Delta > 0)
                 {
-                    _value--;
-                    OnValueChanged(new ValueChangedEventArgs(_value));
-                }
+                    if (Value + 1 <= _maximumValue)
+                    {
+                        _value++;
+                        OnValueChanged(new ValueChangedEventArgs(_value));
+                    }
 
-                Invalidate();
+                    Invalidate();
+                }
+                else
+                {
+                    if (Value - 1 >= _minimumValue)
+                    {
+                        _value--;
+                        OnValueChanged(new ValueChangedEventArgs(_value));
+                    }
+
+                    Invalidate();
+                }
             }
         }
 
@@ -597,10 +634,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 _buttonColor = theme.ColorPalette.ControlEnabled;
 
                 _colorState = new ColorState
-                    {
-                        Enabled = theme.ColorPalette.ControlEnabled,
-                        Disabled = theme.ColorPalette.ControlDisabled
-                    };
+                {
+                    Enabled = theme.ColorPalette.ControlEnabled,
+                    Disabled = theme.ColorPalette.ControlDisabled
+                };
             }
             catch (Exception e)
             {
@@ -615,10 +652,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         {
             Rectangle textBoxRectangle = new Rectangle(6, 0, Width - 1, Height - 1);
             StringFormat stringFormat = new StringFormat
-                {
-                    // Alignment = StringAlignment.Center,
-                    LineAlignment = StringAlignment.Center
-                };
+            {
+                // Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
             _graphics.DrawString(Convert.ToString(Value), Font, new SolidBrush(ForeColor), textBoxRectangle, stringFormat);
         }
 
