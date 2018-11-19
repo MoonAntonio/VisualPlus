@@ -31,8 +31,10 @@ namespace UnitTests.Forms
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="UnitTestManager" /> class.</summary>
         public UnitTestManager()
         {
+            // Initialize variables
             InitializeComponent();
             HelpButtonClicked += HelpButton_Click;
         }
